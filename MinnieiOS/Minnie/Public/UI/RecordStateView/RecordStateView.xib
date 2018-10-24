@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view userInteractionEnabled="NO" contentMode="scaleToFill" id="bZm-eX-faO" customClass="RecordStateView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i6X-qI-kU2">
+                    <rect key="frame" x="117.5" y="223.5" width="140" height="140"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在录音..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y85-y3-I45">
+                            <rect key="frame" x="37.5" y="51" width="64.5" height="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="松开手指，取消发送" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GMw-sN-4kz">
+                            <rect key="frame" x="9.5" y="82" width="120" height="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.5" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="GMw-sN-4kz" firstAttribute="top" secondItem="Y85-y3-I45" secondAttribute="bottom" constant="15" id="2VS-vX-lfY"/>
+                        <constraint firstItem="Y85-y3-I45" firstAttribute="centerX" secondItem="i6X-qI-kU2" secondAttribute="centerX" id="5Xr-Oz-1Uu"/>
+                        <constraint firstAttribute="width" constant="140" id="V6X-fV-5M5"/>
+                        <constraint firstItem="GMw-sN-4kz" firstAttribute="centerY" secondItem="i6X-qI-kU2" secondAttribute="centerY" constant="20" id="VSX-d8-PeO"/>
+                        <constraint firstItem="GMw-sN-4kz" firstAttribute="centerX" secondItem="i6X-qI-kU2" secondAttribute="centerX" id="hYc-6a-Mg3"/>
+                        <constraint firstAttribute="height" constant="140" id="mKB-mh-1di"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="i6X-qI-kU2" firstAttribute="centerX" secondItem="bZm-eX-faO" secondAttribute="centerX" id="LGa-6R-b8d"/>
+                <constraint firstItem="i6X-qI-kU2" firstAttribute="centerY" secondItem="bZm-eX-faO" secondAttribute="centerY" constant="-40" id="yio-xC-VXQ"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="QPZ-lJ-OWa"/>
+            <connections>
+                <outlet property="bgView" destination="i6X-qI-kU2" id="LSg-3N-cGu"/>
+                <outlet property="tipLabel" destination="GMw-sN-4kz" id="vsb-a3-SMT"/>
+            </connections>
+            <point key="canvasLocation" x="-26.5" y="-241.5"/>
+        </view>
+    </objects>
+</document>

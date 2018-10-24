@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HomeworkAudioCollectionViewCellId" id="gTV-IL-0wX" customClass="HomeworkAudioCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="90" height="110"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="90" height="110"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2SR-oD-KVB">
+                        <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                        <color key="backgroundColor" red="1" green="0.22352941176470587" blue="0.36470588235294116" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="90" id="49P-QG-2Tr"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_talk.png" translatesAutoresizingMaskIntoConstraints="NO" id="lxQ-E6-foM">
+                        <rect key="frame" x="29.5" y="28.5" width="32" height="33"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12s" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SML-KM-hG3">
+                        <rect key="frame" x="35.5" y="63.5" width="19.5" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7bd-0R-rbW">
+                        <rect key="frame" x="0.0" y="95" width="90" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="7bd-0R-rbW" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="0Eo-gh-y77"/>
+                <constraint firstItem="SML-KM-hG3" firstAttribute="centerX" secondItem="lxQ-E6-foM" secondAttribute="centerX" id="BOi-0y-oio"/>
+                <constraint firstItem="lxQ-E6-foM" firstAttribute="centerY" secondItem="2SR-oD-KVB" secondAttribute="centerY" id="BTT-dx-at7"/>
+                <constraint firstItem="SML-KM-hG3" firstAttribute="top" secondItem="lxQ-E6-foM" secondAttribute="bottom" constant="2" id="EzS-M7-jUE"/>
+                <constraint firstAttribute="bottom" secondItem="7bd-0R-rbW" secondAttribute="bottom" id="La5-zR-Sql"/>
+                <constraint firstItem="SML-KM-hG3" firstAttribute="centerX" secondItem="2SR-oD-KVB" secondAttribute="centerX" id="QZa-6s-RGW"/>
+                <constraint firstItem="2SR-oD-KVB" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Vet-c3-A2p"/>
+                <constraint firstItem="2SR-oD-KVB" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="iH5-Ga-uih"/>
+                <constraint firstAttribute="trailing" secondItem="7bd-0R-rbW" secondAttribute="trailing" id="jZb-U8-srk"/>
+                <constraint firstAttribute="trailing" secondItem="2SR-oD-KVB" secondAttribute="trailing" id="kmh-Bc-zsh"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
+            <size key="customSize" width="110" height="102"/>
+            <connections>
+                <outlet property="audioDurationLabel" destination="SML-KM-hG3" id="hr1-3M-Qfb"/>
+                <outlet property="homeworkImageView" destination="2SR-oD-KVB" id="tEY-bW-tDq"/>
+                <outlet property="homeworkLabel" destination="7bd-0R-rbW" id="sts-PL-Jm2"/>
+            </connections>
+            <point key="canvasLocation" x="64" y="53"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="icon_talk.png" width="32" height="33"/>
+    </resources>
+</document>

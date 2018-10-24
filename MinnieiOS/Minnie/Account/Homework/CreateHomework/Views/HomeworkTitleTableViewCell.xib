@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HomeworkTitleTableViewCellId" rowHeight="179" id="sca-C8-8s1" customClass="HomeworkTitleTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="179"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sca-C8-8s1" id="rMA-qH-1Hn">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="178.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标题:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DWB-kL-eOP">
+                        <rect key="frame" x="12" y="10" width="34" height="17"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xl9-tI-VOS">
+                        <rect key="frame" x="12" y="39" width="296" height="139.5"/>
+                    </imageView>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yRJ-2I-l7j">
+                        <rect key="frame" x="18" y="45" width="284" height="127.5"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="输入题目"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="delegate" destination="sca-C8-8s1" id="ZIV-OW-HUX"/>
+                        </connections>
+                    </textView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="xl9-tI-VOS" firstAttribute="bottom" secondItem="yRJ-2I-l7j" secondAttribute="bottom" constant="6" id="1OX-eJ-2BR"/>
+                    <constraint firstItem="xl9-tI-VOS" firstAttribute="leading" secondItem="rMA-qH-1Hn" secondAttribute="leading" constant="12" id="3U6-qT-H4R"/>
+                    <constraint firstItem="xl9-tI-VOS" firstAttribute="leading" secondItem="yRJ-2I-l7j" secondAttribute="leading" constant="-6" id="95q-U4-sTW"/>
+                    <constraint firstItem="xl9-tI-VOS" firstAttribute="top" secondItem="DWB-kL-eOP" secondAttribute="bottom" constant="12" id="CW2-rR-aMR"/>
+                    <constraint firstItem="xl9-tI-VOS" firstAttribute="trailing" secondItem="yRJ-2I-l7j" secondAttribute="trailing" constant="6" id="LPm-39-WtV"/>
+                    <constraint firstItem="xl9-tI-VOS" firstAttribute="top" secondItem="yRJ-2I-l7j" secondAttribute="top" constant="-6" id="MQw-Ut-7u4"/>
+                    <constraint firstItem="DWB-kL-eOP" firstAttribute="top" secondItem="rMA-qH-1Hn" secondAttribute="top" constant="10" id="Ygw-gk-OHm"/>
+                    <constraint firstItem="DWB-kL-eOP" firstAttribute="leading" secondItem="rMA-qH-1Hn" secondAttribute="leading" constant="12" id="ssK-Ft-rWH"/>
+                    <constraint firstAttribute="bottom" secondItem="xl9-tI-VOS" secondAttribute="bottom" id="tbX-Pd-hGC"/>
+                    <constraint firstAttribute="trailing" secondItem="xl9-tI-VOS" secondAttribute="trailing" constant="12" id="zZT-gN-3yE"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="r6i-C6-bbQ"/>
+            <connections>
+                <outlet property="bgImageView" destination="xl9-tI-VOS" id="G2v-N4-fW9"/>
+                <outlet property="homeworkTextView" destination="yRJ-2I-l7j" id="4by-IJ-MAn"/>
+            </connections>
+            <point key="canvasLocation" x="-237" y="-36"/>
+        </tableViewCell>
+    </objects>
+</document>

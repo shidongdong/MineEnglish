@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="StudentCollectionViewCellId" id="gTV-IL-0wX" customClass="StudentCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="64" height="84"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="64" height="84"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8pC-9y-jwC">
+                        <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="64" id="Qhi-vK-J5V"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ykd-AR-u2m">
+                        <rect key="frame" x="0.0" y="64" width="64" height="20"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BLe-tg-zJE">
+                        <rect key="frame" x="0.0" y="0.0" width="64" height="84"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CYx-tL-tlO">
+                                <rect key="frame" x="0.0" y="0.0" width="64" height="84"/>
+                                <connections>
+                                    <action selector="deleteButtonPressed:" destination="gTV-IL-0wX" eventType="touchUpInside" id="mE6-si-Yae"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_remove_plat.png" translatesAutoresizingMaskIntoConstraints="NO" id="Gih-Yy-FM9">
+                                <rect key="frame" x="40" y="0.0" width="24" height="24"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Gih-Yy-FM9" secondAttribute="trailing" id="63a-YR-OXI"/>
+                            <constraint firstAttribute="trailing" secondItem="CYx-tL-tlO" secondAttribute="trailing" id="J6E-c5-JaY"/>
+                            <constraint firstItem="Gih-Yy-FM9" firstAttribute="top" secondItem="BLe-tg-zJE" secondAttribute="top" id="MTV-97-yCe"/>
+                            <constraint firstItem="CYx-tL-tlO" firstAttribute="top" secondItem="BLe-tg-zJE" secondAttribute="top" id="X7o-y3-04p"/>
+                            <constraint firstAttribute="bottom" secondItem="CYx-tL-tlO" secondAttribute="bottom" id="hSc-M6-FGZ"/>
+                            <constraint firstItem="CYx-tL-tlO" firstAttribute="leading" secondItem="BLe-tg-zJE" secondAttribute="leading" id="ug4-U4-f1u"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="8pC-9y-jwC" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="82A-pK-u1X"/>
+                <constraint firstItem="Ykd-AR-u2m" firstAttribute="top" secondItem="8pC-9y-jwC" secondAttribute="bottom" id="82o-9V-4ZV"/>
+                <constraint firstAttribute="trailing" secondItem="8pC-9y-jwC" secondAttribute="trailing" id="8MI-Et-f6l"/>
+                <constraint firstItem="8pC-9y-jwC" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="OLz-WI-vOu"/>
+                <constraint firstItem="BLe-tg-zJE" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="P17-W0-Bl4"/>
+                <constraint firstAttribute="trailing" secondItem="Ykd-AR-u2m" secondAttribute="trailing" id="Un9-Ti-swU"/>
+                <constraint firstItem="BLe-tg-zJE" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="WdT-jH-zdH"/>
+                <constraint firstAttribute="bottom" secondItem="BLe-tg-zJE" secondAttribute="bottom" id="ir5-YU-PgW"/>
+                <constraint firstAttribute="trailing" secondItem="BLe-tg-zJE" secondAttribute="trailing" id="jDM-OF-gbT"/>
+                <constraint firstItem="Ykd-AR-u2m" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="oMg-M7-PP9"/>
+                <constraint firstAttribute="bottom" secondItem="Ykd-AR-u2m" secondAttribute="bottom" id="otO-WD-mce"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
+            <size key="customSize" width="118" height="170"/>
+            <connections>
+                <outlet property="avatarImageView" destination="8pC-9y-jwC" id="IwP-xi-SLE"/>
+                <outlet property="deleteModeImageView" destination="Gih-Yy-FM9" id="42k-EC-BsY"/>
+                <outlet property="deleteView" destination="BLe-tg-zJE" id="5s1-4A-ebk"/>
+                <outlet property="nameLabel" destination="Ykd-AR-u2m" id="x78-WJ-w4W"/>
+            </connections>
+            <point key="canvasLocation" x="-544" y="-77"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_remove_plat.png" width="24" height="24"/>
+    </resources>
+</document>

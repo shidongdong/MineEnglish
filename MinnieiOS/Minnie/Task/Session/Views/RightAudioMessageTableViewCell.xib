@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RightAudioMessageTableViewCellId" rowHeight="57" id="KGk-i7-Jjw" customClass="AudioMessageTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="55.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="phX-1s-Jhp">
+                        <rect key="frame" x="264" y="12" width="44" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="44" id="7Ia-MP-kqw"/>
+                            <constraint firstAttribute="height" constant="44" id="yOu-h8-0hM"/>
+                        </constraints>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EHY-rL-lLb">
+                        <rect key="frame" x="196" y="12" width="60" height="44"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uOf-63-d4g" userLabel="音频背景图">
+                                <rect key="frame" x="0.0" y="0.0" width="60" height="44"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="right_chat_talk3.png" translatesAutoresizingMaskIntoConstraints="NO" id="Q25-GV-wok" userLabel="音频图标">
+                                <rect key="frame" x="24" y="12" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="9kb-3H-bcJ"/>
+                                    <constraint firstAttribute="height" constant="20" id="coJ-G9-n6a"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lc3-7i-1af">
+                                <rect key="frame" x="0.0" y="0.0" width="60" height="44"/>
+                                <connections>
+                                    <action selector="playButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="hTE-YQ-d3x"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Q25-GV-wok" secondAttribute="trailing" constant="16" id="Doh-ll-Xg3"/>
+                            <constraint firstItem="uOf-63-d4g" firstAttribute="top" secondItem="EHY-rL-lLb" secondAttribute="top" id="Hde-yd-Ida"/>
+                            <constraint firstItem="lc3-7i-1af" firstAttribute="top" secondItem="uOf-63-d4g" secondAttribute="top" id="IE5-a0-nLM"/>
+                            <constraint firstAttribute="bottom" secondItem="uOf-63-d4g" secondAttribute="bottom" priority="750" id="IxO-NF-vLQ"/>
+                            <constraint firstAttribute="height" constant="44" id="M6m-6R-uqx"/>
+                            <constraint firstAttribute="width" constant="60" id="NMu-6y-nFE"/>
+                            <constraint firstItem="lc3-7i-1af" firstAttribute="trailing" secondItem="uOf-63-d4g" secondAttribute="trailing" id="Pzc-ay-bRY"/>
+                            <constraint firstItem="lc3-7i-1af" firstAttribute="bottom" secondItem="uOf-63-d4g" secondAttribute="bottom" id="UG8-MM-q9c"/>
+                            <constraint firstItem="lc3-7i-1af" firstAttribute="leading" secondItem="uOf-63-d4g" secondAttribute="leading" id="UvY-Rc-7Nf"/>
+                            <constraint firstItem="uOf-63-d4g" firstAttribute="leading" secondItem="EHY-rL-lLb" secondAttribute="leading" id="cHv-8b-7T3"/>
+                            <constraint firstAttribute="trailing" secondItem="uOf-63-d4g" secondAttribute="trailing" id="eHT-7b-Ays"/>
+                            <constraint firstItem="Q25-GV-wok" firstAttribute="centerY" secondItem="EHY-rL-lLb" secondAttribute="centerY" id="rFs-ug-fqY"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ef-m1-TXs">
+                        <rect key="frame" x="192" y="34" width="0.0" height="0.0"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fMU-z1-58f">
+                        <rect key="frame" x="159" y="24" width="20" height="20"/>
+                    </activityIndicatorView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FsJ-G5-fQl">
+                        <rect key="frame" x="158" y="23" width="22" height="22"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="9qv-k4-7dD"/>
+                            <constraint firstAttribute="width" constant="22" id="ko8-hy-1ux"/>
+                        </constraints>
+                        <state key="normal" image="message_send_error.png"/>
+                        <connections>
+                            <action selector="resendButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Sez-hU-3qM"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstItem="phX-1s-Jhp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="1TF-Uy-xHG"/>
+                    <constraint firstItem="fMU-z1-58f" firstAttribute="centerY" secondItem="FsJ-G5-fQl" secondAttribute="centerY" id="6hJ-ih-cDB"/>
+                    <constraint firstItem="fMU-z1-58f" firstAttribute="centerX" secondItem="FsJ-G5-fQl" secondAttribute="centerX" id="72f-eT-E9X"/>
+                    <constraint firstItem="phX-1s-Jhp" firstAttribute="centerY" secondItem="FsJ-G5-fQl" secondAttribute="centerY" id="H8S-sU-7ee"/>
+                    <constraint firstItem="EHY-rL-lLb" firstAttribute="centerY" secondItem="1ef-m1-TXs" secondAttribute="centerY" id="Jb3-H1-d0V"/>
+                    <constraint firstItem="EHY-rL-lLb" firstAttribute="leading" secondItem="1ef-m1-TXs" secondAttribute="trailing" constant="4" id="MP8-ao-W1P"/>
+                    <constraint firstItem="EHY-rL-lLb" firstAttribute="centerY" secondItem="phX-1s-Jhp" secondAttribute="centerY" id="dgC-2q-pll"/>
+                    <constraint firstItem="1ef-m1-TXs" firstAttribute="leading" secondItem="FsJ-G5-fQl" secondAttribute="trailing" constant="12" id="gpM-wM-6rV"/>
+                    <constraint firstItem="phX-1s-Jhp" firstAttribute="leading" secondItem="EHY-rL-lLb" secondAttribute="trailing" constant="8" id="lIp-lh-hJx"/>
+                    <constraint firstAttribute="trailing" secondItem="phX-1s-Jhp" secondAttribute="trailing" constant="12" id="qjO-Ef-gzX"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="audioBackgroundImageView" destination="uOf-63-d4g" id="Guw-6r-H8e"/>
+                <outlet property="audioImageView" destination="Q25-GV-wok" id="Dq8-Z2-4R4"/>
+                <outlet property="avatarImageView" destination="phX-1s-Jhp" id="xIi-ab-X5L"/>
+                <outlet property="durationLabel" destination="1ef-m1-TXs" id="0jo-2W-Et0"/>
+                <outlet property="retryButton" destination="FsJ-G5-fQl" id="wfs-QG-FD7"/>
+                <outlet property="sendingIndicatorView" destination="fMU-z1-58f" id="F9n-fc-VNW"/>
+                <outlet property="viewWidthConstraint" destination="NMu-6y-nFE" id="Zfv-Uc-2tY"/>
+            </connections>
+            <point key="canvasLocation" x="47" y="5.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="message_send_error.png" width="48" height="48"/>
+        <image name="right_chat_talk3.png" width="24" height="24"/>
+    </resources>
+</document>

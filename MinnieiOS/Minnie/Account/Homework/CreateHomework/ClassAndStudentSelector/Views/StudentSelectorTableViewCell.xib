@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="StudentSelectorTableViewCellId" id="ZND-Tz-fix" customClass="StudentSelectorTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZND-Tz-fix" id="M3a-vX-RKs">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CzW-Fb-6jM">
+                        <rect key="frame" x="0.0" y="49" width="320" height="0.5"/>
+                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="QHN-OV-s0t"/>
+                        </constraints>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_mission_choice.png" translatesAutoresizingMaskIntoConstraints="NO" id="w6I-9b-gcP">
+                        <rect key="frame" x="0.0" y="0.0" width="48" height="49.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="48" id="SUN-yp-Aab"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="82f-jU-OJ0">
+                        <rect key="frame" x="96" y="16.5" width="35.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jHt-jg-Gyy">
+                        <rect key="frame" x="48" y="6" width="36" height="36"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="36" id="nVm-aj-C9O"/>
+                            <constraint firstAttribute="height" constant="36" id="sTY-Iz-AbJ"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="CzW-Fb-6jM" firstAttribute="leading" secondItem="M3a-vX-RKs" secondAttribute="leading" id="183-0T-nox"/>
+                    <constraint firstItem="w6I-9b-gcP" firstAttribute="top" secondItem="M3a-vX-RKs" secondAttribute="top" id="2Xf-Zf-47U"/>
+                    <constraint firstItem="jHt-jg-Gyy" firstAttribute="centerY" secondItem="M3a-vX-RKs" secondAttribute="centerY" id="6Fi-he-KJQ"/>
+                    <constraint firstAttribute="bottom" secondItem="CzW-Fb-6jM" secondAttribute="bottom" id="KAh-pE-y8q"/>
+                    <constraint firstItem="w6I-9b-gcP" firstAttribute="leading" secondItem="M3a-vX-RKs" secondAttribute="leading" id="Qec-R1-HZV"/>
+                    <constraint firstAttribute="bottom" secondItem="w6I-9b-gcP" secondAttribute="bottom" id="W1S-kh-H3M"/>
+                    <constraint firstItem="jHt-jg-Gyy" firstAttribute="leading" secondItem="w6I-9b-gcP" secondAttribute="trailing" id="fp9-hX-rj1"/>
+                    <constraint firstAttribute="trailing" secondItem="CzW-Fb-6jM" secondAttribute="trailing" id="gVq-cn-f35"/>
+                    <constraint firstItem="82f-jU-OJ0" firstAttribute="leading" secondItem="jHt-jg-Gyy" secondAttribute="trailing" constant="12" id="kmf-Ra-oYD"/>
+                    <constraint firstItem="82f-jU-OJ0" firstAttribute="centerY" secondItem="M3a-vX-RKs" secondAttribute="centerY" id="njm-1t-MVL"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="l6H-zY-IYf"/>
+            <connections>
+                <outlet property="avatarImageView" destination="jHt-jg-Gyy" id="Pst-AO-NWO"/>
+                <outlet property="choiceStateImageView" destination="w6I-9b-gcP" id="YQs-Uz-oF9"/>
+                <outlet property="choiceStateImageViewWidthConstraint" destination="SUN-yp-Aab" id="NtK-U5-ygd"/>
+                <outlet property="nameLabel" destination="82f-jU-OJ0" id="V2R-dO-Vgd"/>
+            </connections>
+            <point key="canvasLocation" x="-177" y="8"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_mission_choice.png" width="24" height="24"/>
+    </resources>
+</document>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RightImageMessageTableViewCellId" rowHeight="166" id="KGk-i7-Jjw" customClass="ImageMessageTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="152"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="151.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gBy-x0-xDV">
+                        <rect key="frame" x="264" y="12" width="44" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="2tA-4o-amd"/>
+                            <constraint firstAttribute="width" constant="44" id="BVK-QF-bol"/>
+                        </constraints>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rMq-5j-nEH">
+                        <rect key="frame" x="38" y="12" width="218" height="140"/>
+                        <subviews>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U5T-Hc-eHT" customClass="MaskImageView">
+                                <rect key="frame" x="0.0" y="0.0" width="218" height="140"/>
+                                <color key="backgroundColor" red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cms-OT-zjL">
+                                <rect key="frame" x="6" y="0.0" width="212" height="140"/>
+                                <connections>
+                                    <action selector="previewButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="dGx-TL-SI3"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="U5T-Hc-eHT" firstAttribute="top" secondItem="rMq-5j-nEH" secondAttribute="top" id="0AO-db-M4t"/>
+                            <constraint firstAttribute="trailing" secondItem="U5T-Hc-eHT" secondAttribute="trailing" id="419-Ej-zyA"/>
+                            <constraint firstAttribute="height" constant="140" id="AdH-hM-GZ5"/>
+                            <constraint firstAttribute="bottom" secondItem="U5T-Hc-eHT" secondAttribute="bottom" id="BWE-Ef-NZY"/>
+                            <constraint firstItem="U5T-Hc-eHT" firstAttribute="leading" secondItem="rMq-5j-nEH" secondAttribute="leading" id="BtY-ID-Q2C"/>
+                            <constraint firstAttribute="trailing" secondItem="Cms-OT-zjL" secondAttribute="trailing" id="LkP-6b-jsM"/>
+                            <constraint firstAttribute="width" constant="218" id="TJ0-az-Ma5"/>
+                            <constraint firstItem="Cms-OT-zjL" firstAttribute="top" secondItem="rMq-5j-nEH" secondAttribute="top" id="TnH-kk-Qpe"/>
+                            <constraint firstItem="Cms-OT-zjL" firstAttribute="leading" secondItem="rMq-5j-nEH" secondAttribute="leading" constant="6" id="VNQ-kS-e4g"/>
+                            <constraint firstAttribute="bottom" secondItem="Cms-OT-zjL" secondAttribute="bottom" id="vFF-ca-set"/>
+                        </constraints>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nXP-P3-JnR">
+                        <rect key="frame" x="4" y="23" width="22" height="22"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="22" id="GSy-Qd-vsk"/>
+                            <constraint firstAttribute="height" constant="22" id="ka2-KR-EPp"/>
+                        </constraints>
+                        <state key="normal" image="message_send_error.png"/>
+                        <connections>
+                            <action selector="resendButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Gka-PX-ynL"/>
+                        </connections>
+                    </button>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="cta-vd-dBU">
+                        <rect key="frame" x="5" y="24" width="20" height="20"/>
+                    </activityIndicatorView>
+                </subviews>
+                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstItem="gBy-x0-xDV" firstAttribute="leading" secondItem="rMq-5j-nEH" secondAttribute="trailing" constant="8" id="3Mw-h3-zS2"/>
+                    <constraint firstItem="cta-vd-dBU" firstAttribute="centerX" secondItem="nXP-P3-JnR" secondAttribute="centerX" id="XbO-eB-NNa"/>
+                    <constraint firstItem="gBy-x0-xDV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="Xcg-53-bHg"/>
+                    <constraint firstItem="rMq-5j-nEH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="Zl4-G0-vgJ"/>
+                    <constraint firstAttribute="trailing" secondItem="gBy-x0-xDV" secondAttribute="trailing" constant="12" id="aZ0-Ui-pOI"/>
+                    <constraint firstItem="rMq-5j-nEH" firstAttribute="leading" secondItem="nXP-P3-JnR" secondAttribute="trailing" constant="12" id="pBf-3v-RNR"/>
+                    <constraint firstItem="gBy-x0-xDV" firstAttribute="centerY" secondItem="nXP-P3-JnR" secondAttribute="centerY" id="rCH-6P-XZU"/>
+                    <constraint firstItem="cta-vd-dBU" firstAttribute="centerY" secondItem="nXP-P3-JnR" secondAttribute="centerY" id="su3-Tu-Fnh"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="avatarImageView" destination="gBy-x0-xDV" id="w6O-6W-7vF"/>
+                <outlet property="messageContainerView" destination="rMq-5j-nEH" id="0q6-QO-YPu"/>
+                <outlet property="retryButton" destination="nXP-P3-JnR" id="e69-lM-Ymg"/>
+                <outlet property="sendingIndicatorView" destination="cta-vd-dBU" id="ryB-IX-hST"/>
+            </connections>
+            <point key="canvasLocation" x="34" y="7"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="message_send_error.png" width="48" height="48"/>
+    </resources>
+</document>

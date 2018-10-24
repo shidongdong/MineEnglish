@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Yxn-7F-3sd">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="教师名字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TvQ-dW-ept">
+                    <rect key="frame" x="12" y="14" width="57.5" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="教师类型" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="akG-cQ-qcY" userLabel="教师类型">
+                    <rect key="frame" x="159" y="13" width="57.5" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户权限" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2PA-tb-w0J">
+                    <rect key="frame" x="305.5" y="13.5" width="57.5" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hXF-RD-bwF" userLabel="分隔线">
+                    <rect key="frame" x="0.0" y="43.5" width="375" height="0.5"/>
+                    <color key="backgroundColor" red="0.69803921568627447" green="0.69803921568627447" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="abh-e8-Kqb"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="akG-cQ-qcY" firstAttribute="centerY" secondItem="Yxn-7F-3sd" secondAttribute="centerY" id="1H1-eW-OXJ"/>
+                <constraint firstItem="TvQ-dW-ept" firstAttribute="centerY" secondItem="Yxn-7F-3sd" secondAttribute="centerY" id="Aol-40-tLW"/>
+                <constraint firstItem="TvQ-dW-ept" firstAttribute="leading" secondItem="Iwl-WI-QV3" secondAttribute="leading" constant="12" id="KaW-h1-4Bw"/>
+                <constraint firstAttribute="bottom" secondItem="hXF-RD-bwF" secondAttribute="bottom" id="PP5-6i-4Zf"/>
+                <constraint firstItem="2PA-tb-w0J" firstAttribute="centerY" secondItem="Yxn-7F-3sd" secondAttribute="centerY" id="SEU-rS-P3x"/>
+                <constraint firstItem="hXF-RD-bwF" firstAttribute="leading" secondItem="Iwl-WI-QV3" secondAttribute="leading" id="coM-fV-80z"/>
+                <constraint firstAttribute="trailing" secondItem="2PA-tb-w0J" secondAttribute="trailing" constant="12" id="hnn-bM-MrF"/>
+                <constraint firstItem="Iwl-WI-QV3" firstAttribute="trailing" secondItem="hXF-RD-bwF" secondAttribute="trailing" id="u4E-Bn-PN0"/>
+                <constraint firstItem="akG-cQ-qcY" firstAttribute="centerX" secondItem="Yxn-7F-3sd" secondAttribute="centerX" id="xHQ-wh-Gva"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="Iwl-WI-QV3"/>
+            <point key="canvasLocation" x="-221" y="-9"/>
+        </view>
+    </objects>
+</document>

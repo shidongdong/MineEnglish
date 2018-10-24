@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HomeworkAudioTableViewCellId" rowHeight="119" id="5wu-hI-xu7" customClass="HomeworkAudioTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="112"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5wu-hI-xu7" id="UkD-m3-0mh">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="111.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CyY-Hg-WK8">
+                        <rect key="frame" x="12" y="12" width="182" height="100"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="182" id="kxH-I8-2Qt"/>
+                            <constraint firstAttribute="height" constant="100" id="ras-gi-cCw"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_talk.png" translatesAutoresizingMaskIntoConstraints="NO" id="RhR-Bh-3sB">
+                        <rect key="frame" x="87" y="45.5" width="32" height="33"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6gY-Ox-YSi">
+                        <rect key="frame" x="12" y="12" width="182" height="100"/>
+                        <state key="normal">
+                            <color key="titleColor" red="1" green="0.22352941176470587" blue="0.36470588235294116" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="playButtonPressed:" destination="5wu-hI-xu7" eventType="touchUpInside" id="lUJ-gr-ssw"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F7P-5W-neU">
+                        <rect key="frame" x="272" y="38" width="48" height="48"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="48" id="PMT-nG-R3g"/>
+                            <constraint firstAttribute="width" constant="48" id="Rv6-2C-X56"/>
+                        </constraints>
+                        <state key="normal" image="ic_remove_plat.png"/>
+                        <connections>
+                            <action selector="deleteButtonPressed:" destination="5wu-hI-xu7" eventType="touchUpInside" id="ERi-UV-hW2"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12s" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WkF-hD-5UK">
+                        <rect key="frame" x="93.5" y="80" width="19.5" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="CyY-Hg-WK8" firstAttribute="leading" secondItem="UkD-m3-0mh" secondAttribute="leading" constant="12" id="07q-j6-rHd"/>
+                    <constraint firstItem="F7P-5W-neU" firstAttribute="centerY" secondItem="6gY-Ox-YSi" secondAttribute="centerY" id="11v-ec-aZ2"/>
+                    <constraint firstItem="6gY-Ox-YSi" firstAttribute="bottom" secondItem="CyY-Hg-WK8" secondAttribute="bottom" id="8Ac-3X-dkf"/>
+                    <constraint firstItem="WkF-hD-5UK" firstAttribute="centerX" secondItem="RhR-Bh-3sB" secondAttribute="centerX" id="Kac-b1-lZT"/>
+                    <constraint firstAttribute="trailing" secondItem="F7P-5W-neU" secondAttribute="trailing" id="MeK-es-xJx"/>
+                    <constraint firstItem="CyY-Hg-WK8" firstAttribute="centerX" secondItem="RhR-Bh-3sB" secondAttribute="centerX" id="MpW-Az-hmE"/>
+                    <constraint firstItem="6gY-Ox-YSi" firstAttribute="leading" secondItem="CyY-Hg-WK8" secondAttribute="leading" id="MyQ-IO-ymx"/>
+                    <constraint firstItem="WkF-hD-5UK" firstAttribute="top" secondItem="RhR-Bh-3sB" secondAttribute="bottom" constant="2" id="fCo-eg-DDM"/>
+                    <constraint firstItem="CyY-Hg-WK8" firstAttribute="top" secondItem="UkD-m3-0mh" secondAttribute="top" constant="12" id="jEI-tc-sgq"/>
+                    <constraint firstItem="CyY-Hg-WK8" firstAttribute="centerY" secondItem="RhR-Bh-3sB" secondAttribute="centerY" id="tR0-7v-Eg6"/>
+                    <constraint firstItem="6gY-Ox-YSi" firstAttribute="top" secondItem="CyY-Hg-WK8" secondAttribute="top" id="yUd-vV-8Pm"/>
+                    <constraint firstItem="6gY-Ox-YSi" firstAttribute="trailing" secondItem="CyY-Hg-WK8" secondAttribute="trailing" id="zyH-oK-Ynf"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="axl-sz-fEb"/>
+            <connections>
+                <outlet property="audioCoverImageView" destination="CyY-Hg-WK8" id="w9M-bC-XkY"/>
+                <outlet property="durationLabel" destination="WkF-hD-5UK" id="cHj-yj-8a1"/>
+            </connections>
+            <point key="canvasLocation" x="-119" y="34"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_remove_plat.png" width="24" height="24"/>
+        <image name="icon_talk.png" width="32" height="33"/>
+    </resources>
+</document>

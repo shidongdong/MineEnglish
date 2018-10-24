@@ -1,0 +1,56 @@
+//
+//  PrefixHeader.pch
+//  X5
+//
+//  Created by yebw on 2017/11/27.
+//  Copyright © 2017年 mfox. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#pragma mark - Size
+
+#ifndef ScreenWidth
+#define ScreenWidth ([UIScreen mainScreen].bounds.size.width)
+#endif
+
+#ifndef ScreenHeight
+#define ScreenHeight ([UIScreen mainScreen].bounds.size.height)
+#endif
+
+#pragma mark - Strong & Weak
+
+#ifndef WeakifySelf
+#define WeakifySelf __weak typeof(self) weakSelf = self
+#endif
+
+#ifndef StrongifySelf
+#define StrongifySelf __strong typeof(self) strongSelf = weakSelf
+#endif
+
+#ifndef isIPhoneX
+#define isIPhoneX (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone && [[UIScreen mainScreen] bounds].size.height==812.f)
+#endif
+
+#ifndef kStatusBarHeight
+#define kStatusBarHeight ([UIApplication sharedApplication].statusBarFrame.size.height)
+#endif
+
+#ifndef kNavigationBarHeight
+#define kNavigationBarHeight (44.f)
+#endif
+
+#ifndef kTabBarHeight
+#define kTabBarHeight (isIPhoneX?88.f:49.f)
+#endif
+
+#import "HUD.h"
+#import "TIP.h"
+#import "Utils.h"
+#import "Application.h"
+#import "Constants.h"
+#import "UIColor+HEX.h"
+#import "NSString+Qiniu.h"
+
+#endif /* PrefixHeader_pch */

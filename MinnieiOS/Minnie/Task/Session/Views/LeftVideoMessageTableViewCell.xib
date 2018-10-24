@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LeftVideoMessageTableViewCellId" rowHeight="183" id="BqC-FV-1aR" customClass="VideoMessageTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="152"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BqC-FV-1aR" id="Tq0-ld-DbA">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="151.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yRe-Cg-6oF">
+                        <rect key="frame" x="64" y="12" width="218" height="140"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="F9Q-Zj-AoA" customClass="MaskImageView">
+                                <rect key="frame" x="0.0" y="0.0" width="218" height="140"/>
+                                <color key="backgroundColor" red="0.84705882349999995" green="0.84705882349999995" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5hs-sl-vMu">
+                                <rect key="frame" x="6" y="0.0" width="212" height="140"/>
+                                <state key="normal" image="btn_play.png"/>
+                                <connections>
+                                    <action selector="playButtonPressed:" destination="BqC-FV-1aR" eventType="touchUpInside" id="BjF-36-aNO"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="5hs-sl-vMu" secondAttribute="trailing" id="0Y1-55-s9n"/>
+                            <constraint firstItem="F9Q-Zj-AoA" firstAttribute="leading" secondItem="yRe-Cg-6oF" secondAttribute="leading" id="5he-E6-skX"/>
+                            <constraint firstAttribute="bottom" secondItem="F9Q-Zj-AoA" secondAttribute="bottom" id="EYx-7R-19C"/>
+                            <constraint firstItem="5hs-sl-vMu" firstAttribute="leading" secondItem="yRe-Cg-6oF" secondAttribute="leading" constant="6" id="J1e-RA-Wqe"/>
+                            <constraint firstItem="5hs-sl-vMu" firstAttribute="top" secondItem="yRe-Cg-6oF" secondAttribute="top" id="J4S-p9-RMa"/>
+                            <constraint firstAttribute="height" constant="140" id="PxO-WX-g0o"/>
+                            <constraint firstAttribute="bottom" secondItem="5hs-sl-vMu" secondAttribute="bottom" id="Rb7-4u-pNx"/>
+                            <constraint firstItem="F9Q-Zj-AoA" firstAttribute="top" secondItem="yRe-Cg-6oF" secondAttribute="top" id="UsT-Je-HEy"/>
+                            <constraint firstAttribute="width" constant="218" id="X2u-2J-HdX"/>
+                            <constraint firstAttribute="trailing" secondItem="F9Q-Zj-AoA" secondAttribute="trailing" id="iC7-3a-w2n"/>
+                        </constraints>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="85l-TQ-UxD">
+                        <rect key="frame" x="12" y="12" width="44" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="QO3-Jc-8fG"/>
+                            <constraint firstAttribute="width" constant="44" id="oEQ-pq-xJr"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstItem="yRe-Cg-6oF" firstAttribute="leading" secondItem="85l-TQ-UxD" secondAttribute="trailing" constant="8" id="61b-FW-hXB"/>
+                    <constraint firstItem="85l-TQ-UxD" firstAttribute="top" secondItem="Tq0-ld-DbA" secondAttribute="top" constant="12" id="8dn-Ms-JAM"/>
+                    <constraint firstItem="85l-TQ-UxD" firstAttribute="top" secondItem="yRe-Cg-6oF" secondAttribute="top" id="Gao-cp-HoC"/>
+                    <constraint firstItem="85l-TQ-UxD" firstAttribute="leading" secondItem="Tq0-ld-DbA" secondAttribute="leading" constant="12" id="Ni6-zS-id9"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="avatarImageView" destination="85l-TQ-UxD" id="N40-18-pOv"/>
+                <outlet property="coverImageView" destination="F9Q-Zj-AoA" id="qMU-Um-NnG"/>
+            </connections>
+            <point key="canvasLocation" x="-553" y="-98"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="btn_play.png" width="48" height="48"/>
+    </resources>
+</document>

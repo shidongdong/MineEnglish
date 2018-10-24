@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TagCollectionViewCellId" id="gTV-IL-0wX" customClass="TagCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="146" height="110"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="146" height="110"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="M5G-8G-owj">
+                        <rect key="frame" x="0.0" y="0.0" width="146" height="110"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uGq-kh-8Kp">
+                        <rect key="frame" x="12" y="8" width="122" height="94"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="uGq-kh-8Kp" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="12" id="0le-A5-JmM"/>
+                <constraint firstAttribute="trailing" secondItem="M5G-8G-owj" secondAttribute="trailing" id="1Vb-UC-76e"/>
+                <constraint firstItem="uGq-kh-8Kp" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="MGN-DD-0TO"/>
+                <constraint firstAttribute="bottom" secondItem="M5G-8G-owj" secondAttribute="bottom" id="WS3-6v-WsQ"/>
+                <constraint firstItem="M5G-8G-owj" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="g9Z-eQ-juz"/>
+                <constraint firstAttribute="trailing" secondItem="uGq-kh-8Kp" secondAttribute="trailing" constant="12" id="na2-me-KSs"/>
+                <constraint firstAttribute="bottom" secondItem="uGq-kh-8Kp" secondAttribute="bottom" constant="8" id="q3T-9X-eEF"/>
+                <constraint firstItem="M5G-8G-owj" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="vmq-Q3-dqK"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
+            <size key="customSize" width="146" height="110"/>
+            <connections>
+                <outlet property="bgImageView" destination="M5G-8G-owj" id="kKy-R2-hRx"/>
+                <outlet property="tagLabel" destination="uGq-kh-8Kp" id="Cna-p7-PYf"/>
+            </connections>
+            <point key="canvasLocation" x="82" y="24"/>
+        </collectionViewCell>
+    </objects>
+</document>

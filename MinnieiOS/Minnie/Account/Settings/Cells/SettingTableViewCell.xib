@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingTableViewCellId" rowHeight="92" id="KGk-i7-Jjw" customClass="SettingTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yMZ-zO-DtL">
+                        <rect key="frame" x="12" y="0.0" width="37" height="49.5"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cek-MY-NQ6" userLabel="描述信息">
+                        <rect key="frame" x="272.5" y="16" width="35.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUa-iw-y9e" userLabel="动作">
+                        <rect key="frame" x="247" y="16.5" width="37" height="17"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="label_ic_into.png" translatesAutoresizingMaskIntoConstraints="NO" id="Pa7-2Z-tay">
+                        <rect key="frame" x="292" y="16" width="16" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="MEg-Q5-63B"/>
+                            <constraint firstAttribute="width" constant="16" id="yca-La-MHO"/>
+                        </constraints>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LHT-dm-TcF">
+                        <rect key="frame" x="0.0" y="49" width="320" height="0.5"/>
+                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="kOq-sf-xUx"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="vUa-iw-y9e" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="AE2-p7-skJ"/>
+                    <constraint firstAttribute="bottom" secondItem="LHT-dm-TcF" secondAttribute="bottom" id="JIc-db-xYb"/>
+                    <constraint firstAttribute="bottom" secondItem="yMZ-zO-DtL" secondAttribute="bottom" id="Po0-hr-KkQ"/>
+                    <constraint firstAttribute="trailing" secondItem="Cek-MY-NQ6" secondAttribute="trailing" constant="12" id="dU0-Ul-y55"/>
+                    <constraint firstAttribute="trailing" secondItem="Pa7-2Z-tay" secondAttribute="trailing" constant="12" id="eUF-JY-sPz"/>
+                    <constraint firstItem="Cek-MY-NQ6" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="gGs-H6-jVt"/>
+                    <constraint firstItem="LHT-dm-TcF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="gKn-td-iUX"/>
+                    <constraint firstItem="Pa7-2Z-tay" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="glL-fQ-7Nc"/>
+                    <constraint firstItem="yMZ-zO-DtL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="gzR-Za-A3d"/>
+                    <constraint firstAttribute="trailing" secondItem="LHT-dm-TcF" secondAttribute="trailing" id="qfM-3V-TZp"/>
+                    <constraint firstItem="Pa7-2Z-tay" firstAttribute="leading" secondItem="vUa-iw-y9e" secondAttribute="trailing" constant="8" id="rpy-dC-uSa"/>
+                    <constraint firstItem="yMZ-zO-DtL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="yRX-ba-oQA"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="actionLabel" destination="vUa-iw-y9e" id="fwC-a5-gth"/>
+                <outlet property="detailLabel" destination="Cek-MY-NQ6" id="4oq-pi-9li"/>
+                <outlet property="iconImageView" destination="Pa7-2Z-tay" id="mex-oa-lRE"/>
+                <outlet property="itemLabel" destination="yMZ-zO-DtL" id="nGp-cg-UNv"/>
+            </connections>
+            <point key="canvasLocation" x="-276" y="-70"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="label_ic_into.png" width="16" height="16"/>
+    </resources>
+</document>

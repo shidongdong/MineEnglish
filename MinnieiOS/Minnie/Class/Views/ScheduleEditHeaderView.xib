@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="u4S-zi-pDg" customClass="ScheduleEditHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jqJ-cd-7cZ">
+                    <rect key="frame" x="0.0" y="12" width="375" height="44"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="设定:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vwI-P0-pa0">
+                            <rect key="frame" x="12" y="14" width="33" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sop-qD-Ove">
+                            <rect key="frame" x="88" y="8.5" width="100" height="27"/>
+                            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="100" id="lKF-cQ-n1r"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="选择开课日期">
+                                <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="startTimeButtonPressed:" destination="u4S-zi-pDg" eventType="touchUpInside" id="7uC-63-cg4"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="~" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J99-dr-hxb">
+                            <rect key="frame" x="196" y="12" width="11" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QHf-OM-Szs">
+                            <rect key="frame" x="215" y="8" width="100" height="27"/>
+                            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="100" id="ijY-jv-KZv"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="选择结课日期">
+                                <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="endTimeButtonPressed:" destination="u4S-zi-pDg" eventType="touchUpInside" id="uyI-mQ-Fp5"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y2W-nL-IR6" userLabel="分隔线">
+                            <rect key="frame" x="0.0" y="43" width="375" height="0.5"/>
+                            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="zWA-bF-Lvh"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="y2W-nL-IR6" secondAttribute="bottom" id="5PB-RQ-J6q"/>
+                        <constraint firstItem="y2W-nL-IR6" firstAttribute="leading" secondItem="jqJ-cd-7cZ" secondAttribute="leading" id="6Qb-rb-2V7"/>
+                        <constraint firstItem="J99-dr-hxb" firstAttribute="centerY" secondItem="jqJ-cd-7cZ" secondAttribute="centerY" id="EHY-vJ-fJ0"/>
+                        <constraint firstItem="Sop-qD-Ove" firstAttribute="centerY" secondItem="jqJ-cd-7cZ" secondAttribute="centerY" id="LXC-Ld-hzx"/>
+                        <constraint firstItem="J99-dr-hxb" firstAttribute="leading" secondItem="Sop-qD-Ove" secondAttribute="trailing" constant="8" id="Mzv-QP-qvH"/>
+                        <constraint firstItem="vwI-P0-pa0" firstAttribute="leading" secondItem="jqJ-cd-7cZ" secondAttribute="leading" constant="12" id="Q0e-hs-2et"/>
+                        <constraint firstItem="QHf-OM-Szs" firstAttribute="centerY" secondItem="jqJ-cd-7cZ" secondAttribute="centerY" id="cMH-cT-EUm"/>
+                        <constraint firstAttribute="height" constant="44" id="jN7-6o-Fo4"/>
+                        <constraint firstItem="Sop-qD-Ove" firstAttribute="leading" secondItem="jqJ-cd-7cZ" secondAttribute="leading" constant="88" id="qPf-A9-yYP"/>
+                        <constraint firstItem="QHf-OM-Szs" firstAttribute="leading" secondItem="J99-dr-hxb" secondAttribute="trailing" constant="8" id="ubW-f3-rqQ"/>
+                        <constraint firstAttribute="trailing" secondItem="y2W-nL-IR6" secondAttribute="trailing" id="uxA-Fh-4Q7"/>
+                        <constraint firstItem="vwI-P0-pa0" firstAttribute="centerY" secondItem="jqJ-cd-7cZ" secondAttribute="centerY" id="yDO-l6-R3j"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2n-du-Ood">
+                    <rect key="frame" x="0.0" y="56" width="375" height="44"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="设定:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GgZ-Th-AQu">
+                            <rect key="frame" x="12" y="14" width="33" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9gs-6a-dDj" userLabel="周末">
+                            <rect key="frame" x="88" y="8.5" width="100" height="27"/>
+                            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="100" id="hsZ-L4-EkH"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="周末">
+                                <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="weekendButtonPressed:" destination="u4S-zi-pDg" eventType="touchUpInside" id="cVG-vp-KlJ"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NHF-cz-Gyr" userLabel="工作日">
+                            <rect key="frame" x="215" y="8" width="100" height="27"/>
+                            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="100" id="FjN-AG-Zj4"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="工作日">
+                                <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="workdayButtonPressed:" destination="u4S-zi-pDg" eventType="touchUpInside" id="FEK-ki-Sqs"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rAL-vG-yxU" userLabel="分隔线">
+                            <rect key="frame" x="0.0" y="43" width="375" height="0.5"/>
+                            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="c9n-hS-cBu"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="NHF-cz-Gyr" firstAttribute="leading" secondItem="9gs-6a-dDj" secondAttribute="trailing" constant="27" id="2NQ-NJ-jMX"/>
+                        <constraint firstItem="GgZ-Th-AQu" firstAttribute="centerY" secondItem="g2n-du-Ood" secondAttribute="centerY" id="50W-Sp-F9U"/>
+                        <constraint firstAttribute="trailing" secondItem="rAL-vG-yxU" secondAttribute="trailing" id="96y-xh-qpd"/>
+                        <constraint firstItem="NHF-cz-Gyr" firstAttribute="centerY" secondItem="g2n-du-Ood" secondAttribute="centerY" id="ASU-T7-poO"/>
+                        <constraint firstItem="9gs-6a-dDj" firstAttribute="centerY" secondItem="g2n-du-Ood" secondAttribute="centerY" id="CLO-Ce-FOH"/>
+                        <constraint firstItem="9gs-6a-dDj" firstAttribute="leading" secondItem="g2n-du-Ood" secondAttribute="leading" constant="88" id="IeU-wU-xCK"/>
+                        <constraint firstItem="rAL-vG-yxU" firstAttribute="leading" secondItem="g2n-du-Ood" secondAttribute="leading" id="NGe-QT-Z6A"/>
+                        <constraint firstAttribute="bottom" secondItem="rAL-vG-yxU" secondAttribute="bottom" id="acz-tr-Llc"/>
+                        <constraint firstItem="GgZ-Th-AQu" firstAttribute="leading" secondItem="g2n-du-Ood" secondAttribute="leading" constant="12" id="cY2-TY-Opr"/>
+                        <constraint firstAttribute="height" constant="44" id="qNh-Tz-lpS"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="g2n-du-Ood" firstAttribute="leading" secondItem="HI8-RQ-vzT" secondAttribute="leading" id="9KD-lA-Tl2"/>
+                <constraint firstAttribute="trailing" secondItem="jqJ-cd-7cZ" secondAttribute="trailing" id="NwH-Jo-Isa"/>
+                <constraint firstItem="g2n-du-Ood" firstAttribute="trailing" secondItem="HI8-RQ-vzT" secondAttribute="trailing" id="W8C-AM-r3p"/>
+                <constraint firstItem="HI8-RQ-vzT" firstAttribute="bottom" secondItem="g2n-du-Ood" secondAttribute="bottom" id="cPC-az-UaD"/>
+                <constraint firstItem="jqJ-cd-7cZ" firstAttribute="leading" secondItem="u4S-zi-pDg" secondAttribute="leading" id="d6j-PA-Cau"/>
+                <constraint firstItem="jqJ-cd-7cZ" firstAttribute="top" secondItem="u4S-zi-pDg" secondAttribute="top" constant="12" id="qMy-7e-Dhp"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="HI8-RQ-vzT"/>
+            <connections>
+                <outlet property="endTimeButton" destination="QHf-OM-Szs" id="6zT-4L-99O"/>
+                <outlet property="startTimeButton" destination="Sop-qD-Ove" id="wjt-GL-ToO"/>
+                <outlet property="weekendButton" destination="9gs-6a-dDj" id="Eav-Q6-ckq"/>
+                <outlet property="workdayButton" destination="NHF-cz-Gyr" id="W9j-Ht-BIL"/>
+            </connections>
+            <point key="canvasLocation" x="-131" y="-198"/>
+        </view>
+    </objects>
+</document>

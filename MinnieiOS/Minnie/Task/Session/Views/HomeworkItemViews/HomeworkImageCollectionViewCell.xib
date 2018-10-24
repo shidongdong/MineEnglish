@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HomeworkImageCollectionViewCellId" id="gTV-IL-0wX" customClass="HomeworkImageCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="90" height="110"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="90" height="110"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oTf-Jv-iP4">
+                        <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="90" id="Zyx-Jr-lda"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3u2-H8-KFd">
+                        <rect key="frame" x="0.0" y="95.5" width="90" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="3u2-H8-KFd" secondAttribute="bottom" id="AoL-Dj-dqT"/>
+                <constraint firstAttribute="trailing" secondItem="3u2-H8-KFd" secondAttribute="trailing" id="ZXM-8U-zOG"/>
+                <constraint firstItem="3u2-H8-KFd" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="iGD-El-NKT"/>
+                <constraint firstItem="oTf-Jv-iP4" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="rVW-G3-yfP"/>
+                <constraint firstItem="oTf-Jv-iP4" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="vJi-1l-gyA"/>
+                <constraint firstAttribute="trailing" secondItem="oTf-Jv-iP4" secondAttribute="trailing" id="veM-cX-jWM"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
+            <size key="customSize" width="121" height="103"/>
+            <connections>
+                <outlet property="homeworkImageView" destination="oTf-Jv-iP4" id="IiI-vk-hXW"/>
+                <outlet property="homeworkLabel" destination="3u2-H8-KFd" id="vz9-Fq-b3y"/>
+            </connections>
+            <point key="canvasLocation" x="-510" y="-120"/>
+        </collectionViewCell>
+    </objects>
+</document>
