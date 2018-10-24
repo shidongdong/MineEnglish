@@ -16,8 +16,9 @@
 #import "TrialClassViewController.h"
 #import "Clazz.h"
 #import "PublicService.h"
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
+//#import <Fabric/Fabric.h>
+//#import <Crashlytics/Crashlytics.h>
+#import <Bugly/Bugly.h>
 #import "HomeworkSessionsContainerViewController.h"
 #if TEACHERSIDE
 #import "TeacherAccountViewController.h"
@@ -38,7 +39,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [Fabric with:@[[Crashlytics class]]];
+    [Bugly startWithAppId:nil];
     //正式版
     [AVOSCloud setApplicationId:@"pe0Om2fpgh5oHCd0NfSUbwkT-gzGzoHsz" clientKey:@"gfJuGSytpQalwcnAmNtunRoP"];
     //开发版
@@ -94,10 +95,10 @@
     BOOL shouldToHome = YES;
 #if TEACHERSIDE
     Teacher *teacher = (Teacher *)(APP.currentUser);
-    [[Crashlytics sharedInstance] setUserName:teacher.nickname];
+    [Bugly setUserIdentifier:teacher.nickname];
 #else
     Student *userInfo = (Student *)(APP.currentUser);
-    [[Crashlytics sharedInstance] setUserName:userInfo.nickname];
+    [Bugly setUserIdentifier:userInfo.nickname];
     if (userInfo.clazz.classId==0 || userInfo.enrollState==1) {
         shouldToHome = NO;
     }

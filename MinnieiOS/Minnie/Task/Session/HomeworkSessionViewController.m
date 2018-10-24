@@ -22,7 +22,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <AVKit/AVKit.h>
-#import <Crashlytics/Crashlytics.h>
+#import <Bugly/Bugly.h>
 #import "UIView+Load.h"
 #import "HomeworkSessionService.h"
 #import "NSDate+X5.h"
@@ -708,7 +708,7 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
                                                        
                                                        [self loadMessagesHistory];
                                                    } else {
-                                                       CLSLog(@"会话页面加载失败(创建IM会话失败): %@", error);
+                                                       BLYLogError(@"会话页面加载失败(创建IM会话失败): %@", error);
                                                        
                                                        [self.loadingContainerView showFailureViewWithRetryCallback:^{
                                                            [self setupConversation];
@@ -1041,7 +1041,7 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
 - (void)loadMessagesHistory {
     [self.conversation queryMessagesFromServerWithLimit:1000 callback:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (error != nil) {
-            CLSLog(@"会话页面加载失败(加载历史小时失败): %@", error);
+            BLYLogError(@"会话页面加载失败(加载历史小时失败): %@", error);
             
             [self.loadingContainerView showFailureViewWithRetryCallback:^{
                 [self setupConversation];
