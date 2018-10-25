@@ -39,6 +39,9 @@
 + (BaseRequest *)updateHomeworkSessionModifiedTimeWithId:(NSInteger)sessionId
                                                 callback:(RequestCallback)callback;
 
+//根据评分搜索作业
++ (BaseRequest *)searchHomeworkSessionWithScore:(NSInteger)score callback:(RequestCallback)callback;
+
 @end
 
 

@@ -13,7 +13,7 @@
 #import "RedoHomeworkRequest.h"
 #import "CommitHomeworkRequest.h"
 #import "UpdateTaskModifiedTimeRequest.h"
-
+#import "SearchHomeworkScoreRequest.h"
 @implementation HomeworkSessionService
 
 + (BaseRequest *)requestHomeworkSessionsWithFinishState:(BOOL)finished
@@ -94,6 +94,15 @@
     request.callback = callback;
     [request start];
     
+    return request;
+}
+
++ (BaseRequest *)searchHomeworkSessionWithScore:(NSInteger)score callback:(RequestCallback)callback
+{
+    SearchHomeworkScoreRequest * request = [[SearchHomeworkScoreRequest alloc] initWithHomeworkSessionForScore:score];
+    request.objectKey = @"list";
+    request.objectClassName = @"HomeworkSession";
+    request.callback = callback;
     return request;
 }
 
