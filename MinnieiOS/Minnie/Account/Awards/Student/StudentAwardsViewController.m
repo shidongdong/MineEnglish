@@ -15,7 +15,7 @@
 #import "UIView+Load.h"
 #import "UIScrollView+Refresh.h"
 #import "PushManager.h"
-
+#import "StudentStarListViewController.h"
 @interface StudentAwardsViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, weak) IBOutlet UIImageView *avatarImageView;
@@ -50,6 +50,10 @@
 
 - (IBAction)recordsButtonPressed:(id)sender {
     ExchangeRecordsViewController *vc = [[ExchangeRecordsViewController alloc] initWithNibName:NSStringFromClass([ExchangeRecordsViewController class]) bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+- (IBAction)startListClick:(UIButton *)sender {
+    StudentStarListViewController *vc = [[StudentStarListViewController alloc] initWithNibName:NSStringFromClass([StudentStarListViewController class]) bundle:nil];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

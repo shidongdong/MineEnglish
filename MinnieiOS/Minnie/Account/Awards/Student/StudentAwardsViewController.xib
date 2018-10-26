@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -50,14 +50,29 @@
                                 <constraint firstAttribute="height" constant="0.5" id="DUA-Tg-V8j"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLe-eD-HNr">
+                            <rect key="frame" x="293" y="3.5" width="72" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="shS-3j-mMm"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="星星排行榜">
+                                <color key="titleColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="startListClick:" destination="-1" eventType="touchUpInside" id="ldj-FV-alF"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="J3H-HL-7Bw" firstAttribute="leading" secondItem="9kV-27-XgE" secondAttribute="leading" id="23B-kP-XNa"/>
+                        <constraint firstItem="SkM-Z5-PhB" firstAttribute="trailing" secondItem="GLe-eD-HNr" secondAttribute="trailing" constant="10" id="8HO-M1-fwR"/>
                         <constraint firstAttribute="trailing" secondItem="J3H-HL-7Bw" secondAttribute="trailing" id="8hN-WM-kV6"/>
                         <constraint firstAttribute="bottom" secondItem="J3H-HL-7Bw" secondAttribute="bottom" id="DMo-ov-GOX"/>
                         <constraint firstAttribute="height" constant="44" id="Jfn-FG-B4n"/>
                         <constraint firstAttribute="bottom" secondItem="NeP-td-HHh" secondAttribute="bottom" id="Ptx-0d-NUE"/>
+                        <constraint firstItem="J3H-HL-7Bw" firstAttribute="top" secondItem="GLe-eD-HNr" secondAttribute="bottom" id="Tzz-Nx-HAb"/>
                         <constraint firstItem="g1l-4P-T7w" firstAttribute="centerY" secondItem="9kV-27-XgE" secondAttribute="centerY" id="dID-EP-oWY"/>
                         <constraint firstItem="NeP-td-HHh" firstAttribute="leading" secondItem="9kV-27-XgE" secondAttribute="leading" id="hp8-Zg-YDs"/>
                         <constraint firstItem="g1l-4P-T7w" firstAttribute="centerX" secondItem="9kV-27-XgE" secondAttribute="centerX" id="hqX-uk-luH"/>

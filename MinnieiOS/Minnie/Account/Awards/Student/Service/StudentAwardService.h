@@ -20,4 +20,7 @@
 
 + (BaseRequest *)requestExchangeRecordsWithCallback:(RequestCallback)callback;
 
+//获取星星排行榜
++ (BaseRequest *)requestStudentStarRankListWithCallback:(RequestCallback)callback;
+
 @end

@@ -23,7 +23,8 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <AVKit/AVKit.h>
-
+#import "HomeworkSegmentTableViewCell.h"
+#import "HomeworkDiffTableViewCell.h"
 @interface CreateHomeworkViewController ()<UITableViewDataSource, UITableViewDelegate,
 UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -153,6 +154,9 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate>
     [self.homeworkTableView registerNib:[UINib nibWithNibName:@"HomeworkImageTableViewCell" bundle:nil] forCellReuseIdentifier:HomeworkImageTableViewCellId];
     [self.homeworkTableView registerNib:[UINib nibWithNibName:@"HomeworkTagsTableViewCell" bundle:nil] forCellReuseIdentifier:HomeworkTagsTableViewCellId];
     [self.homeworkTableView registerNib:[UINib nibWithNibName:@"HomeworkAddTableViewCell" bundle:nil] forCellReuseIdentifier:HomeworkAddTableViewCellId];
+    [self.homeworkTableView registerNib:[UINib nibWithNibName:@"HomeworkSegmentTableViewCell" bundle:nil] forCellReuseIdentifier:HomeworkSegmentTableViewCellId];
+    [self.homeworkTableView registerNib:[UINib nibWithNibName:@"HomeworkDiffTableViewCell" bundle:nil] forCellReuseIdentifier:HomeworkDiffTableViewCelId];
+    
 }
 
 - (void)requestTags {
@@ -495,7 +499,13 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate>
     
     numberOfRows += 1; // 添加答案按钮
     
-    numberOfRows += 1; // tag
+    numberOfRows += 1; // 添加作业类型
+    
+    numberOfRows += 1; // 添加作业难度
+    
+    numberOfRows += 1; // tag1
+    
+    numberOfRows += 1; // tag2
     
     return numberOfRows;
 }
@@ -635,7 +645,16 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate>
         }];
         
         cell = addCell;
-    } else {
+    }
+    else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 2) {
+        HomeworkSegmentTableViewCell * segmentCell = [tableView dequeueReusableCellWithIdentifier:HomeworkSegmentTableViewCellId forIndexPath:indexPath];
+        cell = segmentCell;
+    }
+    else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 3) {
+        HomeworkDiffTableViewCell * diffCell = [tableView dequeueReusableCellWithIdentifier:HomeworkDiffTableViewCellId forIndexPath:indexPath];
+        cell = diffCell;
+    }
+    else {
         HomeworkTagsTableViewCell *tagsCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTagsTableViewCellId forIndexPath:indexPath];
         
         [tagsCell setupWithTags:self.tags selectedTags:self.selectedTags];

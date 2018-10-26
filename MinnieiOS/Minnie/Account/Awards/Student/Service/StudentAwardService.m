@@ -10,7 +10,7 @@
 #import "AwardsRequest.h"
 #import "ExchangeAwardRequest.h"
 #import "ExchangeRecordsRequest.h"
-
+#import "StudentStarRankRequest.h"
 @implementation StudentAwardService
 
 + (BaseRequest *)requestAwardsWithCallback:(RequestCallback)callback {
@@ -45,6 +45,20 @@
     
     return request;
 }
+
++ (BaseRequest *)requestStudentStarRankListWithCallback:(RequestCallback)callback
+{
+    StudentStarRankRequest *request = [[StudentStarRankRequest alloc] init];
+    
+    request.objectKey = @"list";
+    request.objectClassName = @"StarRank";
+    
+    [request setCallback:callback];
+    [request start];
+    
+    return request;
+}
+
 
 @end
 
