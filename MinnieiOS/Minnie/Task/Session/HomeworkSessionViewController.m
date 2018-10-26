@@ -693,28 +693,39 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
         AVIMConversationQuery *query = [self.client conversationQuery];
         [query whereKey:@"name" equalTo:name];
         [query findConversationsWithCallback:^(NSArray * _Nullable conversations, NSError * _Nullable error) {
-            if (conversations.count == 1) {
-                self.homeworkSession.conversation = conversations[0];
+            if (error == nil)
+            {
+                if (conversations.count > 0) {
+                    self.homeworkSession.conversation = conversations[0];
+                    
+                    [self loadMessagesHistory];
+                } else {
+                    [self.client createConversationWithName:name
+                                                  clientIds:@[teacherId, studentId]
+                                                 attributes:nil
+                                                    options:AVIMConversationOptionNone
+                                                   callback:^(AVIMConversation * conversation, NSError * error) {
+                                                       if (error == nil) {
+                                                           self.homeworkSession.conversation = conversation;
+                                                           
+                                                           [self loadMessagesHistory];
+                                                       } else {
+                                                           BLYLogError(@"会话页面加载失败(创建IM会话失败): %@", error);
+                                                           
+                                                           [self.loadingContainerView showFailureViewWithRetryCallback:^{
+                                                               [self setupConversation];
+                                                           }];
+                                                       }
+                                                   }];
+                }
+            }
+            else
+            {
+                BLYLogError(@"会话页面加载失败(创建IM会话失败): %@", error);
                 
-                [self loadMessagesHistory];
-            } else {
-                [self.client createConversationWithName:name
-                                              clientIds:@[teacherId, studentId]
-                                             attributes:nil
-                                                options:AVIMConversationOptionNone
-                                               callback:^(AVIMConversation * conversation, NSError * error) {
-                                                   if (error == nil) {
-                                                       self.homeworkSession.conversation = conversation;
-                                                       
-                                                       [self loadMessagesHistory];
-                                                   } else {
-                                                       BLYLogError(@"会话页面加载失败(创建IM会话失败): %@", error);
-                                                       
-                                                       [self.loadingContainerView showFailureViewWithRetryCallback:^{
-                                                           [self setupConversation];
-                                                       }];
-                                                   }
-                                               }];
+                [self.loadingContainerView showFailureViewWithRetryCallback:^{
+                    [self setupConversation];
+                }];
             }
         }];
     } else {
