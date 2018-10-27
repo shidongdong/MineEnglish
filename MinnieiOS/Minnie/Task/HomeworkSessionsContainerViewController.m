@@ -20,13 +20,18 @@
 
 @property (nonatomic, strong) HomeworkSessionsViewController *unfinishedClassesChildController;
 @property (nonatomic, strong) HomeworkSessionsViewController *finishedClassesChildController;
+#if TEACHERSIDE
+@property (nonatomic, strong) HomeworkSessionsViewController *uncommitClassesChildController;
+#else
+#endif
 
 @property (nonatomic, assign) BOOL ignoreScrollCallback;
 
 @property (nonatomic, weak) IBOutlet UIView *containerView;
 @property (nonatomic, weak) IBOutlet UIScrollView *containerScrollView;
 @property (nonatomic, weak) IBOutlet UIView *customTitleView;
-@property (nonatomic, weak) IBOutlet UIButton *calendarButton;
+@property (nonatomic, weak) IBOutlet UIButton * rightFuncButton;
+@property (nonatomic, weak) IBOutlet UIButton * leftFuncButton;
 @property (nonatomic, weak) SegmentControl *segmentControl;
 
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *heightLayoutConstraint;
@@ -41,8 +46,11 @@
     [super viewDidLoad];
     [self checkAppVersion];
 #if TEACHERSIDE
-    self.calendarButton.hidden = YES;
+    [self.leftFuncButton setBackgroundImage:[UIImage imageNamed:@"navbar_search"] forState:UIControlStateNormal];
+    [self.rightFuncButton setBackgroundImage:[UIImage imageNamed:@"navbar_screen"] forState:UIControlStateNormal];
 #else
+    [self.leftFuncButton setBackgroundImage:[UIImage imageNamed:@"navbar_medal"] forState:UIControlStateNormal];
+    [self.rightFuncButton setBackgroundImage:[UIImage imageNamed:@"navbar_calendar"] forState:UIControlStateNormal];
 #endif
     
     if (isIPhoneX) {
@@ -51,7 +59,7 @@
     
     self.segmentControl = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SegmentControl class]) owner:nil options:nil] lastObject];
 #if TEACHERSIDE
-    self.segmentControl.titles = @[@"待批改", @"已完成"];
+    self.segmentControl.titles = @[@"待批改", @"已完成",@"未提交"];
 #else
     self.segmentControl.titles = @[@"未完成", @"已完成"];
 #endif
@@ -144,6 +152,9 @@
 
 - (IBAction)calendarButtonPressed:(id)sender {
 #if TEACHERSIDE
+    //显示搜索
+    
+    
 #else
     CalendarViewController *vc = [[CalendarViewController alloc] initWithNibName:@"CalendarViewController" bundle:nil];
     vc.clazz = APP.currentUser.clazz;
@@ -179,6 +190,20 @@
         }
         
         childPageViewController = self.finishedClassesChildController;
+    }
+    else
+    {
+#if TEACHERSIDE
+        if (self.uncommitClassesChildController == nil) {
+            self.uncommitClassesChildController = [[HomeworkSessionsViewController alloc] initWithNibName:NSStringFromClass([HomeworkSessionsViewController class]) bundle:nil];
+            self.finishedClassesChildController.isUnfinished = NO;
+            
+            existed = NO;
+        }
+        
+        childPageViewController = self.uncommitClassesChildController;
+#else
+#endif
     }
     
     if (!existed) {

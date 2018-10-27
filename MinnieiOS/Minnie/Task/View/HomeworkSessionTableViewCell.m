@@ -29,6 +29,9 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
 @property (nonatomic, weak) IBOutlet UILabel *timeLabel;
 
 @property (nonatomic, weak) IBOutlet UIView *scoreView;
+@property (weak, nonatomic) IBOutlet UIView *unfinishTimeBgView;
+@property (weak, nonatomic) IBOutlet UILabel *unfinishTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *unfiishTimeTypeLabel;
 
 @end
 
