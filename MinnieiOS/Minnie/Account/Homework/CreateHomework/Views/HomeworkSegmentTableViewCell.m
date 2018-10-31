@@ -8,6 +8,8 @@
 
 #import "HomeworkSegmentTableViewCell.h"
 
+NSString * const HomeworkSegmentTableViewCellId = @"HomeworkSegmentTableViewCellId";
+
 @interface HomeworkSegmentTableViewCell()
 @property (weak, nonatomic) IBOutlet UIView *firstView;
 @property (weak, nonatomic) IBOutlet UIView *secondView;

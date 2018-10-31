@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-NSString * const HomeworkDiffTableViewCellId = @"HomeworkDiffTableViewCellId";
+extern NSString * const HomeworkDiffTableViewCellId;
 
 @interface HomeworkDiffTableViewCell : UITableViewCell
 

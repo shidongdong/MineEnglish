@@ -66,6 +66,11 @@
 		87C52FBD2164FA58004288F4 /* corretHome_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87C52FBA2164FA58004288F4 /* corretHome_select@2x.png */; };
 		87C52FBE2164FA58004288F4 /* corretHome_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87C52FBB2164FA58004288F4 /* corretHome_unselect@2x.png */; };
 		87C52FBF2164FA58004288F4 /* corretHome_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87C52FBB2164FA58004288F4 /* corretHome_unselect@2x.png */; };
+		87CF0346218817C600B6F574 /* 123.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 87CF0345218817C600B6F574 /* 123.mp4 */; };
+		87CF0347218817C600B6F574 /* 123.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 87CF0345218817C600B6F574 /* 123.mp4 */; };
+		87CF0348218818FD00B6F574 /* StudentAwardService.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EC5207A7C1600568785 /* StudentAwardService.m */; };
+		87CF03492188191800B6F574 /* ExchangeRecordsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EC8207A7C1600568785 /* ExchangeRecordsRequest.m */; };
+		87CF034A2188193100B6F574 /* ExchangeAwardRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EC9207A7C1600568785 /* ExchangeAwardRequest.m */; };
 		87FDFBC1214B6764006E987C /* AppVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 87FDFBC0214B6764006E987C /* AppVersion.m */; };
 		87FDFBC2214B6769006E987C /* AppVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 87FDFBC0214B6764006E987C /* AppVersion.m */; };
 		97102DDB20F3AC0F0048983E /* message_send_error@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97102DDA20F3AC0E0048983E /* message_send_error@3x.png */; };
@@ -1260,6 +1265,7 @@
 		87C52FB42164AC59004288F4 /* WBGImageToolBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBGImageToolBase.m; sourceTree = "<group>"; };
 		87C52FBA2164FA58004288F4 /* corretHome_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "corretHome_select@2x.png"; sourceTree = "<group>"; };
 		87C52FBB2164FA58004288F4 /* corretHome_unselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "corretHome_unselect@2x.png"; sourceTree = "<group>"; };
+		87CF0345218817C600B6F574 /* 123.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 123.mp4; sourceTree = "<group>"; };
 		87FDFBBF214B6764006E987C /* AppVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppVersion.h; sourceTree = "<group>"; };
 		87FDFBC0214B6764006E987C /* AppVersion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppVersion.m; sourceTree = "<group>"; };
 		97102DDA20F3AC0E0048983E /* message_send_error@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message_send_error@3x.png"; sourceTree = "<group>"; };
@@ -2296,6 +2302,7 @@
 		97109564207A006C00568785 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				87CF0345218817C600B6F574 /* 123.mp4 */,
 				870286872184113C00559195 /* navbar_screen@2x.png */,
 				870286892184113E00559195 /* navbar_screen@3x.png */,
 				870286882184113C00559195 /* navbar_search@2x.png */,
@@ -4441,6 +4448,7 @@
 				87028694218419F600559195 /* UnfinishedStudentHomeworkSessionTableViewCell.xib in Resources */,
 				97109689207A006D00568785 /* label_close_gray@2x.png in Resources */,
 				97109717207A006D00568785 /* 三圆角_遮罩@2x.png in Resources */,
+				87CF0346218817C600B6F574 /* 123.mp4 in Resources */,
 				971096B9207A006D00568785 /* icon_cancel@3x.png in Resources */,
 				9786AA9220F24E9B00BD0AF9 /* attachment_placeholder@3x.png in Resources */,
 				971097FB207A006D00568785 /* add_image_bg@3x.png in Resources */,
@@ -4762,6 +4770,7 @@
 				971097D2207A006D00568785 /* pop_img_register@3x.png in Resources */,
 				973649C320AF2F8600511A95 /* HomeworkLabelTableViewCell.xib in Resources */,
 				97364A0320B11DE600511A95 /* StudentsViewController.xib in Resources */,
+				87CF0347218817C600B6F574 /* 123.mp4 in Resources */,
 				97109935207A0BF600568785 /* hud_ic_cancel@2x.png in Resources */,
 				87C52FBF2164FA58004288F4 /* corretHome_unselect@2x.png in Resources */,
 				971096DC207A006D00568785 /* 语音动画02@2x.png in Resources */,
@@ -5473,6 +5482,7 @@
 				97109A31207A158C00568785 /* HomeworkSession.m in Sources */,
 				97364A1B20B1704900511A95 /* MessageUpdateCountRequest.m in Sources */,
 				97109A23207A158C00568785 /* HomeworkSessionsViewController.m in Sources */,
+				87CF03492188191800B6F574 /* ExchangeRecordsRequest.m in Sources */,
 				870286682181E29100559195 /* HomeworkDiffTableViewCell.m in Sources */,
 				97109A33207A158C00568785 /* CommitHomeworkRequest.m in Sources */,
 				973649EF20AF2F8600511A95 /* TagsViewController.m in Sources */,
@@ -5526,6 +5536,7 @@
 				97109951207A0BF600568785 /* Teacher.m in Sources */,
 				97109915207A0BF500568785 /* RecordStateView.m in Sources */,
 				97109C23207A2E3E00568785 /* Comment.m in Sources */,
+				87CF0348218818FD00B6F574 /* StudentAwardService.m in Sources */,
 				97109A65207A158C00568785 /* MessageTableViewCell.m in Sources */,
 				97109D4A207A2F0400568785 /* CommentMessagesViewController.m in Sources */,
 				97109D98207A2F0400568785 /* TeacherAccountViewController.m in Sources */,
@@ -5562,6 +5573,7 @@
 				97109C35207A2E3E00568785 /* HomeworkDetailCommentTableViewCell.m in Sources */,
 				97109D7E207A2F0400568785 /* TeacherEditViewController.m in Sources */,
 				8702867C2182FE2C00559195 /* StudentStarRankRequest.m in Sources */,
+				87CF034A2188193100B6F574 /* ExchangeAwardRequest.m in Sources */,
 				97109B05207A1C0800568785 /* TimePickerView.m in Sources */,
 				97109D84207A2F0400568785 /* UpdateTeacherRequest.m in Sources */,
 				97109A86207A171600568785 /* HomeworkImageCollectionViewCell.m in Sources */,

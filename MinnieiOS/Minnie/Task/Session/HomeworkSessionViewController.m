@@ -1024,6 +1024,8 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
     [[AudioPlayer sharedPlayer] stop];
     
     AVPlayerViewController *playerViewController = [[AVPlayerViewController alloc]init];
+//    NSString * filePath = [[NSBundle mainBundle] pathForResource:@"123" ofType:@"mp4"];
+//    playerViewController.player = [[AVPlayer alloc]initWithURL:[NSURL fileURLWithPath:filePath]];
     playerViewController.player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:url]];
     [self presentViewController:playerViewController animated:YES completion:nil];
     playerViewController.view.frame = self.view.frame;

@@ -155,7 +155,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate>
     [self.homeworkTableView registerNib:[UINib nibWithNibName:@"HomeworkTagsTableViewCell" bundle:nil] forCellReuseIdentifier:HomeworkTagsTableViewCellId];
     [self.homeworkTableView registerNib:[UINib nibWithNibName:@"HomeworkAddTableViewCell" bundle:nil] forCellReuseIdentifier:HomeworkAddTableViewCellId];
     [self.homeworkTableView registerNib:[UINib nibWithNibName:@"HomeworkSegmentTableViewCell" bundle:nil] forCellReuseIdentifier:HomeworkSegmentTableViewCellId];
-    [self.homeworkTableView registerNib:[UINib nibWithNibName:@"HomeworkDiffTableViewCell" bundle:nil] forCellReuseIdentifier:HomeworkDiffTableViewCelId];
+    [self.homeworkTableView registerNib:[UINib nibWithNibName:@"HomeworkDiffTableViewCell" bundle:nil] forCellReuseIdentifier:HomeworkDiffTableViewCellId];
     
 }
 

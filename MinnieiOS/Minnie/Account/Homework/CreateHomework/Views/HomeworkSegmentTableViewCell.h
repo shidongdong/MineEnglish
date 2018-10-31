@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-NSString * const HomeworkSegmentTableViewCellId = @"HomeworkSegmentTableViewCellId";
+extern NSString * const HomeworkSegmentTableViewCellId;
 
 @interface HomeworkSegmentTableViewCell : UITableViewCell
 

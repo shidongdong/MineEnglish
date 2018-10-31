@@ -7,7 +7,7 @@
 //
 
 #import "HomeworkDiffTableViewCell.h"
-
+NSString * const HomeworkDiffTableViewCellId = @"HomeworkDiffTableViewCellId";
 @interface HomeworkDiffTableViewCell()
 
 @property (weak, nonatomic) IBOutlet UILabel *easyLabel;
