@@ -17,6 +17,8 @@
                 <outlet property="containerView" destination="bQ5-c9-usN" id="S4Q-rT-TiE"/>
                 <outlet property="customTitleView" destination="xqb-g2-VNn" id="qwa-O3-4f7"/>
                 <outlet property="heightLayoutConstraint" destination="fIM-OA-0Tz" id="7aV-tA-lhg"/>
+                <outlet property="leftFuncButton" destination="1Qc-8Q-Zcj" id="DqI-Vb-6Fr"/>
+                <outlet property="rightFuncButton" destination="SP1-uc-9qs" id="GMG-21-5C4"/>
                 <outlet property="view" destination="io7-4S-uSt" id="SyW-gi-FsS"/>
             </connections>
         </placeholder>
@@ -48,6 +50,19 @@
                                 <constraint firstAttribute="width" constant="44" id="p91-1t-8cy"/>
                                 <constraint firstAttribute="height" constant="44" id="v7l-nw-tZI"/>
                             </constraints>
+                            <connections>
+                                <action selector="rightFuncClick:" destination="-1" eventType="touchUpInside" id="7Nt-sg-rgw"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Qc-8Q-Zcj">
+                            <rect key="frame" x="2" y="-0.5" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="1Zx-Gk-SiB"/>
+                                <constraint firstAttribute="width" constant="44" id="MsK-JV-xVB"/>
+                            </constraints>
+                            <connections>
+                                <action selector="leftFuncClick:" destination="-1" eventType="touchUpInside" id="05Y-Qy-tGb"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -58,10 +73,12 @@
                         <constraint firstItem="SP1-uc-9qs" firstAttribute="top" secondItem="Xfk-m6-0Gm" secondAttribute="top" id="HtO-g7-q93"/>
                         <constraint firstItem="xqb-g2-VNn" firstAttribute="centerX" secondItem="Xfk-m6-0Gm" secondAttribute="centerX" id="Lk3-WB-aWr"/>
                         <constraint firstAttribute="bottom" secondItem="SP1-uc-9qs" secondAttribute="bottom" id="PoF-kF-Kvl"/>
+                        <constraint firstItem="xK9-i1-EJm" firstAttribute="top" secondItem="1Qc-8Q-Zcj" secondAttribute="bottom" id="UZr-gD-5m2"/>
                         <constraint firstAttribute="height" constant="44" id="Xr6-R8-M68"/>
                         <constraint firstAttribute="bottom" secondItem="xK9-i1-EJm" secondAttribute="bottom" id="fqM-re-R3u"/>
                         <constraint firstAttribute="bottom" secondItem="xqb-g2-VNn" secondAttribute="bottom" id="jbF-Mp-hIU"/>
                         <constraint firstAttribute="trailing" secondItem="SP1-uc-9qs" secondAttribute="trailing" constant="2" id="veW-NQ-7PO"/>
+                        <constraint firstItem="1Qc-8Q-Zcj" firstAttribute="leading" secondItem="Xfk-m6-0Gm" secondAttribute="leading" constant="2" id="yKx-0w-Vgj"/>
                     </constraints>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LCs-vs-RkO">

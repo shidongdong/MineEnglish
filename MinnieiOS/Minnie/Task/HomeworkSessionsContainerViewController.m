@@ -16,12 +16,20 @@
 #import "Clazz.h"
 #import "PublicService.h"
 #import "AppVersion.h"
+#import "FilterAlertView.h"
+#if TEACHERSIDE
+#import <FileProviderUI/FileProviderUI.h>
+#import <FileProvider/FileProvider.h>
+#else
+#endif
+
 @interface HomeworkSessionsContainerViewController ()
 
 @property (nonatomic, strong) HomeworkSessionsViewController *unfinishedClassesChildController;
 @property (nonatomic, strong) HomeworkSessionsViewController *finishedClassesChildController;
 #if TEACHERSIDE
 @property (nonatomic, strong) HomeworkSessionsViewController *uncommitClassesChildController;
+@property (nonatomic, assign) NSInteger  currentFliterType;  //0 按时间 1 按作业 2 按人
 #else
 #endif
 
@@ -150,10 +158,21 @@
     }
 }
 
-- (IBAction)calendarButtonPressed:(id)sender {
+- (IBAction)leftFuncClick:(id)sender {
+#if TEACHERSIDE
+#else
+    
+#endif
+    
+}
+
+
+- (IBAction)rightFuncClick:(id)sender {
 #if TEACHERSIDE
     //显示搜索
-    
+    [FilterAlertView showInView:self.navigationController.view atFliterType:self.currentFliterType forBgViewOffset:64 withAtionBlock:^(NSInteger index) {
+        
+    }];
     
 #else
     CalendarViewController *vc = [[CalendarViewController alloc] initWithNibName:@"CalendarViewController" bundle:nil];

@@ -18,6 +18,10 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    
+    
+    
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -25,6 +29,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 - (IBAction)backPress:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -38,6 +43,13 @@
 {
     return 56.0;
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 44.0;
+}
+
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
