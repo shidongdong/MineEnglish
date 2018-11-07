@@ -36,7 +36,7 @@
 #import "AlertView.h"
 #import "StudentDetailViewController.h"
 #import "AudioPlayer.h"
-
+#import "VIResourceLoaderManager.h"
 static NSString * const kKeyOfCreateTimestamp = @"createTimestamp";
 static NSString * const kKeyOfAudioDuration = @"audioDuration";
 
@@ -91,7 +91,8 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
 
 @property (nonatomic, assign) BOOL dontScrollWhenAppeard;
 @property (nonatomic, assign) BOOL isViewAppeard;
-
+@property (nonatomic, assign) BOOL bFailReSendFlag;
+@property (nonatomic, strong) VIResourceLoaderManager *resourceLoaderManager;
 @end
 
 @implementation HomeworkSessionViewController
@@ -623,9 +624,36 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
 }
 
 - (void)updateHomeworkSessionModifiedTime {
+    WeakifySelf;
     [HomeworkSessionService updateHomeworkSessionModifiedTimeWithId:self.homeworkSession.homeworkSessionId
-                                                           callback:nil];
+                                                           callback:^(Result *result, NSError *error) {
+                                                               if (error == nil) {
+                                                                 //  [weakSelf reUpdateModeifyTime];
+                                                                   weakSelf.bFailReSendFlag = NO;
+                                                               }
+                                                               else
+                                                               {
+                                                                   weakSelf.bFailReSendFlag = YES;
+                                                               }
+                                                           }];
 }
+
+//- (void)reUpdateModeifyTime
+//{
+//    _failReSendCount--;
+//    if (_failReSendCount > 0)
+//    {
+//        WeakifySelf;
+//        [HomeworkSessionService updateHomeworkSessionModifiedTimeWithId:self.homeworkSession.homeworkSessionId
+//                                                               callback:^(Result *result, NSError *error) {
+//                                                                   if (error) {
+//                                                                       [weakSelf reUpdateModeifyTime];
+//
+//                                                                   }
+//                                                               }];
+//    }
+//}
+
 
 - (void)setupResultView {
     UIColor *bgColor = nil;
@@ -927,7 +955,13 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
                           callback:^(BOOL succeeded, NSError * _Nullable error) {
 #if TEACHERSIDE
 #else
-                              if (succeeded && self.messages.count==0) {
+                              if (succeeded && self.messages.count==0)
+                              {
+                                  [self updateHomeworkSessionModifiedTime];
+                              }
+                              
+                              if (self.bFailReSendFlag)
+                              {
                                   [self updateHomeworkSessionModifiedTime];
                               }
 #endif
@@ -1035,7 +1069,11 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
     [[AudioPlayer sharedPlayer] stop];
     
     AVPlayerViewController *playerViewController = [[AVPlayerViewController alloc]init];
-    playerViewController.player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:url]];
+    VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
+    self.resourceLoaderManager = resourceLoaderManager;
+    AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
+    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
+    playerViewController.player = player;
     [self presentViewController:playerViewController animated:YES completion:nil];
     playerViewController.view.frame = self.view.frame;
     [playerViewController.player play];

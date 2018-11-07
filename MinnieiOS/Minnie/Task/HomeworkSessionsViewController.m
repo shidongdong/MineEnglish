@@ -283,6 +283,12 @@
                 homeworkSession.shouldColorLastSessionContent = message.ioType == AVIMMessageIOTypeOut;
 #else
                 homeworkSession.shouldColorLastSessionContent = message.ioType == AVIMMessageIOTypeIn;
+                
+                if (homeworkSession.updateTime == 0 && message != nil)
+                {
+                    [self updateHomeworkSessionModifiedTime:homeworkSession];
+                }
+                
 #endif
                 
                 break;
@@ -291,6 +297,7 @@
         
         if (homeworkSession.conversation.lastMessageAt != nil) {
             homeworkSession.sortTime = [homeworkSession.conversation.lastMessageAt timeIntervalSince1970] * 1000;
+            
         } else {
             homeworkSession.sortTime = homeworkSession.updateTime;
         }
@@ -311,6 +318,13 @@
     //
     
     [self.homeworkSessionsTableView reloadData];
+}
+
+- (void)updateHomeworkSessionModifiedTime:(HomeworkSession *)homeworkSession
+{
+    [HomeworkSessionService updateHomeworkSessionModifiedTimeWithId:homeworkSession.homeworkSessionId
+                                                           callback:^(Result *result, NSError *error) {
+                                                           }];
 }
 
 - (void)apnsRefreshHomeworkSession:(NSNotification *)notification
