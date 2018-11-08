@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
-
+#import "StarRank.h"
 
 @interface StudentStarListTableViewCell : UITableViewCell
 
-- (void)setContentData:(id)data forRank:(NSInteger)rank;
+- (void)setContentData:(StarRank *)data forRank:(NSInteger)rank;
 
 @end

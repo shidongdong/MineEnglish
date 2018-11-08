@@ -13,8 +13,5 @@
 @interface HomeworkSessionsViewController : BaseViewController
 
 @property (nonatomic, assign) BOOL isUnfinished; // 是否是进行中的
-#if TEACHERSIDE
 @property (nonatomic, assign) BOOL bLoadConversion; //加载对话
-#else
-#endif
 @end

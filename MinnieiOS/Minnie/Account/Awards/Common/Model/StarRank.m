@@ -9,11 +9,14 @@
 #import "StarRank.h"
 
 @implementation StarRank
+
 -(NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{@"starCount":@"starCount",
              @"avatar":@"avatar",
              @"userId":@"userId",
              @"nickName":@"nickName"};
 }
+
+
 
 @end

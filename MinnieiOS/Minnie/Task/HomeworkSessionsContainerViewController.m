@@ -21,6 +21,7 @@
 #import <FileProviderUI/FileProviderUI.h>
 #import <FileProvider/FileProvider.h>
 #else
+#import "AchieverListViewController.h"
 #endif
 
 @interface HomeworkSessionsContainerViewController ()
@@ -43,6 +44,7 @@
 @property (nonatomic, weak) SegmentControl *segmentControl;
 
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *heightLayoutConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerContentY;
 
 @property (nonatomic, assign) BOOL everAppeared;
 
@@ -54,21 +56,26 @@
     [super viewDidLoad];
     [self checkAppVersion];
 #if TEACHERSIDE
-    [self.leftFuncButton setBackgroundImage:[UIImage imageNamed:@"navbar_search"] forState:UIControlStateNormal];
-    [self.rightFuncButton setBackgroundImage:[UIImage imageNamed:@"navbar_screen"] forState:UIControlStateNormal];
+    
+    self.containerContentY.constant = 3 * ScreenWidth;
+    
+    [self.leftFuncButton setImage:[UIImage imageNamed:@"navbar_search"] forState:UIControlStateNormal];
+    [self.rightFuncButton setImage:[UIImage imageNamed:@"navbar_screen"] forState:UIControlStateNormal];
 #else
-    [self.leftFuncButton setBackgroundImage:[UIImage imageNamed:@"navbar_medal"] forState:UIControlStateNormal];
-    [self.rightFuncButton setBackgroundImage:[UIImage imageNamed:@"navbar_calendar"] forState:UIControlStateNormal];
+    [self.leftFuncButton setImage:[UIImage imageNamed:@"navbar_medal"] forState:UIControlStateNormal];
+    [self.rightFuncButton setImage:[UIImage imageNamed:@"navbar_calendar"] forState:UIControlStateNormal];
 #endif
     
     if (isIPhoneX) {
         self.heightLayoutConstraint.constant = -(44 + [UIApplication sharedApplication].statusBarFrame.size.height);
     }
     
-    self.segmentControl = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SegmentControl class]) owner:nil options:nil] lastObject];
+    
 #if TEACHERSIDE
+    self.segmentControl = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SegmentControl class]) owner:nil options:nil] firstObject];
     self.segmentControl.titles = @[@"待批改", @"已完成",@"未提交"];
 #else
+    self.segmentControl = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SegmentControl class]) owner:nil options:nil] lastObject];
     self.segmentControl.titles = @[@"未完成", @"已完成"];
 #endif
     self.segmentControl.selectedIndex = 0;
@@ -161,7 +168,9 @@
 - (IBAction)leftFuncClick:(id)sender {
 #if TEACHERSIDE
 #else
-    
+    AchieverListViewController * achiverVc = [[AchieverListViewController alloc] initWithNibName:NSStringFromClass([AchieverListViewController class]) bundle:nil];
+    [achiverVc setHidesBottomBarWhenPushed:YES];
+    [self.navigationController pushViewController:achiverVc animated:YES];
 #endif
     
 }
@@ -170,7 +179,9 @@
 - (IBAction)rightFuncClick:(id)sender {
 #if TEACHERSIDE
     //显示搜索
-    [FilterAlertView showInView:self.navigationController.view atFliterType:self.currentFliterType forBgViewOffset:64 withAtionBlock:^(NSInteger index) {
+    
+    CGFloat offset = isIPhoneX ? 88 : 64;
+    [FilterAlertView showInView:self.tabBarController.view atFliterType:self.currentFliterType forBgViewOffset:offset withAtionBlock:^(NSInteger index) {
         
     }];
     
@@ -196,6 +207,7 @@
         if (self.unfinishedClassesChildController == nil) {
             self.unfinishedClassesChildController = [[HomeworkSessionsViewController alloc] initWithNibName:NSStringFromClass([HomeworkSessionsViewController class]) bundle:nil];
             self.unfinishedClassesChildController.isUnfinished = YES;
+            self.finishedClassesChildController.bLoadConversion = YES;
             existed = NO;
         }
         
@@ -204,7 +216,7 @@
         if (self.finishedClassesChildController == nil) {
             self.finishedClassesChildController = [[HomeworkSessionsViewController alloc] initWithNibName:NSStringFromClass([HomeworkSessionsViewController class]) bundle:nil];
             self.finishedClassesChildController.isUnfinished = NO;
-            
+            self.finishedClassesChildController.bLoadConversion = NO;
             existed = NO;
         }
         
@@ -215,8 +227,8 @@
 #if TEACHERSIDE
         if (self.uncommitClassesChildController == nil) {
             self.uncommitClassesChildController = [[HomeworkSessionsViewController alloc] initWithNibName:NSStringFromClass([HomeworkSessionsViewController class]) bundle:nil];
-            self.finishedClassesChildController.isUnfinished = NO;
-            
+            self.uncommitClassesChildController.isUnfinished = YES;
+            self.uncommitClassesChildController.bLoadConversion = NO;
             existed = NO;
         }
         
@@ -260,6 +272,10 @@
 - (void)addContraintsWithX:(CGFloat)offsetX view:(UIView *)view superView:(UIView *)superView {
     view.translatesAutoresizingMaskIntoConstraints = NO;
     
+//    CGRect rect = superView.frame;
+//    rect.size.width = ScreenWidth * self.segmentControl.titles.count;
+//    superView.frame = rect;
+    
     NSLayoutConstraint *leadingConstraint = [NSLayoutConstraint constraintWithItem:view
                                                                          attribute:NSLayoutAttributeLeading
                                                                          relatedBy:NSLayoutRelationEqual
@@ -302,7 +318,7 @@
 - (void)updateSegmentControlWhenScrollEnded {
     [self.segmentControl setPersent:self.containerScrollView.contentOffset.x / ScreenWidth];
     
-    NSInteger index = MAX(0, ceil(2 * self.containerScrollView.contentOffset.x / ScreenWidth) - 1);
+    NSInteger index = MAX(0, ceil(self.segmentControl.titles.count * self.containerScrollView.contentOffset.x / ScreenWidth) - 1);
     [self indexDidChange:index];
 }
 
@@ -315,8 +331,8 @@
     if (self.ignoreScrollCallback) {
         return;
     }
-    
     CGFloat offsetX = scrollView.contentOffset.x;
+    
     NSUInteger leftIndex = (NSInteger)MAX(0, offsetX)/(NSInteger)(ScreenWidth);
     NSUInteger rightIndex = (NSInteger)MAX(0, offsetX+ScreenWidth)/(NSInteger)(ScreenWidth);
     

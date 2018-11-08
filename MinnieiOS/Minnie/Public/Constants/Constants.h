@@ -65,6 +65,9 @@ extern NSString * const kNotificationKeyOfExchangeAward; // 学生端请求兑�
 
 extern NSString * const kNotificationKeyOfSendNoticeMessage; // 教师端发送通知消息
 
+#pragma mark - 系统消息
+
+extern NSString * const kNotificationKeyOfTabBarDoubleClick;
 
 
 

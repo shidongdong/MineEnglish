@@ -50,7 +50,14 @@
     [self.homeworkSessions removeAllObjects];
     if (self.isUnfinished)
     {
-        [self.homeworkSessions addObjectsFromArray:APP.unfinishHomeworkSessionList];
+        if (self.bLoadConversion)
+        {
+            [self.homeworkSessions addObjectsFromArray:APP.unfinishHomeworkSessionList];
+        }
+        else
+        {
+            [self.homeworkSessions addObjectsFromArray:APP.unCommitHomeworkSessionList];
+        }
     }
     else
     {
@@ -90,13 +97,13 @@
                 NSString *text = nil;
                 
 #if TEACHERSIDE
-                if (self.bLoadConversion)
+                if (self.isUnfinished)
                 {
-                    text = self.isUnfinished?@"好棒！所有作业都批改完了！":@"还没有批改过的作业~";
+                    text = self.bLoadConversion? @"好棒！所有作业都批改完了！":@"还有没作业的提交~";
                 }
                 else
                 {
-                    text = @"还有没作业的提交~";
+                    text = @"还没有批改过的作业~";
                 }
 #else
                 text = self.isUnfinished?@"好棒！所有作业都完成了！\n去同学圈看看大家做得怎么样":@"还没有完成过作业";
@@ -140,7 +147,7 @@
 - (void)addNotificationObservers {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reloadForDoubleTabClick)
-                                                 name:@"TabbarDoubleClickNotify"
+                                                 name:kNotificationKeyOfTabBarDoubleClick
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -211,6 +218,11 @@
     if (!self.isUnfinished) {
         return;
     }
+    //不需要加载
+    if (!self.bLoadConversion)
+    {
+        return;
+    }
     
     NSString *userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
     [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success,  NSError * error) {
@@ -224,6 +236,11 @@
 
 - (void)loadConversations {
     if (!self.isUnfinished) {
+        return;
+    }
+
+    if (!self.bLoadConversion)
+    {
         return;
     }
     
@@ -340,6 +357,12 @@
         return;
     }
     
+    if (!self.bLoadConversion) {
+        self.shouldReloadWhenAppeard = YES;
+        
+        return;
+    }
+    
     HomeworkSession *session = notification.userInfo[@"HomeworkSession"];
     if (session == nil) {
         return;
@@ -382,6 +405,11 @@
 - (void)lastMessageDidChange:(NSNotification *)notification {
     if (!self.isUnfinished) {
         return ;
+    }
+    
+    if (!self.bLoadConversion)
+    {
+        return;
     }
     
     AVIMMessage *message = (AVIMMessage *)(notification.userInfo)[@"message"];
@@ -536,7 +564,7 @@
     }
     
     if (self.queriedConversations.count == 0 &&
-        self.isUnfinished &&
+        self.isUnfinished && self.bLoadConversion &&
         [IMManager sharedManager].client.status==AVIMClientStatusOpened) {
         [self loadConversations];
     }
@@ -656,7 +684,14 @@
             //把内容存起来
             if (self.isUnfinished)
             {
-                APP.unfinishHomeworkSessionList = self.homeworkSessions;
+                if (self.bLoadConversion)
+                {
+                    APP.unfinishHomeworkSessionList = self.homeworkSessions;
+                }
+                else
+                {
+                    APP.unCommitHomeworkSessionList = self.homeworkSessions;
+                }
             }
             else
             {

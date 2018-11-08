@@ -29,6 +29,7 @@
 #import "TeacherClassesViewController.h"
 #import "PortraitTabBarController.h"
 #import "CircleContainerController.h"
+#import "Constants.h"
 @interface AppDelegate ()<UITabBarControllerDelegate>
 
 @property (nonatomic, strong) NSDate *enterBackgroundDate;
@@ -274,7 +275,7 @@
         // 两次点击时间间隔少于 0.5S 视为一次双击
         if (timeInterval < 0.5) {
             // 通知首页刷新数据
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"TabbarDoubleClickNotify" object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfTabBarDoubleClick object:nil];
             
             // 双击之后将上次选中时间置为1970年0点0时0分0秒,用以避免连续三次或多次点击
             _lastSelectedDate = [NSDate dateWithTimeIntervalSince1970:0];

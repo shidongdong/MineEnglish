@@ -13,7 +13,7 @@ NSString * const StudentStarListTableViewCellId = @"StudentStarListTableViewCell
 
 @interface StudentStarListViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *mTableView;
-
+@property (nonatomic, strong) NSMutableArray * rankList;
 @end
 
 @implementation StudentStarListViewController
@@ -38,14 +38,16 @@ NSString * const StudentStarListTableViewCellId = @"StudentStarListTableViewCell
 - (void)requestStarList
 {
     [StudentAwardService requestStudentStarRankListWithCallback:^(Result *result, NSError *error) {
-        
+        if (error) {
+            
+        }
         
     }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return self.rankList.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -56,7 +58,20 @@ NSString * const StudentStarListTableViewCellId = @"StudentStarListTableViewCell
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     StudentStarListTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:StudentStarListTableViewCellId forIndexPath:indexPath];
+    
     return cell;
+}
+
+
+#pragma mark - getter
+
+- (NSMutableArray *)rankList
+{
+    if (!_rankList)
+    {
+        _rankList = [[NSMutableArray alloc] init];
+    }
+    return _rankList;
 }
 
 

@@ -15,6 +15,7 @@ static NSString * KeyOfLastLoginUsername = @"KeyOfLastLoginUsername";
 static NSString * KeyOfClassIdAlertShown = @"KeyOfClassIdAlertShown";
 static NSString * KeyOfUnfinishHomeWorkSession = @"KeyOfUnfinishHomeWorkSession";
 static NSString * KeyOfFinishHomeWorkSession = @"KeyOfFinishHomeWorkSession";
+static NSString * KeyOfUnCommitHomeWorkSession = @"KeyOfUnCommitHomeWorkSession";
 static NSString * KeyOfCircleList = @"KeyOfCircleList";
 @interface Application() {
 #if TEACHERSIDE
@@ -158,6 +159,25 @@ static NSString * KeyOfCircleList = @"KeyOfCircleList";
 - (NSArray *)finishHomeworkSessionList
 {
     NSData * data = [[NSUserDefaults standardUserDefaults] objectForKey:KeyOfFinishHomeWorkSession];
+    return [NSKeyedUnarchiver unarchiveObjectWithData:data];
+}
+
+
+//存首页未提交完成的内容
+- (void)setUnCommitHomeworkSessionList:(NSArray *)unCommitHomeworkSessionList
+{
+    
+    NSData * data = [NSKeyedArchiver archivedDataWithRootObject:unCommitHomeworkSessionList];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:data forKey:KeyOfUnCommitHomeWorkSession];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
+//取首页未提交的内容
+- (NSArray *)unCommitHomeworkSessionList
+{
+    NSData * data = [[NSUserDefaults standardUserDefaults] objectForKey:KeyOfUnCommitHomeWorkSession];
     return [NSKeyedUnarchiver unarchiveObjectWithData:data];
 }
 

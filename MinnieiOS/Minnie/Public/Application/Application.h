@@ -42,6 +42,8 @@
 
 @property (nonatomic, strong) NSArray * finishHomeworkSessionList;  //完成的作业
 
+@property (nonatomic, strong) NSArray * unCommitHomeworkSessionList;  //未提交的作业
+
 @property (nonatomic, strong) NSArray * circleList;  //朋友圈
 
 - (void)clearData;

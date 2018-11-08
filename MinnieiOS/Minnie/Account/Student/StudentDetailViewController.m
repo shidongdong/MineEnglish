@@ -9,22 +9,16 @@
 #import "StudentDetailViewController.h"
 #import "Utils.h"
 #import "UIView+Load.h"
-#import <SDWebImage/UIImageView+WebCache.h>
 #import "Student.h"
 #import "PublicService.h"
+#import "StudentDetailCell.h"
+#import "StudentDetailHeaderCell.h"
 
-@interface StudentDetailViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface StudentDetailViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITableViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic, weak) IBOutlet UIImageView *avatarImageView;
-@property (nonatomic, strong) UIImage *avatarImage;
-
-@property (nonatomic, weak) IBOutlet UIView *contentView;
-@property (nonatomic, weak) IBOutlet UITextField *nameTextField;
-@property (nonatomic, weak) IBOutlet UITextField *phoneNumberTextField;
-@property (nonatomic, weak) IBOutlet UITextField *classTextField;
-@property (nonatomic, weak) IBOutlet UITextField *genderTextField;
-@property (nonatomic, weak) IBOutlet UITextField *gradeTextField;
-@property (weak, nonatomic) IBOutlet UITextField *workTextField;
+@property (weak, nonatomic) IBOutlet UITableView *mTableView;
+@property (nonatomic, strong) NSArray * titleArray;
+@property (nonatomic, strong) Student * user;
 
 @property (nonatomic, strong) BaseRequest *request;
 
@@ -35,15 +29,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.avatarImageView.layer.cornerRadius = 40.f;
-    self.avatarImageView.layer.masksToBounds = YES;
+    self.titleArray = @[@"姓名:",@"电话号码:",@"班级:",@"性别:",@"年级",@"作业完成率:",@"该学生未完成的任务:"];
+    
+    [self registerNibCell];
     
     [self requestUserInfo];
 }
 
+- (void)registerNibCell
+{
+    [self.mTableView registerNib:[UINib nibWithNibName:@"StudentDetailCell" bundle:nil] forCellReuseIdentifier:StudentDetailCellId];
+    
+    [self.mTableView registerNib:[UINib nibWithNibName:@"StudentDetailHeaderCell" bundle:nil] forCellReuseIdentifier:StudentDetailHeaderCellId];
+    
+}
+
 - (void)requestUserInfo {
     [self.view showLoadingView];
-    self.contentView.hidden = YES;
+    self.mTableView.hidden = YES;
     
     WeakifySelf;
     self.request = [PublicService requestStudentInfoWithId:self.userId
@@ -54,46 +57,11 @@
                                                       if (error == nil) {
                                                           [strongSelf.view hideAllStateView];
                                                           
-                                                          strongSelf.contentView.hidden = NO;
+                                                          strongSelf.mTableView.hidden = NO;
                                                           
-                                                          Student *user = (Student *)(result.userInfo);
+                                                          strongSelf.user = (Student *)(result.userInfo);
                                                           
-                                                          if (user.avatarUrl != nil) {
-                                                              [strongSelf.avatarImageView sd_setImageWithURL:[user.avatarUrl imageURLWithWidth:80.f]];
-                                                          }
-                                                          
-                                                          strongSelf.phoneNumberTextField.text = user.username;
-                                                          
-                                                          if ([user.nickname isEqual:user.username] || user.nickname.length==0) {
-                                                              strongSelf.nameTextField.text = nil;
-                                                          } else {
-                                                              strongSelf.nameTextField.text = user.nickname;
-                                                          }
-                                                          
-                                                          strongSelf.classTextField.text = user.clazz.name;
-                                                          
-                                                          if (user.gender == 1) {
-                                                              strongSelf.genderTextField.text = @"男";
-                                                          } else if (user.gender == -1) {
-                                                              strongSelf.genderTextField.text = @"女";
-                                                          } else {
-                                                              strongSelf.genderTextField.text = @"保密";
-                                                          }
-                                                          
-                                                          strongSelf.gradeTextField.text = user.grade;
-                                                          
-                                                          
-                                                          NSUInteger unfinshed = [user.homeworks[0] unsignedIntegerValue];
-                                                          NSUInteger passed = [user.homeworks[1] unsignedIntegerValue];
-                                                          NSUInteger goodJob = [user.homeworks[2] unsignedIntegerValue];
-                                                          NSUInteger veryNice = [user.homeworks[3] unsignedIntegerValue];
-                                                          NSUInteger great = [user.homeworks[4] unsignedIntegerValue];
-                                                          NSUInteger perfect = [user.homeworks[5] unsignedIntegerValue];
-                                                          NSUInteger hardworking = [user.homeworks[6] unsignedIntegerValue];
-                                                          
-                                                          NSUInteger totalCount = unfinshed + passed + goodJob + veryNice + great + perfect + hardworking;
-                                                          
-                                                          strongSelf.workTextField.text = [NSString stringWithFormat:@"%ld/%ld",totalCount - unfinshed ,totalCount];
+                                                          [strongSelf.mTableView reloadData];
                                                           
                                                       } else {
                                                           [strongSelf.view showFailureViewWithRetryCallback:^{
@@ -101,6 +69,93 @@
                                                           }];
                                                       }
                                                   }];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 8;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0)
+    {
+        return 140;
+    }
+    else if (indexPath.row == 7)
+    {
+        return 64.0;
+    }
+    else
+    {
+        return 100.0;
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0)
+    {
+        StudentDetailHeaderCell * cell = [tableView dequeueReusableCellWithIdentifier:StudentDetailHeaderCellId forIndexPath:indexPath];
+        [cell setHeaderURL:self.user.avatarUrl];
+        return cell;
+    }
+    else
+    {
+        NSString * content;
+        StudentDetailCell * cell = [tableView dequeueReusableCellWithIdentifier:StudentDetailCellId forIndexPath:indexPath];
+        if (indexPath.row == 1)
+        {
+            if ([self.user.nickname isEqual:self.user.username] || self.user.nickname.length==0) {
+                content = nil;
+            } else {
+                content = self.user.nickname;
+            }
+        }
+        else if (indexPath.row == 2)
+        {
+            content = self.user.username;
+        }
+        else if (indexPath.row == 3)
+        {
+            content = self.user.clazz.name;
+        }
+        else if (indexPath.row == 4)
+        {
+            if (self.user.gender == 1) {
+                content = @"男";
+            } else if (self.user.gender == -1) {
+                content = @"女";
+            } else {
+                content = @"保密";
+            }
+        }
+        else if (indexPath.row == 5)
+        {
+            content = self.user.grade;
+        }
+        else if (indexPath.row == 6)
+        {
+            NSUInteger unfinshed = [self.user.homeworks[0] unsignedIntegerValue];
+            NSUInteger passed = [self.user.homeworks[1] unsignedIntegerValue];
+            NSUInteger goodJob = [self.user.homeworks[2] unsignedIntegerValue];
+            NSUInteger veryNice = [self.user.homeworks[3] unsignedIntegerValue];
+            NSUInteger great = [self.user.homeworks[4] unsignedIntegerValue];
+            NSUInteger perfect = [self.user.homeworks[5] unsignedIntegerValue];
+            NSUInteger hardworking = [self.user.homeworks[6] unsignedIntegerValue];
+            
+            NSUInteger totalCount = unfinshed + passed + goodJob + veryNice + great + perfect + hardworking;
+            
+            content = [NSString stringWithFormat:@"%ld/%ld",totalCount - unfinshed ,totalCount];
+        }
+        else
+        {
+            
+        }
+        [cell setCellTitle:[self.titleArray objectAtIndex:indexPath.row - 1] withContent:content];
+        return cell;
+    }
+    
 }
 
 - (void)dealloc {

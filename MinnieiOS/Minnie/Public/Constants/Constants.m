@@ -65,3 +65,5 @@ NSString * const kNotificationKeyOfExchangeAward = @"kNotificationKeyOfExchangeA
 
 NSString * const kNotificationKeyOfSendNoticeMessage = @"kNotificationKeyOfSendNoticeMessage"; // 教师端发送通知消息
 
+#pragma mark - 系统相关
+NSString * const kNotificationKeyOfTabBarDoubleClick = @"kNotificationKeyOfTabBarDoubleClick"; //双击Tabbar

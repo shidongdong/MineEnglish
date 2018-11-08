@@ -28,10 +28,12 @@
                                                           owner:nil
                                                         options:nil] lastObject];
     
+    alertView.bgViewTopConstraint.constant = offset;
+    
     alertView.defultIndex = index;
     alertView.actionCallback = block;
     [superView addSubview:alertView];
-    
+    [FilterAlertView addConstraintsWithAlertView:alertView inSuperView:superView];
     [alertView showWithAnimation];
     return alertView;
 }
@@ -63,6 +65,42 @@
             [self removeFromSuperview];
         }];
     });
+}
+
++ (void)addConstraintsWithAlertView:(FilterAlertView *)alertView inSuperView:(UIView *)superView {
+    alertView.translatesAutoresizingMaskIntoConstraints = NO;
+    NSLayoutConstraint *leadingConstraint = [NSLayoutConstraint constraintWithItem:alertView
+                                                                         attribute:NSLayoutAttributeLeading
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:superView
+                                                                         attribute:NSLayoutAttributeLeading
+                                                                        multiplier:1
+                                                                          constant:0];
+    
+    NSLayoutConstraint *trailingConstraint = [NSLayoutConstraint constraintWithItem:alertView
+                                                                          attribute:NSLayoutAttributeTrailing
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:superView
+                                                                          attribute:NSLayoutAttributeTrailing
+                                                                         multiplier:1
+                                                                           constant:0];
+    
+    NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:alertView
+                                                                     attribute:NSLayoutAttributeTop
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:superView
+                                                                     attribute:NSLayoutAttributeTop
+                                                                    multiplier:1
+                                                                      constant:0];
+    
+    NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:alertView
+                                                                        attribute:NSLayoutAttributeBottom
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:superView
+                                                                        attribute:NSLayoutAttributeBottom
+                                                                       multiplier:1
+                                                                         constant:0];
+    [superView addConstraints:@[leadingConstraint, trailingConstraint, topConstraint, bottomConstraint]];
 }
 
 

@@ -64,6 +64,40 @@
 		875C262D218ADBC20047E32A /* FilterAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 875C262B218ADBC20047E32A /* FilterAlertView.xib */; };
 		879CE511218BF47700BBE4B7 /* FileProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 879CE510218BF47600BBE4B7 /* FileProvider.framework */; };
 		879CE513218BF47E00BBE4B7 /* FileProviderUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 879CE512218BF47E00BBE4B7 /* FileProviderUI.framework */; };
+		879CE51821905D0300BBE4B7 /* AchieverListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE51621905D0300BBE4B7 /* AchieverListViewController.m */; };
+		879CE51921905D0300BBE4B7 /* AchieverListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE51621905D0300BBE4B7 /* AchieverListViewController.m */; };
+		879CE51A21905D0300BBE4B7 /* AchieverListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879CE51721905D0300BBE4B7 /* AchieverListViewController.xib */; };
+		879CE51B21905D0300BBE4B7 /* AchieverListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879CE51721905D0300BBE4B7 /* AchieverListViewController.xib */; };
+		879CE52021905F7100BBE4B7 /* AchieverListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE51E21905F7100BBE4B7 /* AchieverListCollectionViewCell.m */; };
+		879CE52121905F7100BBE4B7 /* AchieverListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE51E21905F7100BBE4B7 /* AchieverListCollectionViewCell.m */; };
+		879CE52221905F7100BBE4B7 /* AchieverListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879CE51F21905F7100BBE4B7 /* AchieverListCollectionViewCell.xib */; };
+		879CE52321905F7100BBE4B7 /* AchieverListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879CE51F21905F7100BBE4B7 /* AchieverListCollectionViewCell.xib */; };
+		879CE52721913DD000BBE4B7 /* AchieverListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE52521913DD000BBE4B7 /* AchieverListHeaderView.m */; };
+		879CE52821913DD000BBE4B7 /* AchieverListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE52521913DD000BBE4B7 /* AchieverListHeaderView.m */; };
+		879CE52921913DD000BBE4B7 /* AchieverListHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879CE52621913DD000BBE4B7 /* AchieverListHeaderView.xib */; };
+		879CE52A21913DD000BBE4B7 /* AchieverListHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879CE52621913DD000BBE4B7 /* AchieverListHeaderView.xib */; };
+		879CE52F2191725800BBE4B7 /* AchieverService.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE52E2191725800BBE4B7 /* AchieverService.m */; };
+		879CE5302191725800BBE4B7 /* AchieverService.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE52E2191725800BBE4B7 /* AchieverService.m */; };
+		879CE533219174FE00BBE4B7 /* AchieverNoticeFlagRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE532219174FE00BBE4B7 /* AchieverNoticeFlagRequest.m */; };
+		879CE534219174FE00BBE4B7 /* AchieverNoticeFlagRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE532219174FE00BBE4B7 /* AchieverNoticeFlagRequest.m */; };
+		879CE5372191752700BBE4B7 /* AchieverMedalDetailRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE5362191752700BBE4B7 /* AchieverMedalDetailRequest.m */; };
+		879CE5382191752700BBE4B7 /* AchieverMedalDetailRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE5362191752700BBE4B7 /* AchieverMedalDetailRequest.m */; };
+		879CE53C2191777F00BBE4B7 /* UserMedalDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE53B2191777F00BBE4B7 /* UserMedalDto.m */; };
+		879CE53D2191777F00BBE4B7 /* UserMedalDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE53B2191777F00BBE4B7 /* UserMedalDto.m */; };
+		879CE54021917A9A00BBE4B7 /* MedalFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE53F21917A9A00BBE4B7 /* MedalFlag.m */; };
+		879CE54121917A9A00BBE4B7 /* MedalFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE53F21917A9A00BBE4B7 /* MedalFlag.m */; };
+		879CE54421917CF900BBE4B7 /* AchieverUpdateFlagRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE54321917CF900BBE4B7 /* AchieverUpdateFlagRequest.m */; };
+		879CE54521917CF900BBE4B7 /* AchieverUpdateFlagRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE54321917CF900BBE4B7 /* AchieverUpdateFlagRequest.m */; };
+		879CE54821917FC000BBE4B7 /* AchieverUpdateMedalDetailRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE54721917FC000BBE4B7 /* AchieverUpdateMedalDetailRequest.m */; };
+		879CE54921917FC000BBE4B7 /* AchieverUpdateMedalDetailRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE54721917FC000BBE4B7 /* AchieverUpdateMedalDetailRequest.m */; };
+		87AF73002193D164003E87F0 /* StudentDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AF72FE2193D164003E87F0 /* StudentDetailCell.m */; };
+		87AF73012193D164003E87F0 /* StudentDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AF72FE2193D164003E87F0 /* StudentDetailCell.m */; };
+		87AF73022193D164003E87F0 /* StudentDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87AF72FF2193D164003E87F0 /* StudentDetailCell.xib */; };
+		87AF73032193D164003E87F0 /* StudentDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87AF72FF2193D164003E87F0 /* StudentDetailCell.xib */; };
+		87AF73072193D17F003E87F0 /* StudentDetailHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AF73052193D17F003E87F0 /* StudentDetailHeaderCell.m */; };
+		87AF73082193D17F003E87F0 /* StudentDetailHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AF73052193D17F003E87F0 /* StudentDetailHeaderCell.m */; };
+		87AF73092193D17F003E87F0 /* StudentDetailHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87AF73062193D17F003E87F0 /* StudentDetailHeaderCell.xib */; };
+		87AF730A2193D17F003E87F0 /* StudentDetailHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87AF73062193D17F003E87F0 /* StudentDetailHeaderCell.xib */; };
 		87C52FA92164AC3E004288F4 /* WBGDrawTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 87C52FA82164AC3E004288F4 /* WBGDrawTool.m */; };
 		87C52FAD2164AC47004288F4 /* WBGImageEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87C52FAA2164AC47004288F4 /* WBGImageEditorViewController.m */; };
 		87C52FAE2164AC47004288F4 /* WBGImageEditorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87C52FAB2164AC47004288F4 /* WBGImageEditorViewController.xib */; };
@@ -81,6 +115,10 @@
 		87CF0348218818FD00B6F574 /* StudentAwardService.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EC5207A7C1600568785 /* StudentAwardService.m */; };
 		87CF03492188191800B6F574 /* ExchangeRecordsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EC8207A7C1600568785 /* ExchangeRecordsRequest.m */; };
 		87CF034A2188193100B6F574 /* ExchangeAwardRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EC9207A7C1600568785 /* ExchangeAwardRequest.m */; };
+		87EED4A4219443E400AEA974 /* ChooseDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EED4A1219443E200AEA974 /* ChooseDatePickerView.m */; };
+		87EED4A5219443E400AEA974 /* ChooseDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EED4A1219443E200AEA974 /* ChooseDatePickerView.m */; };
+		87EED4A6219443E400AEA974 /* ChooseDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87EED4A2219443E200AEA974 /* ChooseDatePickerView.xib */; };
+		87EED4A7219443E400AEA974 /* ChooseDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87EED4A2219443E200AEA974 /* ChooseDatePickerView.xib */; };
 		87FDFBC1214B6764006E987C /* AppVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 87FDFBC0214B6764006E987C /* AppVersion.m */; };
 		87FDFBC2214B6769006E987C /* AppVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 87FDFBC0214B6764006E987C /* AppVersion.m */; };
 		97102DDB20F3AC0F0048983E /* message_send_error@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97102DDA20F3AC0E0048983E /* message_send_error@3x.png */; };
@@ -1274,6 +1312,35 @@
 		875C262B218ADBC20047E32A /* FilterAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterAlertView.xib; sourceTree = "<group>"; };
 		879CE510218BF47600BBE4B7 /* FileProvider.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FileProvider.framework; path = System/Library/Frameworks/FileProvider.framework; sourceTree = SDKROOT; };
 		879CE512218BF47E00BBE4B7 /* FileProviderUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FileProviderUI.framework; path = System/Library/Frameworks/FileProviderUI.framework; sourceTree = SDKROOT; };
+		879CE51521905D0300BBE4B7 /* AchieverListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AchieverListViewController.h; sourceTree = "<group>"; };
+		879CE51621905D0300BBE4B7 /* AchieverListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AchieverListViewController.m; sourceTree = "<group>"; };
+		879CE51721905D0300BBE4B7 /* AchieverListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AchieverListViewController.xib; sourceTree = "<group>"; };
+		879CE51D21905F7100BBE4B7 /* AchieverListCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AchieverListCollectionViewCell.h; sourceTree = "<group>"; };
+		879CE51E21905F7100BBE4B7 /* AchieverListCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AchieverListCollectionViewCell.m; sourceTree = "<group>"; };
+		879CE51F21905F7100BBE4B7 /* AchieverListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AchieverListCollectionViewCell.xib; sourceTree = "<group>"; };
+		879CE52421913DD000BBE4B7 /* AchieverListHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AchieverListHeaderView.h; sourceTree = "<group>"; };
+		879CE52521913DD000BBE4B7 /* AchieverListHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AchieverListHeaderView.m; sourceTree = "<group>"; };
+		879CE52621913DD000BBE4B7 /* AchieverListHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AchieverListHeaderView.xib; sourceTree = "<group>"; };
+		879CE52D2191725800BBE4B7 /* AchieverService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AchieverService.h; sourceTree = "<group>"; };
+		879CE52E2191725800BBE4B7 /* AchieverService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AchieverService.m; sourceTree = "<group>"; };
+		879CE531219174FE00BBE4B7 /* AchieverNoticeFlagRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AchieverNoticeFlagRequest.h; sourceTree = "<group>"; };
+		879CE532219174FE00BBE4B7 /* AchieverNoticeFlagRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AchieverNoticeFlagRequest.m; sourceTree = "<group>"; };
+		879CE5352191752700BBE4B7 /* AchieverMedalDetailRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AchieverMedalDetailRequest.h; sourceTree = "<group>"; };
+		879CE5362191752700BBE4B7 /* AchieverMedalDetailRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AchieverMedalDetailRequest.m; sourceTree = "<group>"; };
+		879CE53A2191777F00BBE4B7 /* UserMedalDto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserMedalDto.h; sourceTree = "<group>"; };
+		879CE53B2191777F00BBE4B7 /* UserMedalDto.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserMedalDto.m; sourceTree = "<group>"; };
+		879CE53E21917A9A00BBE4B7 /* MedalFlag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MedalFlag.h; sourceTree = "<group>"; };
+		879CE53F21917A9A00BBE4B7 /* MedalFlag.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedalFlag.m; sourceTree = "<group>"; };
+		879CE54221917CF900BBE4B7 /* AchieverUpdateFlagRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AchieverUpdateFlagRequest.h; sourceTree = "<group>"; };
+		879CE54321917CF900BBE4B7 /* AchieverUpdateFlagRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AchieverUpdateFlagRequest.m; sourceTree = "<group>"; };
+		879CE54621917FC000BBE4B7 /* AchieverUpdateMedalDetailRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AchieverUpdateMedalDetailRequest.h; sourceTree = "<group>"; };
+		879CE54721917FC000BBE4B7 /* AchieverUpdateMedalDetailRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AchieverUpdateMedalDetailRequest.m; sourceTree = "<group>"; };
+		87AF72FD2193D164003E87F0 /* StudentDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudentDetailCell.h; sourceTree = "<group>"; };
+		87AF72FE2193D164003E87F0 /* StudentDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudentDetailCell.m; sourceTree = "<group>"; };
+		87AF72FF2193D164003E87F0 /* StudentDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StudentDetailCell.xib; sourceTree = "<group>"; };
+		87AF73042193D17F003E87F0 /* StudentDetailHeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudentDetailHeaderCell.h; sourceTree = "<group>"; };
+		87AF73052193D17F003E87F0 /* StudentDetailHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudentDetailHeaderCell.m; sourceTree = "<group>"; };
+		87AF73062193D17F003E87F0 /* StudentDetailHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StudentDetailHeaderCell.xib; sourceTree = "<group>"; };
 		87C52FA72164AC3E004288F4 /* WBGDrawTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBGDrawTool.h; sourceTree = "<group>"; };
 		87C52FA82164AC3E004288F4 /* WBGDrawTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBGDrawTool.m; sourceTree = "<group>"; };
 		87C52FAA2164AC47004288F4 /* WBGImageEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBGImageEditorViewController.m; sourceTree = "<group>"; };
@@ -1285,6 +1352,9 @@
 		87C52FB42164AC59004288F4 /* WBGImageToolBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBGImageToolBase.m; sourceTree = "<group>"; };
 		87C52FBA2164FA58004288F4 /* corretHome_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "corretHome_select@2x.png"; sourceTree = "<group>"; };
 		87C52FBB2164FA58004288F4 /* corretHome_unselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "corretHome_unselect@2x.png"; sourceTree = "<group>"; };
+		87EED4A1219443E200AEA974 /* ChooseDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseDatePickerView.m; sourceTree = "<group>"; };
+		87EED4A2219443E200AEA974 /* ChooseDatePickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChooseDatePickerView.xib; sourceTree = "<group>"; };
+		87EED4A3219443E300AEA974 /* ChooseDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseDatePickerView.h; sourceTree = "<group>"; };
 		87FDFBBF214B6764006E987C /* AppVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppVersion.h; sourceTree = "<group>"; };
 		87FDFBC0214B6764006E987C /* AppVersion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppVersion.m; sourceTree = "<group>"; };
 		97102DDA20F3AC0E0048983E /* message_send_error@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message_send_error@3x.png"; sourceTree = "<group>"; };
@@ -2258,6 +2328,81 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		879CE51421905C4C00BBE4B7 /* Achiever */ = {
+			isa = PBXGroup;
+			children = (
+				879CE52B21916A7000BBE4B7 /* Service */,
+				879CE51C21905EFB00BBE4B7 /* View */,
+				879CE51521905D0300BBE4B7 /* AchieverListViewController.h */,
+				879CE51621905D0300BBE4B7 /* AchieverListViewController.m */,
+				879CE51721905D0300BBE4B7 /* AchieverListViewController.xib */,
+			);
+			path = Achiever;
+			sourceTree = "<group>";
+		};
+		879CE51C21905EFB00BBE4B7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				879CE51D21905F7100BBE4B7 /* AchieverListCollectionViewCell.h */,
+				879CE51E21905F7100BBE4B7 /* AchieverListCollectionViewCell.m */,
+				879CE51F21905F7100BBE4B7 /* AchieverListCollectionViewCell.xib */,
+				879CE52421913DD000BBE4B7 /* AchieverListHeaderView.h */,
+				879CE52521913DD000BBE4B7 /* AchieverListHeaderView.m */,
+				879CE52621913DD000BBE4B7 /* AchieverListHeaderView.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		879CE52B21916A7000BBE4B7 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				879CE5392191774D00BBE4B7 /* Model */,
+				879CE52C21916A7000BBE4B7 /* Request */,
+				879CE52D2191725800BBE4B7 /* AchieverService.h */,
+				879CE52E2191725800BBE4B7 /* AchieverService.m */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		879CE52C21916A7000BBE4B7 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				879CE531219174FE00BBE4B7 /* AchieverNoticeFlagRequest.h */,
+				879CE532219174FE00BBE4B7 /* AchieverNoticeFlagRequest.m */,
+				879CE5352191752700BBE4B7 /* AchieverMedalDetailRequest.h */,
+				879CE5362191752700BBE4B7 /* AchieverMedalDetailRequest.m */,
+				879CE54221917CF900BBE4B7 /* AchieverUpdateFlagRequest.h */,
+				879CE54321917CF900BBE4B7 /* AchieverUpdateFlagRequest.m */,
+				879CE54621917FC000BBE4B7 /* AchieverUpdateMedalDetailRequest.h */,
+				879CE54721917FC000BBE4B7 /* AchieverUpdateMedalDetailRequest.m */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		879CE5392191774D00BBE4B7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				879CE53A2191777F00BBE4B7 /* UserMedalDto.h */,
+				879CE53B2191777F00BBE4B7 /* UserMedalDto.m */,
+				879CE53E21917A9A00BBE4B7 /* MedalFlag.h */,
+				879CE53F21917A9A00BBE4B7 /* MedalFlag.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		87AF72FC2193D101003E87F0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				87AF72FD2193D164003E87F0 /* StudentDetailCell.h */,
+				87AF72FE2193D164003E87F0 /* StudentDetailCell.m */,
+				87AF72FF2193D164003E87F0 /* StudentDetailCell.xib */,
+				87AF73042193D17F003E87F0 /* StudentDetailHeaderCell.h */,
+				87AF73052193D17F003E87F0 /* StudentDetailHeaderCell.m */,
+				87AF73062193D17F003E87F0 /* StudentDetailHeaderCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		87C52F982164AB3E004288F4 /* NewImageEdit */ = {
 			isa = PBXGroup;
 			children = (
@@ -2298,6 +2443,7 @@
 		97108DFF2079F54900568785 /* Minnie */ = {
 			isa = PBXGroup;
 			children = (
+				879CE51421905C4C00BBE4B7 /* Achiever */,
 				979BBD42207FB1F800359253 /* TrialClass */,
 				97109C52207A2EC900568785 /* Auth */,
 				971099D7207A158B00568785 /* Task */,
@@ -3911,6 +4057,9 @@
 		9736495020AF2F8500511A95 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				87EED4A3219443E300AEA974 /* ChooseDatePickerView.h */,
+				87EED4A1219443E200AEA974 /* ChooseDatePickerView.m */,
+				87EED4A2219443E200AEA974 /* ChooseDatePickerView.xib */,
 				9736495620AF2F8500511A95 /* HomeworkAddTableViewCell.h */,
 				9736496020AF2F8500511A95 /* HomeworkAddTableViewCell.m */,
 				9736495220AF2F8500511A95 /* HomeworkAddTableViewCell.xib */,
@@ -4120,6 +4269,7 @@
 		97364A0420B122E100511A95 /* Student */ = {
 			isa = PBXGroup;
 			children = (
+				87AF72FC2193D101003E87F0 /* View */,
 				97364A0620B1231E00511A95 /* StudentDetailViewController.h */,
 				97364A0720B1231E00511A95 /* StudentDetailViewController.m */,
 				97364A0520B1231D00511A95 /* StudentDetailViewController.xib */,
@@ -4288,6 +4438,7 @@
 			files = (
 				971096BF207A006D00568785 /* login_img_logo@3x.png in Resources */,
 				97109767207A006D00568785 /* gray_corner_bg@2x.png in Resources */,
+				879CE52921913DD000BBE4B7 /* AchieverListHeaderView.xib in Resources */,
 				971097D9207A006D00568785 /* btn_play@2x.png in Resources */,
 				870286912184113F00559195 /* navbar_search@3x.png in Resources */,
 				97109900207A0BF500568785 /* WebViewController.xib in Resources */,
@@ -4318,6 +4469,7 @@
 				979BBD48207FB23300359253 /* TrialClassViewController.xib in Resources */,
 				97109C76207A2EC900568785 /* InputPhoneNumberViewController.xib in Resources */,
 				870286772182F06C00559195 /* StudentStarListTableViewCell.xib in Resources */,
+				87AF73092193D17F003E87F0 /* StudentDetailHeaderCell.xib in Resources */,
 				97109823207A006D00568785 /* buttonbar_class_unsel@3x.png in Resources */,
 				97109831207A006D00568785 /* chat_talk2@3x.png in Resources */,
 				9710972D207A006D00568785 /* ic_class_yellow@2x.png in Resources */,
@@ -4428,6 +4580,7 @@
 				97109D47207A2F0400568785 /* CommentMessagesViewController.xib in Resources */,
 				97109741207A006D00568785 /* input_photo@3x.png in Resources */,
 				97109C32207A2E3E00568785 /* CircleViewController.xib in Resources */,
+				879CE52221905F7100BBE4B7 /* AchieverListCollectionViewCell.xib in Resources */,
 				97109803207A006D00568785 /* buttonbar_mission_active@2x.png in Resources */,
 				9710969B207A006D00568785 /* 加载动画04@3x.png in Resources */,
 				97109813207A006D00568785 /* my_ic_medal_prefect@2x.png in Resources */,
@@ -4591,11 +4744,13 @@
 				97109745207A006D00568785 /* white_bottom_corner_bg@3x.png in Resources */,
 				97109A66207A158C00568785 /* LeftAudioMessageTableViewCell.xib in Resources */,
 				971098E4207A0BF500568785 /* 笑哭.png in Resources */,
+				879CE51A21905D0300BBE4B7 /* AchieverListViewController.xib in Resources */,
 				8702869A218436F600559195 /* HomeWorkSendHistoryViewController.xib in Resources */,
 				97109785207A006D00568785 /* pop_img_stars@2x.png in Resources */,
 				9710982D207A006D00568785 /* right_chat_talk2@3x.png in Resources */,
 				97109731207A006D00568785 /* label_ic_eye_hide@3x.png in Resources */,
 				97109DFE207A659700568785 /* StudentAccountViewController.xib in Resources */,
+				87AF73022193D164003E87F0 /* StudentDetailCell.xib in Resources */,
 				97109789207A006D00568785 /* white_top_corner_bg@3x.png in Resources */,
 				971097BF207A006D00568785 /* chat_talk2@2x.png in Resources */,
 				9710981D207A006D00568785 /* icon_talk@3x.png in Resources */,
@@ -4611,6 +4766,7 @@
 				971097EF207A006D00568785 /* white_corner_bg@2x.png in Resources */,
 				97109C4A207A2E3E00568785 /* CircleCommentTableViewCell.xib in Resources */,
 				9710974D207A006D00568785 /* icon_like_small@2x.png in Resources */,
+				87EED4A6219443E400AEA974 /* ChooseDatePickerView.xib in Resources */,
 				97102DDB20F3AC0F0048983E /* message_send_error@3x.png in Resources */,
 				97109709207A006D00568785 /* right_chat_talk3@3x.png in Resources */,
 				971096DF207A006D00568785 /* 语音动画01@2x.png in Resources */,
@@ -4726,6 +4882,7 @@
 				971097CE207A006D00568785 /* 对话框_白色@2x.png in Resources */,
 				971096EA207A006D00568785 /* ic_class_red@3x.png in Resources */,
 				971096E4207A006D00568785 /* 语音动画03@2x.png in Resources */,
+				879CE52A21913DD000BBE4B7 /* AchieverListHeaderView.xib in Resources */,
 				971097B6207A006D00568785 /* btn_mission_send@2x.png in Resources */,
 				971096F8207A006D00568785 /* my_reward_stars@3x.png in Resources */,
 				971096C8207A006D00568785 /* my_img_同学圈@3x.png in Resources */,
@@ -4850,6 +5007,7 @@
 				97109678207A006D00568785 /* ic_Subtract_small@2x.png in Resources */,
 				97109BCF207A1D5000568785 /* CalendarHeaderView.xib in Resources */,
 				9710981A207A006D00568785 /* btn_play@3x.png in Resources */,
+				87EED4A7219443E400AEA974 /* ChooseDatePickerView.xib in Resources */,
 				971096D6207A006D00568785 /* navbar_close@2x.png in Resources */,
 				97109710207A006D00568785 /* icon_Voice@2x.png in Resources */,
 				971096B8207A006D00568785 /* label_eye_display@2x.png in Resources */,
@@ -4871,6 +5029,7 @@
 				870286842184100200559195 /* navbar_medal@2x.png in Resources */,
 				97109C77207A2EC900568785 /* InputPhoneNumberViewController.xib in Resources */,
 				971096BA207A006D00568785 /* icon_cancel@3x.png in Resources */,
+				87AF73032193D164003E87F0 /* StudentDetailCell.xib in Resources */,
 				971097FC207A006D00568785 /* add_image_bg@3x.png in Resources */,
 				97109690207A006D00568785 /* 加载动画05@3x.png in Resources */,
 				97109808207A006D00568785 /* gray_bottom_corner_bg@3x.png in Resources */,
@@ -4933,6 +5092,7 @@
 				971098E1207A0BF500568785 /* 不错.png in Resources */,
 				97109D46207A2F0400568785 /* MessageEditorViewController.xib in Resources */,
 				9710968E207A006D00568785 /* icon_drop_small@2x.png in Resources */,
+				879CE51B21905D0300BBE4B7 /* AchieverListViewController.xib in Resources */,
 				971097C4207A006D00568785 /* buttonbar_class_manager_active@3x.png in Resources */,
 				870286922184113F00559195 /* navbar_search@3x.png in Resources */,
 				9710967C207A006D00568785 /* my_ic_medal_nice@3x.png in Resources */,
@@ -4973,6 +5133,7 @@
 				971096BC207A006D00568785 /* white_bottom_corner_bg@2x.png in Resources */,
 				9710992D207A0BF600568785 /* hud_ic_loading@2x.png in Resources */,
 				971097EC207A006D00568785 /* gray_bottom_corner_bg@2x.png in Resources */,
+				87AF730A2193D17F003E87F0 /* StudentDetailHeaderCell.xib in Resources */,
 				97109740207A006D00568785 /* icon_warning@3x.png in Resources */,
 				97109D70207A2F0400568785 /* NoticeMessageDetailViewController.xib in Resources */,
 				9736494020AF2A5400511A95 /* AccountManageTableViewCell.xib in Resources */,
@@ -5002,6 +5163,7 @@
 				97109927207A0BF600568785 /* SegmentControl.xib in Resources */,
 				97109676207A006D00568785 /* ic_manager_teacher@2x.png in Resources */,
 				97109746207A006D00568785 /* white_bottom_corner_bg@3x.png in Resources */,
+				879CE52321905F7100BBE4B7 /* AchieverListCollectionViewCell.xib in Resources */,
 				97109A67207A158C00568785 /* LeftAudioMessageTableViewCell.xib in Resources */,
 				973649E620AF2F8600511A95 /* SelectTeacherView.xib in Resources */,
 				973649C520AF2F8600511A95 /* HomeworkAudioTableViewCell.xib in Resources */,
@@ -5264,6 +5426,7 @@
 				97109A38207A158C00568785 /* HomeworkSessionsRequest.m in Sources */,
 				97109912207A0BF500568785 /* ProgressHUD.m in Sources */,
 				97109D53207A2F0400568785 /* CommentMessagesRequest.m in Sources */,
+				87AF73072193D17F003E87F0 /* StudentDetailHeaderCell.m in Sources */,
 				97109D59207A2F0400568785 /* NoticeMessagesRequest.m in Sources */,
 				97109E15207A6A9B00568785 /* MyClassService.m in Sources */,
 				97109904207A0BF500568785 /* RecordButton.m in Sources */,
@@ -5272,6 +5435,7 @@
 				97109C16207A2E3E00568785 /* CircleHomeworksViewController.m in Sources */,
 				97109C50207A2E3E00568785 /* CircleBottomTableViewCell.m in Sources */,
 				97109EDA207A7C1600568785 /* StudentAwardService.m in Sources */,
+				87AF73002193D164003E87F0 /* StudentDetailCell.m in Sources */,
 				97109A5A207A158C00568785 /* AudioRecordingView.m in Sources */,
 				97109D3B207A2F0400568785 /* NoticeMessagesViewController.m in Sources */,
 				97364A1A20B1704900511A95 /* MessageUpdateCountRequest.m in Sources */,
@@ -5299,6 +5463,7 @@
 				97109A32207A158C00568785 /* CommitHomeworkRequest.m in Sources */,
 				97109C3E207A2E3E00568785 /* CircleMoreCommentsTableViewCell.m in Sources */,
 				97109C2C207A2E3E00568785 /* CircleHomeworksRequest.m in Sources */,
+				879CE51821905D0300BBE4B7 /* AchieverListViewController.m in Sources */,
 				97109C2E207A2E3E00568785 /* DeleteHomeworkCommentRequest.m in Sources */,
 				97109E92207A7BDD00568785 /* ExchangeRecord.m in Sources */,
 				97109A28207A158C00568785 /* HomeworkSessionTableViewCell.m in Sources */,
@@ -5319,6 +5484,7 @@
 				97109908207A0BF500568785 /* UIScrollView+Refresh.m in Sources */,
 				97109E16207A6A9B00568785 /* MyClassRequest.m in Sources */,
 				97109C22207A2E3E00568785 /* Comment.m in Sources */,
+				879CE533219174FE00BBE4B7 /* AchieverNoticeFlagRequest.m in Sources */,
 				97109C28207A2E3E00568785 /* UnlikeHomeworkRequest.m in Sources */,
 				872F5B362171821C00D88855 /* StudentService.m in Sources */,
 				979BBD852081B9C700359253 /* TrialClasssRequest.m in Sources */,
@@ -5338,6 +5504,7 @@
 				97109C26207A2E3E00568785 /* LikeHomeworkRequest.m in Sources */,
 				97109E09207A682F00568785 /* MyClassViewController.m in Sources */,
 				97109902207A0BF500568785 /* MaskImageView.m in Sources */,
+				879CE52021905F7100BBE4B7 /* AchieverListCollectionViewCell.m in Sources */,
 				9710991A207A0BF600568785 /* PortraitTabBarController.m in Sources */,
 				97109BD0207A1D5000568785 /* CalendarTableViewCell.m in Sources */,
 				870286672181E29100559195 /* HomeworkDiffTableViewCell.m in Sources */,
@@ -5345,6 +5512,8 @@
 				97DC3AEB208343DA009D811B /* PortraitNavigationController.m in Sources */,
 				9710991E207A0BF600568785 /* TIP.m in Sources */,
 				97109ED6207A7C1600568785 /* StudentAwardsViewController.m in Sources */,
+				879CE5372191752700BBE4B7 /* AchieverMedalDetailRequest.m in Sources */,
+				879CE54821917FC000BBE4B7 /* AchieverUpdateMedalDetailRequest.m in Sources */,
 				97109C8C207A2EC900568785 /* LoginRequest.m in Sources */,
 				97109950207A0BF600568785 /* Teacher.m in Sources */,
 				97109DF9207A655000568785 /* CircleAndStarTableViewCell.m in Sources */,
@@ -5371,6 +5540,7 @@
 				97109D3F207A2F0400568785 /* ImageTextAttachment.m in Sources */,
 				97109C80207A2EC900568785 /* AuthService.m in Sources */,
 				9786AA9720F26A7200BD0AF9 /* HomeworkAnswerItem.m in Sources */,
+				879CE53C2191777F00BBE4B7 /* UserMedalDto.m in Sources */,
 				97109C86207A2EC900568785 /* SMSCodeRequest.m in Sources */,
 				97109C24207A2E3E00568785 /* CircleService.m in Sources */,
 				97109C1E207A2E3E00568785 /* CircleViewController.m in Sources */,
@@ -5379,12 +5549,14 @@
 				97109D61207A2F0400568785 /* CommentMessageTableViewCell.m in Sources */,
 				97109DA1207A2F0400568785 /* AvatarEditViewController.m in Sources */,
 				97109ED9207A7C1600568785 /* ExchangeRecordsViewController.m in Sources */,
+				879CE54021917A9A00BBE4B7 /* MedalFlag.m in Sources */,
 				870286752182F06C00559195 /* StudentStarListTableViewCell.m in Sources */,
 				875C261F218A9BBB0047E32A /* HomeworkSendHisTableViewCell.m in Sources */,
 				97109A85207A171600568785 /* HomeworkImageCollectionViewCell.m in Sources */,
 				9710995E207A0BF600568785 /* IMManager.m in Sources */,
 				97109C20207A2E3E00568785 /* CircleHomework.m in Sources */,
 				97109A20207A158C00568785 /* HomeworkSessionsContainerViewController.m in Sources */,
+				879CE52721913DD000BBE4B7 /* AchieverListHeaderView.m in Sources */,
 				97109A54207A158C00568785 /* SessionHomeworkTableViewCell.m in Sources */,
 				9710990E207A0BF500568785 /* ChatRefreshHeader.m in Sources */,
 				971098F8207A0BF500568785 /* NEPhotoBrowserView.m in Sources */,
@@ -5393,6 +5565,7 @@
 				971098F2207A0BF500568785 /* EmojiInputCollectionViewCell.m in Sources */,
 				97109C84207A2EC900568785 /* ResetPassswordRequest.m in Sources */,
 				97109956207A0BF600568785 /* UIColor+HEX.m in Sources */,
+				87EED4A4219443E400AEA974 /* ChooseDatePickerView.m in Sources */,
 				97109DD3207A2F6900568785 /* RegisterRequest.m in Sources */,
 				97109D35207A2F0400568785 /* SettingsViewController.m in Sources */,
 				971098F6207A0BF500568785 /* NEPhotoIndicatorView.m in Sources */,
@@ -5401,6 +5574,7 @@
 				97109962207A0BF600568785 /* FileUploader.m in Sources */,
 				97109C14207A2E3E00568785 /* CircleHomeworkViewController.m in Sources */,
 				9710994C207A0BF600568785 /* HomeworkItem.m in Sources */,
+				879CE54421917CF900BBE4B7 /* AchieverUpdateFlagRequest.m in Sources */,
 				97567DDC20B86B2A00AA0EB8 /* UpdateTaskModifiedTimeRequest.m in Sources */,
 				9710993A207A0BF600568785 /* AudioPlayer.m in Sources */,
 				97109DA5207A2F0400568785 /* ProfileTableViewCell.m in Sources */,
@@ -5418,6 +5592,7 @@
 				97109EE2207A7C1600568785 /* StudentAwardCollectionViewCell.m in Sources */,
 				97109C82207A2EC900568785 /* FindPasswordRequest.m in Sources */,
 				97109C78207A2EC900568785 /* LoginViewController.m in Sources */,
+				879CE52F2191725800BBE4B7 /* AchieverService.m in Sources */,
 				971098F4207A0BF500568785 /* NEPhotoBrowser.m in Sources */,
 				87C52FA92164AC3E004288F4 /* WBGDrawTool.m in Sources */,
 				97109D99207A2F0400568785 /* UpdateProfileRequest.m in Sources */,
@@ -5468,6 +5643,7 @@
 				97109EB3207A7C0A00568785 /* TeacherAwardsViewController.m in Sources */,
 				97109AEA207A1C0800568785 /* ScheduleEditViewController.m in Sources */,
 				9786AA9820F26A7200BD0AF9 /* HomeworkAnswerItem.m in Sources */,
+				879CE53D2191777F00BBE4B7 /* UserMedalDto.m in Sources */,
 				97109C2D207A2E3E00568785 /* CircleHomeworksRequest.m in Sources */,
 				97109943207A0BF600568785 /* Result.m in Sources */,
 				97364A0F20B1447700511A95 /* StudentsWithoutClassViewController.m in Sources */,
@@ -5481,11 +5657,14 @@
 				8702866F2182EA8700559195 /* StudentStarListViewController.m in Sources */,
 				87C52FB62164AC59004288F4 /* WBGImageToolBase.m in Sources */,
 				97109B0A207A1C0800568785 /* DeleteClassTableViewCell.m in Sources */,
+				879CE5382191752700BBE4B7 /* AchieverMedalDetailRequest.m in Sources */,
 				97109C87207A2EC900568785 /* SMSCodeRequest.m in Sources */,
 				973649F320AF2F8600511A95 /* CreateTagRequest.m in Sources */,
 				97109C19207A2E3E00568785 /* CircleContainerController.m in Sources */,
 				97109AE7207A1C0800568785 /* ClassesContainerController.m in Sources */,
+				87EED4A5219443E400AEA974 /* ChooseDatePickerView.m in Sources */,
 				973649C620AF2F8600511A95 /* HomeworkLabelTableViewCell.m in Sources */,
+				879CE534219174FE00BBE4B7 /* AchieverNoticeFlagRequest.m in Sources */,
 				97109947207A0BF600568785 /* User.m in Sources */,
 				97109BD1207A1D5000568785 /* CalendarTableViewCell.m in Sources */,
 				97109A35207A158C00568785 /* RedoHomeworkRequest.m in Sources */,
@@ -5514,6 +5693,7 @@
 				97109D6C207A2F0400568785 /* NoticeMessageTableViewCell.m in Sources */,
 				97109D42207A2F0400568785 /* NoticeMessageDetailViewController.m in Sources */,
 				97109B02207A1C0800568785 /* ClassScheduleAndStudentsTableViewCell.m in Sources */,
+				87AF73082193D17F003E87F0 /* StudentDetailHeaderCell.m in Sources */,
 				97109A31207A158C00568785 /* HomeworkSession.m in Sources */,
 				97364A1B20B1704900511A95 /* MessageUpdateCountRequest.m in Sources */,
 				97109A23207A158C00568785 /* HomeworkSessionsViewController.m in Sources */,
@@ -5523,8 +5703,11 @@
 				973649EF20AF2F8600511A95 /* TagsViewController.m in Sources */,
 				97109A29207A158C00568785 /* HomeworkSessionTableViewCell.m in Sources */,
 				97109C7D207A2EC900568785 /* FindPasswordViewController.m in Sources */,
+				879CE52821913DD000BBE4B7 /* AchieverListHeaderView.m in Sources */,
 				973649C120AF2F8600511A95 /* HomeworkTagsTableViewCell.m in Sources */,
+				879CE51921905D0300BBE4B7 /* AchieverListViewController.m in Sources */,
 				97109AFA207A1C0800568785 /* StudentsTableViewCell.m in Sources */,
+				879CE52121905F7100BBE4B7 /* AchieverListCollectionViewCell.m in Sources */,
 				9710992B207A0BF600568785 /* UIView+Load.m in Sources */,
 				97109DD8207A305A00568785 /* LoadViewController.m in Sources */,
 				973649F120AF2F8600511A95 /* TagsRequest.m in Sources */,
@@ -5535,6 +5718,8 @@
 				97109D82207A2F0400568785 /* TeacherService.m in Sources */,
 				971098EF207A0BF500568785 /* EmojiInputView.m in Sources */,
 				9710995D207A0BF600568785 /* NSString+MD5.m in Sources */,
+				87AF73012193D164003E87F0 /* StudentDetailCell.m in Sources */,
+				879CE5302191725800BBE4B7 /* AchieverService.m in Sources */,
 				979C851D208CB93F00940959 /* FinishClassTableViewCell.m in Sources */,
 				97109919207A0BF600568785 /* CustomCollectionView.m in Sources */,
 				97109B03207A1C0800568785 /* ClassTableViewCell.m in Sources */,
@@ -5603,6 +5788,7 @@
 				97109C47207A2E3E00568785 /* CircleLikeUsersTableViewCell.m in Sources */,
 				97109DA6207A2F0400568785 /* ProfileTableViewCell.m in Sources */,
 				97109BCD207A1D5000568785 /* DateButton.m in Sources */,
+				879CE54921917FC000BBE4B7 /* AchieverUpdateMedalDetailRequest.m in Sources */,
 				97109A51207A158C00568785 /* MessageTimeTableViewCell.m in Sources */,
 				97109C17207A2E3E00568785 /* CircleHomeworksViewController.m in Sources */,
 				97109C35207A2E3E00568785 /* HomeworkDetailCommentTableViewCell.m in Sources */,
@@ -5640,6 +5826,7 @@
 				97109AF3207A1C0800568785 /* ClassService.m in Sources */,
 				973649E920AF2F8600511A95 /* SelectTeacherView.m in Sources */,
 				97109957207A0BF600568785 /* UIColor+HEX.m in Sources */,
+				879CE54121917A9A00BBE4B7 /* MedalFlag.m in Sources */,
 				97109D5A207A2F0400568785 /* NoticeMessagesRequest.m in Sources */,
 				973649C820AF2F8600511A95 /* HomeworkAddTableViewCell.m in Sources */,
 				97109D56207A2F0400568785 /* NoticeMessageRequest.m in Sources */,
@@ -5647,6 +5834,7 @@
 				97109C39207A2E3E00568785 /* CircleCommentTableViewCell.m in Sources */,
 				870286612181CB4600559195 /* HomeworkSegmentTableViewCell.m in Sources */,
 				971098F7207A0BF500568785 /* NEPhotoIndicatorView.m in Sources */,
+				879CE54521917CF900BBE4B7 /* AchieverUpdateFlagRequest.m in Sources */,
 				97109D54207A2F0400568785 /* CommentMessagesRequest.m in Sources */,
 				97109EB0207A7C0A00568785 /* ExchangeRequestsViewController.m in Sources */,
 				973649FC20AF322900511A95 /* HomeworkTitleTableViewCell.m in Sources */,

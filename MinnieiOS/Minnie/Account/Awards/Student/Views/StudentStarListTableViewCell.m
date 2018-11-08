@@ -30,7 +30,7 @@
     // Initialization code
 }
 
-- (void)setContentData:(id)data forRank:(NSInteger)rank
+- (void)setContentData:(StarRank *)data forRank:(NSInteger)rank
 {
     if (rank == 0)
     {
@@ -50,8 +50,8 @@
     }
     
     self.rankLabel.text = [NSString stringWithFormat:@"%ld",rank+1];
-    self.nameLabel.text = @"";
-    self.starLabel.text = @"";
+    self.nameLabel.text = data.nickName;
+    self.starLabel.text = [NSString stringWithFormat:@"%ld",(long)data.starCount];
 }
 
 

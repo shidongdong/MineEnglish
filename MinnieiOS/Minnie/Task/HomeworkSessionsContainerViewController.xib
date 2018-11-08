@@ -13,6 +13,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeworkSessionsContainerViewController">
             <connections>
+                <outlet property="containerContentY" destination="UO2-kl-9wb" id="Izh-6o-woX"/>
                 <outlet property="containerScrollView" destination="LCs-vs-RkO" id="nDs-vi-mWW"/>
                 <outlet property="containerView" destination="bQ5-c9-usN" id="S4Q-rT-TiE"/>
                 <outlet property="customTitleView" destination="xqb-g2-VNn" id="qwa-O3-4f7"/>
@@ -115,7 +116,7 @@
                 <constraint firstItem="htz-wM-40E" firstAttribute="bottom" secondItem="LCs-vs-RkO" secondAttribute="bottom" id="t9r-oU-m7h"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="htz-wM-40E"/>
-            <point key="canvasLocation" x="-1480" y="-402"/>
+            <point key="canvasLocation" x="-1480.5" y="-402.5"/>
         </view>
     </objects>
 </document>

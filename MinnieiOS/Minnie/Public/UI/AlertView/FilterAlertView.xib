@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,7 +20,7 @@
                     <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hmj-v2-0xj">
-                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <connections>
                         <action selector="dismissClick:" destination="uI8-Rf-YLb" eventType="touchUpInside" id="0dH-EY-JZf"/>
                     </connections>
@@ -58,26 +57,25 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="HnC-xF-DWr" firstAttribute="bottom" secondItem="Lx0-1n-mUi" secondAttribute="bottom" id="6ye-Jo-E40"/>
-                <constraint firstItem="Hmj-v2-0xj" firstAttribute="leading" secondItem="Lx0-1n-mUi" secondAttribute="leading" id="H1n-rV-Lcp"/>
-                <constraint firstItem="HnC-xF-DWr" firstAttribute="leading" secondItem="Lx0-1n-mUi" secondAttribute="leading" id="LeR-2b-Hit"/>
-                <constraint firstItem="Lx0-1n-mUi" firstAttribute="trailing" secondItem="Hmj-v2-0xj" secondAttribute="trailing" id="OVw-sj-9F4"/>
-                <constraint firstItem="Hmj-v2-0xj" firstAttribute="top" secondItem="Lx0-1n-mUi" secondAttribute="top" id="iIt-Hm-uKV"/>
+                <constraint firstItem="HnC-xF-DWr" firstAttribute="bottom" secondItem="uI8-Rf-YLb" secondAttribute="bottom" id="Dmu-2P-E8U"/>
+                <constraint firstItem="Hmj-v2-0xj" firstAttribute="leading" secondItem="uI8-Rf-YLb" secondAttribute="leading" id="H1n-rV-Lcp"/>
+                <constraint firstItem="HnC-xF-DWr" firstAttribute="leading" secondItem="uI8-Rf-YLb" secondAttribute="leading" id="LeR-2b-Hit"/>
+                <constraint firstAttribute="trailing" secondItem="Hmj-v2-0xj" secondAttribute="trailing" id="OVw-sj-9F4"/>
+                <constraint firstItem="Hmj-v2-0xj" firstAttribute="top" secondItem="uI8-Rf-YLb" secondAttribute="top" id="iIt-Hm-uKV"/>
                 <constraint firstItem="Mw6-cW-nj4" firstAttribute="top" secondItem="HnC-xF-DWr" secondAttribute="top" id="iOS-Xj-35c"/>
                 <constraint firstItem="HnC-xF-DWr" firstAttribute="top" secondItem="uI8-Rf-YLb" secondAttribute="top" constant="64" id="lVz-3g-eBQ"/>
-                <constraint firstItem="Lx0-1n-mUi" firstAttribute="trailing" secondItem="Mw6-cW-nj4" secondAttribute="trailing" constant="5" id="wBZ-xD-SAX"/>
-                <constraint firstItem="HnC-xF-DWr" firstAttribute="trailing" secondItem="Lx0-1n-mUi" secondAttribute="trailing" id="yAe-tK-HMX"/>
-                <constraint firstItem="Lx0-1n-mUi" firstAttribute="bottom" secondItem="Hmj-v2-0xj" secondAttribute="bottom" id="zM3-bc-N7h"/>
+                <constraint firstAttribute="trailing" secondItem="Mw6-cW-nj4" secondAttribute="trailing" constant="5" id="wBZ-xD-SAX"/>
+                <constraint firstItem="HnC-xF-DWr" firstAttribute="trailing" secondItem="uI8-Rf-YLb" secondAttribute="trailing" id="yAe-tK-HMX"/>
+                <constraint firstAttribute="bottom" secondItem="Hmj-v2-0xj" secondAttribute="bottom" id="zM3-bc-N7h"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="Lx0-1n-mUi"/>
             <connections>
                 <outlet property="backgroundView" destination="HnC-xF-DWr" id="ylz-Gg-SYI"/>
                 <outlet property="bgViewTopConstraint" destination="lVz-3g-eBQ" id="5fr-tY-xdy"/>
                 <outlet property="mTableView" destination="C3x-Qm-MQk" id="0dw-UI-yGM"/>
             </connections>
-            <point key="canvasLocation" x="87.5" y="-27.5"/>
+            <point key="canvasLocation" x="-69" y="-122"/>
         </view>
     </objects>
 </document>
