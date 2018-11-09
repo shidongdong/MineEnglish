@@ -5672,7 +5672,10 @@
 				DEVELOPMENT_TEAM = 7ZN897DBZ8;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Minnie/PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Minnie/Info_student.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.minnieedu.student;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d9fb72c4-76a3-46fc-a2be-3076d0ae73e1";
@@ -5692,7 +5695,10 @@
 				DEVELOPMENT_TEAM = 7ZN897DBZ8;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Minnie/PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Minnie/Info_student.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.minnieedu.student;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "cce81f62-d635-44f9-93f8-910ba2ad5797";
@@ -5719,7 +5725,10 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Minnie/Info_teacher.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.minnieedu.teacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "b7616083-5294-4ccd-8d97-fcdd1ebfd773";
@@ -5746,7 +5755,10 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Minnie/Info_teacher.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.minnieedu.teacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "670ec308-d78e-4358-949d-efab26aa908a";
