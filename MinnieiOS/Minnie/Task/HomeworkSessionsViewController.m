@@ -142,6 +142,8 @@
 - (void)registerCellNibs {
     [self.homeworkSessionsTableView registerNib:[UINib nibWithNibName:@"FinishedHomeworkSessionTableViewCell" bundle:nil] forCellReuseIdentifier:FinishedHomeworkSessionTableViewCellId];
     [self.homeworkSessionsTableView registerNib:[UINib nibWithNibName:@"UnfinishedHomeworkSessionTableViewCell" bundle:nil] forCellReuseIdentifier:UnfinishedHomeworkSessionTableViewCellId];
+    [self.homeworkSessionsTableView registerNib:[UINib nibWithNibName:@"UnfinishedStudentHomeworkSessionTableViewCell" bundle:nil] forCellReuseIdentifier:UnfinishedStudentHomeworkSessionTableViewCellId];
+    
 }
 
 - (void)addNotificationObservers {
@@ -753,7 +755,11 @@
     HomeworkSessionTableViewCell *cell = nil;
     
     if (self.isUnfinished) {
+#if TEACHERSIDE
         cell = [tableView dequeueReusableCellWithIdentifier:UnfinishedHomeworkSessionTableViewCellId forIndexPath:indexPath];
+#else
+        cell = [tableView dequeueReusableCellWithIdentifier:UnfinishedStudentHomeworkSessionTableViewCellId forIndexPath:indexPath];
+#endif
     } else {
         cell = [tableView dequeueReusableCellWithIdentifier:FinishedHomeworkSessionTableViewCellId forIndexPath:indexPath];
     }

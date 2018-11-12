@@ -10,7 +10,7 @@
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UnfinishedHomeworkSessionTableViewCellId" rowHeight="144" id="FOR-31-HgL" customClass="HomeworkSessionTableViewCell">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UnfinishedStudentHomeworkSessionTableViewCellId" rowHeight="144" id="FOR-31-HgL" customClass="HomeworkSessionTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="427" height="144"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FOR-31-HgL" id="WnG-cG-UgP">

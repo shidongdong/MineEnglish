@@ -11,7 +11,7 @@
 
 extern NSString * const UnfinishedHomeworkSessionTableViewCellId;
 extern NSString * const FinishedHomeworkSessionTableViewCellId;
-
+extern NSString * const UnfinishedStudentHomeworkSessionTableViewCellId;
 @interface HomeworkSessionTableViewCell : UITableViewCell
 
 - (void)setupWithHomeworkSession:(HomeworkSession *)homeworkSession;

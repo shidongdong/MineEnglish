@@ -13,6 +13,7 @@
 #import "IMManager.h"
 
 NSString * const UnfinishedHomeworkSessionTableViewCellId = @"UnfinishedHomeworkSessionTableViewCellId";
+NSString * const UnfinishedStudentHomeworkSessionTableViewCellId = @"UnfinishedStudentHomeworkSessionTableViewCellId";
 NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSessionTableViewCellId";
 
 @interface HomeworkSessionTableViewCell()
