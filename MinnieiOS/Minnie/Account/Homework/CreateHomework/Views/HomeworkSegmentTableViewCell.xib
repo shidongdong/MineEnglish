@@ -19,8 +19,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="372" height="191.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d45-hu-DDl">
-                        <rect key="frame" x="15" y="45" width="342" height="44"/>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d45-hu-DDl">
+                        <rect key="frame" x="15" y="39" width="342" height="44"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="初始化" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bf1-7x-9au">
                                 <rect key="frame" x="228" y="0.0" width="114" height="44"/>
@@ -40,7 +40,7 @@
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vlf-O4-jxS">
+                            <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vlf-O4-jxS">
                                 <rect key="frame" x="228" y="0.0" width="114" height="44"/>
                                 <connections>
                                     <action selector="homeworkTypeClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="hHq-4O-Mfm"/>
@@ -88,8 +88,8 @@
                             <constraint firstAttribute="bottom" secondItem="bf1-7x-9au" secondAttribute="bottom" id="vjQ-dU-emI"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rdq-ry-FB2">
-                        <rect key="frame" x="15" y="109" width="342" height="44"/>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rdq-ry-FB2">
+                        <rect key="frame" x="15" y="103" width="342" height="44"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="集训" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CaJ-Kt-N7B">
                                 <rect key="frame" x="228" y="0.0" width="114" height="44"/>
@@ -109,19 +109,19 @@
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" tag="104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="feJ-qr-yOV">
+                            <button opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="feJ-qr-yOV">
                                 <rect key="frame" x="0.0" y="0.0" width="114" height="44"/>
                                 <connections>
                                     <action selector="homeworkTypeClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="hh0-F0-Bmx"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gda-sy-7fW">
+                            <button opaque="NO" tag="104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gda-sy-7fW">
                                 <rect key="frame" x="114" y="0.0" width="114" height="44"/>
                                 <connections>
                                     <action selector="homeworkTypeClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="gry-Fm-Xeq"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="106" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wGj-7h-RzV">
+                            <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wGj-7h-RzV">
                                 <rect key="frame" x="228" y="0.0" width="114" height="44"/>
                                 <connections>
                                     <action selector="homeworkTypeClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="r0T-wR-SHy"/>
@@ -158,12 +158,8 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择作业类型" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h2M-5V-xpU">
-                        <rect key="frame" x="15" y="10" width="200" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20" id="NF5-fJ-k7o"/>
-                            <constraint firstAttribute="width" constant="200" id="f7P-k8-ecP"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <rect key="frame" x="15" y="10" width="86" height="17"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -172,9 +168,9 @@
                     <constraint firstItem="d45-hu-DDl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="3nE-AX-VAX"/>
                     <constraint firstItem="h2M-5V-xpU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="F6h-uS-I82"/>
                     <constraint firstAttribute="trailing" secondItem="d45-hu-DDl" secondAttribute="trailing" constant="15" id="GSn-gU-ZNh"/>
+                    <constraint firstItem="d45-hu-DDl" firstAttribute="top" secondItem="h2M-5V-xpU" secondAttribute="bottom" constant="12" id="ZlZ-FI-ijf"/>
                     <constraint firstItem="h2M-5V-xpU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="bLO-PT-sYT"/>
                     <constraint firstItem="Rdq-ry-FB2" firstAttribute="top" secondItem="d45-hu-DDl" secondAttribute="bottom" constant="20" id="h0V-Co-px7"/>
-                    <constraint firstItem="d45-hu-DDl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="45" id="hrt-Lj-vqX"/>
                     <constraint firstItem="Rdq-ry-FB2" firstAttribute="leading" secondItem="d45-hu-DDl" secondAttribute="leading" id="i2v-Le-fUu"/>
                     <constraint firstItem="Rdq-ry-FB2" firstAttribute="trailing" secondItem="d45-hu-DDl" secondAttribute="trailing" id="sog-P7-7ho"/>
                 </constraints>

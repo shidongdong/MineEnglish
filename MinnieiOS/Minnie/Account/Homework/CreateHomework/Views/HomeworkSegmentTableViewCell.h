@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 
 extern NSString * const HomeworkSegmentTableViewCellId;
+extern CGFloat const HomeworkTypeTableViewCellHeight;
+
+typedef void(^HomeworkSegmentTableViewCellSelectCallback)(NSInteger);
 
 @interface HomeworkSegmentTableViewCell : UITableViewCell
 
+@property (nonatomic, copy)HomeworkSegmentTableViewCellSelectCallback selectCallback;
 
 //- (void)setContentData:(NSArray *)datas atDefultIndex:(NSInteger)index;
 

@@ -10,7 +10,7 @@
 
 @protocol ChooseDatePickerViewDelegate <NSObject>
 
-- (void)finishSelectDate:(NSDate *)date;
+- (void)finishSelectDate:(NSInteger)seconds;
 
 @end
 
@@ -21,5 +21,7 @@
 - (void)show;
 
 - (void)hide;
+
+- (void)setDefultSeconds:(NSInteger)secs;
 
 @end

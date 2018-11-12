@@ -9,6 +9,8 @@
 #import "HomeworkSegmentTableViewCell.h"
 
 NSString * const HomeworkSegmentTableViewCellId = @"HomeworkSegmentTableViewCellId";
+CGFloat const HomeworkTypeTableViewCellHeight = 160.f;
+
 
 @interface HomeworkSegmentTableViewCell()
 @property (weak, nonatomic) IBOutlet UIView *firstView;
@@ -22,8 +24,8 @@ NSString * const HomeworkSegmentTableViewCellId = @"HomeworkSegmentTableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *fiveTypeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sixTypeLabel;
 
-@property (nonatomic, strong) UILabel * currentLabel;
-
+@property (nonatomic, strong) UILabel * currentCateLabel;
+@property (nonatomic, strong) UILabel * currentStyleLabel;
 @end
 
 
@@ -34,42 +36,75 @@ NSString * const HomeworkSegmentTableViewCellId = @"HomeworkSegmentTableViewCell
     
     self.firstView.layer.cornerRadius = 12.0;
     self.secondView.layer.cornerRadius = 12.0;
+    
+    self.firstTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
+    self.firstTypeLabel.textColor = [UIColor colorWithHex:0xFFFFFF];
+    self.currentCateLabel = self.firstTypeLabel;
+    
+    self.fourTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
+    self.fourTypeLabel.textColor = [UIColor colorWithHex:0xFFFFFF];
+    self.currentStyleLabel = self.fourTypeLabel;
+    
+    
     // Initialization code
 }
 
 - (IBAction)homeworkTypeClick:(UIButton *)sender {
     
-    self.currentLabel.backgroundColor = [UIColor clearColor];
+    if (sender.tag < 103)
+    {
+        self.currentCateLabel.backgroundColor = [UIColor clearColor];
+        self.currentCateLabel.textColor = [UIColor colorWithHex:0x999999];
+    }
+    else
+    {
+        self.currentStyleLabel.backgroundColor = [UIColor clearColor];
+        self.currentStyleLabel.textColor = [UIColor colorWithHex:0x999999];
+    }
+    
     switch (sender.tag)
     {
         case 100:
             self.firstTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
-            self.currentLabel = self.firstTypeLabel;
+            self.currentCateLabel = self.firstTypeLabel;
             break;
         case 101:
             self.secondTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
-            self.currentLabel = self.secondTypeLabel;
+            self.currentCateLabel = self.secondTypeLabel;
             break;
         case 102:
             self.thirdTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
-            self.currentLabel = self.thirdTypeLabel;
+            self.currentCateLabel = self.thirdTypeLabel;
             break;
         case 103:
             self.fourTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
-            self.currentLabel = self.fourTypeLabel;
+            self.currentStyleLabel = self.fourTypeLabel;
             break;
         case 104:
             self.fiveTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
-            self.currentLabel = self.fiveTypeLabel;
+            self.currentStyleLabel = self.fiveTypeLabel;
             break;
         case 105:
             self.sixTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
-            self.currentLabel = self.sixTypeLabel;
+            self.currentStyleLabel = self.sixTypeLabel;
             break;
         default:
             break;
     }
     
+    if (sender.tag < 103)
+    {
+        self.currentCateLabel.textColor = [UIColor colorWithHex:0xFFFFFF];
+    }
+    else
+    {
+        self.currentStyleLabel.textColor = [UIColor colorWithHex:0xFFFFFF];
+    }
+    
+    if (self.selectCallback)
+    {
+        self.selectCallback(sender.tag - 100);
+    }
     
 }
 

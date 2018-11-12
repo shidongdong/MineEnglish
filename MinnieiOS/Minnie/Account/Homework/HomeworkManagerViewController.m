@@ -18,14 +18,12 @@
 #import "TIP.h"
 #import "NEPhotoBrowser.h"
 #import <AVKit/AVKit.h>
+#import "HomeWorkSendHistoryViewController.h"
 
 @interface HomeworkManagerViewController ()<UITableViewDataSource, UITableViewDelegate, NEPhotoBrowserDataSource, NEPhotoBrowserDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *homeworksTableView;
 @property (nonatomic, weak) IBOutlet UIButton *backButton;
-@property (nonatomic, weak) IBOutlet UIButton *createButton;
-@property (nonatomic, weak) IBOutlet UIButton *manageButton;
-@property (nonatomic, weak) IBOutlet UIView *searchView;
 @property (nonatomic, weak) IBOutlet UIView *containerView;
 
 @property (nonatomic, weak) IBOutlet UIButton *sendButton;
@@ -33,6 +31,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *deleteButton;
 
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *searchViewTopLayoutConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *exitManagerBtn;
 
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *operationViewBottomLayoutConstraint;
 
@@ -67,9 +66,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.searchView.layer.cornerRadius = 12.f;
-    self.searchView.layer.masksToBounds = YES;
     
     self.deleteCountLabel.layer.cornerRadius = 11;
     self.deleteCountLabel.layer.masksToBounds = YES;
@@ -130,12 +126,23 @@
     [self.navigationController pushViewController:createHomeworkVC animated:YES];
 }
 
+- (IBAction)historyListButtonPressed:(UIButton *)sender {
+    
+    if (!APP.currentUser.canManageHomeworks) {
+        [HUD showErrorWithMessage:@"无操作权限"];
+        
+        return;
+    }
+    
+    HomeWorkSendHistoryViewController * historyHomeworkVC = [[HomeWorkSendHistoryViewController alloc] initWithNibName:@"HomeWorkSendHistoryViewController" bundle:nil];
+    [self.navigationController pushViewController:historyHomeworkVC animated:YES];
+    
+}
+
 - (IBAction)manageButtonPressed:(id)sender {
     if (self.inEditMode) {
-        self.createButton.hidden = NO;
+        self.exitManagerBtn.hidden = YES;
         self.backButton.hidden = NO;
-        [self.manageButton setTitle:@"操作" forState:UIControlStateNormal];
-        
         self.searchViewTopLayoutConstraint.constant = 0.f;
         self.operationViewBottomLayoutConstraint.constant = -50.f;
         
@@ -144,9 +151,9 @@
         self.deleteButton.enabled = NO;
         self.sendButton.enabled = NO;
     } else {
-        self.createButton.hidden = YES;
         self.backButton.hidden = YES;
-        [self.manageButton setTitle:@"退出" forState:UIControlStateNormal];
+        self.exitManagerBtn.hidden = NO;
+//        [self.manageButton setTitle:@"退出" forState:UIControlStateNormal];
         self.searchViewTopLayoutConstraint.constant = -46.f;
         self.operationViewBottomLayoutConstraint.constant = 0.f;
         if (isIPhoneX) {

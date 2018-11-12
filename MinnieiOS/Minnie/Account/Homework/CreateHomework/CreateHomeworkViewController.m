@@ -25,8 +25,10 @@
 #import <AVKit/AVKit.h>
 #import "HomeworkSegmentTableViewCell.h"
 #import "HomeworkDiffTableViewCell.h"
+#import "HomeworkLimitTimeCell.h"
+#import "ChooseDatePickerView.h"
 @interface CreateHomeworkViewController ()<UITableViewDataSource, UITableViewDelegate,
-UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePickerViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *homeworkTableView;
 @property (nonatomic, copy) NSString *homeworkTitle;
@@ -37,6 +39,10 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic, strong) NSMutableArray *selectedTags;
 @property (nonatomic, assign) BOOL isAddingAnswerItem;
 
+@property (nonatomic, assign) NSInteger categoryType;
+@property (nonatomic, assign) NSInteger styleType;
+@property (nonatomic, assign) NSInteger level;
+@property (nonatomic, assign) NSInteger limitTimeSecs;
 @end
 
 @implementation CreateHomeworkViewController
@@ -114,6 +120,10 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate>
     self.homework.answerItems = self.answerItems;
     self.homework.tags = self.selectedTags;
     self.homework.createTeacher = APP.currentUser;
+    self.homework.category = self.categoryType;
+    self.homework.style = self.styleType;
+    self.homework.limitTimes = self.limitTimeSecs;
+    self.homework.level = self.level;
     
     if (self.homework.homeworkId == 0) {
         [HUD showProgressWithMessage:@"正在新建作业"];
@@ -156,6 +166,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate>
     [self.homeworkTableView registerNib:[UINib nibWithNibName:@"HomeworkAddTableViewCell" bundle:nil] forCellReuseIdentifier:HomeworkAddTableViewCellId];
     [self.homeworkTableView registerNib:[UINib nibWithNibName:@"HomeworkSegmentTableViewCell" bundle:nil] forCellReuseIdentifier:HomeworkSegmentTableViewCellId];
     [self.homeworkTableView registerNib:[UINib nibWithNibName:@"HomeworkDiffTableViewCell" bundle:nil] forCellReuseIdentifier:HomeworkDiffTableViewCellId];
+    [self.homeworkTableView registerNib:[UINib nibWithNibName:@"HomeworkLimitTimeCell" bundle:nil] forCellReuseIdentifier:HomeworkLimitTimeCellId];
     
 }
 
@@ -176,13 +187,20 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate>
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"选择作业材料类型"
                                                                      message:nil
                                                               preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *videoAction = [UIAlertAction actionWithTitle:@"视频"
+    
+    UIAlertAction * fileAction = [UIAlertAction actionWithTitle:@"文件"
+                                                          style:UIAlertActionStyleDefault
+                                                        handler:^(UIAlertAction * _Nonnull action) {
+                                                            //[self addVideoItem];
+                                                        }];
+    
+    UIAlertAction * videoAction = [UIAlertAction actionWithTitle:@"视频"
                                                           style:UIAlertActionStyleDefault
                                                         handler:^(UIAlertAction * _Nonnull action) {
                                                             [self addVideoItem];
                                                         }];
     
-    UIAlertAction *imageAction = [UIAlertAction actionWithTitle:@"图片"
+    UIAlertAction * imageAction = [UIAlertAction actionWithTitle:@"图片"
                                                           style:UIAlertActionStyleDefault
                                                         handler:^(UIAlertAction * _Nonnull action) {
                                                             [self addImageItem];
@@ -193,6 +211,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate>
                                                          handler:^(UIAlertAction * _Nonnull action) {
                                                          }];
     
+    [alertVC addAction:fileAction];
     [alertVC addAction:videoAction];
     [alertVC addAction:imageAction];
     [alertVC addAction:cancelAction];
@@ -224,10 +243,26 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate>
     [self.navigationController presentViewController:picker animated:YES completion:nil];
 }
 
+- (void)handleSetTimeLimit
+{
+    ChooseDatePickerView * chooseDataPicker = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([ChooseDatePickerView class]) owner:nil options:nil] firstObject];
+    [chooseDataPicker setDefultSeconds:300];
+    chooseDataPicker.delegate = self;
+    [chooseDataPicker show];
+}
+
 - (void)handleAddAnswerItem {
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"选择作业答案类型"
                                                                      message:nil
                                                               preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction * fileAction = [UIAlertAction actionWithTitle:@"文件"
+                                                          style:UIAlertActionStyleDefault
+                                                        handler:^(UIAlertAction * _Nonnull action) {
+                                                            //[self addVideoItem];
+                                                        }];
+    
+    
     UIAlertAction *videoAction = [UIAlertAction actionWithTitle:@"视频"
                                                           style:UIAlertActionStyleDefault
                                                         handler:^(UIAlertAction * _Nonnull action) {
@@ -244,7 +279,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate>
                                                            style:UIAlertActionStyleCancel
                                                          handler:^(UIAlertAction * _Nonnull action) {
                                                          }];
-    
+    [alertVC addAction:fileAction];
     [alertVC addAction:videoAction];
     [alertVC addAction:imageAction];
     [alertVC addAction:cancelAction];
@@ -466,6 +501,16 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate>
     }];
 }
 
+#pragma mark - ChooseDatePickerViewDelegate
+- (void)finishSelectDate:(NSInteger)seconds
+{
+    self.limitTimeSecs = seconds;
+    
+    HomeworkLimitTimeCell * cell = (HomeworkLimitTimeCell *)[self.homeworkTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 + self.items.count + 2 + self.answerItems.count + 4 inSection:0]];
+    [cell updateTimeLabel:seconds];
+}
+
+
 #pragma mark - UIImagePickerDelegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
@@ -503,6 +548,8 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate>
     
     numberOfRows += 1; // 添加作业难度
     
+    numberOfRows += 1; // 添加时限
+    
     numberOfRows += 1; // tag1
     
     numberOfRows += 1; // tag2
@@ -514,7 +561,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate>
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
     
-    if (indexPath.row == 0) { // 文本
+    if (indexPath.row == 0) { // 标题
         WeakifySelf;
         
         HomeworkTitleTableViewCell *titleCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTitleTableViewCellId forIndexPath:indexPath];
@@ -648,11 +695,39 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate>
     }
     else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 2) {
         HomeworkSegmentTableViewCell * segmentCell = [tableView dequeueReusableCellWithIdentifier:HomeworkSegmentTableViewCellId forIndexPath:indexPath];
+        
+        WeakifySelf;
+        [segmentCell setSelectCallback:^(NSInteger index)
+        {
+            if (index < 3)
+            {
+                weakSelf.categoryType = index;
+            }
+            else
+            {
+                weakSelf.styleType = index - 3;
+            }
+        }];
+        
         cell = segmentCell;
     }
     else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 3) {
         HomeworkDiffTableViewCell * diffCell = [tableView dequeueReusableCellWithIdentifier:HomeworkDiffTableViewCellId forIndexPath:indexPath];
+        WeakifySelf;
+        [diffCell setSelectCallback:^(NSInteger index) {
+            weakSelf.level = index;
+        }];
+        
         cell = diffCell;
+    }
+    else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 4) {
+        HomeworkLimitTimeCell * timeLimitCell = [tableView dequeueReusableCellWithIdentifier:HomeworkLimitTimeCellId forIndexPath:indexPath];
+        WeakifySelf;
+        [timeLimitCell setTimeCallback:^{
+            [weakSelf handleSetTimeLimit];
+        }];
+        
+        cell = timeLimitCell;
     }
     else {
         HomeworkTagsTableViewCell *tagsCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTagsTableViewCellId forIndexPath:indexPath];
@@ -715,7 +790,17 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate>
         }
     } else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 1) {
         height = HomeworkAddTableViewCellHeight;
-    } else {
+    }
+    else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 2) { //作业类型
+        height = HomeworkTypeTableViewCellHeight;
+    }
+    else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 3) { //作业难度
+        height = HomeworkDiffcultTableViewCellHeight;
+    }
+    else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 4) { //作业时限
+        height = HomeworkTimeLimitTableViewCellHeight;
+    }
+    else {
         height = [HomeworkTagsTableViewCell heightWithTags:self.tags];
     }
     

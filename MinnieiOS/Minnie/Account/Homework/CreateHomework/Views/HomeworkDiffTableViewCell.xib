@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="354" height="120.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1BP-ag-H5W">
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1BP-ag-H5W">
                         <rect key="frame" x="15" y="61.5" width="324" height="44"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="困难" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLn-QM-AGg">
@@ -40,13 +40,13 @@
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YGa-BS-XQU">
+                            <button opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YGa-BS-XQU">
                                 <rect key="frame" x="216" y="0.0" width="108" height="44"/>
                                 <connections>
                                     <action selector="diffBtnClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="CSh-GL-XzB"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yph-KE-uQA">
+                            <button opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yph-KE-uQA">
                                 <rect key="frame" x="0.0" y="0.0" width="108" height="44"/>
                                 <connections>
                                     <action selector="diffBtnClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="HTh-12-SdH"/>
@@ -88,13 +88,12 @@
                             <constraint firstItem="lS5-sS-42t" firstAttribute="top" secondItem="aDq-C9-BfD" secondAttribute="top" id="vZG-Jp-DRG"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择作业难度" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w5d-2R-Ulm">
-                        <rect key="frame" x="15" y="15" width="200" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择作业难度:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w5d-2R-Ulm">
+                        <rect key="frame" x="15" y="15" width="90.5" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="DWL-M7-8gP"/>
-                            <constraint firstAttribute="width" constant="200" id="Rsb-9X-eRW"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -109,6 +108,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
+                <outlet property="bgContentView" destination="1BP-ag-H5W" id="uxG-Ur-TdX"/>
                 <outlet property="diffcultLabel" destination="WLn-QM-AGg" id="Fxf-pq-cGF"/>
                 <outlet property="easyLabel" destination="jt9-9W-7kT" id="0fy-jd-0Vs"/>
                 <outlet property="normalLabel" destination="aDq-C9-BfD" id="Ru0-a9-En8"/>

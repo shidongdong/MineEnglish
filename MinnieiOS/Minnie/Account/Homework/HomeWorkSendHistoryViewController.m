@@ -7,7 +7,7 @@
 //
 
 #import "HomeWorkSendHistoryViewController.h"
-
+#import "HomeworkSendHisTableViewCell.h"
 @interface HomeWorkSendHistoryViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *mTableView;
 
@@ -19,10 +19,20 @@
     
     [super viewDidLoad];
     
+    [self registerNibCell];
     
-    
-    
+    [self requestHistoryList];
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)registerNibCell
+{
+    [self.mTableView registerNib:[UINib nibWithNibName:NSStringFromClass([HomeworkSendHisTableViewCell class]) bundle:nil] forCellReuseIdentifier:HomeworkSendHisTableViewCellId];
+}
+
+- (void)requestHistoryList
+{
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,11 +59,10 @@
     return 44.0;
 }
 
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    HomeworkSendHisTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:HomeworkSendHisTableViewCellId forIndexPath:indexPath];
+    return cell;
 }
 
 

@@ -272,10 +272,6 @@
 - (void)addContraintsWithX:(CGFloat)offsetX view:(UIView *)view superView:(UIView *)superView {
     view.translatesAutoresizingMaskIntoConstraints = NO;
     
-//    CGRect rect = superView.frame;
-//    rect.size.width = ScreenWidth * self.segmentControl.titles.count;
-//    superView.frame = rect;
-    
     NSLayoutConstraint *leadingConstraint = [NSLayoutConstraint constraintWithItem:view
                                                                          attribute:NSLayoutAttributeLeading
                                                                          relatedBy:NSLayoutRelationEqual

@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 
 extern NSString * const HomeworkDiffTableViewCellId;
+extern CGFloat const HomeworkDiffcultTableViewCellHeight;
+
+typedef void(^HomeworkDiffTableViewCellSelectCallback)(NSInteger);
 
 @interface HomeworkDiffTableViewCell : UITableViewCell
+
+@property (nonatomic, copy)HomeworkDiffTableViewCellSelectCallback selectCallback;
 
 @end

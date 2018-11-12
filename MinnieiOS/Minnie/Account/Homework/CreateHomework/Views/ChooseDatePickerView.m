@@ -16,7 +16,7 @@
 
 {
     NSInteger minIndex;
-    NSInteger sceIndex;
+    NSInteger secIndex;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
@@ -43,6 +43,17 @@
     
     [self addMinAndSecLabel];
 }
+
+- (void)setDefultSeconds:(NSInteger)secs
+{
+    secIndex = secs % 60;
+    minIndex = secs / 60;
+    
+    [self selectActionToPickerView:self.datePicker row:minIndex inComponent:0];
+    [self selectActionToPickerView:self.datePicker row:secIndex inComponent:1];
+    
+}
+
 
 - (void)addMinAndSecLabel
 {
@@ -78,7 +89,7 @@
 - (NSMutableArray *)minArray {
     if (_minArray == nil) {
         _minArray = [NSMutableArray array];
-        for (int min = 0; min <= 4; min++) {
+        for (int min = 0; min <= 5; min++) {
             NSString *str = [NSString stringWithFormat:@"%d", min];
             [_minArray addObject:str];
         }
@@ -126,11 +137,23 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     if (component == 0) {
         minIndex = row;
+        if (minIndex == 5 && secIndex != 0)
+        {
+            [self selectActionToPickerView:pickerView row:0 inComponent:1];
+        }
     }
     else
     {
-        sceIndex = row;
+        secIndex = row;
+        
+        if (minIndex == 5 && secIndex != 0)
+        {
+            [self selectActionToPickerView:pickerView row:0 inComponent:1];
+        }
+        
     }
+    
+    
 }
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
@@ -196,23 +219,11 @@
 }
 
 - (IBAction)confirmAction:(UIButton *)sender {
-//    NSString *pickerYear = ((UILabel *)[self.datePicker viewForRow:yearIndex forComponent:0]).text;
-//    NSString *pickerMonth = ((UILabel *)[self.datePicker viewForRow:monthIndex forComponent:1]).text;
-//    NSString *pickerDay = ((UILabel *)[self.datePicker viewForRow:dayIndex forComponent:2]).text;
-//    NSString *timeStr = [NSString stringWithFormat:@"%@%@%@", pickerYear, pickerMonth, pickerDay];
-//    timeStr = [timeStr stringByReplacingOccurrencesOfString:@"年" withString:@"/"];
-//    timeStr = [timeStr stringByReplacingOccurrencesOfString:@"月" withString:@"/"];
-//    timeStr = [timeStr stringByReplacingOccurrencesOfString:@"日" withString:@""];
-//    NSLog(@"timeStr:%@", timeStr);
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//    NSTimeZone *timeZone = [NSTimeZone timeZoneForSecondsFromGMT:8];
-//    [formatter setTimeZone:timeZone];
-//    [formatter setDateFormat: @"yyyy/M/d"];
-//
-//    NSDate *finalDate = [formatter dateFromString:timeStr];
-//    if ([self.delegate respondsToSelector:@selector(finishSelectDate:)]) {
-//        [self.delegate finishSelectDate:finalDate];
-//    }
+
+    if ([self.delegate respondsToSelector:@selector(finishSelectDate:)]) {
+        [self.delegate finishSelectDate:minIndex * 60 + secIndex];
+    }
+    
     [self hide];
 }
 

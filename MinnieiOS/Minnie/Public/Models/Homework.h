@@ -27,6 +27,14 @@
 
 @property (nonatomic, strong) NSArray <NSString *> *tags; // 标签
 
+@property (nonatomic, assign) NSInteger style; //作业类型：日常1、假期2、集训3
+
+@property (nonatomic, assign) NSInteger level; //作业难度，简单1，一般2，困难3
+
+@property (nonatomic, assign) NSInteger category; //作业类型：普通1、附件2、初始化0
+
+@property (nonatomic, assign) NSInteger limitTimes; //作业限制时长，单位秒
+
 // UI
 @property (nonatomic, assign) CGFloat cellHeight;
 

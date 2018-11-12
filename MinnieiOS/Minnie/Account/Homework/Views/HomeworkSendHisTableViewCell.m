@@ -13,6 +13,8 @@
 
 #define KTimeLabelSpace 30.0f
 
+NSString * const HomeworkSendHisTableViewCellId = @"HomeworkSendHisTableViewCellId";
+
 @interface HomeworkSendHisTableViewCell()
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIView *containerView;

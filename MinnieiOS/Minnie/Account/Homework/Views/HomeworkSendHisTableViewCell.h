@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString * const HomeworkSendHisTableViewCellId;
+
 @interface HomeworkSendHisTableViewCell : UITableViewCell
 
 + (CGFloat)calculateCellHightForData:(id)data;
