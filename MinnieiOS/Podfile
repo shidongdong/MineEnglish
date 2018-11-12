@@ -14,7 +14,7 @@ abstract_target 'Minnie' do
   pod 'Mantle'
   pod 'AVOSCloudIM'
   pod 'MBProgressHUD'
-  pod 'MJRefresh', '~> 3.1.15.3'
+  pod 'MJRefresh', '3.1.15.3'
   pod 'YYText'
   pod 'StreamingKit'
   pod 'VIMediaCache'
