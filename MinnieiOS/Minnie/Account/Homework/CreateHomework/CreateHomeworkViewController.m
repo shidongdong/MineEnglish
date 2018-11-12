@@ -28,7 +28,7 @@
 #import "HomeworkLimitTimeCell.h"
 #import "ChooseDatePickerView.h"
 @interface CreateHomeworkViewController ()<UITableViewDataSource, UITableViewDelegate,
-UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePickerViewDelegate>
+UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePickerViewDelegate,UIDocumentPickerDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *homeworkTableView;
 @property (nonatomic, copy) NSString *homeworkTitle;
@@ -191,7 +191,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
     UIAlertAction * fileAction = [UIAlertAction actionWithTitle:@"文件"
                                                           style:UIAlertActionStyleDefault
                                                         handler:^(UIAlertAction * _Nonnull action) {
-                                                            //[self addVideoItem];
+                                                            [self addFileItem];
                                                         }];
     
     UIAlertAction * videoAction = [UIAlertAction actionWithTitle:@"视频"
@@ -219,6 +219,14 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
     [self.navigationController presentViewController:alertVC
                                             animated:YES
                                           completion:nil];
+}
+
+- (void)addFileItem
+{
+    self.isAddingAnswerItem = NO;
+    UIDocumentPickerViewController * picker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:@[@"public.image", @"public.movie",@"public.audio"] inMode:UIDocumentPickerModeOpen];
+    picker.delegate = self;
+    [self.navigationController presentViewController:picker animated:YES completion:nil];
 }
 
 - (void)addVideoItem {
@@ -259,7 +267,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
     UIAlertAction * fileAction = [UIAlertAction actionWithTitle:@"文件"
                                                           style:UIAlertActionStyleDefault
                                                         handler:^(UIAlertAction * _Nonnull action) {
-                                                            //[self addVideoItem];
+                                                            [self addFileAnswerItem];
                                                         }];
     
     
@@ -287,6 +295,15 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
     [self.navigationController presentViewController:alertVC
                                             animated:YES
                                           completion:nil];
+}
+
+- (void)addFileAnswerItem
+{
+    self.isAddingAnswerItem = YES;
+    
+    UIDocumentPickerViewController * picker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:@[@"public.image", @"public.movie",@"public.audio"] inMode:UIDocumentPickerModeOpen];
+    picker.delegate = self;
+    [self.navigationController presentViewController:picker animated:YES completion:nil];
 }
 
 - (void)addVideoAnswerItem {
@@ -499,6 +516,37 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
             });
         });
     }];
+}
+
+
+#pragma mark - UIDocumentPickerDelegate
+- (void)documentPickerWasCancelled:(UIDocumentPickerViewController *)controller
+{
+    [controller dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url
+{
+    [controller dismissViewControllerAnimated:YES completion:nil];
+    
+    if (controller.documentPickerMode == UIDocumentPickerModeOpen)
+    {
+        // 获取文件授权
+        BOOL accessing = [url startAccessingSecurityScopedResource];
+        if(accessing){
+            // 通过文件协调器读取文件地址
+            NSFileCoordinator *fileCoordinator = [[NSFileCoordinator alloc] initWithFilePresenter:nil];
+            [fileCoordinator coordinateReadingItemAtURL:url options:NSFileCoordinatorReadingWithoutChanges error:nil  byAccessor:^(NSURL * _Nonnull newURL) {
+                // 读取文件
+                NSString *fileName = [newURL lastPathComponent];
+                // 显示
+                
+            }];
+        }
+        // 停止授权
+        [url stopAccessingSecurityScopedResource];
+    }
+    
 }
 
 #pragma mark - ChooseDatePickerViewDelegate
