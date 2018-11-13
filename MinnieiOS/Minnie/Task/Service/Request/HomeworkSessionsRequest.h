@@ -11,7 +11,7 @@
 
 @interface HomeworkSessionsRequest : BaseRequest
 
-- (instancetype)initWithFinishState:(BOOL)finished;
+- (instancetype)initWithFinishState:(NSInteger)finished;
 
 - (instancetype)initWithNextUrl:(NSString *)nextUrl;
 

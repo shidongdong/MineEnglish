@@ -30,9 +30,11 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
 @property (nonatomic, weak) IBOutlet UILabel *timeLabel;
 
 @property (nonatomic, weak) IBOutlet UIView *scoreView;
-@property (weak, nonatomic) IBOutlet UIView *unfinishTimeBgView;
-@property (weak, nonatomic) IBOutlet UILabel *unfinishTimeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *unfiishTimeTypeLabel;
+@property (weak, nonatomic) IBOutlet UIView *unfinishTimeBgView;  //距离提交的背景
+@property (weak, nonatomic) IBOutlet UILabel *unfinishTimeLabel;  //距离提交的天数
+@property (weak, nonatomic) IBOutlet UILabel *unfiishTimeTypeLabel;  //距离提交  天或者小时
+@property (weak, nonatomic) IBOutlet UILabel *diffcultLabel;       //难度
+@property (weak, nonatomic) IBOutlet UILabel *unfinishTipLabel;    //距离提交或者距离过期
 
 @end
 
@@ -57,6 +59,88 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
     self.lastSessionLabel.preferredMaxLayoutWidth = ScreenWidth - 4 * 12.f - 56.f;
 }
 
+- (void)setLeftCommitHomeworkUI:(Homework *)homework
+{
+    if (homework.level == 1)
+    {
+        self.diffcultLabel.text = @"简单";
+    }
+    else if (homework.level == 2)
+    {
+        self.diffcultLabel.text = @"一般";
+    }
+    else
+    {
+        self.diffcultLabel.text = @"困难";
+    }
+    
+    NSInteger maxHours;
+    if (homework.style == 1)
+    {
+        maxHours = 48;
+    }
+    else if (homework.style == 2)
+    {
+        maxHours = 96;
+    }
+    else
+    {
+        maxHours = 24;
+    }
+    
+    //计算时间
+    NSInteger hours = [self calculateDeadlineHourForTime:homework.createTime];
+    
+    if (hours <= maxHours)
+    {
+        self.unfinishTipLabel.text = @"距离提交";
+        self.unfinishTimeBgView.backgroundColor = [UIColor greenColor];
+    }
+    else
+    {
+        self.unfinishTipLabel.text = @"距离过期";
+        if (hours <= 144)
+        {
+            self.unfinishTimeBgView.backgroundColor = [UIColor yellowColor];
+        }
+        else
+        {
+            self.unfinishTimeBgView.backgroundColor = [UIColor redColor];
+        }
+        
+        maxHours = 168;
+        
+    }
+    
+    if (maxHours - hours < 24)
+    {
+        self.unfinishTimeLabel.text = [NSString stringWithFormat:@"%ld",maxHours - hours];
+        self.unfiishTimeTypeLabel.text = @"小时";
+    }
+    else
+    {
+        NSInteger day = (maxHours - hours) % 24 == 0 ? (maxHours - hours) / 24 : (maxHours - hours) / 24 + 1;
+        self.unfinishTimeLabel.text = [NSString stringWithFormat:@"%ld",day];
+        self.unfiishTimeTypeLabel.text = @"天";
+    }
+    
+    
+}
+
+- (NSInteger)calculateDeadlineHourForTime:(long long)time
+{
+    NSDate * date = [NSDate date];
+    NSTimeInterval second = time/1000;
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate:date];
+    NSDate *localDate = [date dateByAddingTimeInterval:interval];
+    NSDate * createDate = [NSDate dateWithTimeIntervalSince1970:second];
+    interval = [zone secondsFromGMTForDate:createDate];
+    NSDate * zoneCreateDate = [createDate dateByAddingTimeInterval:interval];
+    NSUInteger countHour = [localDate timeIntervalSinceDate:zoneCreateDate] / 3600;
+    return countHour;
+}
+
 - (void)setupWithHomeworkSession:(HomeworkSession *)homeworkSession {
 #if TEACHERSIDE
     self.nameLabel.text = homeworkSession.student.nickname;
@@ -64,9 +148,15 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
 #else
     self.nameLabel.text = homeworkSession.correctTeacher.nickname;
     [self.avatarImageView sd_setImageWithURL:[homeworkSession.correctTeacher.avatarUrl imageURLWithWidth:44.f]];
+    
 #endif
-
+    
     HomeworkItem *item = homeworkSession.homework.items[0];
+    
+    if ([self.reuseIdentifier isEqualToString:@"UnfinishedStudentHomeworkSessionTableViewCellId"])
+    {
+        [self setLeftCommitHomeworkUI:homeworkSession.homework];
+    }
     self.homeworkTitleLabel.text = item.text?:@"[无文字内容]";
     
     self.lastSessionLabel.text = homeworkSession.lastSessionContent;
@@ -184,11 +274,15 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
         static HomeworkSessionTableViewCell *unfinishedCell = nil;
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
+#if TEACHERSIDE
             unfinishedCell = [[[NSBundle mainBundle] loadNibNamed:@"UnfinishedHomeworkSessionTableViewCell"
                                                             owner:nil
                                                           options:nil] lastObject];
-            
-            
+#else
+            unfinishedCell = [[[NSBundle mainBundle] loadNibNamed:@"UnfinishedHomeworkSessionTableViewCell"
+                                                            owner:nil
+                                                          options:nil] lastObject];
+#endif
         });
         
         
@@ -207,10 +301,10 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
         static HomeworkSessionTableViewCell *finishedCell = nil;
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
+
             finishedCell = [[[NSBundle mainBundle] loadNibNamed:@"FinishedHomeworkSessionTableViewCell"
                                                           owner:nil
                                                         options:nil] lastObject];
-            
             
         });
         

@@ -586,7 +586,25 @@
     }
     
     WeakifySelf;
-    self.homeworkSessionsRequest = [HomeworkSessionService requestHomeworkSessionsWithFinishState:self.isUnfinished?0:1
+    
+    NSInteger state;
+    if (self.isUnfinished)
+    {
+        if (self.bLoadConversion)
+        {
+            state = 0;
+        }
+        else
+        {
+            state = 2;
+        }
+    }
+    else
+    {
+        state = 1;
+    }
+    
+    self.homeworkSessionsRequest = [HomeworkSessionService requestHomeworkSessionsWithFinishState:state
                                                                                          callback:^(Result *result, NSError *error) {
                                                                                              StrongifySelf;
                                                                                              [strongSelf handleRequestResult:result

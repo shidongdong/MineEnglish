@@ -10,14 +10,14 @@
 
 @interface HomeworkSessionsRequest()
 
-@property (nonatomic, assign) BOOL finished;
+@property (nonatomic, assign) NSInteger finished;  //0表示未完成，1表示已完成  2未提交
 @property (nonatomic, copy) NSString *nextUrl;
 
 @end
 
 @implementation HomeworkSessionsRequest
 
-- (instancetype)initWithFinishState:(BOOL)finished {
+- (instancetype)initWithFinishState:(NSInteger)finished {
     self = [super init];
     if (self != nil) {
         _finished = finished;
@@ -52,7 +52,7 @@
         return nil;
     }
     
-    return @{@"finished":(self.finished?@(1):@(0))};
+    return @{@"finished":@(self.finished)};
 }
 
 @end

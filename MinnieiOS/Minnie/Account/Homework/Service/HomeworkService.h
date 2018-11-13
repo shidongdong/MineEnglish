@@ -39,4 +39,9 @@
                             date:(NSDate *)date
                         callback:(RequestCallback)callback;
 
+//作业发送记录
++ (BaseRequest *)requestSendHomeworkHistoryWithCallback:(RequestCallback)callback;
+
++ (BaseRequest *)requestSendHomeworkHistoryWithNextUrl:(NSString *)nextUrl callback:(RequestCallback)callback;
+
 @end

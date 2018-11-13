@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="427" height="143.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="boh-UQ-m1A">
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="boh-UQ-m1A">
                         <rect key="frame" x="12" y="12" width="403" height="131.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hPq-H2-vob">
@@ -51,7 +51,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="66" id="39g-bg-eVj"/>
                                     <constraint firstItem="Ats-RS-cyO" firstAttribute="centerY" secondItem="hPq-H2-vob" secondAttribute="centerY" id="5N9-be-wD8"/>
@@ -81,10 +81,17 @@
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jrG-dy-omj">
+                                <rect key="frame" x="360" y="12" width="31" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="1kE-eZ-iBU" secondAttribute="trailing" constant="12" id="LW3-AZ-BwE"/>
+                            <constraint firstItem="jrG-dy-omj" firstAttribute="top" secondItem="boh-UQ-m1A" secondAttribute="top" constant="12" id="Lc8-SS-7JC"/>
                             <constraint firstItem="1kE-eZ-iBU" firstAttribute="leading" secondItem="2Rr-Hy-Exs" secondAttribute="leading" id="MUk-1j-lKR"/>
                             <constraint firstAttribute="bottom" secondItem="DUD-Kb-mJg" secondAttribute="bottom" priority="250" constant="12" id="YvH-Md-ciG"/>
                             <constraint firstItem="DUD-Kb-mJg" firstAttribute="leading" secondItem="1kE-eZ-iBU" secondAttribute="leading" id="awR-od-Jcl"/>
@@ -92,6 +99,7 @@
                             <constraint firstItem="hPq-H2-vob" firstAttribute="leading" secondItem="boh-UQ-m1A" secondAttribute="leading" id="i05-13-SEb"/>
                             <constraint firstAttribute="bottom" secondItem="hPq-H2-vob" secondAttribute="bottom" id="imi-Iy-ww6"/>
                             <constraint firstItem="hPq-H2-vob" firstAttribute="top" secondItem="boh-UQ-m1A" secondAttribute="top" id="jJq-EJ-uaw"/>
+                            <constraint firstAttribute="trailing" secondItem="jrG-dy-omj" secondAttribute="trailing" constant="12" id="nFU-CL-GiX"/>
                             <constraint firstAttribute="trailing" secondItem="DUD-Kb-mJg" secondAttribute="trailing" constant="12" id="pNg-g9-P3R"/>
                             <constraint firstItem="DUD-Kb-mJg" firstAttribute="top" secondItem="1kE-eZ-iBU" secondAttribute="bottom" constant="6" id="pmq-zB-X0V"/>
                             <constraint firstItem="2Rr-Hy-Exs" firstAttribute="top" secondItem="boh-UQ-m1A" secondAttribute="top" constant="12" id="qnq-Uq-EVo"/>
@@ -110,12 +118,14 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="containerView" destination="boh-UQ-m1A" id="IFC-bU-HbO"/>
+                <outlet property="diffcultLabel" destination="jrG-dy-omj" id="jJz-p1-SlL"/>
                 <outlet property="homeworkTitleLabel" destination="1kE-eZ-iBU" id="iYM-fh-9oG"/>
                 <outlet property="lastSessionLabel" destination="DUD-Kb-mJg" id="svF-ro-HMl"/>
                 <outlet property="nameLabel" destination="2Rr-Hy-Exs" id="cbe-8j-av1"/>
                 <outlet property="unfiishTimeTypeLabel" destination="hC4-zK-dnP" id="Ste-8V-feu"/>
                 <outlet property="unfinishTimeBgView" destination="hPq-H2-vob" id="5eB-ZL-hcq"/>
                 <outlet property="unfinishTimeLabel" destination="Ats-RS-cyO" id="GD7-Lm-xDT"/>
+                <outlet property="unfinishTipLabel" destination="52U-LY-Wi1" id="UuY-Um-Ew9"/>
             </connections>
             <point key="canvasLocation" x="-849.5" y="-456"/>
         </tableViewCell>

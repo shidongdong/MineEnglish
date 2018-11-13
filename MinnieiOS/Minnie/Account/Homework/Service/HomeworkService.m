@@ -12,7 +12,7 @@
 #import "SearchHomeworksRequest.h"
 #import "DeleteHomeworksRequest.h"
 #import "SendHomeworkRequest.h"
-
+#import "SendHomeworkHistoryRequest.h"
 @implementation HomeworkService
 
 + (BaseRequest *)createHomework:(Homework *)homework callback:(RequestCallback)callback {
@@ -104,6 +104,26 @@
     
     [request start];
     
+    return request;
+}
+
++ (BaseRequest *)requestSendHomeworkHistoryWithCallback:(RequestCallback)callback
+{
+    SendHomeworkHistoryRequest * request = [[SendHomeworkHistoryRequest alloc] init];
+    request.objectKey = @"list";
+    request.objectClassName = @"HomeworkSendLog";
+    request.callback = callback;
+    [request start];
+    return request;
+}
+
++ (BaseRequest *)requestSendHomeworkHistoryWithNextUrl:(NSString *)nextUrl callback:(RequestCallback)callback
+{
+    SendHomeworkHistoryRequest * request = [[SendHomeworkHistoryRequest alloc] initWithNextUrl:nextUrl];
+    request.objectKey = @"list";
+    request.objectClassName = @"HomeworkSendLog";
+    request.callback = callback;
+    [request start];
     return request;
 }
 
