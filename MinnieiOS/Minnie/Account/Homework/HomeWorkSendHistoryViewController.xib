@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeWorkSendHistoryViewController">
             <connections>
-                <outlet property="mTableView" destination="rHM-g6-k3x" id="SEh-mj-k9h"/>
+                <outlet property="mTableView" destination="abz-aq-rBc" id="wuF-zs-6y8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -52,25 +52,37 @@
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="2sm-3L-FOU"/>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rHM-g6-k3x">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bID-WH-lwm">
                     <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="0ZV-wy-eBB"/>
-                        <outlet property="delegate" destination="-1" id="LEJ-Bz-CRp"/>
-                    </connections>
-                </tableView>
+                    <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="abz-aq-rBc">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="1bF-ba-VUs"/>
+                                <outlet property="delegate" destination="-1" id="X1N-dq-Ryx"/>
+                            </connections>
+                        </tableView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="abz-aq-rBc" firstAttribute="leading" secondItem="bID-WH-lwm" secondAttribute="leading" id="2ga-qF-94l"/>
+                        <constraint firstItem="abz-aq-rBc" firstAttribute="top" secondItem="bID-WH-lwm" secondAttribute="top" id="5iE-pz-gS7"/>
+                        <constraint firstAttribute="trailing" secondItem="abz-aq-rBc" secondAttribute="trailing" id="Fly-E2-fRg"/>
+                        <constraint firstAttribute="bottom" secondItem="abz-aq-rBc" secondAttribute="bottom" id="n79-bi-k4f"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="bID-WH-lwm" secondAttribute="trailing" id="2gs-It-rPD"/>
                 <constraint firstItem="rrk-W0-fd6" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="2hp-cC-cLA"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="rHM-g6-k3x" secondAttribute="bottom" id="5cf-mG-oVP"/>
+                <constraint firstItem="bID-WH-lwm" firstAttribute="top" secondItem="rrk-W0-fd6" secondAttribute="bottom" id="4tA-ed-FQC"/>
                 <constraint firstItem="rrk-W0-fd6" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="LNO-i8-bPo"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="rHM-g6-k3x" secondAttribute="trailing" id="TBZ-0y-mB3"/>
+                <constraint firstItem="bID-WH-lwm" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="VBa-Al-9M3"/>
+                <constraint firstAttribute="bottom" secondItem="bID-WH-lwm" secondAttribute="bottom" id="VwV-fo-Xtq"/>
                 <constraint firstItem="rrk-W0-fd6" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" id="iqP-4j-AN2"/>
-                <constraint firstItem="rHM-g6-k3x" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="jsh-4N-Zg7"/>
                 <constraint firstItem="rrk-W0-fd6" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="pT8-1C-oNg"/>
-                <constraint firstItem="rHM-g6-k3x" firstAttribute="top" secondItem="rrk-W0-fd6" secondAttribute="bottom" id="v3C-Nu-J8A"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
         </view>

@@ -7,7 +7,7 @@
 //
 
 #import "StudentStarListTableViewCell.h"
-
+#import <SDWebImage/UIImageView+WebCache.h>
 @interface StudentStarListTableViewCell()
 
 @property (weak, nonatomic) IBOutlet UIView *containerView;
@@ -51,7 +51,14 @@
     
     self.rankLabel.text = [NSString stringWithFormat:@"%ld",rank+1];
     self.nameLabel.text = data.nickName;
-    self.starLabel.text = [NSString stringWithFormat:@"%ld",(long)data.starCount];
+    self.starLabel.text = [NSString stringWithFormat:@"%ld颗星",(long)data.starCount];
+    
+    self.headerImageView.layer.cornerRadius = 12.f;
+    self.headerImageView.layer.masksToBounds = YES;
+    
+    if (data.avatar != nil) {
+        [self.headerImageView sd_setImageWithURL:[data.avatar imageURLWithWidth:24.f]];
+    }
 }
 
 

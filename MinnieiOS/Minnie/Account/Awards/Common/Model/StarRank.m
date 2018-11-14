@@ -10,7 +10,7 @@
 
 @implementation StarRank
 
--(NSDictionary *)JSONKeyPathsByPropertyKey {
++ (NSDictionary *)JSONKeyPathsByPropertyKey{
     return @{@"starCount":@"starCount",
              @"avatar":@"avatar",
              @"userId":@"userId",

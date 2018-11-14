@@ -12,6 +12,6 @@ typedef void(^FliterAlertActionCallback)(NSInteger index);
 
 @interface FilterAlertView : UIView
 
-+ (instancetype)showInView:(UIView *)superView atFliterType:(NSInteger)index forBgViewOffset:(CGFloat)offset withAtionBlock:(FliterAlertActionCallback)block;
++ (instancetype)showInView:(UIView *)superView atFliterType:(NSInteger)index forFliterArray:(NSArray *)array withAtionBlock:(FliterAlertActionCallback)block;
 
 @end

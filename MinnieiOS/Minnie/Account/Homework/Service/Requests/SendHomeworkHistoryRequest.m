@@ -36,7 +36,7 @@
         return self.nextUrl;
     }
     
-    return [NSString stringWithFormat:@"%@/homework/getHomeworkSendLog", ServerProjectName];
+    return [NSString stringWithFormat:@"%@/homework/getHomeworkSendLogs", ServerProjectName];
 }
 
 @end

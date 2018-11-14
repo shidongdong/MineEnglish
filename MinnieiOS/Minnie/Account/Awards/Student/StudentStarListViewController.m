@@ -9,17 +9,22 @@
 #import "StudentStarListViewController.h"
 #import "StudentStarListTableViewCell.h"
 #import "StudentAwardService.h"
+#import "StarRank.h"
+#import "UIView+Load.h"
 NSString * const StudentStarListTableViewCellId = @"StudentStarListTableViewCellId";
 
 @interface StudentStarListViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *mTableView;
 @property (nonatomic, strong) NSMutableArray * rankList;
+@property (nonatomic, strong) BaseRequest * rankRequest;
 @end
 
 @implementation StudentStarListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.rankList = [[NSMutableArray alloc] init];
     
     [self registerCellNibs];
     
@@ -37,14 +42,37 @@ NSString * const StudentStarListTableViewCellId = @"StudentStarListTableViewCell
 
 - (void)requestStarList
 {
-    [StudentAwardService requestStudentStarRankListWithCallback:^(Result *result, NSError *error) {
-        if (error) {
-            
-        }
-        
+    [self.view showLoadingView];
+    self.mTableView.hidden = YES;
+    self.rankRequest = [StudentAwardService requestStudentStarRankListWithCallback:^(Result *result, NSError *error) {
+        [self handleStarRankResult:result error:error];
     }];
 }
 
+- (void)handleStarRankResult:(Result *)result error:(NSError *)error
+{
+    [self.rankRequest clearCompletionBlock];
+    self.rankRequest = nil;
+    
+    [self.view hideAllStateView];
+    
+    if (error != nil) {
+        WeakifySelf;
+        [self.view showFailureViewWithRetryCallback:^{
+            [weakSelf requestStarList];
+        }];
+        
+        return;
+    }
+    
+    NSArray * resultList = (NSArray *)(result.userInfo);
+    [self.rankList removeAllObjects];
+    [self.rankList addObjectsFromArray:resultList];
+    self.mTableView.hidden = NO;
+    
+    [self.mTableView reloadData];
+    
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.rankList.count;
@@ -52,13 +80,14 @@ NSString * const StudentStarListTableViewCellId = @"StudentStarListTableViewCell
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 56.0;
+    return 59.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     StudentStarListTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:StudentStarListTableViewCellId forIndexPath:indexPath];
-    
+    StarRank * data = [self.rankList objectAtIndex:indexPath.row];
+    [cell setContentData:data forRank:indexPath.row];
     return cell;
 }
 

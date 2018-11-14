@@ -16,9 +16,9 @@
 #import "SearchHomeworkScoreRequest.h"
 @implementation HomeworkSessionService
 
-+ (BaseRequest *)requestHomeworkSessionsWithFinishState:(BOOL)finished
++ (BaseRequest *)requestHomeworkSessionsWithFinishState:(NSInteger)state
                                                callback:(RequestCallback)callback {
-    HomeworkSessionsRequest *request = [[HomeworkSessionsRequest alloc] initWithFinishState:finished];
+    HomeworkSessionsRequest *request = [[HomeworkSessionsRequest alloc] initWithFinishState:state];
     
     request.objectKey = @"list";
     request.objectClassName = @"HomeworkSession";

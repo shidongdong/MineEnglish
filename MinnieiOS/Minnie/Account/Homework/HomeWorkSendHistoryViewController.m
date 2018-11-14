@@ -11,6 +11,7 @@
 #import "HomeworkService.h"
 #import "UIScrollView+Refresh.h"
 #import "UIView+Load.h"
+#import "HomeworkSendHistoryHeaderView.h"
 @interface HomeWorkSendHistoryViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *mTableView;
 @property (nonatomic, copy)NSString * nextUrl;
@@ -39,6 +40,8 @@
 - (void)registerNibCell
 {
     [self.mTableView registerNib:[UINib nibWithNibName:NSStringFromClass([HomeworkSendHisTableViewCell class]) bundle:nil] forCellReuseIdentifier:HomeworkSendHisTableViewCellId];
+    
+    
 }
 
 - (void)requestHistoryList
@@ -157,7 +160,14 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 56.0;
+    HomeworkSendLog * data = [self.homeworks objectAtIndex:indexPath.row];
+    return [HomeworkSendHisTableViewCell calculateCellHightForData:data];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView * headerView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([HomeworkSendHistoryHeaderView class]) owner:nil options:nil] firstObject];
+    return headerView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -168,6 +178,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HomeworkSendHisTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:HomeworkSendHisTableViewCellId forIndexPath:indexPath];
+    HomeworkSendLog * data = [self.homeworks objectAtIndex:indexPath.row];
+    [cell setContentData:data];
+    
     return cell;
 }
 

@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StudentStarListViewController">
             <connections>
-                <outlet property="mTableView" destination="Abp-tg-AfB" id="DZr-xW-Nj7"/>
+                <outlet property="mTableView" destination="2he-yc-0sS" id="L3b-fE-xJ3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -60,29 +60,41 @@
                         <constraint firstItem="L6G-es-d11" firstAttribute="centerY" secondItem="KPr-al-tUL" secondAttribute="centerY" id="jpo-T7-yzs"/>
                         <constraint firstItem="zkm-Q0-p56" firstAttribute="top" secondItem="KPr-al-tUL" secondAttribute="top" id="oU6-jM-bqp"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="cvC-ei-DmO"/>
+                    <viewLayoutGuide key="safeArea" id="pPq-rE-UPa"/>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Abp-tg-AfB">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fqM-Zc-3cc">
                     <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="kNI-yO-Ac0"/>
-                        <outlet property="delegate" destination="-1" id="eH8-K1-BtV"/>
-                    </connections>
-                </tableView>
+                    <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2he-yc-0sS">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="Z54-K9-pew"/>
+                                <outlet property="delegate" destination="-1" id="okc-2j-wbY"/>
+                            </connections>
+                        </tableView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="2he-yc-0sS" firstAttribute="leading" secondItem="fqM-Zc-3cc" secondAttribute="leading" id="Fyd-fa-iMz"/>
+                        <constraint firstAttribute="bottom" secondItem="2he-yc-0sS" secondAttribute="bottom" id="JQc-uv-0kG"/>
+                        <constraint firstAttribute="trailing" secondItem="2he-yc-0sS" secondAttribute="trailing" id="l7Z-YR-J0B"/>
+                        <constraint firstItem="2he-yc-0sS" firstAttribute="top" secondItem="fqM-Zc-3cc" secondAttribute="top" id="ycv-cv-R93"/>
+                    </constraints>
+                </view>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="KPr-al-tUL" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" id="4bP-lC-fAG"/>
-                <constraint firstItem="KPr-al-tUL" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="MaL-68-KpO"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="Abp-tg-AfB" secondAttribute="trailing" id="Rdn-l6-nX2"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="Abp-tg-AfB" secondAttribute="bottom" id="Zqf-Wz-0J0"/>
-                <constraint firstItem="Abp-tg-AfB" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="gp3-2c-i67"/>
-                <constraint firstItem="KPr-al-tUL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="nOr-Rv-YNQ"/>
-                <constraint firstItem="KPr-al-tUL" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" priority="750" id="rab-fl-rfG"/>
-                <constraint firstItem="Abp-tg-AfB" firstAttribute="top" secondItem="KPr-al-tUL" secondAttribute="bottom" id="rgl-fA-06e"/>
+                <constraint firstItem="KPr-al-tUL" firstAttribute="top" secondItem="7IE-og-ysE" secondAttribute="top" priority="750" id="3LJ-mG-I97"/>
+                <constraint firstItem="fqM-Zc-3cc" firstAttribute="top" secondItem="KPr-al-tUL" secondAttribute="bottom" id="3uK-vA-Tt6"/>
+                <constraint firstItem="KPr-al-tUL" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="4bP-lC-fAG"/>
+                <constraint firstItem="fqM-Zc-3cc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="B1l-wg-5sQ"/>
+                <constraint firstItem="KPr-al-tUL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="MaL-68-KpO"/>
+                <constraint firstAttribute="trailing" secondItem="fqM-Zc-3cc" secondAttribute="trailing" id="RG2-al-qhl"/>
+                <constraint firstAttribute="bottom" secondItem="fqM-Zc-3cc" secondAttribute="bottom" id="WQU-S0-8LS"/>
+                <constraint firstItem="KPr-al-tUL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="aeb-NB-tuy"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <viewLayoutGuide key="safeArea" id="7IE-og-ysE"/>
         </view>
     </objects>
     <resources>

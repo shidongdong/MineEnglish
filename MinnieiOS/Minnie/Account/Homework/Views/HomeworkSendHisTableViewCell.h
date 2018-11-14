@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "HomeworkSendLog.h"
 extern NSString * const HomeworkSendHisTableViewCellId;
 
 @interface HomeworkSendHisTableViewCell : UITableViewCell
 
-+ (CGFloat)calculateCellHightForData:(id)data;
++ (CGFloat)calculateCellHightForData:(HomeworkSendLog *)data;
+
+- (void)setContentData:(HomeworkSendLog *)data;
 
 @end

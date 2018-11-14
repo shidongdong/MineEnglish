@@ -28,9 +28,12 @@
 
 @property (nonatomic, strong) HomeworkSessionsViewController *unfinishedClassesChildController;
 @property (nonatomic, strong) HomeworkSessionsViewController *finishedClassesChildController;
+
+@property (nonatomic, assign) NSInteger  currentFliterType;  //教师端： 0 按时间 1 按作业 2 按人 学生端： 0星~6星
+
 #if TEACHERSIDE
 @property (nonatomic, strong) HomeworkSessionsViewController *uncommitClassesChildController;
-@property (nonatomic, assign) NSInteger  currentFliterType;  //0 按时间 1 按作业 2 按人
+
 #else
 #endif
 
@@ -82,6 +85,17 @@
     
     __weak HomeworkSessionsContainerViewController *weakSelf = self;
     self.segmentControl.indexChangeHandler = ^(NSUInteger selectedIndex) {
+#if TEACHERSIDE
+#else
+        if (selectedIndex == 0)
+        {
+            [self.rightFuncButton setImage:[UIImage imageNamed:@"navbar_calendar"] forState:UIControlStateNormal];
+        }
+        else
+        {
+             [self.rightFuncButton setImage:[UIImage imageNamed:@"navbar_screen"] forState:UIControlStateNormal];
+        }
+#endif
         [weakSelf showChildPageViewControllerWithIndex:selectedIndex animated:YES shouldLocate:YES];
     };
     [self.customTitleView addSubview:self.segmentControl];
@@ -180,16 +194,26 @@
 #if TEACHERSIDE
     //显示搜索
     
-    CGFloat offset = isIPhoneX ? 88 : 64;
-    [FilterAlertView showInView:self.tabBarController.view atFliterType:self.currentFliterType forBgViewOffset:offset withAtionBlock:^(NSInteger index) {
+    
+    [FilterAlertView showInView:self.tabBarController.view atFliterType:self.currentFliterType forFliterArray:@[@"按时间",@"按任务",@"按人"] withAtionBlock:^(NSInteger index) {
         
     }];
     
 #else
-    CalendarViewController *vc = [[CalendarViewController alloc] initWithNibName:@"CalendarViewController" bundle:nil];
-    vc.clazz = APP.currentUser.clazz;
-    [vc setHidesBottomBarWhenPushed:YES];
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    if(self.segmentControl.selectedIndex == 0)
+    {
+        CalendarViewController *vc = [[CalendarViewController alloc] initWithNibName:@"CalendarViewController" bundle:nil];
+        vc.clazz = APP.currentUser.clazz;
+        [vc setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else
+    {
+        [FilterAlertView showInView:self.tabBarController.view atFliterType:self.currentFliterType forFliterArray:@[@"0星",@"1星",@"2星",@"3星",@"4星",@"5星"] withAtionBlock:^(NSInteger index) {
+            
+        }];
+    }
 #endif
 }
 
@@ -207,7 +231,7 @@
         if (self.unfinishedClassesChildController == nil) {
             self.unfinishedClassesChildController = [[HomeworkSessionsViewController alloc] initWithNibName:NSStringFromClass([HomeworkSessionsViewController class]) bundle:nil];
             self.unfinishedClassesChildController.isUnfinished = YES;
-            self.finishedClassesChildController.bLoadConversion = YES;
+            self.unfinishedClassesChildController.bLoadConversion = YES;
             existed = NO;
         }
         

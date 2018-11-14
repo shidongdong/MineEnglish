@@ -20,7 +20,7 @@
 
 @implementation FilterAlertView
 
-+ (instancetype)showInView:(UIView *)superView atFliterType:(NSInteger)index forBgViewOffset:(CGFloat)offset withAtionBlock:(FliterAlertActionCallback)block
++ (instancetype)showInView:(UIView *)superView atFliterType:(NSInteger)index forFliterArray:(NSArray *)array withAtionBlock:(FliterAlertActionCallback)block
 {
    // self.defultIndex = index;
     
@@ -28,8 +28,10 @@
                                                           owner:nil
                                                         options:nil] lastObject];
     
-    alertView.bgViewTopConstraint.constant = offset;
     
+    CGFloat offset = isIPhoneX ? 88 : 64;
+    alertView.bgViewTopConstraint.constant = offset;
+    alertView.fliterArray = array;
     alertView.defultIndex = index;
     alertView.actionCallback = block;
     [superView addSubview:alertView];
@@ -107,7 +109,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     //   self.defultIndex = -1;
-    self.fliterArray = @[@"按时间",@"按任务",@"按人"];
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

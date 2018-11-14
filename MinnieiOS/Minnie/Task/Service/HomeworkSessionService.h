@@ -12,7 +12,7 @@
 
 @interface HomeworkSessionService : NSObject
 
-+ (BaseRequest *)requestHomeworkSessionsWithFinishState:(BOOL)finished
++ (BaseRequest *)requestHomeworkSessionsWithFinishState:(NSInteger)state
                                                callback:(RequestCallback)callback;
 
 + (BaseRequest *)requestHomeworkSessionsWithNextUrl:(NSString *)nextUrl

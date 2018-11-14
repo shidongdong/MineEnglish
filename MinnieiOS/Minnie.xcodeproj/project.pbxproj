@@ -43,10 +43,9 @@
 		870286912184113F00559195 /* navbar_search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8702868A2184113F00559195 /* navbar_search@3x.png */; };
 		870286922184113F00559195 /* navbar_search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8702868A2184113F00559195 /* navbar_search@3x.png */; };
 		87028694218419F600559195 /* UnfinishedStudentHomeworkSessionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87028693218419F600559195 /* UnfinishedStudentHomeworkSessionTableViewCell.xib */; };
-		87028698218436F600559195 /* HomeWorkSendHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87028696218436F600559195 /* HomeWorkSendHistoryViewController.m */; };
-		87028699218436F600559195 /* HomeWorkSendHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87028696218436F600559195 /* HomeWorkSendHistoryViewController.m */; };
-		8702869A218436F600559195 /* HomeWorkSendHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87028697218436F600559195 /* HomeWorkSendHistoryViewController.xib */; };
 		8702869B218436F600559195 /* HomeWorkSendHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87028697218436F600559195 /* HomeWorkSendHistoryViewController.xib */; };
+		8709C2B8219C303800970757 /* HomeworkSendHistoryHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709C2B7219C303800970757 /* HomeworkSendHistoryHeaderView.m */; };
+		8709C2BA219C304900970757 /* HomeworkSendHistoryHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2B9219C304900970757 /* HomeworkSendHistoryHeaderView.xib */; };
 		8725E954214A5748005FAA74 /* CheckAppVerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8725E953214A5748005FAA74 /* CheckAppVerRequest.m */; };
 		8725E955214A5748005FAA74 /* CheckAppVerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8725E953214A5748005FAA74 /* CheckAppVerRequest.m */; };
 		872F5B362171821C00D88855 /* StudentService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9736497120AF2F8500511A95 /* StudentService.m */; };
@@ -74,6 +73,7 @@
 		87707872219AB5BA00940A88 /* SendHomeworkHistoryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 87707870219AB5BA00940A88 /* SendHomeworkHistoryRequest.m */; };
 		87707876219ABAE900940A88 /* HomeworkSendLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 87707875219ABAE900940A88 /* HomeworkSendLog.m */; };
 		87707877219ABAE900940A88 /* HomeworkSendLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 87707875219ABAE900940A88 /* HomeworkSendLog.m */; };
+		87707878219BB62500940A88 /* HomeWorkSendHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87028696218436F600559195 /* HomeWorkSendHistoryViewController.m */; };
 		879CE51821905D0300BBE4B7 /* AchieverListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE51621905D0300BBE4B7 /* AchieverListViewController.m */; };
 		879CE51921905D0300BBE4B7 /* AchieverListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE51621905D0300BBE4B7 /* AchieverListViewController.m */; };
 		879CE51A21905D0300BBE4B7 /* AchieverListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879CE51721905D0300BBE4B7 /* AchieverListViewController.xib */; };
@@ -1310,6 +1310,9 @@
 		87028695218436F600559195 /* HomeWorkSendHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeWorkSendHistoryViewController.h; sourceTree = "<group>"; };
 		87028696218436F600559195 /* HomeWorkSendHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeWorkSendHistoryViewController.m; sourceTree = "<group>"; };
 		87028697218436F600559195 /* HomeWorkSendHistoryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeWorkSendHistoryViewController.xib; sourceTree = "<group>"; };
+		8709C2B6219C303800970757 /* HomeworkSendHistoryHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeworkSendHistoryHeaderView.h; sourceTree = "<group>"; };
+		8709C2B7219C303800970757 /* HomeworkSendHistoryHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeworkSendHistoryHeaderView.m; sourceTree = "<group>"; };
+		8709C2B9219C304900970757 /* HomeworkSendHistoryHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeworkSendHistoryHeaderView.xib; sourceTree = "<group>"; };
 		8725E94F214A5747005FAA74 /* CheckAppVerRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckAppVerRequest.h; sourceTree = "<group>"; };
 		8725E953214A5748005FAA74 /* CheckAppVerRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckAppVerRequest.m; sourceTree = "<group>"; };
 		874D7B2B219956F5001C5449 /* HomeworkLimitTimeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeworkLimitTimeCell.h; sourceTree = "<group>"; };
@@ -4248,6 +4251,9 @@
 				875C261E218A9BBB0047E32A /* HomeworkSendHisTableViewCell.xib */,
 				875C2623218AAB0B0047E32A /* SegementLabelsView.h */,
 				875C2624218AAB0B0047E32A /* SegementLabelsView.m */,
+				8709C2B6219C303800970757 /* HomeworkSendHistoryHeaderView.h */,
+				8709C2B7219C303800970757 /* HomeworkSendHistoryHeaderView.m */,
+				8709C2B9219C304900970757 /* HomeworkSendHistoryHeaderView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4781,7 +4787,6 @@
 				8770786D21997E5F00940A88 /* icon_drop_small_black@2x.png in Resources */,
 				971098E4207A0BF500568785 /* 笑哭.png in Resources */,
 				879CE51A21905D0300BBE4B7 /* AchieverListViewController.xib in Resources */,
-				8702869A218436F600559195 /* HomeWorkSendHistoryViewController.xib in Resources */,
 				97109785207A006D00568785 /* pop_img_stars@2x.png in Resources */,
 				9710982D207A006D00568785 /* right_chat_talk2@3x.png in Resources */,
 				97109731207A006D00568785 /* label_ic_eye_hide@3x.png in Resources */,
@@ -5089,6 +5094,7 @@
 				97109C3B207A2E3E00568785 /* CircleLikeUsersTableViewCell.xib in Resources */,
 				9710981C207A006D00568785 /* ic_class_bule@3x.png in Resources */,
 				8702868C2184113F00559195 /* navbar_screen@2x.png in Resources */,
+				8709C2BA219C304900970757 /* HomeworkSendHistoryHeaderView.xib in Resources */,
 				9710974C207A006D00568785 /* icon_Emoji@2x.png in Resources */,
 				875C2622218A9BBB0047E32A /* HomeworkSendHisTableViewCell.xib in Resources */,
 				97567DE220BAC9EA00AA0EB8 /* TeacherClassesViewController.xib in Resources */,
@@ -5650,7 +5656,6 @@
 				97109EDB207A7C1600568785 /* ExchangeRecordsRequest.m in Sources */,
 				97109C44207A2E3E00568785 /* CircleContentBaseTableViewCell.m in Sources */,
 				97109A36207A158C00568785 /* CorrectHomeworkRequest.m in Sources */,
-				87028698218436F600559195 /* HomeWorkSendHistoryViewController.m in Sources */,
 				97109948207A0BF600568785 /* Student.m in Sources */,
 				97109A2E207A158C00568785 /* HomeworkSessionService.m in Sources */,
 				97109C8E207A2EC900568785 /* InputPhoneNumberViewController.m in Sources */,
@@ -5733,6 +5738,7 @@
 				97109BD7207A1D5000568785 /* CalendarViewController.m in Sources */,
 				97109C8F207A2EC900568785 /* InputPhoneNumberViewController.m in Sources */,
 				97567DDD20B86C6900AA0EB8 /* UpdateTaskModifiedTimeRequest.m in Sources */,
+				8709C2B8219C303800970757 /* HomeworkSendHistoryHeaderView.m in Sources */,
 				973649D020AF2F8600511A95 /* StudentSelectorViewController.m in Sources */,
 				97109EB6207A7C0A00568785 /* AddAwardRequest.m in Sources */,
 				973649E120AF2F8600511A95 /* DeleteHomeworksRequest.m in Sources */,
@@ -5783,6 +5789,7 @@
 				9710993D207A0BF600568785 /* Constants.m in Sources */,
 				97109A8A207A171600568785 /* HomeworkAudioCollectionViewCell.m in Sources */,
 				97109D4C207A2F0400568785 /* MessageEditorViewController.m in Sources */,
+				87707878219BB62500940A88 /* HomeWorkSendHistoryViewController.m in Sources */,
 				973649BD20AF2F8600511A95 /* CreateHomeworkViewController.m in Sources */,
 				977BD094207CA140000A1994 /* PushManager.m in Sources */,
 				9710993F207A0BF600568785 /* Error.m in Sources */,
@@ -5828,7 +5835,6 @@
 				870286802182FF0800559195 /* StarRank.m in Sources */,
 				973649C020AF2F8600511A95 /* HomeworkImageTableViewCell.m in Sources */,
 				97109B08207A1C0800568785 /* TextPickerView.m in Sources */,
-				87028699218436F600559195 /* HomeWorkSendHistoryViewController.m in Sources */,
 				97364A0220B11DE600511A95 /* StudentsViewController.m in Sources */,
 				97109A45207A158C00568785 /* HomeworkSessionViewController.m in Sources */,
 				97109C27207A2E3E00568785 /* LikeHomeworkRequest.m in Sources */,
