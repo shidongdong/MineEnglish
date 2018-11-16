@@ -23,14 +23,14 @@
                         <rect key="frame" x="10" y="15" width="329" height="76.5"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Wt7-2R-XXN">
-                                <rect key="frame" x="49" y="26.5" width="24" height="24"/>
+                                <rect key="frame" x="54" y="26.5" width="24" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="24" id="clh-Ov-FEi"/>
                                     <constraint firstAttribute="height" constant="24" id="ger-tc-A3Q"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QTK-F5-34H">
-                                <rect key="frame" x="83" y="28.5" width="10" height="20"/>
+                                <rect key="frame" x="88" y="28.5" width="10" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="JVI-6K-qoJ"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="rWf-zC-dO4"/>
@@ -50,13 +50,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MRq-9k-ike">
-                                <rect key="frame" x="10" y="26.5" width="24" height="24"/>
+                                <rect key="frame" x="15" y="26.5" width="24" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="24" id="0qg-m1-GY4"/>
                                     <constraint firstAttribute="height" constant="24" id="pJZ-4v-Fhh"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7a-Cb-Zhq">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7a-Cb-Zhq">
                                 <rect key="frame" x="15" y="26.5" width="24" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="2g2-ui-Jgu"/>
@@ -69,7 +69,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="MRq-9k-ike" firstAttribute="leading" secondItem="r5e-dZ-8K4" secondAttribute="leading" constant="10" id="2ck-7k-rHo"/>
+                            <constraint firstItem="MRq-9k-ike" firstAttribute="leading" secondItem="r5e-dZ-8K4" secondAttribute="leading" constant="15" id="2ck-7k-rHo"/>
                             <constraint firstItem="QTK-F5-34H" firstAttribute="leading" secondItem="Wt7-2R-XXN" secondAttribute="trailing" constant="10" id="BMl-g1-rHQ"/>
                             <constraint firstItem="MRq-9k-ike" firstAttribute="centerY" secondItem="r5e-dZ-8K4" secondAttribute="centerY" id="Ooe-xF-p3v"/>
                             <constraint firstItem="H7a-Cb-Zhq" firstAttribute="centerY" secondItem="r5e-dZ-8K4" secondAttribute="centerY" id="R2M-sT-akr"/>

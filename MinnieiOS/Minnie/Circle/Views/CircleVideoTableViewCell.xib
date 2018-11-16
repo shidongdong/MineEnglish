@@ -33,6 +33,16 @@
                                     <constraint firstAttribute="width" constant="44" id="ujA-25-LKy"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gh6-oi-nBY">
+                                <rect key="frame" x="12" y="12" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="gAS-Tf-OBl"/>
+                                    <constraint firstAttribute="height" constant="44" id="lyj-lo-GNz"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="headerAvatarPress:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="DdY-NL-B2L"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t2p-BL-rpU">
                                 <rect key="frame" x="70" y="12" width="31.5" height="37.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
@@ -120,6 +130,7 @@
                             <constraint firstAttribute="bottom" secondItem="8pv-k7-CVa" secondAttribute="bottom" id="Gp7-13-U9b"/>
                             <constraint firstAttribute="trailing" secondItem="fME-ej-IJg" secondAttribute="trailing" constant="6" id="J3D-g3-pB6"/>
                             <constraint firstItem="oe4-uq-bp8" firstAttribute="top" secondItem="t2p-BL-rpU" secondAttribute="bottom" constant="10" id="Mvt-sM-6aS"/>
+                            <constraint firstItem="Gh6-oi-nBY" firstAttribute="leading" secondItem="oHj-mP-BXG" secondAttribute="leading" constant="12" id="Mza-D5-1SS"/>
                             <constraint firstAttribute="trailing" secondItem="Kx4-Zm-iL6" secondAttribute="trailing" id="P0Z-2i-Ihw"/>
                             <constraint firstAttribute="trailing" secondItem="oe4-uq-bp8" secondAttribute="trailing" constant="60" id="RxV-rD-Kp3"/>
                             <constraint firstItem="oe4-uq-bp8" firstAttribute="leading" secondItem="t2p-BL-rpU" secondAttribute="leading" id="Stm-No-dKs"/>
@@ -132,6 +143,7 @@
                             <constraint firstItem="Ve2-1F-a2A" firstAttribute="top" secondItem="oHj-mP-BXG" secondAttribute="top" constant="12" id="mwp-Tu-0tS"/>
                             <constraint firstItem="t2p-BL-rpU" firstAttribute="top" secondItem="oHj-mP-BXG" secondAttribute="top" constant="12" id="pOW-Te-jea"/>
                             <constraint firstItem="8pv-k7-CVa" firstAttribute="top" secondItem="oe4-uq-bp8" secondAttribute="bottom" id="ua4-zg-sT5"/>
+                            <constraint firstItem="Gh6-oi-nBY" firstAttribute="top" secondItem="oHj-mP-BXG" secondAttribute="top" constant="12" id="xzd-wU-l53"/>
                         </constraints>
                     </view>
                 </subviews>

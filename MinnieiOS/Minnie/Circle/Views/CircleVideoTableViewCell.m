@@ -38,6 +38,13 @@ static CGFloat const CircleVideoThumbnailRatio = 140/222.f;
         self.videoClickCallback();
     }
 }
+- (IBAction)headerAvatarPress:(id)sender {
+    
+    if (self.avatarClickCallback != nil) {
+        self.avatarClickCallback();
+    }
+    
+}
 
 - (IBAction)deleteButtonPressed:(id)sender {
     if (self.deleteClickCallback != nil) {

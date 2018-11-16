@@ -34,19 +34,19 @@
 {
     if (rank == 0)
     {
-        self.rankImageView.image = [UIImage imageNamed:@""];
+        self.rankImageView.image = [UIImage imageNamed:@"第1名"];
     }
     else if (rank == 1)
     {
-        self.rankImageView.image = [UIImage imageNamed:@""];
+        self.rankImageView.image = [UIImage imageNamed:@"第2名"];
     }
     else if (rank == 2)
     {
-        self.rankImageView.image = [UIImage imageNamed:@""];
+        self.rankImageView.image = [UIImage imageNamed:@"第3名"];
     }
     else
     {
-        self.rankImageView.image = [UIImage imageNamed:@""];
+        self.rankImageView.image = [UIImage imageNamed:@"第4名"];
     }
     
     self.rankLabel.text = [NSString stringWithFormat:@"%ld",rank+1];

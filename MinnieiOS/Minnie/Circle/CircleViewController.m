@@ -494,6 +494,13 @@
     [self.inputTextView becomeFirstResponder];
 }
 
+- (void)avatarButtonPressed:(CircleHomework *)homework
+{
+    CircleViewController * userCircleVc = [[CircleViewController alloc] initWithNibName:NSStringFromClass([CircleViewController class]) bundle:nil];
+    userCircleVc.userId = CircleSchool;
+}
+
+
 - (void)replyButtonPressed:(CircleHomework *)homework comment:(Comment *)comment {
     self.currentHomework = homework;
     
@@ -699,6 +706,10 @@
             
             [videoCell setCommentClickCallback:^{
                 [weakSelf commentButtonPressed:homework];
+            }];
+            
+            [videoCell setAvatarClickCallback:^{
+                [weakSelf avatarButtonPressed:homework];
             }];
             
             cell = videoCell;

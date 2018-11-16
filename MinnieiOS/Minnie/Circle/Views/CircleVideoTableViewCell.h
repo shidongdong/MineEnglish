@@ -10,6 +10,7 @@
 
 typedef void(^CircleVideoClickCallback)(void);
 
+
 extern NSString * const CircleVideoTableViewCellId;
 
 @interface CircleVideoTableViewCell : CircleContentBaseTableViewCell

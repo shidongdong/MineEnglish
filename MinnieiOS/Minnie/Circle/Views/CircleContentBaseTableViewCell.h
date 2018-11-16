@@ -13,7 +13,7 @@
 typedef void(^CircleDeleteClickCallback)(void);
 typedef void(^CircleLikeClickCallback)(void);
 typedef void(^CircleCommentClickCallback)(void);
-
+typedef void(^CircleAvatarClickCallback)(void);
 @interface CircleContentBaseTableViewCell : UITableViewCell
 
 @property (nonatomic, weak) IBOutlet UIImageView *bgImageView;
@@ -26,7 +26,7 @@ typedef void(^CircleCommentClickCallback)(void);
 @property (nonatomic, copy) CircleDeleteClickCallback deleteClickCallback;
 @property (nonatomic, copy) CircleLikeClickCallback likeClickCallback;
 @property (nonatomic, copy) CircleCommentClickCallback commentClickCallback;
-
+@property (nonatomic, copy) CircleAvatarClickCallback avatarClickCallback;
 - (void)setupWithHomework:(CircleHomework *)homework;
 
 - (void)updateLikeState:(BOOL)liked;

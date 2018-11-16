@@ -406,6 +406,10 @@
                 [weakSelf commentButtonPressed:homework];
             }];
             
+            [videoCell setAvatarClickCallback:^{
+                
+            }];
+            
             weakSelf.contentCell = videoCell;
             
             cell = videoCell;
