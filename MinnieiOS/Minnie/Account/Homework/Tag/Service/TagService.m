@@ -61,7 +61,7 @@
 + (BaseRequest *)createFormTag:(NSString *)formtag
                       callback:(RequestCallback)callback
 {
-    CreateFormTagRequest *request = [[CreateFormTagRequest alloc] initWithFormTag:tag];
+    CreateFormTagRequest *request = [[CreateFormTagRequest alloc] initWithFormTag:formtag];
     
     request.callback = callback;
     
@@ -72,7 +72,7 @@
 
 + (BaseRequest *)deleteFormTags:(NSArray<NSString *>*)formtags callback:(RequestCallback)callback
 {
-    DeleteFormTagsRequest *request = [[DeleteFormTagsRequest alloc] initWithFormTags:tags];
+    DeleteFormTagsRequest *request = [[DeleteFormTagsRequest alloc] initWithFormTags:formtags];
     
     request.callback = callback;
     

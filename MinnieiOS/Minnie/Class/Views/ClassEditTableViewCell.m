@@ -9,7 +9,7 @@
 #import "ClassEditTableViewCell.h"
 
 NSString * const ClassEditTableViewCellId = @"ClassEditTableViewCellId";
-CGFloat const ClassEditTableViewCellHeight = 276.f;
+CGFloat const ClassEditTableViewCellHeight = 320.f;
 
 @interface ClassEditTableViewCell()
 
@@ -58,6 +58,8 @@ CGFloat const ClassEditTableViewCellHeight = 276.f;
         self.classStudentsTextField.text = [NSString stringWithFormat:@"%zd", clazz.maxStudentsCount];
     }
     self.classTypeTextField.text = clazz.isTrial?@"试听课":@"正式课堂";
+    NSArray * pickList = @[@"零基础",@"1级",@"2级",@"3级",@"4级",@"5级",@"6级",@"7级"];
+    self.classLevelTextField.text = [pickList objectAtIndex:clazz.classLevel];
 }
 
 - (void)textDidChange:(NSNotification *)notification {
@@ -101,6 +103,13 @@ CGFloat const ClassEditTableViewCellHeight = 276.f;
         self.selectClassTypeCallback();
     }
 }
+
+- (IBAction)classLevelButtonPressed:(id)sender {
+    if (self.selectClassLevelCallback != nil) {
+        self.selectClassLevelCallback();
+    }
+}
+
 
 @end
 

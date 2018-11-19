@@ -32,6 +32,9 @@
 
 @property (nonatomic, readonly) long long nextClassTime; // 下一次上课的时间
 
+@property (nonatomic, assign) NSInteger commitedHomeworksCount;  //已提交的作业数量
+@property (nonatomic, assign) NSInteger classLevel;//班级等级0-7
+
 - (NSDictionary *)dictionaryForUpload;
 
 @end

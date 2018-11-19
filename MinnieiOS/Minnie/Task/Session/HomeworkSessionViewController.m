@@ -54,6 +54,7 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *emojiViewBottomLayoutConstraint;
 
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *answerViewWidthConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *warnViewWidthConstraint;
 
 @property (nonatomic, weak) IBOutlet UIView *loadingContainerView;
 @property (nonatomic, weak) IBOutlet UIButton *correctButton;
@@ -105,11 +106,13 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
 #if TEACHERSIDE
     self.customTitleLabel.text = self.homeworkSession.student.nickname;
     self.correctButton.hidden = self.homeworkSession.score>0;
-    self.answerViewWidthConstraint.constant = ScreenWidth/3;
+    self.answerViewWidthConstraint.constant = ScreenWidth/4;
+    self.warnViewWidthConstraint.constant = ScreenWidth/4;
 #else
     self.customTitleLabel.text = self.homeworkSession.correctTeacher.nickname;
     self.correctButton.hidden = YES;
     self.answerViewWidthConstraint.constant = 0;
+    self.warnViewWidthConstraint.constant = 0;
 #endif
     
     self.messages = [NSMutableArray array];
@@ -1424,7 +1427,7 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
     
     NSString *key = self.sortedKeys[indexPath.section-1];
     NSArray *messages = self.sortedMessages[key];
-    
+    NSInteger index = indexPath.row;
     AVIMTypedMessage *message = messages[indexPath.row-1];
     UITableViewCell *cell = nil;
     
@@ -1573,6 +1576,10 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
         }];
         
         cell = audioCell;
+    }
+    else
+    {
+        cell = [[UITableView alloc] init];
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

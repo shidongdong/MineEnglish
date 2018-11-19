@@ -19,6 +19,7 @@ typedef void(^ClassEditTableViewCellSelectStartTimeCallback)(void);
 typedef void(^ClassEditTableViewCellSelectEndTimeCallback)(void);
 typedef void(^ClassEditTableViewCellSelectStudentsCountCallback)(void);
 typedef void(^ClassEditTableViewCellSelectClassTypeCallback)(void);
+typedef void(^ClassEditTableViewCellSelectClassLevelCallback)(void);
 
 @interface ClassEditTableViewCell : UITableViewCell
 
@@ -29,6 +30,7 @@ typedef void(^ClassEditTableViewCellSelectClassTypeCallback)(void);
 @property (nonatomic, weak) IBOutlet UITextField *classTypeTextField; // 课堂类型
 @property (nonatomic, weak) IBOutlet UIButton *startTimeButton;
 @property (nonatomic, weak) IBOutlet UIButton *endTimeButton;
+@property (weak, nonatomic) IBOutlet UITextField *classLevelTextField; //课堂等级
 
 @property (nonatomic, copy) ClassEditTableViewCellNameChangedCallback nameChangedCallback;
 @property (nonatomic, copy) ClassEditTableViewCellLocationChangedTeacherCallback locationChangedCallback;
@@ -37,6 +39,7 @@ typedef void(^ClassEditTableViewCellSelectClassTypeCallback)(void);
 @property (nonatomic, copy) ClassEditTableViewCellSelectEndTimeCallback selectEndTimeCallback;
 @property (nonatomic, copy) ClassEditTableViewCellSelectClassTypeCallback selectStudentsCountCallback;
 @property (nonatomic, copy) ClassEditTableViewCellSelectClassTypeCallback selectClassTypeCallback;
+@property (nonatomic, copy) ClassEditTableViewCellSelectClassLevelCallback selectClassLevelCallback;
 
 - (void)setupWithClass:(Clazz *)clazz;
 

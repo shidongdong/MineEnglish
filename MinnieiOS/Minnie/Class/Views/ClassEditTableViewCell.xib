@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -12,18 +12,18 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="395" id="KGk-i7-Jjw" customClass="ClassEditTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="276"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="452" id="KGk-i7-Jjw" customClass="ClassEditTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="354" height="333"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="275.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="354" height="332.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ln-5r-yPg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="275.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="354" height="332.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rvl-5A-Rem">
-                                <rect key="frame" x="0.0" y="12" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="12" width="354" height="44"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="班级名:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QfN-3Z-wzq">
                                         <rect key="frame" x="12" y="14" width="47" height="17"/>
@@ -32,13 +32,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入班级名" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uy7-si-OMb">
-                                        <rect key="frame" x="88" y="0.0" width="220" height="44"/>
+                                        <rect key="frame" x="88" y="0.0" width="254" height="44"/>
                                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ixp-3j-NHR" userLabel="分隔线">
-                                        <rect key="frame" x="0.0" y="43.5" width="320" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="43.5" width="354" height="0.5"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="r5h-1i-7F6"/>
@@ -60,7 +60,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ORr-Wu-ZUR">
-                                <rect key="frame" x="0.0" y="56" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="56" width="354" height="44"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上课时间:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T9a-qM-G4G">
                                         <rect key="frame" x="12" y="14" width="62" height="17"/>
@@ -103,7 +103,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DFe-Lu-Oya" userLabel="分隔线">
-                                        <rect key="frame" x="0.0" y="43" width="320" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="43" width="354" height="0.5"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="fZv-kn-TdZ"/>
@@ -127,7 +127,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MkU-U3-Qlf">
-                                <rect key="frame" x="0.0" y="100" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="100" width="354" height="44"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上课地点" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jz-ZI-udU">
                                         <rect key="frame" x="12" y="14" width="58" height="17"/>
@@ -136,13 +136,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入上课地点" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oSf-OF-Yom">
-                                        <rect key="frame" x="88" y="0.0" width="220" height="44"/>
+                                        <rect key="frame" x="88" y="0.0" width="254" height="44"/>
                                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1pP-fM-Yo8" userLabel="分隔线">
-                                        <rect key="frame" x="0.0" y="43.5" width="320" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="43.5" width="354" height="0.5"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="qHT-Rm-LOg"/>
@@ -164,7 +164,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Has-LN-XBr">
-                                <rect key="frame" x="0.0" y="144" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="144" width="354" height="44"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上课老师:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PlY-uA-LIO">
                                         <rect key="frame" x="12" y="14" width="62" height="17"/>
@@ -173,27 +173,27 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请选择上课老师" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VRN-d7-7eb">
-                                        <rect key="frame" x="88" y="0.0" width="192" height="44"/>
+                                        <rect key="frame" x="88" y="0.0" width="226" height="44"/>
                                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_drop_small.png" translatesAutoresizingMaskIntoConstraints="NO" id="e3U-Ls-Vkv">
-                                        <rect key="frame" x="292" y="14" width="16" height="16"/>
+                                        <rect key="frame" x="326" y="14" width="16" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="O0x-70-a73"/>
                                             <constraint firstAttribute="width" constant="16" id="YP0-uG-Fzv"/>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LRU-Kh-2M3">
-                                        <rect key="frame" x="88" y="0.0" width="232" height="43.5"/>
+                                        <rect key="frame" x="88" y="0.0" width="266" height="43.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <action selector="teacherButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="dOa-v8-2uS"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zvb-d2-fmA" userLabel="分隔线">
-                                        <rect key="frame" x="0.0" y="43.5" width="320" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="43.5" width="354" height="0.5"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="ckV-14-Hkr"/>
@@ -221,7 +221,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RS1-2x-NWE">
-                                <rect key="frame" x="0.0" y="188" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="188" width="354" height="44"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上课人数" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w1E-QW-P39" userLabel="上课人数">
                                         <rect key="frame" x="12" y="14" width="58" height="17"/>
@@ -230,27 +230,27 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请选择班级人数上限" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sx5-RS-Zft">
-                                        <rect key="frame" x="88" y="0.0" width="192" height="44"/>
+                                        <rect key="frame" x="88" y="0.0" width="226" height="44"/>
                                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_drop_small.png" translatesAutoresizingMaskIntoConstraints="NO" id="5gW-gK-qNt">
-                                        <rect key="frame" x="292" y="14" width="16" height="16"/>
+                                        <rect key="frame" x="326" y="14" width="16" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="16" id="2oX-iw-EeW"/>
                                             <constraint firstAttribute="height" constant="16" id="jeH-Kq-IEj"/>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IdY-gw-1Z2">
-                                        <rect key="frame" x="88" y="0.0" width="232" height="43.5"/>
+                                        <rect key="frame" x="88" y="0.0" width="266" height="43.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <action selector="studentsCountButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Cm3-Nd-KnK"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ck-Le-htl" userLabel="分隔线">
-                                        <rect key="frame" x="0.0" y="43.5" width="320" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="43.5" width="354" height="0.5"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="5Uo-ku-BPZ"/>
@@ -278,7 +278,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VWZ-Xl-FPo">
-                                <rect key="frame" x="0.0" y="232" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="232" width="354" height="44"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="课堂类型" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCI-G0-HGK">
                                         <rect key="frame" x="12" y="14" width="58" height="17"/>
@@ -287,27 +287,27 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请选择课堂类型" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pT8-Ll-d54">
-                                        <rect key="frame" x="88" y="0.0" width="192" height="44"/>
+                                        <rect key="frame" x="88" y="0.0" width="226" height="44"/>
                                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_drop_small.png" translatesAutoresizingMaskIntoConstraints="NO" id="QeF-5q-djW">
-                                        <rect key="frame" x="292" y="14" width="16" height="16"/>
+                                        <rect key="frame" x="326" y="14" width="16" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="16" id="1FX-M6-Xdm"/>
                                             <constraint firstAttribute="height" constant="16" id="J7G-ov-6PO"/>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="73s-DJ-G8n">
-                                        <rect key="frame" x="88" y="0.0" width="232" height="43.5"/>
+                                        <rect key="frame" x="88" y="0.0" width="266" height="43.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <action selector="classTypeButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="drk-ty-rcf"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eir-oy-MWN" userLabel="分隔线">
-                                        <rect key="frame" x="0.0" y="43.5" width="320" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="43.5" width="354" height="0.5"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="193-8g-lkM"/>
@@ -334,6 +334,64 @@
                                     <constraint firstAttribute="trailing" secondItem="Eir-oy-MWN" secondAttribute="trailing" id="xpx-QE-KrJ"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iqe-Ci-cqO">
+                                <rect key="frame" x="0.0" y="276" width="354" height="44"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="班级等级" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D8G-BV-fpm">
+                                        <rect key="frame" x="12" y="14" width="58" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请选择班级等级" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qFY-cr-hWz">
+                                        <rect key="frame" x="88" y="0.0" width="226" height="44"/>
+                                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_drop_small.png" translatesAutoresizingMaskIntoConstraints="NO" id="tHO-A9-IfX">
+                                        <rect key="frame" x="326" y="14" width="16" height="16"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="16" id="4bG-KL-r3x"/>
+                                            <constraint firstAttribute="height" constant="16" id="eCx-gG-izs"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lZG-qZ-X0W">
+                                        <rect key="frame" x="88" y="0.0" width="266" height="43.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <action selector="classLevelButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="INo-Rd-Keu"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="buC-QU-U9j" userLabel="分隔线">
+                                        <rect key="frame" x="0.0" y="43.5" width="354" height="0.5"/>
+                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="MJs-YQ-SOZ"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="buC-QU-U9j" firstAttribute="leading" secondItem="Iqe-Ci-cqO" secondAttribute="leading" id="2sX-8K-Quo"/>
+                                    <constraint firstAttribute="trailing" secondItem="tHO-A9-IfX" secondAttribute="trailing" constant="12" id="5LW-gS-O2S"/>
+                                    <constraint firstItem="lZG-qZ-X0W" firstAttribute="top" secondItem="Iqe-Ci-cqO" secondAttribute="top" id="CBK-e5-79F"/>
+                                    <constraint firstItem="tHO-A9-IfX" firstAttribute="centerY" secondItem="Iqe-Ci-cqO" secondAttribute="centerY" id="J3c-hO-5bX"/>
+                                    <constraint firstItem="lZG-qZ-X0W" firstAttribute="leading" secondItem="D8G-BV-fpm" secondAttribute="trailing" constant="18" id="Jb1-4D-Ktv"/>
+                                    <constraint firstAttribute="trailing" secondItem="lZG-qZ-X0W" secondAttribute="trailing" id="Jqm-Um-Srk"/>
+                                    <constraint firstItem="D8G-BV-fpm" firstAttribute="leading" secondItem="Iqe-Ci-cqO" secondAttribute="leading" constant="12" id="Jzg-Gf-k1e"/>
+                                    <constraint firstItem="D8G-BV-fpm" firstAttribute="centerY" secondItem="Iqe-Ci-cqO" secondAttribute="centerY" id="PkR-CY-Ln4"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="T01-sh-Jng"/>
+                                    <constraint firstAttribute="trailing" secondItem="qFY-cr-hWz" secondAttribute="trailing" constant="40" id="VGy-5b-meS"/>
+                                    <constraint firstItem="qFY-cr-hWz" firstAttribute="top" secondItem="Iqe-Ci-cqO" secondAttribute="top" id="beQ-6T-PNB"/>
+                                    <constraint firstItem="qFY-cr-hWz" firstAttribute="leading" secondItem="Iqe-Ci-cqO" secondAttribute="leading" constant="88" id="dcc-oS-YIJ"/>
+                                    <constraint firstItem="buC-QU-U9j" firstAttribute="top" secondItem="lZG-qZ-X0W" secondAttribute="bottom" id="f9L-CV-pNd"/>
+                                    <constraint firstAttribute="bottom" secondItem="qFY-cr-hWz" secondAttribute="bottom" id="goc-LL-D84"/>
+                                    <constraint firstAttribute="bottom" secondItem="buC-QU-U9j" secondAttribute="bottom" id="jax-Rn-bGr"/>
+                                    <constraint firstAttribute="height" constant="44" id="me2-Xm-vW7"/>
+                                    <constraint firstAttribute="trailing" secondItem="buC-QU-U9j" secondAttribute="trailing" id="oo0-CT-zyF"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -342,17 +400,20 @@
                             <constraint firstAttribute="trailing" secondItem="MkU-U3-Qlf" secondAttribute="trailing" id="8BX-9k-Yqx"/>
                             <constraint firstItem="MkU-U3-Qlf" firstAttribute="top" secondItem="ORr-Wu-ZUR" secondAttribute="bottom" id="8Ju-gY-VAg"/>
                             <constraint firstItem="Has-LN-XBr" firstAttribute="top" secondItem="MkU-U3-Qlf" secondAttribute="bottom" id="CQZ-gX-AFx"/>
+                            <constraint firstItem="Iqe-Ci-cqO" firstAttribute="leading" secondItem="8ln-5r-yPg" secondAttribute="leading" id="E8M-So-Hup"/>
                             <constraint firstItem="VWZ-Xl-FPo" firstAttribute="top" secondItem="RS1-2x-NWE" secondAttribute="bottom" id="FW1-1a-TAv"/>
                             <constraint firstAttribute="trailing" secondItem="VWZ-Xl-FPo" secondAttribute="trailing" id="LMq-IT-CwT"/>
                             <constraint firstAttribute="trailing" secondItem="Has-LN-XBr" secondAttribute="trailing" id="LQt-fl-owC"/>
                             <constraint firstItem="Has-LN-XBr" firstAttribute="leading" secondItem="8ln-5r-yPg" secondAttribute="leading" id="SAd-o6-jC2"/>
                             <constraint firstItem="ORr-Wu-ZUR" firstAttribute="leading" secondItem="8ln-5r-yPg" secondAttribute="leading" id="UsB-Ye-75E"/>
+                            <constraint firstItem="Iqe-Ci-cqO" firstAttribute="top" secondItem="VWZ-Xl-FPo" secondAttribute="bottom" id="gxY-ee-9Uf"/>
                             <constraint firstItem="VWZ-Xl-FPo" firstAttribute="leading" secondItem="8ln-5r-yPg" secondAttribute="leading" id="kmP-N9-dUE"/>
                             <constraint firstItem="Rvl-5A-Rem" firstAttribute="top" secondItem="8ln-5r-yPg" secondAttribute="top" constant="12" id="l7B-a0-bDB"/>
                             <constraint firstAttribute="trailing" secondItem="Rvl-5A-Rem" secondAttribute="trailing" id="o7y-Ni-i45"/>
                             <constraint firstAttribute="trailing" secondItem="ORr-Wu-ZUR" secondAttribute="trailing" id="pFp-7M-WSc"/>
                             <constraint firstItem="RS1-2x-NWE" firstAttribute="leading" secondItem="8ln-5r-yPg" secondAttribute="leading" id="png-5p-CMd"/>
                             <constraint firstItem="Rvl-5A-Rem" firstAttribute="leading" secondItem="8ln-5r-yPg" secondAttribute="leading" id="tto-c6-Urj"/>
+                            <constraint firstAttribute="trailing" secondItem="Iqe-Ci-cqO" secondAttribute="trailing" id="yCF-1w-lwF"/>
                             <constraint firstItem="MkU-U3-Qlf" firstAttribute="leading" secondItem="8ln-5r-yPg" secondAttribute="leading" id="yk6-0V-eUU"/>
                             <constraint firstItem="ORr-Wu-ZUR" firstAttribute="top" secondItem="Rvl-5A-Rem" secondAttribute="bottom" id="zUi-57-ThO"/>
                         </constraints>
@@ -367,6 +428,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
+                <outlet property="classLevelTextField" destination="qFY-cr-hWz" id="0Av-h7-MyX"/>
                 <outlet property="classLocationTextField" destination="oSf-OF-Yom" id="jXT-T0-FkP"/>
                 <outlet property="classNameTextField" destination="uy7-si-OMb" id="5b4-Lt-1eG"/>
                 <outlet property="classStudentsTextField" destination="sx5-RS-Zft" id="Pnw-Fv-wQL"/>
@@ -378,7 +440,7 @@
                 <outletCollection property="arrowImageViews" destination="5gW-gK-qNt" id="C2b-gR-kJk"/>
                 <outletCollection property="arrowImageViews" destination="QeF-5q-djW" id="AZt-xQ-gjF"/>
             </connections>
-            <point key="canvasLocation" x="-123" y="-69"/>
+            <point key="canvasLocation" x="-106" y="-40.5"/>
         </tableViewCell>
     </objects>
     <resources>

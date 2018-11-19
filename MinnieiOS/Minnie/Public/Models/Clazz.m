@@ -25,7 +25,9 @@
              @"uncorrectedHomeworksCount":@"uncorrectedHomeworksCount",
              @"dates":@"schedule",
              @"students":@"students",
-             @"isFinished":@"finished"
+             @"isFinished":@"finished",
+             @"classLevel":@"level",
+             @"commitedHomeworksCount":@"commitedHomeworksCount"
              };
 }
 
@@ -61,7 +63,9 @@
     dict[@"endTime"] = self.endTime;
     dict[@"trial"] = self.isTrial?@(1):@(0);
     dict[@"maxStudentsCount"] = @(self.maxStudentsCount);
-
+    dict[@"level"] = @(self.classLevel);
+    dict[@"commitedHomeworksCount"] = @(self.commitedHomeworksCount);
+    
     NSMutableDictionary *teacherDict = [NSMutableDictionary dictionary];
     teacherDict[@"id"] = @(self.teacher.userId);
     teacherDict[@"nickname"] = self.teacher.nickname;

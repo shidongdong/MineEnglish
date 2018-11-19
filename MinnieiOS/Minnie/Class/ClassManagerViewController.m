@@ -207,6 +207,11 @@
             break;
         }
         
+//        if (self.clazz.classLevel == 0) {
+//            [HUD showErrorWithMessage:@"请设置班级等级"];
+//            break;
+//        }
+        
         valid = YES;
     } while(NO);
     
@@ -379,6 +384,21 @@
             }];
         };
         
+        editCell.selectClassLevelCallback = ^{
+            [weakCell.classNameTextField resignFirstResponder];
+            [weakCell.classLocationTextField resignFirstResponder];
+            NSArray * pickList = @[@"零基础",@"1级",@"2级",@"3级",@"4级",@"5级",@"6级",@"7级"];
+            NSInteger index = 0;
+            [TextPickerView showInView:weakSelf.navigationController.view
+                              contents:pickList
+                         selectedIndex:index
+                              callback:^(NSString *name) {
+                                  NSInteger level = [pickList indexOfObject:name];
+                                  weakSelf.clazz.classLevel = level;
+                                  weakCell.classLevelTextField.text = name;
+                              }];
+        };
+        
         editCell.selectClassTypeCallback = ^{
             [weakCell.classNameTextField resignFirstResponder];
             [weakCell.classLocationTextField resignFirstResponder];
@@ -393,6 +413,7 @@
                                   weakCell.classTypeTextField.text = name;
                               }];
         };
+        
         
         editCell.selectStudentsCountCallback = ^{
             [weakCell.classNameTextField resignFirstResponder];

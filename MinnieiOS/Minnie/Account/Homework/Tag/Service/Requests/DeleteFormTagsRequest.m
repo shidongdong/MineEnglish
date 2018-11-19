@@ -10,7 +10,7 @@
 
 @interface DeleteFormTagsRequest()
 
-@property (nonatomic, copy) NSString *homeworkFromTag;
+@property (nonatomic, copy) NSArray<NSString *> *homeworkFromTags;
 
 @end
 
@@ -19,7 +19,7 @@
 - (instancetype)initWithFormTags:(NSArray<NSString *> *)formtags {
     self = [super init];
     if (self != nil) {
-        _homeworkFormTags = tags;
+        _homeworkFromTags = formtags;
     }
     
     return self;
@@ -30,7 +30,7 @@
 }
 
 - (id)requestArgument {
-    return @{@"tags": self.homeworkFromTag};
+    return @{@"tags": self.homeworkFromTags};
 }
 
 @end
