@@ -10,4 +10,6 @@
 
 @interface TagsViewController : BaseViewController
 
+@property (nonatomic, assign)BOOL isFromTagType;
+
 @end

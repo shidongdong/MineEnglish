@@ -65,28 +65,56 @@
                               
                               [HUD showProgressWithMessage:@"正在添加标签"];
                               
-                              [TagService createTag:tag
-                                           callback:^(Result *result, NSError *error) {
-                                               if (error != nil) {
-                                                   [HUD showErrorWithMessage:@"添加标签失败"];
-                                                   return;
-                                               }
-                                               
-                                               [HUD hideAnimated:NO];
-                                               
-                                               NSMutableArray *tags = [NSMutableArray arrayWithArray:weakSelf.tags];
-                                               if (tags.count == 0) {
-                                                   [weakSelf.tagsCollectionContainerView hideAllStateView];
-                                                   weakSelf.tagsCollectionView.hidden = NO;
-                                               }
-                                               
-                                               [tags addObject:tag];
-                                               weakSelf.tags = tags;
-                                               
-                                               [weakSelf.tagsCollectionView reloadData];
-                                               
-                                               [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfAddTags object:nil];
-                                           }];
+                              if (self.isFromTagType)
+                              {
+                                  [TagService createFormTag:tag callback:^(Result *result, NSError *error) {
+                                      if (error != nil) {
+                                          [HUD showErrorWithMessage:@"添加标签失败"];
+                                          return;
+                                      }
+                                      
+                                      [HUD hideAnimated:NO];
+                                      
+                                      NSMutableArray *tags = [NSMutableArray arrayWithArray:weakSelf.tags];
+                                      if (tags.count == 0) {
+                                          [weakSelf.tagsCollectionContainerView hideAllStateView];
+                                          weakSelf.tagsCollectionView.hidden = NO;
+                                      }
+                                      
+                                      [tags addObject:tag];
+                                      weakSelf.tags = tags;
+                                      
+                                      [weakSelf.tagsCollectionView reloadData];
+                                      
+                                      [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfAddFormTags object:nil];
+                                  }];
+                                  
+                              }
+                              else
+                              {
+                                  [TagService createTag:tag
+                                               callback:^(Result *result, NSError *error) {
+                                                   if (error != nil) {
+                                                       [HUD showErrorWithMessage:@"添加标签失败"];
+                                                       return;
+                                                   }
+                                                   
+                                                   [HUD hideAnimated:NO];
+                                                   
+                                                   NSMutableArray *tags = [NSMutableArray arrayWithArray:weakSelf.tags];
+                                                   if (tags.count == 0) {
+                                                       [weakSelf.tagsCollectionContainerView hideAllStateView];
+                                                       weakSelf.tagsCollectionView.hidden = NO;
+                                                   }
+                                                   
+                                                   [tags addObject:tag];
+                                                   weakSelf.tags = tags;
+                                                   
+                                                   [weakSelf.tagsCollectionView reloadData];
+                                                   
+                                                   [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfAddTags object:nil];
+                                               }];
+                              }
                           }];
 }
 
@@ -104,38 +132,74 @@
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * _Nonnull action) {
                                                               [HUD showProgressWithMessage:@"正在删除标签"];
-                                                              
-                                                              [TagService deleteTags:self.selectedTags callback:^(Result *result, NSError *error) {
-                                                                  if (error != nil) {
-                                                                      [HUD showErrorWithMessage:@"删除标签失败"];
-                                                                      return;
-                                                                  }
-                                                                  
-                                                                  [HUD hideAnimated:NO];
-                                                                  
-                                                                  NSMutableArray *tags = [NSMutableArray arrayWithArray:self.tags];
-                                                                  NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
-                                                                  for (NSString *tag in self.selectedTags) {
-                                                                      NSInteger index = [self.tags indexOfObject:tag];
-                                                                      [indexes addIndex:index];
-                                                                  }
-                                                                  [tags removeObjectsAtIndexes:indexes];
-                                                                  self.tags = tags;
-                                                                  
-                                                                  [self.selectedTags removeAllObjects];
-                                                                  
-                                                                  if (tags.count == 0) {
-                                                                      [self.tagsCollectionContainerView showEmptyViewWithImage:nil title:@"暂无标签" linkTitle:nil linkClickCallback:nil];
-                                                                      self.tagsCollectionView.hidden = YES;
-                                                                  }
-                                                                  
-                                                                  [self.tagsCollectionView reloadData];
-                                                                  
-                                                                  self.deleteCountLabel.text = [NSString stringWithFormat:@"%zd", self.selectedTags.count];
-                                                                  self.deleteButton.enabled = NO;
-                                                                  
-                                                                                                                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfDeleteTags object:nil];
-                                                              }];
+                                                              if (self.isFromTagType)
+                                                              {
+                                                                  [TagService deleteFormTags:self.selectedTags callback:^(Result *result, NSError *error) {
+                                                                      if (error != nil) {
+                                                                          [HUD showErrorWithMessage:@"删除标签失败"];
+                                                                          return;
+                                                                      }
+                                                                      
+                                                                      [HUD hideAnimated:NO];
+                                                                      
+                                                                      NSMutableArray *tags = [NSMutableArray arrayWithArray:self.tags];
+                                                                      NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
+                                                                      for (NSString *tag in self.selectedTags) {
+                                                                          NSInteger index = [self.tags indexOfObject:tag];
+                                                                          [indexes addIndex:index];
+                                                                      }
+                                                                      [tags removeObjectsAtIndexes:indexes];
+                                                                      self.tags = tags;
+                                                                      
+                                                                      [self.selectedTags removeAllObjects];
+                                                                      
+                                                                      if (tags.count == 0) {
+                                                                          [self.tagsCollectionContainerView showEmptyViewWithImage:nil title:@"暂无标签" linkTitle:nil linkClickCallback:nil];
+                                                                          self.tagsCollectionView.hidden = YES;
+                                                                      }
+                                                                      
+                                                                      [self.tagsCollectionView reloadData];
+                                                                      
+                                                                      self.deleteCountLabel.text = [NSString stringWithFormat:@"%zd", self.selectedTags.count];
+                                                                      self.deleteButton.enabled = NO;
+                                                                      
+                                                                      [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfDeleteFormTags object:nil];
+                                                                  }];
+                                                              }
+                                                              else
+                                                              {
+                                                                  [TagService deleteTags:self.selectedTags callback:^(Result *result, NSError *error) {
+                                                                      if (error != nil) {
+                                                                          [HUD showErrorWithMessage:@"删除标签失败"];
+                                                                          return;
+                                                                      }
+                                                                      
+                                                                      [HUD hideAnimated:NO];
+                                                                      
+                                                                      NSMutableArray *tags = [NSMutableArray arrayWithArray:self.tags];
+                                                                      NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
+                                                                      for (NSString *tag in self.selectedTags) {
+                                                                          NSInteger index = [self.tags indexOfObject:tag];
+                                                                          [indexes addIndex:index];
+                                                                      }
+                                                                      [tags removeObjectsAtIndexes:indexes];
+                                                                      self.tags = tags;
+                                                                      
+                                                                      [self.selectedTags removeAllObjects];
+                                                                      
+                                                                      if (tags.count == 0) {
+                                                                          [self.tagsCollectionContainerView showEmptyViewWithImage:nil title:@"暂无标签" linkTitle:nil linkClickCallback:nil];
+                                                                          self.tagsCollectionView.hidden = YES;
+                                                                      }
+                                                                      
+                                                                      [self.tagsCollectionView reloadData];
+                                                                      
+                                                                      self.deleteCountLabel.text = [NSString stringWithFormat:@"%zd", self.selectedTags.count];
+                                                                      self.deleteButton.enabled = NO;
+                                                                      
+                                                                      [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfDeleteTags object:nil];
+                                                                  }];
+                                                              }
                                                           }];
     
     [alertController addAction:cancelAction];
@@ -159,35 +223,72 @@
     [self.tagsCollectionContainerView showLoadingView];
     
     WeakifySelf;
-    self.tagsRequest = [TagService requestTagsWithCallback:^(Result *result, NSError *error) {
-        StrongifySelf;
-        
-        strongSelf.tagsRequest = nil;
-        
-        // 显示失败页面
-        if (error != nil) {
-            __weak typeof(strongSelf) wk = strongSelf;
-            [strongSelf.tagsCollectionContainerView showFailureViewWithRetryCallback:^{
-                [wk requestData];
-            }];
+    
+    if (self.isFromTagType)
+    {
+        self.tagsRequest = [TagService requestFormTagsWithCallback:^(Result *result, NSError *error) {
+            StrongifySelf;
             
-            return;
-        }
-        
-        NSArray *tags = (NSArray *)(result.userInfo);
-        if (tags.count == 0) {
-            [strongSelf.tagsCollectionContainerView showEmptyViewWithImage:nil
-                                                                     title:@"暂无标签"
-                                                                 linkTitle:nil
-                                                         linkClickCallback:nil];
-        } else {
-            strongSelf.tags = tags;
+            strongSelf.tagsRequest = nil;
             
-            [strongSelf.tagsCollectionContainerView hideAllStateView];
-            strongSelf.tagsCollectionView.hidden = NO;
-            [strongSelf.tagsCollectionView reloadData];
-        }
-    }];
+            // 显示失败页面
+            if (error != nil) {
+                __weak typeof(strongSelf) wk = strongSelf;
+                [strongSelf.tagsCollectionContainerView showFailureViewWithRetryCallback:^{
+                    [wk requestData];
+                }];
+                
+                return;
+            }
+            
+            NSArray *tags = (NSArray *)(result.userInfo);
+            if (tags.count == 0) {
+                [strongSelf.tagsCollectionContainerView showEmptyViewWithImage:nil
+                                                                         title:@"暂无标签"
+                                                                     linkTitle:nil
+                                                             linkClickCallback:nil];
+            } else {
+                strongSelf.tags = tags;
+                
+                [strongSelf.tagsCollectionContainerView hideAllStateView];
+                strongSelf.tagsCollectionView.hidden = NO;
+                [strongSelf.tagsCollectionView reloadData];
+            }
+        }];
+    }
+    else
+    {
+        self.tagsRequest = [TagService requestTagsWithCallback:^(Result *result, NSError *error) {
+            StrongifySelf;
+            
+            strongSelf.tagsRequest = nil;
+            
+            // 显示失败页面
+            if (error != nil) {
+                __weak typeof(strongSelf) wk = strongSelf;
+                [strongSelf.tagsCollectionContainerView showFailureViewWithRetryCallback:^{
+                    [wk requestData];
+                }];
+                
+                return;
+            }
+            
+            NSArray *tags = (NSArray *)(result.userInfo);
+            if (tags.count == 0) {
+                [strongSelf.tagsCollectionContainerView showEmptyViewWithImage:nil
+                                                                         title:@"暂无标签"
+                                                                     linkTitle:nil
+                                                             linkClickCallback:nil];
+            } else {
+                strongSelf.tags = tags;
+                
+                [strongSelf.tagsCollectionContainerView hideAllStateView];
+                strongSelf.tagsCollectionView.hidden = NO;
+                [strongSelf.tagsCollectionView reloadData];
+            }
+        }];
+    }
+    
 }
 
 #pragma mark - UICollectionViewDataSource

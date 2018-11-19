@@ -25,8 +25,12 @@
     return self;
 }
 
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+
 - (NSString *)requestUrl {
-    return [NSString stringWithFormat:@"%@/homeworkTask/getHomeworkTaskByScore", ServerProjectName];
+    return [NSString stringWithFormat:@"%@/homeworkTask/getHomeworkTasksByScore", ServerProjectName];
 }
 
 - (id)requestArgument {

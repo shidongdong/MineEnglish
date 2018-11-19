@@ -36,6 +36,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
 @property (nonatomic, strong) NSMutableArray<HomeworkItem *> *items;
 @property (nonatomic, strong) NSMutableArray<HomeworkAnswerItem *> *answerItems;
 @property (nonatomic, strong) NSArray *tags;
+@property (nonatomic, strong) NSArray *formTags;
 @property (nonatomic, strong) NSMutableArray *selectedTags;
 @property (nonatomic, assign) BOOL isAddingAnswerItem;
 
@@ -43,6 +44,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
 @property (nonatomic, assign) NSInteger styleType;
 @property (nonatomic, assign) NSInteger level;
 @property (nonatomic, assign) NSInteger limitTimeSecs;
+@property (nonatomic, strong) NSString * selectFormTag;
 @end
 
 @implementation CreateHomeworkViewController
@@ -72,6 +74,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         }
         
         self.selectedTags = [NSMutableArray arrayWithArray:self.homework.tags];
+        self.selectFormTag = self.homework.formTag;
     }
     
     self.homeworkTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
@@ -86,9 +89,22 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
                                                  name:kNotificationKeyOfDeleteTags
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(requestFormTags)
+                                                 name:kNotificationKeyOfAddFormTags
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(requestFormTags)
+                                                 name:kNotificationKeyOfDeleteFormTags
+                                               object:nil];
+    
+    
     [self registerCellNibs];
     
     [self requestTags];
+    
+    [self requestFormTags];
 }
 
 - (void)dealloc {
@@ -124,6 +140,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
     self.homework.style = self.styleType;
     self.homework.limitTimes = self.limitTimeSecs;
     self.homework.level = self.level;
+    self.homework.formTag = self.selectFormTag;
     
     if (self.homework.homeworkId == 0) {
         [HUD showProgressWithMessage:@"正在新建作业"];
@@ -179,6 +196,20 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         }
         
         self.tags = (NSArray *)(result.userInfo);
+        [self.homeworkTableView reloadData];
+    }];
+}
+
+- (void)requestFormTags
+{
+    [TagService requestFormTagsWithCallback:^(Result *result, NSError *error) {
+        if (error != nil) {
+            [HUD showErrorWithMessage:@"标签请求失败"];
+            
+            return ;
+        }
+        
+        self.formTags = (NSArray *)(result.userInfo);
         [self.homeworkTableView reloadData];
     }];
 }
@@ -777,7 +808,27 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         
         cell = timeLimitCell;
     }
-    else {
+    else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 5)
+    {
+        HomeworkTagsTableViewCell *tagsCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTagsTableViewCellId forIndexPath:indexPath];
+        
+        [tagsCell setupWithTags:self.formTags selectedTags:@[self.selectFormTag]];
+        
+        WeakifySelf;
+        [tagsCell setSelectCallback:^(NSString *tag) {
+            self.selectFormTag = tag;
+        }];
+        
+        [tagsCell setManageCallback:^{
+            TagsViewController *tagsVC = [[TagsViewController alloc] initWithNibName:@"TagsViewController" bundle:nil];
+            tagsVC.isFromTagType = YES;
+            [weakSelf.navigationController pushViewController:tagsVC animated:YES];
+        }];
+        
+        cell = tagsCell;
+    }
+    else
+    {
         HomeworkTagsTableViewCell *tagsCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTagsTableViewCellId forIndexPath:indexPath];
         
         [tagsCell setupWithTags:self.tags selectedTags:self.selectedTags];
@@ -793,6 +844,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         
         [tagsCell setManageCallback:^{
             TagsViewController *tagsVC = [[TagsViewController alloc] initWithNibName:@"TagsViewController" bundle:nil];
+            tagsVC.isFromTagType = NO;
             [weakSelf.navigationController pushViewController:tagsVC animated:YES];
         }];
         

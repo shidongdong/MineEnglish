@@ -42,6 +42,9 @@
 //根据评分搜索作业
 + (BaseRequest *)searchHomeworkSessionWithScore:(NSInteger)score callback:(RequestCallback)callback;
 
+//教师端根据类型搜索作业
++ (BaseRequest *)searchHomeworkSessionWithType:(NSInteger)type forState:(NSInteger)state callback:(RequestCallback)callback;
+
 @end
 
 

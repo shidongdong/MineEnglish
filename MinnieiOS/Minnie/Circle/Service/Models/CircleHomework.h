@@ -26,6 +26,9 @@
 // 创建的时间
 @property (nonatomic, assign) long long commitTime;
 
+// 班级等级
+@property (nonatomic, assign) NSInteger classLevel;
+
 @end
 
 

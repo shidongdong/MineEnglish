@@ -137,7 +137,109 @@
     NSLog(@"%s", __func__);
 }
 
+#pragma mark - Public Methods
+- (void)requestSearchForSorceAtIndex:(NSInteger)index callBack:(HomeworkSessionsCallback)callback
+{
+#if TEACHERSIDE
+    if (index == 0)
+    {
+        [self requestHomeworkSessionsForCallBack:callback];
+    }
+    else
+    {
+        
+        NSInteger state;
+        if (self.isUnfinished)
+        {
+            if (self.bLoadConversion)
+            {
+                state = 0;
+            }
+            else
+            {
+                state = 2;
+            }
+        }
+        else
+        {
+            state = 1;
+        }
+        
+        WeakifySelf;
+        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithType:index forState:state callback:^(Result *result, NSError *error) {
+            if (error == nil)
+            {
+                callback(YES);
+            }
+            
+            StrongifySelf;
+            [strongSelf handleRequestResult:result isLoadMore:NO error:error];
+        }];
+    }
+    
+#else
+    if (index == 0)
+    {
+        [self requestHomeworkSessionsForCallBack:callback];
+    }
+    else
+    {
+        WeakifySelf;
+        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithScore:index - 1 callback:^(Result *result, NSError *error) {
+            
+            if (error == nil)
+            {
+                callback(YES);
+            }
+            
+            StrongifySelf;
+            [strongSelf handleRequestResult:result isLoadMore:NO error:error];
+            
+        }];
+    }
+    
+#endif
+}
+
 #pragma mark - Private Methods
+
+- (void)requestHomeworkSessionsForCallBack:(HomeworkSessionsCallback)callback
+{
+    
+    NSInteger state;
+    if (self.isUnfinished)
+    {
+        if (self.bLoadConversion)
+        {
+            state = 0;
+        }
+        else
+        {
+            state = 2;
+        }
+    }
+    else
+    {
+        state = 1;
+    }
+    
+    if (self.homeworkSessionsRequest != nil) {
+        return;
+    }
+    WeakifySelf;
+    self.homeworkSessionsRequest = [HomeworkSessionService requestHomeworkSessionsWithFinishState:state
+                                                                                         callback:^(Result *result, NSError *error) {
+                                                                                             
+                                                                                             if (error == nil)
+                                                                                             {
+                                                                                                 callback(YES);
+                                                                                             }
+                                                                                             
+                                                                                             StrongifySelf;
+                                                                                             [strongSelf handleRequestResult:result
+                                                                                                                  isLoadMore:NO error:error];
+                                                                                         }];
+}
 
 - (void)registerCellNibs {
     [self.homeworkSessionsTableView registerNib:[UINib nibWithNibName:@"FinishedHomeworkSessionTableViewCell" bundle:nil] forCellReuseIdentifier:FinishedHomeworkSessionTableViewCellId];

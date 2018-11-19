@@ -153,6 +153,7 @@
 }
 
 
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
@@ -194,9 +195,16 @@
 #if TEACHERSIDE
     //显示搜索
     
-    
+    WeakifySelf;
     [FilterAlertView showInView:self.tabBarController.view atFliterType:self.currentFliterType forFliterArray:@[@"按时间",@"按任务",@"按人"] withAtionBlock:^(NSInteger index) {
-        
+        StrongifySelf;
+        [strongSelf.finishedClassesChildController requestSearchForSorceAtIndex:index callBack:^(BOOL success)
+         {
+             if (success)
+             {
+                 strongSelf.currentFliterType = index;
+             }
+         }];
     }];
     
 #else
@@ -210,7 +218,16 @@
     }
     else
     {
-        [FilterAlertView showInView:self.tabBarController.view atFliterType:self.currentFliterType forFliterArray:@[@"0星",@"1星",@"2星",@"3星",@"4星",@"5星"] withAtionBlock:^(NSInteger index) {
+        WeakifySelf;
+        [FilterAlertView showInView:self.tabBarController.view atFliterType:self.currentFliterType forFliterArray:@[@"全部",@"0星",@"1星",@"2星",@"3星",@"4星",@"5星"] withAtionBlock:^(NSInteger index) {
+            StrongifySelf;
+            [strongSelf.finishedClassesChildController requestSearchForSorceAtIndex:index callBack:^(BOOL success)
+            {
+                if (success)
+                {
+                    strongSelf.currentFliterType = index;
+                }
+            }];
             
         }];
     }

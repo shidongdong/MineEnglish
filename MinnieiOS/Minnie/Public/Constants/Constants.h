@@ -31,6 +31,8 @@ extern NSString * const kNotificationKeyOfDeleteHomework; // 教师端删除一�
 extern NSString * const kNotificationKeyOfSendHomework; // 教师端发送一个作业
 extern NSString * const kNotificationKeyOfAddTags; // 教师端添加标签
 extern NSString * const kNotificationKeyOfDeleteTags; // 教师端删除标签
+extern NSString * const kNotificationKeyOfAddFormTags; // 教师端添加Form标签
+extern NSString * const kNotificationKeyOfDeleteFormTags; // 教师端删除Form标签
 
 #pragma mark - 同学圈相关
 

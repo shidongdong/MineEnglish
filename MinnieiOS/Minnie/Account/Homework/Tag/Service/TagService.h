@@ -19,5 +19,13 @@
 
 + (BaseRequest *)deleteTags:(NSArray<NSString *>*)tags callback:(RequestCallback)callback;
 
+
++ (BaseRequest *)requestFormTagsWithCallback:(RequestCallback)callback;
+
++ (BaseRequest *)createFormTag:(NSString *)formtag
+                  callback:(RequestCallback)callback;
+
++ (BaseRequest *)deleteFormTags:(NSArray<NSString *>*)formtags callback:(RequestCallback)callback;
+
 @end
 

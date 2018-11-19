@@ -46,22 +46,35 @@
 		8702869B218436F600559195 /* HomeWorkSendHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87028697218436F600559195 /* HomeWorkSendHistoryViewController.xib */; };
 		8709C2B8219C303800970757 /* HomeworkSendHistoryHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709C2B7219C303800970757 /* HomeworkSendHistoryHeaderView.m */; };
 		8709C2BA219C304900970757 /* HomeworkSendHistoryHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2B9219C304900970757 /* HomeworkSendHistoryHeaderView.xib */; };
-		8709C2BD219C414900970757 /* 第1名@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2BB219C414800970757 /* 第1名@2x.png */; };
-		8709C2BE219C414900970757 /* 第1名@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2BB219C414800970757 /* 第1名@2x.png */; };
-		8709C2BF219C414900970757 /* 第1名@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2BC219C414800970757 /* 第1名@3x.png */; };
-		8709C2C0219C414900970757 /* 第1名@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2BC219C414800970757 /* 第1名@3x.png */; };
-		8709C2C3219C415600970757 /* 第2名@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2C1219C415600970757 /* 第2名@3x.png */; };
-		8709C2C4219C415600970757 /* 第2名@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2C1219C415600970757 /* 第2名@3x.png */; };
-		8709C2C5219C415600970757 /* 第2名@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2C2219C415600970757 /* 第2名@2x.png */; };
-		8709C2C6219C415600970757 /* 第2名@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2C2219C415600970757 /* 第2名@2x.png */; };
-		8709C2C9219C415F00970757 /* 第3名@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2C7219C415F00970757 /* 第3名@2x.png */; };
-		8709C2CA219C415F00970757 /* 第3名@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2C7219C415F00970757 /* 第3名@2x.png */; };
-		8709C2CB219C415F00970757 /* 第3名@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2C8219C415F00970757 /* 第3名@3x.png */; };
-		8709C2CC219C415F00970757 /* 第3名@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2C8219C415F00970757 /* 第3名@3x.png */; };
-		8709C2CF219C416B00970757 /* 第4名@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2CD219C416900970757 /* 第4名@2x.png */; };
-		8709C2D0219C416B00970757 /* 第4名@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2CD219C416900970757 /* 第4名@2x.png */; };
-		8709C2D1219C416B00970757 /* 第4名@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2CE219C416900970757 /* 第4名@3x.png */; };
-		8709C2D2219C416B00970757 /* 第4名@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2CE219C416900970757 /* 第4名@3x.png */; };
+		8709C2F521A24C7400970757 /* 第1名@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2ED21A24C6F00970757 /* 第1名@3x.png */; };
+		8709C2F621A24C7400970757 /* 第1名@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2ED21A24C6F00970757 /* 第1名@3x.png */; };
+		8709C2F721A24C7400970757 /* 第2名@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2EE21A24C7000970757 /* 第2名@3x.png */; };
+		8709C2F821A24C7400970757 /* 第2名@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2EE21A24C7000970757 /* 第2名@3x.png */; };
+		8709C2F921A24C7400970757 /* 第2名@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2EF21A24C7100970757 /* 第2名@2x.png */; };
+		8709C2FA21A24C7400970757 /* 第2名@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2EF21A24C7100970757 /* 第2名@2x.png */; };
+		8709C2FB21A24C7400970757 /* 第3名@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2F021A24C7100970757 /* 第3名@3x.png */; };
+		8709C2FC21A24C7400970757 /* 第3名@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2F021A24C7100970757 /* 第3名@3x.png */; };
+		8709C2FD21A24C7400970757 /* 第1名@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2F121A24C7100970757 /* 第1名@2x.png */; };
+		8709C2FE21A24C7400970757 /* 第1名@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2F121A24C7100970757 /* 第1名@2x.png */; };
+		8709C2FF21A24C7400970757 /* 第4名@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2F221A24C7200970757 /* 第4名@2x.png */; };
+		8709C30021A24C7400970757 /* 第4名@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2F221A24C7200970757 /* 第4名@2x.png */; };
+		8709C30121A24C7400970757 /* 第3名@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2F321A24C7200970757 /* 第3名@2x.png */; };
+		8709C30221A24C7400970757 /* 第3名@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2F321A24C7200970757 /* 第3名@2x.png */; };
+		8709C30321A24C7400970757 /* 第4名@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2F421A24C7300970757 /* 第4名@3x.png */; };
+		8709C30421A24C7400970757 /* 第4名@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C2F421A24C7300970757 /* 第4名@3x.png */; };
+		8709C30721A2507C00970757 /* 弹窗@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C30521A2507B00970757 /* 弹窗@3x.png */; };
+		8709C30821A2507C00970757 /* 弹窗@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C30521A2507B00970757 /* 弹窗@3x.png */; };
+		8709C30921A2507C00970757 /* 弹窗@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C30621A2507B00970757 /* 弹窗@2x.png */; };
+		8709C30A21A2507C00970757 /* 弹窗@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C30621A2507B00970757 /* 弹窗@2x.png */; };
+		8709C30D21A258B300970757 /* 卡片角标@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C30B21A258B200970757 /* 卡片角标@2x.png */; };
+		8709C30E21A258B300970757 /* 卡片角标@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C30B21A258B200970757 /* 卡片角标@2x.png */; };
+		8709C30F21A258B300970757 /* 卡片角标@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C30C21A258B200970757 /* 卡片角标@3x.png */; };
+		8709C31021A258B300970757 /* 卡片角标@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8709C30C21A258B200970757 /* 卡片角标@3x.png */; };
+		8709C31421A26B6A00970757 /* CreateFormTagRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709C31221A26B6A00970757 /* CreateFormTagRequest.m */; };
+		8709C31821A26C4E00970757 /* DeleteFormTagsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709C31621A26C4E00970757 /* DeleteFormTagsRequest.m */; };
+		8709C31C21A28A3000970757 /* FormTagsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709C31A21A28A3000970757 /* FormTagsRequest.m */; };
+		8709C31F21A2AF7800970757 /* SearchHomeworkTypeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709C31E21A2AF7800970757 /* SearchHomeworkTypeRequest.m */; };
+		8709C32021A2AF7800970757 /* SearchHomeworkTypeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709C31E21A2AF7800970757 /* SearchHomeworkTypeRequest.m */; };
 		8725E954214A5748005FAA74 /* CheckAppVerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8725E953214A5748005FAA74 /* CheckAppVerRequest.m */; };
 		8725E955214A5748005FAA74 /* CheckAppVerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8725E953214A5748005FAA74 /* CheckAppVerRequest.m */; };
 		872F5B362171821C00D88855 /* StudentService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9736497120AF2F8500511A95 /* StudentService.m */; };
@@ -1329,14 +1342,26 @@
 		8709C2B6219C303800970757 /* HomeworkSendHistoryHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeworkSendHistoryHeaderView.h; sourceTree = "<group>"; };
 		8709C2B7219C303800970757 /* HomeworkSendHistoryHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeworkSendHistoryHeaderView.m; sourceTree = "<group>"; };
 		8709C2B9219C304900970757 /* HomeworkSendHistoryHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeworkSendHistoryHeaderView.xib; sourceTree = "<group>"; };
-		8709C2BB219C414800970757 /* 第1名@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "第1名@2x.png"; path = "../../../../Downloads/第1名_slices/第1名@2x.png"; sourceTree = "<group>"; };
-		8709C2BC219C414800970757 /* 第1名@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "第1名@3x.png"; path = "../../../../Downloads/第1名_slices/第1名@3x.png"; sourceTree = "<group>"; };
-		8709C2C1219C415600970757 /* 第2名@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "第2名@3x.png"; path = "../../../../Downloads/第3名_slices/第2名@3x.png"; sourceTree = "<group>"; };
-		8709C2C2219C415600970757 /* 第2名@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "第2名@2x.png"; path = "../../../../Downloads/第3名_slices/第2名@2x.png"; sourceTree = "<group>"; };
-		8709C2C7219C415F00970757 /* 第3名@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "第3名@2x.png"; path = "../../../../Downloads/第3名_slices-2 2/第3名@2x.png"; sourceTree = "<group>"; };
-		8709C2C8219C415F00970757 /* 第3名@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "第3名@3x.png"; path = "../../../../Downloads/第3名_slices-2 2/第3名@3x.png"; sourceTree = "<group>"; };
-		8709C2CD219C416900970757 /* 第4名@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "第4名@2x.png"; path = "../../../../Downloads/第4名_slices/第4名@2x.png"; sourceTree = "<group>"; };
-		8709C2CE219C416900970757 /* 第4名@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "第4名@3x.png"; path = "../../../../Downloads/第4名_slices/第4名@3x.png"; sourceTree = "<group>"; };
+		8709C2ED21A24C6F00970757 /* 第1名@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "第1名@3x.png"; sourceTree = "<group>"; };
+		8709C2EE21A24C7000970757 /* 第2名@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "第2名@3x.png"; sourceTree = "<group>"; };
+		8709C2EF21A24C7100970757 /* 第2名@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "第2名@2x.png"; sourceTree = "<group>"; };
+		8709C2F021A24C7100970757 /* 第3名@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "第3名@3x.png"; sourceTree = "<group>"; };
+		8709C2F121A24C7100970757 /* 第1名@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "第1名@2x.png"; sourceTree = "<group>"; };
+		8709C2F221A24C7200970757 /* 第4名@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "第4名@2x.png"; sourceTree = "<group>"; };
+		8709C2F321A24C7200970757 /* 第3名@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "第3名@2x.png"; sourceTree = "<group>"; };
+		8709C2F421A24C7300970757 /* 第4名@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "第4名@3x.png"; sourceTree = "<group>"; };
+		8709C30521A2507B00970757 /* 弹窗@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "弹窗@3x.png"; sourceTree = "<group>"; };
+		8709C30621A2507B00970757 /* 弹窗@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "弹窗@2x.png"; sourceTree = "<group>"; };
+		8709C30B21A258B200970757 /* 卡片角标@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "卡片角标@2x.png"; sourceTree = "<group>"; };
+		8709C30C21A258B200970757 /* 卡片角标@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "卡片角标@3x.png"; sourceTree = "<group>"; };
+		8709C31121A26B6A00970757 /* CreateFormTagRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateFormTagRequest.h; sourceTree = "<group>"; };
+		8709C31221A26B6A00970757 /* CreateFormTagRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateFormTagRequest.m; sourceTree = "<group>"; };
+		8709C31521A26C4E00970757 /* DeleteFormTagsRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeleteFormTagsRequest.h; sourceTree = "<group>"; };
+		8709C31621A26C4E00970757 /* DeleteFormTagsRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeleteFormTagsRequest.m; sourceTree = "<group>"; };
+		8709C31921A28A3000970757 /* FormTagsRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormTagsRequest.h; sourceTree = "<group>"; };
+		8709C31A21A28A3000970757 /* FormTagsRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FormTagsRequest.m; sourceTree = "<group>"; };
+		8709C31D21A2AF7800970757 /* SearchHomeworkTypeRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchHomeworkTypeRequest.h; sourceTree = "<group>"; };
+		8709C31E21A2AF7800970757 /* SearchHomeworkTypeRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchHomeworkTypeRequest.m; sourceTree = "<group>"; };
 		8725E94F214A5747005FAA74 /* CheckAppVerRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckAppVerRequest.h; sourceTree = "<group>"; };
 		8725E953214A5748005FAA74 /* CheckAppVerRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckAppVerRequest.m; sourceTree = "<group>"; };
 		874D7B2B219956F5001C5449 /* HomeworkLimitTimeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeworkLimitTimeCell.h; sourceTree = "<group>"; };
@@ -2524,14 +2549,18 @@
 		97109564207A006C00568785 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				8709C2BB219C414800970757 /* 第1名@2x.png */,
-				8709C2BC219C414800970757 /* 第1名@3x.png */,
-				8709C2C2219C415600970757 /* 第2名@2x.png */,
-				8709C2C1219C415600970757 /* 第2名@3x.png */,
-				8709C2C7219C415F00970757 /* 第3名@2x.png */,
-				8709C2C8219C415F00970757 /* 第3名@3x.png */,
-				8709C2CD219C416900970757 /* 第4名@2x.png */,
-				8709C2CE219C416900970757 /* 第4名@3x.png */,
+				8709C30B21A258B200970757 /* 卡片角标@2x.png */,
+				8709C30C21A258B200970757 /* 卡片角标@3x.png */,
+				8709C30621A2507B00970757 /* 弹窗@2x.png */,
+				8709C30521A2507B00970757 /* 弹窗@3x.png */,
+				8709C2F121A24C7100970757 /* 第1名@2x.png */,
+				8709C2ED21A24C6F00970757 /* 第1名@3x.png */,
+				8709C2EF21A24C7100970757 /* 第2名@2x.png */,
+				8709C2EE21A24C7000970757 /* 第2名@3x.png */,
+				8709C2F321A24C7200970757 /* 第3名@2x.png */,
+				8709C2F021A24C7100970757 /* 第3名@3x.png */,
+				8709C2F221A24C7200970757 /* 第4名@2x.png */,
+				8709C2F421A24C7300970757 /* 第4名@3x.png */,
 				8770786A21997E5E00940A88 /* icon_drop_small_black@2x.png */,
 				8770786921997E5E00940A88 /* icon_drop_small_black@3x.png */,
 				870286872184113C00559195 /* navbar_screen@2x.png */,
@@ -3264,6 +3293,8 @@
 				971099ED207A158C00568785 /* RedoHomeworkRequest.m */,
 				870286252181B2EB00559195 /* SearchHomeworkScoreRequest.h */,
 				870286262181B2EB00559195 /* SearchHomeworkScoreRequest.m */,
+				8709C31D21A2AF7800970757 /* SearchHomeworkTypeRequest.h */,
+				8709C31E21A2AF7800970757 /* SearchHomeworkTypeRequest.m */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -4316,11 +4347,17 @@
 			isa = PBXGroup;
 			children = (
 				973649AE20AF2F8500511A95 /* CreateTagRequest.h */,
-				973649AF20AF2F8500511A95 /* DeleteTagRequest.h */,
-				973649B020AF2F8500511A95 /* TagsRequest.m */,
-				973649B120AF2F8500511A95 /* TagsRequest.h */,
-				973649B220AF2F8500511A95 /* DeleteTagRequest.m */,
 				973649B320AF2F8500511A95 /* CreateTagRequest.m */,
+				973649B120AF2F8500511A95 /* TagsRequest.h */,
+				973649B020AF2F8500511A95 /* TagsRequest.m */,
+				973649AF20AF2F8500511A95 /* DeleteTagRequest.h */,
+				973649B220AF2F8500511A95 /* DeleteTagRequest.m */,
+				8709C31121A26B6A00970757 /* CreateFormTagRequest.h */,
+				8709C31221A26B6A00970757 /* CreateFormTagRequest.m */,
+				8709C31521A26C4E00970757 /* DeleteFormTagsRequest.h */,
+				8709C31621A26C4E00970757 /* DeleteFormTagsRequest.m */,
+				8709C31921A28A3000970757 /* FormTagsRequest.h */,
+				8709C31A21A28A3000970757 /* FormTagsRequest.m */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -4521,7 +4558,6 @@
 				97109671207A006D00568785 /* label_close_gray@3x.png in Resources */,
 				971096F3207A006D00568785 /* btn_send_video@3x.png in Resources */,
 				9786AA9120F24E9B00BD0AF9 /* attachment_placeholder@2x.png in Resources */,
-				8709C2BD219C414900970757 /* 第1名@2x.png in Resources */,
 				97109811207A006D00568785 /* navbar_share@2x.png in Resources */,
 				97109775207A006D00568785 /* white_top_corner_bg@2x.png in Resources */,
 				971096A9207A006D00568785 /* label_ic_into_white@2x.png in Resources */,
@@ -4568,6 +4604,7 @@
 				97109E0A207A682F00568785 /* MyClassViewController.xib in Resources */,
 				9710971D207A006D00568785 /* 5星级@3x.png in Resources */,
 				979BBD52207FBC6800359253 /* EnrollTrialClassView.xib in Resources */,
+				8709C30121A24C7400970757 /* 第3名@2x.png in Resources */,
 				971098E2207A0BF500568785 /* 吐血.png in Resources */,
 				97109932207A0BF600568785 /* hud_ic_cancel@3x.png in Resources */,
 				97109D5B207A2F0400568785 /* CommentMessageTableViewCell.xib in Resources */,
@@ -4599,13 +4636,13 @@
 				97109657207A006D00568785 /* label_eye_display@3x.png in Resources */,
 				97109713207A006D00568785 /* my_img_星兑换@2x.png in Resources */,
 				971096E1207A006D00568785 /* 语音动画01@3x.png in Resources */,
-				8709C2C3219C415600970757 /* 第2名@3x.png in Resources */,
 				97109D9D207A2F0400568785 /* NicknameEditViewController.xib in Resources */,
 				971097CF207A006D00568785 /* message_send_error@2x.png in Resources */,
 				97109761207A006D00568785 /* 缺省插画_无作业@3x.png in Resources */,
 				971096E5207A006D00568785 /* label_ok@2x.png in Resources */,
 				97109799207A006D00568785 /* gray_corner_bg@3x.png in Resources */,
 				971097B9207A006D00568785 /* teacher@3x.png in Resources */,
+				8709C2F721A24C7400970757 /* 第2名@3x.png in Resources */,
 				97109A87207A171600568785 /* HomeworkAudioCollectionViewCell.xib in Resources */,
 				97109ED8207A7C1600568785 /* ExchangeRecordsViewController.xib in Resources */,
 				9710970D207A006D00568785 /* buttonbar_my_unsel@2x.png in Resources */,
@@ -4613,8 +4650,10 @@
 				97109759207A006D00568785 /* icon_like_disabled@2x.png in Resources */,
 				97109687207A006D00568785 /* ic_manager_teacher@3x.png in Resources */,
 				971096A1207A006D00568785 /* 加载动画02@2x.png in Resources */,
+				8709C30D21A258B300970757 /* 卡片角标@2x.png in Resources */,
 				97109C12207A2E3E00568785 /* CircleHomeworksViewController.xib in Resources */,
 				971097D5207A006D00568785 /* ic_class_bule@2x.png in Resources */,
+				8709C2FF21A24C7400970757 /* 第4名@2x.png in Resources */,
 				9710977B207A006D00568785 /* pop_img_stars@3x.png in Resources */,
 				9710975B207A006D00568785 /* buttonbar_correcting_active@3x.png in Resources */,
 				971097E3207A006D00568785 /* label_user@2x.png in Resources */,
@@ -4627,7 +4666,6 @@
 				971098D6207A0BF500568785 /* 送花.png in Resources */,
 				971097FF207A006D00568785 /* send_homework@3x.png in Resources */,
 				97109769207A006D00568785 /* icon_like_selected@2x.png in Resources */,
-				8709C2C5219C415600970757 /* 第2名@2x.png in Resources */,
 				97109A60207A158C00568785 /* MessageTimeTableViewCell.xib in Resources */,
 				97109DDD207A472800568785 /* LoginViewController_Student.xib in Resources */,
 				870286832184100200559195 /* navbar_medal@2x.png in Resources */,
@@ -4656,7 +4694,6 @@
 				97109741207A006D00568785 /* input_photo@3x.png in Resources */,
 				97109C32207A2E3E00568785 /* CircleViewController.xib in Resources */,
 				879CE52221905F7100BBE4B7 /* AchieverListCollectionViewCell.xib in Resources */,
-				8709C2CF219C416B00970757 /* 第4名@2x.png in Resources */,
 				97109803207A006D00568785 /* buttonbar_mission_active@2x.png in Resources */,
 				9710969B207A006D00568785 /* 加载动画04@3x.png in Resources */,
 				97109813207A006D00568785 /* my_ic_medal_prefect@2x.png in Resources */,
@@ -4676,13 +4713,14 @@
 				97109791207A006D00568785 /* icon_mission_choice_disabled@2x.png in Resources */,
 				971096CD207A006D00568785 /* label_ic_into@2x.png in Resources */,
 				97109ED7207A7C1600568785 /* StudentAwardsViewController.xib in Resources */,
+				8709C2FD21A24C7400970757 /* 第1名@2x.png in Resources */,
 				971097F1207A006D00568785 /* send_homework@2x.png in Resources */,
-				8709C2CB219C415F00970757 /* 第3名@3x.png in Resources */,
 				971096D1207A006D00568785 /* label_ic_eye_hide@2x.png in Resources */,
 				97109787207A006D00568785 /* buttonbar_mission_manager_active@2x.png in Resources */,
 				971097A5207A006D00568785 /* icon_like_disabled@3x.png in Resources */,
 				875C2621218A9BBB0047E32A /* HomeworkSendHisTableViewCell.xib in Resources */,
 				9710972F207A006D00568785 /* navbar_close@3x.png in Resources */,
+				8709C30F21A258B300970757 /* 卡片角标@3x.png in Resources */,
 				971097A1207A006D00568785 /* pop_finish@3x.png in Resources */,
 				9710974F207A006D00568785 /* buttonbar_mission_manager_unsel@2x.png in Resources */,
 				971096ED207A006D00568785 /* pop_img_return@3x.png in Resources */,
@@ -4706,8 +4744,8 @@
 				97109C40207A2E3E00568785 /* HomeworkDetailLikeUsersTableViewCell.xib in Resources */,
 				9710973D207A006D00568785 /* my_img_同学圈@2x.png in Resources */,
 				97109DEA207A5D9700568785 /* FullfillProfileViewController_Teacher.xib in Resources */,
-				8709C2D1219C416B00970757 /* 第4名@3x.png in Resources */,
 				971097BD207A006D00568785 /* ic_remove_plat@2x.png in Resources */,
+				8709C30321A24C7400970757 /* 第4名@3x.png in Resources */,
 				87028694218419F600559195 /* UnfinishedStudentHomeworkSessionTableViewCell.xib in Resources */,
 				97109689207A006D00568785 /* label_close_gray@2x.png in Resources */,
 				97109717207A006D00568785 /* 三圆角_遮罩@2x.png in Resources */,
@@ -4715,7 +4753,6 @@
 				9786AA9220F24E9B00BD0AF9 /* attachment_placeholder@3x.png in Resources */,
 				971097FB207A006D00568785 /* add_image_bg@3x.png in Resources */,
 				97109BCA207A1D5000568785 /* CalendarViewController.xib in Resources */,
-				8709C2BF219C414900970757 /* 第1名@3x.png in Resources */,
 				9710968F207A006D00568785 /* 加载动画05@3x.png in Resources */,
 				97109807207A006D00568785 /* gray_bottom_corner_bg@3x.png in Resources */,
 				971097D3207A006D00568785 /* icon_talk@2x.png in Resources */,
@@ -4732,6 +4769,7 @@
 				9710966F207A006D00568785 /* icon_drop_small@3x.png in Resources */,
 				8770786B21997E5F00940A88 /* icon_drop_small_black@3x.png in Resources */,
 				97109C4C207A2E3E00568785 /* HomeworkDetailCommentTableViewCell.xib in Resources */,
+				8709C2F921A24C7400970757 /* 第2名@2x.png in Resources */,
 				971097AB207A006D00568785 /* buttonbar_mission_manager_unsel@3x.png in Resources */,
 				97109753207A006D00568785 /* buttonbar_mission_unsel@3x.png in Resources */,
 				9710969D207A006D00568785 /* 加载动画04@2x.png in Resources */,
@@ -4739,6 +4777,7 @@
 				9710967F207A006D00568785 /* my_ic_medal_nice@2x.png in Resources */,
 				971096C5207A006D00568785 /* ic_cancel_white@2x.png in Resources */,
 				97109920207A0BF600568785 /* AlertView.xib in Resources */,
+				8709C2F521A24C7400970757 /* 第1名@3x.png in Resources */,
 				971098EA207A0BF500568785 /* 同意.png in Resources */,
 				97364A1620B16C0B00511A95 /* NetworkStateErrorView.xib in Resources */,
 				9710979D207A006D00568785 /* icon_choice@3x.png in Resources */,
@@ -4749,6 +4788,7 @@
 				97364A0820B1231E00511A95 /* StudentDetailViewController.xib in Resources */,
 				97109763207A006D00568785 /* icon_choice@2x.png in Resources */,
 				9710979F207A006D00568785 /* navbar_back@2x.png in Resources */,
+				8709C30721A2507C00970757 /* 弹窗@3x.png in Resources */,
 				9710965F207A006D00568785 /* 对话框_蓝色@3x.png in Resources */,
 				971096BD207A006D00568785 /* my_ic_medal_great@3x.png in Resources */,
 				971097C5207A006D00568785 /* btn_send_voice@2x.png in Resources */,
@@ -4771,12 +4811,14 @@
 				97109930207A0BF600568785 /* hud_ic_error@2x.png in Resources */,
 				971097C1207A006D00568785 /* right_chat_talk2@2x.png in Resources */,
 				97109691207A006D00568785 /* 加载动画05@2x.png in Resources */,
+				8709C30921A2507C00970757 /* 弹窗@2x.png in Resources */,
 				97109747207A006D00568785 /* my_ic_medal_great@2x.png in Resources */,
 				87C52FBE2164FA58004288F4 /* corretHome_unselect@2x.png in Resources */,
 				9710981F207A006D00568785 /* pop_img_register@2x.png in Resources */,
 				971097C7207A006D00568785 /* inputBG@2x.png in Resources */,
 				971096A7207A006D00568785 /* pop_img_stars_un@3x.png in Resources */,
 				971098E8207A0BF500568785 /* 乖巧.png in Resources */,
+				8709C2FB21A24C7400970757 /* 第3名@3x.png in Resources */,
 				971098D2207A0BF500568785 /* 心累.png in Resources */,
 				97109781207A006D00568785 /* buttonbar_correcting_unsel@3x.png in Resources */,
 				97109A83207A171600568785 /* HomeworkImageCollectionViewCell.xib in Resources */,
@@ -4796,7 +4838,6 @@
 				971096BB207A006D00568785 /* white_bottom_corner_bg@2x.png in Resources */,
 				97109D69207A2F0400568785 /* NoticeMessageHeadTableViewCell.xib in Resources */,
 				9710992C207A0BF600568785 /* hud_ic_loading@2x.png in Resources */,
-				8709C2C9219C415F00970757 /* 第3名@2x.png in Resources */,
 				971097EB207A006D00568785 /* gray_bottom_corner_bg@2x.png in Resources */,
 				9710973F207A006D00568785 /* icon_warning@3x.png in Resources */,
 				97109669207A006D00568785 /* label_ic_into_white@3x.png in Resources */,
@@ -4916,13 +4957,13 @@
 				97109812207A006D00568785 /* navbar_share@2x.png in Resources */,
 				97109776207A006D00568785 /* white_top_corner_bg@2x.png in Resources */,
 				971096AA207A006D00568785 /* label_ic_into_white@2x.png in Resources */,
+				8709C2FC21A24C7400970757 /* 第3名@3x.png in Resources */,
 				97109700207A006D00568785 /* chat_talk3@2x.png in Resources */,
 				97109A82207A171600568785 /* HomeworkVideoCollectionViewCell.xib in Resources */,
 				97109A49207A158C00568785 /* RightEmojiMessageTableViewCell.xib in Resources */,
 				971098ED207A0BF500568785 /* 点赞.png in Resources */,
 				97109D5E207A2F0400568785 /* NoticeMessageTextItemTableViewCell.xib in Resources */,
 				971096FA207A006D00568785 /* 三圆角_遮罩@3x.png in Resources */,
-				8709C2C6219C415600970757 /* 第2名@2x.png in Resources */,
 				971097A4207A006D00568785 /* 缺省插画_无作业@2x.png in Resources */,
 				97109D74207A2F0400568785 /* TeacherAccountViewController.xib in Resources */,
 				97364A1720B16C0B00511A95 /* NetworkStateErrorView.xib in Resources */,
@@ -4938,6 +4979,7 @@
 				9710972E207A006D00568785 /* ic_class_yellow@2x.png in Resources */,
 				9710977A207A006D00568785 /* buttonbar_mission_manager_active@3x.png in Resources */,
 				973649BE20AF2F8600511A95 /* CreateHomeworkViewController.xib in Resources */,
+				8709C31021A258B300970757 /* 卡片角标@3x.png in Resources */,
 				97109790207A006D00568785 /* icon_mission_choice@3x.png in Resources */,
 				97109AED207A1C0800568785 /* StudentsManageViewController.xib in Resources */,
 				97109698207A006D00568785 /* 加载动画03@2x.png in Resources */,
@@ -4967,7 +5009,6 @@
 				971096EA207A006D00568785 /* ic_class_red@3x.png in Resources */,
 				971096E4207A006D00568785 /* 语音动画03@2x.png in Resources */,
 				879CE52A21913DD000BBE4B7 /* AchieverListHeaderView.xib in Resources */,
-				8709C2BE219C414900970757 /* 第1名@2x.png in Resources */,
 				971097B6207A006D00568785 /* btn_mission_send@2x.png in Resources */,
 				971096F8207A006D00568785 /* my_reward_stars@3x.png in Resources */,
 				971096C8207A006D00568785 /* my_img_同学圈@3x.png in Resources */,
@@ -4991,6 +5032,7 @@
 				971096E2207A006D00568785 /* 语音动画01@3x.png in Resources */,
 				971097D0207A006D00568785 /* message_send_error@2x.png in Resources */,
 				97109762207A006D00568785 /* 缺省插画_无作业@3x.png in Resources */,
+				8709C30A21A2507C00970757 /* 弹窗@2x.png in Resources */,
 				97109AFE207A1C0800568785 /* ClassEditTableViewCell.xib in Resources */,
 				971096E6207A006D00568785 /* label_ok@2x.png in Resources */,
 				9710979A207A006D00568785 /* gray_corner_bg@3x.png in Resources */,
@@ -5068,13 +5110,13 @@
 				971097B4207A006D00568785 /* icon_like_small@3x.png in Resources */,
 				8702869B218436F600559195 /* HomeWorkSendHistoryViewController.xib in Resources */,
 				9710971C207A006D00568785 /* btn_send_video@2x.png in Resources */,
+				8709C30E21A258B300970757 /* 卡片角标@2x.png in Resources */,
 				971097AA207A006D00568785 /* pop_mission_finish@3x.png in Resources */,
 				97109792207A006D00568785 /* icon_mission_choice_disabled@2x.png in Resources */,
 				9736494820AF2BBE00511A95 /* ic_manager_class@3x.png in Resources */,
 				971096CE207A006D00568785 /* label_ic_into@2x.png in Resources */,
 				971097F2207A006D00568785 /* send_homework@2x.png in Resources */,
 				973649D820AF2F8600511A95 /* StudentSelectorTableViewCell.xib in Resources */,
-				8709C2D0219C416B00970757 /* 第4名@2x.png in Resources */,
 				870286782182F06C00559195 /* StudentStarListTableViewCell.xib in Resources */,
 				97109D78207A2F0400568785 /* AccountTableViewCell.xib in Resources */,
 				971096D2207A006D00568785 /* label_ic_eye_hide@2x.png in Resources */,
@@ -5092,11 +5134,11 @@
 				973649DC20AF2F8600511A95 /* SearchHomeworkViewController.xib in Resources */,
 				97109828207A006D00568785 /* inputBG@3x.png in Resources */,
 				97109678207A006D00568785 /* ic_Subtract_small@2x.png in Resources */,
+				8709C30021A24C7400970757 /* 第4名@2x.png in Resources */,
 				97109BCF207A1D5000568785 /* CalendarHeaderView.xib in Resources */,
 				9710981A207A006D00568785 /* btn_play@3x.png in Resources */,
 				87EED4A7219443E400AEA974 /* ChooseDatePickerView.xib in Resources */,
 				971096D6207A006D00568785 /* navbar_close@2x.png in Resources */,
-				8709C2C0219C414900970757 /* 第1名@3x.png in Resources */,
 				97109710207A006D00568785 /* icon_Voice@2x.png in Resources */,
 				971096B8207A006D00568785 /* label_eye_display@2x.png in Resources */,
 				9786AA9320F24F7E00BD0AF9 /* attachment_placeholder@2x.png in Resources */,
@@ -5151,6 +5193,7 @@
 				97109680207A006D00568785 /* my_ic_medal_nice@2x.png in Resources */,
 				973649D520AF2F8600511A95 /* StudentSelectorViewController.xib in Resources */,
 				971096C6207A006D00568785 /* ic_cancel_white@2x.png in Resources */,
+				8709C30821A2507C00970757 /* 弹窗@3x.png in Resources */,
 				97109921207A0BF600568785 /* AlertView.xib in Resources */,
 				971098EB207A0BF500568785 /* 同意.png in Resources */,
 				9710979E207A006D00568785 /* icon_choice@3x.png in Resources */,
@@ -5177,9 +5220,9 @@
 				97364A1020B1447700511A95 /* StudentsWithoutClassViewController.xib in Resources */,
 				973649C720AF2F8600511A95 /* HomeworkTextTableViewCell.xib in Resources */,
 				97109DEF207A5D9700568785 /* FullfillProfileViewController_Student.xib in Resources */,
-				8709C2D2219C416B00970757 /* 第4名@3x.png in Resources */,
 				97109A5D207A158C00568785 /* RightTextMessageTableViewCell.xib in Resources */,
 				971098E1207A0BF500568785 /* 不错.png in Resources */,
+				8709C30421A24C7400970757 /* 第4名@3x.png in Resources */,
 				97109D46207A2F0400568785 /* MessageEditorViewController.xib in Resources */,
 				9710968E207A006D00568785 /* icon_drop_small@2x.png in Resources */,
 				879CE51B21905D0300BBE4B7 /* AchieverListViewController.xib in Resources */,
@@ -5190,7 +5233,6 @@
 				971098DB207A0BF500568785 /* 呵呵.png in Resources */,
 				97109D44207A2F0400568785 /* NoticeMessagesViewController.xib in Resources */,
 				97109708207A006D00568785 /* buttonbar_my_unsel@3x.png in Resources */,
-				8709C2CC219C415F00970757 /* 第3名@3x.png in Resources */,
 				97109931207A0BF600568785 /* hud_ic_error@2x.png in Resources */,
 				973649FD20AF322900511A95 /* HomeworkTitleTableViewCell.xib in Resources */,
 				971097C2207A006D00568785 /* right_chat_talk2@2x.png in Resources */,
@@ -5203,6 +5245,7 @@
 				971097C8207A006D00568785 /* inputBG@2x.png in Resources */,
 				971096A8207A006D00568785 /* pop_img_stars_un@3x.png in Resources */,
 				971098E9207A0BF500568785 /* 乖巧.png in Resources */,
+				8709C2FE21A24C7400970757 /* 第1名@2x.png in Resources */,
 				971098D3207A0BF500568785 /* 心累.png in Resources */,
 				97109782207A006D00568785 /* buttonbar_correcting_unsel@3x.png in Resources */,
 				97109A84207A171600568785 /* HomeworkImageCollectionViewCell.xib in Resources */,
@@ -5215,6 +5258,7 @@
 				971098E7207A0BF500568785 /* 熬夜.png in Resources */,
 				97109D6E207A2F0400568785 /* NoticeMessageTableViewCell.xib in Resources */,
 				971097CA207A006D00568785 /* buttonbar_class_unsel@2x.png in Resources */,
+				8709C2F821A24C7400970757 /* 第2名@3x.png in Resources */,
 				971098F1207A0BF500568785 /* EmojiInputCollectionViewCell.xib in Resources */,
 				97109712207A006D00568785 /* chat_talk3@3x.png in Resources */,
 				971096B4207A006D00568785 /* 对话框_蓝色@2x.png in Resources */,
@@ -5239,6 +5283,7 @@
 				97109784207A006D00568785 /* icon_edit@3x.png in Resources */,
 				97109778207A006D00568785 /* label_key_step@3x.png in Resources */,
 				97109766207A006D00568785 /* splash_img_logo@2x.png in Resources */,
+				8709C30221A24C7400970757 /* 第3名@2x.png in Resources */,
 				97109C13207A2E3E00568785 /* CircleHomeworksViewController.xib in Resources */,
 				9710982A207A006D00568785 /* btn_send_voice@3x.png in Resources */,
 				973649F720AF2F8600511A95 /* CreateTagView.xib in Resources */,
@@ -5260,6 +5305,7 @@
 				973649C520AF2F8600511A95 /* HomeworkAudioTableViewCell.xib in Resources */,
 				971098E5207A0BF500568785 /* 笑哭.png in Resources */,
 				97109D48207A2F0400568785 /* CommentMessagesViewController.xib in Resources */,
+				8709C2FA21A24C7400970757 /* 第2名@2x.png in Resources */,
 				97109786207A006D00568785 /* pop_img_stars@2x.png in Resources */,
 				97109EB8207A7C0A00568785 /* ExchangeRequestTableViewCell.xib in Resources */,
 				973649CA20AF2F8600511A95 /* HomeworkVideoTableViewCell.xib in Resources */,
@@ -5273,7 +5319,6 @@
 				9710980A207A006D00568785 /* gray_top_corner_bg@3x.png in Resources */,
 				97109716207A006D00568785 /* my_reward_stars@2x.png in Resources */,
 				9710980E207A006D00568785 /* label_user@3x.png in Resources */,
-				8709C2CA219C415F00970757 /* 第3名@2x.png in Resources */,
 				97109C4B207A2E3E00568785 /* CircleCommentTableViewCell.xib in Resources */,
 				971097BC207A006D00568785 /* label_phone@3x.png in Resources */,
 				97109724207A006D00568785 /* pop_img_return@2x.png in Resources */,
@@ -5312,6 +5357,7 @@
 				97109B09207A1C0800568785 /* DatePickerView.xib in Resources */,
 				97109AE9207A1C0800568785 /* ScheduleEditViewController.xib in Resources */,
 				971096D8207A006D00568785 /* icon_time@3x.png in Resources */,
+				8709C2F621A24C7400970757 /* 第1名@3x.png in Resources */,
 				97109B0D207A1C0800568785 /* ClassTableViewCell.xib in Resources */,
 				971096A6207A006D00568785 /* label_key@2x.png in Resources */,
 				971097DE207A006D00568785 /* navbar_share@3x.png in Resources */,
@@ -5321,7 +5367,6 @@
 				971098FB207A0BF500568785 /* NEPhotoBrowser.bundle in Resources */,
 				97109704207A006D00568785 /* right_chat_talk3@2x.png in Resources */,
 				9710967A207A006D00568785 /* bottom_ic_pencil@3x.png in Resources */,
-				8709C2C4219C415600970757 /* 第2名@3x.png in Resources */,
 				971096F6207A006D00568785 /* ic_cancel_white.png in Resources */,
 				8770786E21997E5F00940A88 /* icon_drop_small_black@2x.png in Resources */,
 			);
@@ -5684,6 +5729,7 @@
 				97109C34207A2E3E00568785 /* HomeworkDetailCommentTableViewCell.m in Sources */,
 				979BBD7F2081B36A00359253 /* EnrollTrialClassRequest.m in Sources */,
 				97109A62207A158C00568785 /* AudioMessageTableViewCell.m in Sources */,
+				8709C31F21A2AF7800970757 /* SearchHomeworkTypeRequest.m in Sources */,
 				97109D5F207A2F0400568785 /* NoticeMessageImageItemTableViewCell.m in Sources */,
 				97109E90207A7BDD00568785 /* Award.m in Sources */,
 				97109A7F207A171600568785 /* HomeworkVideoCollectionViewCell.m in Sources */,
@@ -5797,6 +5843,7 @@
 				87AF73082193D17F003E87F0 /* StudentDetailHeaderCell.m in Sources */,
 				97109A31207A158C00568785 /* HomeworkSession.m in Sources */,
 				97364A1B20B1704900511A95 /* MessageUpdateCountRequest.m in Sources */,
+				8709C31C21A28A3000970757 /* FormTagsRequest.m in Sources */,
 				97109A23207A158C00568785 /* HomeworkSessionsViewController.m in Sources */,
 				87CF03492188191800B6F574 /* ExchangeRecordsRequest.m in Sources */,
 				870286682181E29100559195 /* HomeworkDiffTableViewCell.m in Sources */,
@@ -5901,6 +5948,7 @@
 				97109B05207A1C0800568785 /* TimePickerView.m in Sources */,
 				97109D84207A2F0400568785 /* UpdateTeacherRequest.m in Sources */,
 				97109A86207A171600568785 /* HomeworkImageCollectionViewCell.m in Sources */,
+				8709C32021A2AF7800970757 /* SearchHomeworkTypeRequest.m in Sources */,
 				870286762182F06C00559195 /* StudentStarListTableViewCell.m in Sources */,
 				97109AF8207A1C0800568785 /* AddClassStudentRequest.m in Sources */,
 				97109C8B207A2EC900568785 /* VerifySMSCodeRequest.m in Sources */,
@@ -5917,6 +5965,8 @@
 				97109A55207A158C00568785 /* SessionHomeworkTableViewCell.m in Sources */,
 				973649D620AF2F8600511A95 /* StudentSelectorTableViewCell.m in Sources */,
 				97109D94207A2F0400568785 /* DeleteTeacherAlertView.m in Sources */,
+				8709C31421A26B6A00970757 /* CreateFormTagRequest.m in Sources */,
+				8709C31821A26C4E00970757 /* DeleteFormTagsRequest.m in Sources */,
 				9710990F207A0BF500568785 /* ChatRefreshHeader.m in Sources */,
 				97109C2B207A2E3E00568785 /* HomeworkRequest.m in Sources */,
 				971098F9207A0BF500568785 /* NEPhotoBrowserView.m in Sources */,

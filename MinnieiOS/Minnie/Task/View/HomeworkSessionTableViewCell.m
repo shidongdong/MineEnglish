@@ -34,6 +34,7 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
 @property (weak, nonatomic) IBOutlet UILabel *unfinishTimeLabel;  //距离提交的天数
 @property (weak, nonatomic) IBOutlet UILabel *unfiishTimeTypeLabel;  //距离提交  天或者小时
 @property (weak, nonatomic) IBOutlet UILabel *diffcultLabel;       //难度
+@property (weak, nonatomic) IBOutlet UIImageView *cornerBgView;    //角标
 @property (weak, nonatomic) IBOutlet UILabel *unfinishTipLabel;    //距离提交或者距离过期
 
 @end
@@ -61,6 +62,7 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
 
 - (void)setLeftCommitHomeworkUI:(Homework *)homework
 {
+    self.cornerBgView.hidden = NO;
     if (homework.level == 1)
     {
         self.diffcultLabel.text = @"简单";
@@ -69,11 +71,14 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
     {
         self.diffcultLabel.text = @"一般";
     }
-    else
+    else if (homework.level == 3)
     {
         self.diffcultLabel.text = @"困难";
     }
-    
+    else
+    {
+        self.cornerBgView.hidden = YES;
+    }
     NSInteger maxHours;
     if (homework.style == 1)
     {
@@ -142,32 +147,31 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
 }
 
 - (void)setupWithHomeworkSession:(HomeworkSession *)homeworkSession {
-#if TEACHERSIDE
-    self.nameLabel.text = homeworkSession.student.nickname;
-    [self.avatarImageView sd_setImageWithURL:[homeworkSession.student.avatarUrl imageURLWithWidth:44.f]];
-#else
-    self.nameLabel.text = homeworkSession.correctTeacher.nickname;
-    [self.avatarImageView sd_setImageWithURL:[homeworkSession.correctTeacher.avatarUrl imageURLWithWidth:44.f]];
-    
-#endif
     
     HomeworkItem *item = homeworkSession.homework.items[0];
     
-    if ([self.reuseIdentifier isEqualToString:@"UnfinishedStudentHomeworkSessionTableViewCellId"])
-    {
-        [self setLeftCommitHomeworkUI:homeworkSession.homework];
-    }
-    self.homeworkTitleLabel.text = item.text?:@"[无文字内容]";
     
-    self.lastSessionLabel.text = homeworkSession.lastSessionContent;
     
 #if TEACHERSIDE
+    self.nameLabel.text = homeworkSession.student.nickname;
+    [self.avatarImageView sd_setImageWithURL:[homeworkSession.student.avatarUrl imageURLWithWidth:44.f]];
+    self.homeworkTitleLabel.text = item.text?:@"[无文字内容]";
+    
     if (homeworkSession.shouldColorLastSessionContent) {
         self.lastSessionLabel.textColor = [UIColor colorWithHex:0x0098FE];
     } else {
         self.lastSessionLabel.textColor = [UIColor colorWithHex:0xFFA500];
     }
+    
 #else
+    self.nameLabel.text = homeworkSession.correctTeacher.nickname;
+    [self.avatarImageView sd_setImageWithURL:[homeworkSession.correctTeacher.avatarUrl imageURLWithWidth:44.f]];
+    if ([self.reuseIdentifier isEqualToString:@"UnfinishedStudentHomeworkSessionTableViewCellId"])
+    {
+        [self setLeftCommitHomeworkUI:homeworkSession.homework];
+    }
+    
+    self.homeworkTitleLabel.text = item.text?:@"[无文字内容]";
     
     if (homeworkSession.shouldColorLastSessionContent) {
         self.lastSessionLabel.textColor = [UIColor redColor];
@@ -175,8 +179,14 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
         self.lastSessionLabel.textColor = [UIColor colorWithHex:0x999999];
     }
     
-    
 #endif
+    
+    
+    
+    
+    
+    self.lastSessionLabel.text = homeworkSession.lastSessionContent;
+    
     if (homeworkSession.sortTime > 0)
     {
         self.timeLabel.text = [Utils formatedDateString:homeworkSession.sortTime];
@@ -293,7 +303,10 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
         
         CGSize size = [unfinishedCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
         height = size.height;
-        
+#if TEACHERSIDE
+#else
+        height = height < 98.0 ? 98.0 : height;
+#endif
 //        if (homeworkSession.lastSessionContent.length == 0) {
 //            height -= 8.f;
 //        }

@@ -14,6 +14,7 @@
 #import "CommitHomeworkRequest.h"
 #import "UpdateTaskModifiedTimeRequest.h"
 #import "SearchHomeworkScoreRequest.h"
+#import "SearchHomeworkTypeRequest.h"
 @implementation HomeworkSessionService
 
 + (BaseRequest *)requestHomeworkSessionsWithFinishState:(NSInteger)state
@@ -103,6 +104,17 @@
     request.objectKey = @"list";
     request.objectClassName = @"HomeworkSession";
     request.callback = callback;
+    [request start];
+    return request;
+}
+
++ (BaseRequest *)searchHomeworkSessionWithType:(NSInteger)type forState:(NSInteger)state callback:(RequestCallback)callback
+{
+    SearchHomeworkTypeRequest * request = [[SearchHomeworkTypeRequest alloc] initWithHomeworkSessionForType:type withFinishState:state];
+    request.objectKey = @"list";
+    request.objectClassName = @"HomeworkSession";
+    request.callback = callback;
+    [request start];
     return request;
 }
 

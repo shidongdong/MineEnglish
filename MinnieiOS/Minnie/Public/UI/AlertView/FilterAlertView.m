@@ -10,6 +10,7 @@
 
 @interface FilterAlertView()<UITableViewDataSource,UITableViewDelegate>
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *filterHieghtConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewTopConstraint;
 @property (weak, nonatomic) IBOutlet UITableView *mTableView;
 @property (weak, nonatomic) IBOutlet UIView *backgroundView;
@@ -31,6 +32,7 @@
     
     CGFloat offset = isIPhoneX ? 88 : 64;
     alertView.bgViewTopConstraint.constant = offset;
+    alertView.filterHieghtConstraint.constant = array.count * 44 + 12;
     alertView.fliterArray = array;
     alertView.defultIndex = index;
     alertView.actionCallback = block;
@@ -53,20 +55,23 @@
         [UIView animateWithDuration:0.3 animations:^{
             self.backgroundView.alpha = 1.f;
         } completion:^(BOOL finished) {
+            [self.mTableView reloadData];
         }];
     });
 }
 
 - (void)hideWithAnimation {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        self.backgroundView.alpha = 1.f;
-        [UIView animateWithDuration:0.3 animations:^{
-            self.backgroundView.alpha = 0.f;
-        } completion:^(BOOL finished) {
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//
+//        self.backgroundView.alpha = 1.f;
+//        self.mTableView.alpha = 1.f;
+//        [UIView animateWithDuration:0.3 animations:^{
+//            self.backgroundView.alpha = 0.f;
+//            self.mTableView.alpha = 0.f;
+//        } completion:^(BOOL finished) {
             [self removeFromSuperview];
-        }];
-    });
+//        }];
+//    });
 }
 
 + (void)addConstraintsWithAlertView:(FilterAlertView *)alertView inSuperView:(UIView *)superView {
@@ -128,6 +133,7 @@
     if (!cell)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"fliterCellId"];
+        cell.backgroundColor = [UIColor clearColor];
         cell.textLabel.font = [UIFont systemFontOfSize:12.0];
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -141,7 +147,7 @@
     {
         cell.textLabel.textColor = [UIColor colorWithHex:0x999999];
     }
-    
+    cell.textLabel.text = [self.fliterArray objectAtIndex:indexPath.row];
     return cell;
 }
 

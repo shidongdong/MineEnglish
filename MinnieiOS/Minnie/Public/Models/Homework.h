@@ -35,6 +35,8 @@
 
 @property (nonatomic, assign) NSInteger limitTimes; //作业限制时长，单位秒
 
+@property (nonatomic, assign) NSString * formTag;  //作业类型标签: 拼读，指读，默写，订正等等
+
 // UI
 @property (nonatomic, assign) CGFloat cellHeight;
 

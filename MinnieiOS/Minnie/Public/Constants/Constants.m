@@ -32,6 +32,9 @@ NSString * const kNotificationKeyOfSendHomework = @"kNotificationKeyOfSendHomewo
 NSString * const kNotificationKeyOfAddTags = @"kNotificationKeyOfAddTags"; // 教师端添加标签
 NSString * const kNotificationKeyOfDeleteTags = @"kNotificationKeyOfDeleteTags"; // 教师端删除标签
 
+NSString * const kNotificationKeyOfAddFormTags = @"kNotificationKeyOfAddFormTags"; // 教师端添加Form标签
+NSString * const kNotificationKeyOfDeleteFormTags = @"kNotificationKeyOfDeleteFormTags"; // 教师端删除Form标签
+
 #pragma mark - 同学圈相关
 
 NSString * const kNotificationKeyOfDeleteHomeworkTask = @"kNotificationKeyOfDeleteHomeworkTask"; // 删除同学圈的一条朋友作业
