@@ -10,14 +10,14 @@
 
 @interface SearchHomeworksRequest()
 
-@property (nonatomic, copy) NSString *keyword;
+@property (nonatomic, copy) NSArray<NSString *> *keyword;
 @property (nonatomic, copy) NSString *nextUrl;
 
 @end
 
 @implementation SearchHomeworksRequest
 
-- (instancetype)initWithKeyword:(NSString *)keyword {
+- (instancetype)initWithKeyword:(NSArray<NSString *> *)keyword {
     self = [super init];
     if (self != nil) {
         _keyword = keyword;
@@ -48,8 +48,8 @@
 }
 
 - (id)requestArgument {
-    if (self.keyword.length > 0) {
-        return @{@"tag":self.keyword};
+    if (self.keyword.count > 0) {
+        return @{@"tags":self.keyword};
     }
 
     return nil;

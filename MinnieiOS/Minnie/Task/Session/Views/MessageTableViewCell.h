@@ -18,6 +18,7 @@ typedef void(^MessageTableViewCellResendCallback)(void); // 重发回调
 
 @property (nonatomic, weak) IBOutlet UIButton *retryButton;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *sendingIndicatorView;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
 @property (nonatomic, copy) MessageTableViewCellResendCallback resendCallback;
 

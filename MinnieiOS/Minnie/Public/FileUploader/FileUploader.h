@@ -17,13 +17,20 @@ typedef NS_ENUM(NSInteger, UploadFileType) {
 
 @interface FileUploader : NSObject
 
-+ (void)uploadData:(NSData *)data
+@property(nonatomic,strong)AVFile * file;
+
++ (FileUploader *)shareInstance;
+
+- (void)uploadData:(NSData *)data
               type:(UploadFileType)type
      progressBlock:(void (^)(NSInteger))progressBlock
    completionBlock:(void (^)(NSString * _Nullable, NSError * _Nullable))completionBlock;
 
-+ (void)uploadDataWithLocalFilePath:(NSString *)localFilePath
+- (void)uploadDataWithLocalFilePath:(NSString *)localFilePath
                       progressBlock:(void (^)(NSInteger))progressBlock
                     completionBlock:(void (^)(NSString * _Nullable, NSError * _Nullable))completionBlock;
+
+//取消上传
+- (void)cancleUploading;
 
 @end

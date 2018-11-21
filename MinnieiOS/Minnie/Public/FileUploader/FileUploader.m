@@ -10,7 +10,17 @@
 
 @implementation FileUploader
 
-+ (void)uploadData:(NSData *)data
++(FileUploader *)shareInstance
+{
+    static FileUploader * obj;
+    static dispatch_once_t done;
+    dispatch_once(&done, ^{
+        obj = [[FileUploader alloc] init];
+    });
+    return obj;
+}
+
+- (void)uploadData:(NSData *)data
               type:(UploadFileType)type
      progressBlock:(void (^)(NSInteger))progressBlock
    completionBlock:(void (^)(NSString * _Nullable, NSError * _Nullable))completionBlock {
@@ -28,15 +38,22 @@
     }
 
     NSString *name = [[NSUUID UUID].UUIDString stringByAppendingPathExtension:extension];
-    AVFile *file = [AVFile fileWithData:data name:name];
-    [file uploadWithProgress:progressBlock completionHandler:^(BOOL succeeded, NSError * _Nullable error) {
+    self.file = [AVFile fileWithData:data name:name];
+    [self.file uploadWithProgress:progressBlock completionHandler:^(BOOL succeeded, NSError * _Nullable error) {
         if (completionBlock != nil) {
-            completionBlock(file.url, error);
+            completionBlock(self.file.url, error);
         }
     }];
+    
 }
 
-+ (void)uploadDataWithLocalFilePath:(NSString *)localFilePath
+- (void)cancleUploading
+{
+    [self.file cancelUploading];
+}
+
+
+- (void)uploadDataWithLocalFilePath:(NSString *)localFilePath
                       progressBlock:(void (^)(NSInteger))progressBlock
                     completionBlock:(void (^)(NSString * _Nullable, NSError * _Nullable))completionBlock {
     if (localFilePath.length == 0) {
@@ -47,11 +64,11 @@
         return;
     }
     
-    AVFile *file = [AVFile fileWithLocalPath:localFilePath
+    self.file = [AVFile fileWithLocalPath:localFilePath
                                        error:nil];
-    [file uploadWithProgress:progressBlock completionHandler:^(BOOL succeeded, NSError * _Nullable error) {
+    [self.file uploadWithProgress:progressBlock completionHandler:^(BOOL succeeded, NSError * _Nullable error) {
         if (completionBlock != nil) {
-            completionBlock(file.url, error);
+            completionBlock(self.file.url, error);
         }
     }];
 }

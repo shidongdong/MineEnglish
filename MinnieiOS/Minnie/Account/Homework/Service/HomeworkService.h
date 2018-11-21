@@ -26,7 +26,7 @@
 + (BaseRequest *)requestHomeworksWithNextUrl:(NSString *)nextUrl
                                     callback:(RequestCallback)callback;
 
-+ (BaseRequest *)searchHomeworkWithKeyword:(NSString *)key
++ (BaseRequest *)searchHomeworkWithKeyword:(NSArray<NSString *> *)key
                                   callback:(RequestCallback)callback;
 
 + (BaseRequest *)searchHomeworkWithNextUrl:(NSString *)nextUrl

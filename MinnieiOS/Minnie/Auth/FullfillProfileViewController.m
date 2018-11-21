@@ -276,7 +276,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [HUD showProgressWithMessage:@"正在上传图片..."];
         
-        [FileUploader uploadData:imageData
+        [[FileUploader shareInstance] uploadData:imageData
                             type:UploadFileTypeImage
                    progressBlock:^(NSInteger number) {
                        [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];

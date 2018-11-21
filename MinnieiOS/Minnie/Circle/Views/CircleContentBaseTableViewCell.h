@@ -22,6 +22,7 @@ typedef void(^CircleAvatarClickCallback)(void);
 @property (nonatomic, weak) IBOutlet UILabel *timeLabel;
 @property (nonatomic, weak) IBOutlet UIButton *deleteButton;
 @property (nonatomic, weak) IBOutlet UIButton *likeButton;
+@property (weak, nonatomic) IBOutlet UILabel *classlevelLabel;
 
 @property (nonatomic, copy) CircleDeleteClickCallback deleteClickCallback;
 @property (nonatomic, copy) CircleLikeClickCallback likeClickCallback;

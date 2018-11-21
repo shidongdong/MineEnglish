@@ -39,18 +39,26 @@
                                     <action selector="playButtonPressed:" destination="snF-dd-qx9" eventType="touchUpInside" id="unf-p9-SFF"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YmI-GH-KNW">
+                                <rect key="frame" x="218" y="140" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="e4d-bA-FPO" firstAttribute="top" secondItem="Fd3-He-leX" secondAttribute="top" id="4iz-Ne-IMH"/>
                             <constraint firstAttribute="bottom" secondItem="izf-8F-Tks" secondAttribute="bottom" id="6k7-rk-OxM"/>
                             <constraint firstItem="e4d-bA-FPO" firstAttribute="leading" secondItem="Fd3-He-leX" secondAttribute="leading" id="9UE-Od-gDA"/>
+                            <constraint firstItem="YmI-GH-KNW" firstAttribute="trailing" secondItem="izf-8F-Tks" secondAttribute="trailing" id="AxI-Lh-hQV"/>
                             <constraint firstAttribute="width" constant="218" id="LPM-Ut-h7o"/>
                             <constraint firstAttribute="trailing" secondItem="e4d-bA-FPO" secondAttribute="trailing" constant="6" id="MK2-iJ-pfx"/>
                             <constraint firstItem="izf-8F-Tks" firstAttribute="leading" secondItem="Fd3-He-leX" secondAttribute="leading" id="XGF-j0-Mj2"/>
                             <constraint firstAttribute="height" constant="140" id="hku-nM-Ehu"/>
                             <constraint firstAttribute="trailing" secondItem="izf-8F-Tks" secondAttribute="trailing" id="msE-WL-dGu"/>
                             <constraint firstItem="izf-8F-Tks" firstAttribute="top" secondItem="Fd3-He-leX" secondAttribute="top" id="qOA-fx-6q4"/>
+                            <constraint firstItem="YmI-GH-KNW" firstAttribute="bottom" secondItem="izf-8F-Tks" secondAttribute="bottom" id="wx2-7Q-R9c"/>
                             <constraint firstAttribute="bottom" secondItem="e4d-bA-FPO" secondAttribute="bottom" id="zu9-ae-epS"/>
                         </constraints>
                     </view>
@@ -87,6 +95,7 @@
                 <outlet property="coverImageView" destination="izf-8F-Tks" id="WgO-SB-b4B"/>
                 <outlet property="retryButton" destination="AZI-Hg-92z" id="YEV-Xi-qgt"/>
                 <outlet property="sendingIndicatorView" destination="TJP-9V-HEf" id="ev9-6W-FAW"/>
+                <outlet property="timeLabel" destination="YmI-GH-KNW" id="ndy-2L-bwZ"/>
             </connections>
             <point key="canvasLocation" x="20" y="46"/>
         </tableViewCell>

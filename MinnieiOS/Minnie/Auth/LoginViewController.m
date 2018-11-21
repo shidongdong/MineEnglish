@@ -89,7 +89,14 @@
     NSString *username = [self.usernameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSString *password = [self.passwordTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
-    if (username.length == 0 || ![Utils checkTelNumber:username]) {
+    if (username.length == 0 ) {
+#if TEACHERSIDE
+#else
+        if (![Utils checkTelNumber:username])
+        {
+            return;
+        }
+#endif
         self.usernameStateLabel.hidden = NO;
         self.usernameStateLabel.text = @"请输入正确的手机号码";
         

@@ -94,7 +94,7 @@
         [HUD showProgressWithMessage:@"正在上传图片..."];
 
         NSData *imageData = UIImageJPEGRepresentation(image, .8f);
-        [FileUploader uploadData:imageData
+        [[FileUploader shareInstance] uploadData:imageData
                             type:UploadFileTypeImage
                    progressBlock:^(NSInteger number) {
                        [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];

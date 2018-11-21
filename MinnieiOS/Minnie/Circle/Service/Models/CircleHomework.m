@@ -22,7 +22,8 @@
              @"commentCount":@"commentCount",
              @"comments":@"comments",
              @"liked":@"liked",
-             @"commitTime":@"commitTime"
+             @"commitTime":@"commitTime",
+             @"classLevel":@"classLevel",
              };
 }
 

@@ -45,7 +45,7 @@
 //    [AVOSCloud setApplicationId:@"pe0Om2fpgh5oHCd0NfSUbwkT-gzGzoHsz" clientKey:@"gfJuGSytpQalwcnAmNtunRoP"];
     //开发版
     [AVOSCloud setApplicationId:@"JE1gHMgc1MJaTRCPFcz30F9E-gzGzoHsz" clientKey:@"Axlm6WN8mJ7j1ivtGjgHxGqb"];
-    [AVOSCloud setAllLogsEnabled:NO];
+    [AVOSCloud setAllLogsEnabled:YES];
     
     //设置屏幕常亮不自动锁屏
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];

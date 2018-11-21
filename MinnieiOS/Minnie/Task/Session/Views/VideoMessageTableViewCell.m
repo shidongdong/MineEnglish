@@ -26,8 +26,15 @@ NSString * const RightVideoMessageTableViewCellId = @"RightVideoMessageTableView
 - (void)setupWithUser:(User *)user message:(AVIMTypedMessage *)message {
     [super setupWithUser:user message:message];
     
-    [self.coverImageView sd_setImageWithURL:[message.file.url videoCoverUrlWithWidth:218.f height:140.f]];
+    if ([message isKindOfClass:[AVIMVideoMessage class]])
+    {
+        AVIMVideoMessage * videoMsg = (AVIMVideoMessage *)message;
+        NSLog(@"%f",videoMsg.duration);
+        self.timeLabel.text = [NSString stringWithFormat:@"%f",videoMsg.duration];
+    }
     
+    [self.coverImageView sd_setImageWithURL:[message.file.url videoCoverUrlWithWidth:218.f height:140.f]];
+
     NSString *backgroundImageName = message.ioType==AVIMMessageIOTypeIn?@"对话框_白色":@"对话框_蓝色";
     UIImage *maskImage = [[UIImage imageNamed:backgroundImageName] resizableImageWithCapInsets:UIEdgeInsetsMake(30, 20, 10, 20) resizingMode:UIImageResizingModeStretch];
     [self.coverImageView fitShapeWithMaskImage:maskImage

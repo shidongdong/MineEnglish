@@ -63,7 +63,7 @@
     return request;
 }
 
-+ (BaseRequest *)searchHomeworkWithKeyword:(NSString *)key callback:(RequestCallback)callback {
++ (BaseRequest *)searchHomeworkWithKeyword:(NSArray<NSString *> *)key callback:(RequestCallback)callback {
     SearchHomeworksRequest *request = [[SearchHomeworksRequest alloc] initWithKeyword:key];
     
     request.objectKey = @"list";

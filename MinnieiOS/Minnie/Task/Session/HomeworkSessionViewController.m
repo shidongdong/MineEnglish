@@ -829,7 +829,7 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
         dispatch_async(dispatch_get_main_queue(), ^{
             [HUD showProgressWithMessage:@"正在上传图片..."];
             
-            [FileUploader uploadData:data
+            [[FileUploader shareInstance] uploadData:data
                                 type:UploadFileTypeImage
                        progressBlock:^(NSInteger number) {
                            [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];
@@ -894,7 +894,7 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
     [self sendMessage:message];
 }
 
-- (void)sendVideoMessage:(NSURL *)videoURL {
+- (void)sendVideoMessage:(NSURL *)videoURL{
     if (self.isCommitingHomework) {
         [HUD showProgressWithMessage:@"正在提交作业..."];
         
@@ -1037,12 +1037,14 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
             
             [exportSession exportAsynchronouslyWithCompletionHandler:^{
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [HUD showProgressWithMessage:@"正在上传视频..."];
+                    
                     
                     if ([exportSession status] == AVAssetExportSessionStatusCompleted) {
-                        [FileUploader uploadDataWithLocalFilePath:path
+                      [[FileUploader shareInstance] uploadDataWithLocalFilePath:path
                                                     progressBlock:^(NSInteger number) {
-                                                        [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传视频%@%%...", @(number)]];
+                                                        [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传视频%@%%...", @(number)] cancelCallback:^{
+                                                            [[FileUploader shareInstance] cancleUploading];
+                                                        }];
                                                     }
                                                   completionBlock:^(NSString * _Nullable videoUrl, NSError * _Nullable error) {
                                                       if (videoUrl.length > 0) {
@@ -1055,6 +1057,11 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
                                                           [HUD showErrorWithMessage:@"视频上传失败"];
                                                       }
                                                   }];
+                        
+                        [HUD showProgressWithMessage:@"正在上传视频..." cancelCallback:^{
+                            [[FileUploader shareInstance] cancleUploading];
+                        }];
+                        
                     } else{
                         NSLog(@"当前压缩进度:%f",exportSession.progress);
                     }
@@ -1291,7 +1298,7 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
     dispatch_async(dispatch_get_main_queue(), ^{
         [HUD showProgressWithMessage:@"正在上传语音..."];
         
-        [FileUploader uploadData:data
+        [[FileUploader shareInstance] uploadData:data
                             type:UploadFileTypeAudio
                    progressBlock:^(NSInteger number) {
                        [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传语音%@%%...", @(number)]];
@@ -1427,7 +1434,6 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
     
     NSString *key = self.sortedKeys[indexPath.section-1];
     NSArray *messages = self.sortedMessages[key];
-    NSInteger index = indexPath.row;
     AVIMTypedMessage *message = messages[indexPath.row-1];
     UITableViewCell *cell = nil;
     

@@ -30,6 +30,12 @@ static CGFloat const CircleVideoThumbnailRatio = 140/222.f;
     self.avatarImageView.layer.cornerRadius = 22.f;
     self.avatarImageView.layer.masksToBounds = YES;
     
+    self.classlevelLabel.layer.cornerRadius = 9.0f;
+    self.classlevelLabel.layer.masksToBounds = YES;
+    self.classlevelLabel.layer.borderWidth = 0.5;
+    self.classlevelLabel.layer.borderColor = [UIColor colorWithHex:0x999999].CGColor;
+    
+    
     self.bgImageView.image = [[UIImage imageNamed:@"white_top_corner_bg"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 14, 10, 14) resizingMode:UIImageResizingModeStretch];
 }
 
@@ -69,7 +75,7 @@ static CGFloat const CircleVideoThumbnailRatio = 140/222.f;
     [self.avatarImageView sd_setImageWithURL:[homework.student.avatarUrl imageURLWithWidth:44.f]];
     [self.videoThumbnailView sd_setImageWithURL:[homework.videoUrl videoCoverUrlWithWidth:260.f height:164.f]];
     self.timeLabel.text = [Utils formatedDateString:homework.commitTime];
-    
+    self.classlevelLabel.text = [NSString stringWithFormat:@"%ld",homework.classLevel];
     self.deleteButton.hidden = APP.currentUser.userId != homework.student.userId;
     
     NSString *imageName = nil;

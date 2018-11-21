@@ -75,6 +75,8 @@
 		8709C31C21A28A3000970757 /* FormTagsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709C31A21A28A3000970757 /* FormTagsRequest.m */; };
 		8709C31F21A2AF7800970757 /* SearchHomeworkTypeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709C31E21A2AF7800970757 /* SearchHomeworkTypeRequest.m */; };
 		8709C32021A2AF7800970757 /* SearchHomeworkTypeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709C31E21A2AF7800970757 /* SearchHomeworkTypeRequest.m */; };
+		8709C32B21A53BD600970757 /* EwenCopyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709C32921A53BD400970757 /* EwenCopyLabel.m */; };
+		8709C32C21A53BD600970757 /* EwenCopyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709C32921A53BD400970757 /* EwenCopyLabel.m */; };
 		8725E954214A5748005FAA74 /* CheckAppVerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8725E953214A5748005FAA74 /* CheckAppVerRequest.m */; };
 		8725E955214A5748005FAA74 /* CheckAppVerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8725E953214A5748005FAA74 /* CheckAppVerRequest.m */; };
 		872F5B362171821C00D88855 /* StudentService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9736497120AF2F8500511A95 /* StudentService.m */; };
@@ -1362,6 +1364,8 @@
 		8709C31A21A28A3000970757 /* FormTagsRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FormTagsRequest.m; sourceTree = "<group>"; };
 		8709C31D21A2AF7800970757 /* SearchHomeworkTypeRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchHomeworkTypeRequest.h; sourceTree = "<group>"; };
 		8709C31E21A2AF7800970757 /* SearchHomeworkTypeRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchHomeworkTypeRequest.m; sourceTree = "<group>"; };
+		8709C32921A53BD400970757 /* EwenCopyLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EwenCopyLabel.m; sourceTree = "<group>"; };
+		8709C32A21A53BD500970757 /* EwenCopyLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EwenCopyLabel.h; sourceTree = "<group>"; };
 		8725E94F214A5747005FAA74 /* CheckAppVerRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckAppVerRequest.h; sourceTree = "<group>"; };
 		8725E953214A5748005FAA74 /* CheckAppVerRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckAppVerRequest.m; sourceTree = "<group>"; };
 		874D7B2B219956F5001C5449 /* HomeworkLimitTimeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeworkLimitTimeCell.h; sourceTree = "<group>"; };
@@ -3362,6 +3366,8 @@
 		97109A75207A171600568785 /* HomeworkItemViews */ = {
 			isa = PBXGroup;
 			children = (
+				8709C32A21A53BD500970757 /* EwenCopyLabel.h */,
+				8709C32921A53BD400970757 /* EwenCopyLabel.m */,
 				97109A7A207A171600568785 /* HomeworkAudioCollectionViewCell.h */,
 				97109A7E207A171600568785 /* HomeworkAudioCollectionViewCell.m */,
 				97109A7D207A171600568785 /* HomeworkAudioCollectionViewCell.xib */,
@@ -5758,6 +5764,7 @@
 				97108E022079F54900568785 /* AppDelegate.m in Sources */,
 				97109D57207A2F0400568785 /* AddNoticeMessageRequest.m in Sources */,
 				979BBD822081B38900359253 /* TrialClassService.m in Sources */,
+				8709C32B21A53BD600970757 /* EwenCopyLabel.m in Sources */,
 				875C2625218AAB0B0047E32A /* SegementLabelsView.m in Sources */,
 				97109BD6207A1D5000568785 /* CalendarViewController.m in Sources */,
 				97109C8A207A2EC900568785 /* VerifySMSCodeRequest.m in Sources */,
@@ -6041,6 +6048,7 @@
 				97109A2F207A158C00568785 /* HomeworkSessionService.m in Sources */,
 				9710994F207A0BF600568785 /* Clazz.m in Sources */,
 				971098FD207A0BF500568785 /* UITextView+Placeholder.m in Sources */,
+				8709C32C21A53BD600970757 /* EwenCopyLabel.m in Sources */,
 				97109C4F207A2E3E00568785 /* CircleVideoTableViewCell.m in Sources */,
 				97109D50207A2F0400568785 /* NoticeMessage.m in Sources */,
 				97109C91207A2EC900568785 /* FullfillProfileViewController.m in Sources */,

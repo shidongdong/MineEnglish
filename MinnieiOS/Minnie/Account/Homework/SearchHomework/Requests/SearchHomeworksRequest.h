@@ -10,7 +10,7 @@
 
 @interface SearchHomeworksRequest : BaseRequest
 
-- (instancetype)initWithKeyword:(NSString *)keyword;
+- (instancetype)initWithKeyword:(NSArray<NSString *> *)keyword;
 
 - (instancetype)initWithNextUrl:(NSString *)nextUrl;
 

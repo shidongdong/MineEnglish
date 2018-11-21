@@ -400,7 +400,7 @@ ClassAndStudentSelectorControllerDelegate>
     
     [HUD showProgressWithMessage:@"正在上传图片..."];
     
-    [FileUploader uploadData:data
+    [[FileUploader shareInstance] uploadData:data
                         type:UploadFileTypeImage
                progressBlock:^(NSInteger number) {
                    [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];

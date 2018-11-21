@@ -26,7 +26,7 @@
 @property (nonatomic, weak) IBOutlet UITableView *homeworksTableView;
 
 @property (nonatomic, strong) NSArray *tags;
-
+@property (nonatomic, strong) NSMutableArray<NSString *> * selectTags;
 @property (nonatomic, strong) NSMutableArray *homeworks;
 @property (nonatomic, copy) NSString *nextUrl;
 
@@ -38,6 +38,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.selectTags = [[NSMutableArray alloc] init];
     
     self.homeworks = [NSMutableArray array];
     
@@ -121,14 +123,14 @@
     }
 }
 
-- (void)searchWithKeyword:(NSString *)keyword {
+- (void)searchWithKeyword {
     self.tagsView.hidden = YES;
     self.homeworksView.hidden = NO;
     
     [self.homeworksView showLoadingView];
     
     WeakifySelf;
-    self.searchRequest = [HomeworkService searchHomeworkWithKeyword:keyword
+    self.searchRequest = [HomeworkService searchHomeworkWithKeyword:self.selectTags
                                                            callback:^(Result *result, NSError *error) {
                                                                [weakSelf handleSearchResult:result error:error];
                                                            }];
@@ -185,8 +187,8 @@
             } else {
                 WeakifySelf;
                 [self.homeworksView showFailureViewWithRetryCallback:^{
-                    NSString *keyword = [weakSelf.searchTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                    [weakSelf searchWithKeyword:keyword];
+//                    NSString *keyword = [weakSelf.searchTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                    [weakSelf searchWithKeyword];
                 }];
             }
             
@@ -227,9 +229,9 @@
     
     [self.searchRequest stop];
     
-    NSString *keyword = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if (keyword.length > 0) {
-        [self searchWithKeyword:keyword];
+   // NSString *keyword = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if (self.selectTags.count > 0) {
+        [self searchWithKeyword];
     }
     
     return NO;
@@ -324,9 +326,30 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     
     NSString *tag = self.tags[indexPath.item];
-    self.searchTextField.text = tag;
     
-    [self textFieldShouldReturn:self.searchTextField];
+    if (![self.selectTags containsObject:tag])
+    {
+        [self.selectTags addObject:tag];
+    }
+    else
+    {
+        [self.selectTags removeObject:tag];
+    }
+    
+    NSMutableString * searchString = [[NSMutableString alloc] init];
+    for (int i = 0; i < self.selectTags.count; i++)
+    {
+        NSString * tagString = [self.selectTags objectAtIndex:i];
+        [searchString appendString:tagString];
+        if (i != self.selectTags.count - 1)
+        {
+            [searchString appendString:@","];
+        }
+    }
+    
+    self.searchTextField.text = searchString;
+    
+  //  [self textFieldShouldReturn:self.searchTextField];
 }
 
 @end

@@ -450,11 +450,13 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
             [exportSession exportAsynchronouslyWithCompletionHandler:^{
                 if ([exportSession status] == AVAssetExportSessionStatusCompleted) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [HUD showProgressWithMessage:@"正在上传视频..."];
                         
-                        [FileUploader uploadDataWithLocalFilePath:path
+                        
+                        [[FileUploader shareInstance] uploadDataWithLocalFilePath:path
                                                     progressBlock:^(NSInteger progress) {
-                                                        [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传视频%@%%...", @(progress)]];
+                                                        [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传视频%@%%...", @(progress)] cancelCallback:^{
+                                                            [[FileUploader shareInstance] cancleUploading];
+                                                        }];
                                                     }
                                                   completionBlock:^(NSString * _Nullable videoUrl, NSError * _Nullable error) {
                                                       if (videoUrl.length == 0) {
@@ -486,6 +488,11 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
                                                       [self.homeworkTableView reloadData];
                                                   }];
                         
+                        [HUD showProgressWithMessage:@"正在上传视频..." cancelCallback:^{
+                            [[FileUploader shareInstance] cancleUploading];
+                        }];
+                        
+                        
                     });
                 }else{
                     NSLog(@"当前压缩进度:%f",exportSession.progress);
@@ -510,7 +517,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
             dispatch_async(dispatch_get_main_queue(), ^{
                 [HUD showProgressWithMessage:@"正在上传图片..."];
                 
-                [FileUploader uploadData:data
+                [[FileUploader shareInstance] uploadData:data
                                     type:UploadFileTypeImage
                            progressBlock:^(NSInteger progress) {
                                [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(progress)]];
