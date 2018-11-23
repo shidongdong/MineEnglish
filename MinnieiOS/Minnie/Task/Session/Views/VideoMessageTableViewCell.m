@@ -25,12 +25,17 @@ NSString * const RightVideoMessageTableViewCellId = @"RightVideoMessageTableView
 
 - (void)setupWithUser:(User *)user message:(AVIMTypedMessage *)message {
     [super setupWithUser:user message:message];
+    NSInteger secCount = [[message.attributes objectForKey:@"videoDuration"] integerValue];
     
-    if ([message isKindOfClass:[AVIMVideoMessage class]])
+    if (secCount > 0)
     {
-        AVIMVideoMessage * videoMsg = (AVIMVideoMessage *)message;
-        NSLog(@"%f",videoMsg.duration);
-        self.timeLabel.text = [NSString stringWithFormat:@"%f",videoMsg.duration];
+        NSInteger min = secCount / 60;
+        NSInteger sec = secCount % 60;
+        self.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",min,sec];
+    }
+    else
+    {
+        self.timeLabel.text = @"";
     }
     
     [self.coverImageView sd_setImageWithURL:[message.file.url videoCoverUrlWithWidth:218.f height:140.f]];

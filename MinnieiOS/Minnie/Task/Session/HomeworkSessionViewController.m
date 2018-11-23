@@ -39,6 +39,7 @@
 #import "VIResourceLoaderManager.h"
 static NSString * const kKeyOfCreateTimestamp = @"createTimestamp";
 static NSString * const kKeyOfAudioDuration = @"audioDuration";
+static NSString * const kKeyOfVideoDuration = @"videoDuration";
 
 @interface HomeworkSessionViewController()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, EmojiInputViewDelegate, NEPhotoBrowserDataSource, NEPhotoBrowserDelegate>
 
@@ -546,7 +547,7 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
         if ([item.type isEqualToString:HomeworkAnswerItemTypeImage]) {
             [self sendImageMessageWithURL:[NSURL URLWithString:item.imageUrl]];
         } else if ([item.type isEqualToString:HomeworkAnswerItemTypeVideo]) {
-            [self sendVideoMessage:[NSURL URLWithString:item.videoUrl]];
+            [self sendVideoMessage:[NSURL URLWithString:item.videoUrl] duration:1.0];
         }
     }
 }
@@ -894,7 +895,108 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
     [self sendMessage:message];
 }
 
-- (void)sendVideoMessage:(NSURL *)videoURL{
+- (void)sendVideoMessageForPath:(NSString *)path
+{
+    AVIMClientStatus status = [IMManager sharedManager].client.status;
+    if (status == AVIMClientStatusNone ||
+        status == AVIMClientStatusClosed ||
+        status == AVIMClientStatusPaused) {
+        NSString *userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
+        [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success, NSError * _Nullable error)
+         {
+             if (!success)
+             {
+                 return;
+             }
+         }];
+    }
+    
+    if (status != AVIMClientStatusOpened) {
+        [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
+        return;
+    }
+   
+    
+    AVFile *file = [AVFile fileWithLocalPath:path error:nil];
+    int64_t timestamp = (int64_t)([[NSDate date] timeIntervalSince1970] * 1000);
+    AVIMVideoMessage *message = [AVIMVideoMessage messageWithText:@"video"
+                                                             file:file
+                                                       attributes:@{kKeyOfCreateTimestamp:@(timestamp)}];
+     BOOL isResend = message.status == AVIMMessageStatusFailed;
+    [self.conversation sendMessage:message progressBlock:^(NSInteger progress) {
+        [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传视频%@%%...", @(progress)] cancelCallback:^{
+            [file cancelUploading];
+        }];
+    } callback:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded)
+        {
+          //  [HUD hideAnimated:YES];
+            
+            if (file.url.length == 0)
+            {
+                [HUD showErrorWithMessage:@"视频上传失败"];
+                return;
+            }
+            
+#if TEACHERSIDE
+#else
+            if (self.messages.count==0)
+            {
+                [self updateHomeworkSessionModifiedTime];
+            }
+            
+            if (self.bFailReSendFlag)
+            {
+                [self updateHomeworkSessionModifiedTime];
+            }
+#endif
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kIMManagerContentMessageDidSendNotification object:nil userInfo:@{@"message": message}];
+            
+            if (!isResend) {
+                [self.messages addObject:(AVIMTypedMessage *)message];
+            }
+            
+            [self sortMessages];
+            [self reloadDataAndScrollToBottom];
+            
+            
+            if (self.isCommitingHomework)
+            {
+                [HUD showProgressWithMessage:@"正在提交作业..."];
+                
+                [HomeworkSessionService commitHomeworkWithId:self.homeworkSession.homeworkSessionId
+                                                    imageUrl:nil
+                                                    videoUrl:file.url
+                                                    callback:^(Result *result, NSError *error) {
+                                                        self.isCommitingHomework = NO;
+                                                        
+                                                        if (error == nil) {
+                                                            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCommitHomework object:nil];
+                                                            
+                                                            [HUD showWithMessage:@"作业提交成功"];
+                                                            [PushManager pushText:@"你有新的未批改的作业"
+                                                                          toUsers:@[@(self.homeworkSession.correctTeacher.userId)]];
+                                                            
+                                                    
+                                                        } else {
+                                                            [HUD showErrorWithMessage:@"作业提交失败"];
+                                                        }
+                                                    }];
+                
+            }
+            
+            
+        }
+        else
+        {
+            [HUD showErrorWithMessage:@"视频上传失败"];
+        }
+    }];
+    
+}
+
+- (void)sendVideoMessage:(NSURL *)videoURL duration:(CGFloat)duration{
     if (self.isCommitingHomework) {
         [HUD showProgressWithMessage:@"正在提交作业..."];
         
@@ -912,10 +1014,11 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
                                                                   toUsers:@[@(self.homeworkSession.correctTeacher.userId)]];
                                                     
                                                     int64_t timestamp = (int64_t)([[NSDate date] timeIntervalSince1970] * 1000);
+                                                    NSInteger d = (NSInteger)duration;
                                                     AVFile *file = [AVFile fileWithRemoteURL:videoURL];
                                                     AVIMVideoMessage *message = [AVIMVideoMessage messageWithText:@"video"
                                                                                                              file:file
-                                                                                                       attributes:@{kKeyOfCreateTimestamp:@(timestamp)}];
+                                                                                                       attributes:@{kKeyOfCreateTimestamp:@(timestamp),kKeyOfVideoDuration:@(d)}];
                                                     
                                                     [self sendMessage:message];
                                                 } else {
@@ -1049,18 +1152,20 @@ static NSString * const kKeyOfAudioDuration = @"audioDuration";
                                                   completionBlock:^(NSString * _Nullable videoUrl, NSError * _Nullable error) {
                                                       if (videoUrl.length > 0) {
                                                           [HUD hideAnimated:YES];
-                                                          
-                                                          [self sendVideoMessage:[NSURL URLWithString:videoUrl]];
-                                                          
+
+                                                          [self sendVideoMessage:[NSURL URLWithString:videoUrl] duration:durationInSeconds];
+
                                                           [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
                                                       } else {
                                                           [HUD showErrorWithMessage:@"视频上传失败"];
                                                       }
                                                   }];
-                        
+
                         [HUD showProgressWithMessage:@"正在上传视频..." cancelCallback:^{
                             [[FileUploader shareInstance] cancleUploading];
                         }];
+                        
+//                        [self sendVideoMessageForPath:path];
                         
                     } else{
                         NSLog(@"当前压缩进度:%f",exportSession.progress);

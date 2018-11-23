@@ -33,7 +33,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hzu-js-odZ">
-                                <rect key="frame" x="218" y="140" width="0.0" height="0.0"/>
+                                <rect key="frame" x="203" y="140" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -50,7 +50,7 @@
                             <constraint firstAttribute="bottom" secondItem="5hs-sl-vMu" secondAttribute="bottom" id="Rb7-4u-pNx"/>
                             <constraint firstItem="F9Q-Zj-AoA" firstAttribute="top" secondItem="yRe-Cg-6oF" secondAttribute="top" id="UsT-Je-HEy"/>
                             <constraint firstAttribute="width" constant="218" id="X2u-2J-HdX"/>
-                            <constraint firstItem="hzu-js-odZ" firstAttribute="trailing" secondItem="F9Q-Zj-AoA" secondAttribute="trailing" id="YjJ-sP-153"/>
+                            <constraint firstItem="hzu-js-odZ" firstAttribute="trailing" secondItem="F9Q-Zj-AoA" secondAttribute="trailing" constant="-15" id="YjJ-sP-153"/>
                             <constraint firstAttribute="trailing" secondItem="F9Q-Zj-AoA" secondAttribute="trailing" id="iC7-3a-w2n"/>
                             <constraint firstItem="hzu-js-odZ" firstAttribute="bottom" secondItem="F9Q-Zj-AoA" secondAttribute="bottom" id="qaA-hP-seM"/>
                         </constraints>
