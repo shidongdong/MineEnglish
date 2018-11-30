@@ -18,6 +18,7 @@
                 <outlet property="customTitleView" destination="xqb-g2-VNn" id="qwa-O3-4f7"/>
                 <outlet property="heightLayoutConstraint" destination="fIM-OA-0Tz" id="7aV-tA-lhg"/>
                 <outlet property="leftFuncButton" destination="1Qc-8Q-Zcj" id="DqI-Vb-6Fr"/>
+                <outlet property="redIncoinView" destination="zyA-j5-0ZE" id="vgu-3o-mU1"/>
                 <outlet property="rightFuncButton" destination="SP1-uc-9qs" id="GMG-21-5C4"/>
                 <outlet property="view" destination="io7-4S-uSt" id="SyW-gi-FsS"/>
             </connections>
@@ -64,6 +65,14 @@
                                 <action selector="leftFuncClick:" destination="-1" eventType="touchUpInside" id="05Y-Qy-tGb"/>
                             </connections>
                         </button>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zyA-j5-0ZE">
+                            <rect key="frame" x="35" y="6.5" width="4" height="4"/>
+                            <color key="backgroundColor" red="1" green="0.28235294117647058" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="4" id="EIt-Xs-b4B"/>
+                                <constraint firstAttribute="width" constant="4" id="qUr-vQ-TDs"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -72,8 +81,10 @@
                         <constraint firstItem="xqb-g2-VNn" firstAttribute="top" secondItem="Xfk-m6-0Gm" secondAttribute="top" id="CNK-hp-Tfj"/>
                         <constraint firstItem="SP1-uc-9qs" firstAttribute="top" secondItem="Xfk-m6-0Gm" secondAttribute="top" id="HtO-g7-q93"/>
                         <constraint firstItem="xqb-g2-VNn" firstAttribute="centerX" secondItem="Xfk-m6-0Gm" secondAttribute="centerX" id="Lk3-WB-aWr"/>
+                        <constraint firstItem="zyA-j5-0ZE" firstAttribute="trailing" secondItem="1Qc-8Q-Zcj" secondAttribute="trailing" constant="-7" id="OlN-CM-5DM"/>
                         <constraint firstAttribute="bottom" secondItem="SP1-uc-9qs" secondAttribute="bottom" id="PoF-kF-Kvl"/>
                         <constraint firstItem="xK9-i1-EJm" firstAttribute="top" secondItem="1Qc-8Q-Zcj" secondAttribute="bottom" id="UZr-gD-5m2"/>
+                        <constraint firstItem="zyA-j5-0ZE" firstAttribute="top" secondItem="1Qc-8Q-Zcj" secondAttribute="top" constant="7" id="VGO-9d-VcT"/>
                         <constraint firstAttribute="height" constant="44" id="Xr6-R8-M68"/>
                         <constraint firstAttribute="bottom" secondItem="xK9-i1-EJm" secondAttribute="bottom" id="fqM-re-R3u"/>
                         <constraint firstAttribute="bottom" secondItem="xqb-g2-VNn" secondAttribute="bottom" id="jbF-Mp-hIU"/>
@@ -115,7 +126,7 @@
                 <constraint firstItem="htz-wM-40E" firstAttribute="bottom" secondItem="LCs-vs-RkO" secondAttribute="bottom" id="t9r-oU-m7h"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="htz-wM-40E"/>
-            <point key="canvasLocation" x="-1480.5" y="-402.5"/>
+            <point key="canvasLocation" x="-1924" y="-444.82758620689657"/>
         </view>
     </objects>
 </document>

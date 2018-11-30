@@ -15,7 +15,7 @@
 }
 
 - (NSString *)requestUrl {
-    return [NSString stringWithFormat:@"%@/medal/getMedalNoticeFlag", ServerProjectName];
+    return [NSString stringWithFormat:@"%@/medal/getMedalDetail", ServerProjectName];
 }
 
 @end

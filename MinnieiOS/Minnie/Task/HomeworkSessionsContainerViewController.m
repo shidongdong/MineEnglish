@@ -24,6 +24,8 @@
 #import <FileProvider/FileProvider.h>
 #else
 #import "AchieverListViewController.h"
+#import "AchieverService.h"
+#import "MedalFlag.h"
 #endif
 
 @interface HomeworkSessionsContainerViewController ()
@@ -49,6 +51,7 @@
 @property (nonatomic, weak) IBOutlet UIButton * rightFuncButton;
 @property (nonatomic, weak) IBOutlet UIButton * leftFuncButton;
 @property (nonatomic, weak) SegmentControl *segmentControl;
+@property (weak, nonatomic) IBOutlet UIView *redIncoinView;
 
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *heightLayoutConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerContentY;
@@ -58,6 +61,7 @@
 @end
 
 @implementation HomeworkSessionsContainerViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -157,6 +161,29 @@
 }
 
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+#if TEACHERSIDE
+#else
+    [AchieverService requestMedalNoticeFlagWithCallback:^(Result *result, NSError *error) {
+        //只处理成功的情况
+        if (error == nil)
+        {
+            MedalFlag * medel = (MedalFlag *)(result.userInfo);
+            if (medel.metalFlag == 1)
+            {
+                self.redIncoinView.layer.cornerRadius = 2.0;
+                self.redIncoinView.hidden = NO;
+            }
+            else
+            {
+                self.redIncoinView.hidden = YES;
+            }
+        }
+    }];
+#endif
+}
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -178,6 +205,7 @@
                        self.everAppeared = YES;
                    }];
         }
+        
 #endif
         
         self.everAppeared = YES;
@@ -192,6 +220,10 @@
     [self.navigationController pushViewController:searchVc animated:YES];
     
 #else
+    
+    //点击勋章主动把小红点隐藏
+    
+    
     AchieverListViewController * achiverVc = [[AchieverListViewController alloc] initWithNibName:NSStringFromClass([AchieverListViewController class]) bundle:nil];
     [achiverVc setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:achiverVc animated:YES];

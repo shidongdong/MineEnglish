@@ -9,16 +9,31 @@
 #import "AchieverListViewController.h"
 #import "AchieverListCollectionViewCell.h"
 #import "AchieverListHeaderView.h"
+#import "AchieverService.h"
+#import "UIView+Load.h"
+#import "AlertView.h"
 @interface AchieverListViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *mCollectionView;
-
+@property (nonatomic, strong)NSMutableArray * achieverLists;
+@property (nonatomic, strong) BaseRequest * achieverRequest;
 @end
 
 @implementation AchieverListViewController
 
+- (void)dealloc {
+    
+    [self.achieverRequest clearCompletionBlock];
+    [self.achieverRequest stop];
+    self.achieverRequest = nil;
+    
+    NSLog(@"%s", __func__);
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _achieverLists = [NSMutableArray array];
     
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     layout.itemSize = CGSizeMake(80, 120);
@@ -30,12 +45,57 @@
     self.mCollectionView.collectionViewLayout = layout;
     
     [self registerCellNib];
+    
+    [self requestAchievrList];
     // Do any additional setup after loading the view from its nib.
 }
+
+#pragma mark - private
 - (IBAction)backPress:(UIButton *)sender {
     
     [self.navigationController popViewControllerAnimated:YES];
     
+}
+
+- (void)requestAchievrList
+{
+    if (self.achieverRequest != nil) {
+        return;
+    }
+    
+    if (self.achieverLists.count == 0) {
+        [self.view showLoadingView];
+        self.mCollectionView.hidden = YES;
+    }
+    WeakifySelf;
+    self.achieverRequest = [AchieverService requestMedalDetailWithCallback:^(Result *result, NSError *error) {
+        StrongifySelf;
+        [strongSelf handleRequestResult:result error:error];
+    }];
+}
+
+- (void)handleRequestResult:(Result *)result error:(NSError *)error
+{
+    
+    [self.achieverRequest clearCompletionBlock];
+    self.achieverRequest = nil;
+    
+    [self.view hideAllStateView];
+    
+    WeakifySelf;
+    if (error != nil) {
+        [self.view showFailureViewWithRetryCallback:^{
+            [weakSelf requestAchievrList];
+        }];
+        return;
+    }
+    
+    NSDictionary *dictionary = (NSDictionary *)(result.userInfo);
+    NSArray * achievers = dictionary[@"list"];
+    self.mCollectionView.hidden = NO;
+    [self.achieverLists removeAllObjects];
+    [self.achieverLists addObjectsFromArray:achievers];
+    [self.mCollectionView reloadData];
 }
 
 - (void)registerCellNib
@@ -46,6 +106,18 @@
     
 }
 
+- (void)showAlertMedalInfo:(id)data
+{
+    [AlertView showInView:self.view
+                withImage:[UIImage imageNamed:@"pop_img_welcome"]
+                    title:@"欢迎加入minnie英文教室"
+                  message:@"你目前已报名, 请等待教师回复"
+                   action:@"知道啦"
+           actionCallback:^{
+           }];
+}
+
+#pragma mark - CollectionDelegete && Datasource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 2;
@@ -73,6 +145,8 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
+    
+
     
 }
 
