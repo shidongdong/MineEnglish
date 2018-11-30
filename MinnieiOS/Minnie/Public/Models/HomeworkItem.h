@@ -30,5 +30,6 @@ extern NSString * const HomeworkItemTypeImage;
 @property (nonatomic, assign) NSInteger imageWidth;
 @property (nonatomic, assign) NSInteger imageHeight;
 
+
 @end
 

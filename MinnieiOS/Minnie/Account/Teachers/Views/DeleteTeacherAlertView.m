@@ -115,6 +115,40 @@
     [view showWithAnimation];
 }
 
++ (void)showDeleteClassAlertView:(UIView *)superView
+                           class:(Clazz *)classinfo
+                sendCodeCallback:(SendDeleteTeacherCodeClickCallback)sendCodeCallback
+                 confirmCallback:(ConfirmDeleteClickCallback)confirmCallback
+{
+    DeleteTeacherAlertView *view = [DeleteTeacherAlertView sharedInstance];
+    if (view.superview != nil) {
+        [view.timer invalidate];
+        view.timer = nil;
+        [view removeFromSuperview];
+    }
+    
+    view.sendButton.enabled = YES;
+    [view.sendButton setTitle:@"发送验证码" forState:UIControlStateNormal];
+    
+    view.deleteButton.enabled = NO;
+    
+    //    view.codeTextField.enabled = NO;
+    
+    view.codeTextField.text = nil;
+    
+    view.sendCodeCallback = sendCodeCallback;
+    view.confirmCallback = confirmCallback;
+    view.tipLabel.text = [NSString stringWithFormat:@"确认要删除\"%@\"班级吗?", classinfo.name];
+    
+    [superView addSubview:view];
+    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(superView);
+    }];
+    
+    [view showWithAnimation];
+}
+
+
 - (void)showWithAnimation {
     self.hidden = YES;
     dispatch_async(dispatch_get_main_queue(), ^{

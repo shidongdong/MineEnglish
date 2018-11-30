@@ -17,7 +17,9 @@
 #import "PublicService.h"
 #import "AppVersion.h"
 #import "FilterAlertView.h"
+
 #if TEACHERSIDE
+#import "HomeworkSearchNameViewController.h"
 #import <FileProviderUI/FileProviderUI.h>
 #import <FileProvider/FileProvider.h>
 #else
@@ -30,6 +32,8 @@
 @property (nonatomic, strong) HomeworkSessionsViewController *finishedClassesChildController;
 
 @property (nonatomic, assign) NSInteger  currentFliterType;  //教师端： 0 按时间 1 按作业 2 按人 学生端： 0星~6星
+
+@property (nonatomic, assign) HomeworkSessionsViewController * currentViewController;
 
 #if TEACHERSIDE
 @property (nonatomic, strong) HomeworkSessionsViewController *uncommitClassesChildController;
@@ -182,6 +186,11 @@
 
 - (IBAction)leftFuncClick:(id)sender {
 #if TEACHERSIDE
+    
+    HomeworkSearchNameViewController * searchVc = [[HomeworkSearchNameViewController alloc] initWithNibName:NSStringFromClass([HomeworkSearchNameViewController class]) bundle:nil];
+    [searchVc setHidesBottomBarWhenPushed:YES];
+    [self.navigationController pushViewController:searchVc animated:YES];
+    
 #else
     AchieverListViewController * achiverVc = [[AchieverListViewController alloc] initWithNibName:NSStringFromClass([AchieverListViewController class]) bundle:nil];
     [achiverVc setHidesBottomBarWhenPushed:YES];
@@ -198,13 +207,8 @@
     WeakifySelf;
     [FilterAlertView showInView:self.tabBarController.view atFliterType:self.currentFliterType forFliterArray:@[@"按时间",@"按任务",@"按人"] withAtionBlock:^(NSInteger index) {
         StrongifySelf;
-        [strongSelf.finishedClassesChildController requestSearchForSorceAtIndex:index callBack:^(BOOL success)
-         {
-             if (success)
-             {
-                 strongSelf.currentFliterType = index;
-             }
-         }];
+        strongSelf.currentFliterType = index;
+        [strongSelf.currentViewController requestSearchForSorceAtIndex:index];
     }];
     
 #else
@@ -221,14 +225,8 @@
         WeakifySelf;
         [FilterAlertView showInView:self.tabBarController.view atFliterType:self.currentFliterType forFliterArray:@[@"全部",@"0星",@"1星",@"2星",@"3星",@"4星",@"5星"] withAtionBlock:^(NSInteger index) {
             StrongifySelf;
-            [strongSelf.finishedClassesChildController requestSearchForSorceAtIndex:index callBack:^(BOOL success)
-            {
-                if (success)
-                {
-                    strongSelf.currentFliterType = index;
-                }
-            }];
-            
+            strongSelf.currentFliterType = index;
+            [strongSelf.finishedClassesChildController requestSearchForSorceAtIndex:index];
         }];
     }
 #endif
@@ -249,6 +247,7 @@
             self.unfinishedClassesChildController = [[HomeworkSessionsViewController alloc] initWithNibName:NSStringFromClass([HomeworkSessionsViewController class]) bundle:nil];
             self.unfinishedClassesChildController.isUnfinished = YES;
             self.unfinishedClassesChildController.bLoadConversion = YES;
+            self.unfinishedClassesChildController.searchFliter = self.currentFliterType;
             existed = NO;
         }
         
@@ -258,6 +257,7 @@
             self.finishedClassesChildController = [[HomeworkSessionsViewController alloc] initWithNibName:NSStringFromClass([HomeworkSessionsViewController class]) bundle:nil];
             self.finishedClassesChildController.isUnfinished = NO;
             self.finishedClassesChildController.bLoadConversion = NO;
+            self.finishedClassesChildController.searchFliter = self.currentFliterType;
             existed = NO;
         }
         
@@ -270,6 +270,7 @@
             self.uncommitClassesChildController = [[HomeworkSessionsViewController alloc] initWithNibName:NSStringFromClass([HomeworkSessionsViewController class]) bundle:nil];
             self.uncommitClassesChildController.isUnfinished = YES;
             self.uncommitClassesChildController.bLoadConversion = NO;
+            self.uncommitClassesChildController.searchFliter = self.currentFliterType;
             existed = NO;
         }
         
@@ -278,6 +279,7 @@
 #endif
     }
     
+    self.currentViewController = childPageViewController;
     if (!existed) {
         [self addChildViewController:childPageViewController];
         

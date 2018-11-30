@@ -22,7 +22,7 @@ CGFloat const ClassTableViewCellHeight = 100.f;
 @property (nonatomic, weak) IBOutlet UILabel *locationLabel;
 @property (nonatomic, weak) IBOutlet UILabel *circleCountLabel;
 @property (nonatomic, weak) IBOutlet UILabel *postedHomeworksCountLabel;
-@property (nonatomic, weak) IBOutlet UILabel *unhandledHomeworksCountLabel;
+
 
 @end
 
@@ -51,7 +51,7 @@ CGFloat const ClassTableViewCellHeight = 100.f;
     
     self.circleCountLabel.text = [NSString stringWithFormat:@"%@", @(clazz.circleCount)];
     self.postedHomeworksCountLabel.text = [NSString stringWithFormat:@"%@", @(clazz.homeworksCount)];
-    self.unhandledHomeworksCountLabel.text = [NSString stringWithFormat:@"%@", @(clazz.uncorrectedHomeworksCount)];
+//    self.unhandledHomeworksCountLabel.text = [NSString stringWithFormat:@"%@", @(clazz.uncorrectedHomeworksCount)];
 }
 
 @end

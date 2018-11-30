@@ -12,4 +12,6 @@
 
 - (instancetype)initWithHomeworkSessionForType:(NSInteger)type withFinishState:(NSInteger)state;
 
+- (instancetype)initWithNextUrl:(NSString *)nextUrl;
+
 @end

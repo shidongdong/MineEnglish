@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,16 +20,26 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sXY-Jc-h3j">
-                        <rect key="frame" x="133.5" y="23" width="80" height="80"/>
+                        <rect key="frame" x="133.5" y="24" width="80" height="80"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="80" id="kUk-1I-xv6"/>
                             <constraint firstAttribute="width" constant="80" id="pPA-zT-7p9"/>
                         </constraints>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4Y-aG-q1D">
+                        <rect key="frame" x="133.5" y="24" width="80" height="80"/>
+                        <connections>
+                            <action selector="headerAvatarClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Mah-Cz-hTc"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="A4Y-aG-q1D" firstAttribute="top" secondItem="sXY-Jc-h3j" secondAttribute="top" id="3EM-b8-QT0"/>
+                    <constraint firstItem="A4Y-aG-q1D" firstAttribute="bottom" secondItem="sXY-Jc-h3j" secondAttribute="bottom" id="5u2-Vw-jcr"/>
                     <constraint firstItem="sXY-Jc-h3j" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="UF0-nI-YDi"/>
                     <constraint firstItem="sXY-Jc-h3j" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="o7N-gv-rwa"/>
+                    <constraint firstItem="A4Y-aG-q1D" firstAttribute="trailing" secondItem="sXY-Jc-h3j" secondAttribute="trailing" id="u6p-Bg-Vpk"/>
+                    <constraint firstItem="A4Y-aG-q1D" firstAttribute="leading" secondItem="sXY-Jc-h3j" secondAttribute="leading" id="uvm-Vr-WtG"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>

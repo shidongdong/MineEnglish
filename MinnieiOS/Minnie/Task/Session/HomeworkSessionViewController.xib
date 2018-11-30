@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -198,7 +198,7 @@
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="照片" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1K-hJ-MH4">
-                                    <rect key="frame" x="82" y="59.5" width="25" height="14.5"/>
+                                    <rect key="frame" x="81.5" y="59.5" width="25" height="14.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -226,20 +226,20 @@
                             <rect key="frame" x="187.5" y="0.0" width="187.5" height="80"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_send_video.png" translatesAutoresizingMaskIntoConstraints="NO" id="gAQ-IM-706">
-                                    <rect key="frame" x="74.5" y="12" width="40" height="40"/>
+                                    <rect key="frame" x="74" y="12" width="40" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="Sv1-sj-edC"/>
                                         <constraint firstAttribute="width" constant="40" id="o98-NI-pSr"/>
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="视频" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9SE-aO-yy6">
-                                    <rect key="frame" x="82" y="59.5" width="25" height="14.5"/>
+                                    <rect key="frame" x="81.5" y="59.5" width="25" height="14.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cN7-dP-pzc">
-                                    <rect key="frame" x="-0.5" y="0.0" width="188" height="80"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="187.5" height="80"/>
                                     <connections>
                                         <action selector="videoButtonPressed:" destination="-1" eventType="touchUpInside" id="7kS-tc-qJe"/>
                                     </connections>
@@ -261,7 +261,7 @@
                             <rect key="frame" x="375" y="0.0" width="0.0" height="80"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="send_homework.png" translatesAutoresizingMaskIntoConstraints="NO" id="XMZ-C2-NK9">
-                                    <rect key="frame" x="-21" y="12" width="40.5" height="40"/>
+                                    <rect key="frame" x="-20" y="12" width="40" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="40" id="T8s-eh-s1Y"/>
                                         <constraint firstAttribute="height" constant="40" id="yJe-iu-7Kc"/>
@@ -296,14 +296,14 @@
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oad-Ku-6b6" userLabel="警告">
                             <rect key="frame" x="375" y="0.0" width="0.0" height="80"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="send_homework.png" translatesAutoresizingMaskIntoConstraints="NO" id="qsZ-x1-wuD">
-                                    <rect key="frame" x="-21" y="12" width="40.5" height="40"/>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_send_warning.png" translatesAutoresizingMaskIntoConstraints="NO" id="qsZ-x1-wuD">
+                                    <rect key="frame" x="-20" y="12" width="40" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="dM4-9C-zWs"/>
                                         <constraint firstAttribute="width" constant="40" id="rds-dw-ZpX"/>
                                     </constraints>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="答案" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ocu-Ri-PNv" userLabel="答案">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="警告" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ocu-Ri-PNv">
                                     <rect key="frame" x="-12.5" y="59" width="25" height="15"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -312,7 +312,7 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bSr-Zd-Io8">
                                     <rect key="frame" x="0.0" y="0.0" width="0.0" height="80"/>
                                     <connections>
-                                        <action selector="sendAnswerButtonPressed:" destination="-1" eventType="touchUpInside" id="hL3-aJ-SWC"/>
+                                        <action selector="sendWarningButtonPressed:" destination="-1" eventType="touchUpInside" id="LWT-OX-5ly"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -460,7 +460,7 @@
                     <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="作业详情" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Jc-bj-FMO">
-                            <rect key="frame" x="150.5" y="12" width="73.5" height="21.5"/>
+                            <rect key="frame" x="151" y="11.5" width="73.5" height="21.5"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                             <color key="textColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -565,6 +565,7 @@
         <image name="btn_add.png" width="24" height="24"/>
         <image name="btn_send_photo.png" width="40" height="40"/>
         <image name="btn_send_video.png" width="40" height="40"/>
+        <image name="btn_send_warning.png" width="40" height="40"/>
         <image name="icon_Emoji.png" width="24" height="24"/>
         <image name="icon_Voice.png" width="24" height="24"/>
         <image name="icon_stars.png" width="12" height="12"/>

@@ -19,7 +19,8 @@
 #import "FinishClassTableViewCell.h"
 #import "ClassService.h"
 #import "UIView+Load.h"
-
+#import "DeleteTeacherAlertView.h"
+#import "AuthService.h"
 @interface ClassManagerViewController ()<UITableViewDataSource, UITableViewDelegate> {
 }
 
@@ -239,36 +240,52 @@
 }
 
 - (IBAction)deleteButtonPressed:(id)sender {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确认删除该班级"
-                                                                             message:nil
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:^(UIAlertAction * _Nonnull action) {
-                                                         }];
+
+    NSString * phoneNumber = @"18867103622";
     
-    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"删除"
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * _Nonnull action) {
-                                                              [HUD showProgressWithMessage:@"正在删除..."];
-                                                              [ClassService deleteClassWithId:self.clazz.classId
-                                                                                     callback:^(Result *result, NSError *error) {
-                                                                                         if (error != nil) {
-                                                                                             [HUD showErrorWithMessage:@"删除失败"];
-                                                                                             return;
-                                                                                         }
-                                                                                         
-                                                                                         [HUD showWithMessage:@"删除成功"];
-                                                                                         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfDeleteClass object:nil];
-                                                                                         [self.navigationController popToRootViewControllerAnimated:YES];
-                                                                                     }];
-                                                          }];
     
-    [alertController addAction:cancelAction];
-    [alertController addAction:confirmAction];
+    WeakifySelf;
+    [DeleteTeacherAlertView showDeleteClassAlertView:self.navigationController.view
+                                                 class:self.clazz
+                                      sendCodeCallback:^{
+                                          [AuthService askForSMSCodeWithPhoneNumber:phoneNumber
+                                                                           callback:^(Result *result, NSError *error) {
+                                                                           }];
+                                      }
+                                       confirmCallback:^(NSString *code) {
+                                           [AuthService verifySMSCodeWithPhoneNumber:phoneNumber
+                                                                                code:code
+                                                                            callback:^(Result *result, NSError *error) {
+                                                                                if (error != nil) {
+                                                                                    [HUD showErrorWithMessage:@"验证码错误"];
+                                                                                    
+                                                                                    return;
+                                                                                }
+                                                                                
+                                                                                [weakSelf doDelete];
+                                                                            }];
+                                       }];
     
-    [self presentViewController:alertController animated:YES completion:nil];
+    
+}
+
+- (void)doDelete
+{
+
+    [HUD showProgressWithMessage:@"正在删除..."];
+    [ClassService deleteClassWithId:self.clazz.classId
+                           callback:^(Result *result, NSError *error) {
+                               if (error != nil) {
+                                   [HUD showErrorWithMessage:@"删除失败"];
+                                   return;
+                               }
+                               [DeleteTeacherAlertView hideAnimated:YES];
+                               [HUD showWithMessage:@"删除成功"];
+                               [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfDeleteClass object:nil];
+                               [self.navigationController popViewControllerAnimated:YES];
+                           }];
+
 }
 
 - (IBAction)finishButtonPressed:(id)sender {

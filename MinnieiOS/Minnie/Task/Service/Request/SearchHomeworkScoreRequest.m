@@ -11,6 +11,7 @@
 @interface SearchHomeworkScoreRequest()
 
 @property(nonatomic,assign)NSInteger score;
+@property (nonatomic, copy) NSString *nextUrl;
 
 @end
 
@@ -25,15 +26,33 @@
     return self;
 }
 
+- (instancetype)initWithNextUrl:(NSString *)nextUrl
+{
+    self = [super init];
+    if (self != nil) {
+        _nextUrl = nextUrl;
+    }
+    
+    return self;
+}
+
 - (YTKRequestMethod)requestMethod {
     return YTKRequestMethodGET;
 }
 
 - (NSString *)requestUrl {
+    if (self.nextUrl.length > 0) {
+        return self.nextUrl;
+    }
+
     return [NSString stringWithFormat:@"%@/homeworkTask/getHomeworkTasksByScore", ServerProjectName];
 }
 
 - (id)requestArgument {
+    if (self.nextUrl.length > 0) {
+        return nil;
+    }
+    
     return @{@"score":@(self.score)};
 }
 

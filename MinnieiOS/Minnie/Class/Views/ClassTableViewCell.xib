@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -33,7 +33,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="班级 (34)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JMG-xt-XwR" userLabel="班级名称">
-                                        <rect key="frame" x="48" y="16" width="70" height="19.5"/>
+                                        <rect key="frame" x="48" y="16.5" width="70" height="19.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -79,16 +79,16 @@
                                 <rect key="frame" x="0.0" y="52" width="296" height="35.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pmZ-vt-xGB">
-                                        <rect key="frame" x="12" y="10.5" width="76.5" height="14.5"/>
+                                        <rect key="frame" x="12" y="10.5" width="89" height="14.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学生动态: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Hz-e8-qud">
-                                                <rect key="frame" x="0.0" y="0.0" width="56" height="14.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未批改作业: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Hz-e8-qud">
+                                                <rect key="frame" x="0.0" y="0.0" width="68.5" height="14.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="46" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SIJ-RZ-yXd">
-                                                <rect key="frame" x="61" y="0.0" width="15.5" height="14.5"/>
+                                                <rect key="frame" x="73.5" y="0.0" width="15.5" height="14.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -106,16 +106,16 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d5k-hc-nKE">
-                                        <rect key="frame" x="112.5" y="10" width="82.5" height="14.5"/>
+                                        <rect key="frame" x="125" y="10.5" width="82.5" height="15"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已提交作业" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2j0-z1-WeD">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未提交作业" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2j0-z1-WeD">
                                                 <rect key="frame" x="0.0" y="0.0" width="62" height="15"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="46" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mIZ-z3-6Tp">
-                                                <rect key="frame" x="67" y="0.0" width="15.5" height="14.5"/>
+                                                <rect key="frame" x="67" y="0.0" width="15.5" height="15"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -132,42 +132,13 @@
                                             <constraint firstAttribute="bottom" secondItem="2j0-z1-WeD" secondAttribute="bottom" id="sd4-Pu-ZfK"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6hm-2v-F0s">
-                                        <rect key="frame" x="219" y="10" width="64.5" height="14.5"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未批改: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2yq-CI-aio">
-                                                <rect key="frame" x="0.0" y="0.0" width="44" height="15"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="46" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bk3-6b-vMf">
-                                                <rect key="frame" x="49" y="0.0" width="15.5" height="14.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="bk3-6b-vMf" secondAttribute="trailing" id="31g-g5-ygf"/>
-                                            <constraint firstAttribute="bottom" secondItem="bk3-6b-vMf" secondAttribute="bottom" id="8Lr-an-OSX"/>
-                                            <constraint firstItem="bk3-6b-vMf" firstAttribute="leading" secondItem="2yq-CI-aio" secondAttribute="trailing" constant="5" id="Bxj-hx-pQ9"/>
-                                            <constraint firstAttribute="bottom" secondItem="2yq-CI-aio" secondAttribute="bottom" id="OPK-Hg-zqA"/>
-                                            <constraint firstItem="2yq-CI-aio" firstAttribute="leading" secondItem="6hm-2v-F0s" secondAttribute="leading" id="QO4-XJ-UUW"/>
-                                            <constraint firstItem="bk3-6b-vMf" firstAttribute="top" secondItem="6hm-2v-F0s" secondAttribute="top" id="Z64-Es-d8Z"/>
-                                            <constraint firstItem="2yq-CI-aio" firstAttribute="top" secondItem="6hm-2v-F0s" secondAttribute="top" id="qxP-bh-rtZ"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="pmZ-vt-xGB" firstAttribute="centerY" secondItem="AFQ-dA-TOb" secondAttribute="centerY" id="Lw7-WU-2yO"/>
-                                    <constraint firstItem="6hm-2v-F0s" firstAttribute="leading" secondItem="d5k-hc-nKE" secondAttribute="trailing" constant="24" id="MV2-wU-Qoq"/>
                                     <constraint firstItem="d5k-hc-nKE" firstAttribute="centerY" secondItem="AFQ-dA-TOb" secondAttribute="centerY" id="Oiy-YJ-ouD"/>
                                     <constraint firstItem="d5k-hc-nKE" firstAttribute="leading" secondItem="pmZ-vt-xGB" secondAttribute="trailing" constant="24" id="Xc9-Rx-FFb"/>
                                     <constraint firstItem="pmZ-vt-xGB" firstAttribute="leading" secondItem="AFQ-dA-TOb" secondAttribute="leading" constant="12" id="cKI-Sp-seI"/>
-                                    <constraint firstItem="6hm-2v-F0s" firstAttribute="centerY" secondItem="AFQ-dA-TOb" secondAttribute="centerY" id="kL3-md-7Bn"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -201,7 +172,6 @@
                 <outlet property="locationLabel" destination="fSv-CB-Rjt" id="xGt-Uv-Shv"/>
                 <outlet property="nextTimeLabel" destination="KWX-Qj-BPb" id="2Kh-Zm-rWD"/>
                 <outlet property="postedHomeworksCountLabel" destination="mIZ-z3-6Tp" id="Trz-RF-Nkh"/>
-                <outlet property="unhandledHomeworksCountLabel" destination="bk3-6b-vMf" id="COQ-Ur-DQB"/>
             </connections>
             <point key="canvasLocation" x="-325" y="-111"/>
         </tableViewCell>

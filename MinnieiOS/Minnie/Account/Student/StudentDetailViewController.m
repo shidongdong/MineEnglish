@@ -88,7 +88,7 @@
     }
     else
     {
-        return 100.0;
+        return 80.0;
     }
 }
 

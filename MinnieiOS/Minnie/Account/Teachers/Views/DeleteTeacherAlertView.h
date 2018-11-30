@@ -19,6 +19,11 @@ typedef void(^ConfirmDeleteClickCallback)(NSString *);
                   sendCodeCallback:(SendDeleteTeacherCodeClickCallback)sendCodeCallback
                    confirmCallback:(ConfirmDeleteClickCallback)confirmCallback;
 
++ (void)showDeleteClassAlertView:(UIView *)superView
+                           class:(Clazz *)classinfo
+                sendCodeCallback:(SendDeleteTeacherCodeClickCallback)sendCodeCallback
+                 confirmCallback:(ConfirmDeleteClickCallback)confirmCallback;
+
 + (void)hideAnimated:(BOOL)animated;
 
 @end

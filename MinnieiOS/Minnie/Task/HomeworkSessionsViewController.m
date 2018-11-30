@@ -17,7 +17,10 @@
 #import <AFNetworking/AFNetworking.h>
 
 @interface HomeworkSessionsViewController ()<UITableViewDataSource, UITableViewDelegate>
-
+{
+    NSInteger mState;
+    
+}
 @property (nonatomic, weak) IBOutlet UITableView *homeworkSessionsTableView;
 
 @property (nonatomic, strong) BaseRequest *homeworkSessionsRequest;
@@ -29,6 +32,8 @@
 @property (nonatomic, assign) BOOL shouldReloadTableWhenAppeard;
 
 @property (nonatomic, strong) NSArray *queriedConversations;
+
+@property (nonatomic, strong) NSString * searchFilterName;   //名字搜索条件 只有在搜索也使用
 
 @end
 
@@ -48,31 +53,39 @@
     
     //先读出缓存中的数据
     [self.homeworkSessions removeAllObjects];
-    if (self.isUnfinished)
-    {
-        if (self.bLoadConversion)
-        {
-            [self.homeworkSessions addObjectsFromArray:APP.unfinishHomeworkSessionList];
-        }
-        else
-        {
-            [self.homeworkSessions addObjectsFromArray:APP.unCommitHomeworkSessionList];
-        }
-    }
-    else
-    {
-        [self.homeworkSessions addObjectsFromArray:APP.finishHomeworkSessionList];
-    }
+//   缓存无效 建议后期再考虑
+//    if (self.isUnfinished)
+//    {
+//        if (self.bLoadConversion)
+//        {
+//            [self.homeworkSessions addObjectsFromArray:APP.unfinishHomeworkSessionList];
+//        }
+//        else
+//        {
+//            [self.homeworkSessions addObjectsFromArray:APP.unCommitHomeworkSessionList];
+//        }
+//    }
+//    else
+//    {
+//        [self.homeworkSessions addObjectsFromArray:APP.finishHomeworkSessionList];
+//    }
+    
     
     [self registerCellNibs];
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 12.f)];
     self.homeworkSessionsTableView.tableFooterView = footerView;
     
-    [self setupAndLoadConversations];
-    [self requestHomeworkSessions];
-    
+    [self setupRequestState];
+    if (self.searchFliter != -1)
+    {
+        
+        [self setupAndLoadConversations];
+        [self requestHomeworkSessions];
+        
+    }
     [self addNotificationObservers];
+    
 }
 
 
@@ -138,114 +151,47 @@
 }
 
 #pragma mark - Public Methods
-- (void)requestSearchForSorceAtIndex:(NSInteger)index callBack:(HomeworkSessionsCallback)callback
+
+- (void)requestSearchForName:(NSString *)name
 {
-#if TEACHERSIDE
-    if (index == 0)
-    {
-        [self requestHomeworkSessionsForCallBack:callback];
-    }
-    else
-    {
-        
-        NSInteger state;
-        if (self.isUnfinished)
-        {
-            if (self.bLoadConversion)
-            {
-                state = 0;
-            }
-            else
-            {
-                state = 2;
-            }
-        }
-        else
-        {
-            state = 1;
-        }
-        
-        WeakifySelf;
-        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithType:index forState:state callback:^(Result *result, NSError *error) {
-            if (error == nil)
-            {
-                callback(YES);
-            }
-            
-            StrongifySelf;
-            [strongSelf handleRequestResult:result isLoadMore:NO error:error];
-        }];
-    }
+    self.searchFilterName = name;
+
+    [self requestHomeworkSessions];
+}
+
+- (void)requestSearchForSorceAtIndex:(NSInteger)index
+{
+
+    self.searchFliter = index;
     
-#else
-    if (index == 0)
-    {
-        [self requestHomeworkSessionsForCallBack:callback];
-    }
-    else
-    {
-        WeakifySelf;
-        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithScore:index - 1 callback:^(Result *result, NSError *error) {
-            
-            if (error == nil)
-            {
-                callback(YES);
-            }
-            
-            StrongifySelf;
-            [strongSelf handleRequestResult:result isLoadMore:NO error:error];
-            
-        }];
-    }
-    
-#endif
+    [self requestHomeworkSessions];
 }
 
 #pragma mark - Private Methods
 
-- (void)requestHomeworkSessionsForCallBack:(HomeworkSessionsCallback)callback
+- (void)setupRequestState
 {
-    
-    NSInteger state;
     if (self.isUnfinished)
     {
         if (self.bLoadConversion)
         {
-            state = 0;
+            mState = 0;
         }
         else
         {
-            state = 2;
+            mState = 2;
         }
     }
     else
     {
-        state = 1;
+        mState = 1;
     }
-    
-    if (self.homeworkSessionsRequest != nil) {
-        return;
-    }
-    WeakifySelf;
-    self.homeworkSessionsRequest = [HomeworkSessionService requestHomeworkSessionsWithFinishState:state
-                                                                                         callback:^(Result *result, NSError *error) {
-                                                                                             
-                                                                                             if (error == nil)
-                                                                                             {
-                                                                                                 callback(YES);
-                                                                                             }
-                                                                                             
-                                                                                             StrongifySelf;
-                                                                                             [strongSelf handleRequestResult:result
-                                                                                                                  isLoadMore:NO error:error];
-                                                                                         }];
 }
 
 - (void)registerCellNibs {
     [self.homeworkSessionsTableView registerNib:[UINib nibWithNibName:@"FinishedHomeworkSessionTableViewCell" bundle:nil] forCellReuseIdentifier:FinishedHomeworkSessionTableViewCellId];
     [self.homeworkSessionsTableView registerNib:[UINib nibWithNibName:@"UnfinishedHomeworkSessionTableViewCell" bundle:nil] forCellReuseIdentifier:UnfinishedHomeworkSessionTableViewCellId];
     [self.homeworkSessionsTableView registerNib:[UINib nibWithNibName:@"UnfinishedStudentHomeworkSessionTableViewCell" bundle:nil] forCellReuseIdentifier:UnfinishedStudentHomeworkSessionTableViewCellId];
-    
 }
 
 - (void)addNotificationObservers {
@@ -316,10 +262,9 @@
     
 }
 
-
-
 - (void)setupAndLoadConversations {
-    if (!self.isUnfinished) {
+    if (!self.isUnfinished)
+    {
         return;
     }
     //不需要加载
@@ -689,43 +634,90 @@
     
     WeakifySelf;
     
-    NSInteger state;
-    if (self.isUnfinished)
+    if (self.searchFliter == -1)
     {
-        if (self.bLoadConversion)
+        if ([self.searchFilterName length] == 0)
         {
-            state = 0;
+            return;
         }
-        else
-        {
-            state = 2;
-        }
+        
+        WeakifySelf;
+        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithName:self.searchFilterName forState:mState callback:^(Result *result, NSError *error) {
+            StrongifySelf;
+            [strongSelf handleRequestResult:result isLoadMore:NO error:error];
+        }];
+        
+    }
+    else if (self.searchFliter == 0)
+    {
+        self.homeworkSessionsRequest = [HomeworkSessionService requestHomeworkSessionsWithFinishState:mState
+                                                                                             callback:^(Result *result, NSError *error) {
+                                                                                                 StrongifySelf;
+                                                                                                 [strongSelf handleRequestResult:result
+                                                                                                                      isLoadMore:NO error:error];
+                                                                                             }];
     }
     else
     {
-        state = 1;
+       WeakifySelf;
+#if TEACHERSIDE
+        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithType:self.searchFliter forState:mState callback:^(Result *result, NSError *error) {
+            
+            StrongifySelf;
+            [strongSelf handleRequestResult:result isLoadMore:NO error:error];
+        }];
+#else
+        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithScore:self.searchFliter - 1 callback:^(Result *result, NSError *error) {
+            
+            
+            StrongifySelf;
+            [strongSelf handleRequestResult:result isLoadMore:NO error:error];
+            
+        }];
+#endif
+        
     }
-    
-    self.homeworkSessionsRequest = [HomeworkSessionService requestHomeworkSessionsWithFinishState:state
-                                                                                         callback:^(Result *result, NSError *error) {
-                                                                                             StrongifySelf;
-                                                                                             [strongSelf handleRequestResult:result
-                                                                                                                  isLoadMore:NO error:error];
-                                                                                         }];
 }
 
 - (void)loadMoreHomeworkSessions {
     if (self.homeworkSessionsRequest != nil) {
         return;
     }
-    
     WeakifySelf;
-    self.homeworkSessionsRequest = [HomeworkSessionService requestHomeworkSessionsWithNextUrl:self.nextUrl
-                                                                                     callback:^(Result *result, NSError *error) {
-                                                                                         StrongifySelf;
-                                                                                         [strongSelf handleRequestResult:result
-                                                                                                              isLoadMore:YES                    error:error];
-                                                                                     }];
+    if (self.searchFliter == -1)
+    {
+        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithNameWithNextUrl:self.nextUrl callback:^(Result *result, NSError *error) {
+            StrongifySelf;
+            [strongSelf handleRequestResult:result
+                                 isLoadMore:YES                    error:error];
+        }];
+    }
+    else if (self.searchFliter == 0)
+    {
+        self.homeworkSessionsRequest = [HomeworkSessionService requestHomeworkSessionsWithNextUrl:self.nextUrl
+                                                                                         callback:^(Result *result, NSError *error) {
+                                                                                             StrongifySelf;
+                                                                                             [strongSelf handleRequestResult:result
+                                                                                                                  isLoadMore:YES                    error:error];
+                                                                                         }];
+    }
+    else
+    {
+#if TEACHERSIDE
+        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithTypeWithNextUrl:self.nextUrl callback:^(Result *result, NSError *error) {
+            StrongifySelf;
+            [strongSelf handleRequestResult:result isLoadMore:NO error:error];
+        }];
+#else
+        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithScoreWithNextUrl:self.nextUrl callback:^(Result *result, NSError *error) {
+            
+            StrongifySelf;
+            [strongSelf handleRequestResult:result isLoadMore:NO error:error];
+            
+        }];
+#endif
+    }
+    
 }
 
 - (void)handleRequestResult:(Result *)result

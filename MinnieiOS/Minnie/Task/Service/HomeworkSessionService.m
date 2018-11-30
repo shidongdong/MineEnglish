@@ -15,6 +15,7 @@
 #import "UpdateTaskModifiedTimeRequest.h"
 #import "SearchHomeworkScoreRequest.h"
 #import "SearchHomeworkTypeRequest.h"
+#import "SearchHomeworkNameRequest.h"
 @implementation HomeworkSessionService
 
 + (BaseRequest *)requestHomeworkSessionsWithFinishState:(NSInteger)state
@@ -108,6 +109,18 @@
     return request;
 }
 
++ (BaseRequest *)searchHomeworkSessionWithScoreWithNextUrl:(NSString *)nextUrl
+                                           callback:(RequestCallback)callback {
+    SearchHomeworkScoreRequest *request = [[SearchHomeworkScoreRequest alloc] initWithNextUrl:nextUrl];
+    
+    request.objectKey = @"list";
+    request.objectClassName = @"HomeworkSession";
+    request.callback = callback;
+    [request start];
+    
+    return request;
+}
+
 + (BaseRequest *)searchHomeworkSessionWithType:(NSInteger)type forState:(NSInteger)state callback:(RequestCallback)callback
 {
     SearchHomeworkTypeRequest * request = [[SearchHomeworkTypeRequest alloc] initWithHomeworkSessionForType:type withFinishState:state];
@@ -117,6 +130,41 @@
     [request start];
     return request;
 }
+
++ (BaseRequest *)searchHomeworkSessionWithTypeWithNextUrl:(NSString *)nextUrl
+                                                  callback:(RequestCallback)callback {
+    SearchHomeworkTypeRequest *request = [[SearchHomeworkTypeRequest alloc] initWithNextUrl:nextUrl];
+    
+    request.objectKey = @"list";
+    request.objectClassName = @"HomeworkSession";
+    request.callback = callback;
+    [request start];
+    
+    return request;
+}
+
++ (BaseRequest *)searchHomeworkSessionWithName:(NSString *)name forState:(NSInteger)state callback:(RequestCallback)callback
+{
+    SearchHomeworkNameRequest * request = [[SearchHomeworkNameRequest alloc] initWithHomeworkSessionForName:name withFinishState:state];
+    request.objectKey = @"list";
+    request.objectClassName = @"HomeworkSession";
+    request.callback = callback;
+    [request start];
+    return request;
+}
+
++ (BaseRequest *)searchHomeworkSessionWithNameWithNextUrl:(NSString *)nextUrl
+                                                 callback:(RequestCallback)callback {
+    SearchHomeworkNameRequest *request = [[SearchHomeworkNameRequest alloc] initWithNextUrl:nextUrl];
+    
+    request.objectKey = @"list";
+    request.objectClassName = @"HomeworkSession";
+    request.callback = callback;
+    [request start];
+    
+    return request;
+}
+
 
 @end
 

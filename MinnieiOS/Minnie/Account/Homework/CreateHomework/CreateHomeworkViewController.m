@@ -440,6 +440,13 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         [HUD showProgressWithMessage:@"正在压缩视频文件..."];
 
         AVURLAsset *avAsset = [[AVURLAsset alloc] initWithURL:videoUrl options:nil];
+        
+        NSTimeInterval durationInSeconds = 0.0;
+        if (avAsset != nil) {
+            durationInSeconds = CMTimeGetSeconds(avAsset.duration);
+        }
+
+        
         NSArray *compatiblePresets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avAsset];
         if ([compatiblePresets containsObject:AVAssetExportPresetHighestQuality]) {
             AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:AVAssetExportPreset1280x720];
@@ -473,6 +480,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
                                                           HomeworkAnswerItem *item = [[HomeworkAnswerItem alloc] init];
                                                           item.type = HomeworkItemTypeVideo;
                                                           item.videoUrl = videoUrl;
+                                                          item.itemTime = durationInSeconds;
                                                           item.videoCoverUrl = @"";
                                                           
                                                           [self.answerItems addObject:item];

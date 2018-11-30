@@ -12,6 +12,8 @@
 
 - (void)emojiDidSelect:(NSString *)emojiText;
 
+- (void)emojiDidSend;
+
 @end
 
 extern CGFloat const EmojiInputViewHeight;

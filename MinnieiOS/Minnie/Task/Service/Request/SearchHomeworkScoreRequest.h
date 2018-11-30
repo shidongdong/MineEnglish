@@ -12,4 +12,6 @@
 
 - (instancetype)initWithHomeworkSessionForScore:(NSInteger)homeworkScore;
 
+- (instancetype)initWithNextUrl:(NSString *)nextUrl;
+
 @end

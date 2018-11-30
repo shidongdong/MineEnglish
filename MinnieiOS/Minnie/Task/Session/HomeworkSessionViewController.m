@@ -552,6 +552,12 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     }
 }
 
+- (IBAction)sendWarningButtonPressed:(id)sender {
+    
+    [self sendImageMessageWithImage:[UIImage imageNamed:@"pop_img_register"]];
+}
+
+
 - (IBAction)correctButtonPressed:(id)sender {
     CorrectHomeworkViewController *vc = [[CorrectHomeworkViewController alloc] initWithNibName:@"CorrectHomeworkViewController" bundle:nil];
     vc.homeworkSession = self.homeworkSession;
@@ -1734,7 +1740,16 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 #pragma mark - EmojiInputViewDelegate
 
 - (void)emojiDidSelect:(NSString *)emojiText {
-    [self sendEmojiMessage:emojiText];
+    
+    NSString * text = [self.inputTextView.text stringByAppendingString:emojiText];
+    
+    self.inputTextView.text = text;
+   // [self sendEmojiMessage:emojiText];
+}
+
+- (void)emojiDidSend
+{
+    [self sendTextMessage:self.inputTextView.text];
 }
 
 #pragma mark - NEPhotoBrowserDataSource

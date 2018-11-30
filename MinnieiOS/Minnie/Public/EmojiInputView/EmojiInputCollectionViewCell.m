@@ -28,21 +28,18 @@ NSString * const EmojiInputCollectionViewCellId = @"EmojiInputCollectionViewCell
     self.emojis = emojis;
     self.callback = callback;
     
-    for (NSInteger index=0; index<MIN(emojis.count, 8); index++) {
+    for (NSInteger index=0; index<MIN(emojis.count, 32); index++) {
         UIButton *btn = (UIButton *)[self viewWithTag:index+10];
-        UIImageView *imageView = (UIImageView *)[self viewWithTag:index+20];
-        
-        NSString *imageName = [emojis[index] stringByAppendingString:@".png"];
-        
-        [imageView setImage:[UIImage imageNamed:imageName]];
+        UILabel * textLabel = (UILabel *)[self viewWithTag:index+20];
+        textLabel.text = emojis[index];
         [btn setEnabled:YES];
     }
     
-    if (emojis.count < 8) {
-        for (NSInteger index=emojis.count; index<8; index++) {
+    if (emojis.count < 32) {
+        for (NSInteger index=emojis.count; index<32; index++) {
             UIButton *btn = (UIButton *)[self viewWithTag:index+10];
-            UIImageView *imageView = (UIImageView *)[self viewWithTag:index+20];
-            [imageView setImage:nil];
+            UILabel *textLabel = (UILabel *)[self viewWithTag:index+20];
+            textLabel.text = @"";
             [btn setEnabled:NO];
         }
     }

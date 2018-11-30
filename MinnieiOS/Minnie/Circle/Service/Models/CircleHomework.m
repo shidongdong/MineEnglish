@@ -23,7 +23,7 @@
              @"comments":@"comments",
              @"liked":@"liked",
              @"commitTime":@"commitTime",
-             @"classLevel":@"classLevel",
+             @"classLevel":@"level",
              };
 }
 
