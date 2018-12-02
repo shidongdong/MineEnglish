@@ -110,15 +110,40 @@
     
 }
 
-- (void)showAlertMedalInfo:(id)data
+- (void)showAlertMedalInfo:(UserMedalDetail *)data withPic:(UserMedalPics *)pics atIndex:(NSInteger)index
 {
+    NSString * picURL;
+    switch (index) {
+        case 0:
+            picURL = pics.firstPicB;
+            break;
+        case 1:
+            picURL = pics.secondPicB;
+            break;
+        case 2:
+            picURL = pics.thirdPicB;
+            break;
+    }
+    WeakifySelf;
     [AlertView showInView:self.view
-                withImage:[UIImage imageNamed:@"pop_img_welcome"]
-                    title:@"欢迎加入minnie英文教室"
-                  message:@"你目前已报名, 请等待教师回复"
-                   action:@"知道啦"
+             withImageURL:picURL
+                    title:[NSString stringWithFormat:@"%@勋章已达成",data.medalType]
+                  message:@"奖励100颗星星"
+                   action:@"确定"
            actionCallback:^{
+               [weakSelf receiveMedalForData:data];
            }];
+}
+
+- (void)receiveMedalForData:(UserMedalDetail *)data
+{
+    [HUD showWithMessage:@"领取中"];
+    [AchieverService updateMedalWithMedalId:data.medalId medalType:data.medalType medalFlag:2 callback:^(Result *result, NSError *error) {
+        if (error == nil)
+        {
+            
+        }
+    }];
 }
 
 #pragma mark - CollectionDelegete && Datasource
@@ -156,17 +181,25 @@
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     
     UserMedalDetail * detail = [self.achieverLists objectAtIndex:indexPath.section];
-    
+    UserMedalPics * pics = [self.achieverListPics objectAtIndex:indexPath.section];
     switch (indexPath.item) {
         case 0:
             if (detail.firstFlag == 1)
             {
-                
+                [self showAlertMedalInfo:detail withPic:pics atIndex:indexPath.item];
             }
             break;
         case 1:
+            if (detail.sencondFlag == 1)
+            {
+                [self showAlertMedalInfo:detail withPic:pics atIndex:indexPath.item];
+            }
             break;
         case 2:
+            if (detail.thirdFlag == 1)
+            {
+                [self showAlertMedalInfo:detail withPic:pics atIndex:indexPath.item];
+            }
             break;
     }
     

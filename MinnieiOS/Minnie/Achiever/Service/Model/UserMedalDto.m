@@ -15,7 +15,8 @@
     return @{@"firstFlag":@"firstFlag",
              @"sencondFlag":@"sencondFlag",
              @"thirdFlag":@"thirdFlag",
-             @"medalType":@"medalType"
+             @"medalType":@"medalType",
+             @"medalId":@"id"
              };
 }
 @end

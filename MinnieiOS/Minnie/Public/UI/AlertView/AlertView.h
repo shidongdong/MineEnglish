@@ -28,4 +28,10 @@ typedef void(^AlertActionCallback)(void);
                    action2:(NSString *)action2
            action2Callback:(AlertActionCallback)callback2;
 
++ (instancetype)showInView:(UIView *)superView
+              withImageURL:(NSString *)imageURL
+                     title:(NSString *)title
+                   message:(NSString *)message
+                    action:(NSString *)action
+            actionCallback:(AlertActionCallback)callback;
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "AlertView.h"
-
+#import <SDWebImage/UIImageView+WebCache.h>
 @interface AlertView()
 
 @property (nonatomic, weak) IBOutlet UIView *contentView;
@@ -163,6 +163,32 @@
     
     return alertView;
 }
+
++ (instancetype)showInView:(UIView *)superView
+              withImageURL:(NSString *)imageURL
+                     title:(NSString *)title
+                   message:(NSString *)message
+                    action:(NSString *)action
+            actionCallback:(AlertActionCallback)callback {
+    AlertView *alertView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([AlertView class])
+                                                          owner:nil
+                                                        options:nil] firstObject];
+    
+    [alertView.iconImageView sd_setImageWithURL:[NSURL URLWithString:imageURL]];
+    alertView.titleLabel.text = title;
+    alertView.messageLabel.text = message;
+    
+    [alertView.actionButton setTitle:action forState:UIControlStateNormal];
+    alertView.actionButtonCallback = callback;
+    
+    [superView addSubview:alertView];
+    [AlertView addConstraintsWithAlertView:alertView inSuperView:superView];
+    
+    [alertView showWithAnimation];
+    
+    return alertView;
+}
+
 
 + (instancetype)showInView:(UIView *)superView
                  withImage:(UIImage *)image

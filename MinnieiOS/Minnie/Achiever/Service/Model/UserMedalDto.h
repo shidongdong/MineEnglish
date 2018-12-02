@@ -14,7 +14,7 @@
 @property(nonatomic, assign)NSInteger sencondFlag;
 @property(nonatomic, assign)NSInteger thirdFlag;
 @property(nonatomic, strong)NSString * medalType;
-
+@property(nonatomic, assign)NSInteger medalId;
 @end
 
 @interface UserMedalPics : MTLModel<MTLJSONSerializing>
