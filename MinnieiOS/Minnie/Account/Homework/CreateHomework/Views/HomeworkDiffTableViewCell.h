@@ -17,4 +17,6 @@ typedef void(^HomeworkDiffTableViewCellSelectCallback)(NSInteger);
 
 @property (nonatomic, copy)HomeworkDiffTableViewCellSelectCallback selectCallback;
 
+- (void)updateHomeworkLevel:(NSInteger)level;
+
 @end

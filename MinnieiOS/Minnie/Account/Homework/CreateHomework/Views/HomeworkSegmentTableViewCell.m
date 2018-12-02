@@ -108,6 +108,48 @@ CGFloat const HomeworkTypeTableViewCellHeight = 160.f;
     
 }
 
+- (void)updateHomeworkCategoryType:(NSInteger)category withStyleType:(NSInteger)style
+{
+    self.currentCateLabel.backgroundColor = [UIColor clearColor];
+    self.currentCateLabel.textColor = [UIColor colorWithHex:0x999999];
+    
+    self.currentStyleLabel.backgroundColor = [UIColor clearColor];
+    self.currentStyleLabel.textColor = [UIColor colorWithHex:0x999999];
+    
+    switch (category) {
+        case 0:
+            self.firstTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
+            self.currentCateLabel = self.firstTypeLabel;
+            break;
+        case 1:
+            self.secondTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
+            self.currentCateLabel = self.secondTypeLabel;
+            break;
+        case 2:
+            self.thirdTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
+            self.currentCateLabel = self.thirdTypeLabel;
+            break;
+    }
+    
+    switch (style) {
+        case 0:
+            self.fourTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
+            self.currentStyleLabel = self.fourTypeLabel;
+            break;
+        case 1:
+            self.fiveTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
+            self.currentStyleLabel = self.fiveTypeLabel;
+            break;
+        case 2:
+            self.sixTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
+            self.currentStyleLabel = self.sixTypeLabel;
+            break;
+
+    }
+    self.currentCateLabel.textColor = [UIColor colorWithHex:0xFFFFFF];
+    self.currentStyleLabel.textColor = [UIColor colorWithHex:0xFFFFFF];
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

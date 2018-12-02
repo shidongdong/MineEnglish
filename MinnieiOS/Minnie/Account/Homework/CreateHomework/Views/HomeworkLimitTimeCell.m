@@ -33,7 +33,7 @@ CGFloat const HomeworkTimeLimitTableViewCellHeight = 103.f;
     NSInteger secIndex = sec % 60;
     NSInteger minIndex = sec / 60;
     
-    self.timeLabel.text = [NSString stringWithFormat:@"%ld分02%ld秒",minIndex,secIndex];
+    self.timeLabel.text = [NSString stringWithFormat:@"%ld分%02ld秒",minIndex,secIndex];
 }
 
 - (IBAction)selectTimePress:(UIButton *)sender {

@@ -106,10 +106,6 @@
 		875C262A218ADA7D0047E32A /* FilterAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875C2628218ADA7D0047E32A /* FilterAlertView.m */; };
 		875C262C218ADBC20047E32A /* FilterAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 875C262B218ADBC20047E32A /* FilterAlertView.xib */; };
 		875C262D218ADBC20047E32A /* FilterAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 875C262B218ADBC20047E32A /* FilterAlertView.xib */; };
-		8770786B21997E5F00940A88 /* icon_drop_small_black@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8770786921997E5E00940A88 /* icon_drop_small_black@3x.png */; };
-		8770786C21997E5F00940A88 /* icon_drop_small_black@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8770786921997E5E00940A88 /* icon_drop_small_black@3x.png */; };
-		8770786D21997E5F00940A88 /* icon_drop_small_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8770786A21997E5E00940A88 /* icon_drop_small_black@2x.png */; };
-		8770786E21997E5F00940A88 /* icon_drop_small_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8770786A21997E5E00940A88 /* icon_drop_small_black@2x.png */; };
 		87707871219AB5BA00940A88 /* SendHomeworkHistoryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 87707870219AB5BA00940A88 /* SendHomeworkHistoryRequest.m */; };
 		87707872219AB5BA00940A88 /* SendHomeworkHistoryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 87707870219AB5BA00940A88 /* SendHomeworkHistoryRequest.m */; };
 		87707876219ABAE900940A88 /* HomeworkSendLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 87707875219ABAE900940A88 /* HomeworkSendLog.m */; };
@@ -1396,8 +1392,6 @@
 		875C2627218ADA7D0047E32A /* FilterAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterAlertView.h; sourceTree = "<group>"; };
 		875C2628218ADA7D0047E32A /* FilterAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterAlertView.m; sourceTree = "<group>"; };
 		875C262B218ADBC20047E32A /* FilterAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterAlertView.xib; sourceTree = "<group>"; };
-		8770786921997E5E00940A88 /* icon_drop_small_black@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_drop_small_black@3x.png"; path = "../../../../Downloads/icon_drop_small_black_slices/icon_drop_small_black@3x.png"; sourceTree = "<group>"; };
-		8770786A21997E5E00940A88 /* icon_drop_small_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_drop_small_black@2x.png"; path = "../../../../Downloads/icon_drop_small_black_slices/icon_drop_small_black@2x.png"; sourceTree = "<group>"; };
 		8770786F219AB5BA00940A88 /* SendHomeworkHistoryRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendHomeworkHistoryRequest.h; sourceTree = "<group>"; };
 		87707870219AB5BA00940A88 /* SendHomeworkHistoryRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SendHomeworkHistoryRequest.m; sourceTree = "<group>"; };
 		87707874219ABAE900940A88 /* HomeworkSendLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeworkSendLog.h; sourceTree = "<group>"; };
@@ -2584,8 +2578,6 @@
 				8709C2F021A24C7100970757 /* 第3名@3x.png */,
 				8709C2F221A24C7200970757 /* 第4名@2x.png */,
 				8709C2F421A24C7300970757 /* 第4名@3x.png */,
-				8770786A21997E5E00940A88 /* icon_drop_small_black@2x.png */,
-				8770786921997E5E00940A88 /* icon_drop_small_black@3x.png */,
 				870286872184113C00559195 /* navbar_screen@2x.png */,
 				870286892184113E00559195 /* navbar_screen@3x.png */,
 				870286882184113C00559195 /* navbar_search@2x.png */,
@@ -4798,7 +4790,6 @@
 				9710974B207A006D00568785 /* icon_Emoji@2x.png in Resources */,
 				97109805207A006D00568785 /* navbar_setup@3x.png in Resources */,
 				9710966F207A006D00568785 /* icon_drop_small@3x.png in Resources */,
-				8770786B21997E5F00940A88 /* icon_drop_small_black@3x.png in Resources */,
 				97109C4C207A2E3E00568785 /* HomeworkDetailCommentTableViewCell.xib in Resources */,
 				8709C2F921A24C7400970757 /* 第2名@2x.png in Resources */,
 				971097AB207A006D00568785 /* buttonbar_mission_manager_unsel@3x.png in Resources */,
@@ -4898,7 +4889,6 @@
 				97109DEE207A5D9700568785 /* FullfillProfileViewController_Student.xib in Resources */,
 				97109745207A006D00568785 /* white_bottom_corner_bg@3x.png in Resources */,
 				97109A66207A158C00568785 /* LeftAudioMessageTableViewCell.xib in Resources */,
-				8770786D21997E5F00940A88 /* icon_drop_small_black@2x.png in Resources */,
 				971098E4207A0BF500568785 /* 笑哭.png in Resources */,
 				879CE51A21905D0300BBE4B7 /* AchieverListViewController.xib in Resources */,
 				97109785207A006D00568785 /* pop_img_stars@2x.png in Resources */,
@@ -5061,7 +5051,6 @@
 				971096FE207A006D00568785 /* my_img_星兑换@3x.png in Resources */,
 				97109658207A006D00568785 /* label_eye_display@3x.png in Resources */,
 				97109714207A006D00568785 /* my_img_星兑换@2x.png in Resources */,
-				8770786C21997E5F00940A88 /* icon_drop_small_black@3x.png in Resources */,
 				971096E2207A006D00568785 /* 语音动画01@3x.png in Resources */,
 				971097D0207A006D00568785 /* message_send_error@2x.png in Resources */,
 				97109762207A006D00568785 /* 缺省插画_无作业@3x.png in Resources */,
@@ -5404,7 +5393,6 @@
 				97109704207A006D00568785 /* right_chat_talk3@2x.png in Resources */,
 				9710967A207A006D00568785 /* bottom_ic_pencil@3x.png in Resources */,
 				971096F6207A006D00568785 /* ic_cancel_white.png in Resources */,
-				8770786E21997E5F00940A88 /* icon_drop_small_black@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

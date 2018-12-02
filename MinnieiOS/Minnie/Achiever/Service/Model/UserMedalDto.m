@@ -8,15 +8,48 @@
 
 #import "UserMedalDto.h"
 
+@implementation UserMedalDetail
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    
+    return @{@"firstFlag":@"firstFlag",
+             @"sencondFlag":@"sencondFlag",
+             @"thirdFlag":@"thirdFlag",
+             @"medalType":@"medalType"
+             };
+}
+@end
+
+@implementation UserMedalPics
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{@"firstPicB":@"firstPicB",
+             @"firstPicD":@"firstPicD",
+             @"secondPicB":@"secondPicB",
+             @"secondPicD":@"secondPicD",
+             @"thirdPicB":@"thirdPicB",
+             @"thirdPicD":@"thirdPicD",
+             @"medalType":@"medalType",
+             @"medalDesc":@"medalDesc"
+             };
+}
+@end
+
 @implementation UserMedalDto
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{@"achieverid":@"id",
-             @"firstFlag":@"firstFlag",
-             @"sencondFlag":@"sencondFlag",
-             @"thirdFlag":@"thirdFlag",
-             @"medalType":@"medalType",
+    return @{@"medalDetails":@"medalDetails",
+             @"medalPics":@"medalPics"
              };
+}
+
+
++ (NSValueTransformer *)medalDetailsJSONTransformer {
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[UserMedalDetail class]];
+}
+
++ (NSValueTransformer *)medalPicsJSONTransformer {
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[UserMedalPics class]];
 }
 
 @end

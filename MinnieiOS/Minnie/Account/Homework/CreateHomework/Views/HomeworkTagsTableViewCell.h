@@ -18,6 +18,8 @@ extern NSString * const HomeworkTagsTableViewCellId;
 @property (nonatomic, copy) HomeworkTagsTableViewCellSelectCallback selectCallback;
 @property (nonatomic, copy) HomeworkTagsTableViewCellManageCallback manageCallback;
 
+@property (nonatomic, assign) BOOL bSingleSelect;
+
 - (void)setupWithTags:(NSArray <NSString *> *)tags
          selectedTags:(NSArray <NSString *> *)selectedTags;
 

@@ -19,4 +19,6 @@ typedef void(^HomeworkSegmentTableViewCellSelectCallback)(NSInteger);
 
 //- (void)setContentData:(NSArray *)datas atDefultIndex:(NSInteger)index;
 
+- (void)updateHomeworkCategoryType:(NSInteger)category withStyleType:(NSInteger)style;
+
 @end

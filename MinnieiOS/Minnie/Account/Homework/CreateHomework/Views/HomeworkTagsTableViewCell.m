@@ -135,6 +135,17 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
         [self.selectedTags removeObject:tag];
         [cell setChoice:NO];
     } else {
+        if (self.bSingleSelect)
+        {
+            if (self.selectedTags.count == 1)
+            {
+                NSString * lastTag = [self.selectedTags objectAtIndex:0];
+                NSInteger lastIndex = [self.tags indexOfObject:lastTag];
+                TagCollectionViewCell *lastCell = (TagCollectionViewCell *)[collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:lastIndex inSection:0]];
+                [lastCell setChoice:NO];
+                [self.selectedTags removeAllObjects];
+            }
+        }
         [self.selectedTags addObject:tag];
         [cell setChoice:YES];
     }

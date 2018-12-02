@@ -17,7 +17,12 @@
              @"items":@"items",
              @"answerItems":@"answerItems",
              @"createTime":@"createTime",
-             @"tags":@"tags"
+             @"tags":@"tags",
+             @"style":@"style",
+             @"level":@"level",
+             @"category":@"category",
+             @"limitTimes":@"limitTimes",
+             @"formTag":@"formTag",
              };
 }
 
@@ -89,7 +94,11 @@
     }
     
     dict[@"tags"] = self.tags;
-    
+    dict[@"style"] = @(self.style);
+    dict[@"level"] = @(self.level);
+    dict[@"category"] = @(self.category);
+    dict[@"limitTimes"] = @(self.limitTimes);
+    dict[@"formTag"] = self.formTag;
     return dict;
 }
 

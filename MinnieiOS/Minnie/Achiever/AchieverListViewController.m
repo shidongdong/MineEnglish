@@ -16,6 +16,7 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *mCollectionView;
 @property (nonatomic, strong)NSMutableArray * achieverLists;
+@property (nonatomic, strong)NSMutableArray * achieverListPics;
 @property (nonatomic, strong) BaseRequest * achieverRequest;
 @end
 
@@ -34,7 +35,7 @@
     [super viewDidLoad];
     
     _achieverLists = [NSMutableArray array];
-    
+    _achieverListPics = [NSMutableArray array];
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     layout.itemSize = CGSizeMake(80, 120);
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
@@ -90,11 +91,14 @@
         return;
     }
     
-    NSDictionary *dictionary = (NSDictionary *)(result.userInfo);
-    NSArray * achievers = dictionary[@"list"];
+    UserMedalDto *medalDto = (UserMedalDto *)(result.userInfo);
+    NSArray * achievers = medalDto.medalDetails;
+    NSArray * achieverpics = medalDto.medalPics;
     self.mCollectionView.hidden = NO;
     [self.achieverLists removeAllObjects];
     [self.achieverLists addObjectsFromArray:achievers];
+    [self.achieverListPics removeAllObjects];
+    [self.achieverListPics addObjectsFromArray:achieverpics];
     [self.mCollectionView reloadData];
 }
 
@@ -120,7 +124,7 @@
 #pragma mark - CollectionDelegete && Datasource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 2;
+    return self.achieverLists.count;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -129,14 +133,19 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     AchieverListCollectionViewCell * cell = (AchieverListCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:AchieverListCollectionViewCellId forIndexPath:indexPath];
-    [cell setContentData:nil];
+    
+    UserMedalDetail * detail = [self.achieverLists objectAtIndex:indexPath.section];
+    UserMedalPics * pics = [self.achieverListPics objectAtIndex:indexPath.section];
+    [cell setMedalData:detail forMedalPics:pics atIndex:indexPath.item];
     return cell;
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     AchieverListHeaderView * headerView = (AchieverListHeaderView *)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:AchieverListCollectionHeaderViewId forIndexPath:indexPath];
-    headerView.nameLabel.text = @"人人夸";
+    
+    UserMedalDetail * detail = [self.achieverLists objectAtIndex:indexPath.section];
+    headerView.nameLabel.text = detail.medalType;
     return headerView;
 }
 
@@ -146,7 +155,20 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     
-
+    UserMedalDetail * detail = [self.achieverLists objectAtIndex:indexPath.section];
+    
+    switch (indexPath.item) {
+        case 0:
+            if (detail.firstFlag == 1)
+            {
+                
+            }
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+    }
     
 }
 

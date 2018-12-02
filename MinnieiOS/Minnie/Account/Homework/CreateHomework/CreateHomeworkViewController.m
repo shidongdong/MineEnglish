@@ -57,6 +57,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         self.items = [[NSMutableArray alloc] init];
         self.answerItems = [[NSMutableArray alloc] init];
         self.selectedTags = [[NSMutableArray alloc] init];
+        self.limitTimeSecs = 300;
     } else {
         self.customTitleLabel.text = @"作业详情";
         
@@ -73,6 +74,10 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
             self.answerItems = [NSMutableArray arrayWithArray:self.homework.answerItems];
         }
         
+        self.categoryType = self.homework.category;
+        self.styleType = self.homework.style;
+        self.level = self.homework.level;
+        self.limitTimeSecs = self.homework.limitTimes;
         self.selectedTags = [NSMutableArray arrayWithArray:self.homework.tags];
         self.selectFormTag = self.homework.formTag;
     }
@@ -790,6 +795,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
     else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 2) {
         HomeworkSegmentTableViewCell * segmentCell = [tableView dequeueReusableCellWithIdentifier:HomeworkSegmentTableViewCellId forIndexPath:indexPath];
         
+        [segmentCell updateHomeworkCategoryType:self.categoryType withStyleType:self.styleType];
         WeakifySelf;
         [segmentCell setSelectCallback:^(NSInteger index)
         {
@@ -807,6 +813,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
     }
     else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 3) {
         HomeworkDiffTableViewCell * diffCell = [tableView dequeueReusableCellWithIdentifier:HomeworkDiffTableViewCellId forIndexPath:indexPath];
+        [diffCell updateHomeworkLevel:self.level];
         WeakifySelf;
         [diffCell setSelectCallback:^(NSInteger index) {
             weakSelf.level = index;
@@ -817,6 +824,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
     else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 4) {
         HomeworkLimitTimeCell * timeLimitCell = [tableView dequeueReusableCellWithIdentifier:HomeworkLimitTimeCellId forIndexPath:indexPath];
         WeakifySelf;
+        [timeLimitCell updateTimeLabel:self.limitTimeSecs];
         [timeLimitCell setTimeCallback:^{
             [weakSelf handleSetTimeLimit];
         }];
@@ -826,8 +834,13 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
     else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 5)
     {
         HomeworkTagsTableViewCell *tagsCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTagsTableViewCellId forIndexPath:indexPath];
-        
-        [tagsCell setupWithTags:self.formTags selectedTags:@[self.selectFormTag]];
+        tagsCell.bSingleSelect = YES;
+        NSMutableArray * selectFormTags = [[NSMutableArray alloc] init];
+        if (self.selectFormTag)
+        {
+            [selectFormTags addObject:self.selectFormTag];
+        }
+        [tagsCell setupWithTags:self.formTags selectedTags:selectFormTags];
         
         WeakifySelf;
         [tagsCell setSelectCallback:^(NSString *tag) {
@@ -914,6 +927,9 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
     }
     else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 4) { //作业时限
         height = HomeworkTimeLimitTableViewCellHeight;
+    }
+    else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 5) { //form标签
+        height = [HomeworkTagsTableViewCell heightWithTags:self.formTags];
     }
     else {
         height = [HomeworkTagsTableViewCell heightWithTags:self.tags];

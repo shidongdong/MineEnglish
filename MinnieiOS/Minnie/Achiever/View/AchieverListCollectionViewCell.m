@@ -7,13 +7,14 @@
 //
 
 #import "AchieverListCollectionViewCell.h"
-
+#import <SDWebImage/UIImageView+WebCache.h>
 NSString * const AchieverListCollectionViewCellId = @"AchieverListCollectionViewCellId";
 
 @interface AchieverListCollectionViewCell()
 
 @property (weak, nonatomic) IBOutlet UIImageView *medalImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *getLabel;
 
 @end
 
@@ -22,14 +23,69 @@ NSString * const AchieverListCollectionViewCellId = @"AchieverListCollectionView
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.getLabel.layer.cornerRadius = 10.0;
+    self.getLabel.clipsToBounds = YES;
     // Initialization code
 }
 
-- (void)setContentData:(id)data
+- (void)setMedalData:(UserMedalDetail *)data forMedalPics:(UserMedalPics *)pics atIndex:(NSInteger)index
 {
-    self.medalImageView.image = [UIImage imageNamed:@""];
-    self.medalImageView.backgroundColor = [UIColor redColor];
-    self.nameLabel.text = @"第几次点赞hahaha我的错";
+    self.getLabel.hidden = YES;
+    NSArray * titles = [pics.medalDesc componentsSeparatedByString:@";"];
+    if (index == 0)
+    {
+        if (data.firstFlag)
+        {
+            if (data.firstFlag == 1)
+            {
+                self.getLabel.hidden = NO;
+            }
+            [self.medalImageView sd_setImageWithURL:[NSURL URLWithString:pics.firstPicB]];
+        }
+        else
+        {
+            [self.medalImageView sd_setImageWithURL:[NSURL URLWithString:pics.firstPicB]];
+        }
+    }
+    else if (index == 1)
+    {
+        if (data.sencondFlag)
+        {
+            if (data.sencondFlag == 1)
+            {
+                self.getLabel.hidden = NO;
+            }
+            [self.medalImageView sd_setImageWithURL:[NSURL URLWithString:pics.secondPicB]];
+        }
+        else
+        {
+            [self.medalImageView sd_setImageWithURL:[NSURL URLWithString:pics.secondPicD]];
+        }
+    }
+    else
+    {
+        if (data.thirdFlag)
+        {
+            if (data.thirdFlag == 1)
+            {
+                self.getLabel.hidden = NO;
+            }
+            [self.medalImageView sd_setImageWithURL:[NSURL URLWithString:pics.thirdPicB]];
+        }
+        else
+        {
+            [self.medalImageView sd_setImageWithURL:[NSURL URLWithString:pics.thirdPicD]];
+        }
+    }
+    
+    if (titles.count > index)
+    {
+        self.nameLabel.text = [titles objectAtIndex:index];
+    }
+    
+    
 }
+
+
 
 @end

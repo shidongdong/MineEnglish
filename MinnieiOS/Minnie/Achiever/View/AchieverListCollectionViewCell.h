@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "UserMedalDto.h"
 extern NSString * const AchieverListCollectionViewCellId;
 
 @interface AchieverListCollectionViewCell : UICollectionViewCell
 
-- (void)setContentData:(id)data;
+- (void)setMedalData:(UserMedalDetail *)data forMedalPics:(UserMedalPics *)pics atIndex:(NSInteger)index;
 
 @end

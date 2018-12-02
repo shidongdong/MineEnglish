@@ -37,7 +37,7 @@
 + (BaseRequest *)requestMedalDetailWithCallback:(RequestCallback)callback
 {
     AchieverMedalDetailRequest *request = [[AchieverMedalDetailRequest alloc] init];
-    [request setObjectKey:@"list"];
+//    [request setObjectKey:@"list"];
     [request setObjectClassName:@"UserMedalDto"];
     [request setCallback:callback];
     [request start];

@@ -35,19 +35,34 @@
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="获取" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Clk-sw-5qF">
+                        <rect key="frame" x="129" y="145" width="36" height="20"/>
+                        <color key="backgroundColor" red="0.0" green="0.80784313730000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="tK3-qh-hrN"/>
+                            <constraint firstAttribute="width" constant="36" id="vDq-tA-ELg"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
             <constraints>
+                <constraint firstItem="S4R-uK-c3F" firstAttribute="top" secondItem="alh-a3-zep" secondAttribute="bottom" constant="10" id="1OE-jb-LRN"/>
+                <constraint firstItem="Clk-sw-5qF" firstAttribute="bottom" secondItem="alh-a3-zep" secondAttribute="bottom" id="1Sh-SH-1Dg"/>
                 <constraint firstAttribute="trailing" secondItem="S4R-uK-c3F" secondAttribute="trailing" id="3Mj-Ad-Ja3"/>
                 <constraint firstItem="alh-a3-zep" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="G4h-Qn-hcd"/>
                 <constraint firstItem="S4R-uK-c3F" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="MGA-qk-Efr"/>
                 <constraint firstItem="alh-a3-zep" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Qla-iU-KhY"/>
                 <constraint firstAttribute="trailing" secondItem="alh-a3-zep" secondAttribute="trailing" id="vPX-3Q-L7J"/>
                 <constraint firstItem="S4R-uK-c3F" firstAttribute="top" secondItem="alh-a3-zep" secondAttribute="bottom" constant="10" id="ySh-ZP-u05"/>
+                <constraint firstAttribute="trailing" secondItem="Clk-sw-5qF" secondAttribute="trailing" id="zgy-FJ-kbv"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
             <size key="customSize" width="165" height="224"/>
             <connections>
+                <outlet property="getLabel" destination="Clk-sw-5qF" id="ptb-Ng-zex"/>
                 <outlet property="medalImageView" destination="alh-a3-zep" id="pUQ-eo-3Up"/>
                 <outlet property="nameLabel" destination="S4R-uK-c3F" id="2ZJ-Gc-jvI"/>
             </connections>

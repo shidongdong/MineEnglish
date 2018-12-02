@@ -8,12 +8,29 @@
 
 #import <Mantle/Mantle.h>
 
-@interface UserMedalDto : MTLModel<MTLJSONSerializing>
+@interface UserMedalDetail : MTLModel<MTLJSONSerializing>
 
-@property(nonatomic, assign)NSInteger achieverid;
 @property(nonatomic, assign)NSInteger firstFlag;
 @property(nonatomic, assign)NSInteger sencondFlag;
 @property(nonatomic, assign)NSInteger thirdFlag;
 @property(nonatomic, strong)NSString * medalType;
 
+@end
+
+@interface UserMedalPics : MTLModel<MTLJSONSerializing>
+
+@property(nonatomic, strong)NSString * firstPicB;
+@property(nonatomic, strong)NSString * firstPicD;
+@property(nonatomic, strong)NSString * secondPicB;
+@property(nonatomic, strong)NSString * secondPicD;
+@property(nonatomic, strong)NSString * thirdPicB;
+@property(nonatomic, strong)NSString * thirdPicD;
+@property(nonatomic, strong)NSString * medalType;
+@property(nonatomic, strong)NSString * medalDesc;
+@end
+
+@interface UserMedalDto : MTLModel<MTLJSONSerializing>
+
+@property(nonatomic, strong)NSArray<UserMedalDetail *> * medalDetails;
+@property(nonatomic, strong)NSArray<UserMedalPics *> * medalPics;
 @end
