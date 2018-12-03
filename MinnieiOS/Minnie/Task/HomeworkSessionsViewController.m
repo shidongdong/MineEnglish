@@ -706,13 +706,13 @@
 #if TEACHERSIDE
         self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithTypeWithNextUrl:self.nextUrl callback:^(Result *result, NSError *error) {
             StrongifySelf;
-            [strongSelf handleRequestResult:result isLoadMore:NO error:error];
+            [strongSelf handleRequestResult:result isLoadMore:YES error:error];
         }];
 #else
         self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithScoreWithNextUrl:self.nextUrl callback:^(Result *result, NSError *error) {
             
             StrongifySelf;
-            [strongSelf handleRequestResult:result isLoadMore:NO error:error];
+            [strongSelf handleRequestResult:result isLoadMore:YES error:error];
             
         }];
 #endif

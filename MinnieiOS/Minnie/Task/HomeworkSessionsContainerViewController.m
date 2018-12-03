@@ -34,7 +34,7 @@
 @property (nonatomic, strong) HomeworkSessionsViewController *finishedClassesChildController;
 
 @property (nonatomic, assign) NSInteger  currentFliterType;  //教师端： 0 按时间 1 按作业 2 按人 学生端： 0星~6星
-
+@property (nonatomic, assign) NSInteger currentIndex;
 @property (nonatomic, assign) HomeworkSessionsViewController * currentViewController;
 
 #if TEACHERSIDE
@@ -65,6 +65,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.currentIndex = 0;
     [self checkAppVersion];
 #if TEACHERSIDE
     
@@ -216,12 +217,19 @@
 #if TEACHERSIDE
     
     HomeworkSearchNameViewController * searchVc = [[HomeworkSearchNameViewController alloc] initWithNibName:NSStringFromClass([HomeworkSearchNameViewController class]) bundle:nil];
+    searchVc.finished = self.currentIndex;
     [searchVc setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:searchVc animated:YES];
     
 #else
     
     //点击勋章主动把小红点隐藏
+    [AchieverService updateMedalNoticeFlagWithCallback:^(Result *result, NSError *error) {
+        if (error == nil)
+        {
+            
+        }
+    }];
     
     
     AchieverListViewController * achiverVc = [[AchieverListViewController alloc] initWithNibName:NSStringFromClass([AchieverListViewController class]) bundle:nil];
@@ -312,6 +320,7 @@
     }
     
     self.currentViewController = childPageViewController;
+    self.currentIndex = index;
     if (!existed) {
         [self addChildViewController:childPageViewController];
         

@@ -116,12 +116,15 @@
     switch (index) {
         case 0:
             picURL = pics.firstPicB;
+            data.firstFlag = 2;
             break;
         case 1:
             picURL = pics.secondPicB;
+            data.sencondFlag = 2;
             break;
         case 2:
             picURL = pics.thirdPicB;
+            data.thirdFlag = 2;
             break;
     }
     WeakifySelf;
@@ -131,17 +134,17 @@
                   message:@"奖励100颗星星"
                    action:@"确定"
            actionCallback:^{
-               [weakSelf receiveMedalForData:data];
+               [weakSelf receiveMedalForData:data atMedalIndex:index];
            }];
 }
 
-- (void)receiveMedalForData:(UserMedalDetail *)data
+- (void)receiveMedalForData:(UserMedalDetail *)data atMedalIndex:(NSInteger)index
 {
-    [HUD showWithMessage:@"领取中"];
-    [AchieverService updateMedalWithMedalId:data.medalId medalType:data.medalType medalFlag:2 callback:^(Result *result, NSError *error) {
+    WeakifySelf;
+    [AchieverService updateMedalWithMedalData:data atMedalIndex:index+1 callback:^(Result *result, NSError *error) {
         if (error == nil)
         {
-            
+            [weakSelf requestAchievrList];
         }
     }];
 }
@@ -202,7 +205,6 @@
             }
             break;
     }
-    
 }
 
 

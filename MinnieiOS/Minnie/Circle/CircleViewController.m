@@ -23,7 +23,7 @@
 #import <AVKit/AVKit.h>
 #import "UITextView+Placeholder.h"
 #import "PushManager.h"
-
+#import "CircleHomeworksViewController.h"
 @interface CircleViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) BaseRequest *homeworksRequest;
@@ -385,8 +385,8 @@
             [users removeObject:userToRemove];
             homework.likeUsers = users;
             
-            [cell updateLikeState:NO];
-           // [self.homeworksTableView reloadData];
+           // [cell updateLikeState:NO];
+            [self.homeworksTableView reloadData];
         }
         
         [CirlcleService unlikeHomework:homework.homeworkSessionId
@@ -408,8 +408,8 @@
             [users addObject:APP.currentUser];
             homework.likeUsers = users;
             
-            [cell updateLikeState:YES];
-           // [self.homeworksTableView reloadData];
+           // [cell updateLikeState:YES];
+            [self.homeworksTableView reloadData];
         }
         
         [CirlcleService likeHomework:homework.homeworkSessionId
@@ -496,8 +496,12 @@
 
 - (void)avatarButtonPressed:(CircleHomework *)homework
 {
-    CircleViewController * userCircleVc = [[CircleViewController alloc] initWithNibName:NSStringFromClass([CircleViewController class]) bundle:nil];
-    userCircleVc.userId = CircleSchool;
+    CircleHomeworksViewController *circleVC = [[CircleHomeworksViewController alloc] initWithNibName:@"CircleHomeworksViewController" bundle:nil];
+    circleVC.userId = homework.student.userId;
+    circleVC.userName = homework.student.nickname;
+    [circleVC setHidesBottomBarWhenPushed:YES];
+    [self.navigationController pushViewController:circleVC animated:YES];
+    
 }
 
 

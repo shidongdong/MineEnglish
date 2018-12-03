@@ -46,9 +46,9 @@
 }
 
 //领取勋章
-+ (BaseRequest *)updateMedalWithMedalId:(NSInteger)medalId medalType:(NSString *)type medalFlag:(NSInteger)flag callback:(RequestCallback)callback
++ (BaseRequest *)updateMedalWithMedalData:(UserMedalDetail *)data atMedalIndex:(NSInteger)index callback:(RequestCallback)callback
 {
-    AchieverUpdateMedalDetailRequest * request = [[AchieverUpdateMedalDetailRequest alloc] initWithMedalId:medalId medalType:type flag:flag];
+    AchieverUpdateMedalDetailRequest * request = [[AchieverUpdateMedalDetailRequest alloc] initWithMedalData:data atMedalIndex:index];
     [request setCallback:callback];
     [request start];
     return request;

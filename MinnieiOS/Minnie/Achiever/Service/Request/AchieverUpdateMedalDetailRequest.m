@@ -10,21 +10,17 @@
 
 @interface AchieverUpdateMedalDetailRequest()
 
-@property(nonatomic,assign)NSInteger medalId;
-@property(nonatomic,strong)NSString * type;
-@property(nonatomic,assign)NSInteger flag;
+@property(nonatomic,strong)UserMedalDetail * mData;
+@property(nonatomic,assign)NSInteger mIndex; //1 2 3代表铜银金
 @end
 
 @implementation AchieverUpdateMedalDetailRequest
 
-- (instancetype)initWithMedalId:(NSInteger)medalid
-                      medalType:(NSString *)type
-                           flag:(NSInteger)flag {
+- (instancetype)initWithMedalData:(UserMedalDetail *)data atMedalIndex:(NSInteger)index{
     self = [super init];
     if (self != nil) {
-        _medalId = medalid;
-        _type = type;
-        _flag = flag;
+        self.mData = data;
+        self.mIndex = index;
     }
     return self;
 }
@@ -39,9 +35,13 @@
 }
 
 - (id)requestArgument {
-    return @{@"id":@(self.medalId),
-             @"medalType":self.type,
-             @"flag":@(self.flag)};
+    return @{@"id":@(self.mData.medalId),
+             @"firstFlag":@(self.mData.firstFlag),
+             @"sencondFlag":@(self.mData.sencondFlag),
+             @"thirdFlag":@(self.mData.thirdFlag),
+             @"medalType":self.mData.medalType,
+             @"changeFlag":@(self.mIndex)
+             };
 }
 
 @end

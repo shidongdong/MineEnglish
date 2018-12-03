@@ -13,5 +13,5 @@
 
 @property (nonatomic, assign) NSUInteger userId;
 @property (nonatomic, strong) Clazz *clazz;
-
+@property (nonatomic, strong) NSString * userName;
 @end

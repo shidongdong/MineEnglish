@@ -29,12 +29,12 @@
 {
     self.homeworkClassesChildController = [[HomeworkSessionsViewController alloc] initWithNibName:NSStringFromClass([HomeworkSessionsViewController class]) bundle:nil];
     
-    if (self.currentFliterType == 0)
+    if (self.finished == 0)
     {
         self.homeworkClassesChildController.isUnfinished = YES;
         self.homeworkClassesChildController.bLoadConversion = YES;
     }
-    else if (self.currentFliterType == 1)
+    else if (self.finished == 1)
     {
         self.homeworkClassesChildController.isUnfinished = NO;
         self.homeworkClassesChildController.bLoadConversion = NO;

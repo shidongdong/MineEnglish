@@ -162,6 +162,10 @@
 		87CF0348218818FD00B6F574 /* StudentAwardService.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EC5207A7C1600568785 /* StudentAwardService.m */; };
 		87CF03492188191800B6F574 /* ExchangeRecordsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EC8207A7C1600568785 /* ExchangeRecordsRequest.m */; };
 		87CF034A2188193100B6F574 /* ExchangeAwardRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EC9207A7C1600568785 /* ExchangeAwardRequest.m */; };
+		87DBD63521B51D2B00EAC066 /* 警告图片@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87DBD63321B51D2600EAC066 /* 警告图片@2x.png */; };
+		87DBD63621B51D2B00EAC066 /* 警告图片@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87DBD63321B51D2600EAC066 /* 警告图片@2x.png */; };
+		87DBD63721B51D2B00EAC066 /* 警告图片@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87DBD63421B51D2700EAC066 /* 警告图片@3x.png */; };
+		87DBD63821B51D2B00EAC066 /* 警告图片@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87DBD63421B51D2700EAC066 /* 警告图片@3x.png */; };
 		87EED4A4219443E400AEA974 /* ChooseDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EED4A1219443E200AEA974 /* ChooseDatePickerView.m */; };
 		87EED4A5219443E400AEA974 /* ChooseDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EED4A1219443E200AEA974 /* ChooseDatePickerView.m */; };
 		87EED4A6219443E400AEA974 /* ChooseDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87EED4A2219443E200AEA974 /* ChooseDatePickerView.xib */; };
@@ -660,34 +664,6 @@
 		97109834207A006D00568785 /* label_phone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109655207A006D00568785 /* label_phone@2x.png */; };
 		97109835207A006D00568785 /* teacher@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109656207A006D00568785 /* teacher@2x.png */; };
 		97109836207A006D00568785 /* teacher@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109656207A006D00568785 /* teacher@2x.png */; };
-		971098D2207A0BF500568785 /* 心累.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710983A207A0BF500568785 /* 心累.png */; };
-		971098D3207A0BF500568785 /* 心累.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710983A207A0BF500568785 /* 心累.png */; };
-		971098D4207A0BF500568785 /* 报警.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710983B207A0BF500568785 /* 报警.png */; };
-		971098D5207A0BF500568785 /* 报警.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710983B207A0BF500568785 /* 报警.png */; };
-		971098D6207A0BF500568785 /* 送花.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710983C207A0BF500568785 /* 送花.png */; };
-		971098D7207A0BF500568785 /* 送花.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710983C207A0BF500568785 /* 送花.png */; };
-		971098D8207A0BF500568785 /* 懵逼.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710983D207A0BF500568785 /* 懵逼.png */; };
-		971098D9207A0BF500568785 /* 懵逼.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710983D207A0BF500568785 /* 懵逼.png */; };
-		971098DA207A0BF500568785 /* 呵呵.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710983E207A0BF500568785 /* 呵呵.png */; };
-		971098DB207A0BF500568785 /* 呵呵.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710983E207A0BF500568785 /* 呵呵.png */; };
-		971098DC207A0BF500568785 /* 喜欢.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710983F207A0BF500568785 /* 喜欢.png */; };
-		971098DD207A0BF500568785 /* 喜欢.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710983F207A0BF500568785 /* 喜欢.png */; };
-		971098DE207A0BF500568785 /* 吓到.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109840207A0BF500568785 /* 吓到.png */; };
-		971098DF207A0BF500568785 /* 吓到.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109840207A0BF500568785 /* 吓到.png */; };
-		971098E0207A0BF500568785 /* 不错.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109841207A0BF500568785 /* 不错.png */; };
-		971098E1207A0BF500568785 /* 不错.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109841207A0BF500568785 /* 不错.png */; };
-		971098E2207A0BF500568785 /* 吐血.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109842207A0BF500568785 /* 吐血.png */; };
-		971098E3207A0BF500568785 /* 吐血.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109842207A0BF500568785 /* 吐血.png */; };
-		971098E4207A0BF500568785 /* 笑哭.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109843207A0BF500568785 /* 笑哭.png */; };
-		971098E5207A0BF500568785 /* 笑哭.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109843207A0BF500568785 /* 笑哭.png */; };
-		971098E6207A0BF500568785 /* 熬夜.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109844207A0BF500568785 /* 熬夜.png */; };
-		971098E7207A0BF500568785 /* 熬夜.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109844207A0BF500568785 /* 熬夜.png */; };
-		971098E8207A0BF500568785 /* 乖巧.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109845207A0BF500568785 /* 乖巧.png */; };
-		971098E9207A0BF500568785 /* 乖巧.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109845207A0BF500568785 /* 乖巧.png */; };
-		971098EA207A0BF500568785 /* 同意.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109846207A0BF500568785 /* 同意.png */; };
-		971098EB207A0BF500568785 /* 同意.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109846207A0BF500568785 /* 同意.png */; };
-		971098EC207A0BF500568785 /* 点赞.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109847207A0BF500568785 /* 点赞.png */; };
-		971098ED207A0BF500568785 /* 点赞.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109847207A0BF500568785 /* 点赞.png */; };
 		971098EE207A0BF500568785 /* EmojiInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109849207A0BF500568785 /* EmojiInputView.m */; };
 		971098EF207A0BF500568785 /* EmojiInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109849207A0BF500568785 /* EmojiInputView.m */; };
 		971098F0207A0BF500568785 /* EmojiInputCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9710984A207A0BF500568785 /* EmojiInputCollectionViewCell.xib */; };
@@ -1438,6 +1414,8 @@
 		87C52FB42164AC59004288F4 /* WBGImageToolBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBGImageToolBase.m; sourceTree = "<group>"; };
 		87C52FBA2164FA58004288F4 /* corretHome_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "corretHome_select@2x.png"; sourceTree = "<group>"; };
 		87C52FBB2164FA58004288F4 /* corretHome_unselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "corretHome_unselect@2x.png"; sourceTree = "<group>"; };
+		87DBD63321B51D2600EAC066 /* 警告图片@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "警告图片@2x.png"; sourceTree = "<group>"; };
+		87DBD63421B51D2700EAC066 /* 警告图片@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "警告图片@3x.png"; sourceTree = "<group>"; };
 		87EED4A1219443E200AEA974 /* ChooseDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseDatePickerView.m; sourceTree = "<group>"; };
 		87EED4A2219443E200AEA974 /* ChooseDatePickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChooseDatePickerView.xib; sourceTree = "<group>"; };
 		87EED4A3219443E300AEA974 /* ChooseDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseDatePickerView.h; sourceTree = "<group>"; };
@@ -1694,20 +1672,6 @@
 		97109654207A006D00568785 /* chat_talk2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_talk2@3x.png"; sourceTree = "<group>"; };
 		97109655207A006D00568785 /* label_phone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "label_phone@2x.png"; sourceTree = "<group>"; };
 		97109656207A006D00568785 /* teacher@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "teacher@2x.png"; sourceTree = "<group>"; };
-		9710983A207A0BF500568785 /* 心累.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "心累.png"; sourceTree = "<group>"; };
-		9710983B207A0BF500568785 /* 报警.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "报警.png"; sourceTree = "<group>"; };
-		9710983C207A0BF500568785 /* 送花.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "送花.png"; sourceTree = "<group>"; };
-		9710983D207A0BF500568785 /* 懵逼.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "懵逼.png"; sourceTree = "<group>"; };
-		9710983E207A0BF500568785 /* 呵呵.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "呵呵.png"; sourceTree = "<group>"; };
-		9710983F207A0BF500568785 /* 喜欢.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "喜欢.png"; sourceTree = "<group>"; };
-		97109840207A0BF500568785 /* 吓到.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "吓到.png"; sourceTree = "<group>"; };
-		97109841207A0BF500568785 /* 不错.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "不错.png"; sourceTree = "<group>"; };
-		97109842207A0BF500568785 /* 吐血.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "吐血.png"; sourceTree = "<group>"; };
-		97109843207A0BF500568785 /* 笑哭.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "笑哭.png"; sourceTree = "<group>"; };
-		97109844207A0BF500568785 /* 熬夜.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "熬夜.png"; sourceTree = "<group>"; };
-		97109845207A0BF500568785 /* 乖巧.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "乖巧.png"; sourceTree = "<group>"; };
-		97109846207A0BF500568785 /* 同意.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "同意.png"; sourceTree = "<group>"; };
-		97109847207A0BF500568785 /* 点赞.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "点赞.png"; sourceTree = "<group>"; };
 		97109848207A0BF500568785 /* EmojiInputCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmojiInputCollectionViewCell.h; sourceTree = "<group>"; };
 		97109849207A0BF500568785 /* EmojiInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmojiInputView.m; sourceTree = "<group>"; };
 		9710984A207A0BF500568785 /* EmojiInputCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmojiInputCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -2564,6 +2528,8 @@
 		97109564207A006C00568785 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				87DBD63321B51D2600EAC066 /* 警告图片@2x.png */,
+				87DBD63421B51D2700EAC066 /* 警告图片@3x.png */,
 				872069C021AD2F2D00847713 /* btn_send_warning@2x.png */,
 				872069C121AD2F2D00847713 /* btn_send_warning@3x.png */,
 				8709C30B21A258B200970757 /* 卡片角标@2x.png */,
@@ -2893,20 +2859,6 @@
 		97109839207A0BF500568785 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				9710983A207A0BF500568785 /* 心累.png */,
-				9710983B207A0BF500568785 /* 报警.png */,
-				9710983C207A0BF500568785 /* 送花.png */,
-				9710983D207A0BF500568785 /* 懵逼.png */,
-				9710983E207A0BF500568785 /* 呵呵.png */,
-				9710983F207A0BF500568785 /* 喜欢.png */,
-				97109840207A0BF500568785 /* 吓到.png */,
-				97109841207A0BF500568785 /* 不错.png */,
-				97109842207A0BF500568785 /* 吐血.png */,
-				97109843207A0BF500568785 /* 笑哭.png */,
-				97109844207A0BF500568785 /* 熬夜.png */,
-				97109845207A0BF500568785 /* 乖巧.png */,
-				97109846207A0BF500568785 /* 同意.png */,
-				97109847207A0BF500568785 /* 点赞.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -4586,7 +4538,6 @@
 				971096FF207A006D00568785 /* chat_talk3@2x.png in Resources */,
 				97109A81207A171600568785 /* HomeworkVideoCollectionViewCell.xib in Resources */,
 				97109A48207A158C00568785 /* RightEmojiMessageTableViewCell.xib in Resources */,
-				971098EC207A0BF500568785 /* 点赞.png in Resources */,
 				971096F9207A006D00568785 /* 三圆角_遮罩@3x.png in Resources */,
 				971097A3207A006D00568785 /* 缺省插画_无作业@2x.png in Resources */,
 				97109D37207A2F0400568785 /* SettingsViewController.xib in Resources */,
@@ -4627,7 +4578,6 @@
 				9710971D207A006D00568785 /* 5星级@3x.png in Resources */,
 				979BBD52207FBC6800359253 /* EnrollTrialClassView.xib in Resources */,
 				8709C30121A24C7400970757 /* 第3名@2x.png in Resources */,
-				971098E2207A0BF500568785 /* 吐血.png in Resources */,
 				97109932207A0BF600568785 /* hud_ic_cancel@3x.png in Resources */,
 				97109D5B207A2F0400568785 /* CommentMessageTableViewCell.xib in Resources */,
 				97109D43207A2F0400568785 /* NoticeMessagesViewController.xib in Resources */,
@@ -4651,7 +4601,6 @@
 				8702868B2184113F00559195 /* navbar_screen@2x.png in Resources */,
 				971096A3207A006D00568785 /* btn_send_photo@2x.png in Resources */,
 				971096C3207A006D00568785 /* icon_warning@2x.png in Resources */,
-				971098DE207A0BF500568785 /* 吓到.png in Resources */,
 				97108E0D2079F54B00568785 /* LaunchScreen.storyboard in Resources */,
 				97109C36207A2E3E00568785 /* CircleMoreCommentsTableViewCell.xib in Resources */,
 				971096FD207A006D00568785 /* my_img_星兑换@3x.png in Resources */,
@@ -4686,7 +4635,6 @@
 				97109A70207A158C00568785 /* LeftTextMessageTableViewCell.xib in Resources */,
 				87C52FAE2164AC47004288F4 /* WBGImageEditorViewController.xib in Resources */,
 				97109835207A006D00568785 /* teacher@2x.png in Resources */,
-				971098D6207A0BF500568785 /* 送花.png in Resources */,
 				971097FF207A006D00568785 /* send_homework@3x.png in Resources */,
 				97109769207A006D00568785 /* icon_like_selected@2x.png in Resources */,
 				97109A60207A158C00568785 /* MessageTimeTableViewCell.xib in Resources */,
@@ -4697,9 +4645,9 @@
 				9710976F207A006D00568785 /* icon_mission_choice_disabled@3x.png in Resources */,
 				97109910207A0BF500568785 /* ProgressHUD.xib in Resources */,
 				97109A4E207A158C00568785 /* RightAudioMessageTableViewCell.xib in Resources */,
+				87DBD63721B51D2B00EAC066 /* 警告图片@3x.png in Resources */,
 				97109749207A006D00568785 /* btn_mission_send@3x.png in Resources */,
 				97109729207A006D00568785 /* ic_add_small@3x.png in Resources */,
-				971098D8207A0BF500568785 /* 懵逼.png in Resources */,
 				97109665207A006D00568785 /* 3星级@3x.png in Resources */,
 				97109739207A006D00568785 /* ic_stars_coupons_plat@2x.png in Resources */,
 				9710971F207A006D00568785 /* 4星级@3x.png in Resources */,
@@ -4762,7 +4710,6 @@
 				97109BCE207A1D5000568785 /* CalendarHeaderView.xib in Resources */,
 				971097A7207A006D00568785 /* buttonbar_correcting_active@2x.png in Resources */,
 				971097AD207A006D00568785 /* upload_photo@3x.png in Resources */,
-				971098DC207A0BF500568785 /* 喜欢.png in Resources */,
 				9710980F207A006D00568785 /* pop_img_welcome@3x.png in Resources */,
 				97109C40207A2E3E00568785 /* HomeworkDetailLikeUsersTableViewCell.xib in Resources */,
 				9710973D207A006D00568785 /* my_img_同学圈@2x.png in Resources */,
@@ -4781,7 +4728,6 @@
 				971097D3207A006D00568785 /* icon_talk@2x.png in Resources */,
 				971096AD207A006D00568785 /* label_drop@3x.png in Resources */,
 				97109A2C207A158C00568785 /* FinishedHomeworkSessionTableViewCell.xib in Resources */,
-				971098D4207A0BF500568785 /* 报警.png in Resources */,
 				97109C1A207A2E3E00568785 /* CircleContainerController.xib in Resources */,
 				97109797207A006D00568785 /* icon_like_selected@3x.png in Resources */,
 				97109661207A006D00568785 /* icon_class@2x.png in Resources */,
@@ -4800,7 +4746,6 @@
 				971096C5207A006D00568785 /* ic_cancel_white@2x.png in Resources */,
 				97109920207A0BF600568785 /* AlertView.xib in Resources */,
 				8709C2F521A24C7400970757 /* 第1名@3x.png in Resources */,
-				971098EA207A0BF500568785 /* 同意.png in Resources */,
 				97364A1620B16C0B00511A95 /* NetworkStateErrorView.xib in Resources */,
 				9710979D207A006D00568785 /* icon_choice@3x.png in Resources */,
 				97109C3A207A2E3E00568785 /* CircleLikeUsersTableViewCell.xib in Resources */,
@@ -4821,14 +4766,12 @@
 				9710966D207A006D00568785 /* btn_send_photo@3x.png in Resources */,
 				971096AF207A006D00568785 /* icon_class@3x.png in Resources */,
 				97109A5C207A158C00568785 /* RightTextMessageTableViewCell.xib in Resources */,
-				971098E0207A0BF500568785 /* 不错.png in Resources */,
 				9710968D207A006D00568785 /* icon_drop_small@2x.png in Resources */,
 				971097C3207A006D00568785 /* buttonbar_class_manager_active@3x.png in Resources */,
 				97109C74207A2EC900568785 /* ResetPasswordViewController.xib in Resources */,
 				97109D67207A2F0400568785 /* NoticeMessageImageItemTableViewCell.xib in Resources */,
 				9710967B207A006D00568785 /* my_ic_medal_nice@3x.png in Resources */,
 				971096D3207A006D00568785 /* ic_class_yellow@3x.png in Resources */,
-				971098DA207A0BF500568785 /* 呵呵.png in Resources */,
 				97109707207A006D00568785 /* buttonbar_my_unsel@3x.png in Resources */,
 				97109930207A0BF600568785 /* hud_ic_error@2x.png in Resources */,
 				971097C1207A006D00568785 /* right_chat_talk2@2x.png in Resources */,
@@ -4839,16 +4782,13 @@
 				9710981F207A006D00568785 /* pop_img_register@2x.png in Resources */,
 				971097C7207A006D00568785 /* inputBG@2x.png in Resources */,
 				971096A7207A006D00568785 /* pop_img_stars_un@3x.png in Resources */,
-				971098E8207A0BF500568785 /* 乖巧.png in Resources */,
 				8709C2FB21A24C7400970757 /* 第3名@3x.png in Resources */,
-				971098D2207A0BF500568785 /* 心累.png in Resources */,
 				97109781207A006D00568785 /* buttonbar_correcting_unsel@3x.png in Resources */,
 				97109A83207A171600568785 /* HomeworkImageCollectionViewCell.xib in Resources */,
 				9710979B207A006D00568785 /* splash_img_logo@3x.png in Resources */,
 				97109743207A006D00568785 /* login_img_logo@2x.png in Resources */,
 				9710978B207A006D00568785 /* label_key_step@2x.png in Resources */,
 				97109771207A006D00568785 /* icon_remark@3x.png in Resources */,
-				971098E6207A0BF500568785 /* 熬夜.png in Resources */,
 				971097C9207A006D00568785 /* buttonbar_class_unsel@2x.png in Resources */,
 				971098F0207A0BF500568785 /* EmojiInputCollectionViewCell.xib in Resources */,
 				97109711207A006D00568785 /* chat_talk3@3x.png in Resources */,
@@ -4889,7 +4829,6 @@
 				97109DEE207A5D9700568785 /* FullfillProfileViewController_Student.xib in Resources */,
 				97109745207A006D00568785 /* white_bottom_corner_bg@3x.png in Resources */,
 				97109A66207A158C00568785 /* LeftAudioMessageTableViewCell.xib in Resources */,
-				971098E4207A0BF500568785 /* 笑哭.png in Resources */,
 				879CE51A21905D0300BBE4B7 /* AchieverListViewController.xib in Resources */,
 				97109785207A006D00568785 /* pop_img_stars@2x.png in Resources */,
 				9710982D207A006D00568785 /* right_chat_talk2@3x.png in Resources */,
@@ -4952,6 +4891,7 @@
 				97109EDF207A7C1600568785 /* StudentAwardCollectionViewCell.xib in Resources */,
 				97109703207A006D00568785 /* right_chat_talk3@2x.png in Resources */,
 				97109679207A006D00568785 /* bottom_ic_pencil@3x.png in Resources */,
+				87DBD63521B51D2B00EAC066 /* 警告图片@2x.png in Resources */,
 				971096F5207A006D00568785 /* ic_cancel_white.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4984,7 +4924,6 @@
 				97109700207A006D00568785 /* chat_talk3@2x.png in Resources */,
 				97109A82207A171600568785 /* HomeworkVideoCollectionViewCell.xib in Resources */,
 				97109A49207A158C00568785 /* RightEmojiMessageTableViewCell.xib in Resources */,
-				971098ED207A0BF500568785 /* 点赞.png in Resources */,
 				97109D5E207A2F0400568785 /* NoticeMessageTextItemTableViewCell.xib in Resources */,
 				971096FA207A006D00568785 /* 三圆角_遮罩@3x.png in Resources */,
 				971097A4207A006D00568785 /* 缺省插画_无作业@2x.png in Resources */,
@@ -5023,7 +4962,6 @@
 				971096EC207A006D00568785 /* chat_talk1@3x.png in Resources */,
 				9710971E207A006D00568785 /* 5星级@3x.png in Resources */,
 				97109D6A207A2F0400568785 /* NoticeMessageHeadTableViewCell.xib in Resources */,
-				971098E3207A0BF500568785 /* 吐血.png in Resources */,
 				97109AE5207A1C0800568785 /* ClassesContainerController.xib in Resources */,
 				97109933207A0BF600568785 /* hud_ic_cancel@3x.png in Resources */,
 				971096D0207A006D00568785 /* navbar_calendar@3x.png in Resources */,
@@ -5046,7 +4984,6 @@
 				971096A4207A006D00568785 /* btn_send_photo@2x.png in Resources */,
 				971096C4207A006D00568785 /* icon_warning@2x.png in Resources */,
 				97109D72207A2F0400568785 /* MessagesViewController.xib in Resources */,
-				971098DF207A0BF500568785 /* 吓到.png in Resources */,
 				97108E1D2079F7A400568785 /* LaunchScreen.storyboard in Resources */,
 				971096FE207A006D00568785 /* my_img_星兑换@3x.png in Resources */,
 				97109658207A006D00568785 /* label_eye_display@3x.png in Resources */,
@@ -5078,7 +5015,6 @@
 				97109D76207A2F0400568785 /* ProfileTableViewCell.xib in Resources */,
 				97109A71207A158C00568785 /* LeftTextMessageTableViewCell.xib in Resources */,
 				97109836207A006D00568785 /* teacher@2x.png in Resources */,
-				971098D7207A0BF500568785 /* 送花.png in Resources */,
 				97109800207A006D00568785 /* send_homework@3x.png in Resources */,
 				9710976A207A006D00568785 /* icon_like_selected@2x.png in Resources */,
 				973649F820AF2F8600511A95 /* TagsViewController.xib in Resources */,
@@ -5092,7 +5028,6 @@
 				97109A4F207A158C00568785 /* RightAudioMessageTableViewCell.xib in Resources */,
 				9710974A207A006D00568785 /* btn_mission_send@3x.png in Resources */,
 				9710972A207A006D00568785 /* ic_add_small@3x.png in Resources */,
-				971098D9207A0BF500568785 /* 懵逼.png in Resources */,
 				97109B06207A1C0800568785 /* StudentsTableViewCell.xib in Resources */,
 				97109666207A006D00568785 /* 3星级@3x.png in Resources */,
 				9710973A207A006D00568785 /* ic_stars_coupons_plat@2x.png in Resources */,
@@ -5168,7 +5103,6 @@
 				9710965A207A006D00568785 /* icon_cancel@2x.png in Resources */,
 				971097A8207A006D00568785 /* buttonbar_correcting_active@2x.png in Resources */,
 				971097AE207A006D00568785 /* upload_photo@3x.png in Resources */,
-				971098DD207A0BF500568785 /* 喜欢.png in Resources */,
 				97109D92207A2F0400568785 /* TeacherTableViewCell.xib in Resources */,
 				97109DDE207A472800568785 /* LoginViewController_Student.xib in Resources */,
 				97109810207A006D00568785 /* pop_img_welcome@3x.png in Resources */,
@@ -5183,6 +5117,7 @@
 				971096BA207A006D00568785 /* icon_cancel@3x.png in Resources */,
 				87AF73032193D164003E87F0 /* StudentDetailCell.xib in Resources */,
 				971097FC207A006D00568785 /* add_image_bg@3x.png in Resources */,
+				87DBD63621B51D2B00EAC066 /* 警告图片@2x.png in Resources */,
 				97109690207A006D00568785 /* 加载动画05@3x.png in Resources */,
 				97109808207A006D00568785 /* gray_bottom_corner_bg@3x.png in Resources */,
 				971097D4207A006D00568785 /* icon_talk@2x.png in Resources */,
@@ -5191,7 +5126,6 @@
 				8702868E2184113F00559195 /* navbar_search@2x.png in Resources */,
 				97109C1D207A2E3E00568785 /* CircleHomeworkViewController.xib in Resources */,
 				97109A2D207A158C00568785 /* FinishedHomeworkSessionTableViewCell.xib in Resources */,
-				971098D5207A0BF500568785 /* 报警.png in Resources */,
 				97109798207A006D00568785 /* icon_like_selected@3x.png in Resources */,
 				973649D920AF2F8600511A95 /* ClassSelectorTableViewCell.xib in Resources */,
 				97109C49207A2E3E00568785 /* CircleBottomTableViewCell.xib in Resources */,
@@ -5217,7 +5151,6 @@
 				971096C6207A006D00568785 /* ic_cancel_white@2x.png in Resources */,
 				8709C30821A2507C00970757 /* 弹窗@3x.png in Resources */,
 				97109921207A0BF600568785 /* AlertView.xib in Resources */,
-				971098EB207A0BF500568785 /* 同意.png in Resources */,
 				9710979E207A006D00568785 /* icon_choice@3x.png in Resources */,
 				97109726207A006D00568785 /* ic_class_red@2x.png in Resources */,
 				97109D7C207A2F0400568785 /* TeachersViewController.xib in Resources */,
@@ -5243,7 +5176,6 @@
 				973649C720AF2F8600511A95 /* HomeworkTextTableViewCell.xib in Resources */,
 				97109DEF207A5D9700568785 /* FullfillProfileViewController_Student.xib in Resources */,
 				97109A5D207A158C00568785 /* RightTextMessageTableViewCell.xib in Resources */,
-				971098E1207A0BF500568785 /* 不错.png in Resources */,
 				8709C30421A24C7400970757 /* 第4名@3x.png in Resources */,
 				97109D46207A2F0400568785 /* MessageEditorViewController.xib in Resources */,
 				9710968E207A006D00568785 /* icon_drop_small@2x.png in Resources */,
@@ -5252,7 +5184,6 @@
 				870286922184113F00559195 /* navbar_search@3x.png in Resources */,
 				9710967C207A006D00568785 /* my_ic_medal_nice@3x.png in Resources */,
 				971096D4207A006D00568785 /* ic_class_yellow@3x.png in Resources */,
-				971098DB207A0BF500568785 /* 呵呵.png in Resources */,
 				97109D44207A2F0400568785 /* NoticeMessagesViewController.xib in Resources */,
 				97109708207A006D00568785 /* buttonbar_my_unsel@3x.png in Resources */,
 				97109931207A0BF600568785 /* hud_ic_error@2x.png in Resources */,
@@ -5266,9 +5197,7 @@
 				97109820207A006D00568785 /* pop_img_register@2x.png in Resources */,
 				971097C8207A006D00568785 /* inputBG@2x.png in Resources */,
 				971096A8207A006D00568785 /* pop_img_stars_un@3x.png in Resources */,
-				971098E9207A0BF500568785 /* 乖巧.png in Resources */,
 				8709C2FE21A24C7400970757 /* 第1名@2x.png in Resources */,
-				971098D3207A0BF500568785 /* 心累.png in Resources */,
 				97109782207A006D00568785 /* buttonbar_correcting_unsel@3x.png in Resources */,
 				97109A84207A171600568785 /* HomeworkImageCollectionViewCell.xib in Resources */,
 				973649DD20AF2F8600511A95 /* HomeworkManagerViewController.xib in Resources */,
@@ -5277,7 +5206,6 @@
 				9710978C207A006D00568785 /* label_key_step@2x.png in Resources */,
 				97109AFC207A1C0800568785 /* TextPickerView.xib in Resources */,
 				97109772207A006D00568785 /* icon_remark@3x.png in Resources */,
-				971098E7207A0BF500568785 /* 熬夜.png in Resources */,
 				97109D6E207A2F0400568785 /* NoticeMessageTableViewCell.xib in Resources */,
 				971097CA207A006D00568785 /* buttonbar_class_unsel@2x.png in Resources */,
 				8709C2F821A24C7400970757 /* 第2名@3x.png in Resources */,
@@ -5326,7 +5254,6 @@
 				97109A67207A158C00568785 /* LeftAudioMessageTableViewCell.xib in Resources */,
 				973649E620AF2F8600511A95 /* SelectTeacherView.xib in Resources */,
 				973649C520AF2F8600511A95 /* HomeworkAudioTableViewCell.xib in Resources */,
-				971098E5207A0BF500568785 /* 笑哭.png in Resources */,
 				97109D48207A2F0400568785 /* CommentMessagesViewController.xib in Resources */,
 				8709C2FA21A24C7400970757 /* 第2名@2x.png in Resources */,
 				97109786207A006D00568785 /* pop_img_stars@2x.png in Resources */,
@@ -5374,6 +5301,7 @@
 				9710980C207A006D00568785 /* ic_message_plat@3x.png in Resources */,
 				971097E0207A006D00568785 /* my_ic_medal_prefect@3x.png in Resources */,
 				97109734207A006D00568785 /* navbar_calendar@2x.png in Resources */,
+				87DBD63821B51D2B00EAC066 /* 警告图片@3x.png in Resources */,
 				97109D90207A2F0400568785 /* DeleteTeacherAlertView.xib in Resources */,
 				97109818207A006D00568785 /* icon_remark_small@3x.png in Resources */,
 				9710978E207A006D00568785 /* ic_search@2x.png in Resources */,

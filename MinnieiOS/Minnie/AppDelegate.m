@@ -47,6 +47,12 @@
     [AVOSCloud setApplicationId:@"JE1gHMgc1MJaTRCPFcz30F9E-gzGzoHsz" clientKey:@"Axlm6WN8mJ7j1ivtGjgHxGqb"];
     [AVOSCloud setAllLogsEnabled:YES];
     
+    if (@available(iOS 11.0, *)) {
+        UITableView.appearance.estimatedRowHeight = 0;
+        UITableView.appearance.estimatedSectionFooterHeight = 0;
+        UITableView.appearance.estimatedSectionHeaderHeight = 0;
+    }
+    
     //设置屏幕常亮不自动锁屏
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     

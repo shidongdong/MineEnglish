@@ -554,7 +554,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 
 - (IBAction)sendWarningButtonPressed:(id)sender {
     
-    [self sendImageMessageWithImage:[UIImage imageNamed:@"pop_img_register"]];
+    [self sendImageMessageWithImage:[UIImage imageNamed:@"警告图片"]];
 }
 
 

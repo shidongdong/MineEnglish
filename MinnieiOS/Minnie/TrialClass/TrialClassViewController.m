@@ -69,7 +69,7 @@
     
     Student *user = APP.currentUser;
     if (user.enrollState == 1) {
-        self.nextButton.hidden = YES;
+        [self.nextButton setTitle:@"报名审核中，请耐心等待..." forState:UIControlStateNormal];
     }
 }
 
@@ -92,7 +92,7 @@
 }
 
 - (void)showEnrolledAlertView {
-    self.nextButton.hidden = YES;
+    [self.nextButton setTitle:@"报名审核中，请耐心等待..." forState:UIControlStateNormal];
     
     [AlertView showInView:self.view
                 withImage:[UIImage imageNamed:@"pop_img_welcome"]
@@ -130,6 +130,12 @@
 }
 
 - (IBAction)nextButtonPressed:(id)sender {
+    Student *user = APP.currentUser;
+    if (user.enrollState == 1)
+    {
+        return;
+    }
+    
     [EnrollTrialClassView showInSuperView:self.view
                                  callback:^(NSString *name,
                                             NSString *grade,

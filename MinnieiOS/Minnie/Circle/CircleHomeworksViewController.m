@@ -31,6 +31,10 @@
         if (APP.currentUser.userId == self.userId) {
             self.customTitleLabel.text = @"我发布的";
         }
+        else
+        {
+            self.customTitleLabel.text = self.userName;
+        }
     }
 
     if (self.circleChildController == nil) {

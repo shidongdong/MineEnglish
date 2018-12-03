@@ -49,8 +49,8 @@ CGFloat const ClassTableViewCellHeight = 100.f;
 
     self.locationLabel.text = clazz.location;
     
-    self.circleCountLabel.text = [NSString stringWithFormat:@"%@", @(clazz.circleCount)];
-    self.postedHomeworksCountLabel.text = [NSString stringWithFormat:@"%@", @(clazz.homeworksCount)];
+    self.postedHomeworksCountLabel.text = [NSString stringWithFormat:@"%@", @(clazz.uncorrectedHomeworksCount)];
+    self.circleCountLabel.text = [NSString stringWithFormat:@"%@", @(clazz.homeworksCount - clazz.commitedHomeworksCount)];
 //    self.unhandledHomeworksCountLabel.text = [NSString stringWithFormat:@"%@", @(clazz.uncorrectedHomeworksCount)];
 }
 

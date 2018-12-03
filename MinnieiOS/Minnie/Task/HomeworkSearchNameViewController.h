@@ -10,7 +10,7 @@
 
 @interface HomeworkSearchNameViewController : BaseViewController
 
-@property (nonatomic, assign) NSInteger  currentFliterType;  //教师端： 0 按时间 1 按作业 2 按人
+@property (nonatomic, assign) NSInteger  finished;  //完成状态
 
 @end
 

@@ -7,11 +7,9 @@
 //
 
 #import "BaseRequest.h"
-
+#import "UserMedalDto.h"
 @interface AchieverUpdateMedalDetailRequest : BaseRequest
 
-- (instancetype)initWithMedalId:(NSInteger)medalid
-                      medalType:(NSString *)type
-                           flag:(NSInteger)flag;
+- (instancetype)initWithMedalData:(UserMedalDetail *)data atMedalIndex:(NSInteger)index;
 
 @end

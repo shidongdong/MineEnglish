@@ -22,6 +22,6 @@
 + (BaseRequest *)requestMedalDetailWithCallback:(RequestCallback)callback;
 
 //领取勋章
-+ (BaseRequest *)updateMedalWithMedalId:(NSInteger)medalId medalType:(NSString *)type medalFlag:(NSInteger)flag callback:(RequestCallback)callback;
++ (BaseRequest *)updateMedalWithMedalData:(UserMedalDetail *)data atMedalIndex:(NSInteger)index callback:(RequestCallback)callback;
 
 @end

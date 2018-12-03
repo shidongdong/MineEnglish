@@ -60,18 +60,18 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
     self.lastSessionLabel.preferredMaxLayoutWidth = ScreenWidth - 4 * 12.f - 56.f;
 }
 
-- (void)setLeftCommitHomeworkUI:(Homework *)homework
+- (void)setLeftCommitHomeworkUI:(HomeworkSession *)homeworkSession
 {
     self.cornerBgView.hidden = NO;
-    if (homework.level == 1)
+    if (homeworkSession.homework.level == 1)
     {
         self.diffcultLabel.text = @"简单";
     }
-    else if (homework.level == 2)
+    else if (homeworkSession.homework.level == 2)
     {
         self.diffcultLabel.text = @"一般";
     }
-    else if (homework.level == 3)
+    else if (homeworkSession.homework.level == 3)
     {
         self.diffcultLabel.text = @"困难";
     }
@@ -80,11 +80,11 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
         self.cornerBgView.hidden = YES;
     }
     NSInteger maxHours;
-    if (homework.style == 1)
+    if (homeworkSession.homework.style == 1)
     {
         maxHours = 48;
     }
-    else if (homework.style == 2)
+    else if (homeworkSession.homework.style == 2)
     {
         maxHours = 96;
     }
@@ -94,23 +94,23 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
     }
     
     //计算时间
-    NSInteger hours = [self calculateDeadlineHourForTime:homework.createTime];
+    NSInteger hours = [self calculateDeadlineHourForTime:homeworkSession.sendTime];
     
     if (hours <= maxHours)
     {
         self.unfinishTipLabel.text = @"距离提交";
-        self.unfinishTimeBgView.backgroundColor = [UIColor greenColor];
+        self.unfinishTimeBgView.backgroundColor = [UIColor colorWithHex:0X00CE00];
     }
     else
     {
         self.unfinishTipLabel.text = @"距离过期";
         if (hours <= 144)
         {
-            self.unfinishTimeBgView.backgroundColor = [UIColor yellowColor];
+            self.unfinishTimeBgView.backgroundColor = [UIColor colorWithHex:0XFFAD27];
         }
         else
         {
-            self.unfinishTimeBgView.backgroundColor = [UIColor redColor];
+            self.unfinishTimeBgView.backgroundColor = [UIColor colorWithHex:0XFF4858];
         }
         
         maxHours = 168;
@@ -168,10 +168,24 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
     [self.avatarImageView sd_setImageWithURL:[homeworkSession.correctTeacher.avatarUrl imageURLWithWidth:44.f]];
     if ([self.reuseIdentifier isEqualToString:@"UnfinishedStudentHomeworkSessionTableViewCellId"])
     {
-        [self setLeftCommitHomeworkUI:homeworkSession.homework];
+        [self setLeftCommitHomeworkUI:homeworkSession];
+        
+        NSString * attrStr = item.text?[NSString stringWithFormat:@"[%@]%@",homeworkSession.homework.formTag,item.text]:[NSString stringWithFormat:@"[%@][无文字内容]",homeworkSession.homework.formTag];
+        NSMutableAttributedString * mAttribute = [[NSMutableAttributedString alloc] initWithString:attrStr];
+        [mAttribute addAttribute:NSForegroundColorAttributeName
+                           value:[UIColor colorWithHex:0X0098FE]
+                           range:NSMakeRange(0, homeworkSession.homework.formTag.length + 2)];
+//        [mAttribute addAttribute:NSStrokeColorAttributeName
+//                           value:[UIColor colorWithHex:0X666666]
+//                           range:NSMakeRange(homeworkSession.homework.formTag.length + 2, attrStr.length - homeworkSession.homework.formTag.length - 2)];
+
+        self.homeworkTitleLabel.attributedText = mAttribute;
+    }
+    else
+    {
+        self.homeworkTitleLabel.text = item.text?:@"[无文字内容]";
     }
     
-    self.homeworkTitleLabel.text = item.text?:@"[无文字内容]";
     
     if (homeworkSession.shouldColorLastSessionContent) {
         self.lastSessionLabel.textColor = [UIColor redColor];
