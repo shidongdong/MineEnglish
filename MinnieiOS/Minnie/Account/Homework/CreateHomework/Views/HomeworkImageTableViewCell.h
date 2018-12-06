@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^HomeworkImageTableViewCellDeleteCallback)(void);
+typedef void(^HomeworkImageTableViewCellDeleteCallback)(BOOL);
 
 extern NSString * const HomeworkImageTableViewCellId;
 extern CGFloat const HomeworkImageTableViewCellHeight;

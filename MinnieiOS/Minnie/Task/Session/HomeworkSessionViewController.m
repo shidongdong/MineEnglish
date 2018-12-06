@@ -37,6 +37,7 @@
 #import "StudentDetailViewController.h"
 #import "AudioPlayer.h"
 #import "VIResourceLoaderManager.h"
+#import "AudioPlayerViewController.h"
 static NSString * const kKeyOfCreateTimestamp = @"createTimestamp";
 static NSString * const kKeyOfAudioDuration = @"audioDuration";
 static NSString * const kKeyOfVideoDuration = @"videoDuration";
@@ -1200,6 +1201,24 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     [playerViewController.player play];
 }
 
+- (void)playAudioWithURL:(NSString *)url withCoverURL:(NSString *)coverUrl
+{
+    [self.inputTextView resignFirstResponder];
+    
+    [[AudioPlayer sharedPlayer] stop];
+    
+    AudioPlayerViewController *playerViewController = [[AudioPlayerViewController alloc]init];
+    VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
+    self.resourceLoaderManager = resourceLoaderManager;
+    AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
+    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
+    playerViewController.player = player;
+    [playerViewController setOverlyViewCoverUrl:coverUrl];
+    [self presentViewController:playerViewController animated:YES completion:nil];
+    playerViewController.view.frame = self.view.frame;
+    [playerViewController.player play];
+}
+
 - (void)resizeInputTextView {
     NSInteger lines = [self.inputTextView sizeThatFits:self.inputTextView.frame.size].height / self.inputTextView.font.lineHeight;
     CGFloat height = lines * self.inputTextView.font.lineHeight;
@@ -1523,6 +1542,10 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             weakSelf.currentImageUrl = imageUrl;
             
             [weakSelf showCurrentSelectedImage];
+        }];
+        
+        [cell setAudioCallback:^(NSString * audioUrl, NSString * audioCoverUrl) {
+            [weakSelf playAudioWithURL:audioUrl withCoverURL:audioCoverUrl];
         }];
         
         return cell;

@@ -22,12 +22,13 @@ NSString * const HomeworkItemTypeImage = @"image";
     return @{@"type":@"type",
              @"text":@"text",
              @"audioUrl":@"audioUrl",
-             @"audioDuration":@"audioDuration",
+             @"audioCoverUrl":@"audioCoverUrl",
              @"videoUrl":@"videoUrl",
              @"videoCoverUrl":@"videoCoverUrl",
              @"imageUrl":@"imageUrl",
              @"imageWidth":@"imageWidth",
-             @"imageHeight":@"imageHeight"
+             @"imageHeight":@"imageHeight",
+             @"itemTime":@"itemTime"
              };
 }
 

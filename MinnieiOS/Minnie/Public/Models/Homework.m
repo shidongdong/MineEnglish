@@ -63,7 +63,7 @@
             itemDict[@"text"] = item.text;
         } else if ([item.type isEqualToString:HomeworkItemTypeAudio]) {
             itemDict[@"audioUrl"] = item.audioUrl;
-            itemDict[@"audioDuration"] = @(item.audioDuration);
+            itemDict[@"audioCoverUrl"] = item.audioCoverUrl;
         } else if ([item.type isEqualToString:HomeworkItemTypeVideo]) {
             itemDict[@"videoUrl"] = item.videoUrl;
             itemDict[@"videoCoverUrl"] = item.videoCoverUrl;
@@ -84,7 +84,10 @@
         if ([item.type isEqualToString:HomeworkItemTypeVideo]) {
             itemDict[@"videoUrl"] = item.videoUrl;
             itemDict[@"videoCoverUrl"] = item.videoCoverUrl;
-        } else if ([item.type isEqualToString:HomeworkItemTypeImage]) {
+        }else if ([item.type isEqualToString:HomeworkItemTypeAudio]) {
+            itemDict[@"audioUrl"] = item.audioUrl;
+            itemDict[@"audioCoverUrl"] = item.audioCoverUrl;
+        }else if ([item.type isEqualToString:HomeworkItemTypeImage]) {
             itemDict[@"imageUrl"] = item.imageUrl;
             itemDict[@"imageWidth"] = @(item.imageWidth);
             itemDict[@"imageHeight"] = @(item.imageHeight);

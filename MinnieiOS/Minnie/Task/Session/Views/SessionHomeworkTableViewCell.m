@@ -23,6 +23,7 @@ NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCell
 
 @property (nonatomic, weak) IBOutlet UILabel *homeworkTextLabel;
 @property (nonatomic, weak) IBOutlet UICollectionView *homeworksCollectionView;
+@property (weak, nonatomic) IBOutlet UILabel *limitTimeLabel;
 
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *collectionViewHeightConstraint;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *collectionViewBottomConstraint;
@@ -68,6 +69,21 @@ NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCell
     }
     
     self.homeworkTextLabel.text = text;
+    
+    NSInteger min = homeworkSession.homework.limitTimes / 60;
+    NSInteger sec = homeworkSession.homework.limitTimes % 60;
+    
+    NSString * time;
+    if (sec == 0)
+    {
+        time = [NSString stringWithFormat:@"%ld分钟内",(long)min];
+    }
+    else
+    {
+        time = [NSString stringWithFormat:@"%ld分%02ld秒内",(long)min,(long)sec];
+    }
+    self.limitTimeLabel.text = [NSString stringWithFormat:@"规定时间:%@",time];
+    
     self.dateLabel.text = [Utils formatedDateString:self.homeworkSession.sendTime];
     
     if (homeworkSession.homework.items.count == 1) {
@@ -168,7 +184,7 @@ NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCell
         }
     } else if ([item.type isEqualToString:HomeworkItemTypeAudio]) {
         if (self.audioCallback != nil) {
-            self.audioCallback(item.audioUrl);
+            self.audioCallback(item.audioUrl,item.audioCoverUrl);
         }
     }
 }

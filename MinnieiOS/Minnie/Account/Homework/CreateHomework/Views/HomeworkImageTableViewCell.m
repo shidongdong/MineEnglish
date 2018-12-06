@@ -36,7 +36,13 @@ CGFloat const HomeworkImageTableViewCellHeight = 112.f;
 
 - (IBAction)deleteButtonPressed:(id)sender {
     if (self.deleteCallback != nil) {
-        self.deleteCallback();
+        self.deleteCallback(YES);
+    }
+}
+
+- (IBAction)addButtonPressed:(id)sender {
+    if (self.deleteCallback != nil) {
+        self.deleteCallback(NO);
     }
 }
 

@@ -28,7 +28,7 @@ NSString * const HomeworkAudioCollectionViewCellId = @"HomeworkAudioCollectionVi
 }
 
 - (void)setupWithHomeworkItem:(HomeworkItem *)item name:(NSString *)name {
-    self.audioDurationLabel.text = [NSString stringWithFormat:@"%.fs", item.audioDuration];
+//    self.audioDurationLabel.text = [NSString stringWithFormat:@"%.fs", item.audioDuration];
     self.homeworkLabel.text = name;
 }
 

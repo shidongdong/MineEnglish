@@ -36,6 +36,10 @@
     } else if (type == UploadFileTypeVideo) {
         extension = @"mp4";
     }
+    else if (type == UploadFileTypeAudio_Mp3)
+    {
+        extension = @"mp3";
+    }
 
     NSString *name = [[NSUUID UUID].UUIDString stringByAppendingPathExtension:extension];
     self.file = [AVFile fileWithData:data name:name];

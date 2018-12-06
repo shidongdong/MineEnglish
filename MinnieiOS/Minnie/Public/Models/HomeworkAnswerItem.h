@@ -19,6 +19,9 @@ extern NSString * const HomeworkAnswerItemTypeImage;
 @property (nonatomic, copy) NSString *videoUrl;
 @property (nonatomic, copy) NSString *videoCoverUrl;
 
+@property (nonatomic, copy) NSString * audioUrl;
+@property (nonatomic, copy) NSString * audioCoverUrl;
+
 @property (nonatomic, copy) NSString *imageUrl;
 @property (nonatomic, assign) NSInteger imageWidth;
 @property (nonatomic, assign) NSInteger imageHeight;

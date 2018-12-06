@@ -20,8 +20,8 @@ extern NSString * const HomeworkItemTypeImage;
 
 @property (nonatomic, copy) NSString *text;
 
-@property (nonatomic, copy) NSString *audioUrl;
-@property (nonatomic, assign) CGFloat audioDuration;
+@property (nonatomic, copy) NSString * audioUrl;
+@property (nonatomic, copy) NSString * audioCoverUrl;
 
 @property (nonatomic, copy) NSString *videoUrl;
 @property (nonatomic, copy) NSString *videoCoverUrl;
@@ -30,6 +30,7 @@ extern NSString * const HomeworkItemTypeImage;
 @property (nonatomic, assign) NSInteger imageWidth;
 @property (nonatomic, assign) NSInteger imageHeight;
 
+@property (nonatomic, assign) NSInteger itemTime;
 
 @end
 

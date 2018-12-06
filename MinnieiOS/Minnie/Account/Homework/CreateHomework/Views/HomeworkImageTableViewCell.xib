@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -38,19 +38,32 @@
                             <action selector="deleteButtonPressed:" destination="byU-2a-5qq" eventType="touchUpInside" id="cWE-7S-TaH"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ddH-HF-MA3">
+                        <rect key="frame" x="224" y="38" width="48" height="48"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="48" id="wNV-jy-8F0"/>
+                            <constraint firstAttribute="height" constant="48" id="zAI-KW-8km"/>
+                        </constraints>
+                        <state key="normal" image="ic_remove_plat.png"/>
+                        <connections>
+                            <action selector="addButtonPressed:" destination="byU-2a-5qq" eventType="touchUpInside" id="rJU-VQ-BhA"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="2HP-hc-2sl" firstAttribute="top" secondItem="dkH-eK-lum" secondAttribute="top" constant="12" id="4PH-jS-Qz7"/>
                     <constraint firstAttribute="trailing" secondItem="3RW-1z-4pi" secondAttribute="trailing" id="4ym-mI-gDC"/>
                     <constraint firstItem="2HP-hc-2sl" firstAttribute="leading" secondItem="dkH-eK-lum" secondAttribute="leading" constant="12" id="Ixc-0S-77t"/>
+                    <constraint firstItem="3RW-1z-4pi" firstAttribute="centerY" secondItem="ddH-HF-MA3" secondAttribute="centerY" id="KAN-Pf-efM"/>
                     <constraint firstItem="3RW-1z-4pi" firstAttribute="centerY" secondItem="2HP-hc-2sl" secondAttribute="centerY" id="Yti-NG-mz4"/>
+                    <constraint firstItem="3RW-1z-4pi" firstAttribute="leading" secondItem="ddH-HF-MA3" secondAttribute="trailing" id="w7l-mb-6Lj"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="MiA-Td-xTl"/>
             <connections>
                 <outlet property="coverImageView" destination="2HP-hc-2sl" id="GOO-ww-cob"/>
             </connections>
-            <point key="canvasLocation" x="34" y="91.5"/>
+            <point key="canvasLocation" x="33.600000000000001" y="90.854572713643179"/>
         </tableViewCell>
     </objects>
     <resources>

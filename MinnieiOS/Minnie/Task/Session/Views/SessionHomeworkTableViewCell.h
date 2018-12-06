@@ -11,7 +11,7 @@
 
 typedef void(^SessionHomeworkTableViewCellClickImageCallback)(NSString *, UIImageView *);
 typedef void(^SessionHomeworkTableViewCellClickVideoCallback)(NSString *);
-typedef void(^SessionHomeworkTableViewCellClickAudioCallback)(NSString *);
+typedef void(^SessionHomeworkTableViewCellClickAudioCallback)(NSString *, NSString *);
 
 extern NSString * const SessionHomeworkTableViewCellId;
 

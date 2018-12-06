@@ -113,25 +113,30 @@
 - (void)showAlertMedalInfo:(UserMedalDetail *)data withPic:(UserMedalPics *)pics atIndex:(NSInteger)index
 {
     NSString * picURL;
+    NSInteger starCount = 0;
+    
     switch (index) {
         case 0:
             picURL = pics.firstPicB;
             data.firstFlag = 2;
+            starCount = 5;
             break;
         case 1:
             picURL = pics.secondPicB;
             data.sencondFlag = 2;
+            starCount = 20;
             break;
         case 2:
             picURL = pics.thirdPicB;
             data.thirdFlag = 2;
+            starCount = 50;
             break;
     }
     WeakifySelf;
     [AlertView showInView:self.view
              withImageURL:picURL
                     title:[NSString stringWithFormat:@"%@勋章已达成",data.medalType]
-                  message:@"奖励100颗星星"
+                  message:[NSString stringWithFormat:@"奖励%zd颗星星",starCount]
                    action:@"确定"
            actionCallback:^{
                [weakSelf receiveMedalForData:data atMedalIndex:index];

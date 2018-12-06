@@ -20,9 +20,12 @@ NSString * const HomeworkAnswerItemTypeImage = @"image";
     return @{@"type":@"type",
              @"videoUrl":@"videoUrl",
              @"videoCoverUrl":@"videoCoverUrl",
+             @"audioUrl":@"audioUrl",
+             @"audioCoverUrl":@"audioCoverUrl",
              @"imageUrl":@"imageUrl",
              @"imageWidth":@"imageWidth",
-             @"imageHeight":@"imageHeight"
+             @"imageHeight":@"imageHeight",
+             @"itemTime":@"itemTime"
              };
 }
 

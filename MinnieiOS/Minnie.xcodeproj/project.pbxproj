@@ -111,6 +111,8 @@
 		87707876219ABAE900940A88 /* HomeworkSendLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 87707875219ABAE900940A88 /* HomeworkSendLog.m */; };
 		87707877219ABAE900940A88 /* HomeworkSendLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 87707875219ABAE900940A88 /* HomeworkSendLog.m */; };
 		87707878219BB62500940A88 /* HomeWorkSendHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87028696218436F600559195 /* HomeWorkSendHistoryViewController.m */; };
+		87915A3621B933BC006C1BFD /* AudioPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87915A3521B933BC006C1BFD /* AudioPlayerViewController.m */; };
+		87915A3721B933BC006C1BFD /* AudioPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87915A3521B933BC006C1BFD /* AudioPlayerViewController.m */; };
 		879CE51821905D0300BBE4B7 /* AchieverListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE51621905D0300BBE4B7 /* AchieverListViewController.m */; };
 		879CE51921905D0300BBE4B7 /* AchieverListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE51621905D0300BBE4B7 /* AchieverListViewController.m */; };
 		879CE51A21905D0300BBE4B7 /* AchieverListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879CE51721905D0300BBE4B7 /* AchieverListViewController.xib */; };
@@ -1372,6 +1374,8 @@
 		87707870219AB5BA00940A88 /* SendHomeworkHistoryRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SendHomeworkHistoryRequest.m; sourceTree = "<group>"; };
 		87707874219ABAE900940A88 /* HomeworkSendLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeworkSendLog.h; sourceTree = "<group>"; };
 		87707875219ABAE900940A88 /* HomeworkSendLog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeworkSendLog.m; sourceTree = "<group>"; };
+		87915A3421B933BC006C1BFD /* AudioPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioPlayerViewController.h; sourceTree = "<group>"; };
+		87915A3521B933BC006C1BFD /* AudioPlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioPlayerViewController.m; sourceTree = "<group>"; };
 		879CE510218BF47600BBE4B7 /* FileProvider.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FileProvider.framework; path = System/Library/Frameworks/FileProvider.framework; sourceTree = SDKROOT; };
 		879CE512218BF47E00BBE4B7 /* FileProviderUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FileProviderUI.framework; path = System/Library/Frameworks/FileProviderUI.framework; sourceTree = SDKROOT; };
 		879CE51521905D0300BBE4B7 /* AchieverListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AchieverListViewController.h; sourceTree = "<group>"; };
@@ -3204,6 +3208,8 @@
 				872069CA21AF8D1200847713 /* HomeworkSearchNameViewController.h */,
 				872069CB21AF8D1200847713 /* HomeworkSearchNameViewController.m */,
 				872069CC21AF8D1200847713 /* HomeworkSearchNameViewController.xib */,
+				87915A3421B933BC006C1BFD /* AudioPlayerViewController.h */,
+				87915A3521B933BC006C1BFD /* AudioPlayerViewController.m */,
 				971099DE207A158C00568785 /* View */,
 				971099E4207A158C00568785 /* Service */,
 				971099FB207A158C00568785 /* Session */,
@@ -4491,6 +4497,9 @@
 							com.apple.Push = {
 								enabled = 1;
 							};
+							com.apple.iCloud = {
+								enabled = 0;
+							};
 						};
 					};
 				};
@@ -5534,6 +5543,7 @@
 				97109A5A207A158C00568785 /* AudioRecordingView.m in Sources */,
 				97109D3B207A2F0400568785 /* NoticeMessagesViewController.m in Sources */,
 				97364A1A20B1704900511A95 /* MessageUpdateCountRequest.m in Sources */,
+				87915A3621B933BC006C1BFD /* AudioPlayerViewController.m in Sources */,
 				87707876219ABAE900940A88 /* HomeworkSendLog.m in Sources */,
 				870286272181B2EB00559195 /* SearchHomeworkScoreRequest.m in Sources */,
 				97109D63207A2F0400568785 /* NoticeMessageHeadTableViewCell.m in Sources */,
@@ -5967,6 +5977,7 @@
 				875C2626218AAB0B0047E32A /* SegementLabelsView.m in Sources */,
 				97109D9A207A2F0400568785 /* UpdateProfileRequest.m in Sources */,
 				97109A4B207A158C00568785 /* ImageMessageTableViewCell.m in Sources */,
+				87915A3721B933BC006C1BFD /* AudioPlayerViewController.m in Sources */,
 				97109961207A0BF600568785 /* Application.m in Sources */,
 				97109A63207A158C00568785 /* AudioMessageTableViewCell.m in Sources */,
 				97109D4E207A2F0400568785 /* MessageService.m in Sources */,
