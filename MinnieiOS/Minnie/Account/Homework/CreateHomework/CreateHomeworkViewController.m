@@ -864,8 +864,8 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         else if ([type isEqualToString:HomeworkItemTypeAudio]) {
             
             HomeworkVideoTableViewCell *audioCell = [tableView dequeueReusableCellWithIdentifier:HomeworkVideoTableViewCellId forIndexPath:indexPath];
-            [audioCell setupWithVideoUrl:item.audioUrl coverUrl:item.audioCoverUrl];
-            
+            [audioCell setupWithAudioUrl:item.audioUrl coverUrl:item.audioCoverUrl];
+
             WeakifySelf;
             [audioCell setDeleteCallback:^{
                 [weakSelf deleteItem:item];
@@ -928,7 +928,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         else if ([type isEqualToString:HomeworkItemTypeAudio]) {
             
             HomeworkVideoTableViewCell *audioCell = [tableView dequeueReusableCellWithIdentifier:HomeworkVideoTableViewCellId forIndexPath:indexPath];
-            [audioCell setupWithVideoUrl:item.audioUrl coverUrl:item.audioCoverUrl];
+            [audioCell setupWithAudioUrl:item.audioUrl coverUrl:item.audioCoverUrl];
             
             WeakifySelf;
             [audioCell setDeleteCallback:^{

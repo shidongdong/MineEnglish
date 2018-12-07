@@ -19,8 +19,12 @@ extern CGFloat const HomeworkVideoTableViewCellHeight;
 @property (nonatomic, copy) HomeworkVideoTableViewCellPlayCallback playCallback;
 @property (nonatomic, copy) HomeworkVideoTableViewCellDeleteCallback deleteCallback;
 
+//设置视频
 - (void)setupWithVideoUrl:(NSString *)videoUrl
                  coverUrl:(NSString *)coverUrl;
 
+//设置音频
+- (void)setupWithAudioUrl:(NSString *)videoUrl
+                 coverUrl:(NSString *)coverUrl;
 @end
 

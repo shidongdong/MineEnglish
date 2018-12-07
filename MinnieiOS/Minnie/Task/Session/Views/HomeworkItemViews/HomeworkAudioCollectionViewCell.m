@@ -7,7 +7,7 @@
 //
 
 #import "HomeworkAudioCollectionViewCell.h"
-
+#import <SDWebImage/UIImageView+WebCache.h>
 NSString * const HomeworkAudioCollectionViewCellId = @"HomeworkAudioCollectionViewCellId";
 
 @interface HomeworkAudioCollectionViewCell()
@@ -30,6 +30,11 @@ NSString * const HomeworkAudioCollectionViewCellId = @"HomeworkAudioCollectionVi
 - (void)setupWithHomeworkItem:(HomeworkItem *)item name:(NSString *)name {
 //    self.audioDurationLabel.text = [NSString stringWithFormat:@"%.fs", item.audioDuration];
     self.homeworkLabel.text = name;
+    if (item.audioCoverUrl.length > 0)
+    {
+        [self.homeworkImageView sd_setImageWithURL:[item.audioCoverUrl imageURLWithWidth:90] placeholderImage:[UIImage imageNamed:@"attachment_placeholder"]];
+    }
+    
 }
 
 + (CGSize)cellSize {
