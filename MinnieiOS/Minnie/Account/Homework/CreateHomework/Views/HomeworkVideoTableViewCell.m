@@ -35,11 +35,7 @@ CGFloat const HomeworkVideoTableViewCellHeight = 112.f;
     [self.videoCoverImageView sd_setImageWithURL:[videoUrl videoCoverUrlWithWidth:182 height:100]];
 }
 
-- (void)setupWithAudioUrl:(NSString *)videoUrl
-                 coverUrl:(NSString *)coverUrl {
-    self.videoUrl = videoUrl;
-    [self.videoCoverImageView sd_setImageWithURL:[coverUrl imageURLWithWidth:182.0]];
-}
+
 
 - (IBAction)playButtonPressed:(id)sender {
     if (self.playCallback != nil) {

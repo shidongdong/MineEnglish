@@ -16,6 +16,7 @@ typedef void(^HomeworkTableViewCellSelectCallback)(void);
 
 typedef void(^HomeworkTableViewCellClickImageCallback)(UIImageView *, NSString *);
 typedef void(^HomeworkTableViewCellClickVideoCallback)(NSString *);
+typedef void(^HomeworkTableViewCellClickAudioCallback)(NSString *, NSString *);
 
 @interface HomeworkTableViewCell : UITableViewCell
 
@@ -24,6 +25,7 @@ typedef void(^HomeworkTableViewCellClickVideoCallback)(NSString *);
 
 @property (nonatomic, copy) HomeworkTableViewCellClickImageCallback imageCallback;
 @property (nonatomic, copy) HomeworkTableViewCellClickVideoCallback videoCallback;
+@property (nonatomic, copy) HomeworkTableViewCellClickAudioCallback audioCallback;
 
 - (void)setupWithHomework:(Homework *)homework;
 - (void)updateWithEditMode:(BOOL)editMode selected:(BOOL)selected;

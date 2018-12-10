@@ -164,7 +164,14 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
     }
     
 #else
-    self.nameLabel.text = homeworkSession.correctTeacher.nickname;
+    if (homeworkSession.rankByDay.length == 0)
+    {
+        self.nameLabel.text = homeworkSession.correctTeacher.nickname;
+    }
+    else
+    {
+        self.nameLabel.text = homeworkSession.rankByDay;
+    }
     [self.avatarImageView sd_setImageWithURL:[homeworkSession.correctTeacher.avatarUrl imageURLWithWidth:44.f]];
     if ([self.reuseIdentifier isEqualToString:@"UnfinishedStudentHomeworkSessionTableViewCellId"])
     {

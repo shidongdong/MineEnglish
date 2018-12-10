@@ -15,6 +15,8 @@ NSString * const HomeworkAudioCollectionViewCellId = @"HomeworkAudioCollectionVi
 @property (nonatomic, weak) IBOutlet UIImageView *homeworkImageView;
 @property (nonatomic, weak) IBOutlet UILabel *audioDurationLabel;
 @property (nonatomic, weak) IBOutlet UILabel *homeworkLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *bigTalkImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *smallTalkImageView;
 
 @end
 
@@ -32,7 +34,18 @@ NSString * const HomeworkAudioCollectionViewCellId = @"HomeworkAudioCollectionVi
     self.homeworkLabel.text = name;
     if (item.audioCoverUrl.length > 0)
     {
+        self.audioDurationLabel.hidden = YES;
+        self.bigTalkImageView.hidden = YES;
+        self.smallTalkImageView.hidden = NO;
+        
         [self.homeworkImageView sd_setImageWithURL:[item.audioCoverUrl imageURLWithWidth:90] placeholderImage:[UIImage imageNamed:@"attachment_placeholder"]];
+    }
+    else
+    {
+        self.audioDurationLabel.hidden = NO;
+        self.bigTalkImageView.hidden = NO;
+        self.smallTalkImageView.hidden = YES;
+        [self.homeworkImageView sd_setImageWithURL:nil];
     }
     
 }

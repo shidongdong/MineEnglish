@@ -17,6 +17,7 @@ static NSString * KeyOfUnfinishHomeWorkSession = @"KeyOfUnfinishHomeWorkSession"
 static NSString * KeyOfFinishHomeWorkSession = @"KeyOfFinishHomeWorkSession";
 static NSString * KeyOfUnCommitHomeWorkSession = @"KeyOfUnCommitHomeWorkSession";
 static NSString * KeyOfCircleList = @"KeyOfCircleList";
+static NSString * KeyOfUserGuide = @"KeyOfUserGuide";
 @interface Application() {
 #if TEACHERSIDE
     Teacher *_currentUser;
@@ -78,6 +79,17 @@ static NSString * KeyOfCircleList = @"KeyOfCircleList";
     }
     [[NSUserDefaults standardUserDefaults] setObject:data forKey:KeyOfCurrentUser];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+//用户指引
+- (void)setUserGuide:(BOOL)userGuide
+{
+    [[NSUserDefaults standardUserDefaults] setObject:@(userGuide) forKey:KeyOfUserGuide];
+}
+
+- (BOOL)userGuide
+{
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:KeyOfUserGuide] boolValue];
 }
 
 - (NSString *)lastLoginUsename {

@@ -38,6 +38,8 @@
 
 @property (nonatomic, assign) long long sortTime; // 用来排序的
 @property (nonatomic, assign) NSInteger isRedo; //重做
+@property (nonatomic, copy) NSString * rankByDay;  //xx日第几次作业
+
 @end
 
 

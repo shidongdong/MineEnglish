@@ -19,7 +19,8 @@
 #import "NEPhotoBrowser.h"
 #import <AVKit/AVKit.h>
 #import "HomeWorkSendHistoryViewController.h"
-
+#import "AudioPlayerViewController.h"
+#import "VIResourceLoaderManager.h"
 @interface HomeworkManagerViewController ()<UITableViewDataSource, UITableViewDelegate, NEPhotoBrowserDataSource, NEPhotoBrowserDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *homeworksTableView;
@@ -49,7 +50,7 @@
 @property (nonatomic, strong) NEPhotoBrowser *photoBrowser;
 @property (nonatomic, weak) UIImageView *currentSelectedImageView;
 @property (nonatomic, weak) NSString *currentSelectedImageUrl;
-
+@property (nonatomic, strong) VIResourceLoaderManager *resourceLoaderManager;
 @end
 
 @implementation HomeworkManagerViewController
@@ -357,11 +358,29 @@
 
 - (void)showVideoWithUrl:(NSString *)videoUrl {
     AVPlayerViewController *playerViewController = [[AVPlayerViewController alloc]init];
+    VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
+    self.resourceLoaderManager = resourceLoaderManager;
     NSString *url = videoUrl;
-    playerViewController.player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:url]];
+    AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
+    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
+    playerViewController.player = player;
     [self.tabBarController presentViewController:playerViewController animated:YES completion:nil];
     playerViewController.view.frame = [UIScreen mainScreen].bounds;
     [playerViewController.player play];
+}
+
+- (void)showAudioWithURL:(NSString *)url withCoverURL:(NSString *)coverUrl
+{
+    AudioPlayerViewController *playerViewController = [[AudioPlayerViewController alloc]init];
+    VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
+    self.resourceLoaderManager = resourceLoaderManager;
+    AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
+    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
+    playerViewController.player = player;
+    [self presentViewController:playerViewController animated:YES completion:nil];
+    playerViewController.view.frame = self.view.frame;
+    [playerViewController.player play];
+    [playerViewController setOverlyViewCoverUrl:coverUrl];
 }
 
 #pragma mark - NEPhotoBrowserDataSource
@@ -433,6 +452,10 @@
     
     [cell setVideoCallback:^(NSString *videoUrl) {
         [weakSelf showVideoWithUrl:videoUrl];
+    }];
+    
+    [cell setAudioCallback:^(NSString * audioUrl, NSString * audioCoverUrl) {
+        [weakSelf showAudioWithURL:audioUrl withCoverURL:audioCoverUrl];
     }];
     
     return cell;

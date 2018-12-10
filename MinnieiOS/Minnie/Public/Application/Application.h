@@ -46,6 +46,8 @@
 
 @property (nonatomic, strong) NSArray * circleList;  //朋友圈
 
+@property (nonatomic, assign) BOOL userGuide;  //用户引导
+
 - (void)clearData;
 
 @end

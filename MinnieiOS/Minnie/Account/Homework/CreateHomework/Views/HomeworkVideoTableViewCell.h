@@ -23,8 +23,6 @@ extern CGFloat const HomeworkVideoTableViewCellHeight;
 - (void)setupWithVideoUrl:(NSString *)videoUrl
                  coverUrl:(NSString *)coverUrl;
 
-//设置音频
-- (void)setupWithAudioUrl:(NSString *)videoUrl
-                 coverUrl:(NSString *)coverUrl;
+
 @end
 

@@ -21,6 +21,7 @@
     [super viewDidLoad];
     
     self.coverImageView = [[UIImageView alloc] init];
+    self.coverImageView.contentMode = UIViewContentModeScaleAspectFit;
     self.coverImageView.backgroundColor = [UIColor blackColor];
     [self.contentOverlayView addSubview:self.coverImageView];
     [self.coverImageView mas_makeConstraints:^(MASConstraintMaker *make) {

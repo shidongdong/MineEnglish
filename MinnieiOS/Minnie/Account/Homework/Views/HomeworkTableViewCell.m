@@ -219,7 +219,13 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
         if (self.videoCallback != nil) {
             self.videoCallback(item.videoUrl);
         }
+    }else if ([item.type isEqualToString:HomeworkItemTypeAudio])
+    {
+        if (self.audioCallback != nil) {
+            self.audioCallback(item.audioUrl, item.audioCoverUrl);
+        }
     }
+    
 }
 
 @end

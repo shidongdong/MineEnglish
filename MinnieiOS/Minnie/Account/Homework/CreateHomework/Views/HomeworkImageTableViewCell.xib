@@ -39,12 +39,12 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ddH-HF-MA3">
-                        <rect key="frame" x="224" y="38" width="48" height="48"/>
+                        <rect key="frame" x="209" y="38" width="48" height="48"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="48" id="wNV-jy-8F0"/>
                             <constraint firstAttribute="height" constant="48" id="zAI-KW-8km"/>
                         </constraints>
-                        <state key="normal" image="ic_remove_plat.png"/>
+                        <state key="normal" image="icon_Enclosure.png"/>
                         <connections>
                             <action selector="addButtonPressed:" destination="byU-2a-5qq" eventType="touchUpInside" id="rJU-VQ-BhA"/>
                         </connections>
@@ -55,8 +55,8 @@
                     <constraint firstAttribute="trailing" secondItem="3RW-1z-4pi" secondAttribute="trailing" id="4ym-mI-gDC"/>
                     <constraint firstItem="2HP-hc-2sl" firstAttribute="leading" secondItem="dkH-eK-lum" secondAttribute="leading" constant="12" id="Ixc-0S-77t"/>
                     <constraint firstItem="3RW-1z-4pi" firstAttribute="centerY" secondItem="ddH-HF-MA3" secondAttribute="centerY" id="KAN-Pf-efM"/>
+                    <constraint firstItem="ddH-HF-MA3" firstAttribute="leading" secondItem="2HP-hc-2sl" secondAttribute="trailing" constant="15" id="T24-vz-bf7"/>
                     <constraint firstItem="3RW-1z-4pi" firstAttribute="centerY" secondItem="2HP-hc-2sl" secondAttribute="centerY" id="Yti-NG-mz4"/>
-                    <constraint firstItem="3RW-1z-4pi" firstAttribute="leading" secondItem="ddH-HF-MA3" secondAttribute="trailing" id="w7l-mb-6Lj"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="MiA-Td-xTl"/>
@@ -68,5 +68,6 @@
     </objects>
     <resources>
         <image name="ic_remove_plat.png" width="24" height="24"/>
+        <image name="icon_Enclosure.png" width="32" height="32"/>
     </resources>
 </document>

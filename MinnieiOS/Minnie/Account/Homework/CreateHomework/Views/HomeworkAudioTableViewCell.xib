@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HomeworkAudioTableViewCellId" rowHeight="119" id="5wu-hI-xu7" customClass="HomeworkAudioTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="112"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HomeworkAudioTableViewCellId" rowHeight="216" id="5wu-hI-xu7" customClass="HomeworkAudioTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="399" height="209"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5wu-hI-xu7" id="UkD-m3-0mh">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="111.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="399" height="208.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CyY-Hg-WK8">
@@ -26,9 +26,12 @@
                             <constraint firstAttribute="height" constant="100" id="ras-gi-cCw"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_talk.png" translatesAutoresizingMaskIntoConstraints="NO" id="RhR-Bh-3sB">
-                        <rect key="frame" x="87" y="45.5" width="32" height="33"/>
-                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MP3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYB-9H-YgA">
+                        <rect key="frame" x="84.5" y="51.5" width="37" height="21"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6gY-Ox-YSi">
                         <rect key="frame" x="12" y="12" width="182" height="100"/>
                         <state key="normal">
@@ -39,7 +42,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F7P-5W-neU">
-                        <rect key="frame" x="272" y="38" width="48" height="48"/>
+                        <rect key="frame" x="351" y="38" width="48" height="48"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="48" id="PMT-nG-R3g"/>
                             <constraint firstAttribute="width" constant="48" id="Rv6-2C-X56"/>
@@ -49,24 +52,68 @@
                             <action selector="deleteButtonPressed:" destination="5wu-hI-xu7" eventType="touchUpInside" id="ERi-UV-hW2"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12s" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WkF-hD-5UK">
-                        <rect key="frame" x="93.5" y="80" width="19.5" height="15"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d4P-Ub-Iin">
+                        <rect key="frame" x="0.0" y="112" width="399" height="96.5"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RNk-x5-iN1">
+                                <rect key="frame" x="74" y="12" width="120" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="fqW-ez-1jz"/>
+                                    <constraint firstAttribute="width" constant="120" id="rGC-IV-Bh6"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MP3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4fb-YH-TEM">
+                                <rect key="frame" x="118.5" y="23.5" width="31" height="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uDN-JS-jAS">
+                                <rect key="frame" x="351" y="8" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="PEj-Ff-ubm"/>
+                                    <constraint firstAttribute="width" constant="48" id="a5v-1a-q1n"/>
+                                </constraints>
+                                <state key="normal" image="ic_remove_plat.png"/>
+                                <connections>
+                                    <action selector="deleteMp3FilePressed:" destination="5wu-hI-xu7" eventType="touchUpInside" id="T9U-ux-knG"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_Enclosure_noedit.png" translatesAutoresizingMaskIntoConstraints="NO" id="siu-3z-9iT">
+                                <rect key="frame" x="40" y="20" width="24" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="24" id="ZIr-8S-Bg3"/>
+                                    <constraint firstAttribute="height" constant="24" id="brO-g2-Jt9"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="RNk-x5-iN1" firstAttribute="centerY" secondItem="siu-3z-9iT" secondAttribute="centerY" id="4Es-le-dMH"/>
+                            <constraint firstItem="4fb-YH-TEM" firstAttribute="centerX" secondItem="RNk-x5-iN1" secondAttribute="centerX" id="EzW-JE-vOI"/>
+                            <constraint firstItem="RNk-x5-iN1" firstAttribute="top" secondItem="d4P-Ub-Iin" secondAttribute="top" constant="12" id="Y4O-7g-1G7"/>
+                            <constraint firstAttribute="trailing" secondItem="uDN-JS-jAS" secondAttribute="trailing" id="eKM-C8-UTX"/>
+                            <constraint firstItem="RNk-x5-iN1" firstAttribute="leading" secondItem="siu-3z-9iT" secondAttribute="trailing" constant="10" id="edw-eW-JNO"/>
+                            <constraint firstItem="RNk-x5-iN1" firstAttribute="leading" secondItem="d4P-Ub-Iin" secondAttribute="leading" constant="74" id="q8L-ux-o1w"/>
+                            <constraint firstItem="4fb-YH-TEM" firstAttribute="centerY" secondItem="RNk-x5-iN1" secondAttribute="centerY" id="rWL-zV-bd2"/>
+                            <constraint firstItem="uDN-JS-jAS" firstAttribute="centerY" secondItem="RNk-x5-iN1" secondAttribute="centerY" id="v76-VM-2Ah"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="CyY-Hg-WK8" firstAttribute="leading" secondItem="UkD-m3-0mh" secondAttribute="leading" constant="12" id="07q-j6-rHd"/>
                     <constraint firstItem="F7P-5W-neU" firstAttribute="centerY" secondItem="6gY-Ox-YSi" secondAttribute="centerY" id="11v-ec-aZ2"/>
                     <constraint firstItem="6gY-Ox-YSi" firstAttribute="bottom" secondItem="CyY-Hg-WK8" secondAttribute="bottom" id="8Ac-3X-dkf"/>
-                    <constraint firstItem="WkF-hD-5UK" firstAttribute="centerX" secondItem="RhR-Bh-3sB" secondAttribute="centerX" id="Kac-b1-lZT"/>
+                    <constraint firstItem="d4P-Ub-Iin" firstAttribute="top" secondItem="CyY-Hg-WK8" secondAttribute="bottom" id="F45-6f-B9x"/>
                     <constraint firstAttribute="trailing" secondItem="F7P-5W-neU" secondAttribute="trailing" id="MeK-es-xJx"/>
-                    <constraint firstItem="CyY-Hg-WK8" firstAttribute="centerX" secondItem="RhR-Bh-3sB" secondAttribute="centerX" id="MpW-Az-hmE"/>
+                    <constraint firstItem="d4P-Ub-Iin" firstAttribute="leading" secondItem="UkD-m3-0mh" secondAttribute="leading" id="Mq1-ev-rna"/>
                     <constraint firstItem="6gY-Ox-YSi" firstAttribute="leading" secondItem="CyY-Hg-WK8" secondAttribute="leading" id="MyQ-IO-ymx"/>
-                    <constraint firstItem="WkF-hD-5UK" firstAttribute="top" secondItem="RhR-Bh-3sB" secondAttribute="bottom" constant="2" id="fCo-eg-DDM"/>
+                    <constraint firstAttribute="bottom" secondItem="d4P-Ub-Iin" secondAttribute="bottom" id="NES-w2-cHT"/>
+                    <constraint firstItem="WYB-9H-YgA" firstAttribute="centerY" secondItem="CyY-Hg-WK8" secondAttribute="centerY" id="T7s-fU-8I7"/>
+                    <constraint firstItem="WYB-9H-YgA" firstAttribute="centerX" secondItem="CyY-Hg-WK8" secondAttribute="centerX" id="VzT-6O-gDQ"/>
                     <constraint firstItem="CyY-Hg-WK8" firstAttribute="top" secondItem="UkD-m3-0mh" secondAttribute="top" constant="12" id="jEI-tc-sgq"/>
-                    <constraint firstItem="CyY-Hg-WK8" firstAttribute="centerY" secondItem="RhR-Bh-3sB" secondAttribute="centerY" id="tR0-7v-Eg6"/>
+                    <constraint firstAttribute="trailing" secondItem="d4P-Ub-Iin" secondAttribute="trailing" id="xwf-hs-LI2"/>
                     <constraint firstItem="6gY-Ox-YSi" firstAttribute="top" secondItem="CyY-Hg-WK8" secondAttribute="top" id="yUd-vV-8Pm"/>
                     <constraint firstItem="6gY-Ox-YSi" firstAttribute="trailing" secondItem="CyY-Hg-WK8" secondAttribute="trailing" id="zyH-oK-Ynf"/>
                 </constraints>
@@ -74,13 +121,15 @@
             <viewLayoutGuide key="safeArea" id="axl-sz-fEb"/>
             <connections>
                 <outlet property="audioCoverImageView" destination="CyY-Hg-WK8" id="w9M-bC-XkY"/>
-                <outlet property="durationLabel" destination="WkF-hD-5UK" id="cHj-yj-8a1"/>
+                <outlet property="mp3ContentView" destination="d4P-Ub-Iin" id="g0d-ZF-iYp"/>
+                <outlet property="mp3FileView" destination="RNk-x5-iN1" id="xev-Ai-yye"/>
+                <outlet property="mp3TitleLabel" destination="WYB-9H-YgA" id="QAO-ke-LzN"/>
             </connections>
-            <point key="canvasLocation" x="-119" y="34"/>
+            <point key="canvasLocation" x="-56.799999999999997" y="76.911544227886068"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="ic_remove_plat.png" width="24" height="24"/>
-        <image name="icon_talk.png" width="32" height="33"/>
+        <image name="icon_Enclosure_noedit.png" width="24" height="24"/>
     </resources>
 </document>

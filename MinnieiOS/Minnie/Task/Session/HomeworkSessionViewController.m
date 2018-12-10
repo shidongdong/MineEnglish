@@ -1213,10 +1213,10 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
     AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
     playerViewController.player = player;
-    [playerViewController setOverlyViewCoverUrl:coverUrl];
     [self presentViewController:playerViewController animated:YES completion:nil];
     playerViewController.view.frame = self.view.frame;
     [playerViewController.player play];
+    [playerViewController setOverlyViewCoverUrl:coverUrl];
 }
 
 - (void)resizeInputTextView {

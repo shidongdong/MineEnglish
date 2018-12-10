@@ -8,14 +8,19 @@
 
 #import "HomeworkAudioTableViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-
+#import "UIView+AZGradient.h"
 NSString * const HomeworkAudioTableViewCellId = @"HomeworkAudioTableViewCellId";
 CGFloat const HomeworkAudioTableViewCellHeight = 112.f;
+CGFloat const HomeworkAudioWithMp3TableViewCellHeight = 164.f;
+
 
 @interface HomeworkAudioTableViewCell()
 
 @property (nonatomic, weak) IBOutlet UIImageView *audioCoverImageView;
-@property (nonatomic, weak) IBOutlet UILabel *durationLabel;
+@property (weak, nonatomic) IBOutlet UIView * mp3ContentView;
+@property (weak, nonatomic) IBOutlet UIView * mp3FileView;
+@property (weak, nonatomic) IBOutlet UILabel *mp3TitleLabel;
+
 @property (nonatomic, copy) NSString *AudioUrl;
 
 @end
@@ -27,17 +32,45 @@ CGFloat const HomeworkAudioTableViewCellHeight = 112.f;
     
     self.audioCoverImageView.layer.cornerRadius = 12;
     self.audioCoverImageView.layer.masksToBounds = YES;
+    
+    self.mp3FileView.layer.cornerRadius = 12;
+    self.mp3FileView.layer.masksToBounds = YES;
+    
+    [self.mp3FileView az_setGradientBackgroundWithColors:@[[UIColor colorWithHex:0xFF7C6B],[UIColor colorWithHex:0xFF395D]] locations:nil startPoint:CGPointMake(0, 0) endPoint:CGPointMake(1, 0)];
+
+    [self.audioCoverImageView az_setGradientBackgroundWithColors:@[[UIColor colorWithHex:0xFF7C6B],[UIColor colorWithHex:0xFF395D]] locations:nil startPoint:CGPointMake(0, 0) endPoint:CGPointMake(1, 0)];
 }
 
-- (void)setupWithAudioUrl:(NSString *)AudioUrl duration:(NSTimeInterval)duration {
-    self.AudioUrl = AudioUrl;
-    self.durationLabel.text = [NSString stringWithFormat:@"%.f秒", duration];
+- (void)setupWithAudioUrl:(NSString *)videoUrl
+                 coverUrl:(NSString *)coverUrl {
+    
+    if (coverUrl.length == 0)
+    {
+        self.mp3ContentView.hidden = YES;
+        self.mp3TitleLabel.hidden = NO;
+        [self.audioCoverImageView sd_setImageWithURL:nil];
+    }
+    else
+    {
+        self.mp3ContentView.hidden = NO;
+        self.mp3TitleLabel.hidden = YES;
+        [self.audioCoverImageView sd_setImageWithURL:[coverUrl imageURLWithWidth:182.0]];
+    }
+    
+    self.AudioUrl = videoUrl;
+    
 }
 
 - (IBAction)playButtonPressed:(id)sender {
 //    if (self.playCallback != nil) {
 //        self.playCallback(self.AudioUrl);
 //    }
+}
+- (IBAction)deleteMp3FilePressed:(id)sender {
+    if (self.deleteFileCallback != nil) {
+        self.deleteFileCallback();
+    }
+    
 }
 
 - (IBAction)deleteButtonPressed:(id)sender {

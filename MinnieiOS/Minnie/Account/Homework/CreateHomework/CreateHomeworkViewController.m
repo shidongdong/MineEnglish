@@ -397,6 +397,63 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+
+- (void)deleteMp3ForItem:(HomeworkItem *)item
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确认删除?"
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                         }];
+    
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"删除"
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull action) {
+                                                              item.audioUrl = @"";
+                                                              NSString * coverUrl = item.audioCoverUrl;
+                                                              item.imageUrl = coverUrl;
+                                                              item.audioCoverUrl = @"";
+                                                              item.type = HomeworkItemTypeImage;
+                                                              [self.homeworkTableView reloadData];
+                                                          }];
+    
+    [alertController addAction:cancelAction];
+    [alertController addAction:confirmAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)deleteAnswerMp3ForItem:(HomeworkAnswerItem *)item
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确认删除?"
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                         }];
+    
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"删除"
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull action) {
+                                                              item.audioUrl = @"";
+                                                              NSString * coverUrl = item.audioCoverUrl;
+                                                              item.imageUrl = coverUrl;
+                                                              item.audioCoverUrl = @"";
+                                                              item.type = HomeworkItemTypeImage;
+                                                              [self.homeworkTableView reloadData];
+                                                          }];
+    
+    [alertController addAction:cancelAction];
+    [alertController addAction:confirmAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 - (void)deleteAnswerItem:(HomeworkAnswerItem *)item {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确认删除?"
                                                                              message:nil
@@ -614,15 +671,15 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
                                                       if (self.isAddingAnswerItem) {
                                                           HomeworkAnswerItem *item = [[HomeworkAnswerItem alloc] init];
                                                           item.type = HomeworkItemTypeAudio;
-                                                          item.videoUrl = videoUrl;
-                                                          item.videoCoverUrl = @"";
+                                                          item.audioUrl = videoUrl;
+                                                          item.audioCoverUrl = @"";
                                                           
                                                           [self.answerItems addObject:item];
                                                       } else{
                                                           HomeworkItem *item = [[HomeworkItem alloc] init];
                                                           item.type = HomeworkItemTypeAudio;
-                                                          item.videoUrl = videoUrl;
-                                                          item.videoCoverUrl = @"";
+                                                          item.audioUrl = videoUrl;
+                                                          item.audioCoverUrl = @"";
                                                           
                                                           [self.items addObject:item];
                                                       }
@@ -863,12 +920,16 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         }
         else if ([type isEqualToString:HomeworkItemTypeAudio]) {
             
-            HomeworkVideoTableViewCell *audioCell = [tableView dequeueReusableCellWithIdentifier:HomeworkVideoTableViewCellId forIndexPath:indexPath];
+            HomeworkAudioTableViewCell *audioCell = [tableView dequeueReusableCellWithIdentifier:HomeworkAudioTableViewCellId forIndexPath:indexPath];
             [audioCell setupWithAudioUrl:item.audioUrl coverUrl:item.audioCoverUrl];
 
             WeakifySelf;
             [audioCell setDeleteCallback:^{
                 [weakSelf deleteItem:item];
+            }];
+            
+            [audioCell setDeleteFileCallback:^{
+                [weakSelf deleteMp3ForItem:item];
             }];
             
             cell = audioCell;
@@ -927,12 +988,16 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         }
         else if ([type isEqualToString:HomeworkItemTypeAudio]) {
             
-            HomeworkVideoTableViewCell *audioCell = [tableView dequeueReusableCellWithIdentifier:HomeworkVideoTableViewCellId forIndexPath:indexPath];
+            HomeworkAudioTableViewCell *audioCell = [tableView dequeueReusableCellWithIdentifier:HomeworkAudioTableViewCellId forIndexPath:indexPath];
             [audioCell setupWithAudioUrl:item.audioUrl coverUrl:item.audioCoverUrl];
             
             WeakifySelf;
             [audioCell setDeleteCallback:^{
                 [weakSelf deleteAnswerItem:item];
+            }];
+            
+            [audioCell setDeleteFileCallback:^{
+                [weakSelf deleteAnswerMp3ForItem:item];
             }];
             
             cell = audioCell;
@@ -1059,7 +1124,14 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         } else if ([type isEqualToString:HomeworkItemTypeImage]) {
             height = HomeworkImageTableViewCellHeight;
         }else if ([type isEqualToString:HomeworkItemTypeAudio]){
-            height = HomeworkImageTableViewCellHeight;
+            if ([item.audioCoverUrl length] == 0)
+            {
+                height = HomeworkAudioTableViewCellHeight;
+            }
+            else
+            {
+                height = HomeworkAudioWithMp3TableViewCellHeight;
+            }
         }
     } else if (indexPath.row == 2 + self.items.count + 1) { // 添加按钮
         height = HomeworkAddTableViewCellHeight;
@@ -1075,7 +1147,14 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         } else if ([type isEqualToString:HomeworkItemTypeImage]) {
             height = HomeworkImageTableViewCellHeight;
         }else if ([type isEqualToString:HomeworkItemTypeAudio]){
-            height = HomeworkImageTableViewCellHeight;
+            if ([item.audioCoverUrl length] == 0)
+            {
+                height = HomeworkAudioTableViewCellHeight;
+            }
+            else
+            {
+                height = HomeworkAudioWithMp3TableViewCellHeight;
+            }
         }
     } else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 1) {
         height = HomeworkAddTableViewCellHeight;
