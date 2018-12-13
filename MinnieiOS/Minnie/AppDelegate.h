@@ -20,5 +20,8 @@
 //取消订阅推送
 - (void)removeRemoteNotification;
 
+//显示小红点
+- (void)showTabBarBadgeNum:(NSInteger)badge atIndex:(NSInteger)index;
+
 @end
 

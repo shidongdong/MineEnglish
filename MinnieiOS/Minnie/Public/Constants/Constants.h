@@ -23,6 +23,7 @@ extern NSString * const kNotificationKeyOfCommitHomework; // 学生提交作业
 extern NSString * const kNotificationKeyOfRefreshHomeworkSession; // 后台唤起重新刷新任务列表
 extern NSString * const kNotificationKeyOfApnsNewHomeworkSession; // 推送唤起程序刷新作业新任务列表
 //extern NSString * const kNotificationKeyOfApnsFinishHomeworkSession; // 推送唤起程序完成作业刷新任务列表
+extern NSString * const kNotificationKeyOfUnReadMessageHomeworkSession;
 
 #pragma mark - 作业管理相关
 

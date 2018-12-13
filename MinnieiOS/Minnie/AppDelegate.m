@@ -30,6 +30,7 @@
 #import "PortraitTabBarController.h"
 #import "CircleContainerController.h"
 #import "Constants.h"
+#import "UITabBar+KSBadge.h"
 @interface AppDelegate ()<UITabBarControllerDelegate>
 
 @property (nonatomic, strong) NSDate *enterBackgroundDate;
@@ -46,7 +47,7 @@
     //开发版
     [AVOSCloud setApplicationId:@"JE1gHMgc1MJaTRCPFcz30F9E-gzGzoHsz" clientKey:@"Axlm6WN8mJ7j1ivtGjgHxGqb"];
     [AVOSCloud setAllLogsEnabled:YES];
-    
+    [AVIMClient setUnreadNotificationEnabled:YES];
     if (@available(iOS 11.0, *)) {
         UITableView.appearance.estimatedRowHeight = 0;
         UITableView.appearance.estimatedSectionFooterHeight = 0;
@@ -265,6 +266,7 @@
 
 #endif
 
+
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     
     // 确保当前在首页界面
@@ -325,17 +327,29 @@
     }];
 }
 
+#pragma mark - public
+- (void)showTabBarBadgeNum:(NSInteger)badge atIndex:(NSInteger)index;
+{
+    UIViewController * rootVc = [UIApplication sharedApplication].keyWindow.rootViewController;
+    
+    if ([rootVc isKindOfClass:[UITabBarController class]])
+    {
+        UITabBarController * tabbarVc = (UITabBarController *)rootVc;
+        [tabbarVc.tabBar showBadgeOnItemIndex:index totalTabbarCount:3 withInfo:badge];
+    }
+}
+
 - (void)openRemoteNotification
 {
     AVInstallation *currentInstallation = [AVInstallation defaultInstallation];
 #if TEACHERSIDE
-    currentInstallation.deviceProfile = @"teacher_pro";
+    currentInstallation.deviceProfile = @"teacher_dev";
     
     if (APP.currentUser.authority == TeacherAuthoritySuperManager) {
         [currentInstallation addUniqueObject:@"SuperManager" forKey:@"channels"];
     }
 #else
-    currentInstallation.deviceProfile = @"student_pro";
+    currentInstallation.deviceProfile = @"student_dev";
     Clazz *clazz = APP.currentUser.clazz;
     [currentInstallation addUniqueObject:[NSString stringWithFormat:@"class_%@", @(clazz.classId)] forKey:@"channels"];
 #endif
@@ -348,13 +362,13 @@
 {
     AVInstallation *currentInstallation = [AVInstallation defaultInstallation];
 #if TEACHERSIDE
-    currentInstallation.deviceProfile = @"teacher_pro";
+    currentInstallation.deviceProfile = @"teacher_dev";
     
     if (APP.currentUser.authority == TeacherAuthoritySuperManager) {
         [currentInstallation removeObject:@"SuperManager" forKey:@"channels"];
     }
 #else
-    currentInstallation.deviceProfile = @"student_pro";
+    currentInstallation.deviceProfile = @"student_dev";
     Clazz *clazz = APP.currentUser.clazz;
     [currentInstallation removeObject:[NSString stringWithFormat:@"class_%@", @(clazz.classId)] forKey:@"channels"];
 #endif
@@ -364,6 +378,7 @@
   //  [currentInstallation saveInBackground];
 }
 
+#pragma mark - system
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     NSLog(@"%@", error);
 }

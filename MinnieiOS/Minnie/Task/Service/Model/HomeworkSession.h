@@ -30,7 +30,7 @@
 
 @property (nonatomic, copy) NSString *lastSessionContent;
 @property (nonatomic, assign) BOOL shouldColorLastSessionContent;
-@property (nonatomic, assign) NSInteger unreadMessageCount;
+@property (nonatomic, assign) NSInteger unreadMessageCount; //用来存储未读条数 不属于网络请求返回
 @property (nonatomic, strong) AVIMConversation *conversation;
 
 @property (nonatomic, assign) CGFloat cellHeightWithoutMessage; // UI设置

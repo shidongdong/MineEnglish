@@ -109,6 +109,8 @@
 		874D7B2F219956F5001C5449 /* HomeworkLimitTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 874D7B2C219956F5001C5449 /* HomeworkLimitTimeCell.m */; };
 		874D7B30219956F5001C5449 /* HomeworkLimitTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 874D7B2D219956F5001C5449 /* HomeworkLimitTimeCell.xib */; };
 		874D7B31219956F5001C5449 /* HomeworkLimitTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 874D7B2D219956F5001C5449 /* HomeworkLimitTimeCell.xib */; };
+		8753CD1221C1FDC800762266 /* UITabBar+KSBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 8753CD1121C1FDC700762266 /* UITabBar+KSBadge.m */; };
+		8753CD1321C1FDC800762266 /* UITabBar+KSBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 8753CD1121C1FDC700762266 /* UITabBar+KSBadge.m */; };
 		875C261F218A9BBB0047E32A /* HomeworkSendHisTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 875C261D218A9BBB0047E32A /* HomeworkSendHisTableViewCell.m */; };
 		875C2620218A9BBB0047E32A /* HomeworkSendHisTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 875C261D218A9BBB0047E32A /* HomeworkSendHisTableViewCell.m */; };
 		875C2621218A9BBB0047E32A /* HomeworkSendHisTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 875C261E218A9BBB0047E32A /* HomeworkSendHisTableViewCell.xib */; };
@@ -1405,6 +1407,8 @@
 		874D7B2B219956F5001C5449 /* HomeworkLimitTimeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeworkLimitTimeCell.h; sourceTree = "<group>"; };
 		874D7B2C219956F5001C5449 /* HomeworkLimitTimeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeworkLimitTimeCell.m; sourceTree = "<group>"; };
 		874D7B2D219956F5001C5449 /* HomeworkLimitTimeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeworkLimitTimeCell.xib; sourceTree = "<group>"; };
+		8753CD1021C1FDC600762266 /* UITabBar+KSBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+KSBadge.h"; sourceTree = "<group>"; };
+		8753CD1121C1FDC700762266 /* UITabBar+KSBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+KSBadge.m"; sourceTree = "<group>"; };
 		875C261C218A9BBB0047E32A /* HomeworkSendHisTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeworkSendHisTableViewCell.h; sourceTree = "<group>"; };
 		875C261D218A9BBB0047E32A /* HomeworkSendHisTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeworkSendHisTableViewCell.m; sourceTree = "<group>"; };
 		875C261E218A9BBB0047E32A /* HomeworkSendHisTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeworkSendHisTableViewCell.xib; sourceTree = "<group>"; };
@@ -2450,6 +2454,15 @@
 			path = "启动加载引导";
 			sourceTree = "<group>";
 		};
+		8753CD0F21C0B80600762266 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				8753CD1021C1FDC600762266 /* UITabBar+KSBadge.h */,
+				8753CD1121C1FDC700762266 /* UITabBar+KSBadge.m */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
 		87707873219AB76400940A88 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -2971,6 +2984,7 @@
 		97109856207A0BF500568785 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				8753CD0F21C0B80600762266 /* TabBar */,
 				97DC3AE8208343DA009D811B /* PortraitNavigationController */,
 				97109882207A0BF500568785 /* AlertView */,
 				97109889207A0BF500568785 /* BaseViewController.h */,
@@ -5700,6 +5714,7 @@
 				97109C22207A2E3E00568785 /* Comment.m in Sources */,
 				879CE533219174FE00BBE4B7 /* AchieverNoticeFlagRequest.m in Sources */,
 				97109C28207A2E3E00568785 /* UnlikeHomeworkRequest.m in Sources */,
+				8753CD1221C1FDC800762266 /* UITabBar+KSBadge.m in Sources */,
 				872F5B362171821C00D88855 /* StudentService.m in Sources */,
 				979BBD852081B9C700359253 /* TrialClasssRequest.m in Sources */,
 				97109944207A0BF600568785 /* Utils.m in Sources */,
@@ -5910,6 +5925,7 @@
 				973649D020AF2F8600511A95 /* StudentSelectorViewController.m in Sources */,
 				97109EB6207A7C0A00568785 /* AddAwardRequest.m in Sources */,
 				973649E120AF2F8600511A95 /* DeleteHomeworksRequest.m in Sources */,
+				8753CD1321C1FDC800762266 /* UITabBar+KSBadge.m in Sources */,
 				97109D8C207A2F0400568785 /* TeacherTableViewCell.m in Sources */,
 				97109D6C207A2F0400568785 /* NoticeMessageTableViewCell.m in Sources */,
 				97109D42207A2F0400568785 /* NoticeMessageDetailViewController.m in Sources */,

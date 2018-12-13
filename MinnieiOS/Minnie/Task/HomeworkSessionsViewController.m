@@ -15,7 +15,7 @@
 #import "IMManager.h"
 #import "NetworkStateErrorView.h"
 #import <AFNetworking/AFNetworking.h>
-
+#import "AppDelegate.h"
 @interface HomeworkSessionsViewController ()<UITableViewDataSource, UITableViewDelegate>
 {
     NSInteger mState;
@@ -35,6 +35,10 @@
 
 @property (nonatomic, strong) NSString * searchFilterName;   //名字搜索条件 只有在搜索也使用
 
+//目前只有学生端处理
+@property (nonatomic, strong) NSMutableArray * unReadHomeworkSessions;
+@property (nonatomic, strong) NSMutableArray * noHandleNotications;
+
 @end
 
 @implementation HomeworkSessionsViewController
@@ -51,6 +55,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.unReadHomeworkSessions = [[NSMutableArray alloc] init];
+    self.noHandleNotications = [[NSMutableArray alloc] init];
     //先读出缓存中的数据
     [self.homeworkSessions removeAllObjects];
 //   缓存无效 建议后期再考虑
@@ -169,6 +175,74 @@
 
 #pragma mark - Private Methods
 
+- (void)reloadUnReadMessage:(NSNotification *)notication
+{
+    //开启子线程做数据处理，避免数据交叉
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSInteger unReadCount = [[notication.userInfo objectForKey:@"unReadCount"] integerValue];
+        NSInteger homeworkSessionId = [[notication.userInfo objectForKey:@"homeworkSessionId"] integerValue];
+        
+        BOOL bExist = NO;  //有可能有些作业需要下拉加载才能请求出来
+        //遍历请求下来的数组
+        for (HomeworkSession * session in self.homeworkSessions)
+        {
+            if (session.homeworkSessionId == homeworkSessionId)
+            {
+                bExist = YES;
+                session.unreadMessageCount = unReadCount;
+                if (unReadCount == 0)
+                {
+                    [self.unReadHomeworkSessions removeObject:session];
+                }
+                else
+                {
+                    if (![self.unReadHomeworkSessions containsObject:session])
+                    {
+                        [self.unReadHomeworkSessions addObject:session];
+                    }
+                }
+                break;
+            }
+        }
+        if (!bExist)
+        {
+            BOOL bHandle = NO;
+            
+            for (NSNotification * noHandleNoti in self.noHandleNotications)
+            {
+                NSInteger noHandleHomeworkSessionId = [[noHandleNoti.userInfo objectForKey:@"homeworkSessionId"] integerValue];
+                
+                if (noHandleHomeworkSessionId == homeworkSessionId)
+                {
+                    NSInteger noHandleindex = [self.noHandleNotications indexOfObject:noHandleNoti];
+                    [self.noHandleNotications replaceObjectAtIndex:noHandleindex withObject:notication];
+                    bHandle = YES;
+                }
+                
+            }
+            
+            
+            if (!bHandle)
+            {
+                [self.noHandleNotications addObject:notication];
+            }
+            
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSInteger tabbarCount = self.unReadHomeworkSessions.count + self.noHandleNotications.count;
+            
+            AppDelegate * appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            [appDel showTabBarBadgeNum:tabbarCount atIndex:0];
+            
+        });
+    });
+    
+    
+    
+    
+}
+
 - (void)setupRequestState
 {
     if (self.isUnfinished)
@@ -204,6 +278,12 @@
                                              selector:@selector(reloadWhenAppeared:)
                                                  name:kNotificationKeyOfRefreshHomeworkSession
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadUnReadMessage:)
+                                                 name:kIMManagerClientUnReadMessageCountNotification
+                                               object:nil];
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(imOffline:)
@@ -539,7 +619,7 @@
 #endif
             
             if (APP.currentIMHomeworkSessionId ==0 || APP.currentIMHomeworkSessionId != homeworkSession.homeworkSessionId) {
-                homeworkSession.unreadMessageCount = 1;
+               // homeworkSession.unreadMessageCount++;
             }
             
             if (homeworkSession.conversation.lastMessageAt != nil) {
@@ -577,7 +657,7 @@
                 }
                 
                 if (!exists) {
-                    session.unreadMessageCount = 1;
+                   // session.unreadMessageCount++;
                     
                     if (messageConversation.lastMessageAt != nil) {
                         session.sortTime = [messageConversation.lastMessageAt timeIntervalSince1970] * 1000;
@@ -923,7 +1003,14 @@
     }
     
     HomeworkSession *session = self.homeworkSessions[indexPath.row];
-    session.unreadMessageCount = 0; // 点击进去就算已读
+//    if (session.unreadMessageCount > 0) {
+//        session.unreadMessageCount = 0; // 点击进去就算已读
+//        [self.unReadHomeworkSessions removeObject:session];
+//        NSInteger tabbarCount = self.unReadHomeworkSessions.count + self.noHandleNotications.count;
+//        AppDelegate * appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//        [appDel showTabBarBadgeNum:tabbarCount atIndex:0];
+//    }
+    
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.homeworkSessionsTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];

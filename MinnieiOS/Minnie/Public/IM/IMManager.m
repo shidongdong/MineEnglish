@@ -12,7 +12,7 @@
 NSString * const kIMManagerContentMessageDidReceiveNotification = @"kIMManagerContentMessageDidReceiveNotification";
 NSString * const kIMManagerContentMessageDidSendNotification = @"kIMManagerContentMessageDidSendNotification";
 NSString * const kIMManagerClientDidKickOutReceiveNotification = @"kIMManagerClientDidKickOutReceiveNotification";
-
+NSString * const kIMManagerClientUnReadMessageCountNotification = @"kIMManagerClientUnReadMessageCountNotification";  //未读消息个数通知
 NSString * const kIMManagerClientOfflineNotification = @"kIMManagerClientOfflineNotification";
 NSString * const kIMManagerClientOnlineNotification = @"kIMManagerClientOnlineNotification";
 
@@ -108,6 +108,14 @@ didReceiveTypedMessage:(AVIMTypedMessage *)message {
 
 - (void)conversation:(AVIMConversation *)conversation
      didUpdateForKey:(NSString *)key {
+    //目前只处理未读消息的key
+    if ([key isEqualToString:@"unreadMessagesCount"]) {
+        NSUInteger unreadMessagesCount = conversation.unreadMessagesCount;
+        /* 有未读消息产生，请更新 UI，或者拉取对话。 */
+        [[NSNotificationCenter defaultCenter] postNotificationName:kIMManagerClientUnReadMessageCountNotification
+                                                            object:nil
+                                                          userInfo:@{@"unReadCount": @(unreadMessagesCount),@"homeworkSessionId":@([conversation.name integerValue])}];
+    }
 }
 
 - (void)client:(AVIMClient *)client

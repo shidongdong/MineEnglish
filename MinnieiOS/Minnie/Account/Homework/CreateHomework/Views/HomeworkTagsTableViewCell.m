@@ -17,6 +17,7 @@ NSString * const HomeworkTagsTableViewCellId = @"HomeworkTagsTableViewCellId";
 @property (nonatomic, weak) IBOutlet CustomCollectionView *tagsCollectionView;
 @property (nonatomic, strong) NSArray<NSString *> *tags;
 @property (nonatomic, strong) NSMutableArray<NSString *> *selectedTags;
+@property (weak, nonatomic) IBOutlet UILabel *typeLabel;
 
 @end
 
@@ -36,14 +37,16 @@ NSString * const HomeworkTagsTableViewCellId = @"HomeworkTagsTableViewCellId";
 }
 
 - (void)setupWithTags:(NSArray <NSString *> *)tags
-         selectedTags:(NSArray <NSString *> *)selectedTags {
+         selectedTags:(NSArray <NSString *> *)selectedTags
+            typeTitle:(NSString *)title {
+    self.typeLabel.text = title;
     self.tags = tags;
     self.selectedTags = [NSMutableArray arrayWithArray:selectedTags];
     
     [self.tagsCollectionView reloadData];
 }
 
-+ (CGFloat)heightWithTags:(NSArray <NSString *> *)tags{
++ (CGFloat)heightWithTags:(NSArray <NSString *> *)tags typeTitle:(NSString *)title{
     if (tags.count == 0) {
         return 50.f;
     }
@@ -52,10 +55,10 @@ NSString * const HomeworkTagsTableViewCellId = @"HomeworkTagsTableViewCellId";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         tempCell = [[[NSBundle mainBundle] loadNibNamed:@"HomeworkTagsTableViewCell" owner:nil options:nil] lastObject];
-        [tempCell setupWithTags:tags selectedTags:nil];
+        [tempCell setupWithTags:tags selectedTags:nil typeTitle:title];
     });
     
-    [tempCell setupWithTags:tags selectedTags:nil];
+    [tempCell setupWithTags:tags selectedTags:nil typeTitle:title];
     
     [tempCell setNeedsLayout];
     [tempCell layoutIfNeeded];

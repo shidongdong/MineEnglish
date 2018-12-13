@@ -291,6 +291,10 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         return;
     }
     
+    if (self.conversation != nil) {
+        [self.conversation readInBackground];
+    }
+    
     NSDictionary *attributes = message.attributes;
     if (attributes[@"score"] != nil && [attributes[@"score"] integerValue]>=0) {
         self.homeworkSession.score = [attributes[@"score"] integerValue];

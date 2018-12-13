@@ -23,6 +23,7 @@ NSString * const kNotificationKeyOfCommitHomework = @"kNotificationKeyOfCommitHo
 NSString * const kNotificationKeyOfRefreshHomeworkSession = @"kNotificationKeyOfRefreshHomeworkSession";
 NSString * const kNotificationKeyOfApnsNewHomeworkSession = @"kNotificationKeyOfApnsNewHomeworkSession"; //apns推送新作业
 //NSString * const kNotificationKeyOfApnsFinishHomeworkSession = @"kNotificationKeyOfApnsFinishHomeworkSession";
+NSString * const kNotificationKeyOfUnReadMessageHomeworkSession = @"kNotificationKeyOfUnReadMessageHomeworkSession";
 
 #pragma mark - 作业管理相关
 

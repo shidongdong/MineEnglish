@@ -21,8 +21,9 @@ extern NSString * const HomeworkTagsTableViewCellId;
 @property (nonatomic, assign) BOOL bSingleSelect;
 
 - (void)setupWithTags:(NSArray <NSString *> *)tags
-         selectedTags:(NSArray <NSString *> *)selectedTags;
+         selectedTags:(NSArray <NSString *> *)selectedTags
+            typeTitle:(NSString *)title;
 
-+ (CGFloat)heightWithTags:(NSArray <NSString *> *)tags;
++ (CGFloat)heightWithTags:(NSArray <NSString *> *)tags typeTitle:(NSString *)title;
 
 @end

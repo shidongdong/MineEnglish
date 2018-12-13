@@ -12,7 +12,7 @@
 extern NSString * const kIMManagerContentMessageDidReceiveNotification;
 extern NSString * const kIMManagerContentMessageDidSendNotification;
 extern NSString * const kIMManagerClientDidKickOutReceiveNotification;
-
+extern NSString * const kIMManagerClientUnReadMessageCountNotification;
 extern NSString * const kIMManagerClientOfflineNotification;
 extern NSString * const kIMManagerClientOnlineNotification;
 
