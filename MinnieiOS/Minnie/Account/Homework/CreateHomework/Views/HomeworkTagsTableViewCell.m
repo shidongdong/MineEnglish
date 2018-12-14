@@ -25,7 +25,7 @@ NSString * const HomeworkTagsTableViewCellId = @"HomeworkTagsTableViewCellId";
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
+  
     self.tagsCollectionView.layer.cornerRadius = 12;
     self.tagsCollectionView.layer.masksToBounds = YES;
     
