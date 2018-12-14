@@ -217,6 +217,7 @@
                     NSInteger noHandleindex = [self.noHandleNotications indexOfObject:noHandleNoti];
                     [self.noHandleNotications replaceObjectAtIndex:noHandleindex withObject:notication];
                     bHandle = YES;
+                    break;
                 }
                 
             }
