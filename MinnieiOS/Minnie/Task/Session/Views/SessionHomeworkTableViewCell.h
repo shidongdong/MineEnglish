@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "HomeworkSession.h"
 
-typedef void(^SessionHomeworkTableViewCellClickImageCallback)(NSString *, UIImageView *);
+typedef void(^SessionHomeworkTableViewCellClickImageCallback)(NSString *, NSArray<UIImageView *> *, NSInteger);
 typedef void(^SessionHomeworkTableViewCellClickVideoCallback)(NSString *);
 typedef void(^SessionHomeworkTableViewCellClickAudioCallback)(NSString *, NSString *);
 

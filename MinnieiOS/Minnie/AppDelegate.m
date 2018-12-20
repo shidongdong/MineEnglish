@@ -343,13 +343,13 @@
 {
     AVInstallation *currentInstallation = [AVInstallation defaultInstallation];
 #if TEACHERSIDE
-    currentInstallation.deviceProfile = @"teacher_dev";
+    currentInstallation.deviceProfile = @"teacher_pro";
     
     if (APP.currentUser.authority == TeacherAuthoritySuperManager) {
         [currentInstallation addUniqueObject:@"SuperManager" forKey:@"channels"];
     }
 #else
-    currentInstallation.deviceProfile = @"student_dev";
+    currentInstallation.deviceProfile = @"student_pro";
     Clazz *clazz = APP.currentUser.clazz;
     [currentInstallation addUniqueObject:[NSString stringWithFormat:@"class_%@", @(clazz.classId)] forKey:@"channels"];
 #endif
@@ -362,13 +362,13 @@
 {
     AVInstallation *currentInstallation = [AVInstallation defaultInstallation];
 #if TEACHERSIDE
-    currentInstallation.deviceProfile = @"teacher_dev";
+    currentInstallation.deviceProfile = @"teacher_pro";
     
     if (APP.currentUser.authority == TeacherAuthoritySuperManager) {
         [currentInstallation removeObject:@"SuperManager" forKey:@"channels"];
     }
 #else
-    currentInstallation.deviceProfile = @"student_dev";
+    currentInstallation.deviceProfile = @"student_pro";
     Clazz *clazz = APP.currentUser.clazz;
     [currentInstallation removeObject:[NSString stringWithFormat:@"class_%@", @(clazz.classId)] forKey:@"channels"];
 #endif

@@ -63,6 +63,11 @@
     [self showChildPageViewControllerWithIndex:0 animated:NO shouldLocate:YES];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
 - (void)dealloc {
     NSLog(@"%s", __func__);
 }

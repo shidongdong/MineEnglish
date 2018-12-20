@@ -29,7 +29,7 @@
         if (!redIconView) {
             //显示小红点
             UIView *badgeView = [[UIView alloc]init];
-            badgeView.frame = CGRectMake(tabbarWidth * index + 5, 5, 8, 8);
+            badgeView.frame = CGRectMake(tabbarWidth * index + tabbarWidth / 2 + 5, 5, 8, 8);
             badgeView.tag = 888 + index;
             badgeView.layer.cornerRadius = 4;
             badgeView.backgroundColor = [UIColor colorWithHex:0xFF4858];

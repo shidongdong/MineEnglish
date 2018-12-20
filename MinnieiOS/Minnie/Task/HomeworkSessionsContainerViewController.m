@@ -17,12 +17,14 @@
 #import "PublicService.h"
 #import "AppVersion.h"
 #import "FilterAlertView.h"
-
+#import "AppDelegate.h"
 #if TEACHERSIDE
 #import "HomeworkSearchNameViewController.h"
 #import <FileProviderUI/FileProviderUI.h>
 #import <FileProvider/FileProvider.h>
 #else
+#import "CircleService.h"
+#import "CircleHomeworkFlag.h"
 #import "AchieverListViewController.h"
 #import "AchieverService.h"
 #import "MedalFlag.h"
@@ -167,6 +169,22 @@
     [super viewWillAppear:animated];
 #if TEACHERSIDE
 #else
+    //处理朋友圈的小红点
+    
+    [CirlcleService requestCircleHomeworkFlagWithcallback:^(Result *result, NSError *error) {
+        if (error == nil)
+        {
+            CircleHomeworkFlag * circleFlag = (CircleHomeworkFlag *)result.userInfo;
+            
+            if (circleFlag.schoolNotice > 0 || circleFlag.classNotice > 0)
+            {
+                AppDelegate * appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                [appDel showTabBarBadgeNum:-1 atIndex:1];
+            }
+        }
+    }];
+    
+    //处理勋章小红点
     [AchieverService requestMedalNoticeFlagWithCallback:^(Result *result, NSError *error) {
         //只处理成功的情况
         if (error == nil)

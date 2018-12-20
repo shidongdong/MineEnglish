@@ -173,10 +173,21 @@ NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCell
     
     HomeworkItem *item = self.homeworkSession.homework.items[indexPath.row+1];
     if ([item.type isEqualToString:HomeworkItemTypeImage]) {
-        HomeworkImageCollectionViewCell *cell = (HomeworkImageCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+        //取出所有包含图片类型的cell
+        NSMutableArray * imageTypeCells = [[NSMutableArray alloc] init];
+        for (int i = 0; i < self.homeworkSession.homework.items.count; i++)
+        {
+            HomeworkItem * tmpitem = [self.homeworkSession.homework.items objectAtIndex:i];
+            
+            if ([tmpitem.type isEqualToString:HomeworkItemTypeImage]) {
+                HomeworkImageCollectionViewCell *cell = (HomeworkImageCollectionViewCell *)[collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:i-1 inSection:0]];
+                [imageTypeCells addObject:cell.homeworkImageView];
+            }
+        }
+
         
         if (self.imageCallback != nil) {
-            self.imageCallback(item.imageUrl, cell.homeworkImageView);
+            self.imageCallback(item.imageUrl, imageTypeCells, indexPath.item);
         }
     } else if ([item.type isEqualToString:HomeworkItemTypeVideo]) {
         if (self.videoCallback != nil) {

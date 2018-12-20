@@ -23,6 +23,9 @@ typedef NS_ENUM(NSUInteger, CircleType) {
 + (BaseRequest *)loadMoreHomeworksWithURL:(NSString *)nextUrl
                                  callback:(RequestCallback)callback;
 
+//获取小红点
++ (BaseRequest *)requestCircleHomeworkFlagWithcallback:(RequestCallback)callback;
+
 // 赞
 + (BaseRequest *)likeHomework:(NSUInteger)homeworkId
                      callback:(RequestCallback)callback;

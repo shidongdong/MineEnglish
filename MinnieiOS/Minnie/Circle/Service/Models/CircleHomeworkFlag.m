@@ -1,0 +1,20 @@
+//
+//  CircleHomeworkFlag.m
+//  Minnie
+//
+//  Created by 栋栋 施 on 2018/12/17.
+//  Copyright © 2018年 minnieedu. All rights reserved.
+//
+
+#import "CircleHomeworkFlag.h"
+
+@implementation CircleHomeworkFlag
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{@"classNotice":@"classNotice",
+             @"schoolNotice":@"schoolNotice"
+             };
+}
+
+
+@end

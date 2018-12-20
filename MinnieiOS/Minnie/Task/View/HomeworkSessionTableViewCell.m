@@ -177,16 +177,20 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
     {
         [self setLeftCommitHomeworkUI:homeworkSession];
         
-        NSString * attrStr = item.text?[NSString stringWithFormat:@"[%@]%@",homeworkSession.homework.formTag,item.text]:[NSString stringWithFormat:@"[%@][无文字内容]",homeworkSession.homework.formTag];
-        NSMutableAttributedString * mAttribute = [[NSMutableAttributedString alloc] initWithString:attrStr];
-        [mAttribute addAttribute:NSForegroundColorAttributeName
-                           value:[UIColor colorWithHex:0X0098FE]
-                           range:NSMakeRange(0, homeworkSession.homework.formTag.length + 2)];
-//        [mAttribute addAttribute:NSStrokeColorAttributeName
-//                           value:[UIColor colorWithHex:0X666666]
-//                           range:NSMakeRange(homeworkSession.homework.formTag.length + 2, attrStr.length - homeworkSession.homework.formTag.length - 2)];
-
-        self.homeworkTitleLabel.attributedText = mAttribute;
+        if (homeworkSession.homework.formTag.length > 0)
+        {
+            NSString * attrStr = item.text?[NSString stringWithFormat:@"[%@]%@",homeworkSession.homework.formTag,item.text]:[NSString stringWithFormat:@"[%@][无文字内容]",homeworkSession.homework.formTag];
+            NSMutableAttributedString * mAttribute = [[NSMutableAttributedString alloc] initWithString:attrStr];
+            [mAttribute addAttribute:NSForegroundColorAttributeName
+                               value:[UIColor colorWithHex:0X0098FE]
+                               range:NSMakeRange(0, homeworkSession.homework.formTag.length + 2)];
+            self.homeworkTitleLabel.attributedText = mAttribute;
+        }
+        else
+        {
+            self.homeworkTitleLabel.text = item.text?:@"[无文字内容]";
+        }
+        
     }
     else
     {

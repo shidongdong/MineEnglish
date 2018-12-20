@@ -109,13 +109,38 @@ didReceiveTypedMessage:(AVIMTypedMessage *)message {
 - (void)conversation:(AVIMConversation *)conversation
      didUpdateForKey:(NSString *)key {
     //目前只处理未读消息的key
+    /* 有未读消息产生，请更新 UI，或者拉取对话。 */
+        
+#if TEACHERSIDE
+#else
     if ([key isEqualToString:@"unreadMessagesCount"]) {
+        //超过7天的作业直接不处理
+        
+        NSDate * date = [NSDate date];
+        NSTimeZone *zone = [NSTimeZone systemTimeZone];
+        NSInteger interval = [zone secondsFromGMTForDate:date];
+        NSDate *localDate = [date dateByAddingTimeInterval:interval];
+        
+        interval = [zone secondsFromGMTForDate:conversation.createAt];
+        NSDate * zoneCreateDate = [conversation.createAt dateByAddingTimeInterval:interval];
+        NSUInteger countSecs = [localDate timeIntervalSinceDate:zoneCreateDate];
+        
+        if (countSecs > 7 * 24 * 3600)
+        {
+            return;
+        }
+        
         NSUInteger unreadMessagesCount = conversation.unreadMessagesCount;
-        /* 有未读消息产生，请更新 UI，或者拉取对话。 */
         [[NSNotificationCenter defaultCenter] postNotificationName:kIMManagerClientUnReadMessageCountNotification
                                                             object:nil
                                                           userInfo:@{@"unReadCount": @(unreadMessagesCount),@"homeworkSessionId":@([conversation.name integerValue])}];
     }
+        
+#endif
+    
+        
+        
+    
 }
 
 - (void)client:(AVIMClient *)client

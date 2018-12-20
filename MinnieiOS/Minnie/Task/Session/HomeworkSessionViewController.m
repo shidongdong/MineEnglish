@@ -87,8 +87,8 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 @property (nonatomic, weak) IBOutlet UIButton *retryButton;
 
 @property (nonatomic, strong) NEPhotoBrowser *photoBrowser;
-@property (nonatomic, copy) NSString *currentImageUrl;
-@property (nonatomic, weak) UIImageView *currentImageView;
+@property (nonatomic, strong) NSArray<UIImageView *> * currentImageViews;
+@property (nonatomic, strong)NSMutableArray * homeworkImages;    //作业详情所
 
 @property (nonatomic, assign) BOOL isCommitingHomework;
 
@@ -119,6 +119,18 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     
     self.messages = [NSMutableArray array];
     self.sortedMessages = [NSMutableDictionary dictionary];
+    self.currentImageViews = [NSMutableArray array];
+    //从作业中提取
+    self.homeworkImages = [NSMutableArray array];
+    for (int i = 0; i < self.homeworkSession.homework.items.count; i++)
+    {
+        HomeworkItem * items = [self.homeworkSession.homework.items objectAtIndex:i];
+        if ([items.type isEqualToString:HomeworkItemTypeImage])
+        {
+            [self.homeworkImages addObject:items.imageUrl];
+        }
+    }
+    
     
     self.recordButton.hidden = YES;
     self.recordButton.layer.borderWidth = 0.5f;
@@ -1464,11 +1476,11 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     return settings;
 }
 
-- (void)showCurrentSelectedImage {
+- (void)showCurrentSelectedImage:(NSInteger)index {
     self.photoBrowser = [[NEPhotoBrowser alloc] init];
     self.photoBrowser.delegate = self;
     self.photoBrowser.dataSource = self;
-    self.photoBrowser.clickedImageView = self.currentImageView;
+    self.photoBrowser.clickedImageIndex = index;
     
     [self.photoBrowser showInContext:self.navigationController];
     
@@ -1541,11 +1553,10 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             [weakSelf playerVideoWithURL:videoUrl];
         }];
         
-        [cell setImageCallback:^(NSString *imageUrl, UIImageView *imageView) {
-            weakSelf.currentImageView = imageView;
-            weakSelf.currentImageUrl = imageUrl;
-            
-            [weakSelf showCurrentSelectedImage];
+        [cell setImageCallback:^(NSString * imageUrl, NSArray<UIImageView *> * imageViews, NSInteger index) {
+            weakSelf.currentImageViews = imageViews;
+            NSInteger selectIndex = [weakSelf.homeworkImages indexOfObject:imageUrl];
+            [weakSelf showCurrentSelectedImage:selectIndex];
         }];
         
         [cell setAudioCallback:^(NSString * audioUrl, NSString * audioCoverUrl) {
@@ -1782,14 +1793,14 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 #pragma mark - NEPhotoBrowserDataSource
 
 - (NSInteger)numberOfPhotosInPhotoBrowser:(NEPhotoBrowser *)browser {
-    return 1;
+    return self.homeworkImages.count;
 }
 - (NSURL* __nonnull)photoBrowser:(NEPhotoBrowser * __nonnull)browser imageURLForIndex:(NSInteger)index {
-    return [NSURL URLWithString:self.currentImageUrl];
+    return [NSURL URLWithString:[self.homeworkImages objectAtIndex:index]];
 }
 
 - (UIImage * __nullable)photoBrowser:(NEPhotoBrowser * __nonnull)browser placeholderImageForIndex:(NSInteger)index {
-    return self.currentImageView.image;
+    return [self.currentImageViews objectAtIndex:index].image;
 }
 
 #pragma mark - NEPhotoBrowserDelegate

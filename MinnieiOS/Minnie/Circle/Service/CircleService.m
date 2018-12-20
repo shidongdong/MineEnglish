@@ -15,7 +15,7 @@
 #import "HomeworkRequest.h"
 #import "DeleteCircleHomeworkRequest.h"
 #import "UnreaderCircleCountRequest.h"
-
+#import "CircleHomeworkFlagRequest.h"
 @implementation CirlcleService
 
 + (BaseRequest *)requestAllHomeworksWithCallback:(RequestCallback)callback {
@@ -27,6 +27,15 @@
     request.callback = callback;
     [request start];
     
+    return request;
+}
+
++ (BaseRequest *)requestCircleHomeworkFlagWithcallback:(RequestCallback)callback
+{
+    CircleHomeworkFlagRequest * request = [[CircleHomeworkFlagRequest alloc] init];
+    request.objectClassName = @"CircleHomeworkFlag";
+    request.callback = callback;
+    [request start];
     return request;
 }
 
