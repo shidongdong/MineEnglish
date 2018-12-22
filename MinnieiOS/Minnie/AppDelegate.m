@@ -293,6 +293,10 @@
         _lastSelectedDate = currentDate;
         
     }
+    else if ([tabBarController.selectedViewController isEqual:[tabBarController.viewControllers objectAtIndex:1]])
+    {
+        [self showTabBarBadgeNum:0 atIndex:1];
+    }
     
     return YES;
 }

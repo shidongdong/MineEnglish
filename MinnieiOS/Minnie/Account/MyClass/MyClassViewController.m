@@ -12,7 +12,7 @@
 #import "UIView+Load.h"
 #import "Clazz.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-
+#import "CircleHomeworksViewController.h"
 @interface MyClassViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UIView *containerView;
@@ -110,6 +110,8 @@
     return cell;
 }
 
+
+
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView
@@ -130,8 +132,14 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     return 26;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [collectionView deselectItemAtIndexPath:indexPath animated:NO];
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    User *user = self.Clazz.students[indexPath.row];
+    
+    CircleHomeworksViewController *circleVC = [[CircleHomeworksViewController alloc] initWithNibName:@"CircleHomeworksViewController" bundle:nil];
+    circleVC.userId = user.userId;
+    circleVC.userName = user.nickname;
+    [self.navigationController pushViewController:circleVC animated:YES];
 }
 
 @end

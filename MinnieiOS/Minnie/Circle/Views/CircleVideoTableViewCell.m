@@ -32,8 +32,8 @@ static CGFloat const CircleVideoThumbnailRatio = 140/222.f;
     
     self.classlevelLabel.layer.cornerRadius = 9.0f;
     self.classlevelLabel.layer.masksToBounds = YES;
-    self.classlevelLabel.layer.borderWidth = 0.5;
-    self.classlevelLabel.layer.borderColor = [UIColor colorWithHex:0x999999].CGColor;
+//    self.classlevelLabel.layer.borderWidth = 0.5;
+//    self.classlevelLabel.layer.borderColor = [UIColor colorWithHex:0x999999].CGColor;
     
     
     self.bgImageView.image = [[UIImage imageNamed:@"white_top_corner_bg"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 14, 10, 14) resizingMode:UIImageResizingModeStretch];

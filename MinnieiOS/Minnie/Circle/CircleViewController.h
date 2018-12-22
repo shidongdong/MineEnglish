@@ -20,4 +20,7 @@
 // 指定某个具体的班级
 @property (nonatomic, assign) NSInteger classId;
 
+//点击头像能否跳转
+@property (nonatomic, assign) BOOL bSkipAvater;
+
 @end

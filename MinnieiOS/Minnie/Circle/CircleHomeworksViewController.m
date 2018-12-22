@@ -39,6 +39,10 @@
 
     if (self.circleChildController == nil) {
         self.circleChildController = [[CircleViewController alloc] initWithNibName:NSStringFromClass([CircleViewController class]) bundle:nil];
+        if (self.clazz == 0)
+        {
+            self.circleChildController.bSkipAvater = YES;
+        }
         self.circleChildController.userId = self.userId;
         self.circleChildController.classId = self.clazz.classId;
     }

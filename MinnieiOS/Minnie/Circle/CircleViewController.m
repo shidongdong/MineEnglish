@@ -496,6 +496,11 @@
 
 - (void)avatarButtonPressed:(CircleHomework *)homework
 {
+    if (self.bSkipAvater)
+    {
+        return;
+    }
+    
     CircleHomeworksViewController *circleVC = [[CircleHomeworksViewController alloc] initWithNibName:@"CircleHomeworksViewController" bundle:nil];
     circleVC.userId = homework.student.userId;
     circleVC.userName = homework.student.nickname;

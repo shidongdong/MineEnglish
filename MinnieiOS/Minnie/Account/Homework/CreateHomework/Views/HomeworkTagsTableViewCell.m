@@ -67,8 +67,8 @@ NSString * const HomeworkTagsTableViewCellId = @"HomeworkTagsTableViewCellId";
     [tempCell updateConstraintsIfNeeded];
     
     CGSize size = [tempCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    
-    return size.height;
+    NSLog(@"~~~~~~~~~~size: %f %f",size.width,size.height);
+    return size.height + 50.f;
 }
 
 #pragma mark - IBActions

@@ -230,6 +230,11 @@
             
         }
         
+        
+        
+#if TEACHERSIDE
+#else
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             NSInteger tabbarCount = self.unReadHomeworkSessions.count + self.noHandleNotications.count;
             
@@ -237,8 +242,9 @@
             [appDel showTabBarBadgeNum:tabbarCount atIndex:0];
             
         });
+#endif
     });
-    
+
     
     
     

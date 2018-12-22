@@ -56,7 +56,7 @@ NSString * const CircleAndStarTableViewCellId = @"CircleAndStarTableViewCellId";
 
 - (void)update {
     self.classmateUpdateCountLabel.text = [NSString stringWithFormat:@"%@更新", @(APP.currentUser.circleUpdate)];
-    self.starCountLabel.text = [NSString stringWithFormat:@"%@颗", @(APP.currentUser.starCount)];
+    self.starCountLabel.text = [NSString stringWithFormat:@"%@", @(APP.currentUser.starCount)];
 
     self.classmateUpdateCountLabel.hidden = APP.currentUser.circleUpdate==0;
     self.starCountLabel.hidden = APP.currentUser.starCount==0;

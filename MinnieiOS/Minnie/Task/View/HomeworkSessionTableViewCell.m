@@ -287,7 +287,7 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
         [self.scoreView addSubview:label];
         
         [label mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.scoreView).with.offset(10);
+            make.left.equalTo(self.scoreView).with.offset(15);
             make.trailing.equalTo(self.scoreView).with.offset(-trailing-12-8);
             make.centerY.equalTo(self.scoreView);
         }];

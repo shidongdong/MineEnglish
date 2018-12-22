@@ -111,8 +111,7 @@ didReceiveTypedMessage:(AVIMTypedMessage *)message {
     //目前只处理未读消息的key
     /* 有未读消息产生，请更新 UI，或者拉取对话。 */
         
-#if TEACHERSIDE
-#else
+
     if ([key isEqualToString:@"unreadMessagesCount"]) {
         //超过7天的作业直接不处理
         
@@ -135,8 +134,6 @@ didReceiveTypedMessage:(AVIMTypedMessage *)message {
                                                             object:nil
                                                           userInfo:@{@"unReadCount": @(unreadMessagesCount),@"homeworkSessionId":@([conversation.name integerValue])}];
     }
-        
-#endif
     
         
         

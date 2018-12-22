@@ -281,7 +281,7 @@
     else
     {
         WeakifySelf;
-        [FilterAlertView showInView:self.tabBarController.view atFliterType:self.currentFliterType forFliterArray:@[@"全部",@"0星",@"1星",@"2星",@"3星",@"4星",@"5星"] withAtionBlock:^(NSInteger index) {
+        [FilterAlertView showInView:self.tabBarController.view atFliterType:self.currentFliterType forFliterArray:@[@"全部",@"零星",@"一星",@"二星",@"三星",@"四星",@"五星"] withAtionBlock:^(NSInteger index) {
             StrongifySelf;
             strongSelf.currentFliterType = index;
             [strongSelf.finishedClassesChildController requestSearchForSorceAtIndex:index];

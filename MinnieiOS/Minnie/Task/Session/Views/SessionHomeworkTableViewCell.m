@@ -181,7 +181,17 @@ NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCell
             
             if ([tmpitem.type isEqualToString:HomeworkItemTypeImage]) {
                 HomeworkImageCollectionViewCell *cell = (HomeworkImageCollectionViewCell *)[collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:i-1 inSection:0]];
-                [imageTypeCells addObject:cell.homeworkImageView];
+                if (cell.homeworkImageView)
+                {
+                    [imageTypeCells addObject:cell.homeworkImageView];
+                }
+                else
+                {
+                    UIImageView * imageView = [[UIImageView alloc] init];
+                    [imageView sd_setImageWithURL:[item.imageUrl imageURLWithWidth:90] placeholderImage:[UIImage imageNamed:@"attachment_placeholder"]];
+                    [imageTypeCells addObject:imageView];
+                }
+                
             }
         }
 
