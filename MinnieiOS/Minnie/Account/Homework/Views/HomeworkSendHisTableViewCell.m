@@ -41,8 +41,8 @@ NSString * const HomeworkSendHisTableViewCellId = @"HomeworkSendHisTableViewCell
     if (data.classNames.count + data.studentNames.count > maxLines)
     {
         maxLines = data.classNames.count + data.studentNames.count;
-        NSString * tmpStr1 = [HomeworkSendHisTableViewCell generateStringFromArray:data.classNames];
-        NSString * tmpStr2 = [HomeworkSendHisTableViewCell generateStringFromArray:data.studentNames];
+        NSString * tmpStr1 = [HomeworkSendHisTableViewCell generateStringFromArray:data.classNames withIndexShow:NO];
+        NSString * tmpStr2 = [HomeworkSendHisTableViewCell generateStringFromArray:data.studentNames withIndexShow:NO];
         if (tmpStr1.length > 0)
         {
             textStr = [NSString stringWithFormat:@"%@\n%@",tmpStr1,tmpStr2];
@@ -54,7 +54,7 @@ NSString * const HomeworkSendHisTableViewCellId = @"HomeworkSendHisTableViewCell
     }
     else
     {
-        textStr = [HomeworkSendHisTableViewCell generateStringFromArray:data.homeworkTitles];
+        textStr = [HomeworkSendHisTableViewCell generateStringFromArray:data.homeworkTitles withIndexShow:YES];
     }
     //计算文字的高度
     NSStringDrawingOptions options =  NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading;
@@ -68,9 +68,9 @@ NSString * const HomeworkSendHisTableViewCellId = @"HomeworkSendHisTableViewCell
 {
     self.timeLabel.text = data.createTime;
     self.teacherLabel.text = data.teacherName;
-    self.homeworkTitleLabel.text = [HomeworkSendHisTableViewCell generateStringFromArray:data.homeworkTitles];
-    NSString * classStr = [HomeworkSendHisTableViewCell generateStringFromArray:data.classNames];
-    NSString * studentStr = [HomeworkSendHisTableViewCell generateStringFromArray:data.studentNames];
+    self.homeworkTitleLabel.text = [HomeworkSendHisTableViewCell generateStringFromArray:data.homeworkTitles withIndexShow:YES];
+    NSString * classStr = [HomeworkSendHisTableViewCell generateStringFromArray:data.classNames withIndexShow:NO];
+    NSString * studentStr = [HomeworkSendHisTableViewCell generateStringFromArray:data.studentNames withIndexShow:NO];
     if (classStr.length > 0)
     {
         self.studentLabel.text = [NSString stringWithFormat:@"%@\n%@",classStr,studentStr];
@@ -83,11 +83,17 @@ NSString * const HomeworkSendHisTableViewCellId = @"HomeworkSendHisTableViewCell
     
 }
 
-+ (NSString *)generateStringFromArray:(NSArray<NSString *> *)strArray
++ (NSString *)generateStringFromArray:(NSArray<NSString *> *)strArray withIndexShow:(BOOL)bShow
 {
     NSMutableString * appendString = [[NSMutableString alloc] init];
     for (int i = 0; i < strArray.count; i++)
     {
+        if (bShow)
+        {
+            [appendString appendString:[NSString stringWithFormat:@"%d.",i + 1]];
+        }
+        
+        
         NSString * tmpStr = [strArray objectAtIndex:i];
         [appendString appendString:tmpStr];
         if (i != strArray.count - 1)

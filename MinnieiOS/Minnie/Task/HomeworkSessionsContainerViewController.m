@@ -38,7 +38,7 @@
 @property (nonatomic, assign) NSInteger  currentFliterType;  //教师端： 0 按时间 1 按作业 2 按人 学生端： 0星~6星
 @property (nonatomic, assign) NSInteger currentIndex;
 @property (nonatomic, assign) HomeworkSessionsViewController * currentViewController;
-
+@property (nonatomic ,strong) NSArray * fliterTitles;
 #if TEACHERSIDE
 @property (nonatomic, strong) HomeworkSessionsViewController *uncommitClassesChildController;
 
@@ -69,15 +69,24 @@
     [super viewDidLoad];
     self.currentIndex = 0;
     [self checkAppVersion];
+
+    
 #if TEACHERSIDE
     
     self.containerContentY.constant = 3 * ScreenWidth;
     
+    self.fliterTitles = @[@"按时间",@"按任务",@"按人"];
+    
     [self.leftFuncButton setImage:[UIImage imageNamed:@"navbar_search"] forState:UIControlStateNormal];
     [self.rightFuncButton setImage:[UIImage imageNamed:@"navbar_screen"] forState:UIControlStateNormal];
+    [self.rightFuncButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
 #else
+    
+    self.fliterTitles = @[@"全部",@"零星",@"一星",@"二星",@"三星",@"四星",@"五星"];
+    
     [self.leftFuncButton setImage:[UIImage imageNamed:@"navbar_medal"] forState:UIControlStateNormal];
     [self.rightFuncButton setImage:[UIImage imageNamed:@"navbar_calendar"] forState:UIControlStateNormal];
+    [self.rightFuncButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
 #endif
     
     if (isIPhoneX) {
@@ -100,11 +109,19 @@
 #else
         if (selectedIndex == 0)
         {
+            [self.rightFuncButton setTitle:@"" forState:UIControlStateNormal];
             [self.rightFuncButton setImage:[UIImage imageNamed:@"navbar_calendar"] forState:UIControlStateNormal];
+            [self.rightFuncButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+            [self.rightFuncButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
         }
         else
         {
-             [self.rightFuncButton setImage:[UIImage imageNamed:@"navbar_screen"] forState:UIControlStateNormal];
+            
+            [self.rightFuncButton setTitle:[self.fliterTitles objectAtIndex: self.currentFliterType] forState:UIControlStateNormal];
+            [self.rightFuncButton setImage:[UIImage imageNamed:@"icon_drop_small"] forState:UIControlStateNormal];
+            [self.rightFuncButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -35, 0, 0)];
+            [self.rightFuncButton setImageEdgeInsets:UIEdgeInsetsMake(0, 35, 0, 0)];
+            
         }
 #endif
         [weakSelf showChildPageViewControllerWithIndex:selectedIndex animated:YES shouldLocate:YES];
@@ -263,7 +280,7 @@
     //显示搜索
     
     WeakifySelf;
-    [FilterAlertView showInView:self.tabBarController.view atFliterType:self.currentFliterType forFliterArray:@[@"按时间",@"按任务",@"按人"] withAtionBlock:^(NSInteger index) {
+    [FilterAlertView showInView:self.tabBarController.view atFliterType:self.currentFliterType forFliterArray:self.fliterTitles withAtionBlock:^(NSInteger index) {
         StrongifySelf;
         strongSelf.currentFliterType = index;
         [strongSelf.currentViewController requestSearchForSorceAtIndex:index];
@@ -280,9 +297,14 @@
     }
     else
     {
+        
         WeakifySelf;
-        [FilterAlertView showInView:self.tabBarController.view atFliterType:self.currentFliterType forFliterArray:@[@"全部",@"零星",@"一星",@"二星",@"三星",@"四星",@"五星"] withAtionBlock:^(NSInteger index) {
+        [FilterAlertView showInView:self.tabBarController.view atFliterType:self.currentFliterType forFliterArray:self.fliterTitles withAtionBlock:^(NSInteger index) {
             StrongifySelf;
+            [strongSelf.rightFuncButton setTitle:[self.fliterTitles objectAtIndex:index] forState:UIControlStateNormal];
+            [strongSelf.rightFuncButton setImage:[UIImage imageNamed:@"icon_drop_small"] forState:UIControlStateNormal];
+            [strongSelf.rightFuncButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -35, 0, 0)];
+            [strongSelf.rightFuncButton setImageEdgeInsets:UIEdgeInsetsMake(0, 35, 0, 0)];
             strongSelf.currentFliterType = index;
             [strongSelf.finishedClassesChildController requestSearchForSorceAtIndex:index];
         }];

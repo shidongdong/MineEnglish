@@ -58,10 +58,22 @@
 #pragma mark - IBActions
 
 - (IBAction)addButtonPressed:(id)sender {
+    //判断相同标签不能创建
+    
+    
     WeakifySelf;
     [CreateTagView showInSuperView:self.view
                           callback:^(NSString *tag) {
                               [CreateTagView hideAnimated:YES];
+                              
+                              for (NSString * tmpTag in self.tags)
+                              {
+                                  if ([tag isEqualToString:tmpTag])
+                                  {
+                                      [HUD showWithMessage:@"无法创建相同的标签"];
+                                      return;
+                                  }
+                              }
                               
                               [HUD showProgressWithMessage:@"正在添加标签"];
                               

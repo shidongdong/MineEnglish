@@ -23,6 +23,7 @@
 #if TEACHERSIDE
 #import "TeacherAccountViewController.h"
 #else
+#import "GuideViewController.h"
 #import "StudentAccountViewController.h"
 #import "TrialClassViewController.h"
 #endif
@@ -218,6 +219,17 @@
 #else
 
 - (void)toHome {
+    
+    //新版本引导页
+
+    if (!APP.userGuide)
+    {
+        GuideViewController * guideVc = [[GuideViewController alloc] init];
+        [self.window setRootViewController:guideVc];
+        return;
+    }
+    
+    
     UIColor *normalTitleColor = [UIColor colorWithHex:0x999999];
     UIColor *selectedTitleColor = [UIColor colorWithHex:0x0098FE];
     UIFont *font = [UIFont systemFontOfSize:10.f];

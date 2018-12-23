@@ -20,10 +20,7 @@
 
 #import "Application.h"
 
-#if TEACHERSIDE
-#else
-#import "GuideViewController.h"
-#endif
+
 
 @interface LoadViewController ()
 
@@ -47,16 +44,7 @@
     
     [self registerForRemoteNotification];
     
-    //新版本引导页
-#if TEACHERSIDE
-#else
-    if (!APP.userGuide)
-    {
-        GuideViewController * guideVc = [[GuideViewController alloc] init];
-        [self.view.window setRootViewController:guideVc];
-        return;
-    }
-#endif
+    
     
     if (APP.currentUser.token.length == 0 ||
         APP.currentUser.nickname.length==0 ||
