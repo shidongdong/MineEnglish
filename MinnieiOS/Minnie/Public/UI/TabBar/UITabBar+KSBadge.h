@@ -1,9 +1,8 @@
 //
 //  UITabBar+KSBadge.h
-//  KomectSport
 //
 //  Created by 栋栋 施 on 17/1/9.
-//  Copyright © 2017年 CMCC. All rights reserved.
+//  Copyright © 2017年 . All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
