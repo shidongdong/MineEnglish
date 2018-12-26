@@ -26,6 +26,20 @@ NSString * const HomeworkTagsTableViewCellId = @"HomeworkTagsTableViewCellId";
 - (void)awakeFromNib {
     [super awakeFromNib];
   
+    if (@available(iOS 12.0, *)) {
+        // Addresses a separate issue and prevent auto layout warnings due to the temporary width constraint in the xib.
+        self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        // Code below is needed to make the self-sizing cell work when building for iOS 12 from Xcode 10.0:
+        
+        NSLayoutConstraint *leftConstraint = [self.contentView.leftAnchor constraintEqualToAnchor:self.leftAnchor constant:0];
+        NSLayoutConstraint *rightConstraint = [self.contentView.rightAnchor constraintEqualToAnchor:self.rightAnchor constant:0];
+        NSLayoutConstraint *topConstraint = [self.contentView.topAnchor constraintEqualToAnchor:self.topAnchor constant:0];
+        NSLayoutConstraint *bottomConstraint = [self.contentView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:0];
+        
+        [NSLayoutConstraint activateConstraints:@[leftConstraint, rightConstraint, topConstraint, bottomConstraint]];
+    }
+    
     self.tagsCollectionView.layer.cornerRadius = 12;
     self.tagsCollectionView.layer.masksToBounds = YES;
     
@@ -60,15 +74,18 @@ NSString * const HomeworkTagsTableViewCellId = @"HomeworkTagsTableViewCellId";
     
     [tempCell setupWithTags:tags selectedTags:nil typeTitle:title];
     
-    [tempCell setNeedsLayout];
-    [tempCell layoutIfNeeded];
+    CGRect  rect = tempCell.frame;
+    tempCell.frame = CGRectMake(rect.origin.x, rect.origin.y, ScreenWidth - 24, rect.size.height);
     
-    [tempCell setNeedsUpdateConstraints];
-    [tempCell updateConstraintsIfNeeded];
+    [tempCell.contentView setNeedsLayout];
+    [tempCell.contentView layoutIfNeeded];
+    
+    [tempCell.contentView setNeedsUpdateConstraints];
+    [tempCell.contentView updateConstraintsIfNeeded];
     
     CGSize size = [tempCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    NSLog(@"~~~~~~~~~~size: %f %f",size.width,size.height);
-    return size.height + 50.f;
+    
+    return size.height;
 }
 
 #pragma mark - IBActions
@@ -130,6 +147,9 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
+    
+    
+    NSLog(@"~~~~~~~~~%f  %f",collectionView.frame.size.width, collectionView.frame.size.height);
     
     NSString *tag = self.tags[indexPath.item];
     TagCollectionViewCell *cell = (TagCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];

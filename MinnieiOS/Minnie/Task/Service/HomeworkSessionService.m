@@ -16,6 +16,10 @@
 #import "SearchHomeworkScoreRequest.h"
 #import "SearchHomeworkTypeRequest.h"
 #import "SearchHomeworkNameRequest.h"
+#import "CorrectHomeworkCommentsRequest.h"
+#import "CorrectHomeworkAddCommentRequest.h"
+#import "CorrectHomeworkDelCommentRequest.h"
+
 @implementation HomeworkSessionService
 
 + (BaseRequest *)requestHomeworkSessionsWithFinishState:(NSInteger)state
@@ -162,6 +166,33 @@
     request.callback = callback;
     [request start];
     
+    return request;
+}
+
+//获取常用评语列表
++ (BaseRequest *)searchHomeworkSessionCommentWithCallback:(RequestCallback)callback
+{
+    CorrectHomeworkCommentsRequest * request = [[CorrectHomeworkCommentsRequest alloc] init];
+    request.callback = callback;
+    [request start];
+    return request;
+}
+
+//添加常用评语
++ (BaseRequest *)addHomeworkSessionComment:(NSString *)comment callback:(RequestCallback)callback
+{
+    CorrectHomeworkAddCommentRequest * request = [[CorrectHomeworkAddCommentRequest alloc] initWithAddHomeworkComment:comment];
+    request.callback = callback;
+    [request start];
+    return request;
+}
+
+//删除常用评语
++ (BaseRequest *)delHomeworkSessionComment:(NSArray<NSString *> *)comments callback:(RequestCallback)callback
+{
+    CorrectHomeworkDelCommentRequest * request = [[CorrectHomeworkDelCommentRequest alloc] initWithDeleteHomeworkComments:comments];
+    request.callback = callback;
+    [request start];
     return request;
 }
 

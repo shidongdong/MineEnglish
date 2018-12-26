@@ -57,6 +57,16 @@
 + (BaseRequest *)searchHomeworkSessionWithNameWithNextUrl:(NSString *)nextUrl
                                                  callback:(RequestCallback)callback;
 
+
+//获取常用评语列表
++ (BaseRequest *)searchHomeworkSessionCommentWithCallback:(RequestCallback)callback;
+
+//添加常用评语
++ (BaseRequest *)addHomeworkSessionComment:(NSString *)comment callback:(RequestCallback)callback;
+
+//删除常用评语
++ (BaseRequest *)delHomeworkSessionComment:(NSArray<NSString *> *)comments callback:(RequestCallback)callback;
+
 @end
 
 

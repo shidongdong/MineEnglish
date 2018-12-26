@@ -9,7 +9,7 @@
 #import "HomeworkSegmentTableViewCell.h"
 
 NSString * const HomeworkSegmentTableViewCellId = @"HomeworkSegmentTableViewCellId";
-CGFloat const HomeworkTypeTableViewCellHeight = 160.f;
+CGFloat const HomeworkTypeTableViewCellHeight = 200.f;
 
 
 @interface HomeworkSegmentTableViewCell()
@@ -23,6 +23,7 @@ CGFloat const HomeworkTypeTableViewCellHeight = 160.f;
 @property (weak, nonatomic) IBOutlet UILabel *fourTypeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *fiveTypeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sixTypeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sevenTypeLabel;
 
 @property (nonatomic, strong) UILabel * currentCateLabel;
 @property (nonatomic, strong) UILabel * currentStyleLabel;
@@ -88,6 +89,10 @@ CGFloat const HomeworkTypeTableViewCellHeight = 160.f;
             self.sixTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
             self.currentStyleLabel = self.sixTypeLabel;
             break;
+        case 106:
+            self.sevenTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
+            self.currentStyleLabel = self.sevenTypeLabel;
+            break;
         default:
             break;
     }
@@ -143,6 +148,10 @@ CGFloat const HomeworkTypeTableViewCellHeight = 160.f;
         case 2:
             self.sixTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
             self.currentStyleLabel = self.sixTypeLabel;
+            break;
+        case 3:
+            self.sevenTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
+            self.currentStyleLabel = self.sevenTypeLabel;
             break;
 
     }

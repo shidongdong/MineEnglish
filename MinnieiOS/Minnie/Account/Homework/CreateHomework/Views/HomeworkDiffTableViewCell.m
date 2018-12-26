@@ -8,17 +8,19 @@
 
 #import "HomeworkDiffTableViewCell.h"
 NSString * const HomeworkDiffTableViewCellId = @"HomeworkDiffTableViewCellId";
-CGFloat const HomeworkDiffcultTableViewCellHeight = 103.f;
+CGFloat const HomeworkDiffcultTableViewCellHeight = 173.f;
 
 
 @interface HomeworkDiffTableViewCell()
 
-@property (weak, nonatomic) IBOutlet UILabel *easyLabel;
-@property (weak, nonatomic) IBOutlet UILabel *normalLabel;
-@property (weak, nonatomic) IBOutlet UILabel *diffcultLabel;
-@property (weak, nonatomic) IBOutlet UIView *bgContentView;
+@property (weak, nonatomic) IBOutlet UIView *oneStarView;
+@property (weak, nonatomic) IBOutlet UIView *twoStarView;
+@property (weak, nonatomic) IBOutlet UIView *threeStarView;
+@property (weak, nonatomic) IBOutlet UIView *fourStarView;
+@property (weak, nonatomic) IBOutlet UIView *fiveStarView;
 
-@property (nonatomic,strong) UILabel * currentLabel;
+
+@property (nonatomic,assign) NSInteger lastIndex;
 
 @end
 
@@ -27,69 +29,95 @@ CGFloat const HomeworkDiffcultTableViewCellHeight = 103.f;
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.bgContentView.layer.cornerRadius = 12.0;
+    self.oneStarView.layer.cornerRadius = 12.0;
+    self.twoStarView.layer.cornerRadius = 12.0;
+    self.threeStarView.layer.cornerRadius = 12.0;
+    self.fourStarView.layer.cornerRadius = 12.0;
+    self.fiveStarView.layer.cornerRadius = 12.0;
     
-    self.easyLabel.backgroundColor = [UIColor colorWithHex:0x00CE00];
-    self.easyLabel.textColor = [UIColor colorWithHex:0xFFFFFF];
-    self.currentLabel = self.easyLabel;
-    
+    self.lastIndex = -1;
     // Initialization code
 }
 - (IBAction)diffBtnClick:(UIButton *)sender {
     
-    self.currentLabel.backgroundColor = [UIColor clearColor];
-    self.currentLabel.textColor = [UIColor colorWithHex:0x999999];
+    if (sender.tag - 100 == self.lastIndex)
+    {
+        return;
+    }
+    
+    UIView * lastView = [self viewWithTag:self.lastIndex + 200];
+    lastView.backgroundColor = [UIColor colorWithHex:0xF5F5F5];
+    UIButton * lastBtn = [self viewWithTag:self.lastIndex + 100];
+    [lastBtn setTitleColor:[UIColor colorWithHex:0x999999] forState:UIControlStateNormal];
+    
     switch (sender.tag) 
     {
         case 100:
-            self.easyLabel.backgroundColor = [UIColor colorWithHex:0x00CE00];
-            self.currentLabel = self.easyLabel;
+            self.oneStarView.backgroundColor = [UIColor colorWithHex:0x00CE00];
             break;
         case 101:
-            self.normalLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
-            self.currentLabel = self.normalLabel;
+            self.twoStarView.backgroundColor = [UIColor colorWithHex:0x00CE00];
             break;
         case 102:
-            self.diffcultLabel.backgroundColor = [UIColor colorWithHex:0xFF4858];
-            self.currentLabel = self.diffcultLabel;
+            self.threeStarView.backgroundColor = [UIColor colorWithHex:0x00CE00];
             break;
-        default:
+        case 103:
+            self.fourStarView.backgroundColor = [UIColor colorWithHex:0x00CE00];
+            break;
+        case 104:
+            self.fiveStarView.backgroundColor = [UIColor colorWithHex:0x00CE00];
             break;
     }
     
-    self.currentLabel.textColor = [UIColor colorWithHex:0xFFFFFF];
+    [sender setTitleColor:[UIColor colorWithHex:0xFFFFFF] forState:UIControlStateNormal];
+    
+    self.lastIndex = sender.tag - 100;
     
     if (self.selectCallback)
     {
-        self.selectCallback(sender.tag - 100);
+        self.selectCallback(self.lastIndex);
     }
     
 }
 
 - (void)updateHomeworkLevel:(NSInteger)level
 {
-    self.currentLabel.backgroundColor = [UIColor clearColor];
-    self.currentLabel.textColor = [UIColor colorWithHex:0x999999];
+    
+    if (level == self.lastIndex)
+    {
+        return;
+    }
+    
+    UIView * lastView = [self viewWithTag:self.lastIndex + 200];
+    lastView.backgroundColor = [UIColor colorWithHex:0xFFFFFF];
+    UIButton * lastBtn = [self viewWithTag:self.lastIndex + 100];
+    [lastBtn setTitleColor:[UIColor colorWithHex:0x999999] forState:UIControlStateNormal];
     
     switch (level)
     {
         case 0:
-            self.easyLabel.backgroundColor = [UIColor colorWithHex:0x00CE00];
-            self.currentLabel = self.easyLabel;
+            self.oneStarView.backgroundColor = [UIColor colorWithHex:0x00CE00];
             break;
         case 1:
-            self.normalLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
-            self.currentLabel = self.normalLabel;
+            self.twoStarView.backgroundColor = [UIColor colorWithHex:0x00CE00];
             break;
         case 2:
-            self.diffcultLabel.backgroundColor = [UIColor colorWithHex:0xFF4858];
-            self.currentLabel = self.diffcultLabel;
+            self.threeStarView.backgroundColor = [UIColor colorWithHex:0x00CE00];
             break;
-        default:
+        case 3:
+            self.fourStarView.backgroundColor = [UIColor colorWithHex:0x00CE00];
+            break;
+        case 4:
+            self.fiveStarView.backgroundColor = [UIColor colorWithHex:0x00CE00];
             break;
     }
     
-    self.currentLabel.textColor = [UIColor colorWithHex:0xFFFFFF];
+    UIButton * selectBtn = [self viewWithTag:level + 100];
+    [selectBtn setTitleColor:[UIColor colorWithHex:0xFFFFFF] forState:UIControlStateNormal];
+    
+    self.lastIndex = level;
+    
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

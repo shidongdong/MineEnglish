@@ -579,6 +579,10 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 @property (nonatomic, weak) IBOutlet UIImageView *whiteSelectedImageView;
 @property (nonatomic, weak) IBOutlet UIImageView *blackImageView;
 @property (nonatomic, weak) IBOutlet UIImageView *blackSelectedImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *blueImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *blueSelectedImageView;
+
+
 @end
 
 @implementation WBGColorPan
@@ -605,7 +609,7 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 
 - (void)configUI
 {
-    self.colors = @[[UIColor colorWithHex:0xFF4858], [UIColor whiteColor], [UIColor colorWithHex:0x333333]];
+    self.colors = @[[UIColor colorWithHex:0xFF4858], [UIColor whiteColor], [UIColor colorWithHex:0x333333],[UIColor colorWithHex:0x0098FE]];
     
     self.redImageView.layer.cornerRadius = 13.f;
     self.redImageView.layer.masksToBounds = YES;
@@ -629,6 +633,15 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     self.blackSelectedImageView.layer.masksToBounds = YES;
     self.blackSelectedImageView.layer.borderColor = [UIColor colorWithHex:0xCCCCCC].CGColor;
     self.blackSelectedImageView.layer.borderWidth = 2;
+    
+    
+    self.blueImageView.layer.cornerRadius = 13.f;
+    self.blueImageView.layer.masksToBounds = YES;
+    self.blueSelectedImageView.layer.cornerRadius = 18.f;
+    self.blueSelectedImageView.layer.masksToBounds = YES;
+    self.blueSelectedImageView.layer.borderColor = [UIColor colorWithHex:0xCCCCCC].CGColor;
+    self.blueSelectedImageView.layer.borderWidth = 2;
+    
 }
 
 - (IBAction)colorBtnAction:(UIButton *)sender {
@@ -637,7 +650,7 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     self.redSelectedImageView.hidden = tag!=0;
     self.whiteSelectedImageView.hidden = tag!=1;
     self.blackSelectedImageView.hidden = tag!=2;
-    
+    self.blueSelectedImageView.hidden = tag!=3;
     self.currentColor = [self.colors objectAtIndex:tag];
 }
 

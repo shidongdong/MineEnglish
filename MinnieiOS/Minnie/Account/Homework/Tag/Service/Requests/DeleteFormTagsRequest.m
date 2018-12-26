@@ -30,7 +30,7 @@
 }
 
 - (id)requestArgument {
-    return @{@"tags": self.homeworkFromTags};
+    return @{@"formTags": self.homeworkFromTags};
 }
 
 @end
