@@ -19,8 +19,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.mTextView setPlaceholder:@"输入常用评语，最多20字" placeholdColor:[UIColor colorWithHex:0xCCCCCC]];
-    
+    self.mTextView.placeholder = @"输入常用评语，最多20字";
+    self.mTextView.placeholderColor = [UIColor colorWithHex:0xCCCCCC];
     // Do any additional setup after loading the view from its nib.
 }
 

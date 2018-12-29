@@ -25,8 +25,8 @@
                             <constraint firstAttribute="height" constant="20" id="PZB-ZX-boE"/>
                             <constraint firstAttribute="width" constant="80" id="ecg-Lh-DKn"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="CMj-xK-pQL">
@@ -36,7 +36,7 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                         <connections>
-                            <outlet property="delegate" destination="-1" id="lEy-HT-Cjv"/>
+                            <outlet property="delegate" destination="-1" id="CMm-B8-l7G"/>
                         </connections>
                     </textView>
                 </subviews>

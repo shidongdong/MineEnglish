@@ -117,6 +117,9 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
 }
 
 - (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     NSLog(@"%s", __func__);
 }
 
@@ -1056,7 +1059,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
     else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 5)
     {
         HomeworkTagsTableViewCell *tagsCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTagsTableViewCellId forIndexPath:indexPath];
-        tagsCell.bSingleSelect = YES;
+        tagsCell.type = HomeworkTagsTableViewCellSelectSigleType;
         NSMutableArray * selectFormTags = [[NSMutableArray alloc] init];
         if (self.selectFormTag)
         {
@@ -1071,7 +1074,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         
         [tagsCell setManageCallback:^{
             TagsViewController *tagsVC = [[TagsViewController alloc] initWithNibName:@"TagsViewController" bundle:nil];
-            tagsVC.isFromTagType = YES;
+            tagsVC.type = TagsHomeworkFormType;
             [weakSelf.navigationController pushViewController:tagsVC animated:YES];
         }];
         
@@ -1080,7 +1083,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
     else
     {
         HomeworkTagsTableViewCell *tagsCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTagsTableViewCellId forIndexPath:indexPath];
-        
+        tagsCell.type = HomeworkTagsTableViewCellSelectMutiType;
         [tagsCell setupWithTags:self.tags selectedTags:self.selectedTags typeTitle:@"标签:"];
         
         WeakifySelf;
@@ -1094,7 +1097,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         
         [tagsCell setManageCallback:^{
             TagsViewController *tagsVC = [[TagsViewController alloc] initWithNibName:@"TagsViewController" bundle:nil];
-            tagsVC.isFromTagType = NO;
+            tagsVC.type = TagsHomeworkTipsType;
             [weakSelf.navigationController pushViewController:tagsVC animated:YES];
         }];
         

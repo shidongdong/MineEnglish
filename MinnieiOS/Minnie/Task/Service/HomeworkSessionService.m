@@ -173,6 +173,7 @@
 + (BaseRequest *)searchHomeworkSessionCommentWithCallback:(RequestCallback)callback
 {
     CorrectHomeworkCommentsRequest * request = [[CorrectHomeworkCommentsRequest alloc] init];
+    request.objectKey = @"list";
     request.callback = callback;
     [request start];
     return request;

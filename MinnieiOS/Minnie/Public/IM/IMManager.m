@@ -128,11 +128,11 @@ didReceiveTypedMessage:(AVIMTypedMessage *)message {
         {
             return;
         }
-        
+        NSLog(@"~~~~~~~~~~~~~~unread %ld",[conversation.name integerValue]);
         NSUInteger unreadMessagesCount = conversation.unreadMessagesCount;
         [[NSNotificationCenter defaultCenter] postNotificationName:kIMManagerClientUnReadMessageCountNotification
                                                             object:nil
-                                                          userInfo:@{@"unReadCount": @(unreadMessagesCount),@"homeworkSessionId":@([conversation.name integerValue])}];
+                                                          userInfo:@{@"unReadCount": @(unreadMessagesCount),@"homeworkSessionId":@([conversation.name integerValue]),@"lastMessage": conversation.lastMessage}];
     }
     
         

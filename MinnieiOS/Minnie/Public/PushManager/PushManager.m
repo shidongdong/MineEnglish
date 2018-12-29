@@ -77,6 +77,25 @@
     [push sendPushInBackground];
 }
 
++ (void)pushText:(NSString *)text toUsers:(NSArray<NSNumber *> *)userIds withPushType:(PushManagerType)type
+{
+    if (text.length == 0) {
+        return ;
+    }
+    
+    AVPush *push = [[AVPush alloc] init];
+    
+    NSMutableArray *channels = [NSMutableArray array];
+    for (NSNumber *userId in userIds) {
+        [channels addObject:[NSString stringWithFormat:@"%@", userId]];
+    }
+    
+    [push setChannels:channels];
+    
+    [push setData:@{@"alert":text, @"badge":@"Increment",@"pushType" :@(type)}];
+    [push sendPushInBackground];
+}
+
 // 给老师和一些channel发送推送
 + (void)pushText:(NSString *)text toUsers:(NSArray<NSNumber *> *)userIds addChannels:(NSArray <NSString *> *)cs {
     if (text.length == 0) {

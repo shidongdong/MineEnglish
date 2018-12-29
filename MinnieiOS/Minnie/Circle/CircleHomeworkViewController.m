@@ -123,10 +123,10 @@
                                    
                                    if (self.currentOriginalComment.commentId > 0) {
                                        if (self.currentOriginalComment.user.userId > 0) {
-                                           [PushManager pushText:@"你有新的回复" toUsers:@[@(self.currentOriginalComment.user.userId)]];
+                                           [PushManager pushText:@"你有新的回复" toUsers:@[@(self.currentOriginalComment.user.userId)] withPushType:PushManagerCircle];
                                        }
                                    } else {
-                                       [PushManager pushText:@"你有新的评论" toUsers:@[@(self.homework.student.userId)]];
+                                       [PushManager pushText:@"你有新的评论" toUsers:@[@(self.homework.student.userId)] withPushType:PushManagerCircle];
                                    }
                                } else {
                                    [HUD showErrorWithMessage:@"评论失败"];
@@ -229,7 +229,7 @@
         [CirlcleService likeHomework:homework.homeworkSessionId
                             callback:^(Result *result, NSError *error) {
                                 if (error == nil) {
-                                    [PushManager pushText:@"有人赞了你" toUsers:@[@(homework.student.userId)]];
+                                    [PushManager pushText:@"有人赞了你" toUsers:@[@(homework.student.userId)] withPushType:PushManagerCircle];
                                 }
                             }];
     }

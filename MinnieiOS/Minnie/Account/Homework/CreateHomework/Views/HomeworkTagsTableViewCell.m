@@ -148,30 +148,32 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     
-    
-    NSLog(@"~~~~~~~~~%f  %f",collectionView.frame.size.width, collectionView.frame.size.height);
-    
     NSString *tag = self.tags[indexPath.item];
     TagCollectionViewCell *cell = (TagCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     
-    if ([self.selectedTags containsObject:tag]) {
-        [self.selectedTags removeObject:tag];
-        [cell setChoice:NO];
-    } else {
-        if (self.bSingleSelect)
-        {
-            if (self.selectedTags.count == 1)
+    if (self.type == HomeworkTagsTableViewCellSelectSigleType || self.type == HomeworkTagsTableViewCellSelectMutiType)
+    {
+        if ([self.selectedTags containsObject:tag]) {
+            [self.selectedTags removeObject:tag];
+            [cell setChoice:NO];
+        } else {
+            if (self.type == HomeworkTagsTableViewCellSelectSigleType)
             {
-                NSString * lastTag = [self.selectedTags objectAtIndex:0];
-                NSInteger lastIndex = [self.tags indexOfObject:lastTag];
-                TagCollectionViewCell *lastCell = (TagCollectionViewCell *)[collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:lastIndex inSection:0]];
-                [lastCell setChoice:NO];
-                [self.selectedTags removeAllObjects];
+                if (self.selectedTags.count == 1)
+                {
+                    NSString * lastTag = [self.selectedTags objectAtIndex:0];
+                    NSInteger lastIndex = [self.tags indexOfObject:lastTag];
+                    TagCollectionViewCell *lastCell = (TagCollectionViewCell *)[collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:lastIndex inSection:0]];
+                    [lastCell setChoice:NO];
+                    [self.selectedTags removeAllObjects];
+                }
             }
+            [self.selectedTags addObject:tag];
+            [cell setChoice:YES];
         }
-        [self.selectedTags addObject:tag];
-        [cell setChoice:YES];
     }
+    
+    
     
     if (self.selectCallback != nil) {
         self.selectCallback(tag);

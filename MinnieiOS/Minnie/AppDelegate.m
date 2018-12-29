@@ -32,16 +32,24 @@
 #import "CircleContainerController.h"
 #import "Constants.h"
 #import "UITabBar+KSBadge.h"
+#import "PushManager.h"
+
 @interface AppDelegate ()<UITabBarControllerDelegate>
 
 @property (nonatomic, strong) NSDate *enterBackgroundDate;
 @property(nonatomic,strong)NSDate * lastSelectedDate;
+
+@property (nonatomic ,strong)NSDictionary * handleLaunchDict;
+
 @end
 
 @implementation AppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    self.handleLaunchDict = launchOptions;
+    
     [Bugly startWithAppId:@"f82097cc09"];
     //正式版
     //[AVOSCloud setApplicationId:@"pe0Om2fpgh5oHCd0NfSUbwkT-gzGzoHsz" clientKey:@"gfJuGSytpQalwcnAmNtunRoP"];
@@ -214,6 +222,17 @@
     tbBarController.viewControllers = @[tasksNC, /*homeworksNC,*/ classesNC, accountNC];
     tbBarController.delegate = self;
     [UIApplication sharedApplication].keyWindow.rootViewController = tbBarController;
+    
+    if (self.handleLaunchDict)
+    {
+        NSDictionary * pushDict =  [self.handleLaunchDict objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        
+        if (pushDict)
+        {
+            PushManagerType type = (PushManagerType)[[pushDict objectForKey:@"pushType"] integerValue];
+            [self handleNotiForPushType:type];
+        }
+    }
 }
 
 #else
@@ -272,8 +291,11 @@
     
     PortraitTabBarController *tbBarController = [[PortraitTabBarController alloc] init];
     tbBarController.viewControllers = @[tasksNC, classmateNC, accountNC];
-    
+    tbBarController.delegate = self;
     [UIApplication sharedApplication].keyWindow.rootViewController = tbBarController;
+    
+   
+    
 }
 
 #endif
@@ -282,7 +304,7 @@
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     
     // 确保当前在首页界面
-    if ([tabBarController.selectedViewController isEqual:[tabBarController.viewControllers firstObject]]) {
+    if ([viewController isEqual:[tabBarController.viewControllers firstObject]]) {
         // ! 即将选中的页面是之前上一次选中的控制器页面
         if (![viewController isEqual:tabBarController.selectedViewController]) {
             return YES;
@@ -305,7 +327,7 @@
         _lastSelectedDate = currentDate;
         
     }
-    else if ([tabBarController.selectedViewController isEqual:[tabBarController.viewControllers objectAtIndex:1]])
+    else if ([viewController isEqual:[tabBarController.viewControllers objectAtIndex:1]])
     {
         [self showTabBarBadgeNum:0 atIndex:1];
     }
@@ -401,18 +423,29 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
+   // NSDictionary * apsDict = [userInfo objectForKey:@"aps"];
+    PushManagerType type = (PushManagerType)[[userInfo objectForKey:@"pushType"] integerValue];
+    [self handleNotiForPushType:type];
+}
+
+
+- (void)handleNotiForPushType:(PushManagerType)type
+{
 #if TEACHERSIDE
 #else
-    NSDictionary * apsDict = [userInfo objectForKey:@"aps"];
-    NSString * alert = [apsDict objectForKey:@"alert"];
-    if ([alert containsString:@"你有新的作业"])
+    if ([self.window.rootViewController isKindOfClass:[PortraitTabBarController class]])
     {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfApnsNewHomeworkSession object:nil];
+        if (type == PushManagerMessage)
+        {
+            PortraitTabBarController * rootTabVc = (PortraitTabBarController *)self.window.rootViewController;
+            rootTabVc.selectedIndex = 0;
+        }
+        else if (type == PushManagerCircle)
+        {
+            PortraitTabBarController * rootTabVc = (PortraitTabBarController *)self.window.rootViewController;
+            rootTabVc.selectedIndex = 1;
+        }
     }
-//    else if([alert containsString:@"你有作业已通过"])
-//    {
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfApnsFinishHomeworkSession object:nil];
-//    }
 #endif
 }
 

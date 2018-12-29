@@ -27,7 +27,15 @@
     self = [super init];
     if (self != nil) {
         _score = score;
-        _text = text;
+        //避免插入空指针
+        if (text.length == 0)
+        {
+            _text = @"";
+        }
+        else
+        {
+            _text = text;
+        }
         _sessionId = homeworkSessionId;
         _isRedo = bRedo;
         _isCircle = bSend;

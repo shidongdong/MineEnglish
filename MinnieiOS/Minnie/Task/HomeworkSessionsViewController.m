@@ -181,7 +181,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSInteger unReadCount = [[notication.userInfo objectForKey:@"unReadCount"] integerValue];
         NSInteger homeworkSessionId = [[notication.userInfo objectForKey:@"homeworkSessionId"] integerValue];
-        
+        AVIMMessage * message = [notication.userInfo objectForKey:@"lastMessage"];
         BOOL bExist = NO;  //有可能有些作业需要下拉加载才能请求出来
         //遍历请求下来的数组
         for (HomeworkSession * session in self.homeworkSessions)
@@ -192,43 +192,51 @@
                 session.unreadMessageCount = unReadCount;
                 if (unReadCount == 0)
                 {
+                    //一般由点击事件产生,需要在重新进入页面的时候
                     [self.unReadHomeworkSessions removeObject:session];
+                    self.shouldReloadTableWhenAppeard = YES;
+                    
                 }
                 else
                 {
+                    
                     if (![self.unReadHomeworkSessions containsObject:session])
                     {
                         [self.unReadHomeworkSessions addObject:session];
                     }
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self reloadTableViewForNewMessage:message];
+                    });
                 }
                 break;
             }
         }
-        if (!bExist)
-        {
-            BOOL bHandle = NO;
-            
-            for (NSNotification * noHandleNoti in self.noHandleNotications)
-            {
-                NSInteger noHandleHomeworkSessionId = [[noHandleNoti.userInfo objectForKey:@"homeworkSessionId"] integerValue];
-                
-                if (noHandleHomeworkSessionId == homeworkSessionId)
-                {
-                    NSInteger noHandleindex = [self.noHandleNotications indexOfObject:noHandleNoti];
-                    [self.noHandleNotications replaceObjectAtIndex:noHandleindex withObject:notication];
-                    bHandle = YES;
-                    break;
-                }
-                
-            }
-            
-            
-            if (!bHandle)
-            {
-                [self.noHandleNotications addObject:notication];
-            }
-            
-        }
+//        if (!bExist)
+//        {
+//            BOOL bHandle = NO;
+//            
+//            for (NSNotification * noHandleNoti in self.noHandleNotications)
+//            {
+//                NSInteger noHandleHomeworkSessionId = [[noHandleNoti.userInfo objectForKey:@"homeworkSessionId"] integerValue];
+//                
+//                if (noHandleHomeworkSessionId == homeworkSessionId)
+//                {
+//                    NSInteger noHandleindex = [self.noHandleNotications indexOfObject:noHandleNoti];
+//                    [self.noHandleNotications replaceObjectAtIndex:noHandleindex withObject:notication];
+//                    bHandle = YES;
+//                    break;
+//                }
+//                
+//            }
+//            
+//            
+//            if (!bHandle)
+//            {
+//                [self.noHandleNotications addObject:notication];
+//            }
+//            
+//        }
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -351,10 +359,10 @@
         return;
     }
     //不需要加载
-    if (!self.bLoadConversion)
-    {
-        return;
-    }
+//    if (!self.bLoadConversion)
+//    {
+//        return;
+//    }
     
     NSString *userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
     [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success,  NSError * error) {
@@ -371,10 +379,10 @@
         return;
     }
 
-    if (!self.bLoadConversion)
-    {
-        return;
-    }
+//    if (!self.bLoadConversion)
+//    {
+//        return;
+//    }
     
     NSDate *startTime = [NSDate date];
     
@@ -553,12 +561,19 @@
         return ;
     }
     
-    if (!self.bLoadConversion)
-    {
-        return;
-    }
+//    if (!self.bLoadConversion)
+//    {
+//        return;
+//    }
     
     AVIMMessage *message = (AVIMMessage *)(notification.userInfo)[@"message"];
+    [self reloadTableViewForNewMessage:message];
+    
+}
+
+
+- (void)reloadTableViewForNewMessage:(AVIMMessage *)message
+{
     NSDictionary *attributes = ((AVIMTypedMessage *)message).attributes;
 #if TEACHERSIDE
 #else
@@ -622,17 +637,17 @@
 #endif
             
             if (APP.currentIMHomeworkSessionId ==0 || APP.currentIMHomeworkSessionId != homeworkSession.homeworkSessionId) {
-               // homeworkSession.unreadMessageCount++;
+                // homeworkSession.unreadMessageCount++;
             }
             
             if (homeworkSession.conversation.lastMessageAt != nil) {
                 homeworkSession.sortTime = [homeworkSession.conversation.lastMessageAt timeIntervalSince1970]*1000;
             } else {
-//                if (homeworkSession.updateTime == 0) {
-//                    homeworkSession.sortTime = [[NSDate date] timeIntervalSince1970] * 1000;
-//                } else {
-                    homeworkSession.sortTime = homeworkSession.updateTime;
-//                }
+                //                if (homeworkSession.updateTime == 0) {
+                //                    homeworkSession.sortTime = [[NSDate date] timeIntervalSince1970] * 1000;
+                //                } else {
+                homeworkSession.sortTime = homeworkSession.updateTime;
+                //                }
             }
             
             break;
@@ -644,7 +659,7 @@
             [self.homeworkSessionsTableView reloadData];
         }
     } else {
-        if (attributes[@"score"] == nil) {
+        if (attributes[@"score"] == nil && !self.bLoadConversion) {
             [HomeworkSessionService requestHomeworkSessionWithId:homeworkSessionId callback:^(Result *result, NSError *error) {
                 if (error != nil) {
                     return;
@@ -660,16 +675,16 @@
                 }
                 
                 if (!exists) {
-                   // session.unreadMessageCount++;
+                    // session.unreadMessageCount++;
                     
                     if (messageConversation.lastMessageAt != nil) {
                         session.sortTime = [messageConversation.lastMessageAt timeIntervalSince1970] * 1000;
                     } else {
-//                        if (session.updateTime == 0) {
-//                            session.sortTime = [[NSDate date] timeIntervalSince1970] * 1000;
-//                        } else {
-                            session.sortTime = session.updateTime;
-//                        }
+                        //                        if (session.updateTime == 0) {
+                        //                            session.sortTime = [[NSDate date] timeIntervalSince1970] * 1000;
+                        //                        } else {
+                        session.sortTime = session.updateTime;
+                        //                        }
                     }
                     
                     AVIMMessage *message = messageConversation.lastMessage;
@@ -710,7 +725,7 @@
     }
     
     if (self.queriedConversations.count == 0 &&
-        self.isUnfinished && self.bLoadConversion &&
+        self.isUnfinished &&
         [IMManager sharedManager].client.status==AVIMClientStatusOpened) {
         [self loadConversations];
     }
@@ -893,21 +908,21 @@
             });
             
             //把内容存起来
-            if (self.isUnfinished)
-            {
-                if (self.bLoadConversion)
-                {
-                    APP.unfinishHomeworkSessionList = self.homeworkSessions;
-                }
-                else
-                {
-                    APP.unCommitHomeworkSessionList = self.homeworkSessions;
-                }
-            }
-            else
-            {
-                APP.finishHomeworkSessionList = self.homeworkSessions;
-            }
+//            if (self.isUnfinished)
+//            {
+//                if (self.bLoadConversion)
+//                {
+//                    APP.unfinishHomeworkSessionList = self.homeworkSessions;
+//                }
+//                else
+//                {
+//                    APP.unCommitHomeworkSessionList = self.homeworkSessions;
+//                }
+//            }
+//            else
+//            {
+//                APP.finishHomeworkSessionList = self.homeworkSessions;
+//            }
             
         } else {
             UIImage *image = self.isUnfinished?[UIImage imageNamed:@"缺省插画_无作业"]:nil;

@@ -12,7 +12,11 @@
 #import "CorrectHomeworkCommentTableViewCell.h"
 #import "CorrectHomeworkHisCommentTableViewCell.h"
 #import "CorrectHomeworkAddCommentViewController.h"
-@interface CorrectHomeworkViewController ()<UITableViewDelegate,UITableViewDataSource,CorrectHomeworkAddCommentViewControllerDelegate>
+#import "HomeworkTagsTableViewCell.h"
+#import "TagsViewController.h"
+#import "HomeworkSessionService.h"
+
+@interface CorrectHomeworkViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, weak) IBOutlet UITableView * mTableView;
 
@@ -21,7 +25,7 @@
 @property (nonatomic, assign) NSInteger currentScore; //评分
 @property (nonatomic, strong) NSString * commentText; //评语
 @property (nonatomic, assign) NSInteger m_circle;     //分享到朋友圈
-@property (nonatomic, strong) NSMutableArray * commentTags; //常用评论列表
+@property (nonatomic, strong) NSArray * commentTags; //常用评论列表
 
 @end
 
@@ -36,6 +40,16 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardFrameWillChange:)
                                                  name:UIKeyboardWillChangeFrameNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(requestCommentTags)
+                                                 name:kNotificationKeyOfAddTags
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(requestCommentTags)
+                                                 name:kNotificationKeyOfDeleteTags
                                                object:nil];
     
     [self requestCommentTags];
@@ -56,14 +70,22 @@
 
 - (void)requestCommentTags
 {
-    
+    [HomeworkSessionService searchHomeworkSessionCommentWithCallback:^(Result *result, NSError *error) {
+        if (error != nil) {
+            [HUD showErrorWithMessage:@"常用评语请求失败"];
+            return ;
+        }
+        
+        self.commentTags = (NSArray *)(result.userInfo);
+        [self.mTableView reloadData];
+    }];
 }
 
 - (void)registerCellNibs
 {
     [self.mTableView registerNib:[UINib nibWithNibName:@"CorrectHomeworkScoreTableViewCell" bundle:nil] forCellReuseIdentifier:CorrectHomeworkScoreTableViewCellId];
     [self.mTableView registerNib:[UINib nibWithNibName:@"CorrectHomeworkCommentTableViewCell" bundle:nil] forCellReuseIdentifier:CorrectHomeworkCommentTableViewCellId];
-    [self.mTableView registerNib:[UINib nibWithNibName:@"CorrectHomeworkHisCommentTableViewCell" bundle:nil] forCellReuseIdentifier:CorrectHomeworkHisCommentTableViewCellId];
+    [self.mTableView registerNib:[UINib nibWithNibName:@"HomeworkTagsTableViewCell" bundle:nil] forCellReuseIdentifier:HomeworkTagsTableViewCellId];
 }
 
 - (IBAction)backButtonPressed:(id)sender {
@@ -72,6 +94,9 @@
 
 
 - (IBAction)confirmButtonPressed:(id)sender {
+    
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+    
     if (self.currentScore == -1) {
         [HUD showErrorWithMessage:@"请先评分"];
         return;
@@ -92,7 +117,10 @@
     }
     
     NSString *reviewText = [self.commentText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    
+    if (reviewText.length == 0)
+    {
+        reviewText = @"";
+    }
     
     [HUD showProgressWithMessage:@"正在评分..."];
     
@@ -173,7 +201,7 @@
     }
     else
     {
-        return [CorrectHomeworkHisCommentTableViewCell heightWithTags:self.commentTags];
+        return [HomeworkTagsTableViewCell heightWithTags:self.commentTags typeTitle:@"常用评语:"];
     }
 }
 
@@ -204,30 +232,31 @@
     }
     else
     {
-        CorrectHomeworkHisCommentTableViewCell * addCommentCell = [tableView dequeueReusableCellWithIdentifier:CorrectHomeworkHisCommentTableViewCellId forIndexPath:indexPath];
-        [addCommentCell setAddCommentCallback:^{
-            CorrectHomeworkAddCommentViewController * addCommentVc = [[CorrectHomeworkAddCommentViewController alloc] init];
-            addCommentVc.delegate = weakSelf;
-            [weakSelf.navigationController pushViewController:addCommentVc animated:YES];
-        }];
-        [addCommentCell setClickCommentCallback:^(NSString * tag) {
+
+        HomeworkTagsTableViewCell * addCommentCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTagsTableViewCellId forIndexPath:indexPath];
+        addCommentCell.type = HomeworkTagsTableViewCellSelectNoneType;
+        [addCommentCell setupWithTags:self.commentTags selectedTags:@[] typeTitle:@"常用评语:"];
+        
+        WeakifySelf;
+        [addCommentCell setSelectCallback:^(NSString *tag) {
             weakSelf.commentText = tag;
             
             CorrectHomeworkCommentTableViewCell * commentCell = (CorrectHomeworkCommentTableViewCell *)[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
             [commentCell setupCommentInfo:tag];
         }];
         
+        [addCommentCell setManageCallback:^{
+            TagsViewController *tagsVC = [[TagsViewController alloc] initWithNibName:@"TagsViewController" bundle:nil];
+            tagsVC.type = TagsCommentType;
+            [weakSelf.navigationController pushViewController:tagsVC animated:YES];
+        }];
+        
         cell = addCommentCell;
+        
     }
     return cell;
 }
 
-#pragma mark - CorrectHomeworkAddCommentViewControllerDelegate
-
-- (void)addComment:(NSString *)info
-{
-    
-}
 
 @end
 

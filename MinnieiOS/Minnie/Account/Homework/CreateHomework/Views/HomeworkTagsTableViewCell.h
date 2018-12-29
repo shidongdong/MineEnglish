@@ -11,6 +11,12 @@
 typedef void(^HomeworkTagsTableViewCellSelectCallback)(NSString *);
 typedef void(^HomeworkTagsTableViewCellManageCallback)(void);
 
+typedef NS_ENUM(NSInteger, HomeworkTagsTableViewCellSelectType) {
+    HomeworkTagsTableViewCellSelectSigleType = 0, // 单选
+    HomeworkTagsTableViewCellSelectMutiType = 1, // 消息相关
+    HomeworkTagsTableViewCellSelectNoneType = 2, // 无选择状态
+};
+
 extern NSString * const HomeworkTagsTableViewCellId;
 
 @interface HomeworkTagsTableViewCell : UITableViewCell
@@ -18,7 +24,8 @@ extern NSString * const HomeworkTagsTableViewCellId;
 @property (nonatomic, copy) HomeworkTagsTableViewCellSelectCallback selectCallback;
 @property (nonatomic, copy) HomeworkTagsTableViewCellManageCallback manageCallback;
 
-@property (nonatomic, assign) BOOL bSingleSelect;
+@property (nonatomic, assign) HomeworkTagsTableViewCellSelectType type; //选择状态
+
 
 - (void)setupWithTags:(NSArray <NSString *> *)tags
          selectedTags:(NSArray <NSString *> *)selectedTags

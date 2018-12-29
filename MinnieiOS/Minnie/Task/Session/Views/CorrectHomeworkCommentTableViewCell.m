@@ -20,6 +20,7 @@ CGFloat const CorrectHomeworkCommentTableViewCellHeight = 120.f;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.mTextView.delegate = self;
     // Initialization code
 }
 

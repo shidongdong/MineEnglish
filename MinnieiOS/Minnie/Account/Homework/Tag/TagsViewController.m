@@ -9,6 +9,7 @@
 #import "TagsViewController.h"
 #import "TagCollectionViewCell.h"
 #import "TagService.h"
+#import "HomeworkSessionService.h"
 #import "UIView+Load.h"
 #import "Utils.h"
 #import "Constants.h"
@@ -70,15 +71,24 @@
                               {
                                   if ([tag isEqualToString:tmpTag])
                                   {
-                                      [HUD showWithMessage:@"无法创建相同的标签"];
+                                      if (self.type == TagsCommentType)
+                                      {
+                                          [HUD showWithMessage:@"无法创建相同的评语"];
+                                      }
+                                      else
+                                      {
+                                          [HUD showWithMessage:@"无法创建相同的标签"];
+                                      }
+                                      
                                       return;
                                   }
                               }
                               
-                              [HUD showProgressWithMessage:@"正在添加标签"];
                               
-                              if (self.isFromTagType)
+                              
+                              if (self.type == TagsHomeworkFormType)
                               {
+                                  [HUD showProgressWithMessage:@"正在添加标签"];
                                   [TagService createFormTag:tag callback:^(Result *result, NSError *error) {
                                       if (error != nil) {
                                           [HUD showErrorWithMessage:@"添加标签失败"];
@@ -102,8 +112,9 @@
                                   }];
                                   
                               }
-                              else
+                              else if (self.type == TagsHomeworkTipsType)
                               {
+                                  [HUD showProgressWithMessage:@"正在添加标签"];
                                   [TagService createTag:tag
                                                callback:^(Result *result, NSError *error) {
                                                    if (error != nil) {
@@ -127,13 +138,49 @@
                                                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfAddTags object:nil];
                                                }];
                               }
+                              else
+                              {
+                                  [HUD showProgressWithMessage:@"正在添加评语"];
+                                  [HomeworkSessionService addHomeworkSessionComment:tag callback:^(Result *result, NSError *error) {
+                                                   if (error != nil) {
+                                                       [HUD showErrorWithMessage:@"添加评语失败"];
+                                                       return;
+                                                   }
+                                                   
+                                                   [HUD hideAnimated:NO];
+                                                   
+                                                   NSMutableArray *tags = [NSMutableArray arrayWithArray:weakSelf.tags];
+                                                   if (tags.count == 0) {
+                                                       [weakSelf.tagsCollectionContainerView hideAllStateView];
+                                                       weakSelf.tagsCollectionView.hidden = NO;
+                                                   }
+                                                   
+                                                   [tags addObject:tag];
+                                                   weakSelf.tags = tags;
+                                                   
+                                                   [weakSelf.tagsCollectionView reloadData];
+                                                   
+                                                   [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfAddTags object:nil];
+                                               }];
+                              }
                           }];
 }
 
 - (IBAction)deleteButtonPressed:(id)sender {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确认删除标签"
-                                                                             message:@"确认要删除这些标签么"
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController;
+    if (self.type == TagsCommentType)
+    {
+        alertController = [UIAlertController alertControllerWithTitle:@"确认删除评语"
+                                                              message:@"确认要删除这些评语么"
+                                                       preferredStyle:UIAlertControllerStyleAlert];
+    }
+    else
+    {
+        alertController = [UIAlertController alertControllerWithTitle:@"确认删除标签"
+                                                              message:@"确认要删除这些标签么"
+                                                       preferredStyle:UIAlertControllerStyleAlert];
+    }
+    
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
                                                            style:UIAlertActionStyleCancel
@@ -143,9 +190,10 @@
     UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"删除"
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * _Nonnull action) {
-                                                              [HUD showProgressWithMessage:@"正在删除标签"];
-                                                              if (self.isFromTagType)
+                                                              
+                                                              if (self.type == TagsHomeworkFormType)
                                                               {
+                                                                  [HUD showProgressWithMessage:@"正在删除标签"];
                                                                   [TagService deleteFormTags:self.selectedTags callback:^(Result *result, NSError *error) {
                                                                       if (error != nil) {
                                                                           [HUD showErrorWithMessage:@"删除标签失败"];
@@ -178,8 +226,9 @@
                                                                       [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfDeleteFormTags object:nil];
                                                                   }];
                                                               }
-                                                              else
+                                                              else if (self.type == TagsHomeworkTipsType)
                                                               {
+                                                                  [HUD showProgressWithMessage:@"正在删除标签"];
                                                                   [TagService deleteTags:self.selectedTags callback:^(Result *result, NSError *error) {
                                                                       if (error != nil) {
                                                                           [HUD showErrorWithMessage:@"删除标签失败"];
@@ -201,6 +250,41 @@
                                                                       
                                                                       if (tags.count == 0) {
                                                                           [self.tagsCollectionContainerView showEmptyViewWithImage:nil title:@"暂无标签" linkTitle:nil linkClickCallback:nil];
+                                                                          self.tagsCollectionView.hidden = YES;
+                                                                      }
+                                                                      
+                                                                      [self.tagsCollectionView reloadData];
+                                                                      
+                                                                      self.deleteCountLabel.text = [NSString stringWithFormat:@"%zd", self.selectedTags.count];
+                                                                      self.deleteButton.enabled = NO;
+                                                                      
+                                                                      [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfDeleteTags object:nil];
+                                                                  }];
+                                                              }
+                                                              else
+                                                              {
+                                                                  [HUD showProgressWithMessage:@"正在删除评语"];
+                                                                  [HomeworkSessionService  delHomeworkSessionComment:self.selectedTags callback:^(Result *result, NSError *error) {
+                                                                      if (error != nil) {
+                                                                          [HUD showErrorWithMessage:@"删除评语失败"];
+                                                                          return;
+                                                                      }
+                                                                      
+                                                                      [HUD hideAnimated:NO];
+                                                                      
+                                                                      NSMutableArray *tags = [NSMutableArray arrayWithArray:self.tags];
+                                                                      NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
+                                                                      for (NSString *tag in self.selectedTags) {
+                                                                          NSInteger index = [self.tags indexOfObject:tag];
+                                                                          [indexes addIndex:index];
+                                                                      }
+                                                                      [tags removeObjectsAtIndexes:indexes];
+                                                                      self.tags = tags;
+                                                                      
+                                                                      [self.selectedTags removeAllObjects];
+                                                                      
+                                                                      if (tags.count == 0) {
+                                                                          [self.tagsCollectionContainerView showEmptyViewWithImage:nil title:@"暂无评语" linkTitle:nil linkClickCallback:nil];
                                                                           self.tagsCollectionView.hidden = YES;
                                                                       }
                                                                       
@@ -236,7 +320,7 @@
     
     WeakifySelf;
     
-    if (self.isFromTagType)
+    if (self.type == TagsHomeworkFormType)
     {
         self.tagsRequest = [TagService requestFormTagsWithCallback:^(Result *result, NSError *error) {
             StrongifySelf;
@@ -268,7 +352,7 @@
             }
         }];
     }
-    else
+    else if (self.type == TagsHomeworkTipsType)
     {
         self.tagsRequest = [TagService requestTagsWithCallback:^(Result *result, NSError *error) {
             StrongifySelf;
@@ -289,6 +373,38 @@
             if (tags.count == 0) {
                 [strongSelf.tagsCollectionContainerView showEmptyViewWithImage:nil
                                                                          title:@"暂无标签"
+                                                                     linkTitle:nil
+                                                             linkClickCallback:nil];
+            } else {
+                strongSelf.tags = tags;
+                
+                [strongSelf.tagsCollectionContainerView hideAllStateView];
+                strongSelf.tagsCollectionView.hidden = NO;
+                [strongSelf.tagsCollectionView reloadData];
+            }
+        }];
+    }
+    else
+    {
+        self.tagsRequest = [HomeworkSessionService searchHomeworkSessionCommentWithCallback:^(Result *result, NSError *error) {
+            StrongifySelf;
+            
+            strongSelf.tagsRequest = nil;
+            
+            // 显示失败页面
+            if (error != nil) {
+                __weak typeof(strongSelf) wk = strongSelf;
+                [strongSelf.tagsCollectionContainerView showFailureViewWithRetryCallback:^{
+                    [wk requestData];
+                }];
+                
+                return;
+            }
+            
+            NSArray *tags = (NSArray *)(result.userInfo);
+            if (tags.count == 0) {
+                [strongSelf.tagsCollectionContainerView showEmptyViewWithImage:nil
+                                                                         title:@"暂无评语"
                                                                      linkTitle:nil
                                                              linkClickCallback:nil];
             } else {

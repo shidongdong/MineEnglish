@@ -31,13 +31,14 @@
 #import "EmojiInputView.h"
 #import "RecordStateView.h"
 #import "RecordButton.h"
-#import "CorrectHomeworkViewController.h"
 #import "WBGImageEditorViewController.h"
 #import "AlertView.h"
 #import "StudentDetailViewController.h"
 #import "AudioPlayer.h"
 #import "VIResourceLoaderManager.h"
 #import "AudioPlayerViewController.h"
+#import "CorrectHomeworkViewController.h"
+
 static NSString * const kKeyOfCreateTimestamp = @"createTimestamp";
 static NSString * const kKeyOfAudioDuration = @"audioDuration";
 static NSString * const kKeyOfVideoDuration = @"videoDuration";
@@ -803,7 +804,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         [dict addEntriesFromDictionary:attributes];
     }
     dict[kKeyOfCreateTimestamp] = @(timestamp);
-    
+
     [NSMutableDictionary dictionaryWithDictionary:attributes];
     AVIMTextMessage *message = [AVIMTextMessage messageWithText:text attributes:dict];
     [self sendMessage:message];
@@ -879,24 +880,27 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                             imageUrl:imageURL.absoluteString
                                             videoUrl:nil
                                             callback:^(Result *result, NSError *error) {
-                                                self.isCommitingHomework = NO;
+                                                
                                                 
                                                 if (error == nil) {
                                                     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCommitHomework object:nil];
                                                     
                                                     [HUD showWithMessage:@"作业提交成功"];
                                                     
-                                                    [PushManager pushText:@"你有新的未批改的作业"
-                                                                  toUsers:@[@(self.homeworkSession.correctTeacher.userId)]];
+                                                    [PushManager pushText:@"[图片]"
+                                                                  toUsers:@[@(self.homeworkSession.correctTeacher.userId)] withPushType:PushManagerMessage];
                                                     
                                                     int64_t timestamp = (int64_t)([[NSDate date] timeIntervalSince1970] * 1000);
                                                     AVFile *file = [AVFile fileWithRemoteURL:imageURL];
                                                     AVIMImageMessage *message = [AVIMImageMessage messageWithText:@"image" file:file attributes:@{kKeyOfCreateTimestamp:@(timestamp)}];
                                                     
                                                     [self sendMessage:message];
+                                                    
+                                                    
                                                 } else {
                                                     [HUD showErrorWithMessage:@"作业提交失败"];
                                                 }
+                                                self.isCommitingHomework = NO;
                                             }];
     } else {
         int64_t timestamp = (int64_t)([[NSDate date] timeIntervalSince1970] * 1000);
@@ -998,8 +1002,8 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                                             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCommitHomework object:nil];
                                                             
                                                             [HUD showWithMessage:@"作业提交成功"];
-                                                            [PushManager pushText:@"你有新的未批改的作业"
-                                                                          toUsers:@[@(self.homeworkSession.correctTeacher.userId)]];
+                                                            [PushManager pushText:@"[视频]"
+                                                                          toUsers:@[@(self.homeworkSession.correctTeacher.userId)] withPushType:PushManagerMessage];
                                                             
                                                     
                                                         } else {
@@ -1027,14 +1031,14 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                             imageUrl:nil
                                             videoUrl:videoURL.absoluteString
                                             callback:^(Result *result, NSError *error) {
-                                                self.isCommitingHomework = NO;
+                                                
                                                 
                                                 if (error == nil) {
                                                     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCommitHomework object:nil];
                                                     
                                                     [HUD showWithMessage:@"作业提交成功"];
-                                                    [PushManager pushText:@"你有新的未批改的作业"
-                                                                  toUsers:@[@(self.homeworkSession.correctTeacher.userId)]];
+                                                    [PushManager pushText:@"[视频]"
+                                                                  toUsers:@[@(self.homeworkSession.correctTeacher.userId)] withPushType:PushManagerMessage];
                                                     
                                                     int64_t timestamp = (int64_t)([[NSDate date] timeIntervalSince1970] * 1000);
                                                     NSInteger d = (NSInteger)duration;
@@ -1047,6 +1051,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                                 } else {
                                                     [HUD showErrorWithMessage:@"作业提交失败"];
                                                 }
+                                                self.isCommitingHomework = NO;
                                             }];
     } else {
         int64_t timestamp = (int64_t)([[NSDate date] timeIntervalSince1970] * 1000);
@@ -1080,6 +1085,43 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         return;
     }
     BOOL isResend = message.status == AVIMMessageStatusFailed;
+    
+    //发送消息，区分学生端和客户端
+#if TEACHERSIDE
+    NSArray * users = @[@(self.homeworkSession.student.userId)];
+#else
+    NSArray * users = @[@(self.homeworkSession.correctTeacher.userId)];
+#endif
+    
+    if (message.mediaType == kAVIMMessageMediaTypeText)
+    {
+        AVIMTextMessage * textMessage = (AVIMTextMessage *)message;
+        [PushManager pushText:textMessage.text
+                      toUsers:users withPushType:PushManagerMessage];
+    }
+    else if (message.mediaType == kAVIMMessageMediaTypeImage)
+    {
+        if (!self.isCommitingHomework)
+        {
+            [PushManager pushText:@"[图片]"
+                          toUsers:users withPushType:PushManagerMessage];
+        }
+    }
+    else if (message.mediaType == kAVIMMessageMediaTypeAudio)
+    {
+        [PushManager pushText:@"[语音]"
+                          toUsers:users withPushType:PushManagerMessage];
+        
+    }
+    else if (message.mediaType == kAVIMMessageMediaTypeVideo)
+    {
+        if (!self.isCommitingHomework)
+        {
+            [PushManager pushText:@"[视频]"
+                          toUsers:users withPushType:PushManagerMessage];
+        }
+    }
+    
     [self.conversation sendMessage:message
                           callback:^(BOOL succeeded, NSError * _Nullable error) {
 #if TEACHERSIDE
