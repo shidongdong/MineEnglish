@@ -1069,7 +1069,15 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         
         WeakifySelf;
         [tagsCell setSelectCallback:^(NSString *tag) {
-            self.selectFormTag = tag;
+            if (self.selectFormTag.length > 0)
+            {
+                self.selectFormTag = @"";
+            }
+            else
+            {
+                self.selectFormTag = tag;
+            }
+            
         }];
         
         [tagsCell setManageCallback:^{

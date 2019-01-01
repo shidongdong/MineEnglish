@@ -24,6 +24,8 @@ CGFloat const CorrectHomeworkScoreTableViewCellHeight = 39.0f;
 @property (nonatomic, assign)NSInteger lastSelectedScore;   //上次选中的分数
 @property (nonatomic, assign)NSInteger bShareCircle;            //分享到朋友圈
 
+@property (nonatomic, assign)NSInteger homeworkLevel;
+
 @end
 
 @implementation CorrectHomeworkScoreTableViewCell
@@ -61,6 +63,63 @@ CGFloat const CorrectHomeworkScoreTableViewCellHeight = 39.0f;
     // Configure the view for the selected state
 }
 
+- (void)updateRecommendScoreHomeworkLevel:(NSInteger)level
+{
+    self.homeworkLevel = level;
+    switch (level) {
+        case 0:
+        {
+            self.twoStarView.backgroundColor = [UIColor colorWithHex:0xEEEEEE];
+            UIButton * twoStarBtn = [self viewWithTag:100 + 2];
+            [twoStarBtn setTitleColor:[UIColor colorWithHex:0xFFFFFF] forState:UIControlStateNormal];
+            self.threeStarView.backgroundColor = [UIColor colorWithHex:0xEEEEEE];
+            UIButton * threeStarBtn = [self viewWithTag:100 + 3];
+            [threeStarBtn setTitleColor:[UIColor colorWithHex:0xFFFFFF] forState:UIControlStateNormal];
+            self.fourStarView.backgroundColor = [UIColor colorWithHex:0xEEEEEE];
+            UIButton * fourStarBtn = [self viewWithTag:100 + 4];
+            [fourStarBtn setTitleColor:[UIColor colorWithHex:0xFFFFFF] forState:UIControlStateNormal];
+            self.fiveStarView.backgroundColor = [UIColor colorWithHex:0xEEEEEE];
+            UIButton * fiveStarBtn = [self viewWithTag:100 + 5];
+            [fiveStarBtn setTitleColor:[UIColor colorWithHex:0xFFFFFF] forState:UIControlStateNormal];
+            break;
+        }
+        case 1:
+        {
+            self.threeStarView.backgroundColor = [UIColor colorWithHex:0xEEEEEE];
+            UIButton * threeStarBtn = [self viewWithTag:100 + 3];
+            [threeStarBtn setTitleColor:[UIColor colorWithHex:0xFFFFFF] forState:UIControlStateNormal];
+            self.fourStarView.backgroundColor = [UIColor colorWithHex:0xEEEEEE];
+            UIButton * fourStarBtn = [self viewWithTag:100 + 4];
+            [fourStarBtn setTitleColor:[UIColor colorWithHex:0xFFFFFF] forState:UIControlStateNormal];
+            self.fiveStarView.backgroundColor = [UIColor colorWithHex:0xEEEEEE];
+            UIButton * fiveStarBtn = [self viewWithTag:100 + 5];
+            [fiveStarBtn setTitleColor:[UIColor colorWithHex:0xFFFFFF] forState:UIControlStateNormal];
+            break;
+        }
+        case 2:
+        {
+            self.fourStarView.backgroundColor = [UIColor colorWithHex:0xEEEEEE];
+            UIButton * fourStarBtn = [self viewWithTag:100 + 4];
+            [fourStarBtn setTitleColor:[UIColor colorWithHex:0xFFFFFF] forState:UIControlStateNormal];
+            self.fiveStarView.backgroundColor = [UIColor colorWithHex:0xEEEEEE];
+            UIButton * fiveStarBtn = [self viewWithTag:100 + 5];
+            [fiveStarBtn setTitleColor:[UIColor colorWithHex:0xFFFFFF] forState:UIControlStateNormal];
+            break;
+        }
+        case 3:
+        {
+            self.fiveStarView.backgroundColor = [UIColor colorWithHex:0xEEEEEE];
+            UIButton * fiveStarBtn = [self viewWithTag:100 + 5];
+            [fiveStarBtn setTitleColor:[UIColor colorWithHex:0xFFFFFF] forState:UIControlStateNormal];
+            break;
+        }
+        case 4:
+            
+            break;
+    }
+}
+
+
 - (IBAction)scorePressed:(UIButton *)sender {
     
     if (self.lastSelectedScore == sender.tag - 100)
@@ -68,11 +127,22 @@ CGFloat const CorrectHomeworkScoreTableViewCellHeight = 39.0f;
         return;
     }
     
-    UIView * lastScoreView = (UIView *)[self viewWithTag:self.lastSelectedScore + 200];
-    lastScoreView.backgroundColor = [UIColor colorWithHex:0XFFFFFF];
-    
-    UIButton * lastScoreBtn = (UIButton *)[self viewWithTag:self.lastSelectedScore + 100];
-    [lastScoreBtn setTitleColor:[UIColor colorWithHex:0x999999] forState:UIControlStateNormal];
+    if (self.lastSelectedScore <= self.homeworkLevel + 1)
+    {
+        UIView * lastScoreView = (UIView *)[self viewWithTag:self.lastSelectedScore + 200];
+        lastScoreView.backgroundColor = [UIColor colorWithHex:0XFFFFFF];
+        
+        UIButton * lastScoreBtn = (UIButton *)[self viewWithTag:self.lastSelectedScore + 100];
+        [lastScoreBtn setTitleColor:[UIColor colorWithHex:0x999999] forState:UIControlStateNormal];
+    }
+    else
+    {
+        UIView * lastScoreView = (UIView *)[self viewWithTag:self.lastSelectedScore + 200];
+        lastScoreView.backgroundColor = [UIColor colorWithHex:0xEEEEEE];
+        
+        UIButton * lastScoreBtn = (UIButton *)[self viewWithTag:self.lastSelectedScore + 100];
+        [lastScoreBtn setTitleColor:[UIColor colorWithHex:0xFFFFFF] forState:UIControlStateNormal];
+    }
     
     switch (sender.tag) {
         case 100:

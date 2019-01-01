@@ -103,12 +103,11 @@ CGFloat const EmojiInputViewHeight = 216.f;
     [sendBtn setTitle:@"发送" forState:UIControlStateNormal];
     sendBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     [sendBtn setBackgroundColor:[UIColor colorWithHex:0X0098FE]];
-    sendBtn.layer.cornerRadius = 10.0;
     [sendBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self addSubview:sendBtn];
     [sendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(50, 30));
-        make.right.equalTo(self).with.offset(-15);
+        make.size.mas_equalTo(CGSizeMake(60, 30));
+        make.right.equalTo(self).with.offset(0);
         make.bottom.equalTo(self).with.offset(0);
     }];
     

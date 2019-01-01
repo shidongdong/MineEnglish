@@ -18,5 +18,9 @@ typedef void(^CorrectHomeworkScoreTableViewCellClickShareCallback)(NSInteger);
 
 @property (nonatomic, copy) CorrectHomeworkScoreTableViewCellClickScoreCallback scoreCallback;
 @property (nonatomic, copy) CorrectHomeworkScoreTableViewCellClickShareCallback shareCallback;
+
+- (void)updateRecommendScoreHomeworkLevel:(NSInteger)level;
+
+
 @end
 

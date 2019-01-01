@@ -212,6 +212,7 @@
     if (indexPath.section == 0)
     {
         CorrectHomeworkScoreTableViewCell * scoreCell = [tableView dequeueReusableCellWithIdentifier:CorrectHomeworkScoreTableViewCellId forIndexPath:indexPath];
+        [scoreCell updateRecommendScoreHomeworkLevel:self.homeworkSession.homework.level];
         [scoreCell setScoreCallback:^(NSInteger score)
         {
             weakSelf.currentScore = score;

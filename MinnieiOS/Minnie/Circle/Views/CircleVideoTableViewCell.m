@@ -30,7 +30,7 @@ static CGFloat const CircleVideoThumbnailRatio = 140/222.f;
     self.avatarImageView.layer.cornerRadius = 22.f;
     self.avatarImageView.layer.masksToBounds = YES;
     
-    self.classlevelLabel.layer.cornerRadius = 9.0f;
+    self.classlevelLabel.layer.cornerRadius = 7.0f;
     self.classlevelLabel.layer.masksToBounds = YES;
 //    self.classlevelLabel.layer.borderWidth = 0.5;
 //    self.classlevelLabel.layer.borderColor = [UIColor colorWithHex:0x999999].CGColor;

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -34,12 +34,12 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YdV-Lr-oAy">
-                                        <rect key="frame" x="256.5" y="26.5" width="14.5" height="15"/>
+                                        <rect key="frame" x="251" y="26.5" width="16" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="1" id="euw-i5-new"/>
                                             <constraint firstAttribute="height" constant="15" id="sZh-Pj-8pa"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" red="0.96078431369999995" green="0.65098039220000004" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -59,8 +59,8 @@
                                             <constraint firstAttribute="height" constant="21" id="0tB-Bb-Fx6"/>
                                             <constraint firstAttribute="width" constant="14" id="Oyq-Gs-6o2"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oxG-Rh-yit">
@@ -73,7 +73,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="jsK-eV-YHN" firstAttribute="leading" secondItem="YdV-Lr-oAy" secondAttribute="trailing" constant="1" id="6Lt-uJ-U7p"/>
+                                    <constraint firstItem="jsK-eV-YHN" firstAttribute="leading" secondItem="YdV-Lr-oAy" secondAttribute="trailing" constant="5" id="6Lt-uJ-U7p"/>
                                     <constraint firstItem="YdV-Lr-oAy" firstAttribute="centerY" secondItem="PyE-Ki-uJo" secondAttribute="centerY" id="6pj-4L-AdW"/>
                                     <constraint firstItem="jsK-eV-YHN" firstAttribute="centerY" secondItem="PyE-Ki-uJo" secondAttribute="centerY" id="AjW-Ln-HIs"/>
                                     <constraint firstAttribute="trailing" secondItem="jsK-eV-YHN" secondAttribute="trailing" constant="10" id="GCB-5q-8NH"/>
