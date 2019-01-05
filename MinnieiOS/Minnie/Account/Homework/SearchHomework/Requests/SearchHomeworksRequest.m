@@ -36,7 +36,7 @@
 }
 
 - (YTKRequestMethod)requestMethod {
-    return YTKRequestMethodGET;
+    return YTKRequestMethodPOST;
 }
 
 - (NSString *)requestUrl {
@@ -44,7 +44,7 @@
         return self.nextUrl;
     }
 
-    return [NSString stringWithFormat:@"%@/homework/searchHomeworks", ServerProjectName];
+    return [NSString stringWithFormat:@"%@/homework/searchHomeworksByTags", ServerProjectName];
 }
 
 - (id)requestArgument {

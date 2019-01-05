@@ -90,6 +90,44 @@
 		8709C32021A2AF7800970757 /* SearchHomeworkTypeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709C31E21A2AF7800970757 /* SearchHomeworkTypeRequest.m */; };
 		8709C32B21A53BD600970757 /* EwenCopyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709C32921A53BD400970757 /* EwenCopyLabel.m */; };
 		8709C32C21A53BD600970757 /* EwenCopyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709C32921A53BD400970757 /* EwenCopyLabel.m */; };
+		871806BA21DF438C0023511C /* MUAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806A421DF438C0023511C /* MUAssetCell.m */; };
+		871806BB21DF438C0023511C /* MUAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806A421DF438C0023511C /* MUAssetCell.m */; };
+		871806BC21DF438C0023511C /* MUSlomoIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806A521DF438C0023511C /* MUSlomoIconView.m */; };
+		871806BD21DF438C0023511C /* MUSlomoIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806A521DF438C0023511C /* MUSlomoIconView.m */; };
+		871806BE21DF438C0023511C /* MUAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806A621DF438C0023511C /* MUAssetsViewController.m */; };
+		871806BF21DF438C0023511C /* MUAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806A621DF438C0023511C /* MUAssetsViewController.m */; };
+		871806C021DF438C0023511C /* MUCheckmarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806A821DF438C0023511C /* MUCheckmarkView.m */; };
+		871806C121DF438C0023511C /* MUCheckmarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806A821DF438C0023511C /* MUCheckmarkView.m */; };
+		871806C221DF438C0023511C /* MUImagePickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806A921DF438C0023511C /* MUImagePickerManager.m */; };
+		871806C321DF438C0023511C /* MUImagePickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806A921DF438C0023511C /* MUImagePickerManager.m */; };
+		871806C421DF438C0023511C /* MUOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806AA21DF438C0023511C /* MUOverlayView.m */; };
+		871806C521DF438C0023511C /* MUOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806AA21DF438C0023511C /* MUOverlayView.m */; };
+		871806C621DF438C0023511C /* MUAssetsFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806AB21DF438C0023511C /* MUAssetsFooterView.m */; };
+		871806C721DF438C0023511C /* MUAssetsFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806AB21DF438C0023511C /* MUAssetsFooterView.m */; };
+		871806C821DF438C0023511C /* MUAuthorizationStatusController.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806AD21DF438C0023511C /* MUAuthorizationStatusController.m */; };
+		871806C921DF438C0023511C /* MUAuthorizationStatusController.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806AD21DF438C0023511C /* MUAuthorizationStatusController.m */; };
+		871806CA21DF438C0023511C /* MUCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806AE21DF438C0023511C /* MUCircleView.m */; };
+		871806CB21DF438C0023511C /* MUCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806AE21DF438C0023511C /* MUCircleView.m */; };
+		871806CC21DF438C0023511C /* MUVideoIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806B321DF438C0023511C /* MUVideoIndicatorView.m */; };
+		871806CD21DF438C0023511C /* MUVideoIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806B321DF438C0023511C /* MUVideoIndicatorView.m */; };
+		871806CE21DF438C0023511C /* MUVideoIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806B821DF438C0023511C /* MUVideoIconView.m */; };
+		871806CF21DF438C0023511C /* MUVideoIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806B821DF438C0023511C /* MUVideoIconView.m */; };
+		871806DD21DF51540023511C /* MUPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806D121DF51540023511C /* MUPhotoPreviewController.m */; };
+		871806DE21DF51540023511C /* MUPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806D121DF51540023511C /* MUPhotoPreviewController.m */; };
+		871806DF21DF51540023511C /* MUPhotoPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806D221DF51540023511C /* MUPhotoPreviewView.m */; };
+		871806E021DF51540023511C /* MUPhotoPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806D221DF51540023511C /* MUPhotoPreviewView.m */; };
+		871806E121DF51540023511C /* MUTapDetectingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806D721DF51540023511C /* MUTapDetectingView.m */; };
+		871806E221DF51540023511C /* MUTapDetectingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806D721DF51540023511C /* MUTapDetectingView.m */; };
+		871806E321DF51540023511C /* MUZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806DA21DF51540023511C /* MUZoomingScrollView.m */; };
+		871806E421DF51540023511C /* MUZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806DA21DF51540023511C /* MUZoomingScrollView.m */; };
+		871806E521DF51540023511C /* MUCaptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806DB21DF51540023511C /* MUCaptionView.m */; };
+		871806E621DF51540023511C /* MUCaptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806DB21DF51540023511C /* MUCaptionView.m */; };
+		871806E721DF51540023511C /* MUTapDetectingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806DC21DF51540023511C /* MUTapDetectingImageView.m */; };
+		871806E821DF51540023511C /* MUTapDetectingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806DC21DF51540023511C /* MUTapDetectingImageView.m */; };
+		871806EC21E05D680023511C /* WBGImageEditorCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806EA21E05D680023511C /* WBGImageEditorCollectionViewCell.m */; };
+		871806ED21E05D680023511C /* WBGImageEditorCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806EA21E05D680023511C /* WBGImageEditorCollectionViewCell.m */; };
+		871806EE21E05D680023511C /* WBGImageEditorCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 871806EB21E05D680023511C /* WBGImageEditorCollectionViewCell.xib */; };
+		871806EF21E05D680023511C /* WBGImageEditorCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 871806EB21E05D680023511C /* WBGImageEditorCollectionViewCell.xib */; };
 		872069C221AD2F2E00847713 /* btn_send_warning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 872069C021AD2F2D00847713 /* btn_send_warning@2x.png */; };
 		872069C321AD2F2F00847713 /* btn_send_warning@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 872069C121AD2F2D00847713 /* btn_send_warning@3x.png */; };
 		872069C421AD2F3B00847713 /* btn_send_warning@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 872069C121AD2F2D00847713 /* btn_send_warning@3x.png */; };
@@ -1426,6 +1464,43 @@
 		8709C31E21A2AF7800970757 /* SearchHomeworkTypeRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchHomeworkTypeRequest.m; sourceTree = "<group>"; };
 		8709C32921A53BD400970757 /* EwenCopyLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EwenCopyLabel.m; sourceTree = "<group>"; };
 		8709C32A21A53BD500970757 /* EwenCopyLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EwenCopyLabel.h; sourceTree = "<group>"; };
+		871806A421DF438C0023511C /* MUAssetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUAssetCell.m; sourceTree = "<group>"; };
+		871806A521DF438C0023511C /* MUSlomoIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSlomoIconView.m; sourceTree = "<group>"; };
+		871806A621DF438C0023511C /* MUAssetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUAssetsViewController.m; sourceTree = "<group>"; };
+		871806A721DF438C0023511C /* MUVideoIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUVideoIndicatorView.h; sourceTree = "<group>"; };
+		871806A821DF438C0023511C /* MUCheckmarkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCheckmarkView.m; sourceTree = "<group>"; };
+		871806A921DF438C0023511C /* MUImagePickerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUImagePickerManager.m; sourceTree = "<group>"; };
+		871806AA21DF438C0023511C /* MUOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUOverlayView.m; sourceTree = "<group>"; };
+		871806AB21DF438C0023511C /* MUAssetsFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUAssetsFooterView.m; sourceTree = "<group>"; };
+		871806AC21DF438C0023511C /* MUVideoIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUVideoIconView.h; sourceTree = "<group>"; };
+		871806AD21DF438C0023511C /* MUAuthorizationStatusController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUAuthorizationStatusController.m; sourceTree = "<group>"; };
+		871806AE21DF438C0023511C /* MUCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCircleView.m; sourceTree = "<group>"; };
+		871806AF21DF438C0023511C /* MUAssetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUAssetsViewController.h; sourceTree = "<group>"; };
+		871806B021DF438C0023511C /* MUSlomoIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSlomoIconView.h; sourceTree = "<group>"; };
+		871806B121DF438C0023511C /* MUAssetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUAssetCell.h; sourceTree = "<group>"; };
+		871806B221DF438C0023511C /* MUImagePickerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUImagePickerManager.h; sourceTree = "<group>"; };
+		871806B321DF438C0023511C /* MUVideoIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUVideoIndicatorView.m; sourceTree = "<group>"; };
+		871806B421DF438C0023511C /* MUCheckmarkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCheckmarkView.h; sourceTree = "<group>"; };
+		871806B521DF438C0023511C /* MUAssetsFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUAssetsFooterView.h; sourceTree = "<group>"; };
+		871806B621DF438C0023511C /* MUOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUOverlayView.h; sourceTree = "<group>"; };
+		871806B721DF438C0023511C /* MUCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCircleView.h; sourceTree = "<group>"; };
+		871806B821DF438C0023511C /* MUVideoIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUVideoIconView.m; sourceTree = "<group>"; };
+		871806B921DF438C0023511C /* MUAuthorizationStatusController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUAuthorizationStatusController.h; sourceTree = "<group>"; };
+		871806D121DF51540023511C /* MUPhotoPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUPhotoPreviewController.m; sourceTree = "<group>"; };
+		871806D221DF51540023511C /* MUPhotoPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUPhotoPreviewView.m; sourceTree = "<group>"; };
+		871806D321DF51540023511C /* MUTapDetectingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTapDetectingView.h; sourceTree = "<group>"; };
+		871806D421DF51540023511C /* MUCaptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCaptionView.h; sourceTree = "<group>"; };
+		871806D521DF51540023511C /* MUZoomingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUZoomingScrollView.h; sourceTree = "<group>"; };
+		871806D621DF51540023511C /* MUTapDetectingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTapDetectingImageView.h; sourceTree = "<group>"; };
+		871806D721DF51540023511C /* MUTapDetectingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTapDetectingView.m; sourceTree = "<group>"; };
+		871806D821DF51540023511C /* MUPhotoPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUPhotoPreviewView.h; sourceTree = "<group>"; };
+		871806D921DF51540023511C /* MUPhotoPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUPhotoPreviewController.h; sourceTree = "<group>"; };
+		871806DA21DF51540023511C /* MUZoomingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUZoomingScrollView.m; sourceTree = "<group>"; };
+		871806DB21DF51540023511C /* MUCaptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCaptionView.m; sourceTree = "<group>"; };
+		871806DC21DF51540023511C /* MUTapDetectingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTapDetectingImageView.m; sourceTree = "<group>"; };
+		871806E921E05D680023511C /* WBGImageEditorCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WBGImageEditorCollectionViewCell.h; sourceTree = "<group>"; };
+		871806EA21E05D680023511C /* WBGImageEditorCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WBGImageEditorCollectionViewCell.m; sourceTree = "<group>"; };
+		871806EB21E05D680023511C /* WBGImageEditorCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WBGImageEditorCollectionViewCell.xib; sourceTree = "<group>"; };
 		872069C021AD2F2D00847713 /* btn_send_warning@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_send_warning@2x.png"; sourceTree = "<group>"; };
 		872069C121AD2F2D00847713 /* btn_send_warning@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_send_warning@3x.png"; sourceTree = "<group>"; };
 		872069C621AE9A5200847713 /* SearchHomeworkNameRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchHomeworkNameRequest.h; sourceTree = "<group>"; };
@@ -2504,6 +2579,55 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		871806A321DF438C0023511C /* MUImagePickerManager */ = {
+			isa = PBXGroup;
+			children = (
+				871806D021DF51540023511C /* MUPhotoPreview */,
+				871806A421DF438C0023511C /* MUAssetCell.m */,
+				871806A521DF438C0023511C /* MUSlomoIconView.m */,
+				871806A621DF438C0023511C /* MUAssetsViewController.m */,
+				871806A721DF438C0023511C /* MUVideoIndicatorView.h */,
+				871806A821DF438C0023511C /* MUCheckmarkView.m */,
+				871806A921DF438C0023511C /* MUImagePickerManager.m */,
+				871806AA21DF438C0023511C /* MUOverlayView.m */,
+				871806AB21DF438C0023511C /* MUAssetsFooterView.m */,
+				871806AC21DF438C0023511C /* MUVideoIconView.h */,
+				871806AD21DF438C0023511C /* MUAuthorizationStatusController.m */,
+				871806AE21DF438C0023511C /* MUCircleView.m */,
+				871806AF21DF438C0023511C /* MUAssetsViewController.h */,
+				871806B021DF438C0023511C /* MUSlomoIconView.h */,
+				871806B121DF438C0023511C /* MUAssetCell.h */,
+				871806B221DF438C0023511C /* MUImagePickerManager.h */,
+				871806B321DF438C0023511C /* MUVideoIndicatorView.m */,
+				871806B421DF438C0023511C /* MUCheckmarkView.h */,
+				871806B521DF438C0023511C /* MUAssetsFooterView.h */,
+				871806B621DF438C0023511C /* MUOverlayView.h */,
+				871806B721DF438C0023511C /* MUCircleView.h */,
+				871806B821DF438C0023511C /* MUVideoIconView.m */,
+				871806B921DF438C0023511C /* MUAuthorizationStatusController.h */,
+			);
+			path = MUImagePickerManager;
+			sourceTree = "<group>";
+		};
+		871806D021DF51540023511C /* MUPhotoPreview */ = {
+			isa = PBXGroup;
+			children = (
+				871806D121DF51540023511C /* MUPhotoPreviewController.m */,
+				871806D221DF51540023511C /* MUPhotoPreviewView.m */,
+				871806D321DF51540023511C /* MUTapDetectingView.h */,
+				871806D421DF51540023511C /* MUCaptionView.h */,
+				871806D521DF51540023511C /* MUZoomingScrollView.h */,
+				871806D621DF51540023511C /* MUTapDetectingImageView.h */,
+				871806D721DF51540023511C /* MUTapDetectingView.m */,
+				871806D821DF51540023511C /* MUPhotoPreviewView.h */,
+				871806D921DF51540023511C /* MUPhotoPreviewController.h */,
+				871806DA21DF51540023511C /* MUZoomingScrollView.m */,
+				871806DB21DF51540023511C /* MUCaptionView.m */,
+				871806DC21DF51540023511C /* MUTapDetectingImageView.m */,
+			);
+			path = MUPhotoPreview;
+			sourceTree = "<group>";
+		};
 		872C741121BE8ED60027F47C /* 启动加载引导 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2628,6 +2752,9 @@
 				87C52FAB2164AC47004288F4 /* WBGImageEditorViewController.xib */,
 				87C52FA72164AC3E004288F4 /* WBGDrawTool.h */,
 				87C52FA82164AC3E004288F4 /* WBGDrawTool.m */,
+				871806E921E05D680023511C /* WBGImageEditorCollectionViewCell.h */,
+				871806EA21E05D680023511C /* WBGImageEditorCollectionViewCell.m */,
+				871806EB21E05D680023511C /* WBGImageEditorCollectionViewCell.xib */,
 			);
 			path = NewImageEdit;
 			sourceTree = "<group>";
@@ -2991,6 +3118,7 @@
 		97109837207A0BF500568785 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				871806A321DF438C0023511C /* MUImagePickerManager */,
 				977BD090207CA13B000A1994 /* PushManager */,
 				97109A92207A17B500568785 /* ImageEditor */,
 				971098CC207A0BF500568785 /* Application */,
@@ -5070,6 +5198,7 @@
 				97109C72207A2EC900568785 /* FindPasswordViewController.xib in Resources */,
 				97109727207A006D00568785 /* label_ok@3x.png in Resources */,
 				87FD07D521BE443800664AF1 /* icon_Enclosure@2x.png in Resources */,
+				871806EE21E05D680023511C /* WBGImageEditorCollectionViewCell.xib in Resources */,
 				97109705207A006D00568785 /* my_exchange_banner@2x.png in Resources */,
 				971097EF207A006D00568785 /* white_corner_bg@2x.png in Resources */,
 				97109C4A207A2E3E00568785 /* CircleCommentTableViewCell.xib in Resources */,
@@ -5400,6 +5529,7 @@
 				971097C6207A006D00568785 /* btn_send_voice@2x.png in Resources */,
 				97109A6B207A158C00568785 /* LeftEmojiMessageTableViewCell.xib in Resources */,
 				9710973C207A006D00568785 /* ic_cancel_white@3x.png in Resources */,
+				871806EF21E05D680023511C /* WBGImageEditorCollectionViewCell.xib in Resources */,
 				971096F0207A006D00568785 /* 5星级@2x.png in Resources */,
 				97109796207A006D00568785 /* buttonbar_class_active@3x.png in Resources */,
 				9710966E207A006D00568785 /* btn_send_photo@3x.png in Resources */,
@@ -5780,6 +5910,7 @@
 				97109952207A0BF600568785 /* PublicService.m in Sources */,
 				97109942207A0BF600568785 /* Result.m in Sources */,
 				97109DD7207A305A00568785 /* LoadViewController.m in Sources */,
+				871806BC21DF438C0023511C /* MUSlomoIconView.m in Sources */,
 				97109A56207A158C00568785 /* EmojiMessageTableViewCell.m in Sources */,
 				97109946207A0BF600568785 /* User.m in Sources */,
 				97109A34207A158C00568785 /* RedoHomeworkRequest.m in Sources */,
@@ -5804,6 +5935,7 @@
 				97109C2C207A2E3E00568785 /* CircleHomeworksRequest.m in Sources */,
 				879CE51821905D0300BBE4B7 /* AchieverListViewController.m in Sources */,
 				97109C2E207A2E3E00568785 /* DeleteHomeworkCommentRequest.m in Sources */,
+				871806C821DF438C0023511C /* MUAuthorizationStatusController.m in Sources */,
 				97109E92207A7BDD00568785 /* ExchangeRecord.m in Sources */,
 				97109A28207A158C00568785 /* HomeworkSessionTableViewCell.m in Sources */,
 				9710992A207A0BF600568785 /* UIView+Load.m in Sources */,
@@ -5811,6 +5943,7 @@
 				97109C42207A2E3E00568785 /* HomeworkDetailLikeUsersTableViewCell.m in Sources */,
 				97364A1320B16BFD00511A95 /* NetworkStateErrorView.m in Sources */,
 				97109A5E207A158C00568785 /* TextMessageTableViewCell.m in Sources */,
+				871806BE21DF438C0023511C /* MUAssetsViewController.m in Sources */,
 				97109D55207A2F0400568785 /* NoticeMessageRequest.m in Sources */,
 				971098EE207A0BF500568785 /* EmojiInputView.m in Sources */,
 				97109C30207A2E3E00568785 /* AddHomeworkCommentRequest.m in Sources */,
@@ -5836,6 +5969,7 @@
 				97109D51207A2F0400568785 /* NoticeMessageItem.m in Sources */,
 				97109BCC207A1D5000568785 /* DateButton.m in Sources */,
 				97109A89207A171600568785 /* HomeworkAudioCollectionViewCell.m in Sources */,
+				871806CA21DF438C0023511C /* MUCircleView.m in Sources */,
 				9710993E207A0BF600568785 /* Error.m in Sources */,
 				97109C88207A2EC900568785 /* LogoutRequest.m in Sources */,
 				97109C7A207A2EC900568785 /* ResetPasswordViewController.m in Sources */,
@@ -5845,6 +5979,7 @@
 				97109D4D207A2F0400568785 /* MessageService.m in Sources */,
 				872F5B372171823E00D88855 /* StudentRequest.m in Sources */,
 				8753CD1A21C7BC2500762266 /* CircleHomeworkFlag.m in Sources */,
+				871806E321DF51540023511C /* MUZoomingScrollView.m in Sources */,
 				97109C26207A2E3E00568785 /* LikeHomeworkRequest.m in Sources */,
 				97109E09207A682F00568785 /* MyClassViewController.m in Sources */,
 				97109902207A0BF500568785 /* MaskImageView.m in Sources */,
@@ -5853,6 +5988,7 @@
 				97109BD0207A1D5000568785 /* CalendarTableViewCell.m in Sources */,
 				872558A821D4CB8C0028BC2A /* CorrectHomeworkHisCommentTableViewCell.m in Sources */,
 				870286672181E29100559195 /* HomeworkDiffTableViewCell.m in Sources */,
+				871806C421DF438C0023511C /* MUOverlayView.m in Sources */,
 				872558A621D4CB7F0028BC2A /* CorrectHomeworkCommentTableViewCell.m in Sources */,
 				97109922207A0BF600568785 /* AlertView.m in Sources */,
 				97DC3AEB208343DA009D811B /* PortraitNavigationController.m in Sources */,
@@ -5862,13 +5998,16 @@
 				879CE5372191752700BBE4B7 /* AchieverMedalDetailRequest.m in Sources */,
 				879CE54821917FC000BBE4B7 /* AchieverUpdateMedalDetailRequest.m in Sources */,
 				97109C8C207A2EC900568785 /* LoginRequest.m in Sources */,
+				871806CE21DF438C0023511C /* MUVideoIconView.m in Sources */,
 				872C742C21BE91A10027F47C /* GuideViewController.m in Sources */,
 				97109950207A0BF600568785 /* Teacher.m in Sources */,
 				8707EFCD21D61E8E0060B5A6 /* TagsRequest.m in Sources */,
 				97109DF9207A655000568785 /* CircleAndStarTableViewCell.m in Sources */,
 				8725589821D3965A0028BC2A /* CorrectHomeworkCommentsRequest.m in Sources */,
+				871806CC21DF438C0023511C /* MUVideoIndicatorView.m in Sources */,
 				97109D3D207A2F0400568785 /* MessagesViewController.m in Sources */,
 				97671AEA209F0CF100E37FB6 /* UnreaderCircleCountRequest.m in Sources */,
+				871806E721DF51540023511C /* MUTapDetectingImageView.m in Sources */,
 				97109914207A0BF500568785 /* RecordStateView.m in Sources */,
 				97109D4F207A2F0400568785 /* NoticeMessage.m in Sources */,
 				97109A64207A158C00568785 /* MessageTableViewCell.m in Sources */,
@@ -5877,6 +6016,7 @@
 				979BBD47207FB23300359253 /* TrialClassViewController.m in Sources */,
 				87C52FAD2164AC47004288F4 /* WBGImageEditorViewController.m in Sources */,
 				9710995A207A0BF600568785 /* NSDate+X5.m in Sources */,
+				871806E121DF51540023511C /* MUTapDetectingView.m in Sources */,
 				9710990C207A0BF500568785 /* RefreshFooter.m in Sources */,
 				8725589C21D397910028BC2A /* CorrectHomeworkAddCommentRequest.m in Sources */,
 				97109924207A0BF600568785 /* LoadingIndicatorView.m in Sources */,
@@ -5904,16 +6044,19 @@
 				97109ED9207A7C1600568785 /* ExchangeRecordsViewController.m in Sources */,
 				87FD07E221BE791E00664AF1 /* UIView+AZGradient.m in Sources */,
 				879CE54021917A9A00BBE4B7 /* MedalFlag.m in Sources */,
+				871806BA21DF438C0023511C /* MUAssetCell.m in Sources */,
 				870286752182F06C00559195 /* StudentStarListTableViewCell.m in Sources */,
 				8707EFC321D61DF60060B5A6 /* HomeworkTagsTableViewCell.m in Sources */,
 				875C261F218A9BBB0047E32A /* HomeworkSendHisTableViewCell.m in Sources */,
 				97109A85207A171600568785 /* HomeworkImageCollectionViewCell.m in Sources */,
 				9710995E207A0BF600568785 /* IMManager.m in Sources */,
+				871806C621DF438C0023511C /* MUAssetsFooterView.m in Sources */,
 				97109C20207A2E3E00568785 /* CircleHomework.m in Sources */,
 				97109A20207A158C00568785 /* HomeworkSessionsContainerViewController.m in Sources */,
 				872558A421D4CB6E0028BC2A /* CorrectHomeworkScoreTableViewCell.m in Sources */,
 				879CE52721913DD000BBE4B7 /* AchieverListHeaderView.m in Sources */,
 				97109A54207A158C00568785 /* SessionHomeworkTableViewCell.m in Sources */,
+				871806DF21DF51540023511C /* MUPhotoPreviewView.m in Sources */,
 				9710990E207A0BF500568785 /* ChatRefreshHeader.m in Sources */,
 				971098F8207A0BF500568785 /* NEPhotoBrowserView.m in Sources */,
 				97109C46207A2E3E00568785 /* CircleLikeUsersTableViewCell.m in Sources */,
@@ -5931,6 +6074,7 @@
 				977BD093207CA13B000A1994 /* PushManager.m in Sources */,
 				97109962207A0BF600568785 /* FileUploader.m in Sources */,
 				97109C14207A2E3E00568785 /* CircleHomeworkViewController.m in Sources */,
+				871806C221DF438C0023511C /* MUImagePickerManager.m in Sources */,
 				9710994C207A0BF600568785 /* HomeworkItem.m in Sources */,
 				879CE54421917CF900BBE4B7 /* AchieverUpdateFlagRequest.m in Sources */,
 				97567DDC20B86B2A00AA0EB8 /* UpdateTaskModifiedTimeRequest.m in Sources */,
@@ -5957,10 +6101,12 @@
 				971098F4207A0BF500568785 /* NEPhotoBrowser.m in Sources */,
 				87C52FA92164AC3E004288F4 /* WBGDrawTool.m in Sources */,
 				97109D99207A2F0400568785 /* UpdateProfileRequest.m in Sources */,
+				871806DD21DF51540023511C /* MUPhotoPreviewController.m in Sources */,
 				97109C2A207A2E3E00568785 /* HomeworkRequest.m in Sources */,
 				97109D65207A2F0400568785 /* NoticeMessageTextItemTableViewCell.m in Sources */,
 				97109C38207A2E3E00568785 /* CircleCommentTableViewCell.m in Sources */,
 				97109A58207A158C00568785 /* VideoMessageTableViewCell.m in Sources */,
+				871806EC21E05D680023511C /* WBGImageEditorCollectionViewCell.m in Sources */,
 				8707EFCC21D61E7C0060B5A6 /* FormTagsRequest.m in Sources */,
 				97109EDB207A7C1600568785 /* ExchangeRecordsRequest.m in Sources */,
 				97109C44207A2E3E00568785 /* CircleContentBaseTableViewCell.m in Sources */,
@@ -5971,9 +6117,11 @@
 				87FD07DC21BE464700664AF1 /* HomeworkAudioTableViewCell.m in Sources */,
 				97109C8E207A2EC900568785 /* InputPhoneNumberViewController.m in Sources */,
 				9710994E207A0BF600568785 /* Clazz.m in Sources */,
+				871806C021DF438C0023511C /* MUCheckmarkView.m in Sources */,
 				971098FC207A0BF500568785 /* UITextView+Placeholder.m in Sources */,
 				97108E022079F54900568785 /* AppDelegate.m in Sources */,
 				97109D57207A2F0400568785 /* AddNoticeMessageRequest.m in Sources */,
+				871806E521DF51540023511C /* MUCaptionView.m in Sources */,
 				979BBD822081B38900359253 /* TrialClassService.m in Sources */,
 				8709C32B21A53BD600970757 /* EwenCopyLabel.m in Sources */,
 				875C2625218AAB0B0047E32A /* SegementLabelsView.m in Sources */,
@@ -5998,6 +6146,7 @@
 				87C52FB92164ACAF004288F4 /* WBGDrawTool.m in Sources */,
 				97109C79207A2EC900568785 /* LoginViewController.m in Sources */,
 				97109913207A0BF500568785 /* ProgressHUD.m in Sources */,
+				871806C721DF438C0023511C /* MUAssetsFooterView.m in Sources */,
 				973649ED20AF2F8600511A95 /* TeacherCollectionViewCell.m in Sources */,
 				97109905207A0BF500568785 /* RecordButton.m in Sources */,
 				97109A5B207A158C00568785 /* AudioRecordingView.m in Sources */,
@@ -6019,6 +6168,7 @@
 				97109A57207A158C00568785 /* EmojiMessageTableViewCell.m in Sources */,
 				97109D80207A2F0400568785 /* TeachersViewController.m in Sources */,
 				97109AEC207A1C0800568785 /* StudentsManageViewController.m in Sources */,
+				871806C921DF438C0023511C /* MUAuthorizationStatusController.m in Sources */,
 				8702866F2182EA8700559195 /* StudentStarListViewController.m in Sources */,
 				87C52FB62164AC59004288F4 /* WBGImageToolBase.m in Sources */,
 				97109B0A207A1C0800568785 /* DeleteClassTableViewCell.m in Sources */,
@@ -6034,11 +6184,13 @@
 				97109BD1207A1D5000568785 /* CalendarTableViewCell.m in Sources */,
 				97109A35207A158C00568785 /* RedoHomeworkRequest.m in Sources */,
 				971098FF207A0BF500568785 /* WebViewController.m in Sources */,
+				871806CF21DF438C0023511C /* MUVideoIconView.m in Sources */,
 				97109AEF207A1C0800568785 /* AddStudentView.m in Sources */,
 				97109D58207A2F0400568785 /* AddNoticeMessageRequest.m in Sources */,
 				973649F420AF2F8600511A95 /* CreateTagView.m in Sources */,
 				97109E8F207A7BDD00568785 /* AwardsRequest.m in Sources */,
 				9710990B207A0BF500568785 /* RefreshHeader.m in Sources */,
+				871806CB21DF438C0023511C /* MUCircleView.m in Sources */,
 				973649D720AF2F8600511A95 /* ClassSelectorTableViewCell.m in Sources */,
 				973649D320AF2F8600511A95 /* StudentRequest.m in Sources */,
 				97109DED207A5D9700568785 /* RegisterViewController.m in Sources */,
@@ -6053,6 +6205,7 @@
 				97567DDD20B86C6900AA0EB8 /* UpdateTaskModifiedTimeRequest.m in Sources */,
 				8709C2B8219C303800970757 /* HomeworkSendHistoryHeaderView.m in Sources */,
 				973649D020AF2F8600511A95 /* StudentSelectorViewController.m in Sources */,
+				871806ED21E05D680023511C /* WBGImageEditorCollectionViewCell.m in Sources */,
 				97109EB6207A7C0A00568785 /* AddAwardRequest.m in Sources */,
 				973649E120AF2F8600511A95 /* DeleteHomeworksRequest.m in Sources */,
 				8753CD1321C1FDC800762266 /* UITabBar+KSBadge.m in Sources */,
@@ -6071,6 +6224,7 @@
 				97109A33207A158C00568785 /* CommitHomeworkRequest.m in Sources */,
 				973649EF20AF2F8600511A95 /* TagsViewController.m in Sources */,
 				97109A29207A158C00568785 /* HomeworkSessionTableViewCell.m in Sources */,
+				871806C121DF438C0023511C /* MUCheckmarkView.m in Sources */,
 				97109C7D207A2EC900568785 /* FindPasswordViewController.m in Sources */,
 				879CE52821913DD000BBE4B7 /* AchieverListHeaderView.m in Sources */,
 				973649C120AF2F8600511A95 /* HomeworkTagsTableViewCell.m in Sources */,
@@ -6093,6 +6247,7 @@
 				879CE5302191725800BBE4B7 /* AchieverService.m in Sources */,
 				979C851D208CB93F00940959 /* FinishClassTableViewCell.m in Sources */,
 				97109919207A0BF600568785 /* CustomCollectionView.m in Sources */,
+				871806DE21DF51540023511C /* MUPhotoPreviewController.m in Sources */,
 				97109B03207A1C0800568785 /* ClassTableViewCell.m in Sources */,
 				87707872219AB5BA00940A88 /* SendHomeworkHistoryRequest.m in Sources */,
 				97109909207A0BF500568785 /* UIScrollView+Refresh.m in Sources */,
@@ -6107,6 +6262,7 @@
 				9710993D207A0BF600568785 /* Constants.m in Sources */,
 				97109A8A207A171600568785 /* HomeworkAudioCollectionViewCell.m in Sources */,
 				97109D4C207A2F0400568785 /* MessageEditorViewController.m in Sources */,
+				871806C321DF438C0023511C /* MUImagePickerManager.m in Sources */,
 				87707878219BB62500940A88 /* HomeWorkSendHistoryViewController.m in Sources */,
 				973649BD20AF2F8600511A95 /* CreateHomeworkViewController.m in Sources */,
 				977BD094207CA140000A1994 /* PushManager.m in Sources */,
@@ -6136,6 +6292,7 @@
 				97109D98207A2F0400568785 /* TeacherAccountViewController.m in Sources */,
 				97109E1A207A6C2900568785 /* DeleteCircleHomeworkRequest.m in Sources */,
 				97109941207A0BF600568785 /* BaseRequest.m in Sources */,
+				871806BB21DF438C0023511C /* MUAssetCell.m in Sources */,
 				872558A121D398010028BC2A /* CorrectHomeworkDelCommentRequest.m in Sources */,
 				97109A91207A179800568785 /* CorrectHomeworkViewController.m in Sources */,
 				9710995B207A0BF600568785 /* NSDate+X5.m in Sources */,
@@ -6165,6 +6322,7 @@
 				97109BCD207A1D5000568785 /* DateButton.m in Sources */,
 				879CE54921917FC000BBE4B7 /* AchieverUpdateMedalDetailRequest.m in Sources */,
 				97109A51207A158C00568785 /* MessageTimeTableViewCell.m in Sources */,
+				871806C521DF438C0023511C /* MUOverlayView.m in Sources */,
 				97109C17207A2E3E00568785 /* CircleHomeworksViewController.m in Sources */,
 				97109C35207A2E3E00568785 /* HomeworkDetailCommentTableViewCell.m in Sources */,
 				97109D7E207A2F0400568785 /* TeacherEditViewController.m in Sources */,
@@ -6190,6 +6348,7 @@
 				9710995F207A0BF600568785 /* IMManager.m in Sources */,
 				8753CD1721C7BB8500762266 /* CircleHomeworkFlagRequest.m in Sources */,
 				97109A21207A158C00568785 /* HomeworkSessionsContainerViewController.m in Sources */,
+				871806BD21DF438C0023511C /* MUSlomoIconView.m in Sources */,
 				8725588D21D1D2A70028BC2A /* CorrectHomeworkAddCommentViewController.m in Sources */,
 				97109A55207A158C00568785 /* SessionHomeworkTableViewCell.m in Sources */,
 				973649D620AF2F8600511A95 /* StudentSelectorTableViewCell.m in Sources */,
@@ -6220,7 +6379,10 @@
 				879CE54521917CF900BBE4B7 /* AchieverUpdateFlagRequest.m in Sources */,
 				97109D54207A2F0400568785 /* CommentMessagesRequest.m in Sources */,
 				97109EB0207A7C0A00568785 /* ExchangeRequestsViewController.m in Sources */,
+				871806E621DF51540023511C /* MUCaptionView.m in Sources */,
+				871806E421DF51540023511C /* MUZoomingScrollView.m in Sources */,
 				973649FC20AF322900511A95 /* HomeworkTitleTableViewCell.m in Sources */,
+				871806CD21DF438C0023511C /* MUVideoIndicatorView.m in Sources */,
 				973649C420AF2F8600511A95 /* HomeworkVideoTableViewCell.m in Sources */,
 				875C262A218ADA7D0047E32A /* FilterAlertView.m in Sources */,
 				97109963207A0BF600568785 /* FileUploader.m in Sources */,
@@ -6241,12 +6403,14 @@
 				97109A4B207A158C00568785 /* ImageMessageTableViewCell.m in Sources */,
 				87915A3721B933BC006C1BFD /* AudioPlayerViewController.m in Sources */,
 				876D981421D0DBAC00A0E06E /* CorrectHomeworkScoreTableViewCell.m in Sources */,
+				871806E021DF51540023511C /* MUPhotoPreviewView.m in Sources */,
 				97109961207A0BF600568785 /* Application.m in Sources */,
 				97109A63207A158C00568785 /* AudioMessageTableViewCell.m in Sources */,
 				97109D4E207A2F0400568785 /* MessageService.m in Sources */,
 				97109A80207A171600568785 /* HomeworkVideoCollectionViewCell.m in Sources */,
 				973649CC20AF2F8600511A95 /* HomeworkTextTableViewCell.m in Sources */,
 				973649DB20AF2F8600511A95 /* SearchHomeworkViewController.m in Sources */,
+				871806E821DF51540023511C /* MUTapDetectingImageView.m in Sources */,
 				97109955207A0BF600568785 /* UserRequest.m in Sources */,
 				97109DA4207A2F0400568785 /* NicknameEditViewController.m in Sources */,
 				97109C8D207A2EC900568785 /* LoginRequest.m in Sources */,
@@ -6267,6 +6431,7 @@
 				97109D52207A2F0400568785 /* NoticeMessageItem.m in Sources */,
 				97109D8A207A2F0400568785 /* TeachersRequest.m in Sources */,
 				87FDFBC2214B6769006E987C /* AppVersion.m in Sources */,
+				871806BF21DF438C0023511C /* MUAssetsViewController.m in Sources */,
 				97109EB7207A7C0A00568785 /* GiveAwardRequest.m in Sources */,
 				97109C83207A2EC900568785 /* FindPasswordRequest.m in Sources */,
 				97109A2F207A158C00568785 /* HomeworkSessionService.m in Sources */,
@@ -6274,6 +6439,7 @@
 				971098FD207A0BF500568785 /* UITextView+Placeholder.m in Sources */,
 				8709C32C21A53BD600970757 /* EwenCopyLabel.m in Sources */,
 				97109C4F207A2E3E00568785 /* CircleVideoTableViewCell.m in Sources */,
+				871806E221DF51540023511C /* MUTapDetectingView.m in Sources */,
 				97109D50207A2F0400568785 /* NoticeMessage.m in Sources */,
 				97109C91207A2EC900568785 /* FullfillProfileViewController.m in Sources */,
 				87FD07E321BE791E00664AF1 /* UIView+AZGradient.m in Sources */,

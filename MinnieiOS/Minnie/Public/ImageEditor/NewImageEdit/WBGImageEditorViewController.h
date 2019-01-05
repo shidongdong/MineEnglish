@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "WBGImageEditorCollectionViewCell.h"
 typedef void(^ImageEditViewControllerSendCallback)(UIImage *);
 
 typedef NS_ENUM(NSUInteger, EditorMode) {
@@ -30,17 +30,19 @@ extern NSString * const kColorPanRemoveNotificaiton;
 @interface WBGImageEditorViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
+@property (weak, nonatomic) IBOutlet UICollectionView *mCollectionView;
 
-@property (weak,   nonatomic, readonly) IBOutlet UIImageView *imageView;
+@property (nonatomic, strong) WBGImageEditorCollectionViewCell * editorContent;
 @property (strong, nonatomic, readonly) UIImageView *drawingView;
-@property (weak,   nonatomic, readonly) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic, readonly) IBOutlet WBGColorPan *colorPan;
 
 
 //对外开放
 @property (nonatomic, assign) BOOL onlyForSend;
-@property (nonatomic, strong) UIImage *thumbnailImage;
-@property (nonatomic, copy) NSString *originalImageUrl;
+@property (nonatomic, strong) NSArray<UIImage *> *thumbnailImages;
+@property (nonatomic, strong) NSArray<NSString *> *originalImageUrls;
+@property (nonatomic, assign) NSInteger selectIndex;      //初始化选择位置
+
 
 @property (nonatomic, copy) ImageEditViewControllerSendCallback sendCallback;
 

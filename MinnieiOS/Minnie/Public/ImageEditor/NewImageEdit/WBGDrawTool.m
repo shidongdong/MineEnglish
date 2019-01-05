@@ -100,8 +100,8 @@
 }
 
 - (UIImage *)buildImage {
-    UIGraphicsBeginImageContextWithOptions(_originalImageSize, NO, self.editor.imageView.image.scale);
-    [self.editor.imageView.image drawAtPoint:CGPointZero];
+    UIGraphicsBeginImageContextWithOptions(_originalImageSize, NO, self.editor.editorContent.imageView.image.scale);
+    [self.editor.editorContent.imageView.image drawAtPoint:CGPointZero];
     [_drawingView.image drawInRect:CGRectMake(0, 0, _originalImageSize.width, _originalImageSize.height)];
     UIImage *tmp = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -112,7 +112,7 @@
 #pragma mark - implementation 重写父方法
 - (void)setup {
     //初始化一些东西
-    _originalImageSize   = self.editor.imageView.image.size;
+    _originalImageSize   = self.editor.editorContent.imageView.image.size;
     _drawingView         = self.editor.drawingView;
     
     //滑动手势
@@ -140,18 +140,18 @@
     _drawingView.layer.shouldRasterize = YES;
     _drawingView.layer.minificationFilter = kCAFilterTrilinear;
     
-    self.editor.imageView.userInteractionEnabled = YES;
-    self.editor.scrollView.panGestureRecognizer.minimumNumberOfTouches = 2;
-    self.editor.scrollView.panGestureRecognizer.delaysTouchesBegan = NO;
-    self.editor.scrollView.pinchGestureRecognizer.delaysTouchesBegan = NO;
+    self.editor.editorContent.imageView.userInteractionEnabled = YES;
+    self.editor.editorContent.scrollView.panGestureRecognizer.minimumNumberOfTouches = 2;
+    self.editor.editorContent.scrollView.panGestureRecognizer.delaysTouchesBegan = NO;
+    self.editor.editorContent.scrollView.pinchGestureRecognizer.delaysTouchesBegan = NO;
     
     //TODO: todo?
 
 }
 
 - (void)cleanup {
-    self.editor.imageView.userInteractionEnabled = NO;
-    self.editor.scrollView.panGestureRecognizer.minimumNumberOfTouches = 1;
+    self.editor.editorContent.imageView.userInteractionEnabled = NO;
+    self.editor.editorContent.scrollView.panGestureRecognizer.minimumNumberOfTouches = 1;
     self.panGesture.enabled = NO;
     //TODO: todo?
 }

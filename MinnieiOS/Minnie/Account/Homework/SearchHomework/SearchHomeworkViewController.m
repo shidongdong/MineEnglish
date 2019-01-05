@@ -224,6 +224,13 @@
 
 #pragma mark - UITextFieldDelegate
 
+- (BOOL)textFieldShouldClear:(UITextField *)textField
+{
+    
+    [self.selectTags removeAllObjects];
+    return YES;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     

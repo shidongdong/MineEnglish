@@ -12,6 +12,7 @@
 #import "UIView+YYAdd.h"
 #import "YYCategories.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+
 NSString * const kColorPanNotificaiton = @"kColorPanNotificaiton";
 NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 
@@ -20,27 +21,25 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 @interface WBGImageEditorViewController () <UINavigationBarDelegate, UIScrollViewDelegate> {
     
     __weak IBOutlet NSLayoutConstraint *topBarTop;
-    __weak IBOutlet NSLayoutConstraint *bottomBarBottom;
+    
+    CGFloat bottomHeight;
 }
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topbarConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBarConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topbarConstraint;  //区分x还是普通的顶部
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBarConstraint;  //滚动区域距离底部的距离
 
 @property (nonatomic, strong, nullable) WBGImageToolBase *currentTool;
 @property (weak, nonatomic) IBOutlet UIView *topBar;
 
-@property (strong, nonatomic) UIView *topBannerView;
-@property (strong, nonatomic) UIView *bottomBannerView;
-@property (strong, nonatomic) UIView *leftBannerView;
-@property (strong, nonatomic) UIView *rightBannerView;
-@property (weak,   nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) UIImageView *drawingView;
-@property (weak,   nonatomic) IBOutlet UIScrollView *scrollView;
+
 @property (strong, nonatomic) IBOutlet WBGColorPan *colorPan;
 @property (nonatomic, strong) WBGDrawTool *drawTool;
-@property (nonatomic, copy  ) UIImage   *originImage;
-@property (nonatomic, assign) CGFloat clipInitScale;
-@property (nonatomic, assign) BOOL barsHiddenStatus;
 @property (nonatomic, assign) EditorMode currentMode;
+
+
+
+@property (nonatomic, assign) BOOL bEditing;
+
 @end
 
 @implementation WBGImageEditorViewController
@@ -63,28 +62,6 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     return self;
 }
 
-
-//- (id)initWithImage:(UIImage*)image delegate:(id<WBGImageEditorDelegate>)delegate dataSource:(id<WBGImageEditorDataSource>)dataSource;
-//{
-//    self = [self init];
-//    if (self){
-//        _originImage = image;
-//        self.delegate = delegate;
-//        self.dataSource = dataSource;
-//    }
-//    return self;
-//}
-
-//- (id)initWithDelegate:(id<WBGImageEditorDelegate>)delegate
-//{
-//    self = [self init];
-//    if (self){
-//
-//        self.delegate = delegate;
-//    }
-//    return self;
-//}
-
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -94,12 +71,27 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor blackColor];
+    
     [self addNotication];
     // Do any additional setup after loading the view from its nib.
     
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    [flowLayout setMinimumInteritemSpacing:0.f];
+    [flowLayout setMinimumLineSpacing:0.f];
+    [flowLayout setSectionInset:UIEdgeInsetsMake(0.f, 0.f, 0.f, 0.f)];
+    [flowLayout setItemSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    self.mCollectionView.collectionViewLayout = flowLayout;
+    self.mCollectionView.pagingEnabled = YES;
+    self.mCollectionView.showsVerticalScrollIndicator = NO;
+    self.mCollectionView.showsHorizontalScrollIndicator = NO;
+    
+    [self registerCellNib];
+    
     BOOL iPHONEX = ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO);
     
-    CGFloat bottomHeight;
+    
     if (iPHONEX)
     {
         bottomHeight = 70.0f;
@@ -112,24 +104,9 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
         self.topbarConstraint.constant = 64.0f;
     }
     self.bottomBarConstraint.constant = bottomHeight;
-    self.colorPan.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - bottomHeight, [UIScreen mainScreen].bounds.size.width, 50);
+    self.colorPan.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 50);
     [self.view addSubview:self.colorPan];
-    if (self.originalImageUrl.length > 0) {
-        [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.originalImageUrl]
-                          placeholderImage:self.thumbnailImage completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-                              if (error == nil) {
-                                  [self adjustInit];
-                                 // [self adjustCanvasSize];
-                              }
-                          }];
-    } else {
-        self.imageView.image = self.thumbnailImage;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self adjustInit];
-           // [self adjustCanvasSize];
-        });
-    }
+    
 
 }
 
@@ -140,35 +117,33 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     
 }
 
-
-- (void)adjustInit
+- (void)registerCellNib
 {
-    [self initImageScrollView];
-    
-    @weakify(self);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        @strongify(self)
-        [self startPanDrawMode];
-    });
+    [self.mCollectionView registerNib:[UINib nibWithNibName:@"WBGImageEditorCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:WBGImageEditorCollectionViewCellId];
 }
+
 
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    //ShowBusyIndicatorForView(self.view);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-      //  HideBusyIndicatorForView(self.view);
-        [self refreshImageView];
-    });
+//    @weakify(self);
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        @strongify(self)
+//        
+//    });
     
-    //获取自定制组件 - fecth custom config
-  //  [self configCustomComponent];
+    
 }
 
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    self.editorContent = (WBGImageEditorCollectionViewCell *)[self.mCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.selectIndex inSection:0]];
+    
+    [self.mCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.selectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -178,73 +153,10 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    if (!self.drawingView) {
-        self.drawingView = [[UIImageView alloc] init];
-        self.drawingView.contentMode = UIViewContentModeCenter;
-        self.drawingView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
-        [self.imageView.superview addSubview:self.drawingView];
-        self.drawingView.userInteractionEnabled = YES;
-    } else {
-        //self.drawingView.frame = self.imageView.superview.frame;
-    }
-    self.drawingView.frame = self.imageView.frame;
     
-//    self.topBannerView.frame = CGRectMake(0, 0, self.imageView.width, CGRectGetMinY(self.imageView.frame));
-//    self.bottomBannerView.frame = CGRectMake(0, CGRectGetMaxY(self.imageView.frame), self.imageView.width, self.drawingView.height - CGRectGetMaxY(self.imageView.frame));
-//    self.leftBannerView.frame = CGRectMake(0, 0, CGRectGetMinX(self.imageView.frame), self.drawingView.height);
-//    self.rightBannerView.frame= CGRectMake(CGRectGetMaxX(self.imageView.frame), 0, self.drawingView.width - CGRectGetMaxX(self.imageView.frame), self.drawingView.height);
+    
 }
 
-- (UIView *)topBannerView {
-    if (!_topBannerView) {
-        _topBannerView = ({
-            UIView *view = [[UIView alloc] init];
-            view.backgroundColor = self.scrollView.backgroundColor;
-            [self.imageView.superview addSubview:view];
-            view;
-        });
-    }
-    
-    return _topBannerView;
-}
-
-- (UIView *)bottomBannerView {
-    if (!_bottomBannerView) {
-        _bottomBannerView = ({
-            UIView *view = [[UIView alloc] init];
-            view.backgroundColor = self.scrollView.backgroundColor;
-            [self.imageView.superview addSubview:view];
-            view;
-        });
-    }
-    return _bottomBannerView;
-}
-
-- (UIView *)leftBannerView {
-    if (!_leftBannerView) {
-        _leftBannerView = ({
-            UIView *view = [[UIView alloc] init];
-            view.backgroundColor = self.scrollView.backgroundColor;
-            [self.imageView.superview addSubview:view];
-            view;
-        });
-    }
-    
-    return _leftBannerView;
-}
-
-- (UIView *)rightBannerView {
-    if (!_rightBannerView) {
-        _rightBannerView = ({
-            UIView *view = [[UIView alloc] init];
-            view.backgroundColor = self.scrollView.backgroundColor;
-            [self.imageView.superview addSubview:view];
-            view;
-        });
-    }
-    
-    return _rightBannerView;
-}
 
 #pragma mark - 初始化 &getter
 - (WBGDrawTool *)drawTool {
@@ -271,54 +183,11 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     return _drawTool;
 }
 
-- (void)initImageScrollView {
-    self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.scrollView.showsHorizontalScrollIndicator = NO;
-    self.scrollView.showsVerticalScrollIndicator = NO;
-    self.scrollView.delegate = self;
-    self.scrollView.clipsToBounds = NO;
-    self.scrollView.backgroundColor = [UIColor blackColor];
 
-}
 
-- (void)refreshImageView {
-    if (self.imageView.image == nil) {
-        self.imageView.image = self.originImage;
-    }
-    
-    [self resetImageViewFrame];
-    [self resetZoomScaleWithAnimated:NO];
-    [self viewDidLayoutSubviews];
-}
 
-- (void)resetImageViewFrame {
-    CGSize size = (_imageView.image) ? _imageView.image.size : _imageView.frame.size;
-    if(size.width > 0 && size.height > 0 ) {
-        CGFloat ratio = MIN(_scrollView.frame.size.width / size.width, _scrollView.frame.size.height / size.height);
-        CGFloat W = ratio * size.width * _scrollView.zoomScale;
-        CGFloat H = ratio * size.height * _scrollView.zoomScale;
-        
-        _imageView.frame = CGRectMake(MAX(0, (_scrollView.width-W)/2), MAX(0, (_scrollView.height-H)/2), W, H);
-    }
-}
 
-- (void)resetZoomScaleWithAnimated:(BOOL)animated
-{
-    CGFloat Rw = _scrollView.frame.size.width / _imageView.frame.size.width;
-    CGFloat Rh = _scrollView.frame.size.height / _imageView.frame.size.height;
-    
-    //CGFloat scale = [[UIScreen mainScreen] scale];
-    CGFloat scale = 1;
-    Rw = MAX(Rw, _imageView.image.size.width / (scale * _scrollView.frame.size.width));
-    Rh = MAX(Rh, _imageView.image.size.height / (scale * _scrollView.frame.size.height));
-    
-    _scrollView.contentSize = _imageView.frame.size;
-    _scrollView.minimumZoomScale = 1;
-    _scrollView.maximumZoomScale = MAX(MAX(Rw, Rh), 3);
-    
-    [_scrollView setZoomScale:_scrollView.minimumZoomScale animated:animated];
-    [self scrollViewDidZoom:_scrollView];
-}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -329,21 +198,26 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 //    return YES;
 //}
 
-#pragma mark- ScrollView delegate
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    return _imageView.superview;
-}
 
-- (void)scrollViewDidZoom:(UIScrollView *)scrollView{ }
 
 #pragma mark - Property
 - (void)setCurrentTool:(WBGImageToolBase *)currentTool {
-    if(_currentTool != currentTool) {
+    
+    if (currentTool == nil)
+    {
         [_currentTool cleanup];
-        _currentTool = currentTool;
-        [_currentTool setup];
-        
+        _currentTool = nil;
     }
+    else
+    {
+        if(_currentTool != currentTool) {
+            [_currentTool cleanup];
+            _currentTool = currentTool;
+            [_currentTool setup];
+            
+        }
+    }
+    
     
 //    [self swapToolBarWithEditting];
 }
@@ -373,45 +247,99 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     return nil;
 }
 
+#pragma mark - UICollectionDelegate && Datasource
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
+    if (self.originalImageUrls.count > 0)
+    {
+        return self.originalImageUrls.count;
+    }
+    return self.thumbnailImages.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    WBGImageEditorCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:WBGImageEditorCollectionViewCellId forIndexPath:indexPath];
+    [cell setupThumbImage:[self.thumbnailImages objectAtIndex:indexPath.item] withOrignImageURLURL:[self.originalImageUrls objectAtIndex:indexPath.item]];
+    
+    return cell;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    int autualIndex = scrollView.contentOffset.x  / scrollView.bounds.size.width;
+    self.selectIndex = autualIndex;
+    
+    self.editorContent = (WBGImageEditorCollectionViewCell *)[self.mCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.selectIndex inSection:0]];
+}
 
 #pragma mark - Actions
 ///发送
 - (IBAction)sendAction:(UIButton *)sender {
 
-    if (self.onlyForSend) {
-        [self send];
+    self.bEditing = !self.bEditing;
+    
+    if (self.bEditing)
+    {
+        [self.doneButton setTitle:@"完成" forState:UIControlStateNormal];
+        self.mCollectionView.scrollEnabled = NO;
+        if (!self.drawingView) {
+            self.drawingView = [[UIImageView alloc] init];
+            self.drawingView.contentMode = UIViewContentModeCenter;
+            self.drawingView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
+            [self.editorContent.imageView.superview addSubview:self.drawingView];
+            self.drawingView.userInteractionEnabled = YES;
+        }
+        self.drawingView.frame = self.editorContent.imageView.frame;
+        [self startPanDrawMode];
         
-        return;
+        [UIView animateWithDuration:0.5 animations:^{
+            self.colorPan.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - self->bottomHeight, [UIScreen mainScreen].bounds.size.width, 50);
+        }];
     }
-    
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil
-                                                                     message:nil
-                                                              preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    UIAlertAction *sendAction = [UIAlertAction actionWithTitle:@"发送"
-                                                         style:UIAlertActionStyleDefault
+    else
+    {
+        [self.doneButton setTitle:@"编辑" forState:UIControlStateNormal];
+        
+        
+        if (self.onlyForSend) {
+            [self send];
+            
+            return;
+        }
+        
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil
+                                                                         message:nil
+                                                                  preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        UIAlertAction *sendAction = [UIAlertAction actionWithTitle:@"发送"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * _Nonnull action) {
+                                                               [self send];
+                                                           }];
+        
+        UIAlertAction *saveAction = [UIAlertAction actionWithTitle:@"保存"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * _Nonnull action) {
+                                                               [self save];
+                                                           }];
+        
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消"
+                                                         style:UIAlertActionStyleCancel
                                                        handler:^(UIAlertAction * _Nonnull action) {
-                                                           [self send];
                                                        }];
-    
-    UIAlertAction *saveAction = [UIAlertAction actionWithTitle:@"保存"
-                                                         style:UIAlertActionStyleDefault
-                                                       handler:^(UIAlertAction * _Nonnull action) {
-                                                           [self save];
-                                                       }];
-    
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消"
-                                                     style:UIAlertActionStyleCancel
-                                                   handler:^(UIAlertAction * _Nonnull action) {
-                                                   }];
-    
-    [alertVC addAction:sendAction];
-    [alertVC addAction:saveAction];
-    [alertVC addAction:cancel];
-    
-    [self presentViewController:alertVC
-                       animated:YES
-                     completion:nil];
+        
+        [alertVC addAction:sendAction];
+        [alertVC addAction:saveAction];
+        [alertVC addAction:cancel];
+        
+        [self presentViewController:alertVC
+                           animated:YES
+                         completion:nil];
+        
+        
+        
+    }
+   
 }
     
     
@@ -452,6 +380,16 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     self.currentTool = self.drawTool;
 }
 
+//- (void)stopPanDrawmode
+//{
+//    if (_currentMode == EditorNonMode) {
+//        return;
+//    }
+//
+//    self.currentMode = EditorNonMode;
+//    self.currentTool = nil;
+//}
+
 
 - (IBAction)backAction:(UIButton *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -465,16 +403,15 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 }
 
 
+- (void)hiddenColorPan:(BOOL)yesOrNot animation:(BOOL)animation {
+    [UIView animateWithDuration:animation ? .25f : 0.f delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:yesOrNot ? UIViewAnimationOptionCurveEaseOut : UIViewAnimationOptionCurveEaseIn animations:^{
+        self.colorPan.hidden = yesOrNot;
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
 #pragma mark -
-
-
-//- (void)hiddenColorPan:(BOOL)yesOrNot animation:(BOOL)animation {
-//    [UIView animateWithDuration:animation ? .25f : 0.f delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:yesOrNot ? UIViewAnimationOptionCurveEaseOut : UIViewAnimationOptionCurveEaseIn animations:^{
-//        self.colorPan.hidden = yesOrNot;
-//    } completion:^(BOOL finished) {
-//
-//    }];
-//}
 
 + (UIImage *)createViewImage:(UIView *)shareView {
     UIGraphicsBeginImageContextWithOptions(shareView.bounds.size, NO, [UIScreen mainScreen].scale);
@@ -490,21 +427,21 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
         //ShowBusyTextIndicatorForView(self.view, @"生成图片中...", nil);
     }
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        CGFloat WS = self.imageView.width/ self.drawingView.width;
-        CGFloat HS = self.imageView.height/ self.drawingView.height;
+        CGFloat WS = self.editorContent.imageView.width/ self.drawingView.width;
+        CGFloat HS = self.editorContent.imageView.height/ self.drawingView.height;
     
   //  dispatch_async(dispatch_get_main_queue(), ^{
-        UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height),
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.editorContent.imageView.image.size.width, self.editorContent.imageView.image.size.height),
                                                NO,
-                                               self.imageView.image.scale);
+                                               self.editorContent.imageView.image.scale);
    // });
     
-        [self.imageView.image drawAtPoint:CGPointZero];
-        CGFloat viewToimgW = self.imageView.width/self.imageView.image.size.width;
-        CGFloat viewToimgH = self.imageView.height/self.imageView.image.size.height;
-        __unused CGFloat drawX = self.imageView.left/viewToimgW;
+        [self.editorContent.imageView.image drawAtPoint:CGPointZero];
+        CGFloat viewToimgW = self.editorContent.imageView.width/self.editorContent.imageView.image.size.width;
+        CGFloat viewToimgH = self.editorContent.imageView.height/self.editorContent.imageView.image.size.height;
+        __unused CGFloat drawX = self.editorContent.imageView.left/viewToimgW;
 //        CGFloat drawY = self.imageView.top/viewToimgH;
-        [_drawingView.image drawInRect:CGRectMake(0, 0, self.imageView.image.size.width/WS, self.imageView.image.size.height/HS)];
+        [_drawingView.image drawInRect:CGRectMake(0, 0, self.editorContent.imageView.image.size.width/WS, self.editorContent.imageView.image.size.height/HS)];
 //    dispatch_async(dispatch_get_main_queue(), ^{
 //        for (UIView *subV in _drawingView.subviews) {
 //            if ([subV isKindOfClass:[WBGTextToolView class]]) {

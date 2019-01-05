@@ -31,7 +31,7 @@
 
 - (void)executeWithCompletionBlock:(void(^)(UIImage *image, NSError *error, NSDictionary *userInfo))completionBlock
 {
-    completionBlock(self.editor.imageView.image, nil, nil);
+    completionBlock(self.editor.editorContent.imageView.image, nil, nil);
 }
 
 - (UIImage*)imageForKey:(NSString*)key defaultImageName:(NSString*)defaultImageName {

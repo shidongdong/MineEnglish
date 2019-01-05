@@ -38,7 +38,7 @@
 #import "VIResourceLoaderManager.h"
 #import "AudioPlayerViewController.h"
 #import "CorrectHomeworkViewController.h"
-
+#import "MUImagePickerManager.h"
 static NSString * const kKeyOfCreateTimestamp = @"createTimestamp";
 static NSString * const kKeyOfAudioDuration = @"audioDuration";
 static NSString * const kKeyOfVideoDuration = @"videoDuration";
@@ -529,14 +529,37 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 #else
     self.isCommitingHomework = YES;
 #endif
+//
+//    MSImagePickerController *photoPicker = [[MSImagePickerController alloc] init];
+//
+//    photoPicker.delegate = self;
+//    photoPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//    photoPicker.mediaTypes = @[(NSString *)kUTTypeImage];
+//    [self.navigationController presentViewController:photoPicker animated:YES completion:nil];
+    MUImagePickerManager  *controller = [MUImagePickerManager new];
+    controller.allowsMultipleSelection = YES;
+    controller.mediaType = MUImagePickerMediaTypeImage;
+    controller.maximumNumberOfSelection = 9;
+
+    [controller presentInViewController:self.navigationController];
+    WeakifySelf;
+    controller.didFinishedPickerImages = ^(NSArray<__kindof UIImage *> *originImages, NSArray<__kindof UIImage *> *thumbnailImages) {
+        StrongifySelf;
+       
+#if TEACHERSIDE
+            WBGImageEditorViewController *editVC = [[WBGImageEditorViewController alloc] init];
+            [editVC setOnlyForSend:YES];
+            [editVC setThumbnailImages:originImages];
+            [editVC setSendCallback:^(UIImage *image) {
+                [strongSelf sendImageMessageWithImage:image];
+            }];
+            [strongSelf.navigationController presentViewController:editVC animated:YES completion:nil];
+#else
+            [strongSelf sendImageMessageWithImages:originImages withSendIndex:0];
+#endif
+    };
     
-    UIImagePickerController *photoPicker = [[UIImagePickerController alloc] init];
     
-    photoPicker.delegate = self;
-    photoPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    photoPicker.mediaTypes = @[(NSString *)kUTTypeImage];
-    
-    [self.navigationController presentViewController:photoPicker animated:YES completion:nil];
 }
 
 - (IBAction)videoButtonPressed:(id)sender {
@@ -845,6 +868,47 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     return image;
 }
 
+- (void)sendImageMessageWithImages:(NSArray *)images withSendIndex:(NSInteger)index
+{
+    if (index == images.count)
+    {
+        return;
+    }
+    NSInteger nextIndex = index+1;
+    [HUD showProgressWithMessage:@"正在压缩图片..."];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UIImage *editedImage = [self editedImageWithImage:[images objectAtIndex:index]];
+        NSData *data = UIImageJPEGRepresentation(editedImage, 0.7f);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [HUD showProgressWithMessage:@"正在上传图片..."];
+            WeakifySelf;
+            [[FileUploader shareInstance] uploadData:data
+                                                type:UploadFileTypeImage
+                                       progressBlock:^(NSInteger number) {
+                                           [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];
+                                       }
+                                     completionBlock:^(NSString * _Nullable imageUrl, NSError * _Nullable error) {
+                                         
+                                         StrongifySelf;
+                                         if (imageUrl.length > 0) {
+                                             [HUD hideAnimated:YES];
+                                             
+                                             [self sendImageMessageWithURL:[NSURL URLWithString:imageUrl]];
+                                         } else {
+                                             [HUD showErrorWithMessage:@"图片上传失败"];
+                                         }
+                            
+                                         [strongSelf sendImageMessageWithImages:images withSendIndex:nextIndex];
+                                         
+                                     }];
+        });
+    });
+    
+    
+}
+
+
 - (void)sendImageMessageWithImage:(UIImage *)image {
     [HUD showProgressWithMessage:@"正在压缩图片..."];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -1148,28 +1212,28 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                           }];
 }
 
-- (void)handlePhotoPickerResult:(UIImagePickerController *)picker
-  didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    [picker dismissViewControllerAnimated:YES completion:^{
-        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-        if (image.size.width==0 || image.size.height==0) {
-            [HUD showErrorWithMessage:@"图片选择失败"];
-            return;
-        }
-        
-#if TEACHERSIDE
-        WBGImageEditorViewController *editVC = [[WBGImageEditorViewController alloc] init];
-        [editVC setOnlyForSend:YES];
-        [editVC setThumbnailImage:image];
-        [editVC setSendCallback:^(UIImage *image) {
-            [self sendImageMessageWithImage:image];
-        }];
-        [self.navigationController presentViewController:editVC animated:YES completion:nil];
-#else
-        [self sendImageMessageWithImage:image];
-#endif
-    }];
-}
+//- (void)handlePhotoPickerResult:(UIImagePickerController *)picker
+//  didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+//    [picker dismissViewControllerAnimated:YES completion:^{
+//        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+//        if (image.size.width==0 || image.size.height==0) {
+//            [HUD showErrorWithMessage:@"图片选择失败"];
+//            return;
+//        }
+//
+//#if TEACHERSIDE
+//        WBGImageEditorViewController *editVC = [[WBGImageEditorViewController alloc] init];
+//        [editVC setOnlyForSend:YES];
+//        [editVC setThumbnailImage:image];
+//        [editVC setSendCallback:^(UIImage *image) {
+//            [self sendImageMessageWithImage:image];
+//        }];
+//        [self.navigationController presentViewController:editVC animated:YES completion:nil];
+//#else
+//        [self sendImageMessageWithImage:image];
+//#endif
+//    }];
+//}
 
 - (void)handleVideoPickerResult:(UIImagePickerController *)picker
   didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
@@ -1548,6 +1612,8 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     return YES;
 }
 
+
+
 #pragma mark - UIImagePickerControllerDelegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
@@ -1555,7 +1621,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     if ([mediaType isEqualToString:@"public.movie"]) {
         [self handleVideoPickerResult:picker didFinishPickingMediaWithInfo:info];
     } else {
-        [self handlePhotoPickerResult:picker didFinishPickingMediaWithInfo:info];
+       // [self handlePhotoPickerResult:picker didFinishPickingMediaWithInfo:info];
     }
 }
 
@@ -1712,10 +1778,23 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             if (image == nil) {
                 return;
             }
+            NSMutableArray * imageurls = [[NSMutableArray alloc] init];
+            
+            for (int i = 0; i < self.messages.count; i++)
+            {
+                AVIMTypedMessage * tmpMessage = self.messages[i];
+                if (tmpMessage.mediaType == kAVIMMessageMediaTypeImage)
+                {
+                    [imageurls addObject:tmpMessage.file.url];
+                }
+                
+            }
+            
             
             WBGImageEditorViewController *editVC = [[WBGImageEditorViewController alloc] init];
-            [editVC setOriginalImageUrl:message.file.url];
-            [editVC setThumbnailImage:image];
+            [editVC setOriginalImageUrls:imageurls];
+            editVC.selectIndex = [imageurls indexOfObject:message.file.url];
+//            [editVC setThumbnailImage:image];
             [editVC setSendCallback:^(UIImage *image) {
                 if (weakSelf.homeworkSession.score > 0) {
                     [HUD showErrorWithMessage:@"作业已完成，不能发送"];

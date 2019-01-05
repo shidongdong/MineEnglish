@@ -83,6 +83,19 @@ NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCell
         time = [NSString stringWithFormat:@"%ld分%02ld秒内",(long)min,(long)sec];
     }
     self.limitTimeLabel.text = [NSString stringWithFormat:@"规定时间:%@",time];
+
+//学生端如果5分钟不显示这个规定时间
+#if TEACHERSIDE
+#else
+    if (homeworkSession.homework.limitTimes == 300)
+    {
+        self.limitTimeLabel.hidden = YES;
+    }
+    else
+    {
+        self.limitTimeLabel.hidden = NO;
+    }
+#endif
     
     self.dateLabel.text = [Utils formatedDateString:self.homeworkSession.sendTime];
     
