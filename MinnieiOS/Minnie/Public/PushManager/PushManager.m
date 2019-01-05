@@ -91,8 +91,7 @@
     }
     
     [push setChannels:channels];
-    
-    [push setData:@{@"alert":text, @"badge":@"Increment",@"pushType" :@(type)}];
+    [push setData:@{@"alert":text, @"badge":@"Increment",@"pushType" :@(type),@"action":@"com.minine.push"}];
     [push sendPushInBackground];
 }
 
