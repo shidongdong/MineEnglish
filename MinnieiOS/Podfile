@@ -12,6 +12,7 @@ abstract_target 'Minnie' do
   pod 'SDWebImage/GIF'
   pod 'Masonry'
   pod 'Mantle'
+  pod 'TZImagePickerController'
   pod 'AVOSCloudIM'
   pod 'MBProgressHUD'
   pod 'MJRefresh', '3.1.15.3'

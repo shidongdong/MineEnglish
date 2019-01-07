@@ -166,6 +166,46 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
     
 #if TEACHERSIDE
     self.nameLabel.text = homeworkSession.student.nickname;
+    
+    NSInteger maxHours;
+    if (homeworkSession.homework.style == 1)
+    {
+        maxHours = 24;
+    }
+    else if (homeworkSession.homework.style == 2)
+    {
+        maxHours = 48;
+    }
+    else if (homeworkSession.homework.style == 3)
+    {
+        maxHours = 72;
+    }
+    else
+    {
+        maxHours = 96;
+    }
+    
+    //计算时间
+    NSInteger hours = [self calculateDeadlineHourForTime:homeworkSession.sendTime];
+    
+    if (hours < maxHours)
+    {
+        self.nameLabel.textColor = [UIColor colorWithHex:0X00CE00];
+    }
+    else
+    {
+        if (hours <= 144)
+        {
+            self.nameLabel.textColor = [UIColor colorWithHex:0XFFAD27];
+        }
+        else
+        {
+            self.nameLabel.textColor = [UIColor colorWithHex:0XFF4858];
+        }
+        
+    }
+    
+    
     [self.avatarImageView sd_setImageWithURL:[homeworkSession.student.avatarUrl imageURLWithWidth:44.f]];
     NSString * homeworkTitle = item.text?:@"[无文字内容]";
     NSMutableAttributedString * mAttribute = [[NSMutableAttributedString alloc] initWithString:homeworkTitle];

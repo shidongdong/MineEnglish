@@ -38,12 +38,12 @@
 #import "VIResourceLoaderManager.h"
 #import "AudioPlayerViewController.h"
 #import "CorrectHomeworkViewController.h"
-#import "MUImagePickerManager.h"
+#import "TZImagePickerController.h"
 static NSString * const kKeyOfCreateTimestamp = @"createTimestamp";
 static NSString * const kKeyOfAudioDuration = @"audioDuration";
 static NSString * const kKeyOfVideoDuration = @"videoDuration";
 
-@interface HomeworkSessionViewController()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, EmojiInputViewDelegate, NEPhotoBrowserDataSource, NEPhotoBrowserDelegate>
+@interface HomeworkSessionViewController()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, EmojiInputViewDelegate, NEPhotoBrowserDataSource, NEPhotoBrowserDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *messagesTableView;
 @property (nonatomic, weak) IBOutlet UIButton *audioButton;
@@ -526,39 +526,65 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 - (IBAction)photoButtonPressed:(id)sender {
 #if TEACHERSIDE
     self.isCommitingHomework = NO;
+    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 columnNumber:4 delegate:nil pushPhotoPickerVc:YES];
 #else
     self.isCommitingHomework = YES;
+    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:9 columnNumber:4 delegate:nil pushPhotoPickerVc:YES];
 #endif
-//
-//    MSImagePickerController *photoPicker = [[MSImagePickerController alloc] init];
-//
-//    photoPicker.delegate = self;
-//    photoPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-//    photoPicker.mediaTypes = @[(NSString *)kUTTypeImage];
-//    [self.navigationController presentViewController:photoPicker animated:YES completion:nil];
-    MUImagePickerManager  *controller = [MUImagePickerManager new];
-    controller.allowsMultipleSelection = YES;
-    controller.mediaType = MUImagePickerMediaTypeImage;
-    controller.maximumNumberOfSelection = 9;
-
-    [controller presentInViewController:self.navigationController];
-    WeakifySelf;
-    controller.didFinishedPickerImages = ^(NSArray<__kindof UIImage *> *originImages, NSArray<__kindof UIImage *> *thumbnailImages) {
-        StrongifySelf;
-       
-#if TEACHERSIDE
-            WBGImageEditorViewController *editVC = [[WBGImageEditorViewController alloc] init];
-            [editVC setOnlyForSend:YES];
-            [editVC setThumbnailImages:originImages];
-            [editVC setSendCallback:^(UIImage *image) {
-                [strongSelf sendImageMessageWithImage:image];
-            }];
-            [strongSelf.navigationController presentViewController:editVC animated:YES completion:nil];
-#else
-            [strongSelf sendImageMessageWithImages:originImages withSendIndex:0];
-#endif
-    };
     
+    
+#pragma mark - 五类个性化设置，这些参数都可以不传，此时会走默认设置
+    imagePickerVc.naviBgColor = [UIColor whiteColor];
+    imagePickerVc.barItemTextColor = [UIColor colorWithHex:0x333333];
+    imagePickerVc.naviTitleColor = [UIColor colorWithHex:0x333333];
+    imagePickerVc.isSelectOriginalPhoto = YES;
+    imagePickerVc.allowTakePicture = NO; // 在内部显示拍照按钮
+    imagePickerVc.allowTakeVideo = NO;   // 在内部显示拍视频按
+    [imagePickerVc setUiImagePickerControllerSettingBlock:^(UIImagePickerController *imagePickerController) {
+        imagePickerController.videoQuality = UIImagePickerControllerQualityTypeHigh;
+    }];
+    
+    imagePickerVc.iconThemeColor = [UIColor colorWithRed:31 / 255.0 green:185 / 255.0 blue:34 / 255.0 alpha:1.0];
+    imagePickerVc.showPhotoCannotSelectLayer = YES;
+    imagePickerVc.cannotSelectLayerColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
+    [imagePickerVc setPhotoPickerPageUIConfigBlock:^(UICollectionView *collectionView, UIView *bottomToolBar, UIButton *previewButton, UIButton *originalPhotoButton, UILabel *originalPhotoLabel, UIButton *doneButton, UIImageView *numberImageView, UILabel *numberLabel, UIView *divideLine) {
+        [doneButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    }];
+
+    imagePickerVc.allowPickingVideo = NO;
+    imagePickerVc.allowPickingImage = YES;
+    imagePickerVc.allowPickingOriginalPhoto = NO;
+    imagePickerVc.allowPickingGif = NO;
+    imagePickerVc.allowPickingMultipleVideo = NO; // 是否可以多选视频
+    
+  
+    imagePickerVc.showSelectBtn = NO;
+    imagePickerVc.allowCrop = NO;
+    imagePickerVc.needCircleCrop = NO;
+    // 设置竖屏下的裁剪尺寸
+   
+    imagePickerVc.statusBarStyle = UIStatusBarStyleDefault;
+    
+    // 设置是否显示图片序号
+    imagePickerVc.showSelectedIndex = NO;
+    
+    WeakifySelf;
+    [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
+        StrongifySelf;
+#if TEACHERSIDE
+        WBGImageEditorViewController *editVC = [[WBGImageEditorViewController alloc] init];
+        [editVC setOnlyForSend:YES];
+        [editVC setThumbnailImages:photos];
+        [editVC setSendCallback:^(UIImage *image) {
+            [strongSelf sendImageMessageWithImage:image];
+        }];
+        [strongSelf.navigationController presentViewController:editVC animated:YES completion:nil];
+#else
+        [strongSelf sendImageMessageWithImages:photos withSendIndex:0];
+#endif
+    }];
+    
+    [self presentViewController:imagePickerVc animated:YES completion:nil];
     
 }
 
@@ -569,7 +595,8 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     self.isCommitingHomework = YES;
 #endif
     UIImagePickerController *videoPicker = [[UIImagePickerController alloc] init];
-    
+    videoPicker.allowsEditing = YES;
+    videoPicker.videoMaximumDuration = 300;
     videoPicker.delegate = self;
     videoPicker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
     videoPicker.mediaTypes =  @[(NSString *)kUTTypeMovie];
@@ -1615,6 +1642,20 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 
 
 #pragma mark - UIImagePickerControllerDelegate
+//- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+//    if ([UIDevice currentDevice].systemVersion.floatValue < 11) {
+//        return;
+//    }
+//    if ([viewController isKindOfClass:NSClassFromString(@"PUPhotoPickerHostViewController")]) {
+//        [viewController.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            if (obj.frame.size.width < 42) {
+//                [viewController.view sendSubviewToBack:obj];
+//                *stop = YES;
+//            }
+//        }];
+//    }
+//}
+
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     NSString* mediaType = [info objectForKey:UIImagePickerControllerMediaType];
