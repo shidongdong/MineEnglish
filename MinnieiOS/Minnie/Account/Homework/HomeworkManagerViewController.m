@@ -21,7 +21,9 @@
 #import "HomeWorkSendHistoryViewController.h"
 #import "AudioPlayerViewController.h"
 #import "VIResourceLoaderManager.h"
-@interface HomeworkManagerViewController ()<UITableViewDataSource, UITableViewDelegate, NEPhotoBrowserDataSource, NEPhotoBrowserDelegate>
+#import "VICacheManager.h"
+
+@interface HomeworkManagerViewController ()<UITableViewDataSource, UITableViewDelegate, NEPhotoBrowserDataSource, NEPhotoBrowserDelegate,VIResourceLoaderManagerDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *homeworksTableView;
 @property (nonatomic, weak) IBOutlet UIButton *backButton;
@@ -359,6 +361,7 @@
 - (void)showVideoWithUrl:(NSString *)videoUrl {
     AVPlayerViewController *playerViewController = [[AVPlayerViewController alloc]init];
     VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
+    resourceLoaderManager.delegate = self;
     self.resourceLoaderManager = resourceLoaderManager;
     NSString *url = videoUrl;
     AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
@@ -381,6 +384,30 @@
     playerViewController.view.frame = self.view.frame;
     [playerViewController.player play];
     [playerViewController setOverlyViewCoverUrl:coverUrl];
+}
+
+#pragma mark - VIResourceLoaderManagerDelegate
+- (void)resourceLoaderManagerLoadURL:(NSURL *)url didFailWithError:(NSError *)error
+{
+    [VICacheManager cleanCacheForURL:url error:nil];
+    
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil
+                                                                     message:@"播放失败"
+                                                              preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确定"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             [self.tabBarController dismissViewControllerAnimated:YES completion:^{
+                                                                 
+                                                             }];
+                                                         }];
+    
+    [alertVC addAction:cancelAction];
+    
+    [self presentViewController:alertVC
+                       animated:YES
+                     completion:nil];
+    
 }
 
 #pragma mark - NEPhotoBrowserDataSource

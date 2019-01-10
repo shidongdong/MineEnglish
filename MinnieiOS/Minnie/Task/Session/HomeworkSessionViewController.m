@@ -39,11 +39,12 @@
 #import "AudioPlayerViewController.h"
 #import "CorrectHomeworkViewController.h"
 #import "TZImagePickerController.h"
+#import "VICacheManager.h"
 static NSString * const kKeyOfCreateTimestamp = @"createTimestamp";
 static NSString * const kKeyOfAudioDuration = @"audioDuration";
 static NSString * const kKeyOfVideoDuration = @"videoDuration";
 
-@interface HomeworkSessionViewController()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, EmojiInputViewDelegate, NEPhotoBrowserDataSource, NEPhotoBrowserDelegate,UINavigationControllerDelegate>
+@interface HomeworkSessionViewController()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, EmojiInputViewDelegate, NEPhotoBrowserDataSource, NEPhotoBrowserDelegate,UINavigationControllerDelegate,VIResourceLoaderManagerDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *messagesTableView;
 @property (nonatomic, weak) IBOutlet UIButton *audioButton;
@@ -1341,6 +1342,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     
     AVPlayerViewController *playerViewController = [[AVPlayerViewController alloc]init];
     VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
+    resourceLoaderManager.delegate = self;
     self.resourceLoaderManager = resourceLoaderManager;
     AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
     AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
@@ -1358,6 +1360,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     
     AudioPlayerViewController *playerViewController = [[AudioPlayerViewController alloc]init];
     VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
+    resourceLoaderManager.delegate = self;
     self.resourceLoaderManager = resourceLoaderManager;
     AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
     AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
@@ -1935,6 +1938,31 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     }
     
     return 0.f;
+}
+
+#pragma mark - VIResourceLoaderManagerDelegate
+- (void)resourceLoaderManagerLoadURL:(NSURL *)url didFailWithError:(NSError *)error
+{
+    //播放失败清除缓存
+    [VICacheManager cleanCacheForURL:url error:nil];
+    
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil
+                                                                     message:@"播放失败"
+                                                              preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确定"
+                                                         style:UIAlertActionStyleCancel
+                                                       handler:^(UIAlertAction * _Nonnull action) {
+                                                           [self dismissViewControllerAnimated:YES completion:^{
+                                                               
+                                                           }];
+                                                       }];
+    
+    [alertVC addAction:cancelAction];
+
+    [self presentViewController:alertVC
+                     animated:YES
+                   completion:nil];
+    
 }
 
 #pragma mark - EmojiInputViewDelegate
