@@ -82,7 +82,7 @@
     [self.rightFuncButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
 #else
     
-    self.fliterTitles = @[@"全部",@"零星",@"一星",@"二星",@"三星",@"四星",@"五星"];
+    self.fliterTitles = @[@"全部",@"0星",@"1星",@"2星",@"3星",@"4星",@"5星"];
     
     [self.leftFuncButton setImage:[UIImage imageNamed:@"navbar_medal"] forState:UIControlStateNormal];
     [self.rightFuncButton setImage:[UIImage imageNamed:@"navbar_calendar"] forState:UIControlStateNormal];

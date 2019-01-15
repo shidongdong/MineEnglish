@@ -65,23 +65,23 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
     self.cornerBgView.hidden = NO;
     if (homeworkSession.homework.level == 0)
     {
-        self.diffcultLabel.text = @"一星";
+        self.diffcultLabel.text = @"1星";
     }
     else if (homeworkSession.homework.level == 1)
     {
-        self.diffcultLabel.text = @"二星";
+        self.diffcultLabel.text = @"2星";
     }
     else if (homeworkSession.homework.level == 2)
     {
-        self.diffcultLabel.text = @"三星";
+        self.diffcultLabel.text = @"3星";
     }
     else if (homeworkSession.homework.level == 3)
     {
-        self.diffcultLabel.text = @"四星";
+        self.diffcultLabel.text = @"4星";
     }
     else if (homeworkSession.homework.level == 4)
     {
-        self.diffcultLabel.text = @"五星";
+        self.diffcultLabel.text = @"5星";
     }
     else
     {

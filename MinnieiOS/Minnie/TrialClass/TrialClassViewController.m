@@ -144,7 +144,35 @@
                                      self.grade = grade;
                                      self.gender = gender;
                                      
-                                     [self showEnrollAlert];
+                                     [HUD showProgressWithMessage:@"正在报名..."];
+                                     [TrialClassService enrollWithName:self.name
+                                                                 grade:self.grade
+                                                                gender:self.gender
+                                                              callback:^(Result *result, NSError *error) {
+                                                                  if (error != nil) {
+                                                                      [HUD showErrorWithMessage:@"报名失败"];
+                                                                  } else {
+                                                                      [HUD showWithMessage:@"报名成功"];
+                                                                      
+                                                                      NSString *gender = self.gender==1?@"男孩":@"女孩";
+                                                                      NSString *text = [NSString stringWithFormat:@"%@的%@ %@(%@) 报名", self.grade, gender, self.name, APP.currentUser.username];
+                                                                      
+                                                                      [PushManager pushText:text
+                                                                                    toUsers:@[]
+                                                                                addChannels:@[@"SuperManager"]];
+                                                                      
+                                                                      [EnrollTrialClassView hideAnimated:YES];
+                                                                      
+                                                                      Student *user = APP.currentUser;
+                                                                      user.clazz = nil;
+                                                                      user.enrollState = 1;
+                                                                      APP.currentUser = user;
+                                                                      
+                                                                      [self showEnrolledAlertView];
+                                                                  }
+                                                              }];
+                                     
+                                    // [self showEnrollAlert];
                                  }];
 }
 

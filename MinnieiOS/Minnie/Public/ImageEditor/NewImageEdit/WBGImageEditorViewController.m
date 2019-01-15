@@ -44,6 +44,8 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 
 @implementation WBGImageEditorViewController
 
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -70,7 +72,8 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.backButton.layer.cornerRadius = 10.0;
+    self.doneButton.layer.cornerRadius = 10.0;
     self.view.backgroundColor = [UIColor blackColor];
     
     [self addNotication];

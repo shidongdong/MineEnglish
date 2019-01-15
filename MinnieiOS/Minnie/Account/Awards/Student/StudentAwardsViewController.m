@@ -16,6 +16,7 @@
 #import "UIScrollView+Refresh.h"
 #import "PushManager.h"
 #import "StudentStarListViewController.h"
+#import "AlertView.h"
 @interface StudentAwardsViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, weak) IBOutlet UIImageView *avatarImageView;
@@ -158,32 +159,48 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
                                          withAward:award
                                          starCount:APP.currentUser.starCount
                                   exchangeCallback:^{
-                                      [HUD showProgressWithMessage:@"正在兑换"];
                                       
-                                      [StudentAwardService exchangeAwardWithId:award.awardId
-                                                               callback:^(Result *result, NSError *error) {
-                                                                   if (error != nil) {
-                                                                       if (error.code == 703) {
-                                                                           [HUD showErrorWithMessage:@"兑换失败"];
-                                                                       } else {
-                                                                           [HUD showErrorWithMessage:@"星星数量不够"];
-                                                                       }
-                                                                   } else {
-                                                                       [HUD showWithMessage:@"兑换成功"];
-                                                                       
-                                                                       APP.currentUser.starCount -= award.price;
-                                                                       
-                                                                       [PushManager pushText:@"你有新的兑换订单" toUsers:@[@(APP.currentUser.clazz.teacher.userId)]];
-                                                                       
-                                                                       self.starCountLabel.text = [NSString stringWithFormat:@"%@", @(APP.currentUser.starCount)];
-                                                                       
-                                                                       [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfProfileUpdated object:nil];
-                                                                       
-                                                                       dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                                                           [self recordsButtonPressed:nil];
-                                                                       });
-                                                                   }
-                                                               }];
+
+                                      [AlertView showInView:self.view
+                                                  withImage:[UIImage imageNamed:@"pop_img_welcome"]
+                                                      title:@"确认"
+                                                    message:@"兑换该礼品？"
+                                                    action1:@"取消"
+                                            action1Callback:^{
+                                            }
+                                                    action2:@"确认"
+                                            action2Callback:^{
+                                                [HUD showProgressWithMessage:@"正在兑换"];
+                                                
+                                                
+                                                [StudentAwardService exchangeAwardWithId:award.awardId
+                                                                                callback:^(Result *result, NSError *error) {
+                                                                                    if (error != nil) {
+                                                                                        if (error.code == 703) {
+                                                                                            [HUD showErrorWithMessage:@"兑换失败"];
+                                                                                        } else {
+                                                                                            [HUD showErrorWithMessage:@"星星数量不够"];
+                                                                                        }
+                                                                                    } else {
+                                                                                        [HUD showWithMessage:@"兑换成功"];
+                                                                                        
+                                                                                        APP.currentUser.starCount -= award.price;
+                                                                                        
+                                                                                        [PushManager pushText:@"你有新的兑换订单" toUsers:@[@(APP.currentUser.clazz.teacher.userId)]];
+                                                                                        
+                                                                                        self.starCountLabel.text = [NSString stringWithFormat:@"%@", @(APP.currentUser.starCount)];
+                                                                                        
+                                                                                        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfProfileUpdated object:nil];
+                                                                                        
+                                                                                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                                                                            [self recordsButtonPressed:nil];
+                                                                                        });
+                                                                                    }
+                                                                                }];
+                                            }];
+                                      
+                                      
+                                      
                                   }];
 }
 

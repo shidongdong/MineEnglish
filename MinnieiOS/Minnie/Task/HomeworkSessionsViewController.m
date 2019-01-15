@@ -359,10 +359,10 @@
         return;
     }
     //不需要加载
-//    if (!self.bLoadConversion)
-//    {
-//        return;
-//    }
+    if (!self.bLoadConversion)
+    {
+        return;
+    }
     
     NSString *userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
     [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success,  NSError * error) {

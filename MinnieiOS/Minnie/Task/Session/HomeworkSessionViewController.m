@@ -44,7 +44,7 @@ static NSString * const kKeyOfCreateTimestamp = @"createTimestamp";
 static NSString * const kKeyOfAudioDuration = @"audioDuration";
 static NSString * const kKeyOfVideoDuration = @"videoDuration";
 
-@interface HomeworkSessionViewController()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, EmojiInputViewDelegate, NEPhotoBrowserDataSource, NEPhotoBrowserDelegate,UINavigationControllerDelegate,VIResourceLoaderManagerDelegate>
+@interface HomeworkSessionViewController()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, EmojiInputViewDelegate,UINavigationControllerDelegate,VIResourceLoaderManagerDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *messagesTableView;
 @property (nonatomic, weak) IBOutlet UIButton *audioButton;
@@ -88,7 +88,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 @property (nonatomic, weak) IBOutlet UIImageView *start5ImageView;
 @property (nonatomic, weak) IBOutlet UIButton *retryButton;
 
-@property (nonatomic, strong) NEPhotoBrowser *photoBrowser;
+//@property (nonatomic, strong) NEPhotoBrowser *photoBrowser;
 @property (nonatomic, strong) NSArray<UIImageView *> * currentImageViews;
 @property (nonatomic, strong)NSMutableArray * homeworkImages;    //作业详情所
 
@@ -1613,12 +1613,27 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 - (void)showCurrentSelectedImage:(NSInteger)index {
-    self.photoBrowser = [[NEPhotoBrowser alloc] init];
-    self.photoBrowser.delegate = self;
-    self.photoBrowser.dataSource = self;
-    self.photoBrowser.clickedImageIndex = index;
+    WeakifySelf;
+    WBGImageEditorViewController *editVC = [[WBGImageEditorViewController alloc] init];
+    [editVC setOriginalImageUrls:self.homeworkImages];
+    editVC.selectIndex = index;
+    //            [editVC setThumbnailImage:image];
+    [editVC setSendCallback:^(UIImage *image) {
+        if (weakSelf.homeworkSession.score > 0) {
+            [HUD showErrorWithMessage:@"作业已完成，不能发送"];
+        } else {
+            [weakSelf sendImageMessageWithImage:image];
+        }
+    }];
+    [weakSelf.navigationController presentViewController:editVC animated:YES completion:nil];
     
-    [self.photoBrowser showInContext:self.navigationController];
+    
+//    self.photoBrowser = [[NEPhotoBrowser alloc] init];
+//    self.photoBrowser.delegate = self;
+//    self.photoBrowser.dataSource = self;
+//    self.photoBrowser.clickedImageIndex = index;
+//
+//    [self.photoBrowser showInContext:self.navigationController];
     
     self.dontScrollWhenAppeard = YES;
 }
@@ -1982,30 +1997,30 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 
 #pragma mark - NEPhotoBrowserDataSource
 
-- (NSInteger)numberOfPhotosInPhotoBrowser:(NEPhotoBrowser *)browser {
-    return self.homeworkImages.count;
-}
-- (NSURL* __nonnull)photoBrowser:(NEPhotoBrowser * __nonnull)browser imageURLForIndex:(NSInteger)index {
-    return [NSURL URLWithString:[self.homeworkImages objectAtIndex:index]];
-}
-
-- (UIImage * __nullable)photoBrowser:(NEPhotoBrowser * __nonnull)browser placeholderImageForIndex:(NSInteger)index {
-    return [self.currentImageViews objectAtIndex:index].image;
-}
+//- (NSInteger)numberOfPhotosInPhotoBrowser:(NEPhotoBrowser *)browser {
+//    return self.homeworkImages.count;
+//}
+//- (NSURL* __nonnull)photoBrowser:(NEPhotoBrowser * __nonnull)browser imageURLForIndex:(NSInteger)index {
+//    return [NSURL URLWithString:[self.homeworkImages objectAtIndex:index]];
+//}
+//
+//- (UIImage * __nullable)photoBrowser:(NEPhotoBrowser * __nonnull)browser placeholderImageForIndex:(NSInteger)index {
+//    return [self.currentImageViews objectAtIndex:index].image;
+//}
 
 #pragma mark - NEPhotoBrowserDelegate
 
-- (void)photoBrowser:(NEPhotoBrowser * __nonnull)browser willSavePhotoWithView:(NEPhotoBrowserView *)view {
-    [HUD showProgressWithMessage:@"正在保存图片"];
-}
-
-- (void)photoBrowser:(NEPhotoBrowser * __nonnull)browser didSavePhotoSuccessWithImage:(UIImage *)image {
-    [HUD showWithMessage:@"保存图片成功"];
-}
-
-- (void)photoBrowser:(NEPhotoBrowser * __nonnull)browser savePhotoErrorWithError:(NSError *)error {
-    [HUD showErrorWithMessage:@"保存图片失败"];
-}
+//- (void)photoBrowser:(NEPhotoBrowser * __nonnull)browser willSavePhotoWithView:(NEPhotoBrowserView *)view {
+//    [HUD showProgressWithMessage:@"正在保存图片"];
+//}
+//
+//- (void)photoBrowser:(NEPhotoBrowser * __nonnull)browser didSavePhotoSuccessWithImage:(UIImage *)image {
+//    [HUD showWithMessage:@"保存图片成功"];
+//}
+//
+//- (void)photoBrowser:(NEPhotoBrowser * __nonnull)browser savePhotoErrorWithError:(NSError *)error {
+//    [HUD showErrorWithMessage:@"保存图片失败"];
+//}
 
 @end
 
