@@ -10,7 +10,7 @@
 #import "StudentSelectorTableViewCell.h"
 #import "StudentService.h"
 #import "UIView+Load.h"
-
+#import "PinYin4Objc.h"
 @interface StudentSelectorViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *studentsTableView;
@@ -118,12 +118,13 @@
 }
 
 + (NSString *)getFirstLetterFromString:(NSString *)string {
-    NSMutableString *str = [NSMutableString stringWithString:string];
-    CFStringTransform((CFMutableStringRef)str,NULL, kCFStringTransformMandarinLatin,NO);
-    CFStringTransform((CFMutableStringRef)str,NULL, kCFStringTransformStripDiacritics,NO);
-    NSString *strPinYin = [str capitalizedString];
+    HanyuPinyinOutputFormat *outputFormat=[[HanyuPinyinOutputFormat alloc] init];
+    [outputFormat setToneType:ToneTypeWithoutTone];
+    [outputFormat setVCharType:VCharTypeWithV];
+    [outputFormat setCaseType:CaseTypeUppercase];
+    NSString *outputPinyin=[PinyinHelper toHanyuPinyinStringWithNSString:string withHanyuPinyinOutputFormat:outputFormat withNSString:@" "];
     
-    return [strPinYin substringToIndex:1];
+    return [outputPinyin substringToIndex:1];
 }
 
 - (void)sortStudents {

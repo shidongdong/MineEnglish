@@ -36,7 +36,7 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 @property (nonatomic, strong) WBGDrawTool *drawTool;
 @property (nonatomic, assign) EditorMode currentMode;
 
-
+@property (nonatomic, strong) UITapGestureRecognizer * tapGesture;
 
 @property (nonatomic, assign) BOOL bEditing;
 
@@ -69,13 +69,32 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)tapAction
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)addTapGesture
+{
+    if (!_tapGesture)
+    {
+        _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
+        [self.view addGestureRecognizer:_tapGesture];
+    }
+}
+
+- (void)removeTapGesture
+{
+    [self.view removeGestureRecognizer:_tapGesture];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.backButton.layer.cornerRadius = 10.0;
     self.doneButton.layer.cornerRadius = 10.0;
     self.view.backgroundColor = [UIColor blackColor];
-    
+    [self addTapGesture];
     [self addNotication];
     // Do any additional setup after loading the view from its nib.
     
@@ -283,6 +302,8 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     
     if (self.bEditing)
     {
+        [self removeTapGesture];
+        
         [self.doneButton setTitle:@"完成" forState:UIControlStateNormal];
         self.mCollectionView.scrollEnabled = NO;
         if (!self.drawingView) {
