@@ -196,6 +196,27 @@
 		875C262A218ADA7D0047E32A /* FilterAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875C2628218ADA7D0047E32A /* FilterAlertView.m */; };
 		875C262C218ADBC20047E32A /* FilterAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 875C262B218ADBC20047E32A /* FilterAlertView.xib */; };
 		875C262D218ADBC20047E32A /* FilterAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 875C262B218ADBC20047E32A /* FilterAlertView.xib */; };
+		8764C97B21EE015C00FD7AAF /* NSString+PinYin4Cocoa.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C97021EE015C00FD7AAF /* NSString+PinYin4Cocoa.m */; };
+		8764C97C21EE015C00FD7AAF /* NSString+PinYin4Cocoa.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C97021EE015C00FD7AAF /* NSString+PinYin4Cocoa.m */; };
+		8764C97D21EE015C00FD7AAF /* PinyinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C97321EE015C00FD7AAF /* PinyinHelper.m */; };
+		8764C97E21EE015C00FD7AAF /* PinyinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C97321EE015C00FD7AAF /* PinyinHelper.m */; };
+		8764C97F21EE015C00FD7AAF /* HanyuPinyinOutputFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C97521EE015C00FD7AAF /* HanyuPinyinOutputFormat.m */; };
+		8764C98021EE015C00FD7AAF /* HanyuPinyinOutputFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C97521EE015C00FD7AAF /* HanyuPinyinOutputFormat.m */; };
+		8764C98121EE015C00FD7AAF /* ChineseToPinyinResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C97621EE015C00FD7AAF /* ChineseToPinyinResource.m */; };
+		8764C98221EE015C00FD7AAF /* ChineseToPinyinResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C97621EE015C00FD7AAF /* ChineseToPinyinResource.m */; };
+		8764C98321EE015C00FD7AAF /* PinyinFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C97721EE015C00FD7AAF /* PinyinFormatter.m */; };
+		8764C98421EE015C00FD7AAF /* PinyinFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C97721EE015C00FD7AAF /* PinyinFormatter.m */; };
+		8764C98521EE015C00FD7AAF /* unicode_to_hanyu_pinyin.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8764C97A21EE015C00FD7AAF /* unicode_to_hanyu_pinyin.txt */; };
+		8764C98621EE015C00FD7AAF /* unicode_to_hanyu_pinyin.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8764C97A21EE015C00FD7AAF /* unicode_to_hanyu_pinyin.txt */; };
+		8764C98A21F20BB800FD7AAF /* SendWarnRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C98821F20BB800FD7AAF /* SendWarnRequest.m */; };
+		8764C98F21F35F3D00FD7AAF /* default_save_image_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8764C98B21F35F3C00FD7AAF /* default_save_image_pressed@2x.png */; };
+		8764C99021F35F3D00FD7AAF /* default_save_image_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8764C98B21F35F3C00FD7AAF /* default_save_image_pressed@2x.png */; };
+		8764C99121F35F3D00FD7AAF /* default_save_image_pressed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8764C98C21F35F3C00FD7AAF /* default_save_image_pressed@3x.png */; };
+		8764C99221F35F3D00FD7AAF /* default_save_image_pressed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8764C98C21F35F3C00FD7AAF /* default_save_image_pressed@3x.png */; };
+		8764C99321F35F3D00FD7AAF /* default_save_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8764C98D21F35F3C00FD7AAF /* default_save_image@2x.png */; };
+		8764C99421F35F3D00FD7AAF /* default_save_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8764C98D21F35F3C00FD7AAF /* default_save_image@2x.png */; };
+		8764C99521F35F3D00FD7AAF /* default_save_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8764C98E21F35F3C00FD7AAF /* default_save_image@3x.png */; };
+		8764C99621F35F3D00FD7AAF /* default_save_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8764C98E21F35F3C00FD7AAF /* default_save_image@3x.png */; };
 		876D980C21CDC84900A0E06E /* icon_drop_small_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 876D980A21CDC84900A0E06E /* icon_drop_small_black@2x.png */; };
 		876D980D21CDC84900A0E06E /* icon_drop_small_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 876D980A21CDC84900A0E06E /* icon_drop_small_black@2x.png */; };
 		876D980E21CDC84900A0E06E /* icon_drop_small_black@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 876D980B21CDC84900A0E06E /* icon_drop_small_black@3x.png */; };
@@ -1550,6 +1571,24 @@
 		875C2627218ADA7D0047E32A /* FilterAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterAlertView.h; sourceTree = "<group>"; };
 		875C2628218ADA7D0047E32A /* FilterAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterAlertView.m; sourceTree = "<group>"; };
 		875C262B218ADBC20047E32A /* FilterAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterAlertView.xib; sourceTree = "<group>"; };
+		8764C96E21EE015C00FD7AAF /* PinyinHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinyinHelper.h; sourceTree = "<group>"; };
+		8764C96F21EE015C00FD7AAF /* HanyuPinyinOutputFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HanyuPinyinOutputFormat.h; sourceTree = "<group>"; };
+		8764C97021EE015C00FD7AAF /* NSString+PinYin4Cocoa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PinYin4Cocoa.m"; sourceTree = "<group>"; };
+		8764C97121EE015C00FD7AAF /* ChineseToPinyinResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChineseToPinyinResource.h; sourceTree = "<group>"; };
+		8764C97221EE015C00FD7AAF /* PinyinFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinyinFormatter.h; sourceTree = "<group>"; };
+		8764C97321EE015C00FD7AAF /* PinyinHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinyinHelper.m; sourceTree = "<group>"; };
+		8764C97421EE015C00FD7AAF /* NSString+PinYin4Cocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PinYin4Cocoa.h"; sourceTree = "<group>"; };
+		8764C97521EE015C00FD7AAF /* HanyuPinyinOutputFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HanyuPinyinOutputFormat.m; sourceTree = "<group>"; };
+		8764C97621EE015C00FD7AAF /* ChineseToPinyinResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChineseToPinyinResource.m; sourceTree = "<group>"; };
+		8764C97721EE015C00FD7AAF /* PinyinFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinyinFormatter.m; sourceTree = "<group>"; };
+		8764C97821EE015C00FD7AAF /* PinYin4Objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinYin4Objc.h; sourceTree = "<group>"; };
+		8764C97A21EE015C00FD7AAF /* unicode_to_hanyu_pinyin.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = unicode_to_hanyu_pinyin.txt; sourceTree = "<group>"; };
+		8764C98721F20BB800FD7AAF /* SendWarnRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendWarnRequest.h; sourceTree = "<group>"; };
+		8764C98821F20BB800FD7AAF /* SendWarnRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SendWarnRequest.m; sourceTree = "<group>"; };
+		8764C98B21F35F3C00FD7AAF /* default_save_image_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_save_image_pressed@2x.png"; sourceTree = "<group>"; };
+		8764C98C21F35F3C00FD7AAF /* default_save_image_pressed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_save_image_pressed@3x.png"; sourceTree = "<group>"; };
+		8764C98D21F35F3C00FD7AAF /* default_save_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_save_image@2x.png"; sourceTree = "<group>"; };
+		8764C98E21F35F3C00FD7AAF /* default_save_image@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_save_image@3x.png"; sourceTree = "<group>"; };
 		876D980A21CDC84900A0E06E /* icon_drop_small_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_drop_small_black@2x.png"; sourceTree = "<group>"; };
 		876D980B21CDC84900A0E06E /* icon_drop_small_black@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_drop_small_black@3x.png"; sourceTree = "<group>"; };
 		876D981021D0DBAC00A0E06E /* CorrectHomeworkScoreTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CorrectHomeworkScoreTableViewCell.h; sourceTree = "<group>"; };
@@ -2656,6 +2695,41 @@
 			path = TabBar;
 			sourceTree = "<group>";
 		};
+		8764C96C21EE015C00FD7AAF /* PinYin4Objc */ = {
+			isa = PBXGroup;
+			children = (
+				8764C96D21EE015C00FD7AAF /* Classes */,
+				8764C97921EE015C00FD7AAF /* Resources */,
+			);
+			path = PinYin4Objc;
+			sourceTree = "<group>";
+		};
+		8764C96D21EE015C00FD7AAF /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				8764C96E21EE015C00FD7AAF /* PinyinHelper.h */,
+				8764C96F21EE015C00FD7AAF /* HanyuPinyinOutputFormat.h */,
+				8764C97021EE015C00FD7AAF /* NSString+PinYin4Cocoa.m */,
+				8764C97121EE015C00FD7AAF /* ChineseToPinyinResource.h */,
+				8764C97221EE015C00FD7AAF /* PinyinFormatter.h */,
+				8764C97321EE015C00FD7AAF /* PinyinHelper.m */,
+				8764C97421EE015C00FD7AAF /* NSString+PinYin4Cocoa.h */,
+				8764C97521EE015C00FD7AAF /* HanyuPinyinOutputFormat.m */,
+				8764C97621EE015C00FD7AAF /* ChineseToPinyinResource.m */,
+				8764C97721EE015C00FD7AAF /* PinyinFormatter.m */,
+				8764C97821EE015C00FD7AAF /* PinYin4Objc.h */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		8764C97921EE015C00FD7AAF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8764C97A21EE015C00FD7AAF /* unicode_to_hanyu_pinyin.txt */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		87707873219AB76400940A88 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -2813,6 +2887,10 @@
 		97109564207A006C00568785 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				8764C98B21F35F3C00FD7AAF /* default_save_image_pressed@2x.png */,
+				8764C98C21F35F3C00FD7AAF /* default_save_image_pressed@3x.png */,
+				8764C98D21F35F3C00FD7AAF /* default_save_image@2x.png */,
+				8764C98E21F35F3C00FD7AAF /* default_save_image@3x.png */,
 				876D980A21CDC84900A0E06E /* icon_drop_small_black@2x.png */,
 				876D980B21CDC84900A0E06E /* icon_drop_small_black@3x.png */,
 				872C741121BE8ED60027F47C /* 启动加载引导 */,
@@ -3118,6 +3196,7 @@
 		97109837207A0BF500568785 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				8764C96C21EE015C00FD7AAF /* PinYin4Objc */,
 				871806A321DF438C0023511C /* MUImagePickerManager */,
 				977BD090207CA13B000A1994 /* PushManager */,
 				97109A92207A17B500568785 /* ImageEditor */,
@@ -4589,6 +4668,8 @@
 				9736498F20AF2F8500511A95 /* SendHomeworkRequest.m */,
 				8770786F219AB5BA00940A88 /* SendHomeworkHistoryRequest.h */,
 				87707870219AB5BA00940A88 /* SendHomeworkHistoryRequest.m */,
+				8764C98721F20BB800FD7AAF /* SendWarnRequest.h */,
+				8764C98821F20BB800FD7AAF /* SendWarnRequest.m */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -4880,6 +4961,7 @@
 				979BBD48207FB23300359253 /* TrialClassViewController.xib in Resources */,
 				872C741E21BE8FD40027F47C /* load1@3x.png in Resources */,
 				97109C76207A2EC900568785 /* InputPhoneNumberViewController.xib in Resources */,
+				8764C98F21F35F3D00FD7AAF /* default_save_image_pressed@2x.png in Resources */,
 				870286772182F06C00559195 /* StudentStarListTableViewCell.xib in Resources */,
 				87AF73092193D17F003E87F0 /* StudentDetailHeaderCell.xib in Resources */,
 				97109823207A006D00568785 /* buttonbar_class_unsel@3x.png in Resources */,
@@ -5094,10 +5176,12 @@
 				97364A1620B16C0B00511A95 /* NetworkStateErrorView.xib in Resources */,
 				9710979D207A006D00568785 /* icon_choice@3x.png in Resources */,
 				97109C3A207A2E3E00568785 /* CircleLikeUsersTableViewCell.xib in Resources */,
+				8764C99321F35F3D00FD7AAF /* default_save_image@2x.png in Resources */,
 				97109725207A006D00568785 /* ic_class_red@2x.png in Resources */,
 				971097D7207A006D00568785 /* icon_remark_small@2x.png in Resources */,
 				971096FB207A006D00568785 /* right_chat_talk1@3x.png in Resources */,
 				97364A0820B1231E00511A95 /* StudentDetailViewController.xib in Resources */,
+				8764C99121F35F3D00FD7AAF /* default_save_image_pressed@3x.png in Resources */,
 				97109763207A006D00568785 /* icon_choice@2x.png in Resources */,
 				9710979F207A006D00568785 /* navbar_back@2x.png in Resources */,
 				8709C30721A2507C00970757 /* 弹窗@3x.png in Resources */,
@@ -5108,6 +5192,7 @@
 				872C742121BE8FD40027F47C /* load背景03@2x.png in Resources */,
 				872558AB21D4CB9C0028BC2A /* CorrectHomeworkAddCommentViewController.xib in Resources */,
 				9710973B207A006D00568785 /* ic_cancel_white@3x.png in Resources */,
+				8764C98521EE015C00FD7AAF /* unicode_to_hanyu_pinyin.txt in Resources */,
 				971096EF207A006D00568785 /* 5星级@2x.png in Resources */,
 				97109795207A006D00568785 /* buttonbar_class_active@3x.png in Resources */,
 				9710966D207A006D00568785 /* btn_send_photo@3x.png in Resources */,
@@ -5213,6 +5298,7 @@
 				971096B1207A006D00568785 /* icon_link@3x.png in Resources */,
 				971097ED207A006D00568785 /* buttonbar_mission_active@3x.png in Resources */,
 				97109793207A006D00568785 /* icon_remark@2x.png in Resources */,
+				8764C99521F35F3D00FD7AAF /* default_save_image@3x.png in Resources */,
 				9710965B207A006D00568785 /* label_security@2x.png in Resources */,
 				971096E7207A006D00568785 /* ic_add_small@2x.png in Resources */,
 				872C742721BE8FD40027F47C /* load2@3x.png in Resources */,
@@ -5264,6 +5350,7 @@
 				870286632181CB4600559195 /* HomeworkSegmentTableViewCell.xib in Resources */,
 				973649F520AF2F8600511A95 /* TagCollectionViewCell.xib in Resources */,
 				979C851E208CB93F00940959 /* FinishClassTableViewCell.xib in Resources */,
+				8764C98621EE015C00FD7AAF /* unicode_to_hanyu_pinyin.txt in Resources */,
 				97109736207A006D00568785 /* pop_loading@3x.png in Resources */,
 				971097B8207A006D00568785 /* icon_Emoji@3x.png in Resources */,
 				971097B0207A006D00568785 /* buttonbar_mission_unsel@2x.png in Resources */,
@@ -5315,6 +5402,7 @@
 				97109826207A006D00568785 /* navbar_message@2x.png in Resources */,
 				973649E820AF2F8600511A95 /* HomeworkTableViewCell.xib in Resources */,
 				971096DE207A006D00568785 /* 语音动画03@3x.png in Resources */,
+				8764C99621F35F3D00FD7AAF /* default_save_image@3x.png in Resources */,
 				9710976C207A006D00568785 /* buttonbar_class_active@2x.png in Resources */,
 				971096EC207A006D00568785 /* chat_talk1@3x.png in Resources */,
 				9710971E207A006D00568785 /* 5星级@3x.png in Resources */,
@@ -5370,6 +5458,7 @@
 				97109DA0207A2F0400568785 /* AvatarEditViewController.xib in Resources */,
 				971097E4207A006D00568785 /* label_user@2x.png in Resources */,
 				9710976E207A006D00568785 /* icon_mission_choice@2x.png in Resources */,
+				8764C99021F35F3D00FD7AAF /* default_save_image_pressed@2x.png in Resources */,
 				971097CC207A006D00568785 /* navbar_message@3x.png in Resources */,
 				97109D76207A2F0400568785 /* ProfileTableViewCell.xib in Resources */,
 				97109A71207A158C00568785 /* LeftTextMessageTableViewCell.xib in Resources */,
@@ -5521,6 +5610,7 @@
 				971096FC207A006D00568785 /* right_chat_talk1@3x.png in Resources */,
 				97109764207A006D00568785 /* icon_choice@2x.png in Resources */,
 				97109D5C207A2F0400568785 /* CommentMessageTableViewCell.xib in Resources */,
+				8764C99221F35F3D00FD7AAF /* default_save_image_pressed@3x.png in Resources */,
 				971097A0207A006D00568785 /* navbar_back@2x.png in Resources */,
 				97109DDC207A472700568785 /* LoginViewController_Teacher.xib in Resources */,
 				97109660207A006D00568785 /* 对话框_蓝色@3x.png in Resources */,
@@ -5587,6 +5677,7 @@
 				97109740207A006D00568785 /* icon_warning@3x.png in Resources */,
 				97109D70207A2F0400568785 /* NoticeMessageDetailViewController.xib in Resources */,
 				9736494020AF2A5400511A95 /* AccountManageTableViewCell.xib in Resources */,
+				8764C99421F35F3D00FD7AAF /* default_save_image@2x.png in Resources */,
 				9710966A207A006D00568785 /* label_ic_into_white@3x.png in Resources */,
 				9710969A207A006D00568785 /* 加载动画01@3x.png in Resources */,
 				97109760207A006D00568785 /* pop_finish@2x.png in Resources */,
@@ -5947,6 +6038,7 @@
 				97109C42207A2E3E00568785 /* HomeworkDetailLikeUsersTableViewCell.m in Sources */,
 				97364A1320B16BFD00511A95 /* NetworkStateErrorView.m in Sources */,
 				97109A5E207A158C00568785 /* TextMessageTableViewCell.m in Sources */,
+				8764C97F21EE015C00FD7AAF /* HanyuPinyinOutputFormat.m in Sources */,
 				871806BE21DF438C0023511C /* MUAssetsViewController.m in Sources */,
 				97109D55207A2F0400568785 /* NoticeMessageRequest.m in Sources */,
 				971098EE207A0BF500568785 /* EmojiInputView.m in Sources */,
@@ -5970,7 +6062,9 @@
 				97109944207A0BF600568785 /* Utils.m in Sources */,
 				872558A221D4CB5B0028BC2A /* CorrectHomeworkViewController.m in Sources */,
 				9710993C207A0BF600568785 /* Constants.m in Sources */,
+				8764C97B21EE015C00FD7AAF /* NSString+PinYin4Cocoa.m in Sources */,
 				97109D51207A2F0400568785 /* NoticeMessageItem.m in Sources */,
+				8764C98121EE015C00FD7AAF /* ChineseToPinyinResource.m in Sources */,
 				97109BCC207A1D5000568785 /* DateButton.m in Sources */,
 				97109A89207A171600568785 /* HomeworkAudioCollectionViewCell.m in Sources */,
 				871806CA21DF438C0023511C /* MUCircleView.m in Sources */,
@@ -5993,6 +6087,7 @@
 				872558A821D4CB8C0028BC2A /* CorrectHomeworkHisCommentTableViewCell.m in Sources */,
 				870286672181E29100559195 /* HomeworkDiffTableViewCell.m in Sources */,
 				871806C421DF438C0023511C /* MUOverlayView.m in Sources */,
+				8764C97D21EE015C00FD7AAF /* PinyinHelper.m in Sources */,
 				872558A621D4CB7F0028BC2A /* CorrectHomeworkCommentTableViewCell.m in Sources */,
 				97109922207A0BF600568785 /* AlertView.m in Sources */,
 				97DC3AEB208343DA009D811B /* PortraitNavigationController.m in Sources */,
@@ -6087,6 +6182,7 @@
 				872558AC21D4CBC40028BC2A /* TagCollectionViewCell.m in Sources */,
 				97109A4A207A158C00568785 /* ImageMessageTableViewCell.m in Sources */,
 				97109960207A0BF600568785 /* Application.m in Sources */,
+				8764C98321EE015C00FD7AAF /* PinyinFormatter.m in Sources */,
 				97109C34207A2E3E00568785 /* HomeworkDetailCommentTableViewCell.m in Sources */,
 				979BBD7F2081B36A00359253 /* EnrollTrialClassRequest.m in Sources */,
 				97109A62207A158C00568785 /* AudioMessageTableViewCell.m in Sources */,
@@ -6148,6 +6244,7 @@
 				97109C45207A2E3E00568785 /* CircleContentBaseTableViewCell.m in Sources */,
 				97109A39207A158C00568785 /* HomeworkSessionsRequest.m in Sources */,
 				87C52FB92164ACAF004288F4 /* WBGDrawTool.m in Sources */,
+				8764C98221EE015C00FD7AAF /* ChineseToPinyinResource.m in Sources */,
 				97109C79207A2EC900568785 /* LoginViewController.m in Sources */,
 				97109913207A0BF500568785 /* ProgressHUD.m in Sources */,
 				871806C721DF438C0023511C /* MUAssetsFooterView.m in Sources */,
@@ -6252,7 +6349,9 @@
 				979C851D208CB93F00940959 /* FinishClassTableViewCell.m in Sources */,
 				97109919207A0BF600568785 /* CustomCollectionView.m in Sources */,
 				871806DE21DF51540023511C /* MUPhotoPreviewController.m in Sources */,
+				8764C98421EE015C00FD7AAF /* PinyinFormatter.m in Sources */,
 				97109B03207A1C0800568785 /* ClassTableViewCell.m in Sources */,
+				8764C97E21EE015C00FD7AAF /* PinyinHelper.m in Sources */,
 				87707872219AB5BA00940A88 /* SendHomeworkHistoryRequest.m in Sources */,
 				97109909207A0BF500568785 /* UIScrollView+Refresh.m in Sources */,
 				97109945207A0BF600568785 /* Utils.m in Sources */,
@@ -6389,6 +6488,7 @@
 				871806CD21DF438C0023511C /* MUVideoIndicatorView.m in Sources */,
 				973649C420AF2F8600511A95 /* HomeworkVideoTableViewCell.m in Sources */,
 				875C262A218ADA7D0047E32A /* FilterAlertView.m in Sources */,
+				8764C97C21EE015C00FD7AAF /* NSString+PinYin4Cocoa.m in Sources */,
 				97109963207A0BF600568785 /* FileUploader.m in Sources */,
 				973649D420AF2F8600511A95 /* StudentsRequest.m in Sources */,
 				97671AEB209F0CF100E37FB6 /* UnreaderCircleCountRequest.m in Sources */,
@@ -6400,6 +6500,7 @@
 				973649F220AF2F8600511A95 /* DeleteTagRequest.m in Sources */,
 				870286282181B2EB00559195 /* SearchHomeworkScoreRequest.m in Sources */,
 				97109E91207A7BDD00568785 /* Award.m in Sources */,
+				8764C98A21F20BB800FD7AAF /* SendWarnRequest.m in Sources */,
 				9710994D207A0BF600568785 /* HomeworkItem.m in Sources */,
 				9710993B207A0BF600568785 /* AudioPlayer.m in Sources */,
 				875C2626218AAB0B0047E32A /* SegementLabelsView.m in Sources */,
@@ -6437,6 +6538,7 @@
 				87FDFBC2214B6769006E987C /* AppVersion.m in Sources */,
 				871806BF21DF438C0023511C /* MUAssetsViewController.m in Sources */,
 				97109EB7207A7C0A00568785 /* GiveAwardRequest.m in Sources */,
+				8764C98021EE015C00FD7AAF /* HanyuPinyinOutputFormat.m in Sources */,
 				97109C83207A2EC900568785 /* FindPasswordRequest.m in Sources */,
 				97109A2F207A158C00568785 /* HomeworkSessionService.m in Sources */,
 				9710994F207A0BF600568785 /* Clazz.m in Sources */,

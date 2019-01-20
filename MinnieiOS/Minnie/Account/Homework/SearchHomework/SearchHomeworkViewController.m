@@ -15,7 +15,7 @@
 #import "HomeworkTableViewCell.h"
 #import "TIP.h"
 #import "ClassAndStudentSelectorController.h"
-
+#import "CreateHomeworkViewController.h"
 @interface SearchHomeworkViewController ()<UITextFieldDelegate, UITableViewDataSource,UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UITextField *searchTextField;
@@ -30,8 +30,9 @@
 @property (nonatomic, strong) NSMutableArray *homeworks;
 @property (nonatomic, copy) NSString *nextUrl;
 
+@property (weak, nonatomic) IBOutlet UILabel *noresultLabel;
 @property (nonatomic, strong) BaseRequest *searchRequest;
-
+@property (nonatomic, assign) BOOL shouldReloadWhenAppeared;
 @end
 
 @implementation SearchHomeworkViewController
@@ -43,10 +44,19 @@
     
     self.homeworks = [NSMutableArray array];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(shouldReloadDataWhenAppeared:)
+                                                 name:kNotificationKeyOfAddHomework
+                                               object:nil];
+    
     self.homeworksTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [self registerCellNibs];
     
     [self requestTags];
+}
+
+- (void)shouldReloadDataWhenAppeared:(NSNotification *)notification {
+    self.shouldReloadWhenAppeared = YES;
 }
 
 - (void)dealloc {
@@ -57,6 +67,22 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     NSLog(@"%s", __func__);
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if (self.shouldReloadWhenAppeared) {
+        self.shouldReloadWhenAppeared = NO;
+        
+        [self.homeworks removeAllObjects];
+        self.nextUrl = nil;
+        
+        [self.searchRequest stop];
+        self.searchRequest = nil;
+        
+        [self searchWithKeyword];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -73,7 +99,7 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
 }
 
 - (IBAction)cancelButtonPressed:(id)sender {
@@ -112,6 +138,7 @@
     if (self.searchTextField.text.length == 0) {
         self.tagsView.hidden = NO;
         self.homeworksView.hidden = YES;
+        self.noresultLabel.hidden = YES;
     } else {
         self.tagsView.hidden = YES;
         [self.homeworks removeAllObjects];
@@ -197,7 +224,7 @@
         
         if (homeworks.count > 0) {
             self.homeworksTableView.hidden = NO;
-            
+            self.noresultLabel.hidden = YES;
             [self.homeworks addObjectsFromArray:homeworks];
             [self.homeworksTableView reloadData];
             
@@ -210,11 +237,14 @@
                 [self.homeworksTableView removeFooter];
             }
         } else {
-            [self.homeworksView showEmptyViewWithImage:nil
-                                                 title:@"无相关作业"
-                                         centerYOffset:0
-                                             linkTitle:nil
-                                     linkClickCallback:nil];
+            
+            self.noresultLabel.hidden = NO;
+            self.homeworksTableView.hidden = YES;
+//            [self.homeworksView showEmptyViewWithImage:nil
+//                                                 title:@"无相关作业"
+//                                         centerYOffset:0
+//                                             linkTitle:nil
+//                                     linkClickCallback:nil];
         }
     }
     
@@ -278,6 +308,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    
+    Homework *homework = self.homeworks[indexPath.row];
+    
+    CreateHomeworkViewController *createHomeworkVC = [[CreateHomeworkViewController alloc] initWithNibName:@"CreateHomeworkViewController" bundle:nil];
+    createHomeworkVC.homework = homework;
+    [self.navigationController pushViewController:createHomeworkVC animated:YES];
+    
 }
 
 #pragma mark - UICollectionViewDataSource

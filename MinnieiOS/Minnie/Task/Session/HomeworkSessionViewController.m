@@ -40,6 +40,9 @@
 #import "CorrectHomeworkViewController.h"
 #import "TZImagePickerController.h"
 #import "VICacheManager.h"
+#if TEACHERSIDE
+#import "HomeworkService.h"
+#endif
 static NSString * const kKeyOfCreateTimestamp = @"createTimestamp";
 static NSString * const kKeyOfAudioDuration = @"audioDuration";
 static NSString * const kKeyOfVideoDuration = @"videoDuration";
@@ -527,13 +530,16 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 - (IBAction)photoButtonPressed:(id)sender {
 #if TEACHERSIDE
     self.isCommitingHomework = NO;
-    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 columnNumber:4 delegate:nil pushPhotoPickerVc:YES];
+    UIImagePickerController *photoPicker = [[UIImagePickerController alloc] init];
+    
+    photoPicker.delegate = self;
+    photoPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    photoPicker.mediaTypes = @[(NSString *)kUTTypeImage];
+    
+    [self.navigationController presentViewController:photoPicker animated:YES completion:nil];
 #else
     self.isCommitingHomework = YES;
     TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:9 columnNumber:4 delegate:nil pushPhotoPickerVc:YES];
-#endif
-    
-    
 #pragma mark - 五类个性化设置，这些参数都可以不传，此时会走默认设置
     imagePickerVc.naviBgColor = [UIColor whiteColor];
     imagePickerVc.barItemTextColor = [UIColor colorWithHex:0x333333];
@@ -572,21 +578,12 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     WeakifySelf;
     [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
         StrongifySelf;
-#if TEACHERSIDE
-        WBGImageEditorViewController *editVC = [[WBGImageEditorViewController alloc] init];
-        [editVC setOnlyForSend:YES];
-        [editVC setThumbnailImages:photos];
-        [editVC setSendCallback:^(UIImage *image) {
-            [strongSelf sendImageMessageWithImage:image];
-        }];
-        [strongSelf.navigationController presentViewController:editVC animated:YES completion:nil];
-#else
         [strongSelf sendImageMessageWithImages:photos withSendIndex:0];
-#endif
+
     }];
     
     [self presentViewController:imagePickerVc animated:YES completion:nil];
-    
+ #endif
 }
 
 - (IBAction)videoButtonPressed:(id)sender {
@@ -597,7 +594,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 #endif
     UIImagePickerController *videoPicker = [[UIImagePickerController alloc] init];
     videoPicker.allowsEditing = YES;
-    videoPicker.videoMaximumDuration = 300;
+    videoPicker.videoMaximumDuration = self.homeworkSession.homework.limitTimes;
     videoPicker.delegate = self;
     videoPicker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
     videoPicker.mediaTypes =  @[(NSString *)kUTTypeMovie];
@@ -624,6 +621,14 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 - (IBAction)sendWarningButtonPressed:(id)sender {
     
     [self sendImageMessageWithImage:[UIImage imageNamed:@"警告图片"]];
+#if TEACHERSIDE
+    [HomeworkService sendWarnForStudent:self.homeworkSession.student.userId callback:^(Result *result, NSError *error) {
+        if (error)
+        {
+            
+        }
+    }];
+#endif
 }
 
 
@@ -938,6 +943,11 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 
 
 - (void)sendImageMessageWithImage:(UIImage *)image {
+    
+//    self.emojiViewBottomLayoutConstraint.constant = -216.f - (isIPhoneX?39:0);
+//    self.operationsViewBottomConstraint.constant = -80.f - (isIPhoneX?39:0);
+//    self.inputViewBottomConstraint.constant = 0.f;
+    
     [HUD showProgressWithMessage:@"正在压缩图片..."];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UIImage *editedImage = [self editedImageWithImage:image];
@@ -965,6 +975,13 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 - (void)sendImageMessageWithURL:(NSURL *)imageURL {
+    
+    //重置底部状态
+    self.emojiViewBottomLayoutConstraint.constant = -216.f - (isIPhoneX?39:0);
+    self.operationsViewBottomConstraint.constant = -80.f - (isIPhoneX?39:0);
+    self.inputViewBottomConstraint.constant = 0.f;
+    
+    
     if (self.isCommitingHomework) {
         [HUD showProgressWithMessage:@"正在提交作业..."];
         
@@ -1016,6 +1033,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 
 - (void)sendVideoMessageForPath:(NSString *)path
 {
+    
     AVIMClientStatus status = [IMManager sharedManager].client.status;
     if (status == AVIMClientStatusNone ||
         status == AVIMClientStatusClosed ||
@@ -1116,6 +1134,11 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 - (void)sendVideoMessage:(NSURL *)videoURL duration:(CGFloat)duration{
+    
+    self.emojiViewBottomLayoutConstraint.constant = -216.f - (isIPhoneX?39:0);
+    self.operationsViewBottomConstraint.constant = -80.f - (isIPhoneX?39:0);
+    self.inputViewBottomConstraint.constant = 0.f;
+    
     if (self.isCommitingHomework) {
         [HUD showProgressWithMessage:@"正在提交作业..."];
         
@@ -1240,28 +1263,27 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                           }];
 }
 
-//- (void)handlePhotoPickerResult:(UIImagePickerController *)picker
-//  didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-//    [picker dismissViewControllerAnimated:YES completion:^{
-//        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-//        if (image.size.width==0 || image.size.height==0) {
-//            [HUD showErrorWithMessage:@"图片选择失败"];
-//            return;
-//        }
-//
-//#if TEACHERSIDE
-//        WBGImageEditorViewController *editVC = [[WBGImageEditorViewController alloc] init];
-//        [editVC setOnlyForSend:YES];
-//        [editVC setThumbnailImage:image];
-//        [editVC setSendCallback:^(UIImage *image) {
-//            [self sendImageMessageWithImage:image];
-//        }];
-//        [self.navigationController presentViewController:editVC animated:YES completion:nil];
-//#else
-//        [self sendImageMessageWithImage:image];
-//#endif
-//    }];
-//}
+- (void)handlePhotoPickerResult:(UIImagePickerController *)picker
+  didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    [picker dismissViewControllerAnimated:YES completion:^{
+        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        if (image.size.width==0 || image.size.height==0) {
+            [HUD showErrorWithMessage:@"图片选择失败"];
+            return;
+        }
+
+#if TEACHERSIDE
+        WBGImageEditorViewController *editVC = [[WBGImageEditorViewController alloc] init];
+        [editVC setOnlyForSend:YES];
+        [editVC setThumbnailImages:@[image]];
+        [editVC setSendCallback:^(UIImage *image) {
+            [self sendImageMessageWithImage:image];
+        }];
+        [self.navigationController presentViewController:editVC animated:YES completion:nil];
+
+#endif
+    }];
+}
 
 - (void)handleVideoPickerResult:(UIImagePickerController *)picker
   didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
@@ -1552,7 +1574,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 - (void)stopRecord:(BOOL)shouldSend {
     [self.audioRecorder stop];
     self.audioRecorder = nil;
-    
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     [[AVAudioSession sharedInstance] setActive:NO error:nil];
 
     NSTimeInterval duration = [[NSDate date] timeIntervalSinceDate:self.startTime];
@@ -1680,7 +1702,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     if ([mediaType isEqualToString:@"public.movie"]) {
         [self handleVideoPickerResult:picker didFinishPickingMediaWithInfo:info];
     } else {
-       // [self handlePhotoPickerResult:picker didFinishPickingMediaWithInfo:info];
+        [self handlePhotoPickerResult:picker didFinishPickingMediaWithInfo:info];
     }
 }
 
@@ -1862,6 +1884,8 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                 }
             }];
             [weakSelf.navigationController presentViewController:editVC animated:YES completion:nil];
+            
+            self.dontScrollWhenAppeard = YES;
         }];
         
         cell = imageCell;

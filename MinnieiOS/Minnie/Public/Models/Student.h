@@ -21,4 +21,6 @@
 
 @property (nonatomic, assign) NSInteger enrollState; // 报名状态
 
+@property (nonatomic, assign) NSInteger warnCount;  //警告次数
+
 @end

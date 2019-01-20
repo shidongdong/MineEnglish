@@ -124,12 +124,12 @@
         case 1:
             picURL = pics.secondPicB;
             data.sencondFlag = 2;
-            starCount = 20;
+            starCount = 10;
             break;
         case 2:
             picURL = pics.thirdPicB;
             data.thirdFlag = 2;
-            starCount = 50;
+            starCount = 20;
             break;
     }
     WeakifySelf;

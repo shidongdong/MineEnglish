@@ -24,7 +24,8 @@
              @"circleUpdate":@"circleUpdate", // 朋友圈更新
              @"homeworks":@"homeworks", // 作业情况数组
              @"clazz":@"class", // 所在班级信息，可能没有
-             @"enrollState":@"enrollState" // 报名状态
+             @"enrollState":@"enrollState", // 报名状态
+             @"warnCount":@"warnCount"
              };
 }
 

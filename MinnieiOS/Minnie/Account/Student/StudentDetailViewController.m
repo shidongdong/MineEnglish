@@ -29,7 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.titleArray = @[@"姓名:",@"电话号码:",@"班级:",@"性别:",@"年级",@"作业完成率:",@"该学生未完成的任务:"];
+    self.titleArray = @[@"姓名:",@"电话号码:",@"班级:",@"性别:",@"年级",@"作业完成率:",@"被警告次数:"];
     
     [self registerNibCell];
     
@@ -73,7 +73,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    return self.titleArray.count + 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -82,10 +82,10 @@
     {
         return 140;
     }
-    else if (indexPath.row == 7)
-    {
-        return 64.0;
-    }
+//    else if (indexPath.row == self.titleArray.count - 1)
+//    {
+//        return 64.0;
+//    }
     else
     {
         return 80.0;
@@ -150,7 +150,7 @@
         }
         else
         {
-            
+            content = [NSString stringWithFormat:@"%ld次",self.user.warnCount];
         }
         [cell setCellTitle:[self.titleArray objectAtIndex:indexPath.row - 1] withContent:content];
         return cell;

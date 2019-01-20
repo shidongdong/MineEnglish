@@ -13,6 +13,7 @@
 #import "DeleteHomeworksRequest.h"
 #import "SendHomeworkRequest.h"
 #import "SendHomeworkHistoryRequest.h"
+#import "SendWarnRequest.h"
 @implementation HomeworkService
 
 + (BaseRequest *)createHomework:(Homework *)homework callback:(RequestCallback)callback {
@@ -127,6 +128,13 @@
     return request;
 }
 
++ (BaseRequest *)sendWarnForStudent:(NSInteger)studentId callback:(RequestCallback)callback;
+{
+    SendWarnRequest *request = [[SendWarnRequest alloc] initWithStudent:studentId];
+    request.callback = callback;
+    [request start];
+    return request;
+}
 @end
 
 

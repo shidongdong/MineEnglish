@@ -39,4 +39,11 @@
     return [NSString stringWithFormat:@"%@/homework/getHomeworkSendLogs", ServerProjectName];
 }
 
+- (id)requestArgument {
+    if (self.nextUrl.length > 0) {
+        return nil;
+    }
+    return nil;
+}
+
 @end

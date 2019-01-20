@@ -162,8 +162,6 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
     
     HomeworkItem *item = homeworkSession.homework.items[0];
     
-    
-    
 #if TEACHERSIDE
     self.nameLabel.text = homeworkSession.student.nickname;
     
@@ -190,17 +188,17 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
     
     if (hours < maxHours)
     {
-        self.nameLabel.textColor = [UIColor colorWithHex:0X00CE00];
+        self.timeLabel.textColor = [UIColor colorWithHex:0X00CE00];
     }
     else
     {
         if (hours <= 144)
         {
-            self.nameLabel.textColor = [UIColor colorWithHex:0XFFAD27];
+            self.timeLabel.textColor = [UIColor colorWithHex:0XFFAD27];
         }
         else
         {
-            self.nameLabel.textColor = [UIColor colorWithHex:0XFF4858];
+            self.timeLabel.textColor = [UIColor colorWithHex:0XFF4858];
         }
         
     }

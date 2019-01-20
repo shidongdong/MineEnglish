@@ -243,7 +243,7 @@
             NSInteger tabbarCount = self.unReadHomeworkSessions.count + self.noHandleNotications.count;
             
             AppDelegate * appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-            [appDel showTabBarBadgeNum:tabbarCount atIndex:0];
+          //  [appDel showTabBarBadgeNum:tabbarCount atIndex:0];
             
         });
 

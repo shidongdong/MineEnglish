@@ -44,4 +44,7 @@
 
 + (BaseRequest *)requestSendHomeworkHistoryWithNextUrl:(NSString *)nextUrl callback:(RequestCallback)callback;
 
+//增加警告
++ (BaseRequest *)sendWarnForStudent:(NSInteger)studentId callback:(RequestCallback)callback;
+
 @end

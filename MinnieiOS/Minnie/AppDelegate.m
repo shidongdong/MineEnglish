@@ -368,6 +368,7 @@
 #pragma mark - public
 - (void)showTabBarBadgeNum:(NSInteger)badge atIndex:(NSInteger)index;
 {
+    
     UIViewController * rootVc = [UIApplication sharedApplication].keyWindow.rootViewController;
     
     if ([rootVc isKindOfClass:[UITabBarController class]])

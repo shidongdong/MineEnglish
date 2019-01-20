@@ -352,7 +352,7 @@
         return;
     }
     
-    NSInteger index = 0;
+    NSInteger index = 1;
     for (NSNumber *dateNumber in self.dates) {
         NSDate *d = [NSDate dateWithTimeIntervalSince1970:dateNumber.floatValue/1000];
         if ([date timeIntervalSinceDate:d]>0 && ![d isSameDayWithDate:date]) {

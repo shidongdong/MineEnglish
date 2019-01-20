@@ -68,7 +68,13 @@ NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCell
         }
     }
     
-    self.homeworkTextLabel.text = text;
+    NSMutableAttributedString * mAttribute = [[NSMutableAttributedString alloc] initWithString:text];
+    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+    paragraphStyle.lineSpacing = 5;
+    [mAttribute addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, text.length)];
+    self.homeworkTextLabel.attributedText = mAttribute;
+    
+  //  self.homeworkTextLabel.text = text;
     
     NSInteger min = homeworkSession.homework.limitTimes / 60;
     NSInteger sec = homeworkSession.homework.limitTimes % 60;
@@ -85,8 +91,7 @@ NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCell
     self.limitTimeLabel.text = [NSString stringWithFormat:@"规定时间:%@",time];
 
 //学生端如果5分钟不显示这个规定时间
-#if TEACHERSIDE
-#else
+
     if (homeworkSession.homework.limitTimes == 300)
     {
         self.limitTimeLabel.hidden = YES;
@@ -95,7 +100,7 @@ NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCell
     {
         self.limitTimeLabel.hidden = NO;
     }
-#endif
+
     
     self.dateLabel.text = [Utils formatedDateString:self.homeworkSession.sendTime];
     
@@ -125,7 +130,18 @@ NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCell
     
     cell.collectionViewHeightConstraint.constant = 114.f;
     cell.collectionViewBottomConstraint.constant = 12.f;
-    
+    NSString *text = nil;
+    for (HomeworkItem *item in homeworkSession.homework.items) {
+        if ([item.type isEqualToString:HomeworkItemTypeText]) {
+            text = item.text;
+            break;
+        }
+    }
+    NSMutableAttributedString * mAttribute = [[NSMutableAttributedString alloc] initWithString:text];
+    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+    paragraphStyle.lineSpacing = 5;
+    [mAttribute addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, text.length)];
+    cell.homeworkTextLabel.attributedText = mAttribute;
     CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     CGFloat height = size.height;
     

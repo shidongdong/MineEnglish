@@ -101,12 +101,24 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="25h-sq-sLY">
+                                <rect key="frame" x="385" y="113.5" width="10" height="10"/>
+                                <color key="backgroundColor" red="1" green="0.28235294119999998" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="D4Q-Dx-sS9"/>
+                                    <constraint firstAttribute="height" constant="10" id="G5z-0j-cPa"/>
+                                    <constraint firstAttribute="width" constant="10" id="Kmb-A0-lew"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="10" id="XnC-xP-32O"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="25h-sq-sLY" secondAttribute="bottom" constant="8" id="C5Z-1u-9BD"/>
                             <constraint firstAttribute="trailing" secondItem="1kE-eZ-iBU" secondAttribute="trailing" constant="12" id="LW3-AZ-BwE"/>
                             <constraint firstItem="jrG-dy-omj" firstAttribute="top" secondItem="boh-UQ-m1A" secondAttribute="top" constant="2" id="Lc8-SS-7JC"/>
                             <constraint firstItem="1kE-eZ-iBU" firstAttribute="leading" secondItem="2Rr-Hy-Exs" secondAttribute="leading" id="MUk-1j-lKR"/>
+                            <constraint firstAttribute="trailing" secondItem="25h-sq-sLY" secondAttribute="trailing" constant="8" id="MtJ-9q-eKS"/>
                             <constraint firstAttribute="bottom" secondItem="DUD-Kb-mJg" secondAttribute="bottom" priority="250" constant="12" id="YvH-Md-ciG"/>
                             <constraint firstItem="DUD-Kb-mJg" firstAttribute="leading" secondItem="1kE-eZ-iBU" secondAttribute="leading" id="awR-od-Jcl"/>
                             <constraint firstItem="2Rr-Hy-Exs" firstAttribute="leading" secondItem="hPq-H2-vob" secondAttribute="trailing" constant="15" id="cld-r1-vAB"/>
@@ -143,6 +155,7 @@
                 <outlet property="unfinishTimeBgView" destination="hPq-H2-vob" id="5eB-ZL-hcq"/>
                 <outlet property="unfinishTimeLabel" destination="Ats-RS-cyO" id="GD7-Lm-xDT"/>
                 <outlet property="unfinishTipLabel" destination="52U-LY-Wi1" id="UuY-Um-Ew9"/>
+                <outlet property="unreadIconImageView" destination="25h-sq-sLY" id="6ov-52-egi"/>
             </connections>
             <point key="canvasLocation" x="-849.5" y="-456"/>
         </tableViewCell>

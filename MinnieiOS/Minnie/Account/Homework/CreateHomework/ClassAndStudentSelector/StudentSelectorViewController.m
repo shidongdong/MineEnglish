@@ -118,11 +118,12 @@
 }
 
 + (NSString *)getFirstLetterFromString:(NSString *)string {
+    NSString * upperString = [string uppercaseString];
     HanyuPinyinOutputFormat *outputFormat=[[HanyuPinyinOutputFormat alloc] init];
     [outputFormat setToneType:ToneTypeWithoutTone];
     [outputFormat setVCharType:VCharTypeWithV];
     [outputFormat setCaseType:CaseTypeUppercase];
-    NSString *outputPinyin=[PinyinHelper toHanyuPinyinStringWithNSString:string withHanyuPinyinOutputFormat:outputFormat withNSString:@" "];
+    NSString *outputPinyin=[PinyinHelper toHanyuPinyinStringWithNSString:upperString withHanyuPinyinOutputFormat:outputFormat withNSString:@" "];
     
     return [outputPinyin substringToIndex:1];
 }

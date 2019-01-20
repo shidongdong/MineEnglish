@@ -39,7 +39,7 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 @property (nonatomic, strong) UITapGestureRecognizer * tapGesture;
 
 @property (nonatomic, assign) BOOL bEditing;
-
+@property (nonatomic, assign) BOOL bFirstLoad;
 @end
 
 @implementation WBGImageEditorViewController
@@ -93,6 +93,8 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     [super viewDidLoad];
     self.backButton.layer.cornerRadius = 10.0;
     self.doneButton.layer.cornerRadius = 10.0;
+    self.backButton.backgroundColor =  [[UIColor blackColor]colorWithAlphaComponent:0.5f];
+    self.doneButton.backgroundColor =  [[UIColor blackColor]colorWithAlphaComponent:0.5f];
     self.view.backgroundColor = [UIColor blackColor];
     [self addTapGesture];
     [self addNotication];
@@ -144,10 +146,21 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     [self.mCollectionView registerNib:[UINib nibWithNibName:@"WBGImageEditorCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:WBGImageEditorCollectionViewCellId];
 }
 
-
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+//    if (!self.bFirstLoad)
+//    {
+        [self.mCollectionView setContentOffset:CGPointMake(self.selectIndex * kScreenWidth, 0)];
+//        self.bFirstLoad = YES;
+//    }
+    
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    
     
 //    @weakify(self);
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -164,7 +177,7 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     
     self.editorContent = (WBGImageEditorCollectionViewCell *)[self.mCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.selectIndex inSection:0]];
     
-    [self.mCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.selectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+//    [self.mCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.selectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
     
 }
 
@@ -287,6 +300,8 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     return cell;
 }
 
+
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     int autualIndex = scrollView.contentOffset.x  / scrollView.bounds.size.width;
     self.selectIndex = autualIndex;
@@ -373,6 +388,9 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     [self buildClipImageShowHud:YES clipedCallback:^(UIImage *clipedImage) {
         UIImageWriteToSavedPhotosAlbum(clipedImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
     }];
+}
+- (IBAction)savePressed:(id)sender {
+    [self save];
 }
 
 - (void)send {
