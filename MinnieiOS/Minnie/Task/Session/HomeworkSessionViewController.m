@@ -254,6 +254,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 - (IBAction)backButtonPressed:(id)sender {
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -375,12 +376,23 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     } else if (self.homeworkSession.score == 6) {
         text = [@"5星 " stringByAppendingString:self.homeworkSession.reviewText];
     }
+    else
+    {
+        text = @"报错";
+    }
+    
+    if (self.homeworkSession.reviewText.length == 0)
+    {
+        self.homeworkSession.reviewText = @"";
+    }
     
     [self sendTextMessage:text attributes:@{@"score":@(self.homeworkSession.score), @"reviewText":self.homeworkSession.reviewText,@"isRedo":@(self.homeworkSession.isRedo)}];
     [self.conversation setObject:@(YES) forKey:@"taskfinished"];
+    WeakifySelf;
     [self.conversation updateWithCallback:^(BOOL succeeded, NSError * _Nullable error) {
         if (!succeeded) {
-            [self.conversation updateWithCallback:^(BOOL succeeded, NSError * _Nullable error) {
+            StrongifySelf;
+            [strongSelf.conversation updateWithCallback:^(BOOL succeeded, NSError * _Nullable error) {
             }];
         }
     }];
@@ -620,15 +632,37 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 
 - (IBAction)sendWarningButtonPressed:(id)sender {
     
-    [self sendImageMessageWithImage:[UIImage imageNamed:@"警告图片"]];
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"确定要发送警告吗？"
+                                                                     message:nil
+                                                              preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction * cancleAction = [UIAlertAction actionWithTitle:@"取消"
+                                                         style:UIAlertActionStyleCancel
+                                                       handler:^(UIAlertAction * _Nonnull action) {
+                                                           
+                                                       }];
+    
+    UIAlertAction * confirmAction = [UIAlertAction actionWithTitle:@"确定"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             
+                                                             [self sendImageMessageWithImage:[UIImage imageNamed:@"警告图片"]];
 #if TEACHERSIDE
-    [HomeworkService sendWarnForStudent:self.homeworkSession.student.userId callback:^(Result *result, NSError *error) {
-        if (error)
-        {
-            
-        }
-    }];
+                                                             [HomeworkService sendWarnForStudent:self.homeworkSession.student.userId callback:^(Result *result, NSError *error) {
+                                                                 if (error)
+                                                                 {
+                                                                     
+                                                                 }
+                                                             }];
 #endif
+                                                         }];
+    
+    [alertVC addAction:cancleAction];
+    [alertVC addAction:confirmAction];
+    
+    [self presentViewController:alertVC
+                     animated:YES
+                   completion:nil];
+   
 }
 
 
@@ -677,9 +711,11 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                                            [self sendTextMessage:@"为了更多的星星而奋斗"];
                                                            
                                                            [self.conversation setObject:@(NO) forKey:@"taskfinished"];
+                                                           WeakifySelf;
                                                            [self.conversation updateWithCallback:^(BOOL succeeded, NSError * _Nullable error) {
                                                                if (!succeeded) {
-                                                                   [self.conversation updateWithCallback:^(BOOL succeeded, NSError * _Nullable error) {
+                                                                   StrongifySelf;
+                                                                   [strongSelf.conversation updateWithCallback:^(BOOL succeeded, NSError * _Nullable error) {
                                                                    }];
                                                                }
                                                            }];
@@ -801,10 +837,12 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     [self.loadingContainerView showLoadingView];
     
     NSString *name = [NSString stringWithFormat:@"%@", @(self.homeworkSession.homeworkSessionId)];
+    //WeakifySelf;
     if (self.conversation == nil) {
         AVIMConversationQuery *query = [self.client conversationQuery];
         [query whereKey:@"name" equalTo:name];
         [query findConversationsWithCallback:^(NSArray * _Nullable conversations, NSError * _Nullable error) {
+          //  StrongifySelf;
             if (error == nil)
             {
                 if (conversations.count > 0) {
@@ -1402,35 +1440,37 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 - (void)loadMessagesHistory {
+    WeakifySelf;
     [self.conversation queryMessagesFromServerWithLimit:1000 callback:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        StrongifySelf;
         if (error != nil) {
             BLYLogError(@"会话页面加载失败(加载历史小时失败): %@", error);
-            
-            [self.loadingContainerView showFailureViewWithRetryCallback:^{
-                [self setupConversation];
+
+            [strongSelf.loadingContainerView showFailureViewWithRetryCallback:^{
+                [strongSelf setupConversation];
             }];
-            
+
             return;
         }
-        
-        if (self.conversation != nil) {
-            [self.conversation readInBackground];
+
+        if (strongSelf.conversation != nil) {
+            [strongSelf.conversation readInBackground];
         }
-        
-        self.loadingContainerView.hidden = YES;
-        
+
+        strongSelf.loadingContainerView.hidden = YES;
+
         if (objects.count > 0) {
-            self.messagesTableView.hidden = YES;
-            
-            [self.messages addObjectsFromArray:objects];
-            
-            [self sortMessages];
+            strongSelf.messagesTableView.hidden = YES;
+
+            [strongSelf.messages addObjectsFromArray:objects];
+
+            [strongSelf sortMessages];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.messagesTableView reloadData];
-                
+                [strongSelf.messagesTableView reloadData];
+
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self scrollMessagesTableViewToBottom:NO];
-                    self.messagesTableView.hidden = NO;
+                    [strongSelf scrollMessagesTableViewToBottom:NO];
+                    strongSelf.messagesTableView.hidden = NO;
                 });
             });
         }
@@ -1861,9 +1901,9 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             }
             NSMutableArray * imageurls = [[NSMutableArray alloc] init];
             
-            for (int i = 0; i < self.messages.count; i++)
+            for (int i = 0; i < weakSelf.messages.count; i++)
             {
-                AVIMTypedMessage * tmpMessage = self.messages[i];
+                AVIMTypedMessage * tmpMessage = weakSelf.messages[i];
                 if (tmpMessage.mediaType == kAVIMMessageMediaTypeImage)
                 {
                     [imageurls addObject:tmpMessage.file.url];
@@ -1885,7 +1925,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             }];
             [weakSelf.navigationController presentViewController:editVC animated:YES completion:nil];
             
-            self.dontScrollWhenAppeard = YES;
+            weakSelf.dontScrollWhenAppeard = YES;
         }];
         
         cell = imageCell;

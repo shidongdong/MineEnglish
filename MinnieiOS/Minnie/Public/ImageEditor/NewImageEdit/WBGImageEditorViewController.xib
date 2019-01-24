@@ -16,6 +16,9 @@
                 <outlet property="colorPan" destination="0nF-mb-9IG" id="ymE-At-lb0"/>
                 <outlet property="doneButton" destination="yeV-aj-vVt" id="dNL-Mh-gqa"/>
                 <outlet property="mCollectionView" destination="mYW-zK-5EQ" id="25X-JR-SiK"/>
+                <outlet property="savePicButton" destination="ybN-me-CzS" id="02D-LH-dv2"/>
+                <outlet property="topBackConstraint" destination="TCl-VD-lqU" id="YNA-Bu-XNw"/>
+                <outlet property="topDoneConstraint" destination="z03-wh-MhH" id="vBg-35-vr2"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

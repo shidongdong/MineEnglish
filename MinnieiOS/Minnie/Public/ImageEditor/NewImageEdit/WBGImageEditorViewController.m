@@ -26,9 +26,12 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 }
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topbarConstraint;  //区分x还是普通的顶部
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBarConstraint;  //滚动区域距离底部的距离
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topDoneConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topBackConstraint;
 
 @property (nonatomic, strong, nullable) WBGImageToolBase *currentTool;
 @property (weak, nonatomic) IBOutlet UIView *topBar;
+@property (weak, nonatomic) IBOutlet UIButton *savePicButton;
 
 @property (strong, nonatomic) UIImageView *drawingView;
 
@@ -96,6 +99,9 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     self.backButton.backgroundColor =  [[UIColor blackColor]colorWithAlphaComponent:0.5f];
     self.doneButton.backgroundColor =  [[UIColor blackColor]colorWithAlphaComponent:0.5f];
     self.view.backgroundColor = [UIColor blackColor];
+    
+    
+    
     [self addTapGesture];
     [self addNotication];
     // Do any additional setup after loading the view from its nib.
@@ -120,7 +126,8 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     {
         bottomHeight = 70.0f;
         self.topbarConstraint.constant = 88.0f;
-        
+        self.topDoneConstraint.constant = 44.0f;
+        self.topBackConstraint.constant = 44.0f;
     }
     else
     {
@@ -317,6 +324,7 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     
     if (self.bEditing)
     {
+        self.savePicButton.hidden = YES;
         [self removeTapGesture];
         
         [self.doneButton setTitle:@"完成" forState:UIControlStateNormal];
@@ -338,8 +346,9 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     else
     {
         [self.doneButton setTitle:@"编辑" forState:UIControlStateNormal];
-        
-        
+        self.colorPan.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 50);
+        self.savePicButton.hidden = NO;
+        [self stopPanDrawmode];
         if (self.onlyForSend) {
             [self send];
             
@@ -422,15 +431,15 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     self.currentTool = self.drawTool;
 }
 
-//- (void)stopPanDrawmode
-//{
-//    if (_currentMode == EditorNonMode) {
-//        return;
-//    }
-//
-//    self.currentMode = EditorNonMode;
-//    self.currentTool = nil;
-//}
+- (void)stopPanDrawmode
+{
+    if (_currentMode == EditorNonMode) {
+        return;
+    }
+
+    self.currentMode = EditorNonMode;
+    self.currentTool = nil;
+}
 
 
 - (IBAction)backAction:(UIButton *)sender {

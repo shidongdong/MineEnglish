@@ -62,6 +62,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         self.answerItems = [[NSMutableArray alloc] init];
         self.selectedTags = [[NSMutableArray alloc] init];
         self.limitTimeSecs = 300;
+        self.categoryType = 1;
     } else {
         self.customTitleLabel.text = @"作业详情";
         

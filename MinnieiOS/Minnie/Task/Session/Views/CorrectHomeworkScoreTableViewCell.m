@@ -32,7 +32,7 @@ CGFloat const CorrectHomeworkScoreTableViewCellHeight = 39.0f;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
+    self.lastSelectedScore = -1;
     self.oneStarView.layer.cornerRadius = 4.0;
     self.oneStarView.layer.borderColor = [UIColor colorWithHex:0xDDDDDD].CGColor;
     self.oneStarView.layer.borderWidth = 1.0;

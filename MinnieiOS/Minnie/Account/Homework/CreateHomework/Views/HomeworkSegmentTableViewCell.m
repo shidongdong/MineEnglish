@@ -65,17 +65,17 @@ CGFloat const HomeworkTypeTableViewCellHeight = 200.f;
     
     switch (sender.tag)
     {
-        case 100:
+//        case 100:
+//            self.firstTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
+//            self.currentCateLabel = self.firstTypeLabel;
+//            break;
+        case 101:
             self.firstTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
             self.currentCateLabel = self.firstTypeLabel;
             break;
-        case 101:
+        case 102:
             self.secondTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
             self.currentCateLabel = self.secondTypeLabel;
-            break;
-        case 102:
-            self.thirdTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
-            self.currentCateLabel = self.thirdTypeLabel;
             break;
         case 103:
             self.fourTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
@@ -122,18 +122,18 @@ CGFloat const HomeworkTypeTableViewCellHeight = 200.f;
     self.currentStyleLabel.textColor = [UIColor colorWithHex:0x999999];
     
     switch (category) {
-        case 0:
+        case 1:
             self.firstTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
             self.currentCateLabel = self.firstTypeLabel;
             break;
-        case 1:
+        case 2:
             self.secondTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
             self.currentCateLabel = self.secondTypeLabel;
             break;
-        case 2:
-            self.thirdTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
-            self.currentCateLabel = self.thirdTypeLabel;
-            break;
+//        case 2:
+//            self.thirdTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
+//            self.currentCateLabel = self.thirdTypeLabel;
+//            break;
     }
     
     switch (style) {
