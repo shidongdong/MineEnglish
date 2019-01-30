@@ -1240,42 +1240,41 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     BOOL isResend = message.status == AVIMMessageStatusFailed;
     
     //发送消息，区分学生端和客户端
-#if TEACHERSIDE
-    NSArray * users = @[@(self.homeworkSession.student.userId)];
-#else
-    NSArray * users = @[@(self.homeworkSession.correctTeacher.userId)];
-#endif
-    
+//#if TEACHERSIDE
+//    NSArray * users = @[@(self.homeworkSession.student.userId)];
+//#else
+//    NSArray * users = @[@(self.homeworkSession.correctTeacher.userId)];
+//#endif
+    NSString * text = @"您有一条消息";
     if (message.mediaType == kAVIMMessageMediaTypeText)
     {
         AVIMTextMessage * textMessage = (AVIMTextMessage *)message;
-        [PushManager pushText:textMessage.text
-                      toUsers:users withPushType:PushManagerMessage];
+        text = textMessage.text;
     }
     else if (message.mediaType == kAVIMMessageMediaTypeImage)
     {
         if (!self.isCommitingHomework)
         {
-            [PushManager pushText:@"[图片]"
-                          toUsers:users withPushType:PushManagerMessage];
+            text = @"[图片]";
         }
     }
     else if (message.mediaType == kAVIMMessageMediaTypeAudio)
     {
-        [PushManager pushText:@"[语音]"
-                          toUsers:users withPushType:PushManagerMessage];
-        
+        text = @"[语音]";
     }
     else if (message.mediaType == kAVIMMessageMediaTypeVideo)
     {
         if (!self.isCommitingHomework)
         {
-            [PushManager pushText:@"[视频]"
-                          toUsers:users withPushType:PushManagerMessage];
+            text = @"[视频]";
         }
     }
     
+    AVIMMessageOption *option = [[AVIMMessageOption alloc] init];
+    option.pushData = @{@"alert":@{@"body":text,@"action-loc-key":@"com.minine.push",@"loc-key":@(PushManagerMessage)}, @"badge":@"Increment",@"pushType" :@(PushManagerMessage),@"action":@"com.minine.push"};
+    
     [self.conversation sendMessage:message
+                            option:option
                           callback:^(BOOL succeeded, NSError * _Nullable error) {
 #if TEACHERSIDE
 #else
@@ -1399,7 +1398,8 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     [self.inputTextView resignFirstResponder];
     
     [[AudioPlayer sharedPlayer] stop];
-    
+    AVAudioSession *session =[AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
     AVPlayerViewController *playerViewController = [[AVPlayerViewController alloc]init];
     VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
     resourceLoaderManager.delegate = self;
@@ -1417,7 +1417,8 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     [self.inputTextView resignFirstResponder];
     
     [[AudioPlayer sharedPlayer] stop];
-    
+    AVAudioSession *session =[AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
     AudioPlayerViewController *playerViewController = [[AudioPlayerViewController alloc]init];
     VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
     resourceLoaderManager.delegate = self;

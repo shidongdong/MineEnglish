@@ -174,6 +174,8 @@
 }
 
 - (void)videoButtonPressed:(CircleHomework *)homework {
+    AVAudioSession *session =[AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
     AVPlayerViewController *playerViewController = [[AVPlayerViewController alloc]init];
     NSString *url = homework.videoUrl;
     playerViewController.player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:url]];

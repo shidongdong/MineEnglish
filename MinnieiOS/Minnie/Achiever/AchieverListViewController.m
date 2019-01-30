@@ -139,17 +139,21 @@
                   message:[NSString stringWithFormat:@"奖励%zd颗星星",starCount]
                    action:@"确定"
            actionCallback:^{
-               [weakSelf receiveMedalForData:data atMedalIndex:index];
+               [weakSelf receiveMedalForData:data atMedalIndex:index withStartCount:starCount];
            }];
 }
 
-- (void)receiveMedalForData:(UserMedalDetail *)data atMedalIndex:(NSInteger)index
+- (void)receiveMedalForData:(UserMedalDetail *)data atMedalIndex:(NSInteger)index withStartCount:(NSInteger)count
 {
     WeakifySelf;
     [AchieverService updateMedalWithMedalData:data atMedalIndex:index+1 callback:^(Result *result, NSError *error) {
         if (error == nil)
         {
             [weakSelf requestAchievrList];
+            //更新小星星
+            APP.currentUser.starCount += count;
+            
+//            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfUpdateStar object:nil];
         }
     }];
 }

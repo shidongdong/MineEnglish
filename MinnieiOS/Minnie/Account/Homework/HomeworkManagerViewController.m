@@ -359,6 +359,8 @@
 }
 
 - (void)showVideoWithUrl:(NSString *)videoUrl {
+    AVAudioSession *session =[AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
     AVPlayerViewController *playerViewController = [[AVPlayerViewController alloc]init];
     VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
     resourceLoaderManager.delegate = self;
@@ -374,6 +376,8 @@
 
 - (void)showAudioWithURL:(NSString *)url withCoverURL:(NSString *)coverUrl
 {
+    AVAudioSession *session =[AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
     AudioPlayerViewController *playerViewController = [[AudioPlayerViewController alloc]init];
     VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
     self.resourceLoaderManager = resourceLoaderManager;

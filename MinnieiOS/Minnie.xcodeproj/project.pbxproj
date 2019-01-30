@@ -236,8 +236,8 @@
 		87707878219BB62500940A88 /* HomeWorkSendHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87028696218436F600559195 /* HomeWorkSendHistoryViewController.m */; };
 		87915A3621B933BC006C1BFD /* AudioPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87915A3521B933BC006C1BFD /* AudioPlayerViewController.m */; };
 		87915A3721B933BC006C1BFD /* AudioPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87915A3521B933BC006C1BFD /* AudioPlayerViewController.m */; };
+		87959A6921FDD1D300A670B9 /* UnfinishedStudentHomeworkSessionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87028693218419F600559195 /* UnfinishedStudentHomeworkSessionTableViewCell.xib */; };
 		879CE51821905D0300BBE4B7 /* AchieverListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE51621905D0300BBE4B7 /* AchieverListViewController.m */; };
-		879CE51921905D0300BBE4B7 /* AchieverListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE51621905D0300BBE4B7 /* AchieverListViewController.m */; };
 		879CE51A21905D0300BBE4B7 /* AchieverListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879CE51721905D0300BBE4B7 /* AchieverListViewController.xib */; };
 		879CE51B21905D0300BBE4B7 /* AchieverListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879CE51721905D0300BBE4B7 /* AchieverListViewController.xib */; };
 		879CE52021905F7100BBE4B7 /* AchieverListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE51E21905F7100BBE4B7 /* AchieverListCollectionViewCell.m */; };
@@ -5767,6 +5767,7 @@
 				97109B0D207A1C0800568785 /* ClassTableViewCell.xib in Resources */,
 				971096A6207A006D00568785 /* label_key@2x.png in Resources */,
 				971097DE207A006D00568785 /* navbar_share@3x.png in Resources */,
+				87959A6921FDD1D300A670B9 /* UnfinishedStudentHomeworkSessionTableViewCell.xib in Resources */,
 				97109780207A006D00568785 /* icon_edit@2x.png in Resources */,
 				97109A69207A158C00568785 /* LeftImageMessageTableViewCell.xib in Resources */,
 				97109702207A006D00568785 /* icon_Voice@3x.png in Resources */,
@@ -6323,7 +6324,6 @@
 				97109C7D207A2EC900568785 /* FindPasswordViewController.m in Sources */,
 				879CE52821913DD000BBE4B7 /* AchieverListHeaderView.m in Sources */,
 				973649C120AF2F8600511A95 /* HomeworkTagsTableViewCell.m in Sources */,
-				879CE51921905D0300BBE4B7 /* AchieverListViewController.m in Sources */,
 				97109AFA207A1C0800568785 /* StudentsTableViewCell.m in Sources */,
 				8725589921D3965A0028BC2A /* CorrectHomeworkCommentsRequest.m in Sources */,
 				879CE52121905F7100BBE4B7 /* AchieverListCollectionViewCell.m in Sources */,

@@ -17,10 +17,11 @@
 
 + (void)pushText:(NSString *)text date:(NSDate *)date  {
     AVPush *push = [[AVPush alloc] init];
-    
+    [AVPush setIgnoreProdParameterEnabled:true];
     if (date != nil) {
         [push setPushDate:date];
     }
+
     
     [push setData:@{@"alert":text, @"badge":@"Increment"}];
     [push sendPushInBackground];
@@ -36,6 +37,7 @@
     }
     
     AVPush *push = [[AVPush alloc] init];
+    [AVPush setIgnoreProdParameterEnabled:true];
     NSMutableArray *channels = [NSMutableArray array];
     for (NSNumber *classId in classIds) {
         [channels addObject:[NSString stringWithFormat:@"class_%@", classId]];
@@ -61,7 +63,7 @@
     }
     
     AVPush *push = [[AVPush alloc] init];
-    
+    [AVPush setIgnoreProdParameterEnabled:true];
     NSMutableArray *channels = [NSMutableArray array];
     for (NSNumber *userId in userIds) {
         [channels addObject:[NSString stringWithFormat:@"%@", userId]];
@@ -73,7 +75,9 @@
         [push setPushDate:date];
     }
     
+    
     [push setData:@{@"alert":text, @"badge":@"Increment"}];
+//    [push setData:@{@"alert":@{@"body":text,@"action-loc-key":@"com.minine.push",@"loc-key":@(1)}, @"badge":@"Increment",@"pushType" :@(1),@"action":@"com.minine.push"}];
     [push sendPushInBackground];
 }
 
@@ -84,13 +88,14 @@
     }
     
     AVPush *push = [[AVPush alloc] init];
-    
+    [AVPush setIgnoreProdParameterEnabled:true];
     NSMutableArray *channels = [NSMutableArray array];
     for (NSNumber *userId in userIds) {
         [channels addObject:[NSString stringWithFormat:@"%@", userId]];
     }
     
     [push setChannels:channels];
+    
     [push setData:@{@"alert":@{@"body":text,@"action-loc-key":@"com.minine.push",@"loc-key":@(type)}, @"badge":@"Increment",@"pushType" :@(type),@"action":@"com.minine.push"}];
     [push sendPushInBackground];
 }
@@ -102,7 +107,7 @@
     }
 
     AVPush *push = [[AVPush alloc] init];
-    
+    [AVPush setIgnoreProdParameterEnabled:true];
     NSMutableArray *channels = [NSMutableArray array];
     for (NSNumber *userId in userIds) {
         [channels addObject:[NSString stringWithFormat:@"%@", userId]];

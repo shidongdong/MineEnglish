@@ -42,6 +42,7 @@ extern NSString * const kNotificationKeyOfAddComment; // 添加评论
 extern NSString * const kNotificationKeyOfDeleteComment; // 删除评论
 extern NSString * const kNotificationKeyOfLike; // 点赞
 extern NSString * const kNotificationKeyOfUnlike; // 取消点赞
+extern NSString * const kNotificationKeyOfUpdateStar; //更新小星星
 
 #pragma mark - 班级管理相关
 

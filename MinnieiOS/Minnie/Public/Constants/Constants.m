@@ -43,7 +43,7 @@ NSString * const kNotificationKeyOfAddComment = @"kNotificationKeyOfAddComment";
 NSString * const kNotificationKeyOfDeleteComment = @"kNotificationKeyOfDeleteComment"; // 删除评论
 NSString * const kNotificationKeyOfLike = @"kNotificationKeyOfLike"; // 点赞
 NSString * const kNotificationKeyOfUnlike = @"kNotificationKeyOfUnlike"; // 取消点赞
-
+NSString * const kNotificationKeyOfUpdateStar = @"kNotificationKeyOfUpdateStar"; // 更新小星星
 #pragma mark - 班级管理相关
 
 NSString * const kNotificationKeyOfAddClass = @"kNotificationKeyOfAddClass"; // 教师添加一个班级

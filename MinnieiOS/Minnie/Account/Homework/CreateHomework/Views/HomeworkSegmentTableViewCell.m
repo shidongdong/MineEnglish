@@ -137,19 +137,19 @@ CGFloat const HomeworkTypeTableViewCellHeight = 200.f;
     }
     
     switch (style) {
-        case 0:
+        case 1:
             self.fourTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
             self.currentStyleLabel = self.fourTypeLabel;
             break;
-        case 1:
+        case 2:
             self.fiveTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
             self.currentStyleLabel = self.fiveTypeLabel;
             break;
-        case 2:
+        case 3:
             self.sixTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
             self.currentStyleLabel = self.sixTypeLabel;
             break;
-        case 3:
+        case 4:
             self.sevenTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
             self.currentStyleLabel = self.sevenTypeLabel;
             break;

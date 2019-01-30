@@ -12,7 +12,7 @@
 #import "UIView+YYAdd.h"
 #import "YYCategories.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-
+#import "Masonry.h"
 NSString * const kColorPanNotificaiton = @"kColorPanNotificaiton";
 NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 
@@ -158,7 +158,10 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     [super viewWillLayoutSubviews];
 //    if (!self.bFirstLoad)
 //    {
-        [self.mCollectionView setContentOffset:CGPointMake(self.selectIndex * kScreenWidth, 0)];
+    [self.mCollectionView setContentOffset:CGPointMake(self.selectIndex * kScreenWidth, 0)];
+    
+    
+     self.editorContent = (WBGImageEditorCollectionViewCell *)[self.mCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.selectIndex inSection:0]];
 //        self.bFirstLoad = YES;
 //    }
     
@@ -182,7 +185,7 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    self.editorContent = (WBGImageEditorCollectionViewCell *)[self.mCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.selectIndex inSection:0]];
+   
     
 //    [self.mCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.selectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
     
@@ -316,6 +319,17 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     self.editorContent = (WBGImageEditorCollectionViewCell *)[self.mCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.selectIndex inSection:0]];
 }
 
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    if(!decelerate){
+        //这里复制scrollViewDidEndDecelerating里的代码
+        int autualIndex = scrollView.contentOffset.x  / scrollView.bounds.size.width;
+        self.selectIndex = autualIndex;
+        
+        self.editorContent = (WBGImageEditorCollectionViewCell *)[self.mCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.selectIndex inSection:0]];
+    }
+}
+
+
 #pragma mark - Actions
 ///发送
 - (IBAction)sendAction:(UIButton *)sender {
@@ -331,12 +345,24 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
         self.mCollectionView.scrollEnabled = NO;
         if (!self.drawingView) {
             self.drawingView = [[UIImageView alloc] init];
+//            self.drawingView.backgroundColor = [UIColor yellowColor];
             self.drawingView.contentMode = UIViewContentModeCenter;
             self.drawingView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
             [self.editorContent.imageView.superview addSubview:self.drawingView];
             self.drawingView.userInteractionEnabled = YES;
         }
-        self.drawingView.frame = self.editorContent.imageView.frame;
+        
+        CGSize size = (self.editorContent.imageView.image) ? self.editorContent.imageView.image.size : self.editorContent.imageView.frame.size;
+        if(size.width > 0 && size.height > 0 ) {
+            CGFloat ratio = MIN(self.mCollectionView.frame.size.width / size.width, self.mCollectionView.frame.size.height / size.height);
+            CGFloat W = ratio * size.width * self.mCollectionView.zoomScale;
+            CGFloat H = ratio * size.height * self.mCollectionView.zoomScale;
+            
+            self.drawingView.frame = CGRectMake(MAX(0, (self.drawingView.superview.width-W)/2), MAX(0, (self.drawingView.superview.height-H)/2), W, H);
+        }
+        
+        //self.drawingView.frame = self.editorContent.imageView.frame;
+       
         [self startPanDrawMode];
         
         [UIView animateWithDuration:0.5 animations:^{
@@ -492,7 +518,7 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
         CGFloat viewToimgH = self.editorContent.imageView.height/self.editorContent.imageView.image.size.height;
         __unused CGFloat drawX = self.editorContent.imageView.left/viewToimgW;
 //        CGFloat drawY = self.imageView.top/viewToimgH;
-        [_drawingView.image drawInRect:CGRectMake(0, 0, self.editorContent.imageView.image.size.width/WS, self.editorContent.imageView.image.size.height/HS)];
+        [_drawingView.image drawInRect:CGRectMake(0, 0, self.editorContent.imageView.image.size.width, self.editorContent.imageView.image.size.height)];
 //    dispatch_async(dispatch_get_main_queue(), ^{
 //        for (UIView *subV in _drawingView.subviews) {
 //            if ([subV isKindOfClass:[WBGTextToolView class]]) {

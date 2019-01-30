@@ -1031,7 +1031,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
             }
             else
             {
-                weakSelf.styleType = index - 3;
+                weakSelf.styleType = index - 2;
             }
         }];
         

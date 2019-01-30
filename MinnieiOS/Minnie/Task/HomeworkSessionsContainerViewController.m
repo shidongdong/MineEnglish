@@ -209,7 +209,7 @@
             MedalFlag * medel = (MedalFlag *)(result.userInfo);
             if (medel.metalFlag == 1)
             {
-                self.redIncoinView.layer.cornerRadius = 2.0;
+                self.redIncoinView.layer.cornerRadius = 4.0;
                 self.redIncoinView.hidden = NO;
             }
             else

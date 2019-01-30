@@ -392,9 +392,11 @@
     Clazz *clazz = APP.currentUser.clazz;
     [currentInstallation addUniqueObject:[NSString stringWithFormat:@"class_%@", @(clazz.classId)] forKey:@"channels"];
 #endif
-    
+//    [currentInstallation addObject:[NSString stringWithFormat:@"%@", @(APP.currentUser.userId)] forKey:@"userId"];
     [currentInstallation setObject:[NSString stringWithFormat:@"%@", @(APP.currentUser.userId)] forKey:@"userId"];
- //   [currentInstallation saveInBackground];
+    [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        
+    }];
 }
 
 - (void)removeRemoteNotification
@@ -414,7 +416,9 @@
 //    [currentInstallation removeObject:[NSString stringWithFormat:@"%@", @(APP.currentUser.userId)] forKey:@"userId"];
     [currentInstallation removeObjectForKey:@"userId"];
     
-  //  [currentInstallation saveInBackground];
+    [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        
+    }];
 }
 
 #pragma mark - system

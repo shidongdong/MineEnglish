@@ -165,44 +165,10 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
 #if TEACHERSIDE
     self.nameLabel.text = homeworkSession.student.nickname;
     
-    NSInteger maxHours;
-    if (homeworkSession.homework.style == 1)
+    if ([self.reuseIdentifier isEqualToString:@"UnfinishedStudentHomeworkSessionTableViewCellId"])
     {
-        maxHours = 24;
+        [self setLeftCommitHomeworkUI:homeworkSession];
     }
-    else if (homeworkSession.homework.style == 2)
-    {
-        maxHours = 48;
-    }
-    else if (homeworkSession.homework.style == 3)
-    {
-        maxHours = 72;
-    }
-    else
-    {
-        maxHours = 96;
-    }
-    
-    //计算时间
-    NSInteger hours = [self calculateDeadlineHourForTime:homeworkSession.sendTime];
-    
-    if (hours < maxHours)
-    {
-        self.timeLabel.textColor = [UIColor colorWithHex:0X00CE00];
-    }
-    else
-    {
-        if (hours <= 144)
-        {
-            self.timeLabel.textColor = [UIColor colorWithHex:0XFFAD27];
-        }
-        else
-        {
-            self.timeLabel.textColor = [UIColor colorWithHex:0XFF4858];
-        }
-        
-    }
-    
     
     [self.avatarImageView sd_setImageWithURL:[homeworkSession.student.avatarUrl imageURLWithWidth:44.f]];
     NSString * homeworkTitle = item.text?:@"[无文字内容]";
@@ -376,15 +342,15 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
         static HomeworkSessionTableViewCell *unfinishedCell = nil;
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-#if TEACHERSIDE
-            unfinishedCell = [[[NSBundle mainBundle] loadNibNamed:@"UnfinishedHomeworkSessionTableViewCell"
+//#if TEACHERSIDE
+//            unfinishedCell = [[[NSBundle mainBundle] loadNibNamed:@"UnfinishedHomeworkSessionTableViewCell"
+//                                                            owner:nil
+//                                                          options:nil] lastObject];
+//#else
+            unfinishedCell = [[[NSBundle mainBundle] loadNibNamed:@"UnfinishedStudentHomeworkSessionTableViewCell"
                                                             owner:nil
                                                           options:nil] lastObject];
-#else
-            unfinishedCell = [[[NSBundle mainBundle] loadNibNamed:@"UnfinishedHomeworkSessionTableViewCell"
-                                                            owner:nil
-                                                          options:nil] lastObject];
-#endif
+//#endif
         });
         
         
@@ -401,10 +367,10 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
         
         CGSize size = [unfinishedCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
         height = size.height;
-#if TEACHERSIDE
-#else
+//#if TEACHERSIDE
+//#else
         height = height < 98.0 ? 98.0 : height;
-#endif
+//#endif
 //        if (homeworkSession.lastSessionContent.length == 0) {
 //            height -= 8.f;
 //        }
