@@ -77,8 +77,8 @@
     return request;
 }
 
-+ (BaseRequest *)searchHomeworkWithNextUrl:(NSString *)nextUrl callback:(RequestCallback)callback {
-    SearchHomeworksRequest *request = [[SearchHomeworksRequest alloc] initWithNextUrl:nextUrl];
++ (BaseRequest *)searchHomeworkWithNextUrl:(NSString *)nextUrl withKeyword:(NSArray<NSString *> *)key callback:(RequestCallback)callback {
+    SearchHomeworksRequest *request = [[SearchHomeworksRequest alloc] initWithNextUrl:nextUrl withKeyword:key];
     
     request.objectKey = @"list";
     request.objectClassName = @"Homework";

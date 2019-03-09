@@ -361,16 +361,21 @@
 - (void)showVideoWithUrl:(NSString *)videoUrl {
     AVAudioSession *session =[AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+//    AVPlayerViewController *playerViewController = [[AVPlayerViewController alloc]init];
+//    VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
+//    resourceLoaderManager.delegate = self;
+//    self.resourceLoaderManager = resourceLoaderManager;
+//    NSString *url = videoUrl;
+//    AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
+//    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
+//    playerViewController.player = player;
+//    [self.tabBarController presentViewController:playerViewController animated:YES completion:nil];
+//    playerViewController.view.frame = [UIScreen mainScreen].bounds;
+//    [playerViewController.player play];
     AVPlayerViewController *playerViewController = [[AVPlayerViewController alloc]init];
-    VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
-    resourceLoaderManager.delegate = self;
-    self.resourceLoaderManager = resourceLoaderManager;
-    NSString *url = videoUrl;
-    AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
-    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
-    playerViewController.player = player;
-    [self.tabBarController presentViewController:playerViewController animated:YES completion:nil];
-    playerViewController.view.frame = [UIScreen mainScreen].bounds;
+    playerViewController.player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:videoUrl]];
+    [self presentViewController:playerViewController animated:YES completion:nil];
+    playerViewController.view.frame = self.view.frame;
     [playerViewController.player play];
 }
 
@@ -379,14 +384,18 @@
     AVAudioSession *session =[AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
     AudioPlayerViewController *playerViewController = [[AudioPlayerViewController alloc]init];
-    VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
-    self.resourceLoaderManager = resourceLoaderManager;
-    AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
-    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
-    playerViewController.player = player;
+    playerViewController.player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:url]];
     [self presentViewController:playerViewController animated:YES completion:nil];
     playerViewController.view.frame = self.view.frame;
     [playerViewController.player play];
+//    VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
+//    self.resourceLoaderManager = resourceLoaderManager;
+//    AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
+//    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
+//    playerViewController.player = player;
+//    [self presentViewController:playerViewController animated:YES completion:nil];
+//    playerViewController.view.frame = self.view.frame;
+//    [playerViewController.player play];
     [playerViewController setOverlyViewCoverUrl:coverUrl];
 }
 

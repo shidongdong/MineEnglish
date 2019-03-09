@@ -38,6 +38,11 @@ NSString * const RightImageMessageTableViewCellId = @"RightImageMessageTableView
     [self.messageImageView sd_setImageWithURL:[imageUrl imageURLWithWidth:218.f] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         CGSize  displayImageSize;
         
+        if (!image)
+        {
+            return;
+        }
+        
         CGFloat rate = image.size.width / image.size.height;
         CGFloat orginRate = 218.0 / 140.0;
         

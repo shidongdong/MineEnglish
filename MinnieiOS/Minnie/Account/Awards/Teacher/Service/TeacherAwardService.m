@@ -62,7 +62,7 @@
 
 + (BaseRequest *)requestExchangeRequestsWithMoreUrl:(NSString *)moreUrl
                                           callback:(RequestCallback)callback {
-    ExchangeRequestsRequest *request = [[ExchangeRequestsRequest alloc] init];
+    ExchangeRequestsRequest *request = [[ExchangeRequestsRequest alloc] initWithNextUrl:moreUrl];
     
     request.objectKey = @"list";
     request.objectClassName = @"ExchangeRecord";

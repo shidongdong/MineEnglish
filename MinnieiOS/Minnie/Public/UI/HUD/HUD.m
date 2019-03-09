@@ -5,7 +5,7 @@
 //  Modified by yebw on 16/11/9
 
 #import "HUD.h"
-#import <MBProgressHUD/MBProgressHUD.h>
+
 #import <Masonry/Masonry.h>
 
 #define HUD_DEFAULT_DURATION        (2.f)
@@ -97,7 +97,7 @@
     [self showProgressWithMessage:message cancelCallback:nil];
 }
 
-+ (void)showProgressWithMessage:(NSString *)message
++ (MBProgressHUD *)showProgressWithMessage:(NSString *)message
                  cancelCallback:(HUDCancelCallback)cancelCallback
 {
     UIWindow *topWindow = [HUD topWindow];
@@ -134,6 +134,7 @@
         textLabel.font = [UIFont systemFontOfSize:HUD_MESSAGE_FONT_SIZE];
         textLabel.textColor = [UIColor whiteColor];
         textLabel.numberOfLines = 0;
+        textLabel.tag = 99;
         textLabel.textAlignment = NSTextAlignmentCenter;
         textLabel.preferredMaxLayoutWidth = HUD_MAX_WIDTH;
         textLabel.text = message;
@@ -152,6 +153,7 @@
         textLabel.font = [UIFont systemFontOfSize:HUD_MESSAGE_FONT_SIZE];
         textLabel.textColor = [UIColor whiteColor];
         textLabel.numberOfLines = 0;
+        textLabel.tag = 99;
         textLabel.textAlignment = NSTextAlignmentCenter;
         textLabel.preferredMaxLayoutWidth = HUD_MAX_WIDTH - HUD_MARGIN;
         textLabel.text = message;
@@ -194,6 +196,7 @@
     }];
     
     [hud showAnimated:YES];
+    return hud;
 }
 
 // 错误图标 错误文案

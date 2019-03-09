@@ -17,7 +17,9 @@
 @property (nonatomic, copy) NSString *avatarUrl; // 用户头像
 @property (nonatomic, assign) NSInteger gender; // 用户性别: -1女 0保密 1男
 
+@property (nonatomic, copy) NSString *pinyinName;
 @property (nonatomic, copy) NSString *token;
+
 
 @end
 

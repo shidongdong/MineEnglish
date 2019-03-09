@@ -20,4 +20,9 @@
 
 + (BaseRequest *)requestAppUpgradeWithVersion:(NSString *)version
                                      callback:(RequestCallback)callback;
+
++ (BaseRequest *)modifyStarCount:(NSInteger)count
+                      forStudent:(NSInteger)studentId
+                        callback:(RequestCallback)callback;
+
 @end

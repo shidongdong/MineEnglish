@@ -92,30 +92,53 @@
 
     if (self.award==nil || self.imageChanged) {
         [HUD showProgressWithMessage:@"正在上传图片..."];
-
         NSData *imageData = UIImageJPEGRepresentation(image, .8f);
-        [[FileUploader shareInstance] uploadData:imageData
-                            type:UploadFileTypeImage
-                   progressBlock:^(NSInteger number) {
-                       [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];
-                   }
-                 completionBlock:^(NSString * _Nullable imageUrl, NSError * _Nullable error) {
-                     if (imageUrl.length == 0) {
-                         [HUD showErrorWithMessage:@"图片上传失败"];
-                         return;
-                     }
-                     
-                     NSMutableDictionary *info = [NSMutableDictionary dictionary];
-                     if (self.award != nil) {
-                         info[@"id"] = @(self.award.awardId);
-                     }
-                     info[@"imageUrl"] = imageUrl;
-                     info[@"name"] = name;
-                     info[@"count"] = @([count integerValue]);
-                     info[@"price"] = @([price integerValue]);
-
-                     [self addAwardWithInfo:info];
-                 }];
+        QNUploadOption * option = [[QNUploadOption alloc] initWithProgressHandler:^(NSString *key, float percent) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%.f%%...", percent * 100]];
+            });
+            
+        }];
+        [[FileUploader shareInstance] qn_uploadData:imageData type:UploadFileTypeImage option:option completionBlock:^(NSString * _Nullable imageUrl, NSError * _Nullable error) {
+            if (imageUrl.length == 0) {
+                [HUD showErrorWithMessage:@"图片上传失败"];
+                return;
+            }
+            
+            NSMutableDictionary *info = [NSMutableDictionary dictionary];
+            if (self.award != nil) {
+                info[@"id"] = @(self.award.awardId);
+            }
+            info[@"imageUrl"] = imageUrl;
+            info[@"name"] = name;
+            info[@"count"] = @([count integerValue]);
+            info[@"price"] = @([price integerValue]);
+            
+            [self addAwardWithInfo:info];
+        }];
+        
+//        [[FileUploader shareInstance] uploadData:imageData
+//                            type:UploadFileTypeImage
+//                   progressBlock:^(NSInteger number) {
+//                       [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];
+//                   }
+//                 completionBlock:^(NSString * _Nullable imageUrl, NSError * _Nullable error) {
+//                     if (imageUrl.length == 0) {
+//                         [HUD showErrorWithMessage:@"图片上传失败"];
+//                         return;
+//                     }
+//                     
+//                     NSMutableDictionary *info = [NSMutableDictionary dictionary];
+//                     if (self.award != nil) {
+//                         info[@"id"] = @(self.award.awardId);
+//                     }
+//                     info[@"imageUrl"] = imageUrl;
+//                     info[@"name"] = name;
+//                     info[@"count"] = @([count integerValue]);
+//                     info[@"price"] = @([price integerValue]);
+//
+//                     [self addAwardWithInfo:info];
+//                 }];
     } else {
         NSMutableDictionary *info = [NSMutableDictionary dictionary];
         if (self.award != nil) {

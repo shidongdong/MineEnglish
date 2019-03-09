@@ -14,13 +14,22 @@ NSString * const StudentDetailCellId = @"StudentDetailCellId";
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 
+
 @end
 
 @implementation StudentDetailCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.modifyBtn.layer.cornerRadius = 10;
+    self.modifyBtn.layer.borderWidth = 1.0;
+    self.modifyBtn.layer.borderColor = [UIColor colorWithHex:0x333333].CGColor;
     // Initialization code
+}
+- (IBAction)modifyPressed:(UIButton *)sender {
+    if (_delegate && [_delegate respondsToSelector:@selector(modifyStarAction)]) {
+        [_delegate modifyStarAction];
+    }
 }
 
 - (void)setCellTitle:(NSString *)title withContent:(NSString *)content

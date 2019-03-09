@@ -61,43 +61,81 @@
     [picker dismissViewControllerAnimated:YES completion:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [HUD showProgressWithMessage:@"正在上传图片..."];
+            QNUploadOption * option = [[QNUploadOption alloc] initWithProgressHandler:^(NSString *key, float percent) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%.f%%...", percent * 100]];
+                });
+                
+            }];
             
-            [[FileUploader shareInstance] uploadData:imageData
-                                type:UploadFileTypeImage
-                       progressBlock:^(NSInteger number) {
-                           [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];
-                       }
-                     completionBlock:^(NSString * _Nullable avatarUrl, NSError * _Nullable error) {
-                         if (avatarUrl.length == 0) {
-                             [HUD showErrorWithMessage:@"图片上传失败"];
-                             
-                             return;
-                         }
-                         
-                         [HUD showProgressWithMessage:@"正在修改头像..."];
-                         [ProfileService updateAvatar:avatarUrl
-                                             callback:^(Result *result, NSError *error) {
-                                                 if (error != nil) {
-                                                     [HUD showErrorWithMessage:@"头像修改失败"];
-                                                 } else {
-                                                     [HUD showWithMessage:@"头像修改成功"];
-                                                     
+            [[FileUploader shareInstance] qn_uploadData:imageData type:UploadFileTypeImage option:option completionBlock:^(NSString * _Nullable avatarUrl, NSError * _Nullable error) {
+                if (avatarUrl.length == 0) {
+                    [HUD showErrorWithMessage:@"图片上传失败"];
+                    
+                    return;
+                }
+                
+                [HUD showProgressWithMessage:@"正在修改头像..."];
+                [ProfileService updateAvatar:avatarUrl
+                                    callback:^(Result *result, NSError *error) {
+                                        if (error != nil) {
+                                            [HUD showErrorWithMessage:@"头像修改失败"];
+                                        } else {
+                                            [HUD showWithMessage:@"头像修改成功"];
+                                            
 #if TEACHERSIDE
-                                                     Teacher *teacher = APP.currentUser;
-                                                     teacher.avatarUrl = avatarUrl;
-                                                     APP.currentUser = teacher;
+                                            Teacher *teacher = APP.currentUser;
+                                            teacher.avatarUrl = avatarUrl;
+                                            APP.currentUser = teacher;
 #else
-                                                     Student *student = APP.currentUser;
-                                                     student.avatarUrl = avatarUrl;
-                                                     APP.currentUser = student;
+                                            Student *student = APP.currentUser;
+                                            student.avatarUrl = avatarUrl;
+                                            APP.currentUser = student;
 #endif
-                                                     
-                                                     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfProfileUpdated object:nil];
-                                                     
-                                                     [self backButtonPressed:nil];
-                                                 }
-                                             }];
-                     }];
+                                            
+                                            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfProfileUpdated object:nil];
+                                            
+                                            [self backButtonPressed:nil];
+                                        }
+                                    }];
+            }];
+            
+//            [[FileUploader shareInstance] uploadData:imageData
+//                                type:UploadFileTypeImage
+//                       progressBlock:^(NSInteger number) {
+//                           [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];
+//                       }
+//                     completionBlock:^(NSString * _Nullable avatarUrl, NSError * _Nullable error) {
+//                         if (avatarUrl.length == 0) {
+//                             [HUD showErrorWithMessage:@"图片上传失败"];
+//                             
+//                             return;
+//                         }
+//                         
+//                         [HUD showProgressWithMessage:@"正在修改头像..."];
+//                         [ProfileService updateAvatar:avatarUrl
+//                                             callback:^(Result *result, NSError *error) {
+//                                                 if (error != nil) {
+//                                                     [HUD showErrorWithMessage:@"头像修改失败"];
+//                                                 } else {
+//                                                     [HUD showWithMessage:@"头像修改成功"];
+//                                                     
+//#if TEACHERSIDE
+//                                                     Teacher *teacher = APP.currentUser;
+//                                                     teacher.avatarUrl = avatarUrl;
+//                                                     APP.currentUser = teacher;
+//#else
+//                                                     Student *student = APP.currentUser;
+//                                                     student.avatarUrl = avatarUrl;
+//                                                     APP.currentUser = student;
+//#endif
+//                                                     
+//                                                     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfProfileUpdated object:nil];
+//                                                     
+//                                                     [self backButtonPressed:nil];
+//                                                 }
+//                                             }];
+//                     }];
         });
     }];
 }

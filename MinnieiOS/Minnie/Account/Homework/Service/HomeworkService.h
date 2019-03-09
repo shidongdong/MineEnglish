@@ -30,6 +30,7 @@
                                   callback:(RequestCallback)callback;
 
 + (BaseRequest *)searchHomeworkWithNextUrl:(NSString *)nextUrl
+                               withKeyword:(NSArray<NSString *> *)key
                                   callback:(RequestCallback)callback;
 
 + (BaseRequest *)sendHomeworkIds:(NSArray <NSNumber *> *)homeworkIds

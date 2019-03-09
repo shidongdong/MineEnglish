@@ -400,33 +400,63 @@ ClassAndStudentSelectorControllerDelegate>
     
     [HUD showProgressWithMessage:@"正在上传图片..."];
     
-    [[FileUploader shareInstance] uploadData:data
-                        type:UploadFileTypeImage
-               progressBlock:^(NSInteger number) {
-                   [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];
-               }
-             completionBlock:^(NSString * _Nullable imageUrl, NSError * _Nullable error) {
-                 if (imageUrl.length == 0) {
-                     [HUD showErrorWithMessage:@"图片上传失败"];
-                     
-                     return;
-                 }
-                 
-                 NoticeMessageItem *item = items[index];
-                 item.imageUrl = imageUrl;
-                 ((ImageTextAttachment *)(item.attachment)).imageUrl = item.imageUrl;
-                 
-                 if (index == imageDatas.count-1) { // 最后一张图片上传完了
-                     [HUD showProgressWithMessage:@"正在发送消息..."];
-                     
-                     [self sendMessage];
-                 } else {
-                     [self uploadImages:imageDatas
-                           messageItems:items
-                              withIndex:index+1
-                          uploadedCount:uploadedCount];
-                 }
-             }];
+    QNUploadOption * option = [[QNUploadOption alloc] initWithProgressHandler:^(NSString *key, float percent) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%.f%%...", percent * 100]];
+        });
+        
+    }];
+    
+    [[FileUploader shareInstance] qn_uploadData:data type:UploadFileTypeImage option:option completionBlock:^(NSString * _Nullable imageUrl, NSError * _Nullable error) {
+        if (imageUrl.length == 0) {
+            [HUD showErrorWithMessage:@"图片上传失败"];
+            
+            return;
+        }
+        
+        NoticeMessageItem *item = items[index];
+        item.imageUrl = imageUrl;
+        ((ImageTextAttachment *)(item.attachment)).imageUrl = item.imageUrl;
+        
+        if (index == imageDatas.count-1) { // 最后一张图片上传完了
+            [HUD showProgressWithMessage:@"正在发送消息..."];
+            
+            [self sendMessage];
+        } else {
+            [self uploadImages:imageDatas
+                  messageItems:items
+                     withIndex:index+1
+                 uploadedCount:uploadedCount];
+        }
+    }];
+    
+//    [[FileUploader shareInstance] uploadData:data
+//                        type:UploadFileTypeImage
+//               progressBlock:^(NSInteger number) {
+//                   [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];
+//               }
+//             completionBlock:^(NSString * _Nullable imageUrl, NSError * _Nullable error) {
+//                 if (imageUrl.length == 0) {
+//                     [HUD showErrorWithMessage:@"图片上传失败"];
+//
+//                     return;
+//                 }
+//
+//                 NoticeMessageItem *item = items[index];
+//                 item.imageUrl = imageUrl;
+//                 ((ImageTextAttachment *)(item.attachment)).imageUrl = item.imageUrl;
+//
+//                 if (index == imageDatas.count-1) { // 最后一张图片上传完了
+//                     [HUD showProgressWithMessage:@"正在发送消息..."];
+//
+//                     [self sendMessage];
+//                 } else {
+//                     [self uploadImages:imageDatas
+//                           messageItems:items
+//                              withIndex:index+1
+//                          uploadedCount:uploadedCount];
+//                 }
+//             }];
 }
 
 - (BOOL)checkTitleAndContent

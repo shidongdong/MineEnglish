@@ -12,6 +12,8 @@
 
 @property (nonatomic, copy) NSArray<NSString *> *keyword;
 @property (nonatomic, copy) NSString *nextUrl;
+@property (nonatomic, assign) NSInteger pageNum;
+@property (nonatomic, assign) NSInteger pageNo;
 
 @end
 
@@ -26,9 +28,19 @@
     return self;
 }
 
-- (instancetype)initWithNextUrl:(NSString *)nextUrl {
+- (instancetype)initWithNextUrl:(NSString *)nextUrl withKeyword:(NSArray<NSString *> *)keyword {
     self = [super init];
     if (self != nil) {
+        
+        NSArray * urls = [nextUrl componentsSeparatedByString:@"&tags="];
+        
+        NSString * parmsString = [urls objectAtIndex:0];
+        NSArray * parmsArray = [parmsString componentsSeparatedByString:@"&pageNum="];
+        _pageNum = [[parmsArray objectAtIndex:1] integerValue];
+        parmsString = [parmsArray objectAtIndex:0];
+        parmsArray = [parmsString componentsSeparatedByString:@"pageNo="];
+        _pageNo = [[parmsArray objectAtIndex:1] integerValue];
+        _keyword = keyword;
         _nextUrl = nextUrl;
     }
     
@@ -40,18 +52,28 @@
 }
 
 - (NSString *)requestUrl {
-    if (self.nextUrl.length > 0) {
-        return self.nextUrl;
-    }
+//    if (self.nextUrl.length > 0) {
+//        return self.nextUrl;
+//    }
 
     return [NSString stringWithFormat:@"%@/homework/searchHomeworksByTags", ServerProjectName];
 }
 
 - (id)requestArgument {
-    if (self.keyword.count > 0) {
-        return @{@"tags":self.keyword};
+    
+    if (self.nextUrl.length > 0)
+    {
+        if (self.keyword.count > 0) {
+            return @{@"tags":self.keyword,@"pageNo":@(self.pageNo),@"pageNum":@(self.pageNum)};
+        }
     }
-
+    else
+    {
+        if (self.keyword.count > 0) {
+            return @{@"tags":self.keyword};
+        }
+    }
+    
     return nil;
 }
 

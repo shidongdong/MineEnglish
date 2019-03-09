@@ -10,6 +10,7 @@
 #import "UserRequest.h"
 #import "CheckAppVerRequest.h"
 #import "AppVersion.h"
+#import "ModifyStarRequest.h"
 @implementation PublicService
 
 + (BaseRequest *)requestUserInfoWithId:(NSInteger)userId
@@ -54,4 +55,14 @@
     return request;
 }
 
+
++ (BaseRequest *)modifyStarCount:(NSInteger)count
+                      forStudent:(NSInteger)studentId
+                        callback:(RequestCallback)callback
+{
+    ModifyStarRequest *request = [[ModifyStarRequest alloc] initWithStudentId:studentId starCount:count];
+    request.callback = callback;
+    [request start];
+    return request;
+}
 @end

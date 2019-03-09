@@ -12,6 +12,6 @@
 
 - (instancetype)initWithKeyword:(NSArray<NSString *> *)keyword;
 
-- (instancetype)initWithNextUrl:(NSString *)nextUrl;
+- (instancetype)initWithNextUrl:(NSString *)nextUrl withKeyword:(NSArray<NSString *> *)keyword;
 
 @end

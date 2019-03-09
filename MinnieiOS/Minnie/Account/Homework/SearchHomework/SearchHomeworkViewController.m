@@ -33,6 +33,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *noresultLabel;
 @property (nonatomic, strong) BaseRequest *searchRequest;
 @property (nonatomic, assign) BOOL shouldReloadWhenAppeared;
+
+@property (nonatomic, strong) NSMutableArray * keywords;
+
 @end
 
 @implementation SearchHomeworkViewController
@@ -41,7 +44,7 @@
     [super viewDidLoad];
     
     self.selectTags = [[NSMutableArray alloc] init];
-    
+    self.keywords = [[NSMutableArray alloc] init];
     self.homeworks = [NSMutableArray array];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -157,7 +160,7 @@
     [self.homeworksView showLoadingView];
     
     WeakifySelf;
-    self.searchRequest = [HomeworkService searchHomeworkWithKeyword:self.selectTags
+    self.searchRequest = [HomeworkService searchHomeworkWithKeyword:self.keywords
                                                            callback:^(Result *result, NSError *error) {
                                                                [weakSelf handleSearchResult:result error:error];
                                                            }];
@@ -170,6 +173,7 @@
     
     WeakifySelf;
     self.searchRequest = [HomeworkService searchHomeworkWithNextUrl:self.nextUrl
+                                                        withKeyword:self.keywords
                                                            callback:^(Result *result, NSError *error) {
                                                                [weakSelf handleSearchResult:result error:error];
                                                            }];
@@ -256,9 +260,14 @@
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField
 {
-    
+    [self.keywords removeAllObjects];
     [self.selectTags removeAllObjects];
     return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField;
+{
+    [self.keywords removeAllObjects];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -266,8 +275,10 @@
     
     [self.searchRequest stop];
     
+    [self.keywords addObjectsFromArray:[textField.text componentsSeparatedByString:@" "]];
+    
    // NSString *keyword = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if (self.selectTags.count > 0) {
+    if (textField.text.length > 0) {
         [self searchWithKeyword];
     }
     
@@ -388,7 +399,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
         [searchString appendString:tagString];
         if (i != self.selectTags.count - 1)
         {
-            [searchString appendString:@","];
+            [searchString appendString:@" "];
         }
     }
     

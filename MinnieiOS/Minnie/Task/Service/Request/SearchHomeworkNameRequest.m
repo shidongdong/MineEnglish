@@ -36,7 +36,10 @@
 {
     self = [super init];
     if (self != nil) {
-        _nextUrl = nextUrl;
+        
+        NSString *utfNextUrl = [nextUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+        
+        _nextUrl = utfNextUrl;
     }
     
     return self;

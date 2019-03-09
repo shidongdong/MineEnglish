@@ -23,6 +23,8 @@ abstract_target 'Minnie' do
   #pod 'Crashlytics'
   pod 'Bugly'
   pod 'YYCategories'
+  pod 'Qiniu'
+  pod 'PinYin4Objc'
 target 'MinnieStudent'
 target 'MinnieTeacher'
 

@@ -49,6 +49,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
 @property (nonatomic, assign) NSInteger level;
 @property (nonatomic, assign) NSInteger limitTimeSecs;
 @property (nonatomic, strong) NSString * selectFormTag;
+@property (nonatomic, strong) MBProgressHUD * mHud;
 @end
 
 @implementation CreateHomeworkViewController
@@ -532,46 +533,100 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         [exportSession exportAsynchronouslyWithCompletionHandler:^{
             if ([exportSession status] == AVAssetExportSessionStatusCompleted) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [[FileUploader shareInstance] uploadDataWithLocalFilePath:path
-                                                                progressBlock:^(NSInteger progress) {
-                                                                    [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传视频%@%%...", @(progress)] cancelCallback:^{
-                                                                        [[FileUploader shareInstance] cancleUploading];
-                                                                    }];
-                                                                }
-                                                              completionBlock:^(NSString * _Nullable videoUrl, NSError * _Nullable error) {
-                                                                  if (videoUrl.length == 0) {
-                                                                      [HUD showErrorWithMessage:@"视频上传失败"];
-                                                                      
-                                                                      return ;
-                                                                  }
-                                                                  
-                                                                  [HUD showWithMessage:@"视频上传成功"];
-                                                                  
-                                                                  [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
-                                                                  
-                                                                  if (self.isAddingAnswerItem) {
-                                                                      HomeworkAnswerItem *item = [[HomeworkAnswerItem alloc] init];
-                                                                      item.type = HomeworkItemTypeVideo;
-                                                                      item.videoUrl = videoUrl;
-                                                                      item.itemTime = durationInSeconds;
-                                                                      item.videoCoverUrl = @"";
-                                                                      
-                                                                      [self.answerItems addObject:item];
-                                                                  } else{
-                                                                      HomeworkItem *item = [[HomeworkItem alloc] init];
-                                                                      item.type = HomeworkItemTypeVideo;
-                                                                      item.videoUrl = videoUrl;
-                                                                      item.videoCoverUrl = @"";
-                                                                      
-                                                                      [self.items addObject:item];
-                                                                  }
-                                                                  
-                                                                  [self.homeworkTableView reloadData];
-                                                              }];
-                    
-                    [HUD showProgressWithMessage:@"正在上传视频..." cancelCallback:^{
-                        [[FileUploader shareInstance] cancleUploading];
+                    WeakifySelf;
+                    __block BOOL flag = NO;
+                    QNUploadOption * option = [[QNUploadOption alloc] initWithMime:nil progressHandler:^(NSString *key, float percent) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            if (!weakSelf.mHud)
+                            {
+                                weakSelf.mHud = [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传视频%.f%%...", percent * 100] cancelCallback:^{
+                                    flag = YES;
+                                }];
+                            }
+                            else
+                            {
+                                UILabel * label = [weakSelf.mHud.customView viewWithTag:99];
+                                
+                                label.text = [NSString stringWithFormat:@"正在上传视频%.f%%...", percent * 100];
+                            }
+                        });
+                    } params:nil checkCrc:NO cancellationSignal:^BOOL{
+                        return flag;
                     }];
+                    
+                    
+                    [[FileUploader shareInstance] qn_uploadFile:path type:UploadFileTypeVideo option:option completionBlock:^(NSString * _Nullable videoUrl, NSError * _Nullable error) {
+                        weakSelf.mHud = nil;
+                        if (videoUrl.length == 0) {
+                            [HUD showErrorWithMessage:@"视频上传失败"];
+                            
+                            return ;
+                        }
+                        
+                        [HUD showWithMessage:@"视频上传成功"];
+                        
+                        [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+                        
+                        if (weakSelf.isAddingAnswerItem) {
+                            HomeworkAnswerItem *item = [[HomeworkAnswerItem alloc] init];
+                            item.type = HomeworkItemTypeVideo;
+                            item.videoUrl = videoUrl;
+                            item.itemTime = durationInSeconds;
+                            item.videoCoverUrl = @"";
+                            
+                            [weakSelf.answerItems addObject:item];
+                        } else{
+                            HomeworkItem *item = [[HomeworkItem alloc] init];
+                            item.type = HomeworkItemTypeVideo;
+                            item.videoUrl = videoUrl;
+                            item.videoCoverUrl = @"";
+                            
+                            [weakSelf.items addObject:item];
+                        }
+                        
+                        [weakSelf.homeworkTableView reloadData];
+                    }];
+                    
+//                    [[FileUploader shareInstance] uploadDataWithLocalFilePath:path
+//                                                                progressBlock:^(NSInteger progress) {
+//                                                                    [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传视频%@%%...", @(progress)] cancelCallback:^{
+//                                                                        [[FileUploader shareInstance] cancleUploading];
+//                                                                    }];
+//                                                                }
+//                                                              completionBlock:^(NSString * _Nullable videoUrl, NSError * _Nullable error) {
+//                                                                  if (videoUrl.length == 0) {
+//                                                                      [HUD showErrorWithMessage:@"视频上传失败"];
+//                                                                      
+//                                                                      return ;
+//                                                                  }
+//                                                                  
+//                                                                  [HUD showWithMessage:@"视频上传成功"];
+//                                                                  
+//                                                                  [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+//                                                                  
+//                                                                  if (self.isAddingAnswerItem) {
+//                                                                      HomeworkAnswerItem *item = [[HomeworkAnswerItem alloc] init];
+//                                                                      item.type = HomeworkItemTypeVideo;
+//                                                                      item.videoUrl = videoUrl;
+//                                                                      item.itemTime = durationInSeconds;
+//                                                                      item.videoCoverUrl = @"";
+//                                                                      
+//                                                                      [self.answerItems addObject:item];
+//                                                                  } else{
+//                                                                      HomeworkItem *item = [[HomeworkItem alloc] init];
+//                                                                      item.type = HomeworkItemTypeVideo;
+//                                                                      item.videoUrl = videoUrl;
+//                                                                      item.videoCoverUrl = @"";
+//                                                                      
+//                                                                      [self.items addObject:item];
+//                                                                  }
+//                                                                  
+//                                                                  [self.homeworkTableView reloadData];
+//                                                              }];
+//                    
+//                    [HUD showProgressWithMessage:@"正在上传视频..." cancelCallback:^{
+//                        [[FileUploader shareInstance] cancleUploading];
+//                    }];
                 });
             }else{
                 NSLog(@"当前压缩进度:%f",exportSession.progress);
@@ -592,109 +647,225 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         dispatch_async(dispatch_get_main_queue(), ^{
             [HUD showProgressWithMessage:@"正在上传图片..."];
             
-            [[FileUploader shareInstance] uploadData:data
-                                                type:UploadFileTypeImage
-                                       progressBlock:^(NSInteger progress) {
-                                           [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(progress)]];
-                                       }
-                                     completionBlock:^(NSString * _Nullable imageUrl, NSError * _Nullable error) {
-                                         if (imageUrl.length == 0) {
-                                             [HUD showErrorWithMessage:@"图片上传失败"];
-                                             
-                                             return ;
-                                         }
-                                         
-                                         [HUD showWithMessage:@"图片上传成功"];
-                                         
-                                         if (self.isAddingAnswerItem) {
-                                             HomeworkAnswerItem *item = [[HomeworkAnswerItem alloc] init];
-                                             item.type = HomeworkItemTypeImage;
-                                             item.imageUrl = imageUrl;
-                                             item.imageWidth = image.size.width;
-                                             item.imageHeight = image.size.height;
-                                             
-                                             [self.answerItems addObject:item];
-                                         } else {
-                                             HomeworkItem *item = [[HomeworkItem alloc] init];
-                                             item.type = HomeworkItemTypeImage;
-                                             item.imageUrl = imageUrl;
-                                             item.imageWidth = image.size.width;
-                                             item.imageHeight = image.size.height;
-                                             
-                                             [self.items addObject:item];
-                                         }
-                                         
-                                         [self.homeworkTableView reloadData];
-                                     }];
+            QNUploadOption * option = [[QNUploadOption alloc] initWithProgressHandler:^(NSString *key, float percent) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%.f%%...", percent * 100]];
+                });
+                
+            }];
+            
+            [[FileUploader shareInstance] qn_uploadData:data type:UploadFileTypeImage option:option completionBlock:^(NSString * _Nullable imageUrl, NSError * _Nullable error) {
+                if (imageUrl.length == 0) {
+                    [HUD showErrorWithMessage:@"图片上传失败"];
+                    
+                    return ;
+                }
+                
+                [HUD showWithMessage:@"图片上传成功"];
+                
+                if (self.isAddingAnswerItem) {
+                    HomeworkAnswerItem *item = [[HomeworkAnswerItem alloc] init];
+                    item.type = HomeworkItemTypeImage;
+                    item.imageUrl = imageUrl;
+                    item.imageWidth = image.size.width;
+                    item.imageHeight = image.size.height;
+                    
+                    [self.answerItems addObject:item];
+                } else {
+                    HomeworkItem *item = [[HomeworkItem alloc] init];
+                    item.type = HomeworkItemTypeImage;
+                    item.imageUrl = imageUrl;
+                    item.imageWidth = image.size.width;
+                    item.imageHeight = image.size.height;
+                    
+                    [self.items addObject:item];
+                }
+                
+                [self.homeworkTableView reloadData];
+            }];
+            
+//            [[FileUploader shareInstance] uploadData:data
+//                                                type:UploadFileTypeImage
+//                                       progressBlock:^(NSInteger progress) {
+//                                           [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(progress)]];
+//                                       }
+//                                     completionBlock:^(NSString * _Nullable imageUrl, NSError * _Nullable error) {
+//                                         if (imageUrl.length == 0) {
+//                                             [HUD showErrorWithMessage:@"图片上传失败"];
+//
+//                                             return ;
+//                                         }
+//
+//                                         [HUD showWithMessage:@"图片上传成功"];
+//
+//                                         if (self.isAddingAnswerItem) {
+//                                             HomeworkAnswerItem *item = [[HomeworkAnswerItem alloc] init];
+//                                             item.type = HomeworkItemTypeImage;
+//                                             item.imageUrl = imageUrl;
+//                                             item.imageWidth = image.size.width;
+//                                             item.imageHeight = image.size.height;
+//
+//                                             [self.answerItems addObject:item];
+//                                         } else {
+//                                             HomeworkItem *item = [[HomeworkItem alloc] init];
+//                                             item.type = HomeworkItemTypeImage;
+//                                             item.imageUrl = imageUrl;
+//                                             item.imageWidth = image.size.width;
+//                                             item.imageHeight = image.size.height;
+//
+//                                             [self.items addObject:item];
+//                                         }
+//
+//                                         [self.homeworkTableView reloadData];
+//                                     }];
         });
     });
 }
 
 - (void)uploadAudioFileForPath:(NSData *)data forHomeworkItem:(id)homework
 {
-    
-    [[FileUploader shareInstance] uploadData:data
-                                        type:UploadFileTypeAudio_Mp3
-                               progressBlock:^(NSInteger progress) {
-                                                    [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传音频%@%%...", @(progress)] cancelCallback:^{
-                                                        [[FileUploader shareInstance] cancleUploading];
-                                                    }];
-                                                }
-                                              completionBlock:^(NSString * _Nullable videoUrl, NSError * _Nullable error) {
-                                                  if (videoUrl.length == 0) {
-                                                      [HUD showErrorWithMessage:@"音频上传失败"];
-                                                      
-                                                      return ;
-                                                  }
-                                                  
-                                                  [HUD showWithMessage:@"音频上传成功"];
-                                            
-                                                  
-                                                  if (homework)
-                                                  {
-                                                      if (self.isAddingAnswerItem) {
-                                                          
-                                                          HomeworkAnswerItem *item = (HomeworkAnswerItem *)homework;
-                                                          item.type = HomeworkItemTypeAudio;
-                                                          item.audioUrl = videoUrl;
-                                                          NSString * cover = item.imageUrl;
-                                                          item.audioCoverUrl = cover;
-                                                          
-                                                      }
-                                                      else
-                                                      {
-                                                          HomeworkItem *item = (HomeworkItem *)homework;
-                                                          item.type = HomeworkItemTypeAudio;
-                                                          item.audioUrl = videoUrl;
-                                                          NSString * cover = item.imageUrl;
-                                                          item.audioCoverUrl = cover;
-                                                      }
-                                                  }
-                                                  else
-                                                  {
-                                                      if (self.isAddingAnswerItem) {
-                                                          HomeworkAnswerItem *item = [[HomeworkAnswerItem alloc] init];
-                                                          item.type = HomeworkItemTypeAudio;
-                                                          item.audioUrl = videoUrl;
-                                                          item.audioCoverUrl = @"";
-                                                          
-                                                          [self.answerItems addObject:item];
-                                                      } else{
-                                                          HomeworkItem *item = [[HomeworkItem alloc] init];
-                                                          item.type = HomeworkItemTypeAudio;
-                                                          item.audioUrl = videoUrl;
-                                                          item.audioCoverUrl = @"";
-                                                          
-                                                          [self.items addObject:item];
-                                                      }
-                                                  }
-                                                  
-                                                  [self.homeworkTableView reloadData];
-                                              }];
-    
-    [HUD showProgressWithMessage:@"正在上传音频..." cancelCallback:^{
-        [[FileUploader shareInstance] cancleUploading];
+    WeakifySelf;
+    __block BOOL flag = NO;
+    QNUploadOption * option = [[QNUploadOption alloc] initWithMime:nil progressHandler:^(NSString *key, float percent) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (!weakSelf.mHud)
+            {
+                weakSelf.mHud = [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传音频%.f%%...", percent * 100] cancelCallback:^{
+                    flag = YES;
+                }];
+            }
+            else
+            {
+                UILabel * label = [weakSelf.mHud.customView viewWithTag:99];
+                
+                label.text = [NSString stringWithFormat:@"正在上传音频%.f%%...", percent * 100];
+            }
+            
+            
+//            [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传音频%.f%%...", percent * 100] cancelCallback:^{
+//                flag = YES;
+//            }];
+        });
+    } params:nil checkCrc:NO cancellationSignal:^BOOL{
+        return flag;
     }];
+    
+    [[FileUploader shareInstance] qn_uploadData:data type:UploadFileTypeAudio_Mp3 option:option completionBlock:^(NSString * _Nullable videoUrl, NSError * _Nullable error) {
+        weakSelf.mHud = nil;
+        if (videoUrl.length == 0) {
+            [HUD showErrorWithMessage:@"音频上传失败"];
+            
+            return ;
+        }
+        
+        [HUD showWithMessage:@"音频上传成功"];
+        
+        
+        if (homework)
+        {
+            if (weakSelf.isAddingAnswerItem) {
+                
+                HomeworkAnswerItem *item = (HomeworkAnswerItem *)homework;
+                item.type = HomeworkItemTypeAudio;
+                item.audioUrl = videoUrl;
+                NSString * cover = item.imageUrl;
+                item.audioCoverUrl = cover;
+                
+            }
+            else
+            {
+                HomeworkItem *item = (HomeworkItem *)homework;
+                item.type = HomeworkItemTypeAudio;
+                item.audioUrl = videoUrl;
+                NSString * cover = item.imageUrl;
+                item.audioCoverUrl = cover;
+            }
+        }
+        else
+        {
+            if (weakSelf.isAddingAnswerItem) {
+                HomeworkAnswerItem *item = [[HomeworkAnswerItem alloc] init];
+                item.type = HomeworkItemTypeAudio;
+                item.audioUrl = videoUrl;
+                item.audioCoverUrl = @"";
+                
+                [weakSelf.answerItems addObject:item];
+            } else{
+                HomeworkItem *item = [[HomeworkItem alloc] init];
+                item.type = HomeworkItemTypeAudio;
+                item.audioUrl = videoUrl;
+                item.audioCoverUrl = @"";
+                
+                [weakSelf.items addObject:item];
+            }
+        }
+        
+        [self.homeworkTableView reloadData];
+    }];
+    
+    
+//    [[FileUploader shareInstance] uploadData:data
+//                                        type:UploadFileTypeAudio_Mp3
+//                               progressBlock:^(NSInteger progress) {
+//                                                    [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传音频%@%%...", @(progress)] cancelCallback:^{
+//                                                        [[FileUploader shareInstance] cancleUploading];
+//                                                    }];
+//                                                }
+//                                              completionBlock:^(NSString * _Nullable videoUrl, NSError * _Nullable error) {
+//                                                  if (videoUrl.length == 0) {
+//                                                      [HUD showErrorWithMessage:@"音频上传失败"];
+//
+//                                                      return ;
+//                                                  }
+//
+//                                                  [HUD showWithMessage:@"音频上传成功"];
+//
+//
+//                                                  if (homework)
+//                                                  {
+//                                                      if (self.isAddingAnswerItem) {
+//
+//                                                          HomeworkAnswerItem *item = (HomeworkAnswerItem *)homework;
+//                                                          item.type = HomeworkItemTypeAudio;
+//                                                          item.audioUrl = videoUrl;
+//                                                          NSString * cover = item.imageUrl;
+//                                                          item.audioCoverUrl = cover;
+//
+//                                                      }
+//                                                      else
+//                                                      {
+//                                                          HomeworkItem *item = (HomeworkItem *)homework;
+//                                                          item.type = HomeworkItemTypeAudio;
+//                                                          item.audioUrl = videoUrl;
+//                                                          NSString * cover = item.imageUrl;
+//                                                          item.audioCoverUrl = cover;
+//                                                      }
+//                                                  }
+//                                                  else
+//                                                  {
+//                                                      if (self.isAddingAnswerItem) {
+//                                                          HomeworkAnswerItem *item = [[HomeworkAnswerItem alloc] init];
+//                                                          item.type = HomeworkItemTypeAudio;
+//                                                          item.audioUrl = videoUrl;
+//                                                          item.audioCoverUrl = @"";
+//
+//                                                          [self.answerItems addObject:item];
+//                                                      } else{
+//                                                          HomeworkItem *item = [[HomeworkItem alloc] init];
+//                                                          item.type = HomeworkItemTypeAudio;
+//                                                          item.audioUrl = videoUrl;
+//                                                          item.audioCoverUrl = @"";
+//
+//                                                          [self.items addObject:item];
+//                                                      }
+//                                                  }
+//
+//                                                  [self.homeworkTableView reloadData];
+//                                              }];
+//
+//    [HUD showProgressWithMessage:@"正在上传音频..." cancelCallback:^{
+//        [[FileUploader shareInstance] cancleUploading];
+//    }];
 }
 
 

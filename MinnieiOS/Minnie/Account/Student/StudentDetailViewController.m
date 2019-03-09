@@ -13,8 +13,8 @@
 #import "PublicService.h"
 #import "StudentDetailCell.h"
 #import "StudentDetailHeaderCell.h"
-
-@interface StudentDetailViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITableViewDelegate,UITableViewDataSource,UITableViewDelegate>
+#import "ModifyStarCountViewController.h"
+@interface StudentDetailViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITableViewDelegate,UITableViewDataSource,UITableViewDelegate,StudentDetailCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *mTableView;
 @property (nonatomic, strong) NSArray * titleArray;
@@ -29,9 +29,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.titleArray = @[@"姓名:",@"电话号码:",@"班级:",@"性别:",@"年级",@"作业完成率:",@"被警告次数:"];
+    self.titleArray = @[@"姓名:",@"电话号码:",@"班级:",@"性别:",@"年级",@"作业完成率:",@"被警告次数:",@"星星数:"];
     
     [self registerNibCell];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
     [self requestUserInfo];
 }
@@ -104,6 +110,8 @@
     {
         NSString * content;
         StudentDetailCell * cell = [tableView dequeueReusableCellWithIdentifier:StudentDetailCellId forIndexPath:indexPath];
+        cell.delegate = self;
+        cell.modifyBtn.hidden = YES;
         if (indexPath.row == 1)
         {
             if ([self.user.nickname isEqual:self.user.username] || self.user.nickname.length==0) {
@@ -146,16 +154,29 @@
             
             NSUInteger totalCount = unfinshed + passed + goodJob + veryNice + great + perfect + hardworking;
             
-            content = [NSString stringWithFormat:@"%ld/%ld",totalCount - unfinshed ,totalCount];
+            content = [NSString stringWithFormat:@"%lu/%zd",totalCount - unfinshed ,totalCount];
+        }
+        else if (indexPath.row == 7)
+        {
+            content = [NSString stringWithFormat:@"%zd次",self.user.warnCount];
         }
         else
         {
-            content = [NSString stringWithFormat:@"%ld次",self.user.warnCount];
+            cell.modifyBtn.hidden = NO;
+            content = [NSString stringWithFormat:@"%zd",self.user.starCount];
         }
         [cell setCellTitle:[self.titleArray objectAtIndex:indexPath.row - 1] withContent:content];
         return cell;
     }
     
+}
+
+- (void)modifyStarAction
+{
+    ModifyStarCountViewController * modifyVc = [[ModifyStarCountViewController alloc] init];
+    modifyVc.starCount = self.user.starCount;
+    modifyVc.studentId = self.userId;
+    [self.navigationController pushViewController:modifyVc animated:YES];
 }
 
 - (void)dealloc {

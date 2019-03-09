@@ -14,9 +14,7 @@
 @interface StudentSelectorViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *studentsTableView;
-
 @property (nonatomic, strong) NSMutableArray<User *> *students;
-
 @property (nonatomic, strong) NSMutableDictionary *studentDict;
 @property (nonatomic, strong) NSArray *sortedKeys;
 
@@ -117,24 +115,36 @@
     }
 }
 
-+ (NSString *)getFirstLetterFromString:(NSString *)string {
-    NSString * upperString = [string uppercaseString];
-    HanyuPinyinOutputFormat *outputFormat=[[HanyuPinyinOutputFormat alloc] init];
-    [outputFormat setToneType:ToneTypeWithoutTone];
-    [outputFormat setVCharType:VCharTypeWithV];
-    [outputFormat setCaseType:CaseTypeUppercase];
-    NSString *outputPinyin=[PinyinHelper toHanyuPinyinStringWithNSString:upperString withHanyuPinyinOutputFormat:outputFormat withNSString:@" "];
-    
-    return [outputPinyin substringToIndex:1];
-}
+//+ (NSString *)getFirstLetterFromString:(NSString *)string {
+//    NSString * upperString = [string uppercaseString];
+//    HanyuPinyinOutputFormat *outputFormat=[[HanyuPinyinOutputFormat alloc] init];
+//    [outputFormat setToneType:ToneTypeWithoutTone];
+//    [outputFormat setVCharType:VCharTypeWithV];
+//    [outputFormat setCaseType:CaseTypeUppercase];
+//    NSString *outputPinyin=[PinyinHelper toHanyuPinyinStringWithNSString:upperString withHanyuPinyinOutputFormat:outputFormat withNSString:@" "];
+//
+//    return outputPinyin;
+//}
 
 - (void)sortStudents {
     if (self.studentDict == nil) {
         self.studentDict = [NSMutableDictionary dictionary];
     }
+    HanyuPinyinOutputFormat *outputFormat=[[HanyuPinyinOutputFormat alloc] init];
+    [outputFormat setToneType:ToneTypeWithoutTone];
+    [outputFormat setVCharType:VCharTypeWithV];
+    [outputFormat setCaseType:CaseTypeUppercase];
+    [self.students enumerateObjectsUsingBlock:^(User * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *pinyin = [[PinyinHelper toHanyuPinyinStringWithNSString:obj.nickname withHanyuPinyinOutputFormat:outputFormat withNSString:@""] uppercaseString];
+        obj.pinyinName = pinyin;
+    }];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pinyinName" ascending:YES];
+    NSArray *array = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    [self.students sortUsingDescriptors:array];
+    
     
     for (User *student in self.students) {
-        NSString *strFirstLetter = [[self class] getFirstLetterFromString:student.nickname];
+        NSString *strFirstLetter = [student.pinyinName substringToIndex:1];
         if (self.studentDict[strFirstLetter] != nil) {
             [self.studentDict[strFirstLetter] addObject:student];
         } else {

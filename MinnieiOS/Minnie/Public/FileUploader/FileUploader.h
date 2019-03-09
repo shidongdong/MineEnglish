@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AVOSCloud/AVOSCloud.h>
-
+#import "QiniuSDK.h"
 typedef NS_ENUM(NSInteger, UploadFileType) {
     UploadFileTypeImage,
     UploadFileTypeAudio,      //语音对话
@@ -21,6 +21,17 @@ typedef NS_ENUM(NSInteger, UploadFileType) {
 @property(nonatomic,strong)AVFile * file;
 
 + (FileUploader *)shareInstance;
+
+- (void)qn_uploadData:(NSData *)data
+                 type:(UploadFileType)type
+               option:(QNUploadOption *)option
+      completionBlock:(void (^)(NSString * _Nullable, NSError * _Nullable))completionBlock;
+
+- (void)qn_uploadFile:(NSString *)file
+                 type:(UploadFileType)type
+               option:(QNUploadOption *)option
+      completionBlock:(void (^)(NSString * _Nullable, NSError * _Nullable))completionBlock;
+
 
 - (void)uploadData:(NSData *)data
               type:(UploadFileType)type

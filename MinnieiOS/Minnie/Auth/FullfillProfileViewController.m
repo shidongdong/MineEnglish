@@ -276,57 +276,111 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [HUD showProgressWithMessage:@"正在上传图片..."];
         
-        [[FileUploader shareInstance] uploadData:imageData
-                            type:UploadFileTypeImage
-                   progressBlock:^(NSInteger number) {
-                       [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];
-                   }
-                 completionBlock:^(NSString * _Nullable avatarUrl, NSError * _Nullable error) {
-                     if (avatarUrl.length == 0) {
-                         [HUD showErrorWithMessage:@"图片上传失败"];
-                         return;
-                     }
-                     
-                     [HUD showProgressWithMessage:@"正在修改信息..."];
-                     
-                     NSString *nickname = [self.nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                     NSString *genderText = [self.genderTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                     NSString *gradeText = [self.gradeTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                     
-                     NSMutableDictionary *profileDict = [NSMutableDictionary dictionary];
-                     profileDict[@"id"] = @(APP.currentUser.userId);
-                     profileDict[@"nickname"] = nickname;
-                     profileDict[@"gender"] = [genderText isEqualToString:@"男"] ? @(1) : @(-1);
-                     profileDict[@"avatarUrl"] = avatarUrl;
-                     if (gradeText.length > 0) {
-                         profileDict[@"grade"] = gradeText;
-                     }
-                     
-                     [ProfileService updateProfile:profileDict
-                                          callback:^(Result *result, NSError *error) {
-                                              if (error != nil) {
-                                                  [HUD showErrorWithMessage:@"更新失败"];
-                                              } else {
-                                                  // 登录
-                                                  User *user = APP.currentUser;
-                                                  user.avatarUrl = avatarUrl;
-                                                  user.nickname = nickname;
-                                                  user.gender = [genderText isEqualToString:@"男"] ? 1 : -1;
-                                                  
+        QNUploadOption * option = [[QNUploadOption alloc] initWithProgressHandler:^(NSString *key, float percent) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%.f%%...", percent * 100]];
+            });
+            
+        }];
+        
+        [[FileUploader shareInstance] qn_uploadData:imageData type:UploadFileTypeImage option:option completionBlock:^(NSString * _Nullable avatarUrl, NSError * _Nullable error) {
+            if (avatarUrl.length == 0) {
+                [HUD showErrorWithMessage:@"图片上传失败"];
+                return;
+            }
+            
+            [HUD showProgressWithMessage:@"正在修改信息..."];
+            
+            NSString *nickname = [self.nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            NSString *genderText = [self.genderTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            NSString *gradeText = [self.gradeTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            
+            NSMutableDictionary *profileDict = [NSMutableDictionary dictionary];
+            profileDict[@"id"] = @(APP.currentUser.userId);
+            profileDict[@"nickname"] = nickname;
+            profileDict[@"gender"] = [genderText isEqualToString:@"男"] ? @(1) : @(-1);
+            profileDict[@"avatarUrl"] = avatarUrl;
+            if (gradeText.length > 0) {
+                profileDict[@"grade"] = gradeText;
+            }
+            
+            [ProfileService updateProfile:profileDict
+                                 callback:^(Result *result, NSError *error) {
+                                     if (error != nil) {
+                                         [HUD showErrorWithMessage:@"更新失败"];
+                                     } else {
+                                         // 登录
+                                         User *user = APP.currentUser;
+                                         user.avatarUrl = avatarUrl;
+                                         user.nickname = nickname;
+                                         user.gender = [genderText isEqualToString:@"男"] ? 1 : -1;
+                                         
 #if TEACHERSIDE
-                                                  APP.currentUser = (Teacher *)user;
+                                         APP.currentUser = (Teacher *)user;
 #else
-                                                  Student *student = (Student *)user;
-                                                  student.grade = gradeText;
-                                                  APP.currentUser = student;
+                                         Student *student = (Student *)user;
+                                         student.grade = gradeText;
+                                         APP.currentUser = student;
 #endif
-                                                  
-                                                  [HUD hideAnimated:NO];
-                                                  [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfLoginSuccess
-                                                                                                      object:nil];
-                                              }
-                                          }];
-                 }];
+                                         
+                                         [HUD hideAnimated:NO];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfLoginSuccess
+                                                                                             object:nil];
+                                     }
+                                 }];
+        }];
+        
+//        [[FileUploader shareInstance] uploadData:imageData
+//                            type:UploadFileTypeImage
+//                   progressBlock:^(NSInteger number) {
+//                       [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];
+//                   }
+//                 completionBlock:^(NSString * _Nullable avatarUrl, NSError * _Nullable error) {
+//                     if (avatarUrl.length == 0) {
+//                         [HUD showErrorWithMessage:@"图片上传失败"];
+//                         return;
+//                     }
+//
+//                     [HUD showProgressWithMessage:@"正在修改信息..."];
+//
+//                     NSString *nickname = [self.nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//                     NSString *genderText = [self.genderTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//                     NSString *gradeText = [self.gradeTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//
+//                     NSMutableDictionary *profileDict = [NSMutableDictionary dictionary];
+//                     profileDict[@"id"] = @(APP.currentUser.userId);
+//                     profileDict[@"nickname"] = nickname;
+//                     profileDict[@"gender"] = [genderText isEqualToString:@"男"] ? @(1) : @(-1);
+//                     profileDict[@"avatarUrl"] = avatarUrl;
+//                     if (gradeText.length > 0) {
+//                         profileDict[@"grade"] = gradeText;
+//                     }
+//
+//                     [ProfileService updateProfile:profileDict
+//                                          callback:^(Result *result, NSError *error) {
+//                                              if (error != nil) {
+//                                                  [HUD showErrorWithMessage:@"更新失败"];
+//                                              } else {
+//                                                  // 登录
+//                                                  User *user = APP.currentUser;
+//                                                  user.avatarUrl = avatarUrl;
+//                                                  user.nickname = nickname;
+//                                                  user.gender = [genderText isEqualToString:@"男"] ? 1 : -1;
+//
+//#if TEACHERSIDE
+//                                                  APP.currentUser = (Teacher *)user;
+//#else
+//                                                  Student *student = (Student *)user;
+//                                                  student.grade = gradeText;
+//                                                  APP.currentUser = student;
+//#endif
+//
+//                                                  [HUD hideAnimated:NO];
+//                                                  [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfLoginSuccess
+//                                                                                                      object:nil];
+//                                              }
+//                                          }];
+//                 }];
     });
 }
 

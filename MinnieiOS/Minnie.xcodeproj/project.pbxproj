@@ -90,6 +90,14 @@
 		8709C32021A2AF7800970757 /* SearchHomeworkTypeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709C31E21A2AF7800970757 /* SearchHomeworkTypeRequest.m */; };
 		8709C32B21A53BD600970757 /* EwenCopyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709C32921A53BD400970757 /* EwenCopyLabel.m */; };
 		8709C32C21A53BD600970757 /* EwenCopyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709C32921A53BD400970757 /* EwenCopyLabel.m */; };
+		870ABA492226803600958ED2 /* HomeworkAnswerPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 870ABA482226803600958ED2 /* HomeworkAnswerPickerViewController.m */; };
+		870ABA4A2226803600958ED2 /* HomeworkAnswerPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 870ABA482226803600958ED2 /* HomeworkAnswerPickerViewController.m */; };
+		870ABA4D2229237200958ED2 /* FileUploaderService.m in Sources */ = {isa = PBXBuildFile; fileRef = 870ABA4C2229237200958ED2 /* FileUploaderService.m */; };
+		870ABA4E2229237200958ED2 /* FileUploaderService.m in Sources */ = {isa = PBXBuildFile; fileRef = 870ABA4C2229237200958ED2 /* FileUploaderService.m */; };
+		870ABA512229256700958ED2 /* AskQNTokenRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 870ABA502229256700958ED2 /* AskQNTokenRequest.m */; };
+		870ABA522229256700958ED2 /* AskQNTokenRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 870ABA502229256700958ED2 /* AskQNTokenRequest.m */; };
+		870ABA552229290100958ED2 /* QNTokenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 870ABA542229290100958ED2 /* QNTokenModel.m */; };
+		870ABA562229290100958ED2 /* QNTokenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 870ABA542229290100958ED2 /* QNTokenModel.m */; };
 		871806BA21DF438C0023511C /* MUAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806A421DF438C0023511C /* MUAssetCell.m */; };
 		871806BB21DF438C0023511C /* MUAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806A421DF438C0023511C /* MUAssetCell.m */; };
 		871806BC21DF438C0023511C /* MUSlomoIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 871806A521DF438C0023511C /* MUSlomoIconView.m */; };
@@ -196,18 +204,6 @@
 		875C262A218ADA7D0047E32A /* FilterAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875C2628218ADA7D0047E32A /* FilterAlertView.m */; };
 		875C262C218ADBC20047E32A /* FilterAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 875C262B218ADBC20047E32A /* FilterAlertView.xib */; };
 		875C262D218ADBC20047E32A /* FilterAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 875C262B218ADBC20047E32A /* FilterAlertView.xib */; };
-		8764C97B21EE015C00FD7AAF /* NSString+PinYin4Cocoa.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C97021EE015C00FD7AAF /* NSString+PinYin4Cocoa.m */; };
-		8764C97C21EE015C00FD7AAF /* NSString+PinYin4Cocoa.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C97021EE015C00FD7AAF /* NSString+PinYin4Cocoa.m */; };
-		8764C97D21EE015C00FD7AAF /* PinyinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C97321EE015C00FD7AAF /* PinyinHelper.m */; };
-		8764C97E21EE015C00FD7AAF /* PinyinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C97321EE015C00FD7AAF /* PinyinHelper.m */; };
-		8764C97F21EE015C00FD7AAF /* HanyuPinyinOutputFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C97521EE015C00FD7AAF /* HanyuPinyinOutputFormat.m */; };
-		8764C98021EE015C00FD7AAF /* HanyuPinyinOutputFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C97521EE015C00FD7AAF /* HanyuPinyinOutputFormat.m */; };
-		8764C98121EE015C00FD7AAF /* ChineseToPinyinResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C97621EE015C00FD7AAF /* ChineseToPinyinResource.m */; };
-		8764C98221EE015C00FD7AAF /* ChineseToPinyinResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C97621EE015C00FD7AAF /* ChineseToPinyinResource.m */; };
-		8764C98321EE015C00FD7AAF /* PinyinFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C97721EE015C00FD7AAF /* PinyinFormatter.m */; };
-		8764C98421EE015C00FD7AAF /* PinyinFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C97721EE015C00FD7AAF /* PinyinFormatter.m */; };
-		8764C98521EE015C00FD7AAF /* unicode_to_hanyu_pinyin.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8764C97A21EE015C00FD7AAF /* unicode_to_hanyu_pinyin.txt */; };
-		8764C98621EE015C00FD7AAF /* unicode_to_hanyu_pinyin.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8764C97A21EE015C00FD7AAF /* unicode_to_hanyu_pinyin.txt */; };
 		8764C98A21F20BB800FD7AAF /* SendWarnRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8764C98821F20BB800FD7AAF /* SendWarnRequest.m */; };
 		8764C98F21F35F3D00FD7AAF /* default_save_image_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8764C98B21F35F3C00FD7AAF /* default_save_image_pressed@2x.png */; };
 		8764C99021F35F3D00FD7AAF /* default_save_image_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8764C98B21F35F3C00FD7AAF /* default_save_image_pressed@2x.png */; };
@@ -234,6 +230,14 @@
 		87707876219ABAE900940A88 /* HomeworkSendLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 87707875219ABAE900940A88 /* HomeworkSendLog.m */; };
 		87707877219ABAE900940A88 /* HomeworkSendLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 87707875219ABAE900940A88 /* HomeworkSendLog.m */; };
 		87707878219BB62500940A88 /* HomeWorkSendHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87028696218436F600559195 /* HomeWorkSendHistoryViewController.m */; };
+		8770A2742230F418005733E4 /* AnswerPickerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8770A2732230F418005733E4 /* AnswerPickerCollectionViewCell.m */; };
+		8770A2752230F418005733E4 /* AnswerPickerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8770A2732230F418005733E4 /* AnswerPickerCollectionViewCell.m */; };
+		8770A27922310224005733E4 /* ModifyStarCountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8770A27722310224005733E4 /* ModifyStarCountViewController.m */; };
+		8770A27A22310224005733E4 /* ModifyStarCountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8770A27722310224005733E4 /* ModifyStarCountViewController.m */; };
+		8770A27B22310224005733E4 /* ModifyStarCountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8770A27822310224005733E4 /* ModifyStarCountViewController.xib */; };
+		8770A27C22310224005733E4 /* ModifyStarCountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8770A27822310224005733E4 /* ModifyStarCountViewController.xib */; };
+		8770A27F2232950E005733E4 /* ModifyStarRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8770A27E2232950E005733E4 /* ModifyStarRequest.m */; };
+		8770A2802232950E005733E4 /* ModifyStarRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8770A27E2232950E005733E4 /* ModifyStarRequest.m */; };
 		87915A3621B933BC006C1BFD /* AudioPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87915A3521B933BC006C1BFD /* AudioPlayerViewController.m */; };
 		87915A3721B933BC006C1BFD /* AudioPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87915A3521B933BC006C1BFD /* AudioPlayerViewController.m */; };
 		87959A6921FDD1D300A670B9 /* UnfinishedStudentHomeworkSessionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87028693218419F600559195 /* UnfinishedStudentHomeworkSessionTableViewCell.xib */; };
@@ -1483,6 +1487,14 @@
 		8709C31E21A2AF7800970757 /* SearchHomeworkTypeRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchHomeworkTypeRequest.m; sourceTree = "<group>"; };
 		8709C32921A53BD400970757 /* EwenCopyLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EwenCopyLabel.m; sourceTree = "<group>"; };
 		8709C32A21A53BD500970757 /* EwenCopyLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EwenCopyLabel.h; sourceTree = "<group>"; };
+		870ABA472226803600958ED2 /* HomeworkAnswerPickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeworkAnswerPickerViewController.h; sourceTree = "<group>"; };
+		870ABA482226803600958ED2 /* HomeworkAnswerPickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeworkAnswerPickerViewController.m; sourceTree = "<group>"; };
+		870ABA4B2229237200958ED2 /* FileUploaderService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileUploaderService.h; sourceTree = "<group>"; };
+		870ABA4C2229237200958ED2 /* FileUploaderService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FileUploaderService.m; sourceTree = "<group>"; };
+		870ABA4F2229256700958ED2 /* AskQNTokenRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AskQNTokenRequest.h; sourceTree = "<group>"; };
+		870ABA502229256700958ED2 /* AskQNTokenRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AskQNTokenRequest.m; sourceTree = "<group>"; };
+		870ABA532229290100958ED2 /* QNTokenModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QNTokenModel.h; sourceTree = "<group>"; };
+		870ABA542229290100958ED2 /* QNTokenModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QNTokenModel.m; sourceTree = "<group>"; };
 		871806A421DF438C0023511C /* MUAssetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUAssetCell.m; sourceTree = "<group>"; };
 		871806A521DF438C0023511C /* MUSlomoIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSlomoIconView.m; sourceTree = "<group>"; };
 		871806A621DF438C0023511C /* MUAssetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUAssetsViewController.m; sourceTree = "<group>"; };
@@ -1569,18 +1581,6 @@
 		875C2627218ADA7D0047E32A /* FilterAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterAlertView.h; sourceTree = "<group>"; };
 		875C2628218ADA7D0047E32A /* FilterAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterAlertView.m; sourceTree = "<group>"; };
 		875C262B218ADBC20047E32A /* FilterAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterAlertView.xib; sourceTree = "<group>"; };
-		8764C96E21EE015C00FD7AAF /* PinyinHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinyinHelper.h; sourceTree = "<group>"; };
-		8764C96F21EE015C00FD7AAF /* HanyuPinyinOutputFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HanyuPinyinOutputFormat.h; sourceTree = "<group>"; };
-		8764C97021EE015C00FD7AAF /* NSString+PinYin4Cocoa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PinYin4Cocoa.m"; sourceTree = "<group>"; };
-		8764C97121EE015C00FD7AAF /* ChineseToPinyinResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChineseToPinyinResource.h; sourceTree = "<group>"; };
-		8764C97221EE015C00FD7AAF /* PinyinFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinyinFormatter.h; sourceTree = "<group>"; };
-		8764C97321EE015C00FD7AAF /* PinyinHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinyinHelper.m; sourceTree = "<group>"; };
-		8764C97421EE015C00FD7AAF /* NSString+PinYin4Cocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PinYin4Cocoa.h"; sourceTree = "<group>"; };
-		8764C97521EE015C00FD7AAF /* HanyuPinyinOutputFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HanyuPinyinOutputFormat.m; sourceTree = "<group>"; };
-		8764C97621EE015C00FD7AAF /* ChineseToPinyinResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChineseToPinyinResource.m; sourceTree = "<group>"; };
-		8764C97721EE015C00FD7AAF /* PinyinFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinyinFormatter.m; sourceTree = "<group>"; };
-		8764C97821EE015C00FD7AAF /* PinYin4Objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinYin4Objc.h; sourceTree = "<group>"; };
-		8764C97A21EE015C00FD7AAF /* unicode_to_hanyu_pinyin.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = unicode_to_hanyu_pinyin.txt; sourceTree = "<group>"; };
 		8764C98721F20BB800FD7AAF /* SendWarnRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendWarnRequest.h; sourceTree = "<group>"; };
 		8764C98821F20BB800FD7AAF /* SendWarnRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SendWarnRequest.m; sourceTree = "<group>"; };
 		8764C98B21F35F3C00FD7AAF /* default_save_image_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_save_image_pressed@2x.png"; sourceTree = "<group>"; };
@@ -1603,6 +1603,13 @@
 		87707870219AB5BA00940A88 /* SendHomeworkHistoryRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SendHomeworkHistoryRequest.m; sourceTree = "<group>"; };
 		87707874219ABAE900940A88 /* HomeworkSendLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeworkSendLog.h; sourceTree = "<group>"; };
 		87707875219ABAE900940A88 /* HomeworkSendLog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeworkSendLog.m; sourceTree = "<group>"; };
+		8770A2722230F418005733E4 /* AnswerPickerCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnswerPickerCollectionViewCell.h; sourceTree = "<group>"; };
+		8770A2732230F418005733E4 /* AnswerPickerCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnswerPickerCollectionViewCell.m; sourceTree = "<group>"; };
+		8770A27622310224005733E4 /* ModifyStarCountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyStarCountViewController.h; sourceTree = "<group>"; };
+		8770A27722310224005733E4 /* ModifyStarCountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyStarCountViewController.m; sourceTree = "<group>"; };
+		8770A27822310224005733E4 /* ModifyStarCountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ModifyStarCountViewController.xib; sourceTree = "<group>"; };
+		8770A27D2232950E005733E4 /* ModifyStarRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyStarRequest.h; sourceTree = "<group>"; };
+		8770A27E2232950E005733E4 /* ModifyStarRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyStarRequest.m; sourceTree = "<group>"; };
 		87915A3421B933BC006C1BFD /* AudioPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioPlayerViewController.h; sourceTree = "<group>"; };
 		87915A3521B933BC006C1BFD /* AudioPlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioPlayerViewController.m; sourceTree = "<group>"; };
 		879CE510218BF47600BBE4B7 /* FileProvider.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FileProvider.framework; path = System/Library/Frameworks/FileProvider.framework; sourceTree = SDKROOT; };
@@ -2692,41 +2699,6 @@
 			path = TabBar;
 			sourceTree = "<group>";
 		};
-		8764C96C21EE015C00FD7AAF /* PinYin4Objc */ = {
-			isa = PBXGroup;
-			children = (
-				8764C96D21EE015C00FD7AAF /* Classes */,
-				8764C97921EE015C00FD7AAF /* Resources */,
-			);
-			path = PinYin4Objc;
-			sourceTree = "<group>";
-		};
-		8764C96D21EE015C00FD7AAF /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				8764C96E21EE015C00FD7AAF /* PinyinHelper.h */,
-				8764C96F21EE015C00FD7AAF /* HanyuPinyinOutputFormat.h */,
-				8764C97021EE015C00FD7AAF /* NSString+PinYin4Cocoa.m */,
-				8764C97121EE015C00FD7AAF /* ChineseToPinyinResource.h */,
-				8764C97221EE015C00FD7AAF /* PinyinFormatter.h */,
-				8764C97321EE015C00FD7AAF /* PinyinHelper.m */,
-				8764C97421EE015C00FD7AAF /* NSString+PinYin4Cocoa.h */,
-				8764C97521EE015C00FD7AAF /* HanyuPinyinOutputFormat.m */,
-				8764C97621EE015C00FD7AAF /* ChineseToPinyinResource.m */,
-				8764C97721EE015C00FD7AAF /* PinyinFormatter.m */,
-				8764C97821EE015C00FD7AAF /* PinYin4Objc.h */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		8764C97921EE015C00FD7AAF /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				8764C97A21EE015C00FD7AAF /* unicode_to_hanyu_pinyin.txt */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		87707873219AB76400940A88 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -3192,7 +3164,6 @@
 		97109837207A0BF500568785 /* Public */ = {
 			isa = PBXGroup;
 			children = (
-				8764C96C21EE015C00FD7AAF /* PinYin4Objc */,
 				871806A321DF438C0023511C /* MUImagePickerManager */,
 				977BD090207CA13B000A1994 /* PushManager */,
 				97109A92207A17B500568785 /* ImageEditor */,
@@ -3517,6 +3488,8 @@
 				8725E94F214A5747005FAA74 /* CheckAppVerRequest.h */,
 				971098BE207A0BF500568785 /* UserRequest.h */,
 				971098BF207A0BF500568785 /* UserRequest.m */,
+				8770A27D2232950E005733E4 /* ModifyStarRequest.h */,
+				8770A27E2232950E005733E4 /* ModifyStarRequest.m */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -3559,6 +3532,12 @@
 			children = (
 				971098D0207A0BF500568785 /* FileUploader.h */,
 				971098D1207A0BF500568785 /* FileUploader.m */,
+				870ABA4B2229237200958ED2 /* FileUploaderService.h */,
+				870ABA4C2229237200958ED2 /* FileUploaderService.m */,
+				870ABA4F2229256700958ED2 /* AskQNTokenRequest.h */,
+				870ABA502229256700958ED2 /* AskQNTokenRequest.m */,
+				870ABA532229290100958ED2 /* QNTokenModel.h */,
+				870ABA542229290100958ED2 /* QNTokenModel.m */,
 			);
 			path = FileUploader;
 			sourceTree = "<group>";
@@ -3663,6 +3642,10 @@
 				8725588921D1D2A70028BC2A /* CorrectHomeworkAddCommentViewController.h */,
 				8725588A21D1D2A70028BC2A /* CorrectHomeworkAddCommentViewController.m */,
 				8725588B21D1D2A70028BC2A /* CorrectHomeworkAddCommentViewController.xib */,
+				870ABA472226803600958ED2 /* HomeworkAnswerPickerViewController.h */,
+				870ABA482226803600958ED2 /* HomeworkAnswerPickerViewController.m */,
+				8770A2722230F418005733E4 /* AnswerPickerCollectionViewCell.h */,
+				8770A2732230F418005733E4 /* AnswerPickerCollectionViewCell.m */,
 			);
 			path = Session;
 			sourceTree = "<group>";
@@ -4755,6 +4738,9 @@
 				97364A0620B1231E00511A95 /* StudentDetailViewController.h */,
 				97364A0720B1231E00511A95 /* StudentDetailViewController.m */,
 				97364A0520B1231D00511A95 /* StudentDetailViewController.xib */,
+				8770A27622310224005733E4 /* ModifyStarCountViewController.h */,
+				8770A27722310224005733E4 /* ModifyStarCountViewController.m */,
+				8770A27822310224005733E4 /* ModifyStarCountViewController.xib */,
 			);
 			path = Student;
 			sourceTree = "<group>";
@@ -5111,6 +5097,7 @@
 				97109787207A006D00568785 /* buttonbar_mission_manager_active@2x.png in Resources */,
 				971097A5207A006D00568785 /* icon_like_disabled@3x.png in Resources */,
 				875C2621218A9BBB0047E32A /* HomeworkSendHisTableViewCell.xib in Resources */,
+				8770A27B22310224005733E4 /* ModifyStarCountViewController.xib in Resources */,
 				9710972F207A006D00568785 /* navbar_close@3x.png in Resources */,
 				8709C30F21A258B300970757 /* 卡片角标@3x.png in Resources */,
 				971097A1207A006D00568785 /* pop_finish@3x.png in Resources */,
@@ -5188,7 +5175,6 @@
 				872C742121BE8FD40027F47C /* load背景03@2x.png in Resources */,
 				872558AB21D4CB9C0028BC2A /* CorrectHomeworkAddCommentViewController.xib in Resources */,
 				9710973B207A006D00568785 /* ic_cancel_white@3x.png in Resources */,
-				8764C98521EE015C00FD7AAF /* unicode_to_hanyu_pinyin.txt in Resources */,
 				971096EF207A006D00568785 /* 5星级@2x.png in Resources */,
 				97109795207A006D00568785 /* buttonbar_class_active@3x.png in Resources */,
 				9710966D207A006D00568785 /* btn_send_photo@3x.png in Resources */,
@@ -5345,7 +5331,6 @@
 				870286632181CB4600559195 /* HomeworkSegmentTableViewCell.xib in Resources */,
 				973649F520AF2F8600511A95 /* TagCollectionViewCell.xib in Resources */,
 				979C851E208CB93F00940959 /* FinishClassTableViewCell.xib in Resources */,
-				8764C98621EE015C00FD7AAF /* unicode_to_hanyu_pinyin.txt in Resources */,
 				97109736207A006D00568785 /* pop_loading@3x.png in Resources */,
 				971097B8207A006D00568785 /* icon_Emoji@3x.png in Resources */,
 				971097B0207A006D00568785 /* buttonbar_mission_unsel@2x.png in Resources */,
@@ -5692,6 +5677,7 @@
 				9710982A207A006D00568785 /* btn_send_voice@3x.png in Resources */,
 				973649F720AF2F8600511A95 /* CreateTagView.xib in Resources */,
 				97109696207A006D00568785 /* 加载动画03@3x.png in Resources */,
+				8770A27C22310224005733E4 /* ModifyStarCountViewController.xib in Resources */,
 				971097E2207A006D00568785 /* ic_message_plat@2x.png in Resources */,
 				971096AC207A006D00568785 /* 3星级@2x.png in Resources */,
 				973649CB20AF2F8600511A95 /* HomeworkImageTableViewCell.xib in Resources */,
@@ -5866,10 +5852,13 @@
 				"${BUILT_PRODUCTS_DIR}/AVOSCloud/AVOSCloud.framework",
 				"${BUILT_PRODUCTS_DIR}/AVOSCloudIM/AVOSCloudIM.framework",
 				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
+				"${BUILT_PRODUCTS_DIR}/HappyDNS/HappyDNS.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Mantle/Mantle.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/PinYin4Objc/PinYin4Objc.framework",
+				"${BUILT_PRODUCTS_DIR}/Qiniu/Qiniu.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/StreamingKit/StreamingKit.framework",
 				"${BUILT_PRODUCTS_DIR}/TZImagePickerController/TZImagePickerController.framework",
@@ -5884,10 +5873,13 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AVOSCloud.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AVOSCloudIM.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HappyDNS.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mantle.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PinYin4Objc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Qiniu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StreamingKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TZImagePickerController.framework",
@@ -5930,10 +5922,13 @@
 				"${BUILT_PRODUCTS_DIR}/AVOSCloud/AVOSCloud.framework",
 				"${BUILT_PRODUCTS_DIR}/AVOSCloudIM/AVOSCloudIM.framework",
 				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
+				"${BUILT_PRODUCTS_DIR}/HappyDNS/HappyDNS.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Mantle/Mantle.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/PinYin4Objc/PinYin4Objc.framework",
+				"${BUILT_PRODUCTS_DIR}/Qiniu/Qiniu.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/StreamingKit/StreamingKit.framework",
 				"${BUILT_PRODUCTS_DIR}/TZImagePickerController/TZImagePickerController.framework",
@@ -5948,10 +5943,13 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AVOSCloud.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AVOSCloudIM.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HappyDNS.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mantle.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PinYin4Objc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Qiniu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StreamingKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TZImagePickerController.framework",
@@ -5974,6 +5972,7 @@
 			files = (
 				97109DFD207A659700568785 /* StudentAccountViewController.m in Sources */,
 				97109E19207A6C2900568785 /* DeleteCircleHomeworkRequest.m in Sources */,
+				870ABA4D2229237200958ED2 /* FileUploaderService.m in Sources */,
 				87FDFBC1214B6764006E987C /* AppVersion.m in Sources */,
 				8707EFCB21D61E6B0060B5A6 /* DeleteTagRequest.m in Sources */,
 				97109DA3207A2F0400568785 /* NicknameEditViewController.m in Sources */,
@@ -5996,6 +5995,7 @@
 				87915A3621B933BC006C1BFD /* AudioPlayerViewController.m in Sources */,
 				87707876219ABAE900940A88 /* HomeworkSendLog.m in Sources */,
 				870286272181B2EB00559195 /* SearchHomeworkScoreRequest.m in Sources */,
+				870ABA492226803600958ED2 /* HomeworkAnswerPickerViewController.m in Sources */,
 				97109D63207A2F0400568785 /* NoticeMessageHeadTableViewCell.m in Sources */,
 				97109952207A0BF600568785 /* PublicService.m in Sources */,
 				97109942207A0BF600568785 /* Result.m in Sources */,
@@ -6025,6 +6025,7 @@
 				97109C2C207A2E3E00568785 /* CircleHomeworksRequest.m in Sources */,
 				879CE51821905D0300BBE4B7 /* AchieverListViewController.m in Sources */,
 				97109C2E207A2E3E00568785 /* DeleteHomeworkCommentRequest.m in Sources */,
+				8770A27F2232950E005733E4 /* ModifyStarRequest.m in Sources */,
 				871806C821DF438C0023511C /* MUAuthorizationStatusController.m in Sources */,
 				97109E92207A7BDD00568785 /* ExchangeRecord.m in Sources */,
 				97109A28207A158C00568785 /* HomeworkSessionTableViewCell.m in Sources */,
@@ -6033,7 +6034,6 @@
 				97109C42207A2E3E00568785 /* HomeworkDetailLikeUsersTableViewCell.m in Sources */,
 				97364A1320B16BFD00511A95 /* NetworkStateErrorView.m in Sources */,
 				97109A5E207A158C00568785 /* TextMessageTableViewCell.m in Sources */,
-				8764C97F21EE015C00FD7AAF /* HanyuPinyinOutputFormat.m in Sources */,
 				871806BE21DF438C0023511C /* MUAssetsViewController.m in Sources */,
 				97109D55207A2F0400568785 /* NoticeMessageRequest.m in Sources */,
 				971098EE207A0BF500568785 /* EmojiInputView.m in Sources */,
@@ -6057,9 +6057,7 @@
 				97109944207A0BF600568785 /* Utils.m in Sources */,
 				872558A221D4CB5B0028BC2A /* CorrectHomeworkViewController.m in Sources */,
 				9710993C207A0BF600568785 /* Constants.m in Sources */,
-				8764C97B21EE015C00FD7AAF /* NSString+PinYin4Cocoa.m in Sources */,
 				97109D51207A2F0400568785 /* NoticeMessageItem.m in Sources */,
-				8764C98121EE015C00FD7AAF /* ChineseToPinyinResource.m in Sources */,
 				97109BCC207A1D5000568785 /* DateButton.m in Sources */,
 				97109A89207A171600568785 /* HomeworkAudioCollectionViewCell.m in Sources */,
 				871806CA21DF438C0023511C /* MUCircleView.m in Sources */,
@@ -6082,7 +6080,6 @@
 				872558A821D4CB8C0028BC2A /* CorrectHomeworkHisCommentTableViewCell.m in Sources */,
 				870286672181E29100559195 /* HomeworkDiffTableViewCell.m in Sources */,
 				871806C421DF438C0023511C /* MUOverlayView.m in Sources */,
-				8764C97D21EE015C00FD7AAF /* PinyinHelper.m in Sources */,
 				872558A621D4CB7F0028BC2A /* CorrectHomeworkCommentTableViewCell.m in Sources */,
 				97109922207A0BF600568785 /* AlertView.m in Sources */,
 				97DC3AEB208343DA009D811B /* PortraitNavigationController.m in Sources */,
@@ -6101,6 +6098,7 @@
 				871806CC21DF438C0023511C /* MUVideoIndicatorView.m in Sources */,
 				97109D3D207A2F0400568785 /* MessagesViewController.m in Sources */,
 				97671AEA209F0CF100E37FB6 /* UnreaderCircleCountRequest.m in Sources */,
+				8770A27922310224005733E4 /* ModifyStarCountViewController.m in Sources */,
 				871806E721DF51540023511C /* MUTapDetectingImageView.m in Sources */,
 				97109914207A0BF500568785 /* RecordStateView.m in Sources */,
 				97109D4F207A2F0400568785 /* NoticeMessage.m in Sources */,
@@ -6138,6 +6136,8 @@
 				97109ED9207A7C1600568785 /* ExchangeRecordsViewController.m in Sources */,
 				87FD07E221BE791E00664AF1 /* UIView+AZGradient.m in Sources */,
 				879CE54021917A9A00BBE4B7 /* MedalFlag.m in Sources */,
+				8770A2742230F418005733E4 /* AnswerPickerCollectionViewCell.m in Sources */,
+				870ABA512229256700958ED2 /* AskQNTokenRequest.m in Sources */,
 				871806BA21DF438C0023511C /* MUAssetCell.m in Sources */,
 				870286752182F06C00559195 /* StudentStarListTableViewCell.m in Sources */,
 				8707EFC321D61DF60060B5A6 /* HomeworkTagsTableViewCell.m in Sources */,
@@ -6177,7 +6177,6 @@
 				872558AC21D4CBC40028BC2A /* TagCollectionViewCell.m in Sources */,
 				97109A4A207A158C00568785 /* ImageMessageTableViewCell.m in Sources */,
 				97109960207A0BF600568785 /* Application.m in Sources */,
-				8764C98321EE015C00FD7AAF /* PinyinFormatter.m in Sources */,
 				97109C34207A2E3E00568785 /* HomeworkDetailCommentTableViewCell.m in Sources */,
 				979BBD7F2081B36A00359253 /* EnrollTrialClassRequest.m in Sources */,
 				97109A62207A158C00568785 /* AudioMessageTableViewCell.m in Sources */,
@@ -6226,6 +6225,7 @@
 				97109D41207A2F0400568785 /* NoticeMessageDetailViewController.m in Sources */,
 				97109E8E207A7BDD00568785 /* AwardsRequest.m in Sources */,
 				979BBD53207FBC6800359253 /* EnrollTrialClassView.m in Sources */,
+				870ABA552229290100958ED2 /* QNTokenModel.m in Sources */,
 				8725E954214A5748005FAA74 /* CheckAppVerRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6239,7 +6239,6 @@
 				97109C45207A2E3E00568785 /* CircleContentBaseTableViewCell.m in Sources */,
 				97109A39207A158C00568785 /* HomeworkSessionsRequest.m in Sources */,
 				87C52FB92164ACAF004288F4 /* WBGDrawTool.m in Sources */,
-				8764C98221EE015C00FD7AAF /* ChineseToPinyinResource.m in Sources */,
 				97109C79207A2EC900568785 /* LoginViewController.m in Sources */,
 				97109913207A0BF500568785 /* ProgressHUD.m in Sources */,
 				871806C721DF438C0023511C /* MUAssetsFooterView.m in Sources */,
@@ -6343,9 +6342,7 @@
 				979C851D208CB93F00940959 /* FinishClassTableViewCell.m in Sources */,
 				97109919207A0BF600568785 /* CustomCollectionView.m in Sources */,
 				871806DE21DF51540023511C /* MUPhotoPreviewController.m in Sources */,
-				8764C98421EE015C00FD7AAF /* PinyinFormatter.m in Sources */,
 				97109B03207A1C0800568785 /* ClassTableViewCell.m in Sources */,
-				8764C97E21EE015C00FD7AAF /* PinyinHelper.m in Sources */,
 				87707872219AB5BA00940A88 /* SendHomeworkHistoryRequest.m in Sources */,
 				97109909207A0BF500568785 /* UIScrollView+Refresh.m in Sources */,
 				97109945207A0BF600568785 /* Utils.m in Sources */,
@@ -6394,6 +6391,7 @@
 				97109A91207A179800568785 /* CorrectHomeworkViewController.m in Sources */,
 				9710995B207A0BF600568785 /* NSDate+X5.m in Sources */,
 				97109AF9207A1C0800568785 /* ClassRequest.m in Sources */,
+				8770A27A22310224005733E4 /* ModifyStarCountViewController.m in Sources */,
 				973649E220AF2F8600511A95 /* HomeworkService.m in Sources */,
 				97109EB2207A7C0A00568785 /* CreateAwardViewController.m in Sources */,
 				97109D86207A2F0400568785 /* DeleteTeacherRequest.m in Sources */,
@@ -6408,6 +6406,7 @@
 				97109959207A0BF600568785 /* NSString+Qiniu.m in Sources */,
 				870286802182FF0800559195 /* StarRank.m in Sources */,
 				973649C020AF2F8600511A95 /* HomeworkImageTableViewCell.m in Sources */,
+				870ABA522229256700958ED2 /* AskQNTokenRequest.m in Sources */,
 				97109B08207A1C0800568785 /* TextPickerView.m in Sources */,
 				97364A0220B11DE600511A95 /* StudentsViewController.m in Sources */,
 				97109A45207A158C00568785 /* HomeworkSessionViewController.m in Sources */,
@@ -6437,6 +6436,7 @@
 				97109C21207A2E3E00568785 /* CircleHomework.m in Sources */,
 				973649DE20AF2F8600511A95 /* CreateHomeworkRequest.m in Sources */,
 				97109D3E207A2F0400568785 /* MessagesViewController.m in Sources */,
+				8770A2752230F418005733E4 /* AnswerPickerCollectionViewCell.m in Sources */,
 				97109D3C207A2F0400568785 /* NoticeMessagesViewController.m in Sources */,
 				97DC3AEC20835620009D811B /* PortraitNavigationController.m in Sources */,
 				973649CF20AF2F8600511A95 /* ClassAndStudentSelectorController.m in Sources */,
@@ -6448,6 +6448,7 @@
 				871806BD21DF438C0023511C /* MUSlomoIconView.m in Sources */,
 				8725588D21D1D2A70028BC2A /* CorrectHomeworkAddCommentViewController.m in Sources */,
 				97109A55207A158C00568785 /* SessionHomeworkTableViewCell.m in Sources */,
+				8770A2802232950E005733E4 /* ModifyStarRequest.m in Sources */,
 				973649D620AF2F8600511A95 /* StudentSelectorTableViewCell.m in Sources */,
 				97109D94207A2F0400568785 /* DeleteTeacherAlertView.m in Sources */,
 				8709C31421A26B6A00970757 /* CreateFormTagRequest.m in Sources */,
@@ -6457,11 +6458,13 @@
 				971098F9207A0BF500568785 /* NEPhotoBrowserView.m in Sources */,
 				97109C15207A2E3E00568785 /* CircleHomeworkViewController.m in Sources */,
 				973649DF20AF2F8600511A95 /* SendHomeworkRequest.m in Sources */,
+				870ABA4E2229237200958ED2 /* FileUploaderService.m in Sources */,
 				9736494120AF2A5400511A95 /* AccountManageTableViewCell.m in Sources */,
 				875C2620218A9BBB0047E32A /* HomeworkSendHisTableViewCell.m in Sources */,
 				971098F3207A0BF500568785 /* EmojiInputCollectionViewCell.m in Sources */,
 				97109D3A207A2F0400568785 /* AccountTableViewCell.m in Sources */,
 				97109AF3207A1C0800568785 /* ClassService.m in Sources */,
+				870ABA562229290100958ED2 /* QNTokenModel.m in Sources */,
 				973649E920AF2F8600511A95 /* SelectTeacherView.m in Sources */,
 				97109957207A0BF600568785 /* UIColor+HEX.m in Sources */,
 				879CE54121917A9A00BBE4B7 /* MedalFlag.m in Sources */,
@@ -6482,10 +6485,10 @@
 				871806CD21DF438C0023511C /* MUVideoIndicatorView.m in Sources */,
 				973649C420AF2F8600511A95 /* HomeworkVideoTableViewCell.m in Sources */,
 				875C262A218ADA7D0047E32A /* FilterAlertView.m in Sources */,
-				8764C97C21EE015C00FD7AAF /* NSString+PinYin4Cocoa.m in Sources */,
 				97109963207A0BF600568785 /* FileUploader.m in Sources */,
 				973649D420AF2F8600511A95 /* StudentsRequest.m in Sources */,
 				97671AEB209F0CF100E37FB6 /* UnreaderCircleCountRequest.m in Sources */,
+				870ABA4A2226803600958ED2 /* HomeworkAnswerPickerViewController.m in Sources */,
 				97109AEB207A1C0800568785 /* ClassesViewController.m in Sources */,
 				97109EB4207A7C0A00568785 /* TeacherAwardService.m in Sources */,
 				973649D220AF2F8600511A95 /* StudentService.m in Sources */,
@@ -6532,7 +6535,6 @@
 				87FDFBC2214B6769006E987C /* AppVersion.m in Sources */,
 				871806BF21DF438C0023511C /* MUAssetsViewController.m in Sources */,
 				97109EB7207A7C0A00568785 /* GiveAwardRequest.m in Sources */,
-				8764C98021EE015C00FD7AAF /* HanyuPinyinOutputFormat.m in Sources */,
 				97109C83207A2EC900568785 /* FindPasswordRequest.m in Sources */,
 				97109A2F207A158C00568785 /* HomeworkSessionService.m in Sources */,
 				9710994F207A0BF600568785 /* Clazz.m in Sources */,

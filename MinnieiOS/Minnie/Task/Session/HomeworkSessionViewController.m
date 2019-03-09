@@ -40,6 +40,7 @@
 #import "CorrectHomeworkViewController.h"
 #import "TZImagePickerController.h"
 #import "VICacheManager.h"
+#import "TZPhotoPickerController.h"
 #if TEACHERSIDE
 #import "HomeworkService.h"
 #endif
@@ -101,6 +102,8 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 @property (nonatomic, assign) BOOL isViewAppeard;
 @property (nonatomic, assign) BOOL bFailReSendFlag;
 @property (nonatomic, strong) VIResourceLoaderManager *resourceLoaderManager;
+@property (nonatomic, strong) MBProgressHUD * mHud;
+
 @end
 
 @implementation HomeworkSessionViewController
@@ -621,6 +624,14 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         return;
     }
     
+    
+    //跳转到
+//    TZPhotoPickerController *photoPickerVc = [[TZPhotoPickerController alloc] init];
+//    photoPickerVc.columnNumber = 4;
+//    TZAlbumModel *model = _albumArr[indexPath.row];
+//    photoPickerVc.model = model;
+//    [self.navigationController pushViewController:photoPickerVc animated:YES];
+    
     for (HomeworkAnswerItem *item in self.homeworkSession.homework.answerItems) {
         if ([item.type isEqualToString:HomeworkAnswerItemTypeImage]) {
             [self sendImageMessageWithURL:[NSURL URLWithString:item.imageUrl]];
@@ -954,25 +965,46 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         dispatch_async(dispatch_get_main_queue(), ^{
             [HUD showProgressWithMessage:@"正在上传图片..."];
             WeakifySelf;
-            [[FileUploader shareInstance] uploadData:data
-                                                type:UploadFileTypeImage
-                                       progressBlock:^(NSInteger number) {
-                                           [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];
-                                       }
-                                     completionBlock:^(NSString * _Nullable imageUrl, NSError * _Nullable error) {
-                                         
-                                         StrongifySelf;
-                                         if (imageUrl.length > 0) {
-                                             [HUD hideAnimated:YES];
-                                             
-                                             [self sendImageMessageWithURL:[NSURL URLWithString:imageUrl]];
-                                         } else {
-                                             [HUD showErrorWithMessage:@"图片上传失败"];
-                                         }
-                            
-                                         [strongSelf sendImageMessageWithImages:images withSendIndex:nextIndex];
-                                         
-                                     }];
+            
+            QNUploadOption * option = [[QNUploadOption alloc] initWithProgressHandler:^(NSString *key, float percent) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%.f%%...", percent * 100]];
+                });
+                
+            }];
+            
+            [[FileUploader shareInstance] qn_uploadData:data type:UploadFileTypeImage option:option completionBlock:^(NSString * _Nullable imageUrl, NSError * _Nullable error) {
+                StrongifySelf;
+                if (imageUrl.length > 0) {
+                    [HUD hideAnimated:YES];
+                    
+                    [self sendImageMessageWithURL:[NSURL URLWithString:imageUrl]];
+                } else {
+                    [HUD showErrorWithMessage:@"图片上传失败"];
+                }
+                
+                [strongSelf sendImageMessageWithImages:images withSendIndex:nextIndex];
+            }];
+            
+//            [[FileUploader shareInstance] uploadData:data
+//                                                type:UploadFileTypeImage
+//                                       progressBlock:^(NSInteger number) {
+//                                           [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];
+//                                       }
+//                                     completionBlock:^(NSString * _Nullable imageUrl, NSError * _Nullable error) {
+//
+//                                         StrongifySelf;
+//                                         if (imageUrl.length > 0) {
+//                                             [HUD hideAnimated:YES];
+//
+//                                             [self sendImageMessageWithURL:[NSURL URLWithString:imageUrl]];
+//                                         } else {
+//                                             [HUD showErrorWithMessage:@"图片上传失败"];
+//                                         }
+//
+//                                         [strongSelf sendImageMessageWithImages:images withSendIndex:nextIndex];
+//
+//                                     }];
         });
     });
     
@@ -994,20 +1026,36 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         dispatch_async(dispatch_get_main_queue(), ^{
             [HUD showProgressWithMessage:@"正在上传图片..."];
             
-            [[FileUploader shareInstance] uploadData:data
-                                type:UploadFileTypeImage
-                       progressBlock:^(NSInteger number) {
-                           [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];
-                       }
-                     completionBlock:^(NSString * _Nullable imageUrl, NSError * _Nullable error) {
-                         if (imageUrl.length > 0) {
-                             [HUD hideAnimated:YES];
-                             
-                             [self sendImageMessageWithURL:[NSURL URLWithString:imageUrl]];
-                         } else {
-                             [HUD showErrorWithMessage:@"图片上传失败"];
-                         }
-                     }];
+            QNUploadOption * option = [[QNUploadOption alloc] initWithProgressHandler:^(NSString *key, float percent) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%.f%%...", percent * 100]];
+                });
+
+            }];
+            [[FileUploader shareInstance] qn_uploadData:data type:UploadFileTypeImage option:option completionBlock:^(NSString * _Nullable imageUrl, NSError * _Nullable error) {
+                if (imageUrl.length > 0) {
+                    [HUD hideAnimated:YES];
+                    
+                    [self sendImageMessageWithURL:[NSURL URLWithString:imageUrl]];
+                } else {
+                    [HUD showErrorWithMessage:@"图片上传失败"];
+                }
+            }];
+            
+//            [[FileUploader shareInstance] uploadData:data
+//                                type:UploadFileTypeImage
+//                       progressBlock:^(NSInteger number) {
+//                           [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];
+//                       }
+//                     completionBlock:^(NSString * _Nullable imageUrl, NSError * _Nullable error) {
+//                         if (imageUrl.length > 0) {
+//                             [HUD hideAnimated:YES];
+//
+//                             [self sendImageMessageWithURL:[NSURL URLWithString:imageUrl]];
+//                         } else {
+//                             [HUD showErrorWithMessage:@"图片上传失败"];
+//                         }
+//                     }];
         });
     });
 }
@@ -1357,29 +1405,63 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             [exportSession exportAsynchronouslyWithCompletionHandler:^{
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    
                     if ([exportSession status] == AVAssetExportSessionStatusCompleted) {
-                      [[FileUploader shareInstance] uploadDataWithLocalFilePath:path
-                                                    progressBlock:^(NSInteger number) {
-                                                        [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传视频%@%%...", @(number)] cancelCallback:^{
-                                                            [[FileUploader shareInstance] cancleUploading];
-                                                        }];
-                                                    }
-                                                  completionBlock:^(NSString * _Nullable videoUrl, NSError * _Nullable error) {
-                                                      if (videoUrl.length > 0) {
-                                                          [HUD hideAnimated:YES];
-
-                                                          [self sendVideoMessage:[NSURL URLWithString:videoUrl] duration:durationInSeconds];
-
-                                                          [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
-                                                      } else {
-                                                          [HUD showErrorWithMessage:@"视频上传失败"];
-                                                      }
-                                                  }];
-
-                        [HUD showProgressWithMessage:@"正在上传视频..." cancelCallback:^{
-                            [[FileUploader shareInstance] cancleUploading];
+                        WeakifySelf;
+                        __block BOOL flag = NO;
+                        QNUploadOption * option = [[QNUploadOption alloc] initWithMime:nil progressHandler:^(NSString *key, float percent) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                if (!weakSelf.mHud)
+                                {
+                                    weakSelf.mHud = [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传视频%.f%%...", percent * 100] cancelCallback:^{
+                                        flag = YES;
+                                    }];
+                                }
+                                else
+                                {
+                                    UILabel * label = [weakSelf.mHud.customView viewWithTag:99];
+                                    
+                                    label.text = [NSString stringWithFormat:@"正在上传视频%.f%%...", percent * 100];
+                                }
+                            });
+                        } params:nil checkCrc:NO cancellationSignal:^BOOL{
+                            return flag;
                         }];
+                        
+                        
+                        [[FileUploader shareInstance] qn_uploadFile:path type:UploadFileTypeVideo option:option completionBlock:^(NSString * _Nullable videoUrl, NSError * _Nullable error) {
+                            weakSelf.mHud = nil;
+                            if (videoUrl.length > 0) {
+                                [HUD hideAnimated:YES];
+                                
+                                [weakSelf sendVideoMessage:[NSURL URLWithString:videoUrl] duration:durationInSeconds];
+                                
+                                [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+                            } else {
+                                [HUD showErrorWithMessage:@"视频上传失败"];
+                            }
+                        }];
+                        
+//                      [[FileUploader shareInstance] uploadDataWithLocalFilePath:path
+//                                                    progressBlock:^(NSInteger number) {
+//                                                        [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传视频%@%%...", @(number)] cancelCallback:^{
+//                                                            [[FileUploader shareInstance] cancleUploading];
+//                                                        }];
+//                                                    }
+//                                                  completionBlock:^(NSString * _Nullable videoUrl, NSError * _Nullable error) {
+//                                                      if (videoUrl.length > 0) {
+//                                                          [HUD hideAnimated:YES];
+//
+//                                                          [self sendVideoMessage:[NSURL URLWithString:videoUrl] duration:durationInSeconds];
+//
+//                                                          [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+//                                                      } else {
+//                                                          [HUD showErrorWithMessage:@"视频上传失败"];
+//                                                      }
+//                                                  }];
+//
+//                        [HUD showProgressWithMessage:@"正在上传视频..." cancelCallback:^{
+//                            [[FileUploader shareInstance] cancleUploading];
+//                        }];
                         
 //                        [self sendVideoMessageForPath:path];
                         
@@ -1400,16 +1482,23 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     [[AudioPlayer sharedPlayer] stop];
     AVAudioSession *session =[AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+//    AVPlayerViewController *playerViewController = [[AVPlayerViewController alloc]init];
+//    VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
+//    resourceLoaderManager.delegate = self;
+//    self.resourceLoaderManager = resourceLoaderManager;
+//    AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
+//    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
+//    playerViewController.player = player;
+//    [self presentViewController:playerViewController animated:YES completion:nil];
+//    playerViewController.view.frame = self.view.frame;
+//    [playerViewController.player play];
     AVPlayerViewController *playerViewController = [[AVPlayerViewController alloc]init];
-    VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
-    resourceLoaderManager.delegate = self;
-    self.resourceLoaderManager = resourceLoaderManager;
-    AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
-    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
-    playerViewController.player = player;
+    playerViewController.player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:url]];
     [self presentViewController:playerViewController animated:YES completion:nil];
     playerViewController.view.frame = self.view.frame;
     [playerViewController.player play];
+    
+    self.dontScrollWhenAppeard = YES;
 }
 
 - (void)playAudioWithURL:(NSString *)url withCoverURL:(NSString *)coverUrl
@@ -1420,16 +1509,22 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     AVAudioSession *session =[AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
     AudioPlayerViewController *playerViewController = [[AudioPlayerViewController alloc]init];
-    VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
-    resourceLoaderManager.delegate = self;
-    self.resourceLoaderManager = resourceLoaderManager;
-    AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
-    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
-    playerViewController.player = player;
+    playerViewController.player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:url]];
     [self presentViewController:playerViewController animated:YES completion:nil];
     playerViewController.view.frame = self.view.frame;
     [playerViewController.player play];
+//    VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
+//    resourceLoaderManager.delegate = self;
+//    self.resourceLoaderManager = resourceLoaderManager;
+//    AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
+//    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
+//    playerViewController.player = player;
+//    [self presentViewController:playerViewController animated:YES completion:nil];
+//    playerViewController.view.frame = self.view.frame;
+//    [playerViewController.player play];
     [playerViewController setOverlyViewCoverUrl:coverUrl];
+    
+    self.dontScrollWhenAppeard = YES;
 }
 
 - (void)resizeInputTextView {

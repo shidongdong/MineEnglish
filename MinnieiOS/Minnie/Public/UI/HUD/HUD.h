@@ -5,7 +5,7 @@
 //  Modified by yebw on 16/11/9
 
 #import <Foundation/Foundation.h>
-
+#import <MBProgressHUD/MBProgressHUD.h>
 typedef void(^HUDCancelCallback)(void);
 
 @interface HUD : NSObject
@@ -15,7 +15,7 @@ typedef void(^HUDCancelCallback)(void);
 
 // 显示Loading状态提示, 不会自动消失, 需要写在发起任务语句之前, 如果cancelCallback不为空，那么有一个取消按钮
 + (void)showProgressWithMessage:(NSString *)message;
-+ (void)showProgressWithMessage:(NSString *)message
++ (MBProgressHUD *)showProgressWithMessage:(NSString *)message
                  cancelCallback:(HUDCancelCallback)cancelCallback;
 
 // 显示错误信息
