@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="oTG-Kb-xRf" customClass="AnswerPickerCell">
+            <rect key="frame" x="0.0" y="0.0" width="136" height="141"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="136" height="141"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OSv-Sn-r9O">
+                        <rect key="frame" x="0.0" y="0.0" width="136" height="141"/>
+                        <color key="backgroundColor" red="1" green="0.22352941179999999" blue="0.36470588240000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="206-s8-ZLp">
+                        <rect key="frame" x="111" y="5" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="sRZ-0J-Mji"/>
+                            <constraint firstAttribute="width" constant="20" id="uoM-oI-cyO"/>
+                        </constraints>
+                        <state key="normal" image="photo_def_photoPickerVc.png"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9dP-D9-82F">
+                        <rect key="frame" x="54" y="56" width="32" height="33"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <state key="normal" image="icon_talk.png"/>
+                        <connections>
+                            <action selector="selectPressed:" destination="oTG-Kb-xRf" eventType="touchUpInside" id="CIT-zi-WG1"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xn2-rh-1zZ">
+                        <rect key="frame" x="102" y="107" width="24" height="24"/>
+                        <state key="normal" image="icon_btn_talk_small.png"/>
+                    </button>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="206-s8-ZLp" firstAttribute="top" secondItem="oTG-Kb-xRf" secondAttribute="top" constant="5" id="1aD-Fm-8rT"/>
+                <constraint firstAttribute="trailing" secondItem="OSv-Sn-r9O" secondAttribute="trailing" id="3aH-kQ-EzE"/>
+                <constraint firstAttribute="bottom" secondItem="OSv-Sn-r9O" secondAttribute="bottom" id="5SM-cZ-cN1"/>
+                <constraint firstItem="OSv-Sn-r9O" firstAttribute="leading" secondItem="oTG-Kb-xRf" secondAttribute="leading" id="EuX-3B-GEN"/>
+                <constraint firstAttribute="bottom" secondItem="Xn2-rh-1zZ" secondAttribute="bottom" constant="10" id="GkC-0r-ihN"/>
+                <constraint firstAttribute="trailing" secondItem="Xn2-rh-1zZ" secondAttribute="trailing" constant="10" id="Sey-SQ-QOC"/>
+                <constraint firstAttribute="trailing" secondItem="206-s8-ZLp" secondAttribute="trailing" constant="5" id="xAU-Yo-MbN"/>
+                <constraint firstItem="OSv-Sn-r9O" firstAttribute="top" secondItem="oTG-Kb-xRf" secondAttribute="top" id="yLl-yX-2fI"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="KTt-RN-xGD"/>
+            <size key="customSize" width="136" height="141"/>
+            <connections>
+                <outlet property="bigTalkBtn" destination="9dP-D9-82F" id="AVO-2J-zOY"/>
+                <outlet property="contentImageView" destination="OSv-Sn-r9O" id="Z7e-iW-qxD"/>
+                <outlet property="selectBtn" destination="206-s8-ZLp" id="9ri-e4-SRU"/>
+                <outlet property="smallTalkBtn" destination="Xn2-rh-1zZ" id="AaR-Pu-5pO"/>
+            </connections>
+            <point key="canvasLocation" x="168" y="158.77061469265368"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="icon_btn_talk_small.png" width="24" height="24"/>
+        <image name="icon_talk.png" width="32" height="33"/>
+        <image name="photo_def_photoPickerVc.png" width="27" height="27"/>
+    </resources>
+</document>

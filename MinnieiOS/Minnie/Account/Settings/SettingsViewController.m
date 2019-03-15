@@ -95,7 +95,7 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -111,6 +111,26 @@
         cell.iconImageView.hidden = NO;
         cell.iconImageView.image = [UIImage imageNamed:@"label_ic_into"];
     } else if (indexPath.row == 1) {
+        
+        cell.itemLabel.text = @"视频播放选项";
+        cell.detailLabel.hidden = NO;
+        
+        NSInteger playMode = [[Application sharedInstance] playMode];
+        if (playMode == 0)
+        {
+            cell.detailLabel.text =  @"视频不缓存    ";
+        }
+        else
+        {
+            cell.detailLabel.text =  @"视频缓存    ";
+        }
+        
+        cell.actionLabel.hidden = YES;
+        cell.iconImageView.hidden = NO;
+        
+    }
+    else if (indexPath.row == 2)
+    {
         cell.itemLabel.text = @"清除缓存";
         cell.detailLabel.hidden = NO;
         
@@ -120,7 +140,15 @@
         cell.actionLabel.hidden = YES;
         cell.iconImageView.hidden = YES;
     }
-    
+    else
+    {
+        cell.itemLabel.text = @"当前版本";
+        cell.detailLabel.hidden = NO;
+        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+        cell.detailLabel.text =  [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+        cell.actionLabel.hidden = YES;
+        cell.iconImageView.hidden = YES;
+    }
     return cell;
 }
 
@@ -132,7 +160,42 @@
     if (indexPath.row == 0) {
         ResetPasswordViewController *resetPasswordVC = [[ResetPasswordViewController alloc] initWithNibName:[[ResetPasswordViewController class] description] bundle:nil];
         [self.navigationController pushViewController:resetPasswordVC animated:YES];
-    } else if (indexPath.row == 1) {
+    }
+    else if (indexPath.row == 1)
+    {
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil
+                                                                         message:nil
+                                                                  preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertAction * cacheAction = [UIAlertAction actionWithTitle:@"视频缓存"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * _Nonnull action) {
+                                                               [Application sharedInstance].playMode = 1;
+                                                               SettingTableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+                                                               cell.detailLabel.text =  @"视频缓存    ";
+                                                           }];
+        
+        UIAlertAction * noCacheAction = [UIAlertAction actionWithTitle:@"视频不缓存"
+                                                               style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * _Nonnull action) {
+                                                                 [Application sharedInstance].playMode = 0;
+                                                                 SettingTableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+                                                                 cell.detailLabel.text =  @"视频不缓存    ";
+                                                             }];
+        
+        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消"
+                                                                 style:UIAlertActionStyleCancel
+                                                               handler:^(UIAlertAction * _Nonnull action) {
+                                                                   
+                                                               }];
+        
+        [alertVC addAction:cacheAction];
+        [alertVC addAction:noCacheAction];
+        [alertVC addAction:cancelAction];
+        [self presentViewController:alertVC
+                         animated:YES
+                       completion:nil];
+    }
+    else if (indexPath.row == 2) {
         [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
         
         [self.settingsTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];

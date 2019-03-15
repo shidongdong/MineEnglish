@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="F22-Xg-Aqy" customClass="AnswerPickerCell">
+            <rect key="frame" x="0.0" y="0.0" width="136" height="141"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="136" height="141"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9mh-Hd-2p1">
+                        <rect key="frame" x="0.0" y="0.0" width="136" height="141"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="502-xt-GvM">
+                        <rect key="frame" x="0.0" y="0.0" width="136" height="141"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vcd-Hr-StJ">
+                        <rect key="frame" x="111" y="5" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="caH-yr-pxe"/>
+                            <constraint firstAttribute="height" constant="20" id="hcf-7m-2f8"/>
+                        </constraints>
+                        <state key="normal" image="photo_def_photoPickerVc.png"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WZF-DN-psr">
+                        <rect key="frame" x="44" y="46.5" width="48" height="48"/>
+                        <state key="normal" image="btn_play.png"/>
+                        <connections>
+                            <action selector="selectPressed:" destination="F22-Xg-Aqy" eventType="touchUpInside" id="yJb-2I-z3V"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="502-xt-GvM" secondAttribute="trailing" id="APJ-fs-nfc"/>
+                <constraint firstItem="vcd-Hr-StJ" firstAttribute="top" secondItem="F22-Xg-Aqy" secondAttribute="top" constant="5" id="E7t-61-gDe"/>
+                <constraint firstItem="502-xt-GvM" firstAttribute="top" secondItem="F22-Xg-Aqy" secondAttribute="top" id="Ge0-9d-93D"/>
+                <constraint firstAttribute="bottom" secondItem="502-xt-GvM" secondAttribute="bottom" id="JaB-xO-ROi"/>
+                <constraint firstItem="WZF-DN-psr" firstAttribute="centerX" secondItem="F22-Xg-Aqy" secondAttribute="centerX" id="Yye-pN-43Z"/>
+                <constraint firstItem="502-xt-GvM" firstAttribute="leading" secondItem="F22-Xg-Aqy" secondAttribute="leading" id="bdw-fi-tnd"/>
+                <constraint firstAttribute="trailing" secondItem="9mh-Hd-2p1" secondAttribute="trailing" id="idN-RW-AnV"/>
+                <constraint firstItem="9mh-Hd-2p1" firstAttribute="leading" secondItem="F22-Xg-Aqy" secondAttribute="leading" id="pjL-Sl-Vwl"/>
+                <constraint firstAttribute="bottom" secondItem="9mh-Hd-2p1" secondAttribute="bottom" id="vft-qv-95N"/>
+                <constraint firstItem="WZF-DN-psr" firstAttribute="centerY" secondItem="F22-Xg-Aqy" secondAttribute="centerY" id="xVW-EJ-hTs"/>
+                <constraint firstAttribute="trailing" secondItem="vcd-Hr-StJ" secondAttribute="trailing" constant="5" id="xnp-Qe-Zvd"/>
+                <constraint firstItem="9mh-Hd-2p1" firstAttribute="top" secondItem="F22-Xg-Aqy" secondAttribute="top" id="yEt-TW-Mba"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="aPA-wg-a3G"/>
+            <size key="customSize" width="136" height="141"/>
+            <connections>
+                <outlet property="contentImageView" destination="9mh-Hd-2p1" id="9zt-Ii-S3D"/>
+                <outlet property="playBtn" destination="WZF-DN-psr" id="bAS-XQ-caP"/>
+                <outlet property="selectBtn" destination="vcd-Hr-StJ" id="Wfx-Rn-MFg"/>
+            </connections>
+            <point key="canvasLocation" x="168" y="158.77061469265368"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="btn_play.png" width="48" height="48"/>
+        <image name="photo_def_photoPickerVc.png" width="27" height="27"/>
+    </resources>
+</document>

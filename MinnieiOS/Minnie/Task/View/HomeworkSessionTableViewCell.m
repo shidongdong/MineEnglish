@@ -124,15 +124,33 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
         {
             self.unfinishTimeBgView.backgroundColor = [UIColor colorWithHex:0XFF4858];
         }
-        
         maxHours = 168;
-        
     }
     
-    if (maxHours - hours < 24)
+    if (maxHours - hours < 48)
     {
-        self.unfinishTimeLabel.text = [NSString stringWithFormat:@"%ld",maxHours - hours];
-        self.unfiishTimeTypeLabel.text = @"小时";
+        if (maxHours - hours < 0)
+        {
+            self.unfinishTipLabel.text = @"已过期";
+            
+            if (hours - maxHours > 24)
+            {
+                NSInteger day = (hours - maxHours) % 24 == 0 ? (hours - maxHours) / 24 : (hours - maxHours) / 24 + 1;
+                self.unfinishTimeLabel.text = [NSString stringWithFormat:@"%ld",day];
+                self.unfiishTimeTypeLabel.text = @"天";
+            }
+            else
+            {
+                self.unfinishTimeLabel.text = [NSString stringWithFormat:@"%ld",hours - maxHours];
+                self.unfiishTimeTypeLabel.text = @"小时";
+            }
+
+        }
+        else
+        {
+            self.unfinishTimeLabel.text = [NSString stringWithFormat:@"%ld",maxHours - hours];
+            self.unfiishTimeTypeLabel.text = @"小时";
+        }
     }
     else
     {

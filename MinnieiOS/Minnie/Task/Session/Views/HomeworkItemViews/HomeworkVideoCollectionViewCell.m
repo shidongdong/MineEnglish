@@ -8,7 +8,7 @@
 
 #import "HomeworkVideoCollectionViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-
+#import "Masonry.h"
 NSString * const HomeworkVideoCollectionViewCellId = @"HomeworkVideoCollectionViewCellId";
 
 @interface HomeworkVideoCollectionViewCell()
@@ -25,6 +25,14 @@ NSString * const HomeworkVideoCollectionViewCellId = @"HomeworkVideoCollectionVi
 
     self.homeworkImageView.layer.cornerRadius = 12.f;
     self.homeworkImageView.layer.masksToBounds = YES;
+    
+    UIView * bgView = [[UIView alloc] init];
+    bgView.backgroundColor = [UIColor colorWithRed:0/255.f green:0/255.f blue:0/255.f alpha:0.2];
+    [self.homeworkImageView addSubview:bgView];
+    [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.homeworkImageView);
+    }];
+    
 }
 
 - (void)setupWithHomeworkItem:(HomeworkItem *)item name:(NSString *)name {

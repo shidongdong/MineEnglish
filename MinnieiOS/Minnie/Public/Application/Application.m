@@ -11,6 +11,7 @@
 #import "HomeworkSession.h"
 static NSString * KeyOfVideoDownloadNetworkSetting = @"KeyOfVideoDownloadNetworkSetting";
 static NSString * KeyOfCurrentUser = @"KeyOfCurrentUser";
+static NSString * KeyOfPlayMode = @"KeyOfPlayMode";
 static NSString * KeyOfLastLoginUsername = @"KeyOfLastLoginUsername";
 static NSString * KeyOfClassIdAlertShown = @"KeyOfClassIdAlertShown";
 static NSString * KeyOfUnfinishHomeWorkSession = @"KeyOfUnfinishHomeWorkSession";
@@ -80,6 +81,18 @@ static NSString * KeyOfUserGuide = @"KeyOfUserGuide";
     [[NSUserDefaults standardUserDefaults] setObject:data forKey:KeyOfCurrentUser];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
+
+- (void)setPlayMode:(NSInteger)playMode
+{
+    [[NSUserDefaults standardUserDefaults] setObject:@(playMode) forKey:KeyOfPlayMode];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSInteger)playMode
+{
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:KeyOfPlayMode] integerValue];
+}
+
 
 //用户指引
 - (void)setUserGuide:(BOOL)userGuide

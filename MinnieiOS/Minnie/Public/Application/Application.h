@@ -48,6 +48,8 @@
 
 @property (nonatomic, assign) BOOL userGuide;  //用户引导
 
+@property (nonatomic, assign) NSInteger playMode; //音箱播放模式  0:在线播放 1:缓存
+
 - (void)clearData;
 
 @end

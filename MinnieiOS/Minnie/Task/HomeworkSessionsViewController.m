@@ -342,6 +342,11 @@
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadWhenAppeared:)
+                                                 name:kNotificationKeyOfAddHomework
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(apnsRefreshHomeworkSession:)
                                                  name:kNotificationKeyOfApnsNewHomeworkSession
                                                object:nil];

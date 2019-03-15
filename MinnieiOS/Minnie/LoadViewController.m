@@ -20,8 +20,6 @@
 
 #import "Application.h"
 
-
-
 @interface LoadViewController ()
 
 

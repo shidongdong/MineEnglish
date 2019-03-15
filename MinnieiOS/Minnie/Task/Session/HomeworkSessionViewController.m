@@ -40,7 +40,7 @@
 #import "CorrectHomeworkViewController.h"
 #import "TZImagePickerController.h"
 #import "VICacheManager.h"
-#import "TZPhotoPickerController.h"
+#import "HomeworkAnswersPickerViewController.h"
 #if TEACHERSIDE
 #import "HomeworkService.h"
 #endif
@@ -48,7 +48,7 @@ static NSString * const kKeyOfCreateTimestamp = @"createTimestamp";
 static NSString * const kKeyOfAudioDuration = @"audioDuration";
 static NSString * const kKeyOfVideoDuration = @"videoDuration";
 
-@interface HomeworkSessionViewController()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, EmojiInputViewDelegate,UINavigationControllerDelegate,VIResourceLoaderManagerDelegate>
+@interface HomeworkSessionViewController()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, EmojiInputViewDelegate,UINavigationControllerDelegate,VIResourceLoaderManagerDelegate,HomeworkAnswersPickerViewControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *messagesTableView;
 @property (nonatomic, weak) IBOutlet UIButton *audioButton;
@@ -626,17 +626,32 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     
     
     //跳转到
-//    TZPhotoPickerController *photoPickerVc = [[TZPhotoPickerController alloc] init];
-//    photoPickerVc.columnNumber = 4;
-//    TZAlbumModel *model = _albumArr[indexPath.row];
-//    photoPickerVc.model = model;
-//    [self.navigationController pushViewController:photoPickerVc animated:YES];
+    HomeworkAnswersPickerViewController *answerPickerVc = [[HomeworkAnswersPickerViewController alloc] init];
+    answerPickerVc.delegate = self;
+    answerPickerVc.columnNumber = 4;
+    answerPickerVc.answerItems = self.homeworkSession.homework.answerItems;
+    [self.navigationController pushViewController:answerPickerVc animated:YES];
     
-    for (HomeworkAnswerItem *item in self.homeworkSession.homework.answerItems) {
+//    for (HomeworkAnswerItem *item in self.homeworkSession.homework.answerItems) {
+//        if ([item.type isEqualToString:HomeworkAnswerItemTypeImage]) {
+//            [self sendImageMessageWithURL:[NSURL URLWithString:item.imageUrl]];
+//        } else if ([item.type isEqualToString:HomeworkAnswerItemTypeVideo]) {
+//            [self sendVideoMessage:[NSURL URLWithString:item.videoUrl] duration:1.0];
+//        }
+//    }
+}
+
+- (void)sendAnswer:(NSArray *)answers
+{
+    for (HomeworkAnswerItem *item in answers) {
         if ([item.type isEqualToString:HomeworkAnswerItemTypeImage]) {
             [self sendImageMessageWithURL:[NSURL URLWithString:item.imageUrl]];
         } else if ([item.type isEqualToString:HomeworkAnswerItemTypeVideo]) {
             [self sendVideoMessage:[NSURL URLWithString:item.videoUrl] duration:1.0];
+        }
+        else
+        {
+            
         }
     }
 }
@@ -1482,6 +1497,8 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     [[AudioPlayer sharedPlayer] stop];
     AVAudioSession *session =[AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    NSInteger playMode = [[Application sharedInstance] playMode];
+    
 //    AVPlayerViewController *playerViewController = [[AVPlayerViewController alloc]init];
 //    VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
 //    resourceLoaderManager.delegate = self;
@@ -1493,7 +1510,22 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 //    playerViewController.view.frame = self.view.frame;
 //    [playerViewController.player play];
     AVPlayerViewController *playerViewController = [[AVPlayerViewController alloc]init];
-    playerViewController.player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:url]];
+    AVPlayer *player;
+    if (playMode == 0)
+    {
+        [VICacheManager cleanCacheForURL:[NSURL URLWithString:url] error:nil];
+        player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:url]];
+    }
+    else
+    {
+        VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
+        resourceLoaderManager.delegate = self;
+        self.resourceLoaderManager = resourceLoaderManager;
+        AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
+        player = [AVPlayer playerWithPlayerItem:playerItem];
+    }
+    
+    playerViewController.player = player;
     [self presentViewController:playerViewController animated:YES completion:nil];
     playerViewController.view.frame = self.view.frame;
     [playerViewController.player play];
@@ -1509,7 +1541,22 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     AVAudioSession *session =[AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
     AudioPlayerViewController *playerViewController = [[AudioPlayerViewController alloc]init];
-    playerViewController.player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:url]];
+    NSInteger playMode = [[Application sharedInstance] playMode];
+    AVPlayer *player;
+    if (playMode == 0)
+    {
+        [VICacheManager cleanCacheForURL:[NSURL URLWithString:url] error:nil];
+        player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:url]];
+    }
+    else
+    {
+        VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
+        resourceLoaderManager.delegate = self;
+        self.resourceLoaderManager = resourceLoaderManager;
+        AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
+        player = [AVPlayer playerWithPlayerItem:playerItem];
+    }
+    playerViewController.player = player;
     [self presentViewController:playerViewController animated:YES completion:nil];
     playerViewController.view.frame = self.view.frame;
     [playerViewController.player play];

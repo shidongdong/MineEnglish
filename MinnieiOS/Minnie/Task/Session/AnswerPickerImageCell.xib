@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="AnswerPickerCell">
+            <rect key="frame" x="0.0" y="0.0" width="124" height="121"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="124" height="121"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Bfx-3Z-CWW">
+                        <rect key="frame" x="0.0" y="0.0" width="124" height="121"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fBA-cS-Lp9">
+                        <rect key="frame" x="99" y="5" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="9V5-v9-oUn"/>
+                            <constraint firstAttribute="width" constant="20" id="Ld2-R6-h33"/>
+                        </constraints>
+                        <state key="normal" image="photo_def_photoPickerVc.png"/>
+                        <connections>
+                            <action selector="selectPressed:" destination="gTV-IL-0wX" eventType="touchUpInside" id="2co-c2-DHf"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="Bfx-3Z-CWW" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="4UM-oB-wlQ"/>
+                <constraint firstItem="Bfx-3Z-CWW" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Zel-MH-SIV"/>
+                <constraint firstItem="fBA-cS-Lp9" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="aJy-dh-G1U"/>
+                <constraint firstAttribute="trailing" secondItem="fBA-cS-Lp9" secondAttribute="trailing" constant="5" id="dgC-wb-IP4"/>
+                <constraint firstAttribute="bottom" secondItem="Bfx-3Z-CWW" secondAttribute="bottom" id="jwQ-1X-Xaf"/>
+                <constraint firstAttribute="trailing" secondItem="Bfx-3Z-CWW" secondAttribute="trailing" id="l2U-tQ-hbQ"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
+            <size key="customSize" width="124" height="121"/>
+            <connections>
+                <outlet property="contentImageView" destination="Bfx-3Z-CWW" id="23h-xB-9sB"/>
+                <outlet property="selectBtn" destination="fBA-cS-Lp9" id="zMB-Ht-tFN"/>
+            </connections>
+            <point key="canvasLocation" x="188.80000000000001" y="148.87556221889056"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="photo_def_photoPickerVc.png" width="27" height="27"/>
+    </resources>
+</document>
