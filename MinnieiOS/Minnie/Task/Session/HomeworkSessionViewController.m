@@ -381,7 +381,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     }
     else
     {
-        text = @"报错";
+        //text = @"报错";
     }
     
     if (self.homeworkSession.reviewText.length == 0)

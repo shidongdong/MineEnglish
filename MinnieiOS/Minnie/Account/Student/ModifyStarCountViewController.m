@@ -18,9 +18,19 @@
 
 @implementation ModifyStarCountViewController
 
+- (IBAction)backPressed:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (IBAction)savePressed:(UIButton *)sender {
     
     [self.modifyStarTextField resignFirstResponder];
+    
+    if (self.modifyStarTextField.text.length == 0)
+    {
+        [HUD showErrorWithMessage:@"请填写要增减的星星数"];
+        return;
+    }
     
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil
                                                                      message:[NSString stringWithFormat:@"确认将星星修改为：%@",self.modifyStarTextField.text]

@@ -250,6 +250,12 @@
 		8770A29F2237AE24005733E4 /* photo_def_photoPickerVc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8770A29C2237AE23005733E4 /* photo_def_photoPickerVc@2x.png */; };
 		8770A2A02237AE24005733E4 /* photo_sel_photoPickerVc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8770A29D2237AE24005733E4 /* photo_sel_photoPickerVc@2x.png */; };
 		8770A2A12237AE24005733E4 /* photo_sel_photoPickerVc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8770A29D2237AE24005733E4 /* photo_sel_photoPickerVc@2x.png */; };
+		8770A2B1223CA9F8005733E4 /* NSString+PinYin4Cocoa.m in Sources */ = {isa = PBXBuildFile; fileRef = 8770A2A6223CA9F7005733E4 /* NSString+PinYin4Cocoa.m */; };
+		8770A2B2223CA9F8005733E4 /* PinyinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8770A2A9223CA9F7005733E4 /* PinyinHelper.m */; };
+		8770A2B3223CA9F8005733E4 /* HanyuPinyinOutputFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 8770A2AB223CA9F7005733E4 /* HanyuPinyinOutputFormat.m */; };
+		8770A2B4223CA9F8005733E4 /* ChineseToPinyinResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8770A2AC223CA9F7005733E4 /* ChineseToPinyinResource.m */; };
+		8770A2B5223CA9F8005733E4 /* PinyinFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8770A2AD223CA9F7005733E4 /* PinyinFormatter.m */; };
+		8770A2B6223CA9F8005733E4 /* unicode_to_hanyu_pinyin.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8770A2B0223CA9F8005733E4 /* unicode_to_hanyu_pinyin.txt */; };
 		87915A3621B933BC006C1BFD /* AudioPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87915A3521B933BC006C1BFD /* AudioPlayerViewController.m */; };
 		87915A3721B933BC006C1BFD /* AudioPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87915A3521B933BC006C1BFD /* AudioPlayerViewController.m */; };
 		87959A6921FDD1D300A670B9 /* UnfinishedStudentHomeworkSessionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87028693218419F600559195 /* UnfinishedStudentHomeworkSessionTableViewCell.xib */; };
@@ -1628,6 +1634,18 @@
 		8770A29822360F84005733E4 /* AnswerPickerAudioCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerPickerAudioCell.xib; sourceTree = "<group>"; };
 		8770A29C2237AE23005733E4 /* photo_def_photoPickerVc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo_def_photoPickerVc@2x.png"; sourceTree = "<group>"; };
 		8770A29D2237AE24005733E4 /* photo_sel_photoPickerVc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo_sel_photoPickerVc@2x.png"; sourceTree = "<group>"; };
+		8770A2A4223CA9F7005733E4 /* PinyinHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinyinHelper.h; sourceTree = "<group>"; };
+		8770A2A5223CA9F7005733E4 /* HanyuPinyinOutputFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HanyuPinyinOutputFormat.h; sourceTree = "<group>"; };
+		8770A2A6223CA9F7005733E4 /* NSString+PinYin4Cocoa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PinYin4Cocoa.m"; sourceTree = "<group>"; };
+		8770A2A7223CA9F7005733E4 /* ChineseToPinyinResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChineseToPinyinResource.h; sourceTree = "<group>"; };
+		8770A2A8223CA9F7005733E4 /* PinyinFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinyinFormatter.h; sourceTree = "<group>"; };
+		8770A2A9223CA9F7005733E4 /* PinyinHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinyinHelper.m; sourceTree = "<group>"; };
+		8770A2AA223CA9F7005733E4 /* NSString+PinYin4Cocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PinYin4Cocoa.h"; sourceTree = "<group>"; };
+		8770A2AB223CA9F7005733E4 /* HanyuPinyinOutputFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HanyuPinyinOutputFormat.m; sourceTree = "<group>"; };
+		8770A2AC223CA9F7005733E4 /* ChineseToPinyinResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChineseToPinyinResource.m; sourceTree = "<group>"; };
+		8770A2AD223CA9F7005733E4 /* PinyinFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinyinFormatter.m; sourceTree = "<group>"; };
+		8770A2AE223CA9F7005733E4 /* PinYin4Objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinYin4Objc.h; sourceTree = "<group>"; };
+		8770A2B0223CA9F8005733E4 /* unicode_to_hanyu_pinyin.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = unicode_to_hanyu_pinyin.txt; sourceTree = "<group>"; };
 		87915A3421B933BC006C1BFD /* AudioPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioPlayerViewController.h; sourceTree = "<group>"; };
 		87915A3521B933BC006C1BFD /* AudioPlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioPlayerViewController.m; sourceTree = "<group>"; };
 		879CE510218BF47600BBE4B7 /* FileProvider.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FileProvider.framework; path = System/Library/Frameworks/FileProvider.framework; sourceTree = SDKROOT; };
@@ -2726,6 +2744,41 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		8770A2A2223CA9F7005733E4 /* PinYin4Objc */ = {
+			isa = PBXGroup;
+			children = (
+				8770A2A3223CA9F7005733E4 /* Classes */,
+				8770A2AF223CA9F7005733E4 /* Resources */,
+			);
+			path = PinYin4Objc;
+			sourceTree = "<group>";
+		};
+		8770A2A3223CA9F7005733E4 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				8770A2A4223CA9F7005733E4 /* PinyinHelper.h */,
+				8770A2A5223CA9F7005733E4 /* HanyuPinyinOutputFormat.h */,
+				8770A2A6223CA9F7005733E4 /* NSString+PinYin4Cocoa.m */,
+				8770A2A7223CA9F7005733E4 /* ChineseToPinyinResource.h */,
+				8770A2A8223CA9F7005733E4 /* PinyinFormatter.h */,
+				8770A2A9223CA9F7005733E4 /* PinyinHelper.m */,
+				8770A2AA223CA9F7005733E4 /* NSString+PinYin4Cocoa.h */,
+				8770A2AB223CA9F7005733E4 /* HanyuPinyinOutputFormat.m */,
+				8770A2AC223CA9F7005733E4 /* ChineseToPinyinResource.m */,
+				8770A2AD223CA9F7005733E4 /* PinyinFormatter.m */,
+				8770A2AE223CA9F7005733E4 /* PinYin4Objc.h */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		8770A2AF223CA9F7005733E4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8770A2B0223CA9F8005733E4 /* unicode_to_hanyu_pinyin.txt */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		879CE51421905C4C00BBE4B7 /* Achiever */ = {
 			isa = PBXGroup;
 			children = (
@@ -3184,6 +3237,7 @@
 		97109837207A0BF500568785 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				8770A2A2223CA9F7005733E4 /* PinYin4Objc */,
 				871806A321DF438C0023511C /* MUImagePickerManager */,
 				977BD090207CA13B000A1994 /* PushManager */,
 				97109A92207A17B500568785 /* ImageEditor */,
@@ -5750,6 +5804,7 @@
 				971097BC207A006D00568785 /* label_phone@3x.png in Resources */,
 				872069C421AD2F3B00847713 /* btn_send_warning@3x.png in Resources */,
 				97109724207A006D00568785 /* pop_img_return@2x.png in Resources */,
+				8770A2B6223CA9F8005733E4 /* unicode_to_hanyu_pinyin.txt in Resources */,
 				97109728207A006D00568785 /* label_ok@3x.png in Resources */,
 				97109706207A006D00568785 /* my_exchange_banner@2x.png in Resources */,
 				973649E520AF2F8600511A95 /* TeacherCollectionViewCell.xib in Resources */,
@@ -5893,7 +5948,6 @@
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Mantle/Mantle.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
-				"${BUILT_PRODUCTS_DIR}/PinYin4Objc/PinYin4Objc.framework",
 				"${BUILT_PRODUCTS_DIR}/Qiniu/Qiniu.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/StreamingKit/StreamingKit.framework",
@@ -5914,7 +5968,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mantle.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PinYin4Objc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Qiniu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StreamingKit.framework",
@@ -5963,7 +6016,6 @@
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Mantle/Mantle.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
-				"${BUILT_PRODUCTS_DIR}/PinYin4Objc/PinYin4Objc.framework",
 				"${BUILT_PRODUCTS_DIR}/Qiniu/Qiniu.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/StreamingKit/StreamingKit.framework",
@@ -5984,7 +6036,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mantle.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PinYin4Objc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Qiniu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StreamingKit.framework",
@@ -6299,6 +6350,7 @@
 				8725589D21D397910028BC2A /* CorrectHomeworkAddCommentRequest.m in Sources */,
 				97109A57207A158C00568785 /* EmojiMessageTableViewCell.m in Sources */,
 				97109D80207A2F0400568785 /* TeachersViewController.m in Sources */,
+				8770A2B4223CA9F8005733E4 /* ChineseToPinyinResource.m in Sources */,
 				97109AEC207A1C0800568785 /* StudentsManageViewController.m in Sources */,
 				871806C921DF438C0023511C /* MUAuthorizationStatusController.m in Sources */,
 				8702866F2182EA8700559195 /* StudentStarListViewController.m in Sources */,
@@ -6408,6 +6460,7 @@
 				97109D32207A2F0400568785 /* SettingTableViewCell.m in Sources */,
 				97364A1420B16BFD00511A95 /* NetworkStateErrorView.m in Sources */,
 				97109903207A0BF500568785 /* MaskImageView.m in Sources */,
+				8770A2B3223CA9F8005733E4 /* HanyuPinyinOutputFormat.m in Sources */,
 				97109C51207A2E3E00568785 /* CircleBottomTableViewCell.m in Sources */,
 				9710991B207A0BF600568785 /* PortraitTabBarController.m in Sources */,
 				97109923207A0BF600568785 /* AlertView.m in Sources */,
@@ -6483,6 +6536,7 @@
 				97109A21207A158C00568785 /* HomeworkSessionsContainerViewController.m in Sources */,
 				871806BD21DF438C0023511C /* MUSlomoIconView.m in Sources */,
 				8725588D21D1D2A70028BC2A /* CorrectHomeworkAddCommentViewController.m in Sources */,
+				8770A2B5223CA9F8005733E4 /* PinyinFormatter.m in Sources */,
 				97109A55207A158C00568785 /* SessionHomeworkTableViewCell.m in Sources */,
 				8770A2802232950E005733E4 /* ModifyStarRequest.m in Sources */,
 				973649D620AF2F8600511A95 /* StudentSelectorTableViewCell.m in Sources */,
@@ -6518,7 +6572,9 @@
 				871806E621DF51540023511C /* MUCaptionView.m in Sources */,
 				871806E421DF51540023511C /* MUZoomingScrollView.m in Sources */,
 				973649FC20AF322900511A95 /* HomeworkTitleTableViewCell.m in Sources */,
+				8770A2B2223CA9F8005733E4 /* PinyinHelper.m in Sources */,
 				871806CD21DF438C0023511C /* MUVideoIndicatorView.m in Sources */,
+				8770A2B1223CA9F8005733E4 /* NSString+PinYin4Cocoa.m in Sources */,
 				973649C420AF2F8600511A95 /* HomeworkVideoTableViewCell.m in Sources */,
 				875C262A218ADA7D0047E32A /* FilterAlertView.m in Sources */,
 				97109963207A0BF600568785 /* FileUploader.m in Sources */,

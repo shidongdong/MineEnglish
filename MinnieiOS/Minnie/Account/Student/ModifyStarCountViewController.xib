@@ -38,6 +38,9 @@
                                 <constraint firstAttribute="width" constant="44" id="WSf-Sy-GTc"/>
                             </constraints>
                             <state key="normal" image="navbar_back.png"/>
+                            <connections>
+                                <action selector="backPressed:" destination="-1" eventType="touchUpInside" id="DPE-kw-fuI"/>
+                            </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RCV-HM-5Or">
                             <rect key="frame" x="0.0" y="43.5" width="375" height="0.5"/>
