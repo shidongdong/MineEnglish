@@ -125,14 +125,14 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     if (iPHONEX)
     {
         bottomHeight = 70.0f;
-        self.topbarConstraint.constant = 88.0f;
-        self.topDoneConstraint.constant = 44.0f;
-        self.topBackConstraint.constant = 44.0f;
+        self.topbarConstraint.constant = 44.0f;
+        self.topDoneConstraint.constant = 24.0f;
+        self.topBackConstraint.constant = 24.0f;
     }
     else
     {
         bottomHeight = 50.0f;
-        self.topbarConstraint.constant = 64.0f;
+        self.topbarConstraint.constant = 20.0f;
     }
     self.bottomBarConstraint.constant = bottomHeight;
     self.colorPan.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 50);
@@ -169,8 +169,7 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    
+
     
 //    @weakify(self);
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -338,30 +337,37 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     
     if (self.bEditing)
     {
+        
         self.savePicButton.hidden = YES;
         [self removeTapGesture];
         
         [self.doneButton setTitle:@"完成" forState:UIControlStateNormal];
         self.mCollectionView.scrollEnabled = NO;
+        [self.drawingView removeFromSuperview];
+        self.drawingView = nil;
+        
         if (!self.drawingView) {
             self.drawingView = [[UIImageView alloc] init];
-//            self.drawingView.backgroundColor = [UIColor yellowColor];
-            self.drawingView.contentMode = UIViewContentModeCenter;
-            self.drawingView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
-            [self.editorContent.imageView.superview addSubview:self.drawingView];
+            self.drawingView.backgroundColor = [UIColor colorWithRed:255.f/255.f green:0.f/255.f blue:0.f/255.f alpha:0.3];
+//            self.drawingView.contentMode = UIViewContentModeCenter;
+//            self.drawingView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
+            [self.editorContent.imageView addSubview:self.drawingView];
+            [self.drawingView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(self.editorContent.imageView.superview);
+            }];
             self.drawingView.userInteractionEnabled = YES;
         }
+//        CGSize size = (self.editorContent.imageView.image) ? self.editorContent.imageView.image.size : self.editorContent.imageView.frame.size;
+//        if(size.width > 0 && size.height > 0 ) {
+//            CGFloat ratio = MIN(self.mCollectionView.frame.size.width / size.width, self.mCollectionView.frame.size.height / size.height);
+//            CGFloat W = ratio * size.width * self.mCollectionView.zoomScale;
+//            CGFloat H = ratio * size.height * self.mCollectionView.zoomScale;
+//
+//            self.drawingView.frame = CGRectMake(MAX(0, (self.drawingView.superview.width-W)/2), MAX(0, (self.drawingView.superview.height-H)/2), W, H);
+//           // self.drawingView.frame = self.editorContent.imageView.frame;
+//        }
         
-        CGSize size = (self.editorContent.imageView.image) ? self.editorContent.imageView.image.size : self.editorContent.imageView.frame.size;
-        if(size.width > 0 && size.height > 0 ) {
-            CGFloat ratio = MIN(self.mCollectionView.frame.size.width / size.width, self.mCollectionView.frame.size.height / size.height);
-            CGFloat W = ratio * size.width * self.mCollectionView.zoomScale;
-            CGFloat H = ratio * size.height * self.mCollectionView.zoomScale;
-            
-            self.drawingView.frame = CGRectMake(MAX(0, (self.drawingView.superview.width-W)/2), MAX(0, (self.drawingView.superview.height-H)/2), W, H);
-        }
-        
-        //self.drawingView.frame = self.editorContent.imageView.frame;
+        //
        
         [self startPanDrawMode];
         
@@ -375,6 +381,7 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
         self.colorPan.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 50);
         self.savePicButton.hidden = NO;
         [self stopPanDrawmode];
+        
         if (self.onlyForSend) {
             [self send];
             

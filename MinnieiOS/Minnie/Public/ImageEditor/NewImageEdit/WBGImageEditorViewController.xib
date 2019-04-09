@@ -19,6 +19,7 @@
                 <outlet property="savePicButton" destination="ybN-me-CzS" id="02D-LH-dv2"/>
                 <outlet property="topBackConstraint" destination="TCl-VD-lqU" id="YNA-Bu-XNw"/>
                 <outlet property="topDoneConstraint" destination="z03-wh-MhH" id="vBg-35-vr2"/>
+                <outlet property="topbarConstraint" destination="Wor-oY-6q8" id="Mr6-xb-u0O"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

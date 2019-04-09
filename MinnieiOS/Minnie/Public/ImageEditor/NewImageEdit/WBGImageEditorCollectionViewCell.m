@@ -55,7 +55,7 @@ NSString * const WBGImageEditorCollectionViewCellId = @"WBGImageEditorCollection
         [self.imageView sd_setImageWithURL:[NSURL URLWithString:originalImageUrl]
                           placeholderImage:thumbnailImage completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
                               if (error == nil) {
-                                  [self adjustInit];
+                                  [self performSelector:@selector(adjustInit) withObject:nil afterDelay:0.5];
                                   // [self adjustCanvasSize];
                               }
                           }];
