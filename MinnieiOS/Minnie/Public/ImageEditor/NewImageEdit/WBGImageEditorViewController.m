@@ -47,17 +47,6 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 
 @implementation WBGImageEditorViewController
 
-
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        
-    }
-    return self;
-}
-
 - (id)init
 {
     self = [self initWithNibName:@"WBGImageEditorViewController" bundle:[NSBundle bundleForClass:self.class]];
@@ -100,8 +89,6 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     self.doneButton.backgroundColor =  [[UIColor blackColor]colorWithAlphaComponent:0.5f];
     self.view.backgroundColor = [UIColor blackColor];
     
-    
-    
     [self addTapGesture];
     [self addNotication];
     // Do any additional setup after loading the view from its nib.
@@ -116,8 +103,8 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     self.mCollectionView.pagingEnabled = YES;
     self.mCollectionView.showsVerticalScrollIndicator = NO;
     self.mCollectionView.showsHorizontalScrollIndicator = NO;
-    
     [self registerCellNib];
+    self.mCollectionView.backgroundColor = [UIColor blackColor];
     
     BOOL iPHONEX = ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO);
     
@@ -156,92 +143,26 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
-//    if (!self.bFirstLoad)
-//    {
     [self.mCollectionView setContentOffset:CGPointMake(self.selectIndex * kScreenWidth, 0)];
     
     
      self.editorContent = (WBGImageEditorCollectionViewCell *)[self.mCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.selectIndex inSection:0]];
-//        self.bFirstLoad = YES;
-//    }
-    
 }
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-
-    
-//    @weakify(self);
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        @strongify(self)
-//        
-//    });
-    
-    
-}
-
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-   
-    
-//    [self.mCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.selectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-    
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    
-    
-    
-}
-
 
 #pragma mark - 初始化 &getter
 - (WBGDrawTool *)drawTool {
     if (_drawTool == nil) {
         _drawTool = [[WBGDrawTool alloc] initWithImageEditor:self];
-        
-//  __weak typeof(self)weakSelf = self;
         _drawTool.drawToolStatus = ^(BOOL canPrev) {
-//            if (canPrev) {
-//                weakSelf.undoButton.hidden = NO;
-//            } else {
-//                weakSelf.undoButton.hidden = YES;
-//            }
         };
         _drawTool.drawingCallback = ^(BOOL isDrawing) {
-         //   [weakSelf hiddenTopAndBottomBar:isDrawing animation:YES];
         };
         _drawTool.drawingDidTap = ^(void) {
-         //   [weakSelf hiddenTopAndBottomBar:!weakSelf.barsHiddenStatus animation:YES];
         };
         _drawTool.pathWidth = 4.0f;
     }
-    
     return _drawTool;
 }
-
-
-
-
-
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-//- (BOOL)prefersStatusBarHidden {
-//    return YES;
-//}
-
 
 
 #pragma mark - Property
@@ -261,9 +182,6 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
             
         }
     }
-    
-    
-//    [self swapToolBarWithEditting];
 }
 
 #pragma mark- ImageTool setting
@@ -309,8 +227,6 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     return cell;
 }
 
-
-
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     int autualIndex = scrollView.contentOffset.x  / scrollView.bounds.size.width;
     self.selectIndex = autualIndex;
@@ -328,7 +244,6 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     }
 }
 
-
 #pragma mark - Actions
 ///发送
 - (IBAction)sendAction:(UIButton *)sender {
@@ -337,39 +252,22 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     
     if (self.bEditing)
     {
-        
         self.savePicButton.hidden = YES;
         [self removeTapGesture];
-        
+        [self.drawTool backToInital];
         [self.doneButton setTitle:@"完成" forState:UIControlStateNormal];
         self.mCollectionView.scrollEnabled = NO;
-        [self.drawingView removeFromSuperview];
-        self.drawingView = nil;
         
         if (!self.drawingView) {
             self.drawingView = [[UIImageView alloc] init];
             self.drawingView.backgroundColor = [UIColor colorWithRed:255.f/255.f green:0.f/255.f blue:0.f/255.f alpha:0.3];
-//            self.drawingView.contentMode = UIViewContentModeCenter;
-//            self.drawingView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
-            [self.editorContent.imageView addSubview:self.drawingView];
-            [self.drawingView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.editorContent.imageView.superview);
-            }];
             self.drawingView.userInteractionEnabled = YES;
+            self.drawingView.frame = CGRectMake(0, 0, self.editorContent.imageView.size.width, self.editorContent.imageView.size.height);
         }
-//        CGSize size = (self.editorContent.imageView.image) ? self.editorContent.imageView.image.size : self.editorContent.imageView.frame.size;
-//        if(size.width > 0 && size.height > 0 ) {
-//            CGFloat ratio = MIN(self.mCollectionView.frame.size.width / size.width, self.mCollectionView.frame.size.height / size.height);
-//            CGFloat W = ratio * size.width * self.mCollectionView.zoomScale;
-//            CGFloat H = ratio * size.height * self.mCollectionView.zoomScale;
-//
-//            self.drawingView.frame = CGRectMake(MAX(0, (self.drawingView.superview.width-W)/2), MAX(0, (self.drawingView.superview.height-H)/2), W, H);
-//           // self.drawingView.frame = self.editorContent.imageView.frame;
-//        }
+        self.drawingView.center = self.editorContent.imageView.center;
         
-        //
-       
         [self startPanDrawMode];
+        [self.editorContent.imageView.superview addSubview:self.drawingView];
         
         [UIView animateWithDuration:0.5 animations:^{
             self.colorPan.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - self->bottomHeight, [UIScreen mainScreen].bounds.size.width, 50);
@@ -407,6 +305,9 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消"
                                                          style:UIAlertActionStyleCancel
                                                        handler:^(UIAlertAction * _Nonnull action) {
+                                                          
+                                                           WBGDrawTool *tool = (WBGDrawTool *)self.currentTool;
+                                                           [tool backToLastDraw];
                                                        }];
         
         [alertVC addAction:sendAction];
@@ -417,13 +318,9 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
                            animated:YES
                          completion:nil];
         
-        
-        
     }
-   
 }
-    
-    
+
 
 - (void)save
 {
@@ -510,58 +407,20 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     if (showHud) {
         //ShowBusyTextIndicatorForView(self.view, @"生成图片中...", nil);
     }
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        CGFloat WS = self.editorContent.imageView.width/ self.drawingView.width;
-        CGFloat HS = self.editorContent.imageView.height/ self.drawingView.height;
-    
-  //  dispatch_async(dispatch_get_main_queue(), ^{
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.editorContent.imageView.image.size.width, self.editorContent.imageView.image.size.height),
                                                NO,
                                                self.editorContent.imageView.image.scale);
-   // });
     
         [self.editorContent.imageView.image drawAtPoint:CGPointZero];
         CGFloat viewToimgW = self.editorContent.imageView.width/self.editorContent.imageView.image.size.width;
-        CGFloat viewToimgH = self.editorContent.imageView.height/self.editorContent.imageView.image.size.height;
         __unused CGFloat drawX = self.editorContent.imageView.left/viewToimgW;
-//        CGFloat drawY = self.imageView.top/viewToimgH;
         [_drawingView.image drawInRect:CGRectMake(0, 0, self.editorContent.imageView.image.size.width, self.editorContent.imageView.image.size.height)];
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        for (UIView *subV in _drawingView.subviews) {
-//            if ([subV isKindOfClass:[WBGTextToolView class]]) {
-//                WBGTextToolView *textLabel = (WBGTextToolView *)subV;
-//                //进入正常状态
-//                [WBGTextToolView setInactiveTextView:textLabel];
-//
-//                //生成图片
-//                __unused UIView *tes = textLabel.archerBGView;
-//                UIImage *textImg = [self.class screenshot:textLabel.archerBGView orientation:UIDeviceOrientationPortrait usePresentationLayer:YES];
-//                CGFloat rotation = textLabel.archerBGView.layer.transformRotationZ;
-//                textImg = [textImg imageRotatedByRadians:rotation];
-//
-//                CGFloat selfRw = self.imageView.bounds.size.width / self.imageView.image.size.width;
-//                CGFloat selfRh = self.imageView.bounds.size.height / self.imageView.image.size.height;
-//
-//                CGFloat sw = textImg.size.width / selfRw;
-//                CGFloat sh = textImg.size.height / selfRh;
-//
-//                [textImg drawInRect:CGRectMake(textLabel.left/selfRw, (textLabel.top/selfRh) - drawY, sw, sh)];
-//            }
-//        }
-//    });
-    
-//        UIImage *textImg = [self.class screenshot:self.imageView orientation:UIDeviceOrientationPortrait usePresentationLayer:YES];
-    
         UIImage *tmp = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
-        
-      //  dispatch_async(dispatch_get_main_queue(), ^{
-            //HideBusyIndicatorForView(self.view);
-            UIImage *image = [UIImage imageWithCGImage:tmp.CGImage scale:[UIScreen mainScreen].scale orientation:UIImageOrientationUp];
-            clipedCallback(image);
-            
-      //  });
-//    });
+
+        UIImage *image = [UIImage imageWithCGImage:tmp.CGImage scale:[UIScreen mainScreen].scale orientation:UIImageOrientationUp];
+        clipedCallback(image);
+    
 }
 
 + (UIImage *)screenshot:(UIView *)view orientation:(UIDeviceOrientation)orientation usePresentationLayer:(BOOL)usePresentationLayer
