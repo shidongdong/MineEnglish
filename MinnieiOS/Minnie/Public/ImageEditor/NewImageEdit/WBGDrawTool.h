@@ -18,6 +18,7 @@
 //撤销
 - (void)backToLastDraw;
 - (void)drawLine;
+- (void)backToInital;
 @end
 
 #pragma mark - HBPath

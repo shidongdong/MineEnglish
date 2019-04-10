@@ -36,6 +36,14 @@
     }
 }
 
+- (void)backToInital{
+   
+    [_allLineMutableArray removeAllObjects];
+    [self drawLine];
+    if (self.drawToolStatus) {
+        self.drawToolStatus(_allLineMutableArray.count > 0 ? : NO);
+    }
+}
 #pragma mark - Gesture
 //tap
 - (void)drawingViewDidTap:(UITapGestureRecognizer *)sender {
