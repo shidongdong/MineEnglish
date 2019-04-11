@@ -244,6 +244,25 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     }
 }
 
+- (CGRect)caculateDrawImageFrameWithImage:(UIImage *)image{
+    
+    CGFloat imagH = image.size.height;
+    CGFloat imagW = image.size.width;
+    CGFloat screnH = [UIScreen mainScreen].bounds.size.height;
+    CGFloat screnW = [UIScreen mainScreen].bounds.size.width;
+    CGFloat drawW = 0.0 ;
+    CGFloat drawH = 0.0 ;
+    if (imagH/imagW < screnH/screnW) {
+        
+        drawW = screnW;
+        drawH = imagH/imagW * drawW;
+    } else {
+        drawH = screnH;
+        drawW = imagW/imagH * drawH;
+    }
+    return CGRectMake(0, 0, drawW, drawH);
+}
+
 #pragma mark - Actions
 ///发送
 - (IBAction)sendAction:(UIButton *)sender {
@@ -257,12 +276,11 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
         [self.drawTool backToInital];
         [self.doneButton setTitle:@"完成" forState:UIControlStateNormal];
         self.mCollectionView.scrollEnabled = NO;
-        
         if (!self.drawingView) {
             self.drawingView = [[UIImageView alloc] init];
             self.drawingView.backgroundColor = [UIColor colorWithRed:255.f/255.f green:0.f/255.f blue:0.f/255.f alpha:0.3];
             self.drawingView.userInteractionEnabled = YES;
-            self.drawingView.frame = CGRectMake(0, 0, self.editorContent.imageView.size.width, self.editorContent.imageView.size.height);
+            self.drawingView.frame = [self caculateDrawImageFrameWithImage:self.editorContent.imageView.image];
         }
         self.drawingView.center = self.editorContent.imageView.center;
         
