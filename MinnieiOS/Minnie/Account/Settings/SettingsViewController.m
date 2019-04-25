@@ -163,9 +163,18 @@
     }
     else if (indexPath.row == 1)
     {
-        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil
-                                                                         message:nil
-                                                                  preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertController *alertVC;
+        // 适配ipad版本
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+            
+            alertVC = [UIAlertController alertControllerWithTitle:nil
+                                                          message:nil
+                                                   preferredStyle:UIAlertControllerStyleActionSheet];
+        } else {
+            alertVC = [UIAlertController alertControllerWithTitle:nil
+                                                          message:nil
+                                                   preferredStyle:UIAlertControllerStyleAlert];
+        }
         UIAlertAction * cacheAction = [UIAlertAction actionWithTitle:@"缓存播放"
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * _Nonnull action) {
@@ -173,7 +182,6 @@
                                                                SettingTableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
                                                                cell.detailLabel.text =  @"缓存播放    ";
                                                            }];
-        
         UIAlertAction * noCacheAction = [UIAlertAction actionWithTitle:@"在线播放"
                                                                style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * _Nonnull action) {
@@ -181,6 +189,7 @@
                                                                  SettingTableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
                                                                  cell.detailLabel.text =  @"在线播放    ";
                                                              }];
+        
         
         UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消"
                                                                  style:UIAlertActionStyleCancel
