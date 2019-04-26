@@ -88,7 +88,6 @@
         
         [self setupAndLoadConversations];
         [self requestHomeworkSessions];
-        
     }
     [self addNotificationObservers];
     
@@ -212,33 +211,6 @@
                 break;
             }
         }
-//        if (!bExist)
-//        {
-//            BOOL bHandle = NO;
-//            
-//            for (NSNotification * noHandleNoti in self.noHandleNotications)
-//            {
-//                NSInteger noHandleHomeworkSessionId = [[noHandleNoti.userInfo objectForKey:@"homeworkSessionId"] integerValue];
-//                
-//                if (noHandleHomeworkSessionId == homeworkSessionId)
-//                {
-//                    NSInteger noHandleindex = [self.noHandleNotications indexOfObject:noHandleNoti];
-//                    [self.noHandleNotications replaceObjectAtIndex:noHandleindex withObject:notication];
-//                    bHandle = YES;
-//                    break;
-//                }
-//                
-//            }
-//            
-//            
-//            if (!bHandle)
-//            {
-//                [self.noHandleNotications addObject:notication];
-//            }
-//            
-//        }
-        
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             NSInteger tabbarCount = self.unReadHomeworkSessions.count + self.noHandleNotications.count;
             
@@ -248,10 +220,6 @@
         });
 
     });
-
-    
-    
-    
 }
 
 - (void)setupRequestState
@@ -383,11 +351,6 @@
     if (!self.isUnfinished) {
         return;
     }
-
-//    if (!self.bLoadConversion)
-//    {
-//        return;
-//    }
     
     NSDate *startTime = [NSDate date];
     
@@ -398,9 +361,6 @@
     
     AVIMConversationQuery *query2 = [client conversationQuery];
     [query2 whereKeyDoesNotExist:@"taskfinished"];
-    
-//    AVIMConversationQuery *query3 = [client conversationQuery];
-//    [query3 whereKey:@"name" equalTo:@"12169"];
     
     AVIMConversationQuery *query = [AVIMConversationQuery orQueryWithSubqueries:@[query1,query2]];
     
@@ -430,9 +390,10 @@
     if (self.homeworkSessions.count == 0) {
         return;
     }
-    
     for (HomeworkSession *homeworkSession in self.homeworkSessions) {
+       
         for (AVIMConversation *conversation in self.queriedConversations) {
+            
             if ([conversation.name integerValue] == homeworkSession.homeworkSessionId) {
                 homeworkSession.conversation = conversation;
                 homeworkSession.unreadMessageCount = conversation.unreadMessagesCount;
@@ -447,7 +408,6 @@
                 } else if ([message isKindOfClass:[AVIMImageMessage class]]) {
                     homeworkSession.lastSessionContent = @"[图片]";
                 }
-                
 #if TEACHERSIDE
                 homeworkSession.shouldColorLastSessionContent = message.ioType == AVIMMessageIOTypeOut;
 #else
@@ -457,13 +417,10 @@
                 {
                     [self updateHomeworkSessionModifiedTime:homeworkSession];
                 }
-                
 #endif
-                
                 break;
             }
         }
-        
         if (homeworkSession.conversation.lastMessageAt != nil) {
             homeworkSession.sortTime = [homeworkSession.conversation.lastMessageAt timeIntervalSince1970] * 1000;
             
@@ -471,21 +428,6 @@
             homeworkSession.sortTime = homeworkSession.updateTime;
         }
     }
-
-//        [self.homeworkSessions sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-//            HomeworkSession *session1 = (HomeworkSession *)obj1;
-//            HomeworkSession *session2 = (HomeworkSession *)obj2;
-//
-//            if (session1.sortTime > session2.sortTime) {
-//                return NSOrderedAscending;
-//            } else if (session1.sortTime < session2.sortTime) {
-//                return NSOrderedDescending;
-//            }
-//
-//            return NSOrderedSame;
-//        }];
-    //
-    
     [self.homeworkSessionsTableView reloadData];
 }
 
@@ -565,12 +507,6 @@
     if (!self.isUnfinished) {
         return ;
     }
-    
-//    if (!self.bLoadConversion)
-//    {
-//        return;
-//    }
-    
     AVIMMessage *message = (AVIMMessage *)(notification.userInfo)[@"message"];
     [self reloadTableViewForNewMessage:message];
     
@@ -680,17 +616,12 @@
                 }
                 
                 if (!exists) {
-                    // session.unreadMessageCount++;
-                    
                     if (messageConversation.lastMessageAt != nil) {
                         session.sortTime = [messageConversation.lastMessageAt timeIntervalSince1970] * 1000;
                     } else {
-                        //                        if (session.updateTime == 0) {
-                        //                            session.sortTime = [[NSDate date] timeIntervalSince1970] * 1000;
-                        //                        } else {
                         session.sortTime = session.updateTime;
-                        //                        }
                     }
+                    
                     
                     AVIMMessage *message = messageConversation.lastMessage;
                     if ([message isKindOfClass:[AVIMTextMessage class]]) {
@@ -729,8 +660,7 @@
         self.homeworkSessionsTableView.hidden = YES;
     }
     
-    if (self.queriedConversations.count == 0 &&
-        self.isUnfinished &&
+    if (self.isUnfinished &&
         [IMManager sharedManager].client.status==AVIMClientStatusOpened) {
         [self loadConversations];
     }
@@ -778,7 +708,6 @@
             
         }];
 #endif
-        
     }
 }
 
@@ -820,7 +749,6 @@
         }];
 #endif
     }
-    
 }
 
 - (void)handleRequestResult:(Result *)result
@@ -912,22 +840,6 @@
                 [self.homeworkSessionsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
             });
             
-            //把内容存起来
-//            if (self.isUnfinished)
-//            {
-//                if (self.bLoadConversion)
-//                {
-//                    APP.unfinishHomeworkSessionList = self.homeworkSessions;
-//                }
-//                else
-//                {
-//                    APP.unCommitHomeworkSessionList = self.homeworkSessions;
-//                }
-//            }
-//            else
-//            {
-//                APP.finishHomeworkSessionList = self.homeworkSessions;
-//            }
             
         } else {
             UIImage *image = self.isUnfinished?[UIImage imageNamed:@"缺省插画_无作业"]:nil;
@@ -950,9 +862,6 @@
                                 }];
         }
     }
-    
-    
-    
     self.nextUrl = nextUrl;
 }
 
@@ -980,7 +889,6 @@
     }
     
     HomeworkSession *homeworkSession = self.homeworkSessions[indexPath.row];
-    
     [cell setupWithHomeworkSession:homeworkSession];
     
     return cell;
@@ -1026,15 +934,6 @@
     }
     
     HomeworkSession *session = self.homeworkSessions[indexPath.row];
-//    if (session.unreadMessageCount > 0) {
-//        session.unreadMessageCount = 0; // 点击进去就算已读
-//        [self.unReadHomeworkSessions removeObject:session];
-//        NSInteger tabbarCount = self.unReadHomeworkSessions.count + self.noHandleNotications.count;
-//        AppDelegate * appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-//        [appDel showTabBarBadgeNum:tabbarCount atIndex:0];
-//    }
-    
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.homeworkSessionsTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     });
