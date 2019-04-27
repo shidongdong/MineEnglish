@@ -359,6 +359,26 @@
         NSLog(@" ======= 会话数:%@ 耗时%.fms", @(conversations.count), [[NSDate date] timeIntervalSinceDate:startTime]*1000);
     }];
 }
+#pragma mark 单个作业会话内容查询
+- (void)querySingleConversationsWithHomeworkId:(NSString *)homeworkSessionId callback:(void (^)(NSArray<AVIMConversation *> * _Nullable, NSError * _Nullable))callback{
+    
+    NSDate *startTime = [NSDate date];
+    AVIMClient *client = [IMManager sharedManager].client;
+    AVIMConversationQuery *conversation = [client conversationQuery];
+    [conversation whereKey:@"name" equalTo:homeworkSessionId];
+    // 缓存 先走网络查询，发生网络错误的时候，再从本地查询
+    conversation.cachePolicy = kAVIMCachePolicyCacheElseNetwork;
+    // 设置查询选项，指定返回对话的最后一条消息
+    conversation.option = AVIMConversationQueryOptionWithMessage;
+    // 每条作业 homeworkSessionId唯一 限制查询数量，减少耗时
+    conversation.limit = 1;
+    // 查询
+    [conversation findConversationsWithCallback:^(NSArray<AVIMConversation *> * _Nullable conversations, NSError * _Nullable error) {
+        if (error) return ;
+        callback(conversations,error);
+        NSLog(@"querySingleConversationsWithHomework 会话数:%@ 耗时%.fms", @(conversations.count), [[NSDate date] timeIntervalSinceDate:startTime]*1000);
+    }];
+}
 
 - (void)reloadForDoubleTabClick
 {
@@ -412,7 +432,20 @@
             homeworkSession.sortTime = homeworkSession.updateTime;
         }
     }
+    self.homeworkSessions = [self handleRepeat:self.homeworkSessions];
     [self.homeworkSessionsTableView reloadData];
+}
+
+// 消息去重
+- (NSMutableArray *)handleRepeat:(NSArray *)homework{
+    
+    NSMutableArray *resultArrM = [NSMutableArray array];
+    for (HomeworkSession *session in homework) {
+        if (![resultArrM containsObject:session]) {
+            [resultArrM addObject:session];
+        }
+    }
+    return resultArrM;
 }
 
 - (void)updateHomeworkSessionModifiedTime:(HomeworkSession *)homeworkSession
@@ -513,122 +546,34 @@
     }
 #endif
     
-    AVIMConversation *messageConversation = nil;
-    for (AVIMConversation *conversation in self.queriedConversations) {
-        if ([conversation.conversationId isEqualToString:message.conversationId]) {
-            messageConversation = conversation;
-            break;
-        }
-    }
-    
-    if (messageConversation == nil) {
-        messageConversation = [[IMManager sharedManager].client conversationForId:message.conversationId];
-        if (messageConversation != nil) {
-            NSMutableArray *array = [NSMutableArray arrayWithArray:self.queriedConversations];
-            [array insertObject:messageConversation atIndex:0];
-            
-            self.queriedConversations = array;
-        }
-    }
-    
-    if (messageConversation == nil) {
-        return;
-    }
-    
-    NSInteger homeworkSessionId = [messageConversation.name integerValue];
-    HomeworkSession *session = nil;
+    // 更新新消息内容
+    AVIMConversation *messageConversation = [[IMManager sharedManager].client conversationForId:message.conversationId];
+    NSString *homeworkSessionId = messageConversation.name;
+    // 当前会话已存在
+    BOOL bExit = NO;
     for (HomeworkSession *homeworkSession in self.homeworkSessions) {
-        if (homeworkSession.homeworkSessionId == homeworkSessionId) {
+        if (homeworkSession.homeworkSessionId == homeworkSessionId.integerValue) {
             if (homeworkSession.conversation == nil) {
                 homeworkSession.conversation = messageConversation;
             }
-            
-            session = homeworkSession;
-            
-            if ([message isKindOfClass:[AVIMTextMessage class]]) {
-                homeworkSession.lastSessionContent = ((AVIMTextMessage *)message).text;
-            } else if ([message isKindOfClass:[AVIMAudioMessage class]]) {
-                homeworkSession.lastSessionContent = @"[音频]";
-            } else if ([message isKindOfClass:[AVIMVideoMessage class]]) {
-                homeworkSession.lastSessionContent = @"[视频]";
-            } else if ([message isKindOfClass:[AVIMImageMessage class]]) {
-                homeworkSession.lastSessionContent = @"[图片]";
-            }
-            
-#if TEACHERSIDE
-            homeworkSession.shouldColorLastSessionContent = message.ioType == AVIMMessageIOTypeOut;
-#else
-            homeworkSession.shouldColorLastSessionContent = message.ioType == AVIMMessageIOTypeIn;
-#endif
-            
-            if (APP.currentIMHomeworkSessionId ==0 || APP.currentIMHomeworkSessionId != homeworkSession.homeworkSessionId) {
-                // homeworkSession.unreadMessageCount++;
-            }
-            
-            if (homeworkSession.conversation.lastMessageAt != nil) {
-                homeworkSession.sortTime = [homeworkSession.conversation.lastMessageAt timeIntervalSince1970]*1000;
-            } else {
-                //                if (homeworkSession.updateTime == 0) {
-                //                    homeworkSession.sortTime = [[NSDate date] timeIntervalSince1970] * 1000;
-                //                } else {
-                homeworkSession.sortTime = homeworkSession.updateTime;
-                //                }
-            }
-            
+            [self.homeworkSessions insertObject:homeworkSession atIndex:0];
+            [self loadConversations];
+            bExit = YES;
             break;
         }
     }
     
-    if (session != nil) {
-        if (attributes[@"score"] == nil) {
-            [self.homeworkSessionsTableView reloadData];
-        }
-    } else {
-        if (attributes[@"score"] == nil && !self.bLoadConversion) {
-            [HomeworkSessionService requestHomeworkSessionWithId:homeworkSessionId callback:^(Result *result, NSError *error) {
+    if (!bExit) {
+        
+        if (attributes[@"score"] == nil  && self.bLoadConversion) {
+            // 会话消息不存在
+            [HomeworkSessionService requestHomeworkSessionWithId:homeworkSessionId.integerValue callback:^(Result *result, NSError *error) {
                 if (error != nil) {
                     return;
                 }
-                
                 HomeworkSession *session = (HomeworkSession *)(result.userInfo);
-                BOOL exists = NO;
-                for (HomeworkSession *s in self.homeworkSessions) {
-                    if (s.homeworkSessionId == session.homeworkSessionId) {
-                        exists = YES;
-                        break;
-                    }
-                }
-                
-                if (!exists) {
-                    if (messageConversation.lastMessageAt != nil) {
-                        session.sortTime = [messageConversation.lastMessageAt timeIntervalSince1970] * 1000;
-                    } else {
-                        session.sortTime = session.updateTime;
-                    }
-                    
-                    
-                    AVIMMessage *message = messageConversation.lastMessage;
-                    if ([message isKindOfClass:[AVIMTextMessage class]]) {
-                        session.lastSessionContent = ((AVIMTextMessage *)message).text;
-                    } else if ([message isKindOfClass:[AVIMAudioMessage class]]) {
-                        session.lastSessionContent = @"[音频]";
-                    } else if ([message isKindOfClass:[AVIMVideoMessage class]]) {
-                        session.lastSessionContent = @"[视频]";
-                    } else if ([message isKindOfClass:[AVIMImageMessage class]]) {
-                        session.lastSessionContent = @"[图片]";
-                    }
-                    
-#if TEACHERSIDE
-                    session.shouldColorLastSessionContent = message.ioType == AVIMMessageIOTypeOut;
-#else
-                    session.shouldColorLastSessionContent = message.ioType == AVIMMessageIOTypeIn;
-#endif
-                    
-                    [self.homeworkSessions addObject:session];
-                    [self.view hideAllStateView];
-                    self.homeworkSessionsTableView.hidden = NO;
-                    [self.homeworkSessionsTableView reloadData];
-                }
+                [self.homeworkSessions insertObject:session atIndex:0];
+                [self loadConversations];
             }];
         }
     }
