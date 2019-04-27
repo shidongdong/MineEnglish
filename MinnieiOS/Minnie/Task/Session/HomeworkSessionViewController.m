@@ -910,7 +910,11 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 - (void)sendTextMessage:(NSString *)text {
-    [self sendTextMessage:text attributes:nil];
+  
+    if (text.length > 0) {
+        
+        [self sendTextMessage:text attributes:nil];
+    }
 }
 
 - (void)sendTextMessage:(NSString *)text attributes:(NSDictionary *)attributes {
@@ -1832,14 +1836,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     }];
     [weakSelf.navigationController presentViewController:editVC animated:YES completion:nil];
     
-    
-//    self.photoBrowser = [[NEPhotoBrowser alloc] init];
-//    self.photoBrowser.delegate = self;
-//    self.photoBrowser.dataSource = self;
-//    self.photoBrowser.clickedImageIndex = index;
-//
-//    [self.photoBrowser showInContext:self.navigationController];
-    
     self.dontScrollWhenAppeard = YES;
 }
 
@@ -1858,7 +1854,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         [self sendTextMessage:textView.text];
         return NO;
     }
-    
     return YES;
 }
 
