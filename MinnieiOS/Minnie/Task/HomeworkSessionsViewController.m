@@ -853,6 +853,7 @@
                             }];
     } else {
         [self.view hideAllStateView];
+        self.homeworkSessionsTableView.hidden = NO;
     }
     
     [self.homeworkSessionsTableView reloadData];
