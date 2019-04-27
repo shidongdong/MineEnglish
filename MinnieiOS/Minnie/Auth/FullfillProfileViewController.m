@@ -101,10 +101,16 @@
 
 - (IBAction)changeGenderButtonPressed:(id)sender {
     [self.nameTextField resignFirstResponder];
-    
+    // 适配ipad版本
+    UIAlertControllerStyle alertStyle;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        alertStyle = UIAlertControllerStyleActionSheet;
+    } else {
+        alertStyle = UIAlertControllerStyleAlert;
+    }
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil
                                                                      message:nil
-                                                              preferredStyle:UIAlertControllerStyleActionSheet];
+                                                              preferredStyle:alertStyle];
     UIAlertAction *maleAction = [UIAlertAction actionWithTitle:@"男"
                                                          style:UIAlertActionStyleDefault
                                                        handler:^(UIAlertAction * _Nonnull action) {
@@ -127,10 +133,16 @@
 
 - (IBAction)changeGradeButtonPressed:(id)sender {
     [self.nameTextField resignFirstResponder];
-    
+    // 适配ipad版本
+    UIAlertControllerStyle alertStyle;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        alertStyle = UIAlertControllerStyleActionSheet;
+    } else {
+        alertStyle = UIAlertControllerStyleAlert;
+    }
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil
                                                                      message:nil
-                                                              preferredStyle:UIAlertControllerStyleActionSheet];
+                                                              preferredStyle:alertStyle];
     UIAlertAction *action0 = [UIAlertAction actionWithTitle:@"学前"
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction * _Nonnull action) {

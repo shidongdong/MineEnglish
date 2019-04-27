@@ -177,10 +177,16 @@ static CGFloat answerItemMargin = 5;
 - (void)resourceLoaderManagerLoadURL:(NSURL *)url didFailWithError:(NSError *)error
 {
     [VICacheManager cleanCacheForURL:url error:nil];
-    
+    // 适配ipad版本
+    UIAlertControllerStyle alertStyle;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        alertStyle = UIAlertControllerStyleActionSheet;
+    } else {
+        alertStyle = UIAlertControllerStyleAlert;
+    }
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil
                                                                      message:@"播放失败"
-                                                              preferredStyle:UIAlertControllerStyleActionSheet];
+                                                              preferredStyle:alertStyle];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确定"
                                                            style:UIAlertActionStyleCancel
                                                          handler:^(UIAlertAction * _Nonnull action) {

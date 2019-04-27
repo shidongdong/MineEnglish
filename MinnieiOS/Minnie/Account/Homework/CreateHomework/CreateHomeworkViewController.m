@@ -229,9 +229,16 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
 }
 
 - (void)handleAddItem {
+    // 适配ipad版本
+    UIAlertControllerStyle alertStyle;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        alertStyle = UIAlertControllerStyleActionSheet;
+    } else {
+        alertStyle = UIAlertControllerStyleAlert;
+    }
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"选择作业材料类型"
                                                                      message:nil
-                                                              preferredStyle:UIAlertControllerStyleActionSheet];
+                                                              preferredStyle:alertStyle];
     
     UIAlertAction * fileAction = [UIAlertAction actionWithTitle:@"文件"
                                                           style:UIAlertActionStyleDefault
@@ -308,9 +315,16 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
 }
 
 - (void)handleAddAnswerItem {
+    // 适配ipad版本
+    UIAlertControllerStyle alertStyle;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        alertStyle = UIAlertControllerStyleActionSheet;
+    } else {
+        alertStyle = UIAlertControllerStyleAlert;
+    }
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"选择作业答案类型"
                                                                      message:nil
-                                                              preferredStyle:UIAlertControllerStyleActionSheet];
+                                                              preferredStyle:alertStyle];
     
     UIAlertAction * fileAction = [UIAlertAction actionWithTitle:@"文件"
                                                           style:UIAlertActionStyleDefault

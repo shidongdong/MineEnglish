@@ -426,10 +426,16 @@
 
 - (void)deleteButtonPressed:(CircleHomework *)homework {
     self.currentHomework = homework;
-    
+    // 适配ipad版本
+    UIAlertControllerStyle alertStyle;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        alertStyle = UIAlertControllerStyleActionSheet;
+    } else {
+        alertStyle = UIAlertControllerStyleAlert;
+    }
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"删除这条同学圈?"
                                                                      message:nil
-                                                              preferredStyle:UIAlertControllerStyleActionSheet];
+                                                              preferredStyle:alertStyle];
     UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"删除"
                                                            style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * _Nonnull action) {
@@ -515,9 +521,16 @@
     self.currentHomework = homework;
     
     if (comment.user.userId == APP.currentUser.userId) {
+        // 适配ipad版本
+        UIAlertControllerStyle alertStyle;
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+            alertStyle = UIAlertControllerStyleActionSheet;
+        } else {
+            alertStyle = UIAlertControllerStyleAlert;
+        }
         UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil
                                                                          message:nil
-                                                                  preferredStyle:UIAlertControllerStyleActionSheet];
+                                                                  preferredStyle:alertStyle];
         UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"删除"
                                                                style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * _Nonnull action) {

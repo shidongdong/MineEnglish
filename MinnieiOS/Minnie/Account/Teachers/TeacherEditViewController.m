@@ -100,9 +100,16 @@
 
 // 教师类型
 - (IBAction)typeButtonPressed:(id)sender {
+    // 适配ipad版本
+    UIAlertControllerStyle alertStyle;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        alertStyle = UIAlertControllerStyleActionSheet;
+    } else {
+        alertStyle = UIAlertControllerStyleAlert;
+    }
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"选择教师类型"
                                                                      message:nil
-                                                              preferredStyle:UIAlertControllerStyleActionSheet];
+                                                              preferredStyle:alertStyle];
     UIAlertAction *teacherAction = [UIAlertAction actionWithTitle:@"教师"
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * _Nonnull action) {
@@ -130,9 +137,16 @@
 }
 
 - (IBAction)authorityButtonPressed:(id)sender {
+    // 适配ipad版本
+    UIAlertControllerStyle alertStyle;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        alertStyle = UIAlertControllerStyleActionSheet;
+    } else {
+        alertStyle = UIAlertControllerStyleAlert;
+    }
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"选择教师权限"
                                                                      message:nil
-                                                              preferredStyle:UIAlertControllerStyleActionSheet];
+                                                              preferredStyle:alertStyle];
     UIAlertAction *superManagerAction = [UIAlertAction actionWithTitle:@"超级管理员"
                                                                  style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction * _Nonnull action) {

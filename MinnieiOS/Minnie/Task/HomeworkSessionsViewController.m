@@ -521,12 +521,12 @@
 }
 
 - (void)lastMessageDidChange:(NSNotification *)notification {
+   
     if (!self.isUnfinished) {
         return ;
     }
     AVIMMessage *message = (AVIMMessage *)(notification.userInfo)[@"message"];
     [self reloadTableViewForNewMessage:message];
-    
 }
 
 
@@ -541,7 +541,6 @@
         } else {
             [self requestHomeworkSessions];
         }
-        
         return ;
     }
 #endif
