@@ -89,41 +89,11 @@
     } else {
         if (self.shouldReloadTableWhenAppeard) {
             self.shouldReloadTableWhenAppeard = NO;
-            
-            if (self.homeworkSessions.count == 0) {
-                UIImage *image = self.isUnfinished?[UIImage imageNamed:@"缺省插画_无作业"]:nil;
-                NSString *text = nil;
-                
-#if TEACHERSIDE
-                if (self.isUnfinished)
-                {
-                    text = self.bLoadConversion? @"好棒！所有作业都批改完了！":@"还有没作业的提交~";
-                }
-                else
-                {
-                    text = @"还没有批改过的作业~";
-                }
-#else
-                text = self.isUnfinished?@"好棒！所有作业都完成了！\n去同学圈看看大家做得怎么样":@"还没有完成过作业";
-#endif
-                
-                WeakifySelf;
-                [self.view showEmptyViewWithImage:image
-                                            title:text
-                                    centerYOffset:0
-                                        linkTitle:nil
-                                linkClickCallback:nil
-                                    retryCallback:^{
-                                        [weakSelf requestHomeworkSessions];
-                                    }];
-            } else {
-                [self.view hideAllStateView];
-            }
-
-            [self.homeworkSessionsTableView reloadData];
+            [self updateUI];
         }
     }
 }
+
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -359,27 +329,6 @@
         NSLog(@" ======= 会话数:%@ 耗时%.fms", @(conversations.count), [[NSDate date] timeIntervalSinceDate:startTime]*1000);
     }];
 }
-#pragma mark 单个作业会话内容查询
-- (void)querySingleConversationsWithHomeworkId:(NSString *)homeworkSessionId callback:(void (^)(NSArray<AVIMConversation *> * _Nullable, NSError * _Nullable))callback{
-    
-    NSDate *startTime = [NSDate date];
-    AVIMClient *client = [IMManager sharedManager].client;
-    AVIMConversationQuery *conversation = [client conversationQuery];
-    [conversation whereKey:@"name" equalTo:homeworkSessionId];
-    // 缓存 先走网络查询，发生网络错误的时候，再从本地查询
-    conversation.cachePolicy = kAVIMCachePolicyCacheElseNetwork;
-    // 设置查询选项，指定返回对话的最后一条消息
-    conversation.option = AVIMConversationQueryOptionWithMessage;
-    // 每条作业 homeworkSessionId唯一 限制查询数量，减少耗时
-    conversation.limit = 1;
-    // 查询
-    [conversation findConversationsWithCallback:^(NSArray<AVIMConversation *> * _Nullable conversations, NSError * _Nullable error) {
-        if (error) return ;
-        callback(conversations,error);
-        NSLog(@"querySingleConversationsWithHomework 会话数:%@ 耗时%.fms", @(conversations.count), [[NSDate date] timeIntervalSinceDate:startTime]*1000);
-    }];
-}
-
 - (void)reloadForDoubleTabClick
 {
     if (self.homeworkSessions.count > 0) {
@@ -433,7 +382,7 @@
         }
     }
     self.homeworkSessions = [self handleRepeat:self.homeworkSessions];
-    [self.homeworkSessionsTableView reloadData];
+    [self updateUI];
 }
 
 // 消息去重
@@ -871,6 +820,42 @@
     vc.homeworkSession = session;
     [vc setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - 更新UI
+- (void)updateUI{
+    
+    if (self.homeworkSessions.count == 0) {
+        UIImage *image = self.isUnfinished?[UIImage imageNamed:@"缺省插画_无作业"]:nil;
+        NSString *text = nil;
+        
+#if TEACHERSIDE
+        if (self.isUnfinished)
+        {
+            text = self.bLoadConversion? @"好棒！所有作业都批改完了！":@"还有没作业的提交~";
+        }
+        else
+        {
+            text = @"还没有批改过的作业~";
+        }
+#else
+        text = self.isUnfinished?@"好棒！所有作业都完成了！\n去同学圈看看大家做得怎么样":@"还没有完成过作业";
+#endif
+        
+        WeakifySelf;
+        [self.view showEmptyViewWithImage:image
+                                    title:text
+                            centerYOffset:0
+                                linkTitle:nil
+                        linkClickCallback:nil
+                            retryCallback:^{
+                                [weakSelf requestHomeworkSessions];
+                            }];
+    } else {
+        [self.view hideAllStateView];
+    }
+    
+    [self.homeworkSessionsTableView reloadData];
 }
 
 @end
