@@ -172,8 +172,6 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:appinfo.appUrl] options:@{} completionHandler:nil];
         //  [APP openURL:];
     }]];
-    
-    
     [self presentViewController:alertController animated:YES completion:^{
         
     }];
@@ -488,6 +486,25 @@
     }
     
     [self updateSegmentControlWhenScrollEnded];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+#if TEACHERSIDE
+    if (scrollView.contentOffset.x >= ScreenWidth * 2) {
+        [scrollView setContentOffset:CGPointMake(ScreenWidth *2, 0) animated:YES];
+        [self updateSegmentControlWhenScrollEnded];
+    }
+#else
+#endif
+}
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+#if TEACHERSIDE
+    if (scrollView.contentOffset.x >= ScreenWidth * 2) {
+        [scrollView setContentOffset:CGPointMake(ScreenWidth *2, 0) animated:YES];
+        [self updateSegmentControlWhenScrollEnded];
+    }
+#else
+#endif
 }
 
 @end
