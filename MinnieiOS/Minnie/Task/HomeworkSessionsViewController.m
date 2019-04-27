@@ -328,7 +328,7 @@
 
 - (void)loadConversations {
    
-    if (!self.isUnfinished) {
+    if (!self.homeworkSessions) {
         return;
     }
     NSDate *startTime = [NSDate date];
@@ -644,10 +644,10 @@
         self.homeworkSessionsTableView.hidden = YES;
     }
     
-    if (self.isUnfinished &&
-        [IMManager sharedManager].client.status==AVIMClientStatusOpened) {
-        [self loadConversations];
-    }
+//    if (self.isUnfinished &&
+//        [IMManager sharedManager].client.status==AVIMClientStatusOpened) {
+//        [self loadConversations];
+//    }
     
     WeakifySelf;
     
@@ -773,7 +773,8 @@
             
             [self.homeworkSessions addObjectsFromArray:sessions];
         }
-        [self mergeAndReload];
+        [self loadConversations];
+//        [self mergeAndReload];
         
         if (nextUrl.length == 0) {
             [self.homeworkSessionsTableView removeFooter];
@@ -804,7 +805,8 @@
             self.homeworkSessionsTableView.hidden = NO;
             
             [self.homeworkSessions addObjectsFromArray:homeworkSessions];
-            [self mergeAndReload];
+            [self loadConversations];
+//            [self mergeAndReload];
             
             [self.homeworkSessionsTableView addPullToRefreshWithTarget:self
                                                       refreshingAction:@selector(requestHomeworkSessions)];
@@ -818,10 +820,10 @@
                 [self.homeworkSessionsTableView removeFooter];
             }
             
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.homeworkSessionsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-            });
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                [self.homeworkSessionsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+//            });
             
             
         } else {
