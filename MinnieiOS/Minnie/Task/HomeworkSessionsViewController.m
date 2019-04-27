@@ -23,18 +23,18 @@
 }
 @property (nonatomic, weak) IBOutlet UITableView *homeworkSessionsTableView;
 
+// 作业会话请求
 @property (nonatomic, strong) BaseRequest *homeworkSessionsRequest;
-
+// 作业会话列表
 @property (nonatomic, strong) NSMutableArray <HomeworkSession *> *homeworkSessions;
 @property (nonatomic, strong) NSString *nextUrl;
 
 @property (nonatomic, assign) BOOL shouldReloadWhenAppeard;
 @property (nonatomic, assign) BOOL shouldReloadTableWhenAppeard;
-
+// 查询会话列表
 @property (nonatomic, strong) NSArray *queriedConversations;
-
-@property (nonatomic, strong) NSString * searchFilterName;   //名字搜索条件 只有在搜索也使用
-
+//名字搜索条件 只有在搜索页使用
+@property (nonatomic, strong) NSString * searchFilterName;
 //目前只有学生端处理
 @property (nonatomic, strong) NSMutableArray * unReadHomeworkSessions;
 @property (nonatomic, strong) NSMutableArray * noHandleNotications;
@@ -59,24 +59,6 @@
     self.noHandleNotications = [[NSMutableArray alloc] init];
     //先读出缓存中的数据
     [self.homeworkSessions removeAllObjects];
-//   缓存无效 建议后期再考虑
-//    if (self.isUnfinished)
-//    {
-//        if (self.bLoadConversion)
-//        {
-//            [self.homeworkSessions addObjectsFromArray:APP.unfinishHomeworkSessionList];
-//        }
-//        else
-//        {
-//            [self.homeworkSessions addObjectsFromArray:APP.unCommitHomeworkSessionList];
-//        }
-//    }
-//    else
-//    {
-//        [self.homeworkSessions addObjectsFromArray:APP.finishHomeworkSessionList];
-//    }
-    
-    
     [self registerCellNibs];
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 12.f)];
@@ -92,8 +74,6 @@
     [self addNotificationObservers];
     
 }
-
-
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -342,37 +322,41 @@
         if (!success) {
             return;
         }
-        
         [self loadConversations];
     }];
 }
 
 - (void)loadConversations {
+   
     if (!self.isUnfinished) {
         return;
     }
-    
     NSDate *startTime = [NSDate date];
-    
     AVIMClient *client = [IMManager sharedManager].client;
-    
-    AVIMConversationQuery *query1 = [client conversationQuery];
-    [query1 whereKey:@"taskfinished" equalTo:@(NO)];
-    
-    AVIMConversationQuery *query2 = [client conversationQuery];
-    [query2 whereKeyDoesNotExist:@"taskfinished"];
-    
-    AVIMConversationQuery *query = [AVIMConversationQuery orQueryWithSubqueries:@[query1,query2]];
-    
-    query.cachePolicy = kAVIMCachePolicyNetworkElseCache;
-    query.option = AVIMConversationQueryOptionWithMessage;
-    query.limit = 1000;
-    
-    [query findConversationsWithCallback:^(NSArray * conversations, NSError *error) {
-        NSLog(@"会话数:%@ 耗时%.fms", @(conversations.count), [[NSDate date] timeIntervalSinceDate:startTime]*1000);
-        
-        self.queriedConversations = conversations;
-        [self mergeAndReload];
+    NSMutableArray *queryArr = [NSMutableArray array];
+    NSArray *homeworkSessions = self.homeworkSessions;
+    for (HomeworkSession *homeworkSession in homeworkSessions) {
+        NSString *name = [NSString stringWithFormat:@"%ld",(long)homeworkSession.homeworkSessionId];
+        AVIMConversationQuery *query = [client conversationQuery];
+        [query whereKey:@"name" equalTo:name];
+        [queryArr addObject:query];
+    }
+    // 通过组合的方式，根据唯一homeworkSessionId，查询指定作业的消息会话内容，明确会话数量，减少耗时
+    AVIMConversationQuery *conversation = [AVIMConversationQuery orQueryWithSubqueries:queryArr];
+    // 缓存 先走网络查询，发生网络错误的时候，再从本地查询
+    conversation.cachePolicy = kAVIMCachePolicyCacheElseNetwork;
+    // 设置查询选项，指定返回对话的最后一条消息
+    conversation.option = AVIMConversationQueryOptionWithMessage;
+    // 每条作业 homeworkSessionId唯一 限制查询数量，减少耗时
+    conversation.limit = homeworkSessions.count;
+    [conversation findConversationsWithCallback:^(NSArray<AVIMConversation *> * _Nullable conversations, NSError * _Nullable error) {
+        if (error) return ;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            self.queriedConversations = conversations;
+            [self mergeAndReload];
+        });
+        NSLog(@" ======= 会话数:%@ 耗时%.fms", @(conversations.count), [[NSDate date] timeIntervalSinceDate:startTime]*1000);
     }];
 }
 
@@ -782,7 +766,6 @@
                         break;
                     }
                 }
-                
                 if (!exists) {
                     [sessions addObject:session];
                 }
