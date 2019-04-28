@@ -158,6 +158,7 @@
         
         [profileCell.avatarImageView sd_setImageWithURL:[APP.currentUser.avatarUrl imageURLWithWidth:64.f]];
         [profileCell.nicknameLabel setText:APP.currentUser.nickname];
+        [profileCell.classButton setTitle:APP.currentUser.clazz.name forState:UIControlStateNormal];
         
         cell = profileCell;
     } else if (indexPath.row == 1) {

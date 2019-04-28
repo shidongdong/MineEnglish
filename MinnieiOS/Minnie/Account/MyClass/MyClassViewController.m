@@ -75,13 +75,14 @@
                                                     }
                                                     
                                                     Clazz *cls = (Clazz *)(result.userInfo);
+                                                    strongSelf.customTitleLabel.text = cls.name;
                                                     if (cls.classId == 0) {
                                                         [strongSelf.containerView showFailureViewWithRetryCallback:^{
                                                             [strongSelf requestData];
                                                         }];
                                                     } else {
                                                         strongSelf.Clazz = cls;
-                                                        
+                                                    
                                                         [strongSelf.containerView hideAllStateView];
                                                         strongSelf.studentsCollectionView.hidden = NO;
                                                         [strongSelf.studentsCollectionView reloadData];
