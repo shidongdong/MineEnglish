@@ -45,6 +45,10 @@ CGFloat const CorrectHomeworkCommentTableViewCellHeight = 120.f;
         [self.mTextView resignFirstResponder];
         return NO;
     }
+    if (self.commentCallback)
+    {
+        self.commentCallback(textView.text);
+    }
     return YES;
 }
 

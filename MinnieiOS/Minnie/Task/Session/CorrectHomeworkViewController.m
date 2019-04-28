@@ -240,10 +240,12 @@
         
         WeakifySelf;
         [addCommentCell setSelectCallback:^(NSString *tag) {
-            weakSelf.commentText = tag;
+            
+            NSString *commentText = [NSString stringWithFormat:@"%@  %@",(weakSelf.commentText.length == 0 ? @"": weakSelf.commentText),tag];
+            weakSelf.commentText = commentText;
             
             CorrectHomeworkCommentTableViewCell * commentCell = (CorrectHomeworkCommentTableViewCell *)[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-            [commentCell setupCommentInfo:tag];
+            [commentCell setupCommentInfo:commentText];
         }];
         
         [addCommentCell setManageCallback:^{
