@@ -6,11 +6,14 @@
 //  Copyright © 2018年 minnieedu. All rights reserved.
 //
 
-#import "StudentStarListViewController.h"
-#import "StudentStarListTableViewCell.h"
-#import "StudentAwardService.h"
 #import "StarRank.h"
 #import "UIView+Load.h"
+#import "StudentAwardService.h"
+#import "StudentStarListViewController.h"
+#import "StudentStarListTableViewCell.h"
+#import "StudentStarRecordViewController.h"
+
+
 NSString * const StudentStarListTableViewCellId = @"StudentStarListTableViewCellId";
 
 @interface StudentStarListViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -29,7 +32,34 @@ NSString * const StudentStarListTableViewCellId = @"StudentStarListTableViewCell
     [self registerCellNibs];
     
     [self requestStarList];
+    [self footerView];
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)footerView{
+    
+    UIButton *startListBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [startListBtn setTitle:@"星星账单" forState: UIControlStateNormal];
+    startListBtn.layer.masksToBounds = YES;
+    startListBtn.layer.cornerRadius = 12.0;
+    startListBtn.frame = CGRectMake(ScreenWidth/2.0 - 90, 20, 180, 44.0);
+//    startListBtn.layer.borderWidth = 1.0;
+//    startListBtn.layer.backgroundColor = [UIColor blackColor].CGColor;
+    
+    [startListBtn setBackgroundColor:[UIColor colorWithHex:0X62C93D]];
+    [startListBtn addTarget:self action:@selector(starListBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 64.0)];
+    [footerView addSubview:startListBtn];
+    footerView.backgroundColor = [UIColor clearColor];
+    self.mTableView.tableFooterView = footerView;
+}
+
+- (void)starListBtnClicked:(UIButton *)btn{
+    
+    StudentStarRecordViewController * statRecordVC = [[StudentStarRecordViewController alloc] initWithNibName:NSStringFromClass([StudentStarRecordViewController class]) bundle:nil];
+    [self setHidesBottomBarWhenPushed:YES];
+    [self.navigationController pushViewController:statRecordVC animated:YES];
 }
 - (IBAction)backAction:(UIButton *)sender {
     
