@@ -17,6 +17,8 @@ NSString * const CircleAndStarTableViewCellId = @"CircleAndStarTableViewCellId";
 @property (nonatomic, weak) IBOutlet UIView *containerView;
 @property (nonatomic, weak) IBOutlet UIImageView *classmateImageView;
 @property (nonatomic, weak) IBOutlet UIImageView *starImageView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sizeLabel;
 
 @property (nonatomic, weak) IBOutlet UILabel *classmateUpdateCountLabel;
 @property (nonatomic, weak) IBOutlet UILabel *starCountLabel;
@@ -55,11 +57,28 @@ NSString * const CircleAndStarTableViewCellId = @"CircleAndStarTableViewCellId";
 }
 
 - (void)update {
+    
     self.classmateUpdateCountLabel.text = [NSString stringWithFormat:@"%@更新", @(APP.currentUser.circleUpdate)];
     self.starCountLabel.text = [NSString stringWithFormat:@"%@", @(APP.currentUser.starCount)];
-
     self.classmateUpdateCountLabel.hidden = APP.currentUser.circleUpdate==0;
     self.starCountLabel.hidden = APP.currentUser.starCount==0;
+}
+
+- (void)updateTitle:(NSString *)title image:(NSString *)image{
+    
+//    self.starImageView.image = [UIImage imageNamed:image];
+    if ([title isEqualToString:@"星兑换"]) {
+
+        self.titleLabel.text = title;
+        self.sizeLabel.hidden = NO;
+        self.starCountLabel.hidden = APP.currentUser.starCount==0;
+        self.starCountLabel.text = [NSString stringWithFormat:@"%@", @(APP.currentUser.starCount)];
+    } else {
+        
+        self.starCountLabel.hidden = YES;
+        self.sizeLabel.hidden = YES;
+        self.titleLabel.text = title;
+    }
 }
 
 @end

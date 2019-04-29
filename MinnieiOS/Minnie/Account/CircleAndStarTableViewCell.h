@@ -21,4 +21,6 @@ extern NSString * const CircleAndStarTableViewCellId;
 
 - (void)update;
 
+- (void)updateTitle:(NSString *)title image:(NSString *)image;
+
 @end

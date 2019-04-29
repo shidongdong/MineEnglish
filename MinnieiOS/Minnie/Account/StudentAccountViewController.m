@@ -22,6 +22,8 @@
 #import "MessageService.h"
 #import "StudentService.h"
 #import "IMManager.h"
+#import "StudentStarListViewController.h"
+
 @interface StudentAccountViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *accountTableView;
@@ -38,16 +40,12 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(profileDidUpdate:) name:kNotificationKeyOfProfileUpdated object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(homeworkSessionUpdate:) name:kIMManagerContentMessageDidReceiveNotification object:nil];
-    
     
     self.redPointImageView.layer.cornerRadius = 4.f;
     self.redPointImageView.layer.masksToBounds = YES;
     self.redPointImageView.hidden = YES;
 }
-
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -68,7 +66,7 @@
             NSDictionary *userInfo = (NSDictionary *)(result.userInfo);
             NSInteger count = [userInfo[@"count"] integerValue];
             APP.currentUser.circleUpdate = count;
-            [strongSelf.circleAndStarCell update];
+//            [strongSelf.circleAndStarCell update];
         }
     }];
     
@@ -107,6 +105,7 @@
     [self.accountTableView reloadData];
 }
 
+
 #pragma mark - IBActions
 
 - (IBAction)messagesButtonPressed:(id)sender {
@@ -124,7 +123,7 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -171,7 +170,7 @@
         [goodworkCell update];
         
         cell = goodworkCell;
-    } else if (indexPath.row == 2) {
+    } else if (indexPath.row == 2) { // 星兑换
         CircleAndStarTableViewCell *circleAndStarCell = [tableView dequeueReusableCellWithIdentifier:GoodWorkTableViewCellId];
         if (circleAndStarCell == nil) {
             circleAndStarCell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([CircleAndStarTableViewCell class]) owner:nil options:nil] lastObject];
@@ -180,21 +179,33 @@
         circleAndStarCell.circleClickCallback = ^{
             CircleHomeworksViewController *circleVC = [[CircleHomeworksViewController alloc] initWithNibName:@"CircleHomeworksViewController" bundle:nil];
             circleVC.clazz = APP.currentUser.clazz;
-            
             [circleVC setHidesBottomBarWhenPushed:YES];
             [self.navigationController pushViewController:circleVC animated:YES];
         };
         
         circleAndStarCell.starClickCallback = ^{
+            
             StudentAwardsViewController *awardsVC = [[StudentAwardsViewController alloc] initWithNibName:NSStringFromClass([StudentAwardsViewController class]) bundle:nil];
             [awardsVC setHidesBottomBarWhenPushed:YES];
             [weakSelf.navigationController pushViewController:awardsVC animated:YES];
         };
         
-        [circleAndStarCell update];
-        
+        [circleAndStarCell updateTitle:@"星兑换" image:@""];
         cell = circleAndStarCell;
+        self.circleAndStarCell = circleAndStarCell;
+    } else { // 星星排行榜
+        CircleAndStarTableViewCell *circleAndStarCell = [tableView dequeueReusableCellWithIdentifier:GoodWorkTableViewCellId];
+        if (circleAndStarCell == nil) {
+            circleAndStarCell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([CircleAndStarTableViewCell class]) owner:nil options:nil] lastObject];
+        }
         
+        circleAndStarCell.starClickCallback = ^{
+            StudentStarListViewController *awardsVC = [[StudentStarListViewController alloc] initWithNibName:NSStringFromClass([StudentStarListViewController class]) bundle:nil];
+            [awardsVC setHidesBottomBarWhenPushed:YES];
+            [weakSelf.navigationController pushViewController:awardsVC animated:YES];
+        };
+        [circleAndStarCell updateTitle:@"星星排行榜" image:@""];
+        cell = circleAndStarCell;
         self.circleAndStarCell = circleAndStarCell;
     }
     
@@ -210,12 +221,10 @@
         height = ProfileTableViewCellHeight;
     } else if (indexPath.row == 1) {
         height = GoodWorkTableViewCellHeight;
-    } else if (indexPath.row == 2) {
+    } else {
         height = CircleAndStarTableViewCellHeight;
     }
-    
     return height;
 }
-
 @end
 
