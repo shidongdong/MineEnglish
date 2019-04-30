@@ -1,5 +1,5 @@
 //
-//  SelectTeacherView.m
+//  EnrollTrialClassView.h
 //  X5Teacher
 //
 //  Created by yebw on 2018/1/7.

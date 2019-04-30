@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^SelectTeacherViewSendCallback)(NSInteger teacherId, NSDate *sendDate);
+typedef void(^SelectTeacherViewSendCallback)(Teacher *teacher, NSDate *sendDate);
 
 @interface SelectTeacherView : UIView
 

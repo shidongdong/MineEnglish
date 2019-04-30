@@ -43,8 +43,6 @@ NSString * const StudentStarListTableViewCellId = @"StudentStarListTableViewCell
     startListBtn.layer.masksToBounds = YES;
     startListBtn.layer.cornerRadius = 12.0;
     startListBtn.frame = CGRectMake(ScreenWidth/2.0 - 90, 20, 180, 44.0);
-//    startListBtn.layer.borderWidth = 1.0;
-//    startListBtn.layer.backgroundColor = [UIColor blackColor].CGColor;
     
     [startListBtn setBackgroundColor:[UIColor colorWithHex:0X62C93D]];
     [startListBtn addTarget:self action:@selector(starListBtnClicked:) forControlEvents:UIControlEventTouchUpInside];

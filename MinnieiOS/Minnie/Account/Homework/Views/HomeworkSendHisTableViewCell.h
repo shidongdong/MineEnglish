@@ -12,6 +12,8 @@ extern NSString * const HomeworkSendHisTableViewCellId;
 
 @interface HomeworkSendHisTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIView *lineView;
+
 + (CGFloat)calculateCellHightForData:(HomeworkSendLog *)data;
 
 - (void)setContentData:(HomeworkSendLog *)data;

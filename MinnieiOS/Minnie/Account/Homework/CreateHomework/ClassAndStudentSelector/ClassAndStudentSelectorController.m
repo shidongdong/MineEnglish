@@ -16,6 +16,7 @@
 #import "HomeworkService.h"
 #import <Masonry/Masonry.h>
 #import "PushManager.h"
+#import "HomeworkConfirmViewController.h"
 
 @interface ClassAndStudentSelectorController ()
 
@@ -40,6 +41,12 @@
 @end
 
 @implementation ClassAndStudentSelectorController
+
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -102,9 +109,17 @@
     WeakifySelf;
     [SelectTeacherView showInSuperView:self.view
                               teachers:self.teachers
-                              callback:^(NSInteger teacherId, NSDate *date) {
+                              callback:^(Teacher *teacher, NSDate *date) {
+                                
                                   [SelectTeacherView hideAnimated:NO];
-                                  [weakSelf sendHomeworkWithTeacherId:teacherId date:date];
+//                                  [weakSelf sendHomeworkWithTeacher:teacher date:date];
+                                  
+                                  HomeworkConfirmViewController *vc = [[HomeworkConfirmViewController alloc] init];
+                                  vc.classes = weakSelf.classSelectorChildController.selectedClasses;
+                                  vc.homeworks = weakSelf.homeworks;
+                                  vc.students = weakSelf.studentSelectorChildController.selectedStudents;
+                                  vc.teacher = teacher;
+                                  [weakSelf.navigationController presentViewController:vc animated:YES completion:nil];
                               }];
 }
 
@@ -123,7 +138,7 @@
     }];
 }
 
-- (void)sendHomeworkWithTeacherId:(NSInteger)teacherId date:(NSDate *)date {
+- (void)sendHomeworkWithTeacher:(Teacher *)teacher date:(NSDate *)date {
     [HUD showProgressWithMessage:@"正在发送作业"];
     
     NSMutableArray *homeworkIds = [NSMutableArray array];
@@ -144,7 +159,7 @@
     [HomeworkService sendHomeworkIds:homeworkIds
                             classIds:classIds
                           studentIds:studentIds
-                           teacherId:teacherId
+                           teacherId:teacher.userId
                                 date:date
                             callback:^(Result *result, NSError *error) {
                                 if (error != nil) {

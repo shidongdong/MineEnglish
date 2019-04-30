@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -33,7 +32,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v8W-aH-lfW">
-                        <rect key="frame" x="0.0" y="124" width="376" height="1"/>
+                        <rect key="frame" x="0.0" y="124" width="376" height="0.5"/>
                         <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="2Un-ID-hYd"/>
@@ -98,6 +97,7 @@
             <connections>
                 <outlet property="containerView" destination="Z2T-ne-EnZ" id="fRU-xC-XVU"/>
                 <outlet property="homeworkTitleLabel" destination="deE-ei-UHV" id="Ade-m3-KI5"/>
+                <outlet property="lineView" destination="v8W-aH-lfW" id="9oZ-ze-Vmy"/>
                 <outlet property="studentLabel" destination="CdP-GI-Vwu" id="Mkv-Ig-NKf"/>
                 <outlet property="teacherLabel" destination="Jtn-HO-Kla" id="mMa-dJ-dXU"/>
                 <outlet property="timeLabel" destination="1dB-4q-PG8" id="dFa-Oc-C1C"/>

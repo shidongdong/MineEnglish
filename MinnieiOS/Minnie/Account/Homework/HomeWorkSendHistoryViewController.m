@@ -178,6 +178,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HomeworkSendHisTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:HomeworkSendHisTableViewCellId forIndexPath:indexPath];
+    cell.lineView.hidden = NO;
     HomeworkSendLog * data = [self.homeworks objectAtIndex:indexPath.row];
     [cell setContentData:data];
     

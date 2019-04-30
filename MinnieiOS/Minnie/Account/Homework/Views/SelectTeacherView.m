@@ -27,7 +27,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *dateLabel;
 
 @property (nonatomic, strong) NSArray *teachers;
-@property (nonatomic, assign) NSInteger selectedTeacherId;
+@property (nonatomic, strong) Teacher *selectedTeacher;
 
 @property (nonatomic, copy) SelectTeacherViewSendCallback confirmCallback;
 
@@ -154,19 +154,20 @@
 }
 
 - (IBAction)confirmButtonPressed:(id)sender {
-    if (self.selectedTeacherId == 0) {
+
+    if (self.selectedTeacher.userId == 0) {
         [HUD showErrorWithMessage:@"请选择教师"];
         
         return;
     }
     
     if (self.confirmCallback != nil) {
-        self.confirmCallback(self.selectedTeacherId, nil);
+        self.confirmCallback(self.selectedTeacher, nil);
     }
 }
 
 - (IBAction)datePickerButtonPressed:(id)sender {
-    if (self.selectedTeacherId == 0) {
+    if (self.selectedTeacher.userId == 0) {
         [HUD showErrorWithMessage:@"请选择教师"];
 
         return;
@@ -174,7 +175,7 @@
     
     [SendTimePickerView showInView:self.superview callback:^(NSDate *date) {
         if (self.confirmCallback != nil) {
-            self.confirmCallback(self.selectedTeacherId, date);
+            self.confirmCallback(self.selectedTeacher, date);
         }
     }];
 }
@@ -194,9 +195,8 @@
     TeacherCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:TeacherCollectionViewCellId
                                                                                 forIndexPath:indexPath];
     Teacher *teacher = self.teachers[indexPath.row];
-    
     [cell setupWithTeacher:teacher];
-    [cell setChoice:self.selectedTeacherId==teacher.userId];
+    [cell setChoice:self.selectedTeacher.userId==teacher.userId];
 
     return cell;
 }
@@ -232,7 +232,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     
     Teacher *teacher = self.teachers[indexPath.item];
-    if (teacher.userId == self.selectedTeacherId) {
+    if (teacher.userId == self.selectedTeacher.userId) {
         return;
     }
     
@@ -242,10 +242,21 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     
     TeacherCollectionViewCell *cell = (TeacherCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     [cell setChoice:YES];
-    self.selectedTeacherId = teacher.userId;
+    self.selectedTeacher = teacher;
 
+    NSLog(@"collectionView   %@, %lu",[self.teachers[indexPath.item] class],indexPath.row);
+    
     self.selectedTeacherNameLabel.text = teacher.nickname;
-    self.confirmButton.enabled = self.selectedTeacherId>0;
+    self.confirmButton.enabled = self.selectedTeacher.userId>0;
+}
+
+- (Teacher *)selectedTeacher{
+    
+    if (!_selectedTeacher) {
+        
+        _selectedTeacher = [[Teacher alloc] init];
+    }
+    return _selectedTeacher;
 }
 
 

@@ -194,7 +194,8 @@
     
     ClassAndStudentSelectorController *vc = [[ClassAndStudentSelectorController alloc] init];
     [vc setHomeworks:homeworks];
-    [self.tabBarController presentViewController:vc animated:YES completion:nil];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self.tabBarController presentViewController:nav animated:YES completion:nil];
 }
 
 - (IBAction)deleteButtonPressed:(id)sender {
