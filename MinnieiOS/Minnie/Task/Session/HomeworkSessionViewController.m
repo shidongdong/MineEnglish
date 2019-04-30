@@ -41,6 +41,8 @@
 #import "TZImagePickerController.h"
 #import "VICacheManager.h"
 #import "HomeworkAnswersPickerViewController.h"
+#import "SendAudioManager.h"
+
 #if TEACHERSIDE
 #import "HomeworkService.h"
 #endif
@@ -1099,6 +1101,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                                 if (error == nil) {
                                                     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCommitHomework object:nil];
                                                     
+                                                    [[SendAudioManager manager] play];
                                                     [HUD showWithMessage:@"作业提交成功"];
                                                     
                                                     [PushManager pushText:@"[图片]"
@@ -1215,7 +1218,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                                         
                                                         if (error == nil) {
                                                             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCommitHomework object:nil];
-                                                            
+                                                            [[SendAudioManager manager] play];
                                                             [HUD showWithMessage:@"作业提交成功"];
                                                             [PushManager pushText:@"[视频]"
                                                                           toUsers:@[@(self.homeworkSession.correctTeacher.userId)] withPushType:PushManagerMessage];
@@ -1256,6 +1259,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                                 if (error == nil) {
                                                     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCommitHomework object:nil];
                                                     
+                                                    [[SendAudioManager manager] play];
                                                     [HUD showWithMessage:@"作业提交成功"];
                                                     [PushManager pushText:@"[视频]"
                                                                   toUsers:@[@(self.homeworkSession.correctTeacher.userId)] withPushType:PushManagerMessage];
@@ -1285,6 +1289,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 - (void)sendMessage:(AVIMMessage *)message {
+    
     //发送消息之前进行IM服务判断
     AVIMClientStatus status = [IMManager sharedManager].client.status;
     if (status == AVIMClientStatusNone ||
@@ -1304,7 +1309,9 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
         return;
     }
+    [[SendAudioManager manager] play];
     BOOL isResend = message.status == AVIMMessageStatusFailed;
+    
     
     //发送消息，区分学生端和客户端
 //#if TEACHERSIDE
