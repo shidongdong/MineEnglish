@@ -19,7 +19,6 @@
 UITableViewDelegate,
 UITableViewDataSource>{
     
-    
     HomeworkSendLog *_sendData;
 }
 
@@ -91,7 +90,6 @@ UITableViewDataSource>{
 - (void)sendHomeworkWithTeacher:(Teacher *)teacher date:(NSDate *)date {
    
     [HUD showProgressWithMessage:@"正在发送作业"];
-    
     NSMutableArray *homeworkIds = [NSMutableArray array];
     for (Homework *homework in self.homeworks) {
         [homeworkIds addObject:@(homework.homeworkId)];

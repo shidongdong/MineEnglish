@@ -6,6 +6,9 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
+#import "UIView+Load.h"
+#import "StudentAwardService.h"
+#import "UIScrollView+Refresh.h"
 #import "StudentStarRecordViewController.h"
 
 @interface StudentStarRecordViewController ()<
@@ -13,13 +16,83 @@ UITableViewDelegate,
 UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (nonatomic, strong) BaseRequest * rankRequest;
+
+@property (nonatomic, strong) NSMutableArray *recordArray;
+
+
+@property (nonatomic, assign) NSInteger currentIndex;
+
 @end
 
 @implementation StudentStarRecordViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    self.recordArray = [[NSMutableArray alloc] init];
+    [self requestStarRecordList:YES];
+    
+    UIView *footerView = [[UIView alloc] init];
+    footerView.backgroundColor = [UIColor clearColor];
+    self.tableView.tableFooterView = footerView;
+    _currentIndex = 1;
+    // 下拉刷新
+    [self.tableView addPullToRefreshWithTarget:self refreshingAction:@selector(refresh)];
+    
+    // 上拉加载
+    [self.tableView addInfiniteScrollingWithTarget:self refreshingAction:@selector(loadMore)];
+}
+
+- (void)refresh{
+    
+    _currentIndex = 1;
+    [self requestStarRecordList:YES];
+}
+
+- (void)loadMore{
+    
+    _currentIndex++;
+    [self requestStarRecordList:NO];
+
+}
+- (void)requestStarRecordList:(BOOL)isRefresh
+{
+
+    self.tableView.hidden = YES;
+    self.rankRequest = [StudentAwardService requestStarLogsWithPageNo:_currentIndex pageNum:20 callback:^(Result *result, NSError *error) {
+        
+        [self.tableView headerEndRefreshing];
+        [self.tableView footerEndRefreshing];
+        [self handleStarRankResult:result error:error isRefresh:isRefresh];
+    }];
+    
+}
+- (void)handleStarRankResult:(Result *)result error:(NSError *)error isRefresh:(BOOL)isRefresh
+{
+    [self.rankRequest clearCompletionBlock];
+    self.rankRequest = nil;
+    [self.view hideAllStateView];
+    
+    if (error != nil && self.recordArray.count == 0) {
+        WeakifySelf;
+        [self.view showFailureViewWithRetryCallback:^{
+            [weakSelf requestStarRecordList:YES];
+        }];
+        return;
+    }
+    StarLogs * resultLogs= (StarLogs*)result.userInfo;
+    if (isRefresh) {
+        
+        [self.recordArray removeAllObjects];
+    }
+    [self.recordArray addObjectsFromArray:resultLogs.list];
+    if (!resultLogs.list.count) {
+        [self.tableView footerNoticeNoMoreData];
+    }
+    self.tableView.hidden = NO;
+    [self.tableView reloadData];
+    
 }
 - (IBAction)backClicked:(id)sender {
    
@@ -30,7 +103,7 @@ UITableViewDataSource>
 #pragma mark - UITableViewDataSource && UITableViewDelagete
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return self.recordArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -40,7 +113,8 @@ UITableViewDataSource>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    DayStarLogDetail *logDetail = self.recordArray[section];
+    return logDetail.starLogs.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -50,8 +124,10 @@ UITableViewDataSource>
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellId"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"任务获得星星xxxxx%ld",indexPath.row];
-    cell.detailTextLabel.text = @"+2222";
+    DayStarLogDetail *dayLogDetail = self.recordArray[indexPath.section];
+    StarLogDetail *logDetail = dayLogDetail.starLogs[indexPath.row];
+    cell.textLabel.text = logDetail.starLogDesc;
+    cell.detailTextLabel.text = logDetail.starCount;
     return cell;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -69,9 +145,9 @@ UITableViewDataSource>
     startCountLabel.font = [UIFont boldSystemFontOfSize:14];
     startCountLabel.textColor = [UIColor blackColor];
     [headerView addSubview:startCountLabel];
-    
-    timeLabel.text = @"2019年4月29日";
-    startCountLabel.text = @"+1500";
+    DayStarLogDetail *dayLogDetail = self.recordArray[section];
+    timeLabel.text = dayLogDetail.starLogDate;
+    startCountLabel.text = dayLogDetail.dayStarSum;
     
     return headerView;
 }

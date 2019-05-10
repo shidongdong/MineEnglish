@@ -124,7 +124,8 @@ static const char kKeyOfEmptyLinkClickCallback;
     
     [self addSubview:failureView];
     [failureView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self);
+        make.left.right.bottom.equalTo(self);
+        make.top.equalTo(self).offset(kNaviBarHeight);
     }];
     
     UIButton *retryButton = [UIButton buttonWithType:UIButtonTypeCustom];

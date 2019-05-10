@@ -25,7 +25,9 @@
              @"homeworks":@"homeworks", // 作业情况数组
              @"clazz":@"class", // 所在班级信息，可能没有
              @"enrollState":@"enrollState", // 报名状态
-             @"warnCount":@"warnCount"
+             @"warnCount":@"warnCount",
+             @"stuLabel":@"stuLabel",
+             @"stuRemark":@"stuRemark"
              };
 }
 

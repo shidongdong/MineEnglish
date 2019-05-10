@@ -20,6 +20,5 @@
 @property (nonatomic, copy) NSString *pinyinName;
 @property (nonatomic, copy) NSString *token;
 
-
 @end
 

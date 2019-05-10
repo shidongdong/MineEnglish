@@ -9,7 +9,7 @@
 #import "BaseRequest.h"
 @interface ModifyStarRequest : BaseRequest
 
-- (instancetype)initWithStudentId:(NSInteger)studentId starCount:(NSInteger)count;
+- (instancetype)initWithStudentId:(NSInteger)studentId starCount:(NSInteger)count reason:(NSString *)reason;
 
 @end
 

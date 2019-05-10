@@ -12,6 +12,8 @@
 #import "Student.h"
 #import "PublicService.h"
 #import "StudentDetailCell.h"
+#import "StudentAwardService.h"
+#import "EditStudentMarkView.h"
 #import "StudentDetailHeaderCell.h"
 #import "ModifyStarCountViewController.h"
 @interface StudentDetailViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITableViewDelegate,UITableViewDataSource,UITableViewDelegate,StudentDetailCellDelegate>
@@ -29,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.titleArray = @[@"姓名:",@"电话号码:",@"班级:",@"性别:",@"年级",@"作业完成率:",@"被警告次数:",@"星星数:"];
+    self.titleArray = @[@"姓名:",@"电话号码:",@"班级:",@"性别:",@"年级",@"作业完成率:",@"被警告次数:",@"星星数:",@"备注："];
     
     [self registerNibCell];
     
@@ -76,7 +78,6 @@
                                                       }
                                                   }];
 }
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.titleArray.count + 1;
@@ -112,6 +113,7 @@
         StudentDetailCell * cell = [tableView dequeueReusableCellWithIdentifier:StudentDetailCellId forIndexPath:indexPath];
         cell.delegate = self;
         cell.modifyBtn.hidden = YES;
+        cell.markImageV.hidden = YES;
         if (indexPath.row == 1)
         {
             if ([self.user.nickname isEqual:self.user.username] || self.user.nickname.length==0) {
@@ -119,6 +121,10 @@
             } else {
                 content = self.user.nickname;
             }
+            cell.modifyBtn.hidden = NO;
+            cell.markImageV.hidden = NO;
+            cell.markImageV.image = [UIImage imageNamed:[NSString stringWithFormat:@"第%ld名",(long)self.user.stuLabel]];
+            [cell setModifybtnTitle:@"编辑标注" tag:indexPath.row];
         }
         else if (indexPath.row == 2)
         {
@@ -160,10 +166,17 @@
         {
             content = [NSString stringWithFormat:@"%zd次",self.user.warnCount];
         }
-        else
+        else if (indexPath.row == 8)
         {
             cell.modifyBtn.hidden = NO;
+            [cell setModifybtnTitle:@"增减星星数" tag:indexPath.row];
+
             content = [NSString stringWithFormat:@"%zd",self.user.starCount];
+        } else {
+            
+            cell.modifyBtn.hidden = NO;
+            [cell setModifybtnTitle:@"编辑备注" tag:indexPath.row];
+            content = self.user.stuRemark;
         }
         [cell setCellTitle:[self.titleArray objectAtIndex:indexPath.row - 1] withContent:content];
         return cell;
@@ -171,12 +184,36 @@
     
 }
 
-- (void)modifyStarAction
+- (void)modifyStarAction:(UIButton *)btn
 {
-    ModifyStarCountViewController * modifyVc = [[ModifyStarCountViewController alloc] init];
-    modifyVc.starCount = self.user.starCount;
-    modifyVc.studentId = self.userId;
-    [self.navigationController pushViewController:modifyVc animated:YES];
+    NSInteger index = btn.tag - 10000;
+    if (index == 1) {
+      // 编辑标注
+        
+//        [UIView animateWithDuration:1.0 animations:^{
+//
+//            EditStudentMarkView *markView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([EditStudentMarkView class]) owner:nil options:nil] lastObject];
+//            [self.view addSubview:markView];
+//        } completion:nil];
+        
+        int value = arc4random()%4;
+        [StudentAwardService requestStudentLabelWithStudentId:self.userId studentLabel:value callback:^(Result *result, NSError *error) {
+            
+            NSLog(@"result");
+        }];
+    } else if (index == 8){
+      // 增减星星数
+        ModifyStarCountViewController * modifyVc = [[ModifyStarCountViewController alloc] init];
+        modifyVc.starCount = self.user.starCount;
+        modifyVc.studentId = self.userId;
+        [self.navigationController pushViewController:modifyVc animated:YES];
+    } else { // 编辑备注
+        
+        [StudentAwardService requestStudentRemarkWithStudentId:self.userId stuRemark:@"教师备注的学生信息" callback:^(Result *result, NSError *error) {
+            
+            NSLog(@"result");
+        }];
+    }
 }
 
 - (void)dealloc {

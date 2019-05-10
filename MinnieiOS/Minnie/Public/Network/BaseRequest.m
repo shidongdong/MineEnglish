@@ -217,10 +217,16 @@ static NSString *accessToken = nil;
         //        baseUrl = @"http://192.168.31.113";
         //        baseUrl = @"http://10.242.12.162";
     } else {
+        
         baseUrl = @"http://api.minniedu.com:8888";
+//#ifdef DEBUG
+        baseUrl = @"http://api.minniedu.com:9999";
+//#else
+//        baseUrl = @"http://api.minniedu.com:8888";
+//#endif
 //        baseUrl = @"http://localhost:8090";
 //        baseUrl = @"http://192.168.31.113:8090"; // pan
-        //                baseUrl = @"http://api.minniedu.com";
+//        baseUrl = @"http://api.minniedu.com";
     }
     
     return baseUrl;

@@ -110,13 +110,11 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 
 @implementation HomeworkSessionViewController
 
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
 #if TEACHERSIDE
-    self.customTitleLabel.text = self.homeworkSession.student.nickname;
+    [self studentName];
     self.correctButton.hidden = self.homeworkSession.score>0;
     self.answerViewWidthConstraint.constant = ScreenWidth/4;
     self.warnViewWidthConstraint.constant = ScreenWidth/4;
@@ -2208,6 +2206,20 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 - (void)emojiDidSend
 {
     [self sendTextMessage:self.inputTextView.text];
+}
+
+- (void)studentName{
+    
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:self.homeworkSession.student.nickname];
+    if (self.homeworkSession.stuLabel > 0) {
+        NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
+        attachment.image = [UIImage imageNamed:[NSString stringWithFormat:@"第%lu名",self.homeworkSession.stuLabel]];
+        NSAttributedString *emptyStr = [[NSAttributedString alloc] initWithString:@"  "];
+        NSAttributedString *imageStr = [NSAttributedString attributedStringWithAttachment:attachment];
+        [attrStr appendAttributedString:emptyStr];
+        [attrStr appendAttributedString:imageStr];
+    }
+    self.customTitleLabel.attributedText = attrStr;
 }
 
 #pragma mark - NEPhotoBrowserDataSource

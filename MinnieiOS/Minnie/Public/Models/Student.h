@@ -12,7 +12,6 @@
 @interface Student : User
 
 @property (nonatomic, copy) NSString *grade; // 年级
-
 @property (nonatomic, assign) NSUInteger starCount; // 剩余星星数
 @property (nonatomic, assign) NSUInteger circleUpdate; // 朋友圈更新数
 
@@ -20,7 +19,16 @@
 @property (nonatomic, strong) Clazz *clazz; // 班级
 
 @property (nonatomic, assign) NSInteger enrollState; // 报名状态
-
 @property (nonatomic, assign) NSInteger warnCount;  //警告次数
+
+/*
+ 标注的图形
+ 0：无
+ 1：闪电图形
+ 2：云朵图形
+ 3：消息图形
+*/
+@property (nonatomic, assign) NSInteger stuLabel;
+@property (nonatomic, copy) NSString *stuRemark;// 备注信息
 
 @end

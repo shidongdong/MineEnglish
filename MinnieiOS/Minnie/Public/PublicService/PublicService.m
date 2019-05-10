@@ -58,9 +58,10 @@
 
 + (BaseRequest *)modifyStarCount:(NSInteger)count
                       forStudent:(NSInteger)studentId
+                          reason:(NSString *)reason
                         callback:(RequestCallback)callback
 {
-    ModifyStarRequest *request = [[ModifyStarRequest alloc] initWithStudentId:studentId starCount:count];
+    ModifyStarRequest *request = [[ModifyStarRequest alloc] initWithStudentId:studentId starCount:count reason:reason];
     request.callback = callback;
     [request start];
     return request;

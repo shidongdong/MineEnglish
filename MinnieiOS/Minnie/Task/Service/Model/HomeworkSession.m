@@ -22,7 +22,8 @@
              @"score":@"score",
              @"reviewText":@"content",
              @"isRedo":@"isRedo",
-             @"rankByDay":@"rankByDay"
+             @"rankByDay":@"rankByDay",
+             @"stuLabel":@"stuLabel"
              };
 }
 

@@ -27,8 +27,8 @@ NSString * const StudentDetailCellId = @"StudentDetailCellId";
     // Initialization code
 }
 - (IBAction)modifyPressed:(UIButton *)sender {
-    if (_delegate && [_delegate respondsToSelector:@selector(modifyStarAction)]) {
-        [_delegate modifyStarAction];
+    if (_delegate && [_delegate respondsToSelector:@selector(modifyStarAction:)]) {
+        [_delegate modifyStarAction:self.modifyBtn];
     }
 }
 
@@ -38,6 +38,12 @@ NSString * const StudentDetailCellId = @"StudentDetailCellId";
     self.contentLabel.text = content;
 }
 
+
+- (void)setModifybtnTitle:(NSString *)title tag:(NSInteger)tag{
+    
+    [self.modifyBtn setTitle:title forState:UIControlStateNormal];
+    self.modifyBtn.tag = 10000 + tag;
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

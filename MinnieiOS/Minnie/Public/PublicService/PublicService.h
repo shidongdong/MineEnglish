@@ -20,9 +20,10 @@
 
 + (BaseRequest *)requestAppUpgradeWithVersion:(NSString *)version
                                      callback:(RequestCallback)callback;
-
+// 修改学生星星数量 可用
 + (BaseRequest *)modifyStarCount:(NSInteger)count
                       forStudent:(NSInteger)studentId
+                          reason:(NSString *)reason
                         callback:(RequestCallback)callback;
 
 @end

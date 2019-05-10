@@ -12,15 +12,17 @@
 
 @property (nonatomic, assign) NSInteger studentId;
 @property (nonatomic, assign) NSInteger starCount;
+@property (nonatomic, copy) NSString *editReason;
 @end
 
 @implementation ModifyStarRequest
 
-- (instancetype)initWithStudentId:(NSInteger)studentId starCount:(NSInteger)count{
+- (instancetype)initWithStudentId:(NSInteger)studentId starCount:(NSInteger)count reason:(NSString *)reason{
     self = [super init];
     if (self != nil) {
         _studentId = studentId;
         _starCount = count;
+        _editReason = reason;
     }
     
     return self;
@@ -31,11 +33,13 @@
 }
 
 - (NSString *)requestUrl {
-    return [NSString stringWithFormat:@"%@/user/updateStar", ServerProjectName];
+    return [NSString stringWithFormat:@"%@/user/editStar", ServerProjectName];
 }
 
 - (id)requestArgument {
-    return @{@"studentId":@(self.studentId),@"starCount":@(self.starCount)};
+    return @{@"studentId":@(self.studentId),
+             @"starCount":@(self.starCount),
+             @"editReason":self.editReason};
 }
 
 @end

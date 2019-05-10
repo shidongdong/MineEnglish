@@ -10,81 +10,111 @@
 #import "PublicService.h"
 @interface ModifyStarCountViewController ()<UITextFieldDelegate>
 
+// 当前星星数量
 @property (weak, nonatomic) IBOutlet UILabel *currentStarLabel;
+
+// 更改星星数
 @property (weak, nonatomic) IBOutlet UITextField *modifyStarTextField;
-@property (weak, nonatomic) IBOutlet UIButton *saveButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *increaseButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *decreaseButton;
+
+// 更改原因
+@property (weak, nonatomic) IBOutlet UITextField *modifyReasonTextField;
 
 @end
 
 @implementation ModifyStarCountViewController
 
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.decreaseButton.layer.cornerRadius = 10.0f;
+    self.decreaseButton.layer.borderColor = [UIColor colorWithHex:0x0098FE].CGColor;
+    self.decreaseButton.layer.borderWidth = 1.0;
+    self.currentStarLabel.text = [NSString stringWithFormat:@"%zd",self.starCount];
+    
+    
+    self.increaseButton.layer.cornerRadius = 10.0f;
+    self.increaseButton.layer.borderColor = [UIColor colorWithHex:0x0098FE].CGColor;
+    self.increaseButton.layer.borderWidth = 1.0;
+    
+    // Do any additional setup after loading the view from its nib.
+}
+
 - (IBAction)backPressed:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)savePressed:(UIButton *)sender {
+- (IBAction)decreasePressed:(id)sender {
+    
+    [self modifyStarCountIsAdd:NO];
+}
+
+- (IBAction)increasePressed:(UIButton *)sender {
+    
+    [self modifyStarCountIsAdd:YES];
+}
+
+- (void)modifyStarCountIsAdd:(BOOL)isAdd {
     
     [self.modifyStarTextField resignFirstResponder];
-    
+    [self.modifyReasonTextField resignFirstResponder];
+    // 增减数量
+    NSInteger count = [self.modifyStarTextField.text integerValue];
     if (self.modifyStarTextField.text.length == 0)
     {
-        [HUD showErrorWithMessage:@"请填写要增减的星星数"];
+        NSString *message = isAdd ? @"请填写要增加的星星数" :@"请填写要减少的星星数";
+        [HUD showErrorWithMessage:message];
         return;
     }
-    
+    if (!isAdd) {
+        
+        if (count > self.starCount) {
+            [HUD showErrorWithMessage:@"大于当前拥有星星数"];
+            return;
+        }
+    }
+    NSString *toastStr = isAdd ? @"确认将星星数增加" :@"确认将星星数减少";
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil
-                                                                     message:[NSString stringWithFormat:@"确认将星星修改为：%@",self.modifyStarTextField.text]
+                                                                     message:[NSString stringWithFormat:@"%@：%@颗",toastStr,self.modifyStarTextField.text]
                                                               preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
-                                                         style:UIAlertActionStyleCancel
-                                                       handler:^(UIAlertAction * _Nonnull action) {
-                                                           
-                                                       }];
-    
-    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"确定"
-                                                           style:UIAlertActionStyleDefault
+                                                           style:UIAlertActionStyleCancel
                                                          handler:^(UIAlertAction * _Nonnull action) {
-                                                             [PublicService modifyStarCount:[self.modifyStarTextField.text integerValue] forStudent:self.studentId callback:^(Result *result, NSError *error) {
-                                                                 if (error != nil)
-                                                                 {
-                                                                     [HUD showErrorWithMessage:@"修改失败"];
-                                                                 }
-                                                                 else
-                                                                 {
-                                                                     [self.navigationController popViewControllerAnimated:YES];
-                                                                 }
-                                                             }];
+                                                             
                                                          }];
+    NSString *reason = self.modifyReasonTextField.text;
+    if (self.modifyReasonTextField.text.length == 0) {
+        reason = @"教师操作";
+    }
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"确定"
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull action) {
+                                                              
+                                                              [PublicService modifyStarCount:(isAdd ? count: -count)
+                                                                                  forStudent:self.studentId
+                                                                                      reason:reason
+                                                                                    callback:^(Result *result, NSError *error) {
+                                                                                        if (error != nil)
+                                                                                        {
+                                                                                            [HUD showErrorWithMessage:@"修改失败"];
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            [self.navigationController popViewControllerAnimated:YES];
+                                                                                        }
+                                                                                    }];
+                                                          }];
     
     [alertVC addAction:cancelAction];
     [alertVC addAction:confirmAction];
     
     [self presentViewController:alertVC
-                     animated:YES
-                   completion:nil];
+                       animated:YES
+                     completion:nil];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.saveButton.layer.cornerRadius = 10.0f;
-    self.saveButton.layer.borderColor = [UIColor colorWithHex:0x0098FE].CGColor;
-    self.saveButton.layer.borderWidth = 1.0;
-    self.currentStarLabel.text = [NSString stringWithFormat:@"%zd",self.starCount];
-    
-    // Do any additional setup after loading the view from its nib.
-}
-
-
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

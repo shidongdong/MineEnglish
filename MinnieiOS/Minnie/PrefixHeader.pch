@@ -45,6 +45,10 @@
 #define kTabBarHeight (isIPhoneX?88.f:49.f)
 #endif
 
+#ifndef kNaviBarHeight
+#define kNaviBarHeight ((UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone && [[UIScreen mainScreen] bounds].size.height>=812.f)?88:64)
+#endif
+
 #import "HUD.h"
 #import "TIP.h"
 #import "Utils.h"

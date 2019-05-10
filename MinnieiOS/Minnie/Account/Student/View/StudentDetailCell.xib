@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQq-rF-3qG">
-                        <rect key="frame" x="36" y="21" width="256" height="16"/>
+                        <rect key="frame" x="36" y="21" width="272" height="16"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="iSF-17-eEc"/>
                         </constraints>
@@ -29,7 +28,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uNy-8o-VM9">
-                        <rect key="frame" x="36" y="47" width="256" height="20"/>
+                        <rect key="frame" x="36" y="47" width="42" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="BVN-hx-Gnc"/>
                         </constraints>
@@ -51,13 +50,21 @@
                             <action selector="modifyPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="CWm-4U-Wa4"/>
                         </connections>
                     </button>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="第1名.png" translatesAutoresizingMaskIntoConstraints="NO" id="RA2-KG-3v1">
+                        <rect key="frame" x="98" y="47" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="asl-O9-Lyg"/>
+                            <constraint firstAttribute="width" constant="20" id="tZN-Km-xTX"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="uNy-8o-VM9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="20" id="7ys-Iz-a2A"/>
+                    <constraint firstItem="RA2-KG-3v1" firstAttribute="leading" secondItem="uNy-8o-VM9" secondAttribute="trailing" constant="20" id="Eu9-Xb-fNL"/>
                     <constraint firstItem="uNy-8o-VM9" firstAttribute="top" secondItem="iQq-rF-3qG" secondAttribute="bottom" constant="10" id="JdO-W0-7jC"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="uNy-8o-VM9" secondAttribute="trailing" constant="20" id="Ne0-Vq-YmW"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="iQq-rF-3qG" secondAttribute="trailing" constant="20" id="Ner-XW-G7W"/>
                     <constraint firstItem="iQq-rF-3qG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="20" id="fPD-ZH-VYU"/>
+                    <constraint firstItem="RA2-KG-3v1" firstAttribute="centerY" secondItem="uNy-8o-VM9" secondAttribute="centerY" id="h8X-E4-CGQ"/>
+                    <constraint firstAttribute="trailing" secondItem="iQq-rF-3qG" secondAttribute="trailing" constant="20" id="nLf-EK-hQF"/>
                     <constraint firstItem="oIv-IT-cXa" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="pAm-Xb-nx8"/>
                     <constraint firstAttribute="trailingMargin" secondItem="oIv-IT-cXa" secondAttribute="trailing" constant="20" id="qb7-r0-WVi"/>
                     <constraint firstItem="iQq-rF-3qG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="sz1-Zf-Qhi"/>
@@ -66,10 +73,14 @@
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
                 <outlet property="contentLabel" destination="uNy-8o-VM9" id="k8q-ow-eZH"/>
+                <outlet property="markImageV" destination="RA2-KG-3v1" id="naz-kc-8FQ"/>
                 <outlet property="modifyBtn" destination="oIv-IT-cXa" id="pqL-FU-bwc"/>
                 <outlet property="titleLabel" destination="iQq-rF-3qG" id="WgL-uf-24D"/>
             </connections>
-            <point key="canvasLocation" x="30" y="74"/>
+            <point key="canvasLocation" x="28.800000000000001" y="73.763118440779621"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="第1名.png" width="24" height="24"/>
+    </resources>
 </document>

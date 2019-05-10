@@ -10,7 +10,7 @@
 
 @protocol StudentDetailCellDelegate <NSObject>
 
-- (void)modifyStarAction;
+- (void)modifyStarAction:(UIButton *)btn;
 
 @end
 
@@ -19,7 +19,12 @@ extern NSString * const StudentDetailCellId;
 @interface StudentDetailCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIButton *modifyBtn;
+
+@property (weak, nonatomic) IBOutlet UIImageView *markImageV;
+
 @property (weak, nonatomic) id<StudentDetailCellDelegate>delegate;
 - (void)setCellTitle:(NSString *)title withContent:(NSString *)content;
+
+- (void)setModifybtnTitle:(NSString *)title tag:(NSInteger)tag;
 
 @end

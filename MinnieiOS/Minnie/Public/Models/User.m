@@ -17,7 +17,7 @@
              @"phoneNumber":@"phoneNumber",
              @"gender":@"gender",
              @"avatarUrl":@"avatarUrl",
-             @"token":@"token",
+             @"token":@"token"
              };
 }
 
