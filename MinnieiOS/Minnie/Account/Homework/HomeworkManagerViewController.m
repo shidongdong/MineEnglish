@@ -519,7 +519,8 @@
     [cell setSendCallback:^{
         ClassAndStudentSelectorController *vc = [[ClassAndStudentSelectorController alloc] init];
         [vc setHomeworks:@[homework]];
-        [weakSelf.navigationController presentViewController:vc animated:YES completion:nil];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+        [weakSelf.tabBarController presentViewController:nav animated:YES completion:nil];
     }];
     
     [cell setImageCallback:^(UIImageView *imageView, NSString *imageUrl) {

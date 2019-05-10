@@ -303,7 +303,8 @@
     [cell setSendCallback:^{
         ClassAndStudentSelectorController *vc = [[ClassAndStudentSelectorController alloc] init];
         vc.homeworks = @[homework];
-        [weakSelf presentViewController:vc animated:YES completion:nil];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+        [weakSelf.tabBarController presentViewController:nav animated:YES completion:nil];
     }];
     
     return cell;

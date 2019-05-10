@@ -31,7 +31,11 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithHex:0xF5F5F5];
-    
+    if (@available(iOS 11.0, *)) {
+        self.messagesTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     self.messages = [NSMutableArray array];
     
     [self registerCellNibs];

@@ -126,12 +126,18 @@ UITableViewDataSource>{
                                 if (classIds.count > 0) {
                                     [PushManager pushText:@"你有新的作业" toClasses:classIds date:date];
                                 }
-//                                if (weakSelf.sendSuccessBlock) {
-//                                    weakSelf.sendSuccessBlock(YES);
-//                                }
                                 [HUD showWithMessage:@"作业发送成功"];
-                                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                                [weakSelf dismissToRootViewController];
                             }];
+}
+-(void)dismissToRootViewController{
+    
+    UIViewController *vc = self;
+    while(vc.presentingViewController){
+        
+        vc = vc.presentingViewController;
+    }
+    [vc dismissViewControllerAnimated:YES completion:nil];
 }
 
 

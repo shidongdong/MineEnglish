@@ -234,7 +234,7 @@ ClassAndStudentSelectorControllerDelegate>
     if (![self checkTitleAndContent]) {
         return;
     }
-    
+    // 发送消息
     ClassAndStudentSelectorController *vc = [[ClassAndStudentSelectorController alloc] init];
     vc.delegate = self;
     [self.navigationController presentViewController:vc animated:YES completion:nil];
