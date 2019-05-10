@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface EditStudentMarkView : UIView
 
+@property (nonatomic, assign) NSInteger userId;
+
 @end
 
 NS_ASSUME_NONNULL_END

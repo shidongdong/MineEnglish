@@ -6,12 +6,19 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
+#import "StudentAwardService.h"
 #import "EditStudentMarkView.h"
 
 @interface EditStudentMarkView ()
+
 @property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
 
 @property (weak, nonatomic) IBOutlet UIButton *sureBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *markBtn0;
+@property (weak, nonatomic) IBOutlet UIButton *markBtn1;
+@property (weak, nonatomic) IBOutlet UIButton *markBtn2;
+@property (weak, nonatomic) IBOutlet UIButton *markBtn3;
 
 @end
 
@@ -34,9 +41,26 @@
 }
 - (IBAction)cancelBtnAction:(id)sender {
     
+    if (self.superview) {
+      
+        [self removeFromSuperview];
+    }
 }
 - (IBAction)sureBtnAction:(id)sender {
     
+    int value = arc4random()%4;
+    
+    WeakifySelf;
+    [StudentAwardService requestStudentLabelWithStudentId:self.userId studentLabel:value callback:^(Result *result, NSError *error) {
+
+        if (error != nil) {
+            return ;
+        }
+        if (weakSelf.superview) {
+            
+            [weakSelf removeFromSuperview];
+        }
+    }];
 }
 
 

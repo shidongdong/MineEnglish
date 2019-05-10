@@ -9,7 +9,7 @@
 #import "GoodWorkTableViewCell.h"
 #import "UIColor+HEX.h"
 
-CGFloat const GoodWorkTableViewCellHeight = 306;
+CGFloat const GoodWorkTableViewCellHeight = 460;
 NSString * const GoodWorkTableViewCellId = @"GoodWorkTableViewCellId";
 
 @interface GoodWorkTableViewCell()
@@ -32,6 +32,11 @@ NSString * const GoodWorkTableViewCellId = @"GoodWorkTableViewCellId";
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *completionRateViewWidthConstrait;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *termProgressViewWidthConstrait;
 
+@property (weak, nonatomic) IBOutlet UILabel *goodJobLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *passedLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *unFinishedLabel;
 @end
 
 @implementation GoodWorkTableViewCell
@@ -79,6 +84,16 @@ NSString * const GoodWorkTableViewCellId = @"GoodWorkTableViewCellId";
     self.niceCountLabel.hidden = veryNice==0;
     self.greateCountLabel.hidden = great==0;
     self.perfectCountLabel.hidden = (perfect+hardworking==0);
+    // 不再显示
+    self.totalCountLabel.hidden = YES;
+    
+    self.unFinishedLabel.text = [NSString stringWithFormat:@"x%@", @(unfinshed)];
+    self.passedLabel.text = [NSString stringWithFormat:@"x%@", @(passed)];
+    self.goodJobLabel.text = [NSString stringWithFormat:@"x%@", @(goodJob)];
+    
+    self.unFinishedLabel.hidden = unfinshed==0;
+    self.passedLabel.hidden = passed==0;
+    self.goodJobLabel.hidden = goodJob==0;
     
     NSUInteger totalCount = unfinshed + passed + goodJob + veryNice + great + perfect + hardworking;
     if (totalCount == 0) {

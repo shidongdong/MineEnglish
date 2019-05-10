@@ -190,17 +190,13 @@
     if (index == 1) {
       // 编辑标注
         
-//        [UIView animateWithDuration:1.0 animations:^{
-//
-//            EditStudentMarkView *markView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([EditStudentMarkView class]) owner:nil options:nil] lastObject];
-//            [self.view addSubview:markView];
-//        } completion:nil];
-        
-        int value = arc4random()%4;
-        [StudentAwardService requestStudentLabelWithStudentId:self.userId studentLabel:value callback:^(Result *result, NSError *error) {
-            
-            NSLog(@"result");
-        }];
+        [UIView animateWithDuration:1.0 animations:^{
+
+            EditStudentMarkView *markView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([EditStudentMarkView class]) owner:nil options:nil] lastObject];
+            markView.userId = self.userId;
+            [self.view addSubview:markView];
+        } completion:nil];
+
     } else if (index == 8){
       // 增减星星数
         ModifyStarCountViewController * modifyVc = [[ModifyStarCountViewController alloc] init];
