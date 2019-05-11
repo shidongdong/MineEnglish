@@ -16,6 +16,8 @@
 #import "EditStudentMarkView.h"
 #import "StudentDetailHeaderCell.h"
 #import "ModifyStarCountViewController.h"
+#import "EditStudentRemarkViewController.h"
+
 @interface StudentDetailViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITableViewDelegate,UITableViewDataSource,UITableViewDelegate,StudentDetailCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *mTableView;
@@ -205,10 +207,10 @@
         [self.navigationController pushViewController:modifyVc animated:YES];
     } else { // 编辑备注
         
-        [StudentAwardService requestStudentRemarkWithStudentId:self.userId stuRemark:@"教师备注的学生信息" callback:^(Result *result, NSError *error) {
-            
-            NSLog(@"result");
-        }];
+        EditStudentRemarkViewController *remarkVC = [[EditStudentRemarkViewController alloc] init];
+        remarkVC.remark = self.user.stuRemark;
+        remarkVC.userId = self.userId;
+        [self.navigationController pushViewController:remarkVC animated:YES];
     }
 }
 

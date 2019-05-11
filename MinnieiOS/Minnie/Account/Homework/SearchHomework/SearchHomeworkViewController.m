@@ -16,6 +16,8 @@
 #import "TIP.h"
 #import "ClassAndStudentSelectorController.h"
 #import "CreateHomeworkViewController.h"
+#import "HomeworkPreviewViewController.h"
+
 @interface SearchHomeworkViewController ()<UITextFieldDelegate, UITableViewDataSource,UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UITextField *searchTextField;
@@ -305,6 +307,13 @@
         vc.homeworks = @[homework];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
         [weakSelf.tabBarController presentViewController:nav animated:YES completion:nil];
+    }];
+    // 作业预览
+    [cell setPreviewCallback:^{
+        
+        HomeworkPreviewViewController *vc = [[HomeworkPreviewViewController alloc] init];
+        vc.homework = homework;
+        [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
     
     return cell;

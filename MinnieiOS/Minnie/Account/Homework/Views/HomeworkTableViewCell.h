@@ -14,6 +14,8 @@ extern NSString * const HomeworkTableViewCellId;
 typedef void(^HomeworkTableViewCellSendCallback)(void);
 typedef void(^HomeworkTableViewCellSelectCallback)(void);
 
+typedef void(^HomeworkTableViewCellPreviewCallback)(void);
+
 typedef void(^HomeworkTableViewCellClickImageCallback)(UIImageView *, NSString *);
 typedef void(^HomeworkTableViewCellClickVideoCallback)(NSString *);
 typedef void(^HomeworkTableViewCellClickAudioCallback)(NSString *, NSString *);
@@ -22,6 +24,8 @@ typedef void(^HomeworkTableViewCellClickAudioCallback)(NSString *, NSString *);
 
 @property (nonatomic, copy) HomeworkTableViewCellSelectCallback sendCallback;
 @property (nonatomic, copy) HomeworkTableViewCellSelectCallback selectCallback;
+
+@property (nonatomic, copy) HomeworkTableViewCellPreviewCallback previewCallback;
 
 @property (nonatomic, copy) HomeworkTableViewCellClickImageCallback imageCallback;
 @property (nonatomic, copy) HomeworkTableViewCellClickVideoCallback videoCallback;

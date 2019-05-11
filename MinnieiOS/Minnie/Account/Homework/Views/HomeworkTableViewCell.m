@@ -21,6 +21,9 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
 @property (nonatomic, weak) IBOutlet UIButton *sendButton;
 @property (nonatomic, weak) IBOutlet UIButton *selecteButton;
 
+// 预览
+@property (weak, nonatomic) IBOutlet UIButton *previewButton;
+
 @property (nonatomic, weak) IBOutlet UIView *editModeView;
 
 @property (nonatomic, weak) IBOutlet UILabel *homeworkTitleLabel;
@@ -104,9 +107,11 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
 - (void)updateWithEditMode:(BOOL)editMode selected:(BOOL)selected {
     if (editMode) {
         self.sendButton.hidden = YES;
+        self.previewButton.hidden = YES;
         self.editModeView.hidden = NO;
     } else {
         self.sendButton.hidden = NO;
+        self.previewButton.hidden = NO;
         self.editModeView.hidden = YES;
     }
 
@@ -144,6 +149,14 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
 - (IBAction)sendButtonPressed:(id)sender {
     if (self.sendCallback != nil) {
         self.sendCallback();
+    }
+}
+
+// 预览
+- (IBAction)previewButtonPressed:(id)sender {
+    
+    if (self.previewCallback != nil) {
+        self.previewCallback();
     }
 }
 

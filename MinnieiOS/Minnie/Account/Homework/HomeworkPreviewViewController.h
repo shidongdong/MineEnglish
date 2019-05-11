@@ -1,5 +1,5 @@
 //
-//  EditStudentRemarkViewController.h
+//  HomeworkPreviewViewController.h
 //  MinnieStudent
 //
 //  Created by songzhen on 2019/5/11.
@@ -10,11 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface EditStudentRemarkViewController : BaseViewController
+@interface HomeworkPreviewViewController : BaseViewController
 
-@property (nonatomic, assign) NSInteger userId;
+@property (nonatomic, strong) Homework *homework;
 
-@property (nonatomic, copy) NSString *remark;
 
 @end
 

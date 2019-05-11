@@ -18,6 +18,7 @@
 #import "TIP.h"
 #import "NEPhotoBrowser.h"
 #import <AVKit/AVKit.h>
+#import "HomeworkPreviewViewController.h"
 #import "HomeWorkSendHistoryViewController.h"
 #import "AudioPlayerViewController.h"
 #import "VIResourceLoaderManager.h"
@@ -514,6 +515,14 @@
         weakSelf.deleteCountLabel.text = [NSString stringWithFormat:@"%zd", weakSelf.selectedHomeworkIds.count];
         weakSelf.deleteButton.enabled = weakSelf.selectedHomeworkIds.count>0;
         weakSelf.sendButton.enabled = weakSelf.selectedHomeworkIds.count>0;
+    }];
+    
+    // 作业预览
+    [cell setPreviewCallback:^{
+        
+        HomeworkPreviewViewController *vc = [[HomeworkPreviewViewController alloc] init];
+        vc.homework = homework;
+        [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
     
     [cell setSendCallback:^{
