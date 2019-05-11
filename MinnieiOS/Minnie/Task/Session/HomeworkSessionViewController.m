@@ -115,7 +115,8 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     
 #if TEACHERSIDE
     [self studentName];
-    self.correctButton.hidden = self.homeworkSession.score>0;
+//    self.correctButton.hidden = self.homeworkSession.score>0;
+    self.correctButton.hidden = NO;
     self.answerViewWidthConstraint.constant = ScreenWidth/4;
     self.warnViewWidthConstraint.constant = ScreenWidth/4;
 #else
