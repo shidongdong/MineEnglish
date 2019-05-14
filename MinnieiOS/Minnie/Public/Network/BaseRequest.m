@@ -220,7 +220,7 @@ static NSString *accessToken = nil;
         
         baseUrl = @"http://api.minniedu.com:8888";
 //#ifdef DEBUG
-        baseUrl = @"http://api.minniedu.com:9999";
+//        baseUrl = @"http://api.minniedu.com:9999";
 //#else
 //        baseUrl = @"http://api.minniedu.com:8888";
 //#endif
