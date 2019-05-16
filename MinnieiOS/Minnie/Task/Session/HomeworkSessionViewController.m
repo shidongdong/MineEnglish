@@ -218,6 +218,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     
     [self setupConversation];
     
+    // -1表示喂批改过
     if (self.homeworkSession.score >= 0) {
         [self setupResultView];
         

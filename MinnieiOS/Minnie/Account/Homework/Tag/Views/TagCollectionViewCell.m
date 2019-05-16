@@ -40,6 +40,9 @@ NSString * const TagCollectionViewCellId = @"TagCollectionViewCellId";
     
     self.bgImageView.layer.cornerRadius = 14.f;
     self.bgImageView.layer.masksToBounds = YES;
+    self.bgImageView.layer.borderWidth = 1.0;
+    self.bgImageView.layer.borderColor = [UIColor colorWithHex:0xDDDDDD].CGColor;
+    
 }
 
 - (void)setupWithTag:(NSString *)tag {

@@ -6,6 +6,7 @@
 //  Copyright © 2018年 netease. All rights reserved.
 //
 
+#import "PublicService.h"
 #import "CorrectHomeworkViewController.h"
 #import "HomeworkSessionService.h"
 #import "CorrectHomeworkScoreTableViewCell.h"
@@ -121,9 +122,9 @@
     {
         reviewText = @"";
     }
-    
+    WeakifySelf;
     [HUD showProgressWithMessage:@"正在评分..."];
-    
+    // 作业评分
     [HomeworkSessionService correctHomeworkSessionWithId:self.homeworkSession.homeworkSessionId
                                                    score:self.currentScore
                                                     redo:0
@@ -137,17 +138,40 @@
                                                             [HUD showErrorWithMessage:@"评分失败"];
                                                         }
                                                     } else {
-                                                        [HUD showWithMessage:@"评分成功"];
                                                         
-                                                        self.homeworkSession.reviewText = reviewText;
-                                                        self.homeworkSession.score = self.currentScore;
-                                                        self.homeworkSession.isRedo = 0;
-                                                        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCorrectHomework object:nil userInfo:@{@"HomeworkSession":self.homeworkSession}];
-                                                        
-                                                        [self.navigationController popToRootViewControllerAnimated:YES];
+                                                        [weakSelf modifyStarWithReviewText:reviewText];
                                                     }
                                                 }];
 
+}
+#pragma mark - 更新学生星星数量
+- (void)modifyStarWithReviewText:(NSString *)reviewText{
+    WeakifySelf;
+    NSInteger count = 0;
+    if (self.homeworkSession.score >= 0) {
+        count = self.currentScore - self.homeworkSession.score;
+    } else { // -1未修改过
+        count = self.currentScore;
+    }
+    NSLog(@"++++++ %ld",count);
+    [PublicService modifyStarCount:count
+                        forStudent:self.homeworkSession.student.userId
+                            reason:self.homeworkSession.homework.title
+                          callback:^(Result *result, NSError *error) {
+                             
+                              if (error != nil) {
+                                  
+                                  [HUD showErrorWithMessage:@"评分失败"];
+                              } else {
+                                  
+                                  [HUD showWithMessage:@"评分成功"];
+                                  weakSelf.homeworkSession.reviewText = reviewText;
+                                  weakSelf.homeworkSession.score = weakSelf.currentScore;
+                                  weakSelf.homeworkSession.isRedo = 0;
+                                  [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCorrectHomework object:nil userInfo:@{@"HomeworkSession":weakSelf.homeworkSession}];
+                                  [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+                              }
+                          }];
 }
 
 
@@ -226,6 +250,7 @@
     else if (indexPath.section == 1)
     {
         CorrectHomeworkCommentTableViewCell * commentCell = [tableView dequeueReusableCellWithIdentifier:CorrectHomeworkCommentTableViewCellId forIndexPath:indexPath];
+        [commentCell setupCommentInfo:self.homeworkSession.reviewText];
         [commentCell setCommentCallback:^(NSString * text) {
             weakSelf.commentText = text;
         }];
@@ -233,7 +258,6 @@
     }
     else
     {
-
         HomeworkTagsTableViewCell * addCommentCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTagsTableViewCellId forIndexPath:indexPath];
         addCommentCell.type = HomeworkTagsTableViewCellSelectNoneType;
         [addCommentCell setupWithTags:self.commentTags selectedTags:@[] typeTitle:@"常用评语:"];

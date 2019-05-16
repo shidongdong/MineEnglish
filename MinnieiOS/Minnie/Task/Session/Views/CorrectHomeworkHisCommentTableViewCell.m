@@ -22,6 +22,7 @@ NSString * const CorrectHomeworkHisCommentTableViewCellId = @"CorrectHomeworkHis
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.tagsCollectionView.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

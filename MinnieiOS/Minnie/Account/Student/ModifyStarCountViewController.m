@@ -80,7 +80,7 @@
     if (self.modifyReasonTextField.text.length == 0) {
         reason = @"教师操作";
     }
-    // 编辑标注
+    // 编辑星星数量
     ModifyStarCountView *starView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([ModifyStarCountView class]) owner:nil options:nil] lastObject];
     [starView updateWithStarCount:count
                         studentId:self.studentId

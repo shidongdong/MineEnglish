@@ -243,6 +243,8 @@
 
     if (!APP.userGuide)
     {
+        // 默认缓存播放 0在线播放 1缓存播放
+        APP.playMode = 1;
         GuideViewController * guideVc = [[GuideViewController alloc] init];
         [self.window setRootViewController:guideVc];
         return;
