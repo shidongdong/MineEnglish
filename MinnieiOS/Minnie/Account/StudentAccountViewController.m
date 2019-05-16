@@ -190,7 +190,7 @@
             [weakSelf.navigationController pushViewController:awardsVC animated:YES];
         };
         
-        [circleAndStarCell updateTitle:@"星兑换" image:@""];
+        [circleAndStarCell updateTitle:@"星兑换" image:@"my_img_星兑换"];
         cell = circleAndStarCell;
         self.circleAndStarCell = circleAndStarCell;
     } else { // 星星排行榜
@@ -204,7 +204,7 @@
             [awardsVC setHidesBottomBarWhenPushed:YES];
             [weakSelf.navigationController pushViewController:awardsVC animated:YES];
         };
-        [circleAndStarCell updateTitle:@"星星排行榜" image:@""];
+        [circleAndStarCell updateTitle:@"星星排行榜" image:@"my_star_rank"];
         cell = circleAndStarCell;
         self.circleAndStarCell = circleAndStarCell;
     }
@@ -226,5 +226,6 @@
     }
     return height;
 }
+
 @end
 

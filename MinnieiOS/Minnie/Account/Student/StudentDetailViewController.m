@@ -12,6 +12,7 @@
 #import "Student.h"
 #import "PublicService.h"
 #import "StudentDetailCell.h"
+#import "StudentRemarkTableViewCell.h"
 #import "StudentAwardService.h"
 #import "EditStudentMarkView.h"
 #import "StudentDetailHeaderCell.h"
@@ -32,11 +33,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    [self.mTableView sizeToFit];
+    self.mTableView.tableFooterView = [[UIView alloc] init];
     self.titleArray = @[@"姓名:",@"电话号码:",@"班级:",@"性别:",@"年级",@"作业完成率:",@"被警告次数:",@"星星数:",@"备注："];
     
     [self registerNibCell];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -51,6 +53,8 @@
     [self.mTableView registerNib:[UINib nibWithNibName:@"StudentDetailCell" bundle:nil] forCellReuseIdentifier:StudentDetailCellId];
     
     [self.mTableView registerNib:[UINib nibWithNibName:@"StudentDetailHeaderCell" bundle:nil] forCellReuseIdentifier:StudentDetailHeaderCellId];
+    
+    [self.mTableView registerNib:[UINib nibWithNibName:@"StudentRemarkTableViewCell" bundle:nil] forCellReuseIdentifier:StudentRemarkCellId];
     
 }
 
@@ -90,15 +94,31 @@
     if (indexPath.row == 0)
     {
         return 140;
+    } else if (indexPath.row == 9) {
+        
+        if (self.user.stuRemark.length) {
+            
+            CGFloat height = 80.0;
+            if (self.user.stuRemark.length) {
+               height = [self heightForString:self.user.stuRemark] + 60;
+            }
+            return height;
+        }
+        return 80.0;
     }
-//    else if (indexPath.row == self.titleArray.count - 1)
-//    {
-//        return 64.0;
-//    }
     else
     {
         return 80.0;
     }
+}
+
+- (float) heightForString:(NSString *)value{
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 5;
+    // 计算文本的大小
+    NSStringDrawingOptions options =  NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading;
+    CGSize rect = [value boundingRectWithSize:CGSizeMake(ScreenWidth - 40,MAXFLOAT) options:options attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0],NSParagraphStyleAttributeName:style} context:nil].size;
+    return rect.height + 16.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -107,6 +127,19 @@
     {
         StudentDetailHeaderCell * cell = [tableView dequeueReusableCellWithIdentifier:StudentDetailHeaderCellId forIndexPath:indexPath];
         [cell setHeaderURL:self.user.avatarUrl];
+        return cell;
+    } else if (indexPath.row == 9){
+     
+        StudentRemarkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:StudentRemarkCellId forIndexPath:indexPath];
+        WeakifySelf;
+        cell.callback = ^{
+            
+            EditStudentRemarkViewController *remarkVC = [[EditStudentRemarkViewController alloc] init];
+            remarkVC.remark = weakSelf.user.stuRemark;
+            remarkVC.userId = weakSelf.userId;
+            [weakSelf.navigationController pushViewController:remarkVC animated:YES];
+        };
+        [cell setCellTitle:[self.titleArray objectAtIndex:indexPath.row - 1] withContent:self.user.stuRemark];
         return cell;
     }
     else
@@ -125,7 +158,7 @@
             }
             cell.modifyBtn.hidden = NO;
             cell.markImageV.hidden = NO;
-            cell.markImageV.image = [UIImage imageNamed:[NSString stringWithFormat:@"第%ld名",(long)self.user.stuLabel]];
+            cell.markImageV.image = [UIImage imageNamed:[NSString stringWithFormat:@"icon_stu_label%ld",(long)self.user.stuLabel]];
             [cell setModifybtnTitle:@"编辑标注" tag:indexPath.row];
         }
         else if (indexPath.row == 2)
@@ -174,30 +207,32 @@
             [cell setModifybtnTitle:@"增减星星数" tag:indexPath.row];
 
             content = [NSString stringWithFormat:@"%zd",self.user.starCount];
-        } else {
-            
-            cell.modifyBtn.hidden = NO;
-            [cell setModifybtnTitle:@"编辑备注" tag:indexPath.row];
-            content = self.user.stuRemark;
         }
+//        else {
+//
+//            cell.modifyBtn.hidden = NO;
+//            [cell setModifybtnTitle:@"编辑备注" tag:indexPath.row];
+//            content = self.user.stuRemark;
+//        }
         [cell setCellTitle:[self.titleArray objectAtIndex:indexPath.row - 1] withContent:content];
         return cell;
     }
-    
 }
+
 
 - (void)modifyStarAction:(UIButton *)btn
 {
     NSInteger index = btn.tag - 10000;
     if (index == 1) {
       // 编辑标注
-        
-        [UIView animateWithDuration:1.0 animations:^{
-
-            EditStudentMarkView *markView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([EditStudentMarkView class]) owner:nil options:nil] lastObject];
-            markView.userId = self.userId;
-            [self.view addSubview:markView];
-        } completion:nil];
+        EditStudentMarkView *markView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([EditStudentMarkView class]) owner:nil options:nil] lastObject];
+        markView.userId = self.userId;
+        markView.stuLabel = self.user.stuLabel;
+        WeakifySelf;
+        markView.callback = ^{
+            [weakSelf requestUserInfo];
+        };
+        [self.view addSubview:markView];
 
     } else if (index == 8){
       // 增减星星数

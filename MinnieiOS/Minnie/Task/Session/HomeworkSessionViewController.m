@@ -866,6 +866,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     NSString *name = [NSString stringWithFormat:@"%@", @(self.homeworkSession.homeworkSessionId)];
     //WeakifySelf;
     if (self.conversation == nil) {
+       
         AVIMConversationQuery *query = [self.client conversationQuery];
         [query whereKey:@"name" equalTo:name];
         [query findConversationsWithCallback:^(NSArray * _Nullable conversations, NSError * _Nullable error) {
@@ -2214,7 +2215,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:self.homeworkSession.student.nickname];
     if (self.homeworkSession.stuLabel > 0) {
         NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
-        attachment.image = [UIImage imageNamed:[NSString stringWithFormat:@"第%lu名",self.homeworkSession.stuLabel]];
+        attachment.image = [UIImage imageNamed:[NSString stringWithFormat:@"icon_sign_mark%lu",self.homeworkSession.stuLabel]];
         NSAttributedString *emptyStr = [[NSAttributedString alloc] initWithString:@"  "];
         NSAttributedString *imageStr = [NSAttributedString attributedStringWithAttachment:attachment];
         [attrStr appendAttributedString:emptyStr];

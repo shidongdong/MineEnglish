@@ -20,6 +20,7 @@ NSString * const StudentStarListTableViewCellId = @"StudentStarListTableViewCell
 @property (weak, nonatomic) IBOutlet UITableView *mTableView;
 @property (nonatomic, strong) NSMutableArray * rankList;
 @property (nonatomic, strong) BaseRequest * rankRequest;
+@property (weak, nonatomic) IBOutlet UIButton *starRecordBtn;
 @end
 
 @implementation StudentStarListViewController
@@ -32,36 +33,22 @@ NSString * const StudentStarListTableViewCellId = @"StudentStarListTableViewCell
     [self registerCellNibs];
     
     [self requestStarList];
-    [self footerView];
+
     // Do any additional setup after loading the view from its nib.
 }
 
-- (void)footerView{
+
+- (IBAction)backAction:(UIButton *)sender {
     
-    UIButton *startListBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [startListBtn setTitle:@"星星账单" forState: UIControlStateNormal];
-    startListBtn.layer.masksToBounds = YES;
-    startListBtn.layer.cornerRadius = 12.0;
-    startListBtn.frame = CGRectMake(ScreenWidth/2.0 - 90, 20, 180, 44.0);
-    
-    [startListBtn setBackgroundColor:[UIColor colorWithHex:0X62C93D]];
-    [startListBtn addTarget:self action:@selector(starListBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 64.0)];
-    [footerView addSubview:startListBtn];
-    footerView.backgroundColor = [UIColor clearColor];
-    self.mTableView.tableFooterView = footerView;
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)starListBtnClicked:(UIButton *)btn{
+
+- (IBAction)rightBtnAction:(id)sender {
     
     StudentStarRecordViewController * statRecordVC = [[StudentStarRecordViewController alloc] initWithNibName:NSStringFromClass([StudentStarRecordViewController class]) bundle:nil];
     [self setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:statRecordVC animated:YES];
-}
-- (IBAction)backAction:(UIButton *)sender {
-    
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)registerCellNibs {
@@ -136,15 +123,4 @@ NSString * const StudentStarListTableViewCellId = @"StudentStarListTableViewCell
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

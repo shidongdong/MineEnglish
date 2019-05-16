@@ -8,11 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^EditStuLabelCallback)(void);
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface EditStudentMarkView : UIView
 
 @property (nonatomic, assign) NSInteger userId;
+
+@property (nonatomic, assign) NSInteger stuLabel;
+
+@property (nonatomic, copy) EditStuLabelCallback callback;
 
 @end
 

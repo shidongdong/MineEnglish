@@ -6,8 +6,10 @@
 //  Copyright © 2019年 minnieedu. All rights reserved.
 //
 
-#import "ModifyStarCountViewController.h"
 #import "PublicService.h"
+#import "ModifyStarCountView.h"
+#import "ModifyStarCountViewController.h"
+
 @interface ModifyStarCountViewController ()<UITextFieldDelegate>
 
 // 当前星星数量
@@ -30,16 +32,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.decreaseButton.layer.cornerRadius = 10.0f;
-    self.decreaseButton.layer.borderColor = [UIColor colorWithHex:0x0098FE].CGColor;
-    self.decreaseButton.layer.borderWidth = 1.0;
+    
     self.currentStarLabel.text = [NSString stringWithFormat:@"%zd",self.starCount];
-    
-    
-    self.increaseButton.layer.cornerRadius = 10.0f;
-    self.increaseButton.layer.borderColor = [UIColor colorWithHex:0x0098FE].CGColor;
-    self.increaseButton.layer.borderWidth = 1.0;
-    
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -55,6 +49,12 @@
 - (IBAction)increasePressed:(UIButton *)sender {
     
     [self modifyStarCountIsAdd:YES];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+    [self.modifyStarTextField resignFirstResponder];
+    [self.modifyReasonTextField resignFirstResponder];
 }
 
 - (void)modifyStarCountIsAdd:(BOOL)isAdd {
@@ -76,44 +76,22 @@
             return;
         }
     }
-    NSString *toastStr = isAdd ? @"确认将星星数增加" :@"确认将星星数减少";
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil
-                                                                     message:[NSString stringWithFormat:@"%@：%@颗",toastStr,self.modifyStarTextField.text]
-                                                              preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:^(UIAlertAction * _Nonnull action) {
-                                                             
-                                                         }];
     NSString *reason = self.modifyReasonTextField.text;
     if (self.modifyReasonTextField.text.length == 0) {
         reason = @"教师操作";
     }
-    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"确定"
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * _Nonnull action) {
-                                                              
-                                                              [PublicService modifyStarCount:(isAdd ? count: -count)
-                                                                                  forStudent:self.studentId
-                                                                                      reason:reason
-                                                                                    callback:^(Result *result, NSError *error) {
-                                                                                        if (error != nil)
-                                                                                        {
-                                                                                            [HUD showErrorWithMessage:@"修改失败"];
-                                                                                        }
-                                                                                        else
-                                                                                        {
-                                                                                            [self.navigationController popViewControllerAnimated:YES];
-                                                                                        }
-                                                                                    }];
-                                                          }];
-    
-    [alertVC addAction:cancelAction];
-    [alertVC addAction:confirmAction];
-    
-    [self presentViewController:alertVC
-                       animated:YES
-                     completion:nil];
+    // 编辑标注
+    ModifyStarCountView *starView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([ModifyStarCountView class]) owner:nil options:nil] lastObject];
+    [starView updateWithStarCount:count
+                        studentId:self.studentId
+                           reason:reason
+                            isAdd:isAdd];
+    WeakifySelf;
+    starView.callback = ^{
+       
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+    };
+    [self.view addSubview:starView];
 }
 
 

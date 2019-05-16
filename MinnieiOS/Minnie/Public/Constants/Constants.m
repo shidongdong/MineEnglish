@@ -71,3 +71,7 @@ NSString * const kNotificationKeyOfSendNoticeMessage = @"kNotificationKeyOfSendN
 
 #pragma mark - 系统相关
 NSString * const kNotificationKeyOfTabBarDoubleClick = @"kNotificationKeyOfTabBarDoubleClick"; //双击Tabbar
+
+#pragma mark - 学生标注
+
+NSString * const kNotificationKeyOfStudentMarkChange = @"kNotificationKeyOfStudentMarkChange";

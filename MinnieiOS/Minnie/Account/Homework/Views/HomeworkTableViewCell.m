@@ -43,7 +43,7 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
+    [self layoutIfNeeded];
     self.containerView.layer.cornerRadius = 12.f;
     self.containerView.layer.shadowOpacity = 0.4;// 阴影透明度
     self.containerView.layer.shadowColor = [UIColor colorWithHex:0xEEEEEE].CGColor;
@@ -52,8 +52,10 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
     
     self.homeworkTextLabel.preferredMaxLayoutWidth = [UIScreen mainScreen].bounds.size.width - 36 - 44;
     
+    self.previewButton.layer.masksToBounds = YES;
+    self.previewButton.layer.cornerRadius = 16.0;
+    
     [self registerCellNibs];
-
     [self setupCollectionViewLayout];
 }
 
@@ -116,7 +118,8 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
     }
 
     self.choice = selected;
-    
+//    
+//    [self.previewButton setImage:[UIImage imageNamed:@"my_star_rank"] forState:UIControlStateNormal];
     if (selected) {
         [self.selecteButton setImage:[UIImage imageNamed:@"icon_mission_choice"] forState:UIControlStateNormal];
     } else {

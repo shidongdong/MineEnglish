@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StudentStarListViewController">
             <connections>
                 <outlet property="mTableView" destination="2he-yc-0sS" id="L3b-fE-xJ3"/>
+                <outlet property="starRecordBtn" destination="7Ip-Nm-RKq" id="mr5-yK-8C9"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -25,7 +25,7 @@
                     <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="星星排行榜" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L6G-es-d11">
-                            <rect key="frame" x="141" y="11" width="92" height="22"/>
+                            <rect key="frame" x="141.5" y="11" width="92" height="22"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                             <color key="textColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -47,13 +47,25 @@
                                 <constraint firstAttribute="height" constant="0.5" id="noR-il-VXA"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ip-Nm-RKq">
+                            <rect key="frame" x="294" y="6" width="66" height="32"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <state key="normal" title="星星记录">
+                                <color key="titleColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="rightBtnAction:" destination="-1" eventType="touchUpInside" id="bLV-FB-N8D"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="zkm-Q0-p56" firstAttribute="leading" secondItem="KPr-al-tUL" secondAttribute="leading" id="6WE-AJ-Tab"/>
+                        <constraint firstItem="7Ip-Nm-RKq" firstAttribute="centerY" secondItem="pPq-rE-UPa" secondAttribute="centerY" id="CbB-GW-abe"/>
                         <constraint firstItem="L6G-es-d11" firstAttribute="centerX" secondItem="KPr-al-tUL" secondAttribute="centerX" id="IJf-me-fUq"/>
                         <constraint firstAttribute="height" constant="44" id="JM1-7z-nJ1"/>
                         <constraint firstAttribute="bottom" secondItem="zkm-Q0-p56" secondAttribute="bottom" id="MWj-gX-U0V"/>
+                        <constraint firstItem="pPq-rE-UPa" firstAttribute="trailing" secondItem="7Ip-Nm-RKq" secondAttribute="trailing" constant="15" id="NJ3-cm-osA"/>
                         <constraint firstAttribute="trailing" secondItem="jex-Zf-ITx" secondAttribute="trailing" id="bEr-fL-3jM"/>
                         <constraint firstItem="jex-Zf-ITx" firstAttribute="leading" secondItem="KPr-al-tUL" secondAttribute="leading" id="ffF-CK-cPP"/>
                         <constraint firstAttribute="bottom" secondItem="jex-Zf-ITx" secondAttribute="bottom" id="hzi-t5-qLe"/>

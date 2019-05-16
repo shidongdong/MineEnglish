@@ -71,13 +71,13 @@ UITableViewDataSource>{
     confirmBtn.frame = CGRectMake(ScreenWidth/2.0 - 90, 0, 180, 44.0);
     confirmBtn.frame = CGRectMake(0, 0, ScreenWidth, 44.0);
     
-    [confirmBtn setBackgroundColor:[UIColor colorWithHex:0X62C93D]];
+    [confirmBtn setBackgroundColor:[UIColor colorWithHex:0x0098FE]];
     [confirmBtn addTarget:self action:@selector(confirmSendBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     CGFloat btnHeight = (isIPhoneX ? 24 : 0) + 64.0;
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0,ScreenHeight - btnHeight, ScreenWidth, btnHeight)];
     [footerView addSubview:confirmBtn];
-    footerView.backgroundColor = [UIColor colorWithHex:0X62C93D];
+    footerView.backgroundColor = [UIColor colorWithHex:0x0098FE];
     self.tableView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:footerView];
 }

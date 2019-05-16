@@ -52,7 +52,12 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J6F-xL-ue2" userLabel="previewBtn">
                                 <rect key="frame" x="6" y="53" width="32" height="32"/>
-                                <state key="normal" image="btn_mission_send.png"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="ofI-Fz-2cZ"/>
+                                    <constraint firstAttribute="width" secondItem="J6F-xL-ue2" secondAttribute="height" multiplier="1:1" id="wyM-qy-Klz"/>
+                                </constraints>
+                                <state key="normal" image="btn_mission_preview.png"/>
                                 <connections>
                                     <action selector="previewButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="kun-0c-TqJ"/>
                                 </connections>
@@ -114,7 +119,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="J6F-xL-ue2" firstAttribute="centerX" secondItem="m9z-JD-SMG" secondAttribute="centerX" id="3uh-1Y-Kzp"/>
                             <constraint firstAttribute="bottom" secondItem="WYd-0h-O1C" secondAttribute="bottom" id="6jm-0n-dKx"/>
                             <constraint firstItem="m9z-JD-SMG" firstAttribute="leading" secondItem="gjk-Af-cwM" secondAttribute="leading" constant="6" id="8ph-uK-5sg"/>
                             <constraint firstItem="WYd-0h-O1C" firstAttribute="leading" secondItem="gjk-Af-cwM" secondAttribute="leading" id="9bX-Hg-ACw"/>
@@ -125,15 +129,14 @@
                             <constraint firstAttribute="trailing" secondItem="UDS-by-OQR" secondAttribute="trailing" constant="12" id="ObY-o7-09Z"/>
                             <constraint firstItem="WYd-0h-O1C" firstAttribute="top" secondItem="gjk-Af-cwM" secondAttribute="top" id="UQ1-JK-wE4"/>
                             <constraint firstItem="m9z-JD-SMG" firstAttribute="top" secondItem="gjk-Af-cwM" secondAttribute="top" constant="6" id="Uq3-d3-c7u"/>
-                            <constraint firstItem="J6F-xL-ue2" firstAttribute="height" secondItem="m9z-JD-SMG" secondAttribute="height" id="asL-VQ-2HF"/>
                             <constraint firstAttribute="bottom" secondItem="UDS-by-OQR" secondAttribute="bottom" constant="12" id="b6I-Ik-yvt"/>
-                            <constraint firstItem="J6F-xL-ue2" firstAttribute="width" secondItem="m9z-JD-SMG" secondAttribute="width" id="bZK-cS-bJu"/>
                             <constraint firstAttribute="trailing" secondItem="yaT-DJ-l02" secondAttribute="trailing" constant="12" id="dwd-8a-rT3"/>
                             <constraint firstItem="j3f-LU-5XM" firstAttribute="top" secondItem="rmf-is-rKt" secondAttribute="bottom" constant="7" id="nVx-fH-lSv"/>
                             <constraint firstItem="UDS-by-OQR" firstAttribute="top" secondItem="j3f-LU-5XM" secondAttribute="bottom" constant="7" id="p11-29-Z4G"/>
                             <constraint firstItem="J6F-xL-ue2" firstAttribute="top" secondItem="m9z-JD-SMG" secondAttribute="bottom" constant="15" id="pKM-eu-0Pz"/>
                             <constraint firstAttribute="trailing" secondItem="WYd-0h-O1C" secondAttribute="trailing" id="pbj-Vo-QX2"/>
                             <constraint firstItem="UDS-by-OQR" firstAttribute="leading" secondItem="gjk-Af-cwM" secondAttribute="leading" constant="44" id="tpr-ah-XTS"/>
+                            <constraint firstItem="J6F-xL-ue2" firstAttribute="leading" secondItem="gjk-Af-cwM" secondAttribute="leading" constant="6" id="uMs-Z2-Y9f"/>
                             <constraint firstItem="rmf-is-rKt" firstAttribute="top" secondItem="gjk-Af-cwM" secondAttribute="top" constant="12" id="wBY-nt-rDv"/>
                         </constraints>
                     </view>
@@ -163,6 +166,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="btn_mission_preview.png" width="32" height="32"/>
         <image name="btn_mission_send.png" width="32" height="32"/>
         <image name="icon_mission_choice_disabled.png" width="24" height="24"/>
     </resources>

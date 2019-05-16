@@ -96,6 +96,7 @@
 
 
 - (void)dealloc {
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [self.homeworkSessionsRequest clearCompletionBlock];
@@ -198,6 +199,11 @@
 }
 
 - (void)addNotificationObservers {
+    
+    // 编辑标注后刷新
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadForDoubleTabClick) name:kNotificationKeyOfStudentMarkChange object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reloadForDoubleTabClick)
                                                  name:kNotificationKeyOfTabBarDoubleClick
@@ -858,6 +864,7 @@
     
     [self.homeworkSessionsTableView reloadData];
 }
+
 
 @end
 

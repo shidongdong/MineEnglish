@@ -73,5 +73,6 @@ extern NSString * const kNotificationKeyOfSendNoticeMessage; // 教师端发送�
 
 extern NSString * const kNotificationKeyOfTabBarDoubleClick;
 
+#pragma mark - 学生标注
 
-
+extern NSString * const kNotificationKeyOfStudentMarkChange;

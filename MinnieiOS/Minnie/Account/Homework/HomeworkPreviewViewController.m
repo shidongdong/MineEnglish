@@ -47,7 +47,8 @@ VIResourceLoaderManagerDelegate
     [super viewDidLoad];
     self.homeworkSession = [[HomeworkSession alloc] init];
     self.homeworkSession.homework = self.homework;
-    
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.tableView.backgroundColor = [UIColor colorWithHex:0xF5F5F5];
     UIView *footerView = [[UIView alloc] init];
     footerView.backgroundColor =[UIColor clearColor];
     self.tableView.tableFooterView = footerView;

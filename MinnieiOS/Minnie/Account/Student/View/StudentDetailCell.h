@@ -23,6 +23,7 @@ extern NSString * const StudentDetailCellId;
 @property (weak, nonatomic) IBOutlet UIImageView *markImageV;
 
 @property (weak, nonatomic) id<StudentDetailCellDelegate>delegate;
+
 - (void)setCellTitle:(NSString *)title withContent:(NSString *)content;
 
 - (void)setModifybtnTitle:(NSString *)title tag:(NSInteger)tag;

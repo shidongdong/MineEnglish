@@ -66,7 +66,7 @@ NSString * const CircleAndStarTableViewCellId = @"CircleAndStarTableViewCellId";
 
 - (void)updateTitle:(NSString *)title image:(NSString *)image{
     
-//    self.starImageView.image = [UIImage imageNamed:image];
+    self.starImageView.image = [UIImage imageNamed:image];
     if ([title isEqualToString:@"星兑换"]) {
 
         self.titleLabel.text = title;

@@ -122,7 +122,11 @@ UITableViewDataSource>
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellId"];
+        cell.textLabel.font = [UIFont systemFontOfSize:16];
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:16];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.textLabel.textColor = [UIColor colorWithHex:0x666666];
+        cell.detailTextLabel.textColor = [UIColor colorWithHex:0x666666];
     }
     DayStarLogDetail *dayLogDetail = self.recordArray[indexPath.section];
     StarLogDetail *logDetail = dayLogDetail.starLogs[indexPath.row];
@@ -137,13 +141,13 @@ UITableViewDataSource>
     UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, ScreenWidth - 120, 16)];
     timeLabel.textAlignment = NSTextAlignmentLeft;
     timeLabel.font = [UIFont boldSystemFontOfSize:16];
-    timeLabel.textColor = [UIColor blackColor];
+    timeLabel.textColor = [UIColor colorWithHex:0x999999];
     [headerView addSubview:timeLabel];
     
     UILabel *startCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth - 80, 5, 60, 16)];
     startCountLabel.textAlignment = NSTextAlignmentRight;
     startCountLabel.font = [UIFont boldSystemFontOfSize:14];
-    startCountLabel.textColor = [UIColor blackColor];
+    startCountLabel.textColor = [UIColor colorWithHex:0x999999];
     [headerView addSubview:startCountLabel];
     DayStarLogDetail *dayLogDetail = self.recordArray[section];
     timeLabel.text = dayLogDetail.starLogDate;

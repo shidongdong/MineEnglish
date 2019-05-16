@@ -9,7 +9,7 @@
 #import "GoodWorkTableViewCell.h"
 #import "UIColor+HEX.h"
 
-CGFloat const GoodWorkTableViewCellHeight = 460;
+CGFloat const GoodWorkTableViewCellHeight = 390;
 NSString * const GoodWorkTableViewCellId = @"GoodWorkTableViewCellId";
 
 @interface GoodWorkTableViewCell()

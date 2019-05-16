@@ -21,9 +21,11 @@ NSString * const StudentDetailCellId = @"StudentDetailCellId";
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+   
     self.modifyBtn.layer.cornerRadius = 10;
     self.modifyBtn.layer.borderWidth = 1.0;
     self.modifyBtn.layer.borderColor = [UIColor colorWithHex:0x333333].CGColor;
+    
     // Initialization code
 }
 - (IBAction)modifyPressed:(UIButton *)sender {
@@ -44,6 +46,7 @@ NSString * const StudentDetailCellId = @"StudentDetailCellId";
     [self.modifyBtn setTitle:title forState:UIControlStateNormal];
     self.modifyBtn.tag = 10000 + tag;
 }
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

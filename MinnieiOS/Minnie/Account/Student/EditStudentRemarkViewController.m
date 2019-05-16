@@ -20,13 +20,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.textView.text = self.remark;
+    [self.textView becomeFirstResponder];
+    self.textView.layer.cornerRadius = 10.0;
+    self.textView.layer.masksToBounds = YES;
+    self.textView.layer.borderWidth = 1.0;
+    self.textView.layer.borderColor = [UIColor colorWithHex:0xECECEC].CGColor;
 }
 - (IBAction)backAction:(id)sender {
     
+    [self.textView resignFirstResponder];
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)saveAction:(id)sender {
     WeakifySelf;
+    [self.textView resignFirstResponder];
     [StudentAwardService requestStudentRemarkWithStudentId:self.userId stuRemark:self.textView.text callback:^(Result *result, NSError *error) {
         if (error != nil) {
             
