@@ -157,8 +157,10 @@
         
         [profileCell.avatarImageView sd_setImageWithURL:[APP.currentUser.avatarUrl imageURLWithWidth:64.f]];
         [profileCell.nicknameLabel setText:APP.currentUser.nickname];
-        [profileCell.classButton setTitle:APP.currentUser.clazz.name forState:UIControlStateNormal];
         
+        NSString *title = [NSString stringWithFormat:@"  %@  ",APP.currentUser.clazz.name];
+        [profileCell.classButton setTitle:title forState:UIControlStateNormal];
+
         cell = profileCell;
     } else if (indexPath.row == 1) {
         GoodWorkTableViewCell *goodworkCell = [tableView dequeueReusableCellWithIdentifier:GoodWorkTableViewCellId];

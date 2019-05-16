@@ -30,7 +30,7 @@
 #endif
 
 #ifndef isIPhoneX
-#define isIPhoneX (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone && [[UIScreen mainScreen] bounds].size.height==812.f)
+#define isIPhoneX (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone && [[UIScreen mainScreen] bounds].size.height>=812.f)
 #endif
 
 #ifndef kStatusBarHeight
