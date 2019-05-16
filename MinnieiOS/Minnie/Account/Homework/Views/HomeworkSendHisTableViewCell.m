@@ -68,7 +68,10 @@ NSString * const HomeworkSendHisTableViewCellId = @"HomeworkSendHisTableViewCell
 {
     self.timeLabel.text = data.createTime;
     self.teacherLabel.text = data.teacherName;
-    self.homeworkTitleLabel.text = [HomeworkSendHisTableViewCell generateStringFromArray:data.homeworkTitles withIndexShow:YES];
+    
+    NSAttributedString *title = [HomeworkSendHisTableViewCell generateBoldStringFromArray:data.homeworkTitles withIndexShow:YES];
+    self.homeworkTitleLabel.attributedText = title;
+    
     NSString * classStr = [HomeworkSendHisTableViewCell generateStringFromArray:data.classNames withIndexShow:NO];
     NSString * studentStr = [HomeworkSendHisTableViewCell generateStringFromArray:data.studentNames withIndexShow:NO];
     if (classStr.length > 0)
@@ -83,17 +86,50 @@ NSString * const HomeworkSendHisTableViewCellId = @"HomeworkSendHisTableViewCell
     
 }
 
+// 索引加粗
++ (NSAttributedString *)generateBoldStringFromArray:(NSArray<NSString *> *)strArray withIndexShow:(BOOL)bShow{
+   
+    NSMutableString * appendString = [[NSMutableString alloc] init];
+    NSMutableArray *indexArray = [NSMutableArray array];
+    for (int i = 0; i < strArray.count; i++)
+    {
+        
+        if (bShow)
+        {
+            [appendString appendString:[NSString stringWithFormat:@"%d.",i + 1]];
+            [indexArray addObject:@(appendString.length - 2)];
+        }
+        NSString * tmpStr = [strArray objectAtIndex:i];
+        [appendString appendString:tmpStr];
+        if (i != strArray.count - 1)
+        {
+            [appendString appendString:@"\n"];
+        }
+    }
+    // 索引加粗
+    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:appendString];
+    [attr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} range:NSMakeRange(0, appendString.length)];
+    if (appendString.length) {
+        for (NSNumber *index in indexArray) {
+            
+            if (index.intValue < appendString.length) {
+                [attr setAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]} range:NSMakeRange(index.intValue, 1)];
+            }
+        }
+    }
+    return attr;
+}
 + (NSString *)generateStringFromArray:(NSArray<NSString *> *)strArray withIndexShow:(BOOL)bShow
 {
     NSMutableString * appendString = [[NSMutableString alloc] init];
+    NSMutableArray *indexArray = [NSMutableArray array];
     for (int i = 0; i < strArray.count; i++)
     {
         if (bShow)
         {
             [appendString appendString:[NSString stringWithFormat:@"%d.",i + 1]];
+            [indexArray addObject:@(i+1)];
         }
-        
-        
         NSString * tmpStr = [strArray objectAtIndex:i];
         [appendString appendString:tmpStr];
         if (i != strArray.count - 1)
