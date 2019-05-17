@@ -510,7 +510,6 @@
             if (homeworkSession.conversation == nil) {
                 homeworkSession.conversation = messageConversation;
             }
-            [self.homeworkSessions insertObject:homeworkSession atIndex:0];
             [self loadConversations];
             bExit = YES;
             break;
@@ -526,7 +525,7 @@
                     return;
                 }
                 HomeworkSession *session = (HomeworkSession *)(result.userInfo);
-                [self.homeworkSessions insertObject:session atIndex:0];
+                [self.homeworkSessions addObject:session];
                 [self loadConversations];
             }];
         }

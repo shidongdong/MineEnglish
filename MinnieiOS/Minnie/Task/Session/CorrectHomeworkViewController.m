@@ -76,9 +76,12 @@
             [HUD showErrorWithMessage:@"常用评语请求失败"];
             return ;
         }
-        
-        self.commentTags = (NSArray *)(result.userInfo);
-        [self.mTableView reloadData];
+        WeakifySelf;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            weakSelf.commentTags = (NSArray *)(result.userInfo);
+            [weakSelf.mTableView reloadData];
+        });
     }];
 }
 
@@ -139,8 +142,17 @@
                                                         }
                                                     } else {
                                                         
-                                                        [weakSelf modifyStarWithReviewText:reviewText];
+                                                        [HUD showWithMessage:@"评分成功"];
+                                                        weakSelf.homeworkSession.reviewText = reviewText;
+                                                        weakSelf.homeworkSession.score = weakSelf.currentScore;
+                                                        weakSelf.homeworkSession.isRedo = 0;
+                                                        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCorrectHomework object:nil userInfo:@{@"HomeworkSession":weakSelf.homeworkSession}];
+                                                        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
                                                     }
+//                                                    {
+//
+//                                                        [weakSelf modifyStarWithReviewText:reviewText];
+//                                                    }
                                                 }];
 
 }
@@ -153,17 +165,16 @@
     } else { // -1未修改过
         count = self.currentScore;
     }
-    NSLog(@"++++++ %ld",count);
     [PublicService modifyStarCount:count
                         forStudent:self.homeworkSession.student.userId
                             reason:self.homeworkSession.homework.title
                           callback:^(Result *result, NSError *error) {
-                             
+
                               if (error != nil) {
                                   
                                   [HUD showErrorWithMessage:@"评分失败"];
                               } else {
-                                  
+
                                   [HUD showWithMessage:@"评分成功"];
                                   weakSelf.homeworkSession.reviewText = reviewText;
                                   weakSelf.homeworkSession.score = weakSelf.currentScore;
@@ -236,7 +247,8 @@
     if (indexPath.section == 0)
     {
         CorrectHomeworkScoreTableViewCell * scoreCell = [tableView dequeueReusableCellWithIdentifier:CorrectHomeworkScoreTableViewCellId forIndexPath:indexPath];
-        [scoreCell updateRecommendScoreHomeworkLevel:self.homeworkSession.homework.level];
+       
+        [scoreCell updateRecommendScoreHomeworkLevel:self.homeworkSession.homework.level score:self.homeworkSession.score];
         [scoreCell setScoreCallback:^(NSInteger score)
         {
             weakSelf.currentScore = score;
@@ -251,6 +263,7 @@
     {
         CorrectHomeworkCommentTableViewCell * commentCell = [tableView dequeueReusableCellWithIdentifier:CorrectHomeworkCommentTableViewCellId forIndexPath:indexPath];
         [commentCell setupCommentInfo:self.homeworkSession.reviewText];
+        self.commentText = self.homeworkSession.reviewText;
         [commentCell setCommentCallback:^(NSString * text) {
             weakSelf.commentText = text;
         }];

@@ -21,6 +21,13 @@ CGFloat const CorrectHomeworkScoreTableViewCellHeight = 39.0f;
 @property (weak, nonatomic) IBOutlet UIView *zeroStarView;
 @property (weak, nonatomic) IBOutlet UIView *shareView;
 
+@property (weak, nonatomic) IBOutlet UIButton *oneBtn;
+@property (weak, nonatomic) IBOutlet UIButton *twoBtn;
+@property (weak, nonatomic) IBOutlet UIButton *threeBtn;
+@property (weak, nonatomic) IBOutlet UIButton *fourBtn;
+@property (weak, nonatomic) IBOutlet UIButton *fiveBtn;
+@property (weak, nonatomic) IBOutlet UIButton *zeroBtn;
+
 @property (nonatomic, assign)NSInteger lastSelectedScore;   //上次选中的分数
 @property (nonatomic, assign)NSInteger bShareCircle;            //分享到朋友圈
 
@@ -63,9 +70,10 @@ CGFloat const CorrectHomeworkScoreTableViewCellHeight = 39.0f;
     // Configure the view for the selected state
 }
 
-- (void)updateRecommendScoreHomeworkLevel:(NSInteger)level
+- (void)updateRecommendScoreHomeworkLevel:(NSInteger)level score:(NSInteger)score
 {
     self.homeworkLevel = level;
+    
     switch (level) {
         case 0:
         {
@@ -110,22 +118,35 @@ CGFloat const CorrectHomeworkScoreTableViewCellHeight = 39.0f;
         {
             self.fiveStarView.backgroundColor = [UIColor colorWithHex:0xEEEEEE];
             UIButton * fiveStarBtn = [self viewWithTag:100 + 5];
-            [fiveStarBtn setTitleColor:[UIColor colorWithHex:0xFFFFFF] forState:UIControlStateNormal];
+            [fiveStarBtn setTitleColor:[UIColor colorWithHex:0xFFFFFF] forState:UIControlStateNormal]; NSLog(@" 111114");
             break;
         }
         case 4:
-            
+            break;
+    }
+    switch (score) {
+        case 0:
+            [self scorePressed:self.zeroBtn];
+            break;
+        case 1:
+            [self scorePressed:self.oneBtn];
+            break;
+        case 2:
+            [self scorePressed:self.twoBtn];
+            break;
+        case 3:
+            [self scorePressed:self.threeBtn];
+            break;
+        case 4:
+            [self scorePressed:self.fourBtn];
+            break;
+        case 5:
+            [self scorePressed:self.fiveBtn];
             break;
     }
 }
 
-
 - (IBAction)scorePressed:(UIButton *)sender {
-    
-    if (self.lastSelectedScore == sender.tag - 100)
-    {
-        return;
-    }
     
     if (self.lastSelectedScore <= self.homeworkLevel + 1)
     {
@@ -173,7 +194,6 @@ CGFloat const CorrectHomeworkScoreTableViewCellHeight = 39.0f;
     {
         self.scoreCallback(self.lastSelectedScore);
     }
-    
 }
 
 - (IBAction)shareCirclePressed:(id)sender {

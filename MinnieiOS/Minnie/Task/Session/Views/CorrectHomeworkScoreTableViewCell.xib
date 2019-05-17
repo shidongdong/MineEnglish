@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -208,12 +206,18 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
+                <outlet property="fiveBtn" destination="HBF-gb-WxZ" id="Pqc-cO-mjG"/>
                 <outlet property="fiveStarView" destination="SPz-g3-Zej" id="9d3-0b-Exo"/>
+                <outlet property="fourBtn" destination="gBH-lW-iEb" id="QQ0-g1-VMm"/>
                 <outlet property="fourStarView" destination="PrN-e5-7K2" id="7qv-qL-HcS"/>
+                <outlet property="oneBtn" destination="wPi-bT-X53" id="tP9-nb-2Jg"/>
                 <outlet property="oneStarView" destination="b0Q-H7-Myq" id="ldQ-85-rHO"/>
                 <outlet property="shareView" destination="zrt-k5-3Yd" id="hpT-6a-udw"/>
+                <outlet property="threeBtn" destination="mJN-7I-fAM" id="1Fy-Yl-0he"/>
                 <outlet property="threeStarView" destination="9Ap-kQ-azv" id="Vzn-Z7-3Mu"/>
+                <outlet property="twoBtn" destination="nHw-Hi-q6A" id="PV1-Na-2j3"/>
                 <outlet property="twoStarView" destination="LJO-2y-TmM" id="rPB-6g-uEo"/>
+                <outlet property="zeroBtn" destination="Xl1-aF-z78" id="w22-j3-To8"/>
                 <outlet property="zeroStarView" destination="zkX-zG-BWh" id="24Z-VH-mV1"/>
             </connections>
             <point key="canvasLocation" x="224" y="202.39880059970017"/>

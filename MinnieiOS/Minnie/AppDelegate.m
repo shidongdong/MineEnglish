@@ -104,7 +104,6 @@
                                                  name:kNotificationKeyOfCommitHomework
                                                object:nil];
 #endif
-    
     return YES;
 }
 
@@ -250,7 +249,6 @@
         return;
     }
     
-    
     UIColor *normalTitleColor = [UIColor colorWithHex:0x999999];
     UIColor *selectedTitleColor = [UIColor colorWithHex:0x0098FE];
     UIFont *font = [UIFont systemFontOfSize:10.f];
@@ -295,9 +293,6 @@
     tbBarController.viewControllers = @[tasksNC, classmateNC, accountNC];
     tbBarController.delegate = self;
     [UIApplication sharedApplication].keyWindow.rootViewController = tbBarController;
-    
-   
-    
 }
 
 #endif
@@ -371,6 +366,14 @@
 - (void)showTabBarBadgeNum:(NSInteger)badge atIndex:(NSInteger)index;
 {
     
+#if TEACHERSIDE
+#else
+    // 同学圈不显示小红点
+    if (index == 1) {
+        return;
+    }
+#endif
+
     UIViewController * rootVc = [UIApplication sharedApplication].keyWindow.rootViewController;
     
     if ([rootVc isKindOfClass:[UITabBarController class]])
@@ -385,7 +388,6 @@
     AVInstallation *currentInstallation = [AVInstallation defaultInstallation];
 #if TEACHERSIDE
     currentInstallation.deviceProfile = @"teacher_pro";
-    
     if (APP.currentUser.authority == TeacherAuthoritySuperManager) {
         [currentInstallation addUniqueObject:@"SuperManager" forKey:@"channels"];
     }
