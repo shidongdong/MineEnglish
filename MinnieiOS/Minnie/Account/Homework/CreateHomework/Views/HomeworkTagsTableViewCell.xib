@@ -18,25 +18,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="504" height="416.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="9jZ-N6-sMl" customClass="CustomCollectionView">
-                        <rect key="frame" x="12" y="48.5" width="480" height="356"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="1" id="Im6-s7-dKP"/>
-                        </constraints>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4H5-On-ce9">
-                            <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <connections>
-                            <outlet property="dataSource" destination="KGk-i7-Jjw" id="pVE-NU-CNT"/>
-                            <outlet property="delegate" destination="KGk-i7-Jjw" id="aru-B4-g6W"/>
-                        </connections>
-                    </collectionView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标签:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A3b-oL-iiF">
-                        <rect key="frame" x="12" y="12" width="34" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="常用评语:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A3b-oL-iiF">
+                        <rect key="frame" x="12" y="12" width="62" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="WLZ-Ux-JuW"/>
                         </constraints>
@@ -59,21 +42,16 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="9jZ-N6-sMl" firstAttribute="top" secondItem="vcs-X0-b8f" secondAttribute="bottom" constant="12" id="0m9-K5-Eu1"/>
                     <constraint firstItem="vcs-X0-b8f" firstAttribute="centerY" secondItem="A3b-oL-iiF" secondAttribute="centerY" id="2eM-Iy-I0A"/>
                     <constraint firstItem="vcs-X0-b8f" firstAttribute="centerY" secondItem="OWB-bp-goG" secondAttribute="centerY" id="E1g-b1-Q5t"/>
                     <constraint firstAttribute="trailing" secondItem="OWB-bp-goG" secondAttribute="trailing" constant="10" id="Liz-nQ-Gyv"/>
                     <constraint firstItem="A3b-oL-iiF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="MhO-YK-ptK"/>
                     <constraint firstItem="A3b-oL-iiF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="YjJ-Wa-3tu"/>
-                    <constraint firstAttribute="bottom" secondItem="9jZ-N6-sMl" secondAttribute="bottom" constant="12" id="bli-QF-GKE"/>
                     <constraint firstItem="OWB-bp-goG" firstAttribute="leading" secondItem="vcs-X0-b8f" secondAttribute="trailing" id="dHv-Gu-pbm"/>
-                    <constraint firstItem="9jZ-N6-sMl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="e9D-MQ-VzK"/>
-                    <constraint firstAttribute="trailing" secondItem="9jZ-N6-sMl" secondAttribute="trailing" constant="12" id="lUk-Zo-ba6"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
-                <outlet property="tagsCollectionView" destination="9jZ-N6-sMl" id="OVW-RV-4U4"/>
                 <outlet property="typeLabel" destination="A3b-oL-iiF" id="E3T-jC-jZY"/>
             </connections>
             <point key="canvasLocation" x="-108.8" y="-401.64917541229386"/>

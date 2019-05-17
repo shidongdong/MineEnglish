@@ -9,15 +9,19 @@
 #import "HomeworkTagsTableViewCell.h"
 #import "TagCollectionViewCell.h"
 #import "CustomCollectionView.h"
+#import "EqualSpaceFlowLayout.h"
 
 NSString * const HomeworkTagsTableViewCellId = @"HomeworkTagsTableViewCellId";
 
-@interface HomeworkTagsTableViewCell()<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface HomeworkTagsTableViewCell()<UICollectionViewDataSource, EqualSpaceFlowLayoutDelegate>
 
-@property (nonatomic, weak) IBOutlet CustomCollectionView *tagsCollectionView;
 @property (nonatomic, strong) NSArray<NSString *> *tags;
 @property (nonatomic, strong) NSMutableArray<NSString *> *selectedTags;
 @property (weak, nonatomic) IBOutlet UILabel *typeLabel;
+
+@property (nonatomic, strong) UICollectionView *tagsCollectionView;
+
+@property (nonatomic, assign) NSInteger collecttionViewWidth;
 
 @end
 
@@ -30,8 +34,6 @@ NSString * const HomeworkTagsTableViewCellId = @"HomeworkTagsTableViewCellId";
         // Addresses a separate issue and prevent auto layout warnings due to the temporary width constraint in the xib.
         self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
         
-        // Code below is needed to make the self-sizing cell work when building for iOS 12 from Xcode 10.0:
-        
         NSLayoutConstraint *leftConstraint = [self.contentView.leftAnchor constraintEqualToAnchor:self.leftAnchor constant:0];
         NSLayoutConstraint *rightConstraint = [self.contentView.rightAnchor constraintEqualToAnchor:self.rightAnchor constant:0];
         NSLayoutConstraint *topConstraint = [self.contentView.topAnchor constraintEqualToAnchor:self.topAnchor constant:0];
@@ -39,16 +41,12 @@ NSString * const HomeworkTagsTableViewCellId = @"HomeworkTagsTableViewCellId";
         
         [NSLayoutConstraint activateConstraints:@[leftConstraint, rightConstraint, topConstraint, bottomConstraint]];
     }
-    
+    _collecttionViewWidth = [UIScreen mainScreen].bounds.size.width;
     self.tagsCollectionView.layer.cornerRadius = 12;
     self.tagsCollectionView.layer.masksToBounds = YES;
-    
-    [self registerCellNibs];
+    [self addContentView];
 }
 
-- (void)registerCellNibs {
-    [self.tagsCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([TagCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:TagCollectionViewCellId];
-}
 
 - (void)setupWithTags:(NSArray <NSString *> *)tags
          selectedTags:(NSArray <NSString *> *)selectedTags
@@ -56,36 +54,45 @@ NSString * const HomeworkTagsTableViewCellId = @"HomeworkTagsTableViewCellId";
     self.typeLabel.text = title;
     self.tags = tags;
     self.selectedTags = [NSMutableArray arrayWithArray:selectedTags];
-    
+    self.tagsCollectionView.frame = CGRectMake(0, 50, _collecttionViewWidth, [HomeworkTagsTableViewCell heightWithTags:tags typeTitle:@"常用评语"]);
     [self.tagsCollectionView reloadData];
 }
 
 + (CGFloat)heightWithTags:(NSArray <NSString *> *)tags typeTitle:(NSString *)title{
+    
     if (tags.count == 0) {
         return 50.f;
     }
+    CGFloat leftSpace = 10;
+    CGFloat topSpace = 10;
+    CGFloat rightSpace = 10;
+    CGFloat minimumInteritemSpacing = 5;
+    CGFloat minimumLineSpacing = 5;
     
-    static HomeworkTagsTableViewCell *tempCell = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        tempCell = [[[NSBundle mainBundle] loadNibNamed:@"HomeworkTagsTableViewCell" owner:nil options:nil] lastObject];
-        [tempCell setupWithTags:tags selectedTags:nil typeTitle:title];
-    });
+    CGFloat xOffset = leftSpace;
+    CGFloat yOffset = topSpace;
+    CGFloat xNextOffset = leftSpace;
     
-    [tempCell setupWithTags:tags selectedTags:nil typeTitle:title];
-    
-    CGRect  rect = tempCell.frame;
-    tempCell.frame = CGRectMake(rect.origin.x, rect.origin.y, ScreenWidth - 24, rect.size.height);
-    
-    [tempCell.contentView setNeedsLayout];
-    [tempCell.contentView layoutIfNeeded];
-    
-    [tempCell.contentView setNeedsUpdateConstraints];
-    [tempCell.contentView updateConstraintsIfNeeded];
-    
-    CGSize size = [tempCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    
-    return size.height;
+    CGFloat height = 0;
+    for (NSInteger idx = 0; idx < tags.count; idx++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:idx inSection:0];
+        
+        NSString *tag = tags[indexPath.row];
+        CGSize itemSize = [TagCollectionViewCell cellSizeWithTag:tag];
+        
+        xNextOffset+=(minimumInteritemSpacing + itemSize.width);
+        if (xNextOffset >= [UIScreen mainScreen].bounds.size.width - 30 - rightSpace) {
+            xOffset = leftSpace;
+            xNextOffset = (leftSpace + minimumInteritemSpacing + itemSize.width);
+            yOffset += (itemSize.height + minimumLineSpacing);
+        }
+        else
+        {
+            xOffset = xNextOffset - (minimumInteritemSpacing + itemSize.width);
+        }
+        height = yOffset + itemSize.height + 30;
+    }
+    return height;
 }
 
 #pragma mark - IBActions
@@ -118,33 +125,6 @@ NSString * const HomeworkTagsTableViewCellId = @"HomeworkTagsTableViewCellId";
     return cell;
 }
 
-#pragma mark - UICollectionViewDelegateFlowLayout
-
-- (CGSize)collectionView:(UICollectionView *)collectionView
-                  layout:(UICollectionViewLayout*)collectionViewLayout
-  sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *tag = self.tags[indexPath.row];
-    return [TagCollectionViewCell cellSizeWithTag:tag];
-}
-
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView
-                        layout:(UICollectionViewLayout*)collectionViewLayout
-        insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(16, 12, 16, 12);
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView
-                   layout:(UICollectionViewLayout*)collectionViewLayout
-minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 12;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView
-                   layout:(UICollectionViewLayout*)collectionViewLayout
-minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 6;
-}
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     
@@ -172,12 +152,36 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
             [cell setChoice:YES];
         }
     }
-    
-    
-    
     if (self.selectCallback != nil) {
         self.selectCallback(tag);
     }
+}
+
+#pragma mark - UICollectionViewDelegateFlowLayout
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout*)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *tag = self.tags[indexPath.row];
+    CGSize itemSize = [TagCollectionViewCell cellSizeWithTag:tag];
+    // 标签长度大于屏幕
+    if (itemSize.width > _collecttionViewWidth -30) {
+        
+        itemSize.width = _collecttionViewWidth - 30;
+    }
+    return itemSize;
+}
+
+- (void)addContentView{
+    
+    EqualSpaceFlowLayout *flowLayout = [[EqualSpaceFlowLayout alloc] init];
+    flowLayout.delegate = self;
+    
+    self.tagsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 50, _collecttionViewWidth, 50) collectionViewLayout:flowLayout];
+    self.tagsCollectionView.backgroundColor = [UIColor whiteColor];
+    self.tagsCollectionView.delegate = self;
+    self.tagsCollectionView.dataSource = self;
+    [self addSubview:self.tagsCollectionView];
+    [self.tagsCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([TagCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:TagCollectionViewCellId];
 }
 
 @end

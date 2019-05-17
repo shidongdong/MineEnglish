@@ -16,11 +16,15 @@
 #import "Application.h"
 #import "CreateTagView.h"
 #import "HUD.h"
+#import "EqualSpaceFlowLayout.h"
 
-@interface TagsViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface TagsViewController () <
+UICollectionViewDataSource,
+EqualSpaceFlowLayoutDelegate
+>
 
 @property (nonatomic, weak) IBOutlet UIView *tagsCollectionContainerView;
-@property (nonatomic, weak) IBOutlet UICollectionView *tagsCollectionView;
+//@property (nonatomic, weak) IBOutlet UICollectionView *tagsCollectionView;
 
 @property (nonatomic, strong) NSArray<NSString *> *tags;
 @property (nonatomic, strong) NSMutableArray<NSString *> *selectedTags;
@@ -29,6 +33,9 @@
 @property (nonatomic, weak) IBOutlet UIButton *addButton;
 @property (nonatomic, weak) IBOutlet UILabel *deleteCountLabel;
 @property (nonatomic, weak) IBOutlet UIButton *deleteButton;
+@property (weak, nonatomic) IBOutlet UIView *footView;
+
+@property (nonatomic, strong) UICollectionView *tagsCollectionView;
 
 @end
 
@@ -43,12 +50,12 @@
     self.selectedTags = [NSMutableArray array];
     self.deleteButton.enabled = NO;
     
-    [self registerCellNibs];
-    
+    [self addContentView];
     [self requestData];
 }
 
 - (void)dealloc {
+   
     [self.tagsRequest clearCompletionBlock];
     [self.tagsRequest stop];
     self.tagsRequest = nil;
@@ -305,11 +312,6 @@
 }
 
 #pragma mark - Private Methods
-
-- (void)registerCellNibs {
-    [self.tagsCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([TagCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:TagCollectionViewCellId];
-}
-
 - (void)requestData {
     if (self.tagsRequest != nil) {
         return;
@@ -345,7 +347,6 @@
                                                              linkClickCallback:nil];
             } else {
                 strongSelf.tags = tags;
-                
                 [strongSelf.tagsCollectionContainerView hideAllStateView];
                 strongSelf.tagsCollectionView.hidden = NO;
                 [strongSelf.tagsCollectionView reloadData];
@@ -390,14 +391,13 @@
             StrongifySelf;
             
             strongSelf.tagsRequest = nil;
-            
             // 显示失败页面
             if (error != nil) {
+                
                 __weak typeof(strongSelf) wk = strongSelf;
                 [strongSelf.tagsCollectionContainerView showFailureViewWithRetryCallback:^{
                     [wk requestData];
                 }];
-                
                 return;
             }
             
@@ -441,33 +441,6 @@
     return cell;
 }
 
-#pragma mark - UICollectionViewDelegateFlowLayout
-
-- (CGSize)collectionView:(UICollectionView *)collectionView
-                  layout:(UICollectionViewLayout*)collectionViewLayout
-  sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *tag = self.tags[indexPath.row];
-    return [TagCollectionViewCell cellSizeWithTag:tag];
-}
-
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView
-                        layout:(UICollectionViewLayout*)collectionViewLayout
-        insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(16, 12, 16, 12);
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView
-                   layout:(UICollectionViewLayout*)collectionViewLayout
-minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 12;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView
-                   layout:(UICollectionViewLayout*)collectionViewLayout
-minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 12;
-}
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     
@@ -484,6 +457,35 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     
     self.deleteCountLabel.text = [NSString stringWithFormat:@"%zd", self.selectedTags.count];
     self.deleteButton.enabled = self.selectedTags.count>0;
+}
+
+#pragma mark - UICollectionViewDelegateFlowLayout
+
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout*)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+  
+    NSString *tag = self.tags[indexPath.row];
+    CGSize itemSize = [TagCollectionViewCell cellSizeWithTag:tag];
+    // 标签长度大于屏幕
+    if (itemSize.width > ScreenWidth -30) {
+        
+        itemSize.width = ScreenWidth - 30;
+    }
+    return itemSize;
+}
+
+- (void)addContentView{
+   
+    EqualSpaceFlowLayout *flowLayout = [[EqualSpaceFlowLayout alloc] init];
+    flowLayout.delegate = self;
+    CGFloat footerHeight = isIPhoneX ? (44 + 34) :44;
+    self.tagsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kNaviBarHeight, ScreenWidth, ScreenHeight - kNaviBarHeight - footerHeight ) collectionViewLayout:flowLayout];
+    self.tagsCollectionView.backgroundColor = [UIColor whiteColor];
+    self.tagsCollectionView.delegate = self;
+    self.tagsCollectionView.dataSource = self;
+    [self.view addSubview:self.tagsCollectionView];
+    [self.tagsCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([TagCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:TagCollectionViewCellId];
 }
 
 @end

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12AF64F5228E4A790031E1F6 /* EqualSpaceFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12AF64F3228E4A780031E1F6 /* EqualSpaceFlowLayout.m */; };
+		12AF64F6228E4A790031E1F6 /* EqualSpaceFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12AF64F3228E4A780031E1F6 /* EqualSpaceFlowLayout.m */; };
 		12B9B63322891C6F00D8F277 /* my_star_rank@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B9B63122891C6F00D8F277 /* my_star_rank@3x.png */; };
 		12B9B63422891C6F00D8F277 /* my_star_rank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B9B63222891C6F00D8F277 /* my_star_rank@2x.png */; };
 		12B9B6372289341400D8F277 /* btn_mission_preview@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B9B6352289341300D8F277 /* btn_mission_preview@3x.png */; };
@@ -1475,6 +1477,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		12AF64F3228E4A780031E1F6 /* EqualSpaceFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EqualSpaceFlowLayout.m; sourceTree = "<group>"; };
+		12AF64F4228E4A790031E1F6 /* EqualSpaceFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EqualSpaceFlowLayout.h; sourceTree = "<group>"; };
 		12B9B63122891C6F00D8F277 /* my_star_rank@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_star_rank@3x.png"; sourceTree = "<group>"; };
 		12B9B63222891C6F00D8F277 /* my_star_rank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_star_rank@2x.png"; sourceTree = "<group>"; };
 		12B9B6352289341300D8F277 /* btn_mission_preview@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_mission_preview@3x.png"; sourceTree = "<group>"; };
@@ -3846,6 +3850,8 @@
 				876D981721D0DBF100A0E06E /* CorrectHomeworkCommentTableViewCell.h */,
 				876D981821D0DBF100A0E06E /* CorrectHomeworkCommentTableViewCell.m */,
 				876D981921D0DBF100A0E06E /* CorrectHomeworkCommentTableViewCell.xib */,
+				12AF64F4228E4A790031E1F6 /* EqualSpaceFlowLayout.h */,
+				12AF64F3228E4A780031E1F6 /* EqualSpaceFlowLayout.m */,
 				876D981E21D0DC2000A0E06E /* CorrectHomeworkHisCommentTableViewCell.h */,
 				876D981F21D0DC2000A0E06E /* CorrectHomeworkHisCommentTableViewCell.m */,
 				876D982021D0DC2000A0E06E /* CorrectHomeworkHisCommentTableViewCell.xib */,
@@ -6336,6 +6342,7 @@
 				971098F8207A0BF500568785 /* NEPhotoBrowserView.m in Sources */,
 				97109C46207A2E3E00568785 /* CircleLikeUsersTableViewCell.m in Sources */,
 				97109EE1207A7C1600568785 /* ExchangeAwardView.m in Sources */,
+				12AF64F5228E4A790031E1F6 /* EqualSpaceFlowLayout.m in Sources */,
 				971098F2207A0BF500568785 /* EmojiInputCollectionViewCell.m in Sources */,
 				97109C84207A2EC900568785 /* ResetPassswordRequest.m in Sources */,
 				97109956207A0BF600568785 /* UIColor+HEX.m in Sources */,
@@ -6646,6 +6653,7 @@
 				8770A2B5223CA9F8005733E4 /* PinyinFormatter.m in Sources */,
 				97109A55207A158C00568785 /* SessionHomeworkTableViewCell.m in Sources */,
 				8770A2802232950E005733E4 /* ModifyStarRequest.m in Sources */,
+				12AF64F6228E4A790031E1F6 /* EqualSpaceFlowLayout.m in Sources */,
 				973649D620AF2F8600511A95 /* StudentSelectorTableViewCell.m in Sources */,
 				97109D94207A2F0400568785 /* DeleteTeacherAlertView.m in Sources */,
 				8709C31421A26B6A00970757 /* CreateFormTagRequest.m in Sources */,

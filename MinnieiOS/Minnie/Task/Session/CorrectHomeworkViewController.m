@@ -226,9 +226,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    CGFloat firstCellHeight = (ScreenWidth - 24 - 4 * 10) / 5 + 20 + 10 + 39;
     if (indexPath.section == 0)
     {
-        return (ScreenWidth - 24 - 4 * 10) / 5 + 20 + 10 + 39;
+        return firstCellHeight;
     }
     else if (indexPath.section == 1)
     {
@@ -236,7 +238,7 @@
     }
     else
     {
-        return [HomeworkTagsTableViewCell heightWithTags:self.commentTags typeTitle:@"常用评语:"];
+        return [HomeworkTagsTableViewCell heightWithTags:self.commentTags typeTitle:@"常用评语:"] + 40;
     }
 }
 
@@ -296,8 +298,6 @@
     }
     return cell;
 }
-
-
 @end
 
 
