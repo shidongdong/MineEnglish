@@ -70,9 +70,10 @@ extern NSString * const kNotificationKeyOfExchangeAward; // 学生端请求兑�
 extern NSString * const kNotificationKeyOfSendNoticeMessage; // 教师端发送通知消息
 
 #pragma mark - 系统消息
-
 extern NSString * const kNotificationKeyOfTabBarDoubleClick;
 
 #pragma mark - 学生标注
-
 extern NSString * const kNotificationKeyOfStudentMarkChange;
+
+#pragma mark - 作业发送成功
+extern NSString * const kNotificationKeyOfHomeworkSendSuccess;

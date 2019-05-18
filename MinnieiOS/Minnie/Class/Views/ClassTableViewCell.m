@@ -46,7 +46,7 @@ CGFloat const ClassTableViewCellHeight = 100.f;
     } else {
         self.nextTimeLabel.text = [Utils dateFormatterTime:clazz.nextClassTime];
     }
-
+    NSLog(@"setupWithClass  %lld",clazz.nextClassTime);
     self.locationLabel.text = clazz.location;
     
     self.postedHomeworksCountLabel.text = [NSString stringWithFormat:@"%@", @(clazz.uncorrectedHomeworksCount)];

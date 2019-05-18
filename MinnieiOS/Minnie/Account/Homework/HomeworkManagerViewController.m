@@ -85,6 +85,7 @@
                                              selector:@selector(shouldReloadDataWhenAppeared:)
                                                  name:kNotificationKeyOfAddHomework
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(manageButtonPressed:) name:kNotificationKeyOfHomeworkSendSuccess object:nil];
     
     [self requestHomeworks];
 }

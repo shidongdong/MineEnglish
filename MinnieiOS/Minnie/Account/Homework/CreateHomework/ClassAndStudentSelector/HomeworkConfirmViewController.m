@@ -126,6 +126,7 @@ UITableViewDataSource>{
                                     [PushManager pushText:@"你有新的作业" toClasses:classIds date:date];
                                 }
                                 [HUD showWithMessage:@"作业发送成功"];
+                                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfHomeworkSendSuccess object:nil];
                                 [weakSelf dismissToRootViewController];
                             }];
 }
@@ -178,6 +179,5 @@ UITableViewDataSource>{
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-
 
 @end

@@ -66,12 +66,13 @@ NSString * const kNotificationKeyOfGiveAward = @"kNotificationKeyOfGiveAward"; /
 NSString * const kNotificationKeyOfExchangeAward = @"kNotificationKeyOfExchangeAward"; // 学生端请求兑换礼物
 
 #pragma mark - 账号消息
-
 NSString * const kNotificationKeyOfSendNoticeMessage = @"kNotificationKeyOfSendNoticeMessage"; // 教师端发送通知消息
 
 #pragma mark - 系统相关
 NSString * const kNotificationKeyOfTabBarDoubleClick = @"kNotificationKeyOfTabBarDoubleClick"; //双击Tabbar
 
 #pragma mark - 学生标注
-
 NSString * const kNotificationKeyOfStudentMarkChange = @"kNotificationKeyOfStudentMarkChange";
+
+#pragma mark - 作业发送成功
+NSString * const kNotificationKeyOfHomeworkSendSuccess = @"kNotificationKeyOfHomeworkSendSuccess";

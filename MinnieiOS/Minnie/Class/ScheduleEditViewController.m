@@ -588,6 +588,15 @@
             }
         }
     }
+    // 月份排序
+    [self.months sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        
+        if ([obj1 compare: obj2] == NSOrderedAscending) {
+            return NSOrderedAscending;
+        } else {
+            return NSOrderedDescending;
+        }
+    }];
 }
 
 - (void)reloadTableData {
