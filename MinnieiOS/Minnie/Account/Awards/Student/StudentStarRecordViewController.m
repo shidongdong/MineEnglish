@@ -22,6 +22,8 @@ UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *recordArray;
 
 
+@property (nonatomic, assign) NSInteger pageNum;
+
 @property (nonatomic, assign) NSInteger currentIndex;
 
 @end
@@ -31,17 +33,17 @@ UITableViewDataSource>
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.recordArray = [[NSMutableArray alloc] init];
-    [self requestStarRecordList:YES];
-    
     UIView *footerView = [[UIView alloc] init];
     footerView.backgroundColor = [UIColor clearColor];
     self.tableView.tableFooterView = footerView;
+    _pageNum = 20;
     _currentIndex = 1;
     // 下拉刷新
     [self.tableView addPullToRefreshWithTarget:self refreshingAction:@selector(refresh)];
     
     // 上拉加载
     [self.tableView addInfiniteScrollingWithTarget:self refreshingAction:@selector(loadMore)];
+    [self.tableView headerBeginRefreshing];
 }
 
 - (void)refresh{
@@ -60,7 +62,7 @@ UITableViewDataSource>
 {
 
     self.tableView.hidden = YES;
-    self.rankRequest = [StudentAwardService requestStarLogsWithPageNo:_currentIndex pageNum:20 callback:^(Result *result, NSError *error) {
+    self.rankRequest = [StudentAwardService requestStarLogsWithPageNo:_currentIndex pageNum:_pageNum callback:^(Result *result, NSError *error) {
         
         [self.tableView headerEndRefreshing];
         [self.tableView footerEndRefreshing];
@@ -92,6 +94,12 @@ UITableViewDataSource>
     }
     self.tableView.hidden = NO;
     [self.tableView reloadData];
+    if (self.recordArray.count < _pageNum) {
+        
+        [self.tableView setFooterHidden:YES];
+    } else {
+        [self.tableView setFooterHidden:NO];
+    }
     
 }
 - (IBAction)backClicked:(id)sender {

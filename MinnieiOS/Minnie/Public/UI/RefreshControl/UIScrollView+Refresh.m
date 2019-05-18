@@ -6,7 +6,6 @@
 #import "UIScrollView+Refresh.h"
 #import "ChatRefreshHeader.h"
 #import "RefreshHeader.h"
-#import "RefreshFooter.h"
 #import <objc/runtime.h>
 
 @implementation UIScrollView (Refresh)
@@ -246,6 +245,13 @@
     }
     
     [self.mj_footer endRefreshingWithNoMoreData];
+}
+
+- (void)footerNoticeText:(NSString *)text state:(MJRefreshState)state{
+  
+    if ([self.mj_footer isKindOfClass:[RefreshFooter class]]) {
+        [(RefreshFooter *)self.mj_footer setTitle:text forState:state];
+    }
 }
 
 - (void)footerResetNoMoreData

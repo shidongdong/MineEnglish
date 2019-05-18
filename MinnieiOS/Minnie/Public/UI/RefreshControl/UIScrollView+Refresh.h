@@ -4,6 +4,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RefreshFooter.h"
 
 @interface UIScrollView (Refresh)
 
@@ -114,6 +115,11 @@
  @param text 提示文案
  */
 - (void)headerNoticeNoMoreDataWithText:(NSString *)text;
+
+/**
+ @param text 提示文案
+ */
+- (void)footerNoticeText:(NSString *)text state:(MJRefreshState)state;
 
 /**
  footer用指定文案提示没有更多数据
