@@ -364,20 +364,10 @@
     AVAudioSession *session =[AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
     NSInteger playMode = [[Application sharedInstance] playMode];
-//    AVPlayerViewController *playerViewController = [[AVPlayerViewController alloc]init];
-//    VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
-//    resourceLoaderManager.delegate = self;
-//    self.resourceLoaderManager = resourceLoaderManager;
-//    NSString *url = videoUrl;
-//    AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
-//    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
-//    playerViewController.player = player;
-//    [self.tabBarController presentViewController:playerViewController animated:YES completion:nil];
-//    playerViewController.view.frame = [UIScreen mainScreen].bounds;
-//    [playerViewController.player play];
+
     AVPlayerViewController *playerViewController = [[AVPlayerViewController alloc]init];
     AVPlayer *player;
-    if (playMode == 0)
+    if (playMode == 1)// 在线播放
     {
         [VICacheManager cleanCacheForURL:[NSURL URLWithString:videoUrl] error:nil];
         player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:videoUrl]];
@@ -403,7 +393,7 @@
     AudioPlayerViewController *playerViewController = [[AudioPlayerViewController alloc]init];
     NSInteger playMode = [[Application sharedInstance] playMode];
     AVPlayer *player;
-    if (playMode == 0)
+    if (playMode == 1)// 在线播放
     {
         [VICacheManager cleanCacheForURL:[NSURL URLWithString:url] error:nil];
         player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:url]];

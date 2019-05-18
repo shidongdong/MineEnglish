@@ -23,7 +23,7 @@
     [super viewDidLoad];
     
     self.nicknameTextField.text = APP.currentUser.nickname;
-    
+    [self.nicknameTextField addTarget:self action:@selector(changeText:) forControlEvents:UIControlEventEditingChanged];
     self.contentView.layer.cornerRadius = 12.f;
     self.contentView.layer.shadowOpacity = 0.4;// 阴影透明度
     self.contentView.layer.shadowColor = [UIColor colorWithHex:0xEEEEEE].CGColor;
@@ -31,10 +31,20 @@
     self.contentView.layer.shadowOffset = CGSizeMake(2, 4);
 }
 
+- (void)changeText:(UITextField *)textField{
+    
+    NSString * str = textField.text;
+    if (str.length > 10) {
+        self.nicknameTextField.text = [str substringToIndex:10];
+    }
+}
 - (void)backButtonPressed:(id)sender {
+  
     NSString *name = [self.nicknameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if (name.length >= 1 && name.length <= 5) {
+    if (name.length > 0 && name.length <= 10) {
         [self updateNickname:name];
+    } else {
+        [HUD showErrorWithMessage:@"昵称长度1-10个字符"];
     }
 }
 
@@ -53,7 +63,14 @@
 }
 
 #pragma mark - Update
-
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+//
+//    NSString * str = [textField.text stringByReplacingCharactersInRange:range withString:string];
+//    if (str.length > 10) {
+//        self.nicknameTextField.text = [str substringToIndex:9];
+//    }
+//    return YES;
+//}
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     NSString *name = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (name.length < 1 || name.length > 10) {
@@ -66,8 +83,8 @@
 }
 
 - (void)updateNickname:(NSString *)name {
+   
     [HUD showProgressWithMessage:@"正在修改昵称..."];
-    
     [ProfileService updateNickname:name
                           callback:^(Result *result, NSError *error) {
                               if (error != nil) {
@@ -86,9 +103,8 @@
 #endif
                                   
                                   [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfProfileUpdated object:nil];
-                                  
-                                  [super backButtonPressed:nil];
                               }
+                              [super backButtonPressed:nil];
                           }];
 }
 

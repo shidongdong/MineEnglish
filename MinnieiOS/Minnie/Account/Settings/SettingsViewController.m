@@ -116,7 +116,7 @@
         cell.detailLabel.hidden = NO;
         
         NSInteger playMode = [[Application sharedInstance] playMode];
-        if (playMode == 0)
+        if (playMode == 1)// 在线播放
         {
             cell.detailLabel.text =  @"在线播放    ";
         }
@@ -178,14 +178,14 @@
         UIAlertAction * cacheAction = [UIAlertAction actionWithTitle:@"缓存播放"
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * _Nonnull action) {
-                                                               [Application sharedInstance].playMode = 1;
+                                                               [Application sharedInstance].playMode = 0;
                                                                SettingTableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
                                                                cell.detailLabel.text =  @"缓存播放    ";
                                                            }];
         UIAlertAction * noCacheAction = [UIAlertAction actionWithTitle:@"在线播放"
                                                                style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * _Nonnull action) {
-                                                                 [Application sharedInstance].playMode = 0;
+                                                                 [Application sharedInstance].playMode = 1;
                                                                  SettingTableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
                                                                  cell.detailLabel.text =  @"在线播放    ";
                                                              }];

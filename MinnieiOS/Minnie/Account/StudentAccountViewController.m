@@ -4,7 +4,7 @@
 //
 //  Created by yebw on 2017/8/21.
 //  Copyright © 2017年 mfox. All rights reserved.
-//
+// 学生-我的
 
 #import "StudentAccountViewController.h"
 #import "ProfileTableViewCell.h"
@@ -23,6 +23,8 @@
 #import "StudentService.h"
 #import "IMManager.h"
 #import "StudentStarListViewController.h"
+#import "PublicService.h"
+
 
 @interface StudentAccountViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -51,7 +53,6 @@
     [super viewWillAppear:animated];
     
     WeakifySelf;
-    
     if (self.requestUnreaderRequest != nil) {
         [self.requestUnreaderRequest clearCompletionBlock];
         [self.requestUnreaderRequest stop];
@@ -78,6 +79,8 @@
             self.redPointImageView.hidden = count==0;
         }
     }];
+    // 更新用户信息
+    [self updateSutdentInfo];
 }
 
 - (void)dealloc {
@@ -229,5 +232,24 @@
     return height;
 }
 
+- (void)updateSutdentInfo{
+   
+    NSInteger userId = APP.currentUser.userId;
+    if (userId == 0) {
+        return;
+    }
+    WeakifySelf;
+    [PublicService requestUserInfoWithId:userId
+                                callback:^(Result *result, NSError *error) {
+                                    if (error == nil) {
+
+                                        Student *userInfo = (Student *)(result.userInfo);
+                                        userInfo.token = APP.currentUser.token;
+                                        APP.currentUser = userInfo;
+                                        [weakSelf.accountTableView reloadData];
+                                    }
+                                }];
+
+}
 @end
 

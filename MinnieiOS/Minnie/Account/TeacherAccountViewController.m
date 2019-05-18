@@ -23,6 +23,7 @@
 #import "StudentsViewController.h"
 #import "MessageService.h"
 #import "TeacherAwardService.h"
+#import "PublicService.h"
 
 @interface TeacherAccountViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -63,6 +64,8 @@
             [self.accountTableViewCell updateWithUnexchangedCount:count];
         }
     }];
+    // 更新用户信息
+    [self updateTeacherInfo];
 }
 
 - (void)dealloc {
@@ -225,6 +228,26 @@
     }
     
     return height;
+}
+
+- (void)updateTeacherInfo{
+   
+    NSInteger userId = APP.currentUser.userId;
+    if (userId == 0) {
+        return;
+    }
+    WeakifySelf;
+    [PublicService requestUserInfoWithId:userId
+                                callback:^(Result *result, NSError *error) {
+                                    if (error == nil) {
+                                        
+                                        Teacher *userInfo = (Teacher *)(result.userInfo);
+                                        userInfo.token = APP.currentUser.token;
+                                        APP.currentUser = userInfo;
+                                        [weakSelf.accountTableView reloadData];
+                                    }
+                                }];
+    
 }
 
 @end

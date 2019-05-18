@@ -66,7 +66,7 @@ static CGFloat answerItemMargin = 5;
     NSInteger playMode = [[Application sharedInstance] playMode];
     AVPlayerViewController *playerViewController = [[AVPlayerViewController alloc]init];
     AVPlayer *player;
-    if (playMode == 0)
+    if (playMode == 1)// 在线播放
     {
         [VICacheManager cleanCacheForURL:[NSURL URLWithString:url] error:nil];
         player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:url]];
@@ -102,7 +102,7 @@ static CGFloat answerItemMargin = 5;
     AudioPlayerViewController *playerViewController = [[AudioPlayerViewController alloc]init];
     NSInteger playMode = [[Application sharedInstance] playMode];
     AVPlayer *player;
-    if (playMode == 0)
+    if (playMode == 1)// 在线播放
     {
         [VICacheManager cleanCacheForURL:[NSURL URLWithString:url] error:nil];
         player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:url]];
