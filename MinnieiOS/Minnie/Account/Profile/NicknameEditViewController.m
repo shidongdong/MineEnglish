@@ -15,13 +15,14 @@
 @property (nonatomic, weak) IBOutlet UIView *contentView;
 @property (nonatomic, weak) IBOutlet UITextField *nicknameTextField;
 
+
 @end
 
 @implementation NicknameEditViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.nicknameTextField.text = APP.currentUser.nickname;
     [self.nicknameTextField addTarget:self action:@selector(changeText:) forControlEvents:UIControlEventEditingChanged];
     self.contentView.layer.cornerRadius = 12.f;
@@ -41,6 +42,14 @@
 - (void)backButtonPressed:(id)sender {
   
     NSString *name = [self.nicknameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    // 未修改
+    if ([name isEqualToString:APP.currentUser.nickname]) {
+        
+        [super backButtonPressed:sender];
+        return;
+    }
+    
     if (name.length > 0 && name.length <= 10) {
         [self updateNickname:name];
     } else {
@@ -63,14 +72,6 @@
 }
 
 #pragma mark - Update
-//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-//
-//    NSString * str = [textField.text stringByReplacingCharactersInRange:range withString:string];
-//    if (str.length > 10) {
-//        self.nicknameTextField.text = [str substringToIndex:9];
-//    }
-//    return YES;
-//}
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     NSString *name = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (name.length < 1 || name.length > 10) {

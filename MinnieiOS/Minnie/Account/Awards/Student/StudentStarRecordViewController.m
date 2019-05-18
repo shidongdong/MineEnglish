@@ -144,7 +144,11 @@ UITableViewDataSource>
     timeLabel.textColor = [UIColor colorWithHex:0x999999];
     [headerView addSubview:timeLabel];
     
-    UILabel *startCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth - 80, 5, 60, 16)];
+    CGFloat rightWidth = 20;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        rightWidth = 15;
+    }
+    UILabel *startCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth - 60 - rightWidth, 5, 60, 16)];
     startCountLabel.textAlignment = NSTextAlignmentRight;
     startCountLabel.font = [UIFont boldSystemFontOfSize:14];
     startCountLabel.textColor = [UIColor colorWithHex:0x999999];
