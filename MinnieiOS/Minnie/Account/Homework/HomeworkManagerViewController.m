@@ -557,14 +557,14 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     Homework *homework = self.homeworks[indexPath.row];
-    return [HomeworkTableViewCell cellHeightWithHomework:homework];
+    CGFloat height = [HomeworkTableViewCell cellHeightWithHomework:homework];
+    return height < 100 ? 100 : height;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     Homework *homework = self.homeworks[indexPath.row];
-    
     CreateHomeworkViewController *createHomeworkVC = [[CreateHomeworkViewController alloc] initWithNibName:@"CreateHomeworkViewController" bundle:nil];
     createHomeworkVC.homework = homework;
     [self.navigationController pushViewController:createHomeworkVC animated:YES];
