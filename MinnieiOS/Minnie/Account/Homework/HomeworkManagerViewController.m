@@ -85,7 +85,7 @@
                                              selector:@selector(shouldReloadDataWhenAppeared:)
                                                  name:kNotificationKeyOfAddHomework
                                                object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(manageButtonPressed:) name:kNotificationKeyOfHomeworkSendSuccess object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(homeworkDidSendSuccess) name:kNotificationKeyOfHomeworkSendSuccess object:nil];
     
     [self requestHomeworks];
 }
@@ -245,6 +245,11 @@
 
 - (void)shouldReloadDataWhenAppeared:(NSNotification *)notification {
     self.shouldReloadWhenAppeared = YES;
+}
+
+- (void)homeworkDidSendSuccess{
+    self.inEditMode = YES;
+    [self manageButtonPressed:nil];
 }
 
 - (void)registerCellNibs {

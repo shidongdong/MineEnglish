@@ -130,10 +130,6 @@ CGFloat const HomeworkTypeTableViewCellHeight = 200.f;
             self.secondTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
             self.currentCateLabel = self.secondTypeLabel;
             break;
-//        case 2:
-//            self.thirdTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
-//            self.currentCateLabel = self.thirdTypeLabel;
-//            break;
     }
     
     switch (style) {
@@ -164,10 +160,5 @@ CGFloat const HomeworkTypeTableViewCellHeight = 200.f;
 
     // Configure the view for the selected state
 }
-
-//- (void)setContentData:(NSArray *)datas atDefultIndex:(NSInteger)index
-//{
-//    
-//}
 
 @end

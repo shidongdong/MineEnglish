@@ -51,7 +51,6 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
     self.containerView.layer.shadowOffset = CGSizeMake(2, 4);
     
     self.homeworkTextLabel.preferredMaxLayoutWidth = [UIScreen mainScreen].bounds.size.width - 36 - 44;
-    
     self.previewButton.layer.masksToBounds = YES;
     self.previewButton.layer.cornerRadius = 16.0;
     

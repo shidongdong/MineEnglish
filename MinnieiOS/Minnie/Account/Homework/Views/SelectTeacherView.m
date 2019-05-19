@@ -13,18 +13,22 @@
 #import "Teacher.h"
 #import "TeacherCollectionViewCell.h"
 #import "SendTimePickerView.h"
+#import "EqualSpaceFlowLayout.h"
 
-@interface SelectTeacherView()<UICollectionViewDataSource, UICollectionViewDelegate>
+@interface SelectTeacherView()<UICollectionViewDataSource, UICollectionViewDelegate,EqualSpaceFlowLayoutDelegate>
 
 @property (nonatomic, weak) IBOutlet UIView *backgroundView;
+// 内容
 @property (nonatomic, weak) IBOutlet UIView *contentView;
 
 @property (nonatomic, weak) IBOutlet UILabel *selectedTeacherNameLabel;
-@property (nonatomic, weak) IBOutlet UICollectionView *teachersCollectionView;
+
+//@property (nonatomic, weak) IBOutlet UICollectionView *teachersCollectionView;
+
+@property (nonatomic, strong) UICollectionView *teachersCollectionView;
 
 @property (nonatomic, weak) IBOutlet UIButton *cancelButton;
 @property (nonatomic, weak) IBOutlet UIButton *confirmButton;
-@property (nonatomic, weak) IBOutlet UILabel *dateLabel;
 
 @property (nonatomic, strong) NSArray *teachers;
 @property (nonatomic, strong) Teacher *selectedTeacher;
@@ -49,9 +53,7 @@
     [super awakeFromNib];
     
     self.confirmButton.enabled = NO;
-    
-    [self.teachersCollectionView registerNib:[UINib nibWithNibName:@"TeacherCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:TeacherCollectionViewCellId];
-
+    [self addContentView];
     self.confirmButton.backgroundColor = nil;
     self.confirmButton.layer.cornerRadius = 12.f;
     self.confirmButton.layer.masksToBounds = YES;
@@ -62,12 +64,19 @@
     self.cancelButton.layer.masksToBounds = YES;
     self.cancelButton.layer.borderWidth = 0.5;
     self.cancelButton.layer.borderColor = [UIColor colorWithHex:0x0098FE].CGColor;
+}
+
+- (void)addContentView{
     
-    self.contentView.layer.cornerRadius = 12.f;
-    self.contentView.layer.shadowOpacity = 0.15;// 阴影透明度
-    self.contentView.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1.f].CGColor;
-    self.contentView.layer.shadowRadius = 3;
-    self.contentView.layer.shadowOffset = CGSizeMake(2, 4);
+    EqualSpaceFlowLayout *flowLayout = [[EqualSpaceFlowLayout alloc] init];
+    flowLayout.delegate = self;
+    
+    self.teachersCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 50, ScreenWidth, 50) collectionViewLayout:flowLayout];
+    self.teachersCollectionView.backgroundColor = [UIColor whiteColor];
+    self.teachersCollectionView.delegate = self;
+    self.teachersCollectionView.dataSource = self;
+    [self addSubview:self.teachersCollectionView];
+    [self.teachersCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([TeacherCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:TeacherCollectionViewCellId];
 }
 
 + (UIImage *)imageWithColor:(UIColor *)color {
@@ -91,7 +100,6 @@
     if (view.superview != nil) {
         [view removeFromSuperview];
     }
-    
     view.teachers = teachers;
     view.confirmCallback = callback;
     
@@ -99,7 +107,6 @@
     [view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(superView);
     }];
-    
     [view showWithAnimation];
 }
 
@@ -118,17 +125,73 @@
         scaleAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         [self.contentView.layer addAnimation:scaleAnimation forKey:@"scaleAnimation"];
         
+        self.teachersCollectionView.alpha = 0.f;
         self.backgroundView.alpha = 0.f;
         [UIView animateWithDuration:0.3 animations:^{
             self.backgroundView.alpha = 1.f;
+            self.teachersCollectionView.alpha = 1.f;
+            
+            
+            CGFloat collectionHeight = [SelectTeacherView heightWithTags:self.teachers];
+            CGFloat contentHeight = collectionHeight + 84 + 90;
+            if (collectionHeight > ScreenHeight *0.4) {
+                collectionHeight = ScreenHeight * 0.4;
+                contentHeight = collectionHeight + 84 + 90;
+            }
+            [self.teachersCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+                
+                make.height.mas_equalTo(collectionHeight);
+                make.left.right.equalTo(self.contentView);
+                make.top.equalTo(self.contentView.mas_top).offset(84);
+            }];
+            [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(contentHeight);
+                make.left.right.bottom.equalTo(self.backgroundView);
+            }];
         } completion:^(BOOL finished) {
         }];
     });
 }
++ (CGFloat)heightWithTags:(NSArray <Teacher *> *)tags{
+    
+    if (tags.count == 0) {
+        return 50.f;
+    }
+    CGFloat leftSpace = 10;
+    CGFloat topSpace = 10;
+    CGFloat rightSpace = 10;
+    CGFloat minimumInteritemSpacing = 5;
+    CGFloat minimumLineSpacing = 5;
+    
+    CGFloat xOffset = leftSpace;
+    CGFloat yOffset = topSpace;
+    CGFloat xNextOffset = leftSpace;
+    
+    CGFloat height = 0;
+    for (NSInteger idx = 0; idx < tags.count; idx++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:idx inSection:0];
+        
+        Teacher *teacher = tags[indexPath.row];
+        CGSize itemSize = [TeacherCollectionViewCell cellSizeWithTeacher:teacher];
+        
+        xNextOffset+=(minimumInteritemSpacing + itemSize.width);
+        if (xNextOffset >= [UIScreen mainScreen].bounds.size.width - 30 - rightSpace) {
+            xOffset = leftSpace;
+            xNextOffset = (leftSpace + minimumInteritemSpacing + itemSize.width);
+            yOffset += (itemSize.height + minimumLineSpacing);
+        }
+        else
+        {
+            xOffset = xNextOffset - (minimumInteritemSpacing + itemSize.width);
+        }
+        height = yOffset + itemSize.height + 10;
+    }
+    return height;
+}
 
 + (void)hideAnimated:(BOOL)animated {
+   
     SelectTeacherView *studentView = [SelectTeacherView sharedInstance];
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         CAKeyframeAnimation *scaleAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
         scaleAnimation.duration = .3f;
@@ -141,6 +204,7 @@
         [studentView.contentView.layer addAnimation:scaleAnimation forKey:@"scaleAnimation"];
         
         studentView.backgroundView.alpha = 1.f;
+        studentView.teachersCollectionView.alpha = 0.f;
         [UIView animateWithDuration:0.3 animations:^{
             studentView.backgroundView.alpha = 0.f;
         } completion:^(BOOL finished) {
@@ -172,7 +236,6 @@
 
         return;
     }
-    
     [SendTimePickerView showInView:self.superview callback:^(NSDate *date) {
         if (self.confirmCallback != nil) {
             self.confirmCallback(self.selectedTeacher, date);
@@ -201,33 +264,6 @@
     return cell;
 }
 
-#pragma mark - UICollectionViewDelegateFlowLayout
-
-- (CGSize)collectionView:(UICollectionView *)collectionView
-                  layout:(UICollectionViewLayout*)collectionViewLayout
-  sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    Teacher *teacher = self.teachers[indexPath.row];
-    return [TeacherCollectionViewCell cellSizeWithTeacher:teacher];
-}
-
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView
-                        layout:(UICollectionViewLayout*)collectionViewLayout
-        insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(16, 12, 16, 12);
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView
-                   layout:(UICollectionViewLayout*)collectionViewLayout
-minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 12;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView
-                   layout:(UICollectionViewLayout*)collectionViewLayout
-minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 12;
-}
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     
@@ -243,12 +279,43 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     TeacherCollectionViewCell *cell = (TeacherCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     [cell setChoice:YES];
     self.selectedTeacher = teacher;
-
-    NSLog(@"collectionView   %@, %lu",[self.teachers[indexPath.item] class],indexPath.row);
-    
     self.selectedTeacherNameLabel.text = teacher.nickname;
     self.confirmButton.enabled = self.selectedTeacher.userId>0;
 }
+
+#pragma mark - UICollectionViewDelegateFlowLayout
+
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout*)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    Teacher *teacher = self.teachers[indexPath.row];
+    CGSize itemSize = [TeacherCollectionViewCell cellSizeWithTeacher:teacher];
+    // 标签长度大于屏幕
+    if (itemSize.width > ScreenWidth -30) {
+        
+        itemSize.width = ScreenWidth - 30;
+    }
+    return itemSize;
+}
+//
+//- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView
+//                        layout:(UICollectionViewLayout*)collectionViewLayout
+//        insetForSectionAtIndex:(NSInteger)section {
+//    return UIEdgeInsetsMake(16, 12, 16, 12);
+//}
+//
+//- (CGFloat)collectionView:(UICollectionView *)collectionView
+//                   layout:(UICollectionViewLayout*)collectionViewLayout
+//minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+//    return 12;
+//}
+//
+//- (CGFloat)collectionView:(UICollectionView *)collectionView
+//                   layout:(UICollectionViewLayout*)collectionViewLayout
+//minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+//    return 12;
+//}
+
 
 - (Teacher *)selectedTeacher{
     

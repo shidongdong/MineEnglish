@@ -64,6 +64,8 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         self.selectedTags = [[NSMutableArray alloc] init];
         self.limitTimeSecs = 300;
         self.categoryType = 1;
+        //作业类型：日常1、假期2、集训3
+        self.styleType = 1;
     } else {
         self.customTitleLabel.text = @"作业详情";
         
@@ -1278,7 +1280,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
     {
         HomeworkTagsTableViewCell *tagsCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTagsTableViewCellId forIndexPath:indexPath];
         tagsCell.type = HomeworkTagsTableViewCellSelectMutiType;
-        [tagsCell setupWithTags:self.tags selectedTags:self.selectedTags typeTitle:@"标签:"];
+        [tagsCell setupWithTags:self.tags selectedTags:self.selectedTags typeTitle:@"分类标签:"];
         
         WeakifySelf;
         [tagsCell setSelectCallback:^(NSString *tag) {
@@ -1366,10 +1368,10 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         height = HomeworkTimeLimitTableViewCellHeight;
     }
     else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 5) { //form标签
-        height = [HomeworkTagsTableViewCell heightWithTags:self.formTags typeTitle:@"作业类型:"];
+        height = [HomeworkTagsTableViewCell heightWithTags:self.formTags typeTitle:@"作业类型:"] + 45;
     }
     else {
-        height = [HomeworkTagsTableViewCell heightWithTags:self.tags typeTitle:@"标签:"];
+        height = [HomeworkTagsTableViewCell heightWithTags:self.tags typeTitle:@"分类标签:"];
     }
     
     return height;

@@ -278,7 +278,7 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
         self.mCollectionView.scrollEnabled = NO;
         if (!self.drawingView) {
             self.drawingView = [[UIImageView alloc] init];
-            self.drawingView.backgroundColor = [UIColor colorWithRed:255.f/255.f green:0.f/255.f blue:0.f/255.f alpha:0.3];
+            self.drawingView.backgroundColor = [UIColor clearColor];
             self.drawingView.userInteractionEnabled = YES;
             self.drawingView.frame = [self caculateDrawImageFrameWithImage:self.editorContent.imageView.image];
         }
