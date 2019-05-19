@@ -521,6 +521,13 @@
         [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
     
+    // 点击空白处 -> 作业详情
+    [cell setBlankCallback:^{
+        
+        CreateHomeworkViewController *createHomeworkVC = [[CreateHomeworkViewController alloc] initWithNibName:@"CreateHomeworkViewController" bundle:nil];
+        createHomeworkVC.homework = homework;
+        [self.navigationController pushViewController:createHomeworkVC animated:YES];
+    }];
     [cell setSendCallback:^{
         ClassAndStudentSelectorController *vc = [[ClassAndStudentSelectorController alloc] init];
         [vc setHomeworks:@[homework]];

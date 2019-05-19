@@ -16,6 +16,9 @@ typedef void(^HomeworkTableViewCellSelectCallback)(void);
 
 typedef void(^HomeworkTableViewCellPreviewCallback)(void);
 
+// 点击空白处回调
+typedef void(^HomeworkTableViewCellBlankCallback)(void);
+
 typedef void(^HomeworkTableViewCellClickImageCallback)(UIImageView *, NSString *);
 typedef void(^HomeworkTableViewCellClickVideoCallback)(NSString *);
 typedef void(^HomeworkTableViewCellClickAudioCallback)(NSString *, NSString *);
@@ -26,6 +29,8 @@ typedef void(^HomeworkTableViewCellClickAudioCallback)(NSString *, NSString *);
 @property (nonatomic, copy) HomeworkTableViewCellSelectCallback selectCallback;
 
 @property (nonatomic, copy) HomeworkTableViewCellPreviewCallback previewCallback;
+
+@property (nonatomic, copy) HomeworkTableViewCellBlankCallback blankCallback;
 
 @property (nonatomic, copy) HomeworkTableViewCellClickImageCallback imageCallback;
 @property (nonatomic, copy) HomeworkTableViewCellClickVideoCallback videoCallback;

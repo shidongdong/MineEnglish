@@ -56,6 +56,8 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
     
     [self registerCellNibs];
     [self setupCollectionViewLayout];
+    
+    [self.homeworksCollectionView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(collectionViewClicked:)]];
 }
 
 - (void)registerCellNibs {
@@ -219,29 +221,63 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [collectionView deselectItemAtIndexPath:indexPath animated:NO];
-    
+//- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+//
+//    [collectionView deselectItemAtIndexPath:indexPath animated:NO];
+//
+//    HomeworkItem *item = self.homework.items[indexPath.row+1];
+//    if ([item.type isEqualToString:HomeworkItemTypeImage]) {
+//        HomeworkImageCollectionViewCell *cell = (HomeworkImageCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+//
+//        if (self.imageCallback != nil) {
+//            self.imageCallback(cell.homeworkImageView, item.imageUrl);
+//        }
+//    } else if ([item.type isEqualToString:HomeworkItemTypeVideo]) {
+//        if (self.videoCallback != nil) {
+//            self.videoCallback(item.videoUrl);
+//        }
+//    }else if ([item.type isEqualToString:HomeworkItemTypeAudio])
+//    {
+//        if (self.audioCallback != nil) {
+//            self.audioCallback(item.audioUrl, item.audioCoverUrl);
+//        }
+//    }
+//}
 
-    HomeworkItem *item = self.homework.items[indexPath.row+1];
-    if ([item.type isEqualToString:HomeworkItemTypeImage]) {
-        HomeworkImageCollectionViewCell *cell = (HomeworkImageCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+#pragma mark - 
+- (void)collectionViewClicked:(UITapGestureRecognizer *)tapGest{
+    
+    if (tapGest.state != UIGestureRecognizerStateEnded) {
+        return;
+    }
+    CGPoint p = [tapGest locationInView:self.homeworksCollectionView];
+    
+    NSIndexPath *indexPath = [self.homeworksCollectionView indexPathForItemAtPoint:p];
+    if (indexPath == nil){// 点击空白处
+      
+        if (self.blankCallback) {
+            self.blankCallback();
+        }
+    } else {// 点击cell内部
         
-        if (self.imageCallback != nil) {
-            self.imageCallback(cell.homeworkImageView, item.imageUrl);
-        }
-    } else if ([item.type isEqualToString:HomeworkItemTypeVideo]) {
-        if (self.videoCallback != nil) {
-            self.videoCallback(item.videoUrl);
-        }
-    }else if ([item.type isEqualToString:HomeworkItemTypeAudio])
-    {
-        if (self.audioCallback != nil) {
-            self.audioCallback(item.audioUrl, item.audioCoverUrl);
+        HomeworkItem *item = self.homework.items[indexPath.row+1];
+        if ([item.type isEqualToString:HomeworkItemTypeImage]) {
+            HomeworkImageCollectionViewCell *cell = (HomeworkImageCollectionViewCell *)[self.homeworksCollectionView cellForItemAtIndexPath:indexPath];
+            
+            if (self.imageCallback != nil) {
+                self.imageCallback(cell.homeworkImageView, item.imageUrl);
+            }
+        } else if ([item.type isEqualToString:HomeworkItemTypeVideo]) {
+            if (self.videoCallback != nil) {
+                self.videoCallback(item.videoUrl);
+            }
+        }else if ([item.type isEqualToString:HomeworkItemTypeAudio])
+        {
+            if (self.audioCallback != nil) {
+                self.audioCallback(item.audioUrl, item.audioCoverUrl);
+            }
         }
     }
-    
 }
-
 @end
 
