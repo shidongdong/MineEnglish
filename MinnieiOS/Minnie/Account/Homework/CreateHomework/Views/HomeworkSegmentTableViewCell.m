@@ -65,10 +65,6 @@ CGFloat const HomeworkTypeTableViewCellHeight = 200.f;
     
     switch (sender.tag)
     {
-//        case 100:
-//            self.firstTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
-//            self.currentCateLabel = self.firstTypeLabel;
-//            break;
         case 101:
             self.firstTypeLabel.backgroundColor = [UIColor colorWithHex:0x0098FE];
             self.currentCateLabel = self.firstTypeLabel;

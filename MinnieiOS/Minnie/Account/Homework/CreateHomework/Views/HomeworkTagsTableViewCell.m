@@ -66,8 +66,8 @@ NSString * const HomeworkTagsTableViewCellId = @"HomeworkTagsTableViewCellId";
     CGFloat leftSpace = 10;
     CGFloat topSpace = 10;
     CGFloat rightSpace = 10;
-    CGFloat minimumInteritemSpacing = 5;
-    CGFloat minimumLineSpacing = 5;
+    CGFloat minimumInteritemSpacing = 10;
+    CGFloat minimumLineSpacing = 10;
     
     CGFloat xOffset = leftSpace;
     CGFloat yOffset = topSpace;

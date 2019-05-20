@@ -27,18 +27,34 @@
 @property (nonatomic, strong) NSArray<Award *> *awards;
 @property (nonatomic, strong) BaseRequest *awardsRequest;
 
+
+@property (nonatomic, assign) NSInteger unfinishedCount;
+
 @end
 
 @implementation StudentAwardsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    if (APP.currentUser.homeworks.count) {
+      
+        self.unfinishedCount = [APP.currentUser.homeworks[0] integerValue];
+    }
     self.starCountLabel.text = [NSString stringWithFormat:@"%@", @(APP.currentUser.starCount)];
     
     [self registerCellNibs];
     
     [self requestData];
+    
+    if (self.unfinishedCount>=20) {
+     
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"零分过多，无法兑换礼物\n请先将零分任务数减少到20以下" preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            NSLog(@"点击取消");
+        }]];
+        [self presentViewController:alertController animated:YES completion:^{
+        }];
+    }
 }
 
 - (void)dealloc {

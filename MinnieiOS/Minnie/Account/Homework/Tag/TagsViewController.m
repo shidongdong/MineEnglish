@@ -480,7 +480,7 @@ EqualSpaceFlowLayoutDelegate
     EqualSpaceFlowLayout *flowLayout = [[EqualSpaceFlowLayout alloc] init];
     flowLayout.delegate = self;
     CGFloat footerHeight = isIPhoneX ? (44 + 34) :44;
-    self.tagsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kNaviBarHeight, ScreenWidth, ScreenHeight - kNaviBarHeight - footerHeight ) collectionViewLayout:flowLayout];
+    self.tagsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kNaviBarHeight, ScreenWidth, ScreenHeight - kNaviBarHeight - footerHeight) collectionViewLayout:flowLayout];
     self.tagsCollectionView.backgroundColor = [UIColor whiteColor];
     self.tagsCollectionView.delegate = self;
     self.tagsCollectionView.dataSource = self;

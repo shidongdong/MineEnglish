@@ -672,12 +672,9 @@
             [self.homeworkSessions addObjectsFromArray:sessions];
         }
         [self loadConversations];
-//        [self mergeAndReload];
-        
         if (nextUrl.length == 0) {
             [self.homeworkSessionsTableView removeFooter];
         }
-        
     } else {
         // 停止加载
         [self.homeworkSessionsTableView headerEndRefreshing];

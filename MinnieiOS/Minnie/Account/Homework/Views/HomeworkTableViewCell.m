@@ -220,30 +220,6 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
-
-//- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//
-//    [collectionView deselectItemAtIndexPath:indexPath animated:NO];
-//
-//    HomeworkItem *item = self.homework.items[indexPath.row+1];
-//    if ([item.type isEqualToString:HomeworkItemTypeImage]) {
-//        HomeworkImageCollectionViewCell *cell = (HomeworkImageCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-//
-//        if (self.imageCallback != nil) {
-//            self.imageCallback(cell.homeworkImageView, item.imageUrl);
-//        }
-//    } else if ([item.type isEqualToString:HomeworkItemTypeVideo]) {
-//        if (self.videoCallback != nil) {
-//            self.videoCallback(item.videoUrl);
-//        }
-//    }else if ([item.type isEqualToString:HomeworkItemTypeAudio])
-//    {
-//        if (self.audioCallback != nil) {
-//            self.audioCallback(item.audioUrl, item.audioCoverUrl);
-//        }
-//    }
-//}
-
 #pragma mark - 
 - (void)collectionViewClicked:(UITapGestureRecognizer *)tapGest{
     

@@ -160,8 +160,8 @@
     CGFloat leftSpace = 10;
     CGFloat topSpace = 10;
     CGFloat rightSpace = 10;
-    CGFloat minimumInteritemSpacing = 5;
-    CGFloat minimumLineSpacing = 5;
+    CGFloat minimumInteritemSpacing = 10;
+    CGFloat minimumLineSpacing = 10;
     
     CGFloat xOffset = leftSpace;
     CGFloat yOffset = topSpace;
@@ -297,25 +297,6 @@
     }
     return itemSize;
 }
-//
-//- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView
-//                        layout:(UICollectionViewLayout*)collectionViewLayout
-//        insetForSectionAtIndex:(NSInteger)section {
-//    return UIEdgeInsetsMake(16, 12, 16, 12);
-//}
-//
-//- (CGFloat)collectionView:(UICollectionView *)collectionView
-//                   layout:(UICollectionViewLayout*)collectionViewLayout
-//minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-//    return 12;
-//}
-//
-//- (CGFloat)collectionView:(UICollectionView *)collectionView
-//                   layout:(UICollectionViewLayout*)collectionViewLayout
-//minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-//    return 12;
-//}
-
 
 - (Teacher *)selectedTeacher{
     

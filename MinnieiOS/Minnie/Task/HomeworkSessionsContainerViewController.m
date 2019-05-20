@@ -169,8 +169,12 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         NSLog(@"点击确认");
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:appinfo.appUrl] options:@{} completionHandler:nil];
-        //  [APP openURL:];
+        if (@available(iOS 10.0, *)) {
+            
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:appinfo.appUrl] options:@{} completionHandler:nil];
+        } else {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:appinfo.appUrl]];
+        }
     }]];
     [self presentViewController:alertController animated:YES completion:^{
         
@@ -185,7 +189,6 @@
 #if TEACHERSIDE
 #else
     //处理朋友圈的小红点
-    
     [CirlcleService requestCircleHomeworkFlagWithcallback:^(Result *result, NSError *error) {
         if (error == nil)
         {

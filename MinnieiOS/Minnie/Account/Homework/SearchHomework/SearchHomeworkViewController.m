@@ -17,15 +17,18 @@
 #import "ClassAndStudentSelectorController.h"
 #import "CreateHomeworkViewController.h"
 #import "HomeworkPreviewViewController.h"
+#import "EqualSpaceFlowLayout.h"
 
-@interface SearchHomeworkViewController ()<UITextFieldDelegate, UITableViewDataSource,UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
+@interface SearchHomeworkViewController ()<UITextFieldDelegate, UITableViewDataSource,UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate,EqualSpaceFlowLayoutDelegate>
 
 @property (nonatomic, weak) IBOutlet UITextField *searchTextField;
 
 @property (nonatomic, weak) IBOutlet UIView *tagsView;
-@property (nonatomic, weak) IBOutlet UICollectionView *tagsCollectionView;
+//@property (nonatomic, weak) IBOutlet UICollectionView *tagsCollectionView;
 @property (nonatomic, weak) IBOutlet UIView *homeworksView;
 @property (nonatomic, weak) IBOutlet UITableView *homeworksTableView;
+
+@property (nonatomic, strong) UICollectionView *tagsCollectionView;
 
 @property (nonatomic, strong) NSArray *tags;
 @property (nonatomic, strong) NSMutableArray<NSString *> * selectTags;
@@ -59,6 +62,7 @@
     
     [self requestTags];
 }
+
 
 - (void)shouldReloadDataWhenAppeared:(NSNotification *)notification {
     self.shouldReloadWhenAppeared = YES;
@@ -116,6 +120,21 @@
 - (void)registerCellNibs {
     [self.homeworksTableView registerNib:[UINib nibWithNibName:NSStringFromClass([HomeworkTableViewCell class]) bundle:nil] forCellReuseIdentifier:HomeworkTableViewCellId];
     
+    [self addContentView];
+}
+- (void)addContentView{
+
+    EqualSpaceFlowLayout *flowLayout = [[EqualSpaceFlowLayout alloc] init];
+    flowLayout.delegate = self;
+    flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, kNaviBarHeight + 70, 10);
+    
+    CGFloat height =  ScreenHeight - kNaviBarHeight - 60;
+    self.tagsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 60, ScreenWidth,height) collectionViewLayout:flowLayout];
+    self.tagsCollectionView.backgroundColor = [UIColor whiteColor];
+    self.tagsCollectionView.delegate = self;
+    self.tagsCollectionView.dataSource = self;
+    [self.tagsView addSubview:self.tagsCollectionView];
+    self.tagsCollectionView.contentSize = CGSizeMake(ScreenWidth, height);
     [self.tagsCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([TagCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:TagCollectionViewCellId];
 }
 
@@ -123,7 +142,12 @@
     [TagService requestTagsWithCallback:^(Result *result, NSError *error) {
         if (error == nil) {
             self.tags = (NSArray *)(result.userInfo);
-            
+            NSMutableArray *array = [NSMutableArray array];
+            [array addObjectsFromArray:(NSArray *)(result.userInfo)];
+            [array addObjectsFromArray:(NSArray *)(result.userInfo)];
+            [array addObjectsFromArray:(NSArray *)(result.userInfo)];
+            [array addObjectsFromArray:(NSArray *)(result.userInfo)];
+            self.tags = array;
             [self.tagsCollectionView reloadData];
             
             if (self.searchTextField.text.length == 0) {
@@ -315,6 +339,12 @@
         vc.homework = homework;
         [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
+    [cell setBlankCallback:^{
+       
+        CreateHomeworkViewController *createHomeworkVC = [[CreateHomeworkViewController alloc] initWithNibName:@"CreateHomeworkViewController" bundle:nil];
+        createHomeworkVC.homework = homework;
+        [self.navigationController pushViewController:createHomeworkVC animated:YES];
+    }];
     
     return cell;
 }
@@ -367,26 +397,32 @@
                   layout:(UICollectionViewLayout*)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     NSString *tag = self.tags[indexPath.row];
-    return [TagCollectionViewCell cellSizeWithTag:tag];
+    CGSize itemSize = [TagCollectionViewCell cellSizeWithTag:tag];
+    // 标签长度大于屏幕
+    if (itemSize.width > ScreenWidth -30) {
+        
+        itemSize.width = ScreenWidth - 30;
+    }
+    return itemSize;
 }
 
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView
-                        layout:(UICollectionViewLayout*)collectionViewLayout
-        insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(16, 12, 16, 12);
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView
-                   layout:(UICollectionViewLayout*)collectionViewLayout
-minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 12;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView
-                   layout:(UICollectionViewLayout*)collectionViewLayout
-minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 12;
-}
+//- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView
+//                        layout:(UICollectionViewLayout*)collectionViewLayout
+//        insetForSectionAtIndex:(NSInteger)section {
+//    return UIEdgeInsetsMake(16, 12, 16, 12);
+//}
+//
+//- (CGFloat)collectionView:(UICollectionView *)collectionView
+//                   layout:(UICollectionViewLayout*)collectionViewLayout
+//minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+//    return 12;
+//}
+//
+//- (CGFloat)collectionView:(UICollectionView *)collectionView
+//                   layout:(UICollectionViewLayout*)collectionViewLayout
+//minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+//    return 12;
+//}
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
