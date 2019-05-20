@@ -48,7 +48,6 @@
     if (self != nil) {
         _homeworkSessions = [NSMutableArray array];
     }
-    
     return self;
 }
 
@@ -675,6 +674,7 @@
         if (nextUrl.length == 0) {
             [self.homeworkSessionsTableView removeFooter];
         }
+        
     } else {
         // 停止加载
         [self.homeworkSessionsTableView headerEndRefreshing];

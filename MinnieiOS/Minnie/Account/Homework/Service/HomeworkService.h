@@ -4,7 +4,7 @@
 //
 //  Created by yebw on 2017/12/14.
 //  Copyright © 2017年 mfox. All rights reserved.
-//
+// 作业管理相关接口
 
 #import <Foundation/Foundation.h>
 #import "Homework.h"
@@ -15,12 +15,14 @@
 
 @interface HomeworkService : NSObject
 
+// 创建作业
 + (BaseRequest *)createHomework:(Homework *)homework
                        callback:(RequestCallback)callback;
 
 + (BaseRequest *)deleteHomeworks:(NSArray <NSNumber *> *)homeworkIds
                         callback:(RequestCallback)callback;
 
+// 作业管理 获取作业列表
 + (BaseRequest *)requestHomeworksWithCallback:(RequestCallback)callback;
 
 + (BaseRequest *)requestHomeworksWithNextUrl:(NSString *)nextUrl

@@ -23,6 +23,7 @@
              @"category":@"category",
              @"limitTimes":@"limitTimes",
              @"formTag":@"formTag",
+             @"teremark":@"teremark"
              };
 }
 
@@ -102,6 +103,7 @@
     dict[@"category"] = @(self.category);
     dict[@"limitTimes"] = @(self.limitTimes);
     dict[@"formTag"] = self.formTag;
+    dict[@"teremark"] = self.teremark;
     return dict;
 }
 

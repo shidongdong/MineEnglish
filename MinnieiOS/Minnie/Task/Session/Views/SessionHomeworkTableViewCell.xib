@@ -11,15 +11,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SessionHomeworkTableViewCellId" rowHeight="190" id="TXp-jm-vgY" customClass="SessionHomeworkTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="789" height="190"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SessionHomeworkTableViewCellId" rowHeight="546" id="TXp-jm-vgY" customClass="SessionHomeworkTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="858" height="546"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TXp-jm-vgY" id="KAH-SK-JnP">
-                <rect key="frame" x="0.0" y="0.0" width="789" height="189.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="858" height="545.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view tag="11" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xVf-tV-d9V">
-                        <rect key="frame" x="0.0" y="0.0" width="789" height="189.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="858" height="545.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="任务详情" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNi-j7-9rn" userLabel="作业题目">
                                 <rect key="frame" x="12" y="15" width="50" height="15"/>
@@ -31,7 +31,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="rAo-pL-Z1Y">
-                                <rect key="frame" x="12" y="63.5" width="765" height="114"/>
+                                <rect key="frame" x="12" y="411.5" width="834" height="114"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="114" id="VQn-P1-67w"/>
@@ -48,13 +48,13 @@
                                 </connections>
                             </collectionView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kVo-0L-YH6" userLabel="时间">
-                                <rect key="frame" x="379" y="8" width="31" height="14.5"/>
+                                <rect key="frame" x="413.5" y="8" width="31" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yHM-iA-FU1" userLabel="作业文字">
-                                <rect key="frame" x="12" y="37" width="765" height="14.5"/>
+                                <rect key="frame" x="12" y="37" width="834" height="362.5"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Label">
                                         <attributes>
@@ -66,23 +66,35 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9cW-b1-vz7">
-                                <rect key="frame" x="777" y="22.5" width="0.0" height="0.0"/>
+                                <rect key="frame" x="846" y="22.5" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KRx-u9-Uzg">
+                                <rect key="frame" x="10" y="535.5" width="838" height="0.0"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" priority="750" constant="21" id="Z3I-oV-k1A"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="KRx-u9-Uzg" firstAttribute="top" secondItem="rAo-pL-Z1Y" secondAttribute="bottom" constant="10" id="7Bs-3c-Sor"/>
                             <constraint firstItem="sNi-j7-9rn" firstAttribute="leading" secondItem="PZ9-bk-Z7A" secondAttribute="leading" constant="12" id="CaB-1b-wvu"/>
                             <constraint firstItem="kVo-0L-YH6" firstAttribute="top" secondItem="PZ9-bk-Z7A" secondAttribute="top" constant="8" id="D4U-xU-NE6"/>
+                            <constraint firstItem="PZ9-bk-Z7A" firstAttribute="bottom" secondItem="KRx-u9-Uzg" secondAttribute="bottom" constant="10" id="FlW-zo-Zxw"/>
                             <constraint firstItem="kVo-0L-YH6" firstAttribute="centerX" secondItem="xVf-tV-d9V" secondAttribute="centerX" id="Ghn-uB-9XP"/>
+                            <constraint firstItem="PZ9-bk-Z7A" firstAttribute="trailing" secondItem="KRx-u9-Uzg" secondAttribute="trailing" constant="10" id="LLx-oF-Ezz"/>
                             <constraint firstItem="PZ9-bk-Z7A" firstAttribute="trailing" secondItem="9cW-b1-vz7" secondAttribute="trailing" constant="12" id="LSh-sr-7Gb"/>
-                            <constraint firstAttribute="bottom" secondItem="rAo-pL-Z1Y" secondAttribute="bottom" constant="12" id="Qex-l0-rUf"/>
                             <constraint firstItem="PZ9-bk-Z7A" firstAttribute="trailing" secondItem="yHM-iA-FU1" secondAttribute="trailing" constant="12" id="VDs-jT-wow"/>
                             <constraint firstItem="9cW-b1-vz7" firstAttribute="centerY" secondItem="sNi-j7-9rn" secondAttribute="centerY" id="Wwq-1z-rlO"/>
                             <constraint firstItem="rAo-pL-Z1Y" firstAttribute="leading" secondItem="PZ9-bk-Z7A" secondAttribute="leading" constant="12" id="Zym-Oz-ra6"/>
                             <constraint firstItem="sNi-j7-9rn" firstAttribute="top" secondItem="PZ9-bk-Z7A" secondAttribute="top" constant="15" id="bms-WE-UTY"/>
+                            <constraint firstItem="KRx-u9-Uzg" firstAttribute="leading" secondItem="PZ9-bk-Z7A" secondAttribute="leading" constant="10" id="bzX-Tv-1jk"/>
                             <constraint firstItem="yHM-iA-FU1" firstAttribute="top" secondItem="sNi-j7-9rn" secondAttribute="bottom" constant="7" id="cNJ-0c-1T6"/>
                             <constraint firstItem="rAo-pL-Z1Y" firstAttribute="leading" secondItem="yHM-iA-FU1" secondAttribute="leading" id="eFl-8d-U0N"/>
                             <constraint firstItem="rAo-pL-Z1Y" firstAttribute="top" secondItem="yHM-iA-FU1" secondAttribute="bottom" constant="12" id="kcW-sc-d65"/>
@@ -99,15 +111,16 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="collectionViewBottomConstraint" destination="Qex-l0-rUf" id="vqi-EL-Yka"/>
+                <outlet property="collectionViewBottomConstraint" destination="FlW-zo-Zxw" id="v44-o0-FeS"/>
                 <outlet property="collectionViewHeightConstraint" destination="VQn-P1-67w" id="DtQ-9L-MuE"/>
                 <outlet property="dateLabel" destination="kVo-0L-YH6" id="KKM-eO-yty"/>
                 <outlet property="homeworkTextLabel" destination="yHM-iA-FU1" id="IiJ-Ks-xvq"/>
                 <outlet property="homeworkTitleLabel" destination="sNi-j7-9rn" id="x18-o6-pHl"/>
                 <outlet property="homeworksCollectionView" destination="rAo-pL-Z1Y" id="lrc-g2-796"/>
                 <outlet property="limitTimeLabel" destination="9cW-b1-vz7" id="vQ2-mp-9rw"/>
+                <outlet property="teremarkLabel" destination="KRx-u9-Uzg" id="ULd-dJ-WoN"/>
             </connections>
-            <point key="canvasLocation" x="-3212" y="-1200.8995502248877"/>
+            <point key="canvasLocation" x="-3156.8000000000002" y="-1040.7796101949027"/>
         </tableViewCell>
     </objects>
 </document>

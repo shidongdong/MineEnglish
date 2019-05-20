@@ -36,6 +36,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
 
 @property (nonatomic, weak) IBOutlet UITableView *homeworkTableView;
 @property (nonatomic, copy) NSString *homeworkTitle;
+@property (nonatomic, copy) NSString *teremark;// 批改备注
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, strong) NSMutableArray<HomeworkItem *> *items;
 @property (nonatomic, strong) NSMutableArray<HomeworkAnswerItem *> *answerItems;
@@ -88,6 +89,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         self.limitTimeSecs = self.homework.limitTimes;
         self.selectedTags = [NSMutableArray arrayWithArray:self.homework.tags];
         self.selectFormTag = self.homework.formTag;
+        self.teremark = self.homework.teremark;
     }
     
     self.homeworkTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
@@ -157,6 +159,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
     self.homework.limitTimes = self.limitTimeSecs;
     self.homework.level = self.level;
     self.homework.formTag = self.selectFormTag;
+    self.homework.teremark = self.teremark;
     
     if (self.homework.homeworkId == 0) {
         [HUD showProgressWithMessage:@"正在新建作业"];
@@ -968,7 +971,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
 {
     self.limitTimeSecs = seconds;
     
-    HomeworkLimitTimeCell * cell = (HomeworkLimitTimeCell *)[self.homeworkTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 + self.items.count + 2 + self.answerItems.count + 4 inSection:0]];
+    HomeworkLimitTimeCell * cell = (HomeworkLimitTimeCell *)[self.homeworkTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 + self.items.count + 2 + self.answerItems.count + 4 inSection:0]];
     [cell updateTimeLabel:seconds];
 }
 
@@ -992,7 +995,10 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSInteger numberOfRows = 2; // 标题 + 文本
+  
+    NSInteger numberOfRows = 2; // 标题 + 文本（作业要求）
+    
+    numberOfRows += 1;// 添加批改备注
     
     numberOfRows += 1;// 添加材料文案
     
@@ -1025,10 +1031,8 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
     
     if (indexPath.row == 0) { // 标题
         WeakifySelf;
-        
         HomeworkTitleTableViewCell *titleCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTitleTableViewCellId forIndexPath:indexPath];
-        
-        [titleCell setupWithText:self.homeworkTitle];
+        [titleCell setupWithText:self.homeworkTitle title:@"标题:" placeholder:@"输入题目"];
         
         __weak HomeworkTitleTableViewCell *weakTitleCell = titleCell;
         __weak UITableView *weakTableView = tableView;
@@ -1069,14 +1073,38 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         };
         
         cell = textCell;
-    } else if (indexPath.row == 2) { // 添加材料标签
+    }
+    else if (indexPath.row == 2) { // 添加批改备注
+       
+        WeakifySelf;
+        HomeworkTitleTableViewCell *markCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTitleTableViewCellId forIndexPath:indexPath];
+        markCell.cellType = CreateHomeworkCell_CorrectRemarks;
+        [markCell setupWithText:self.teremark title:@"批改备注:" placeholder:@"输入批改要求"];
+        __weak HomeworkTitleTableViewCell *weakTitleCell = markCell;
+        __weak UITableView *weakTableView = tableView;
+        markCell.callback = ^(NSString *text, BOOL heightChanged) {
+            weakSelf.teremark = text;
+            
+            if (heightChanged) {
+                [weakTableView beginUpdates];
+                [weakTableView endUpdates];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakTitleCell ajustTextView];
+                });
+            }
+        };
+        
+        cell = markCell;
+    }
+    else if (indexPath.row == 3) { // 添加材料标签
         HomeworkLabelTableViewCell *labelCell = [tableView dequeueReusableCellWithIdentifier:HomeworkLabelTableViewCellId forIndexPath:indexPath];
         
         [labelCell setupWithText:@"添加材料:"];
         
         cell = labelCell;
-    } else if (indexPath.row > 2 && indexPath.row < 2 + self.items.count + 1) { // 材料
-        NSInteger row = indexPath.row - 3;
+    } else if (indexPath.row > 3 && indexPath.row < 3 + self.items.count + 1) { // 材料
+        NSInteger row = indexPath.row - 4;
         HomeworkItem *item = self.items[row];
         NSString *type = item.type;
         if ([type isEqualToString:HomeworkItemTypeVideo]) {
@@ -1126,7 +1154,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
             cell = audioCell;
             
         }
-    } else if (indexPath.row == 2 + self.items.count + 1) { // 添加按钮
+    } else if (indexPath.row == 3 + self.items.count + 1) { // 添加按钮
         HomeworkAddTableViewCell *addCell = [tableView dequeueReusableCellWithIdentifier:HomeworkAddTableViewCellId forIndexPath:indexPath];
         
         WeakifySelf;
@@ -1135,15 +1163,15 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         }];
         
         cell = addCell;
-    } else if (indexPath.row == 2 + self.items.count + 2) { // 标签
+    } else if (indexPath.row == 3 + self.items.count + 2) { // 标签
         HomeworkLabelTableViewCell *labelCell = [tableView dequeueReusableCellWithIdentifier:HomeworkLabelTableViewCellId forIndexPath:indexPath];
         
         [labelCell setupWithText:@"添加答案:"];
         
         cell = labelCell;
-    } else if (indexPath.row > 2 + self.items.count + 2 &&
-               indexPath.row < 2 + self.items.count + 2 + self.answerItems.count + 1) {
-        NSInteger row = indexPath.row - (2 + self.items.count + 3);
+    } else if (indexPath.row > 3 + self.items.count + 2 &&
+               indexPath.row < 3 + self.items.count + 2 + self.answerItems.count + 1) {
+        NSInteger row = indexPath.row - (3 + self.items.count + 3);
         HomeworkAnswerItem *item = self.answerItems[row];
         NSString *type = item.type;
         if ([type isEqualToString:HomeworkItemTypeVideo]) {
@@ -1195,7 +1223,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
             
         }
         
-    } else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 1) {
+    } else if (indexPath.row == 3 + self.items.count + 2 + self.answerItems.count + 1) {
         HomeworkAddTableViewCell *addCell = [tableView dequeueReusableCellWithIdentifier:HomeworkAddTableViewCellId forIndexPath:indexPath];
         
         WeakifySelf;
@@ -1205,7 +1233,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         
         cell = addCell;
     }
-    else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 2) {
+    else if (indexPath.row == 3 + self.items.count + 2 + self.answerItems.count + 2) {
         HomeworkSegmentTableViewCell * segmentCell = [tableView dequeueReusableCellWithIdentifier:HomeworkSegmentTableViewCellId forIndexPath:indexPath];
         
         [segmentCell updateHomeworkCategoryType:self.categoryType withStyleType:self.styleType];
@@ -1224,7 +1252,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         
         cell = segmentCell;
     }
-    else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 3) {
+    else if (indexPath.row == 3 + self.items.count + 2 + self.answerItems.count + 3) {
         HomeworkDiffTableViewCell * diffCell = [tableView dequeueReusableCellWithIdentifier:HomeworkDiffTableViewCellId forIndexPath:indexPath];
         [diffCell updateHomeworkLevel:self.level];
         WeakifySelf;
@@ -1234,7 +1262,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         
         cell = diffCell;
     }
-    else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 4) {
+    else if (indexPath.row == 3 + self.items.count + 2 + self.answerItems.count + 4) {
         HomeworkLimitTimeCell * timeLimitCell = [tableView dequeueReusableCellWithIdentifier:HomeworkLimitTimeCellId forIndexPath:indexPath];
         WeakifySelf;
         [timeLimitCell updateTimeLabel:self.limitTimeSecs];
@@ -1244,7 +1272,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         
         cell = timeLimitCell;
     }
-    else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 5)
+    else if (indexPath.row == 3 + self.items.count + 2 + self.answerItems.count + 5)
     {
         HomeworkTagsTableViewCell *tagsCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTagsTableViewCellId forIndexPath:indexPath];
         tagsCell.type = HomeworkTagsTableViewCellSelectSigleType;
@@ -1312,10 +1340,12 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         height = [HomeworkTextTableViewCell cellHeightWithText:self.homeworkTitle];
     } else if (indexPath.row == 1) { // 文本
         height = [HomeworkTextTableViewCell cellHeightWithText:self.text];
-    } else if (indexPath.row == 2) { // 标签
+    } else if (indexPath.row == 2) { // 批改备注
+        height = [HomeworkTextTableViewCell cellHeightWithText:self.text];
+    } else if (indexPath.row == 3) { // 标签
         height = HomeworkLabelTableViewCellHeight;
-    } else if (indexPath.row > 2 && indexPath.row < 2 + self.items.count + 1) { // 材料
-        NSInteger row = indexPath.row - 3;
+    } else if (indexPath.row > 3 && indexPath.row < 3 + self.items.count + 1) { // 材料
+        NSInteger row = indexPath.row - 4;
         HomeworkItem *item = self.items[row];
         NSString *type = item.type;
         if ([type isEqualToString:HomeworkItemTypeVideo]) {
@@ -1332,13 +1362,13 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
                 height = HomeworkAudioWithMp3TableViewCellHeight;
             }
         }
-    } else if (indexPath.row == 2 + self.items.count + 1) { // 添加按钮
+    } else if (indexPath.row == 3 + self.items.count + 1) { // 添加按钮
         height = HomeworkAddTableViewCellHeight;
-    } else if (indexPath.row == 2 + self.items.count + 2) { // 标签
+    } else if (indexPath.row == 3 + self.items.count + 2) { // 标签
         height = HomeworkLabelTableViewCellHeight;
-    } else if (indexPath.row > 2 + self.items.count + 2 &&
-               indexPath.row < 2 + self.items.count + 2 + self.answerItems.count + 1) {
-        NSInteger row = indexPath.row - (2 + self.items.count + 3);
+    } else if (indexPath.row > 3 + self.items.count + 2 &&
+               indexPath.row < 3 + self.items.count + 2 + self.answerItems.count + 1) {
+        NSInteger row = indexPath.row - (3 + self.items.count + 3);
         HomeworkAnswerItem *item = self.answerItems[row];
         NSString *type = item.type;
         if ([type isEqualToString:HomeworkItemTypeVideo]) {
@@ -1355,19 +1385,19 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
                 height = HomeworkAudioWithMp3TableViewCellHeight;
             }
         }
-    } else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 1) {
+    } else if (indexPath.row == 3 + self.items.count + 2 + self.answerItems.count + 1) {
         height = HomeworkAddTableViewCellHeight;
     }
-    else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 2) { //作业类型
+    else if (indexPath.row == 3 + self.items.count + 2 + self.answerItems.count + 2) { //作业类型
         height = HomeworkTypeTableViewCellHeight;
     }
-    else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 3) { //作业难度
+    else if (indexPath.row == 3 + self.items.count + 2 + self.answerItems.count + 3) { //作业难度
         height = HomeworkDiffcultTableViewCellHeight;
     }
-    else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 4) { //作业时限
+    else if (indexPath.row == 3 + self.items.count + 2 + self.answerItems.count + 4) { //作业时限
         height = HomeworkTimeLimitTableViewCellHeight;
     }
-    else if (indexPath.row == 2 + self.items.count + 2 + self.answerItems.count + 5) { //form标签
+    else if (indexPath.row == 3 + self.items.count + 2 + self.answerItems.count + 5) { //form标签
         height = [HomeworkTagsTableViewCell heightWithTags:self.formTags typeTitle:@"作业类型:"] + 45;
     }
     else {

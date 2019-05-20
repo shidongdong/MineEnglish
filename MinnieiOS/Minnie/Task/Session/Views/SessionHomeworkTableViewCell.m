@@ -29,6 +29,7 @@ NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCell
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *collectionViewBottomConstraint;
 
 @property (nonatomic, strong) HomeworkSession *homeworkSession;
+@property (weak, nonatomic) IBOutlet UILabel *teremarkLabel;
 
 @end
 
@@ -74,7 +75,20 @@ NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCell
     [mAttribute addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, text.length)];
     self.homeworkTextLabel.attributedText = mAttribute;
     
-  //  self.homeworkTextLabel.text = text;
+    // 批改备注 (仅教师端显示)
+    NSString *teremark = @"";
+#if TEACHERSIDE
+    if (homeworkSession.homework.teremark.length) {
+        teremark = [NSString stringWithFormat:@"注：%@",homeworkSession.homework.teremark];
+    }
+#else
+#endif
+    if (teremark.length) {
+ 
+        NSMutableAttributedString * teremarkAtt = [[NSMutableAttributedString alloc] initWithString:teremark];
+        [teremarkAtt addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, teremark.length)];
+        self.teremarkLabel.attributedText = teremarkAtt;
+    }
     
     NSInteger min = homeworkSession.homework.limitTimes / 60;
     NSInteger sec = homeworkSession.homework.limitTimes % 60;
@@ -106,7 +120,7 @@ NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCell
     
     if (homeworkSession.homework.items.count == 1) {
         self.collectionViewHeightConstraint.constant = 0.f;
-        self.collectionViewBottomConstraint.constant = 0.f;
+        self.collectionViewBottomConstraint.constant = 10.f;
     } else {
         self.collectionViewHeightConstraint.constant = 114.f;
         self.collectionViewBottomConstraint.constant = 12.f;
@@ -142,9 +156,25 @@ NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCell
     paragraphStyle.lineSpacing = 5;
     [mAttribute addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, text.length)];
     cell.homeworkTextLabel.attributedText = mAttribute;
-    CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    CGFloat height = size.height;
     
+    
+    // 批改备注
+    NSString *teremark = @"";
+#if TEACHERSIDE
+    if (homeworkSession.homework.teremark.length) {
+        teremark = [NSString stringWithFormat:@"注：%@",homeworkSession.homework.teremark];
+    }
+#else
+#endif
+    if (teremark.length) {
+     
+        NSMutableAttributedString * teremarkAtt = [[NSMutableAttributedString alloc] initWithString:teremark];
+        [teremarkAtt addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, teremark.length)];
+        cell.teremarkLabel.attributedText = teremarkAtt;
+    }
+    
+    CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    CGFloat height = size.height + 20;
     if (homeworkSession.homework.items.count == 1) {
         height -= (114.f + 12.f);
     }

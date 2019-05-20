@@ -46,6 +46,8 @@ VIResourceLoaderManagerDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.homeworkSession = [[HomeworkSession alloc] init];
+    // 作业管理页面已获得cell高度，和预览中高度不匹配，清除高度，重新计算
+    self.homework.cellHeight = 0;
     self.homeworkSession.homework = self.homework;
     self.view.backgroundColor = [UIColor whiteColor];
     self.tableView.backgroundColor = [UIColor colorWithHex:0xF5F5F5];
@@ -63,7 +65,7 @@ VIResourceLoaderManagerDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [SessionHomeworkTableViewCell heightWithHomeworkSession:self.homeworkSession];;
+    return [SessionHomeworkTableViewCell heightWithHomeworkSession:self.homeworkSession];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

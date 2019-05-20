@@ -786,23 +786,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                                            }];
 }
 
-//- (void)reUpdateModeifyTime
-//{
-//    _failReSendCount--;
-//    if (_failReSendCount > 0)
-//    {
-//        WeakifySelf;
-//        [HomeworkSessionService updateHomeworkSessionModifiedTimeWithId:self.homeworkSession.homeworkSessionId
-//                                                               callback:^(Result *result, NSError *error) {
-//                                                                   if (error) {
-//                                                                       [weakSelf reUpdateModeifyTime];
-//
-//                                                                   }
-//                                                               }];
-//    }
-//}
-
-
 - (void)setupResultView {
     UIColor *bgColor = nil;
     NSString *text = nil;
@@ -2125,7 +2108,9 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+   
     if (indexPath.section == 0) {
+        
         return [SessionHomeworkTableViewCell heightWithHomeworkSession:self.homeworkSession];
     }
     

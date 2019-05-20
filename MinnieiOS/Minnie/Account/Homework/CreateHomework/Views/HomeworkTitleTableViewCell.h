@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger,CreateHomeworkCellType) {
+    
+    CreateHomeworkCell_Title,// 新建作业-标题
+    CreateHomeworkCell_CorrectRemarks// 批改备注
+};
+
 extern NSString * const HomeworkTitleTableViewCellId;
 
 typedef void(^CellHeightDidChangeCallback)(NSString *text, BOOL heightChanged);
@@ -16,7 +22,9 @@ typedef void(^CellHeightDidChangeCallback)(NSString *text, BOOL heightChanged);
 
 @property (nonatomic, copy) CellHeightDidChangeCallback callback;
 
-- (void)setupWithText:(NSString *)text;
+@property (nonatomic, assign) CreateHomeworkCellType cellType;
+
+- (void)setupWithText:(NSString *)text title:(NSString *)title placeholder:(NSString *)holde;
 
 + (CGFloat)cellHeightWithText:(NSString *)text;
 

@@ -4,7 +4,7 @@
 //
 //  Created by yebw on 2018/2/10.
 //  Copyright © 2018年 netease. All rights reserved.
-//
+// 获取作业列表
 
 #import <Foundation/Foundation.h>
 #import "Result.h"
@@ -12,6 +12,7 @@
 
 @interface HomeworkSessionService : NSObject
 
+// 根据完成状态获取作业列表
 + (BaseRequest *)requestHomeworkSessionsWithFinishState:(NSInteger)state
                                                callback:(RequestCallback)callback;
 

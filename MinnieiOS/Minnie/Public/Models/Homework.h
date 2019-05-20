@@ -37,6 +37,8 @@
 
 @property (nonatomic, strong) NSString * formTag;  //作业类型标签: 拼读，指读，默写，订正等等
 
+@property (nonatomic, strong) NSString * teremark;  //批改备注 长度限制28
+
 // UI
 @property (nonatomic, assign) CGFloat cellHeight;
 

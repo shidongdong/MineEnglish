@@ -15,6 +15,8 @@ NSString * const HomeworkTitleTableViewCellId = @"HomeworkTitleTableViewCellId";
 
 @property (nonatomic, weak) IBOutlet UIImageView *bgImageView;
 @property (nonatomic, weak) IBOutlet UITextView *homeworkTextView;
+@property (weak, nonatomic) IBOutlet UILabel *titleName;
+@property (weak, nonatomic) IBOutlet UILabel *palceholder;
 
 @property (nonatomic, assign) CGFloat cellHeight;
 
@@ -32,6 +34,19 @@ NSString * const HomeworkTitleTableViewCellId = @"HomeworkTitleTableViewCellId";
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
+  
+    if ([self.homeworkTextView.text isEqualToString:@""]){
+        self.palceholder.hidden = NO;
+    }else{
+        self.palceholder.hidden = YES;
+    }
+    // 批改备注 长度限制28
+    if (self.cellType == CreateHomeworkCell_CorrectRemarks) {
+        NSString *text = textView.text;
+        if (text.length > 28) {
+            self.homeworkTextView.text = [text substringToIndex:28];
+        }
+    }
     UITextRange *selectedRange = [textView markedTextRange];
     UITextPosition *position = [textView positionFromPosition:selectedRange.start offset:0];
     if (position) {
@@ -55,8 +70,15 @@ NSString * const HomeworkTitleTableViewCellId = @"HomeworkTitleTableViewCellId";
     }
 }
 
-- (void)setupWithText:(NSString *)text {
+- (void)setupWithText:(NSString *)text title:(NSString *)title placeholder:(NSString *)holder{
     self.homeworkTextView.text = text;
+    self.titleName.text = title;
+    self.palceholder.text = holder;
+    if ([self.homeworkTextView.text isEqualToString:@""]){
+        self.palceholder.hidden = NO;
+    }else{
+        self.palceholder.hidden = YES;
+    }
 }
 
 - (void)ajustTextView {
