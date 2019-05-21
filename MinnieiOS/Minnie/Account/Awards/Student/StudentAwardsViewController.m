@@ -46,9 +46,9 @@
     
     [self requestData];
     
-    if (self.unfinishedCount>=20) {
+    if (self.unfinishedCount>=15) {
      
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"零分过多，无法兑换礼物\n请先将零分任务数减少到20以下" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"零分过多，无法兑换礼物\n请先将零分任务数减少到15以下" preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             NSLog(@"点击取消");
         }]];

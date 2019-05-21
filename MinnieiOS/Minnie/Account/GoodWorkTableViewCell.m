@@ -71,19 +71,22 @@ NSString * const GoodWorkTableViewCellId = @"GoodWorkTableViewCellId";
     NSUInteger goodJob = [homeworks[2] unsignedIntegerValue];
     NSUInteger veryNice = [homeworks[3] unsignedIntegerValue];
     NSUInteger great = [homeworks[4] unsignedIntegerValue];
+    // 5星
     NSUInteger perfect = [homeworks[5] unsignedIntegerValue];
+   
+    // 未完成
     NSUInteger hardworking = [homeworks[6] unsignedIntegerValue];
     
     self.totalCountLabel.text = [NSString stringWithFormat:@"%@次", @(veryNice+great+perfect+hardworking)];
 
     self.niceCountLabel.text = [NSString stringWithFormat:@"x%@", @(veryNice)];
     self.greateCountLabel.text = [NSString stringWithFormat:@"x%@", @(great)];
-    self.perfectCountLabel.text = [NSString stringWithFormat:@"x%@", @(perfect+hardworking)];
+    self.perfectCountLabel.text = [NSString stringWithFormat:@"x%@", @(perfect)];
     
     self.totalCountLabel.hidden = (veryNice+great+perfect+hardworking==0);
     self.niceCountLabel.hidden = veryNice==0;
     self.greateCountLabel.hidden = great==0;
-    self.perfectCountLabel.hidden = (perfect+hardworking==0);
+    self.perfectCountLabel.hidden = (perfect==0);
     // 不再显示
     self.totalCountLabel.hidden = YES;
     
@@ -96,9 +99,6 @@ NSString * const GoodWorkTableViewCellId = @"GoodWorkTableViewCellId";
     self.goodJobLabel.hidden = goodJob==0;
     
     NSUInteger totalCount = unfinshed + passed + goodJob + veryNice + great + perfect + hardworking;
-    if (totalCount == 0) {
-        
-    }
     CGFloat percent = (totalCount==0)?0:((totalCount - unfinshed)/(CGFloat)totalCount);
 
     if (percent==0 && totalCount==0) {
