@@ -6901,8 +6901,10 @@
 				CODE_SIGN_ENTITLEMENTS = MinnieStudent.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 7ZN897DBZ8;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Minnie/PrefixHeader.pch";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Minnie/Info_student.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -6927,6 +6929,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 7ZN897DBZ8;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Minnie/PrefixHeader.pch";
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Minnie/Info_student.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -6936,7 +6939,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.minnieedu.student;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "cce81f62-d635-44f9-93f8-910ba2ad5797";
-				PROVISIONING_PROFILE_SPECIFIER = minnie_student_dis;
+				PROVISIONING_PROFILE_SPECIFIER = mini_student_appstore;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

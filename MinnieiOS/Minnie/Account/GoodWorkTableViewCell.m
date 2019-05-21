@@ -104,7 +104,7 @@ NSString * const GoodWorkTableViewCellId = @"GoodWorkTableViewCellId";
     if (percent==0 && totalCount==0) {
         self.completionRateLabel.text = @"作业完成率";
     } else {
-        self.completionRateLabel.text = [NSString stringWithFormat:@"作业完成率: %zd/%zd", (totalCount - unfinshed), totalCount];
+        self.completionRateLabel.text = [NSString stringWithFormat:@"作业完成率: %lu/%lu", (totalCount - unfinshed - hardworking), totalCount];
     }
     
     self.completionRateViewWidthConstrait.constant = (ScreenWidth - 48.f) * percent;
