@@ -4,7 +4,7 @@
 //
 //  Created by yebw on 2017/12/19.
 //  Copyright © 2017年 netease. All rights reserved.
-//
+//  教师管理
 
 #import "TeachersViewController.h"
 #import "TeacherService.h"

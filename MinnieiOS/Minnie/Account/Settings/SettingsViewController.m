@@ -206,9 +206,8 @@
     }
     else if (indexPath.row == 2) {
         [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
-        
-        [self.settingsTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-
+        // 清理缓存
+        [self.settingsTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         [TIP showText:@"缓存已清理" inView:self.view];
     }
 }

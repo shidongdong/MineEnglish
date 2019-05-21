@@ -4,7 +4,7 @@
 //
 //  Created by yebw on 2017/12/19.
 //  Copyright © 2017年 netease. All rights reserved.
-//
+//  教师信息
 
 #import "BaseViewController.h"
 #import "Teacher.h"
