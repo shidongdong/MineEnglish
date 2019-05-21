@@ -76,4 +76,4 @@ extern NSString * const kNotificationKeyOfTabBarDoubleClick;
 extern NSString * const kNotificationKeyOfStudentMarkChange;
 
 #pragma mark - 作业发送成功
-extern NSString * const kNotificationKeyOfHomeworkSendSuccess;
+extern NSString * const kNotificationKeyOfHomeworkSendSuccess;  // 作业管理作业发送成功通知

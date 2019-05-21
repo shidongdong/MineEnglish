@@ -69,6 +69,9 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 @property (nonatomic, weak) IBOutlet UIView *loadingContainerView;
 @property (nonatomic, weak) IBOutlet UIButton *correctButton;
 
+@property (nonatomic, strong) UIView *teremarkView;
+@property (nonatomic, strong) UILabel *teremarkLabel;
+
 @property (nonatomic, strong) NSMutableArray<AVIMTypedMessage *> *messages;
 @property (nonatomic, strong) NSMutableDictionary *sortedMessages;
 @property (nonatomic, strong) NSArray *sortedKeys;
@@ -247,9 +250,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             gr.delaysTouchesBegan = NO;
         }
     }
-    
-    //
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -2139,6 +2139,49 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     
     return 0.f;
 }
+
+#pragma mark - UIScrollViewDelegate
+#if TEACHERSIDE
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    CGFloat height = [SessionHomeworkTableViewCell heightWithHomeworkSession:self.homeworkSession];
+    // 教师端批改备注置顶
+    if (self.homeworkSession.homework.teremark.length) {
+        
+        if (scrollView.contentOffset.y >= height - kNaviBarHeight) {
+            if (!self.teremarkView) {
+                
+                self.teremarkView = [[UIView alloc] init];
+                self.teremarkView.backgroundColor = [UIColor whiteColor];
+                self.teremarkLabel = [[UILabel alloc] init];
+                self.teremarkLabel.textColor = [UIColor colorWithHex:0x05ABFA];
+                self.teremarkLabel.numberOfLines = 0;
+                self.teremarkLabel.backgroundColor = [UIColor whiteColor];
+                [self.teremarkView addSubview:self.teremarkLabel];
+            }
+            NSString * teremark = [NSString stringWithFormat:@"注：%@",self.homeworkSession.homework.teremark];
+            NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+            paragraphStyle.lineSpacing = 5;
+            NSDictionary *dic = @{NSParagraphStyleAttributeName:paragraphStyle,NSFontAttributeName:[UIFont systemFontOfSize:14]};
+            NSMutableAttributedString * teremarkAtt = [[NSMutableAttributedString alloc] initWithString:teremark attributes:dic];
+            
+            NSStringDrawingOptions options =  NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading;
+            CGSize rect = [teremark boundingRectWithSize:CGSizeMake(ScreenWidth - 20,MAXFLOAT) options:options attributes:dic context:nil].size;
+            
+            self.teremarkView.frame = CGRectMake(0, kNaviBarHeight, ScreenWidth, rect.height + 20);
+            self.teremarkLabel.frame = CGRectMake(10, 0, ScreenWidth - 20, rect.height + 20);
+            self.teremarkLabel.attributedText = teremarkAtt;
+            [self.view addSubview:self.teremarkView];
+        } else {
+            if (self.teremarkView.superview) {
+                
+                [self.teremarkView removeFromSuperview];
+            }
+        }
+    }
+}
+#else
+#endif
 
 #pragma mark - VIResourceLoaderManagerDelegate
 - (void)resourceLoaderManagerLoadURL:(NSURL *)url didFailWithError:(NSError *)error
