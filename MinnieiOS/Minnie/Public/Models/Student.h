@@ -14,7 +14,7 @@
 @property (nonatomic, copy) NSString *grade; // 年级
 @property (nonatomic, assign) NSUInteger starCount; // 剩余星星数
 @property (nonatomic, assign) NSUInteger circleUpdate; // 朋友圈更新数
-//[0, 1, 2, 3, 4, 5, 6]其中索引0表示未完成的个数，1表示1星个数，依次类推
+//[0, 1, 2, 3, 4, 5, 6]其中索引6表示未完成的个数，0表示0星个数，1表示1星个数，依次类推
 @property (nonatomic, strong) NSArray *homeworks; // 作业完成情况
 @property (nonatomic, strong) Clazz *clazz; // 班级
 
