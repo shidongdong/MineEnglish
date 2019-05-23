@@ -142,12 +142,6 @@
     [TagService requestTagsWithCallback:^(Result *result, NSError *error) {
         if (error == nil) {
             self.tags = (NSArray *)(result.userInfo);
-            NSMutableArray *array = [NSMutableArray array];
-            [array addObjectsFromArray:(NSArray *)(result.userInfo)];
-            [array addObjectsFromArray:(NSArray *)(result.userInfo)];
-            [array addObjectsFromArray:(NSArray *)(result.userInfo)];
-            [array addObjectsFromArray:(NSArray *)(result.userInfo)];
-            self.tags = array;
             [self.tagsCollectionView reloadData];
             
             if (self.searchTextField.text.length == 0) {
