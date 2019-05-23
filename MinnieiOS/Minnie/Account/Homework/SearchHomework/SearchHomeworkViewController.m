@@ -139,6 +139,7 @@
 }
 
 - (void)requestTags {
+    
     [TagService requestTagsWithCallback:^(Result *result, NSError *error) {
         if (error == nil) {
             self.tags = (NSArray *)(result.userInfo);
@@ -209,7 +210,6 @@
     NSDictionary *dictionary = (NSDictionary *)(result.userInfo);
     NSString *nextUrl = dictionary[@"next"];
     NSArray *homeworks = dictionary[@"list"];
-    
     BOOL isLoadMore = self.nextUrl.length > 0;
     if (isLoadMore) {
         [self.homeworksTableView footerEndRefreshing];

@@ -22,6 +22,9 @@
 - (instancetype)initWithKeyword:(NSArray<NSString *> *)keyword {
     self = [super init];
     if (self != nil) {
+        
+        _pageNo = 1;
+        _pageNum = 10;
         _keyword = keyword;
     }
     
@@ -52,28 +55,15 @@
 }
 
 - (NSString *)requestUrl {
-//    if (self.nextUrl.length > 0) {
-//        return self.nextUrl;
-//    }
-
-    return [NSString stringWithFormat:@"%@/homework/searchHomeworksByTags", ServerProjectName];
+    
+    return [NSString stringWithFormat:@"%@/homework/searchHomeworksByTags?pageNo=%@&pageNum=%@", ServerProjectName,@(self.pageNo),@(self.pageNum)];
 }
 
 - (id)requestArgument {
     
-    if (self.nextUrl.length > 0)
-    {
-        if (self.keyword.count > 0) {
-            return @{@"tags":self.keyword,@"pageNo":@(self.pageNo),@"pageNum":@(self.pageNum)};
-        }
+    if (self.keyword.count > 0) {
+        return @{@"tags":self.keyword};
     }
-    else
-    {
-        if (self.keyword.count > 0) {
-            return @{@"tags":self.keyword};
-        }
-    }
-    
     return nil;
 }
 
