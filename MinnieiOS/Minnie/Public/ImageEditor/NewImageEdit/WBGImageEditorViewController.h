@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WBGImageEditorCollectionViewCell.h"
+#import "DrawImageView.h"
 typedef void(^ImageEditViewControllerSendCallback)(UIImage *);
 
 typedef NS_ENUM(NSUInteger, EditorMode) {
@@ -33,7 +34,7 @@ extern NSString * const kColorPanRemoveNotificaiton;
 @property (weak, nonatomic) IBOutlet UICollectionView *mCollectionView;
 
 @property (nonatomic, strong) WBGImageEditorCollectionViewCell * editorContent;
-@property (strong, nonatomic, readonly) UIImageView *drawingView;
+@property (strong, nonatomic) DrawImageView *drawingView;
 @property (strong, nonatomic, readonly) IBOutlet WBGColorPan *colorPan;
 
 

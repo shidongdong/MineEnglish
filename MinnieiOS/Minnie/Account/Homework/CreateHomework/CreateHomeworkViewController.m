@@ -1341,7 +1341,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
     } else if (indexPath.row == 1) { // 文本
         height = [HomeworkTextTableViewCell cellHeightWithText:self.text];
     } else if (indexPath.row == 2) { // 批改备注
-        height = [HomeworkTextTableViewCell cellHeightWithText:self.text];
+        height = [HomeworkTextTableViewCell cellHeightWithText:self.teremark];
     } else if (indexPath.row == 3) { // 标签
         height = HomeworkLabelTableViewCellHeight;
     } else if (indexPath.row > 3 && indexPath.row < 3 + self.items.count + 1) { // 材料

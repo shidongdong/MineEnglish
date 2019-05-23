@@ -39,6 +39,9 @@ VIResourceLoaderManagerDelegate
 
 @property (nonatomic, strong) VIResourceLoaderManager *resourceLoaderManager;
 
+
+@property (nonatomic, strong) NSMutableArray * homeworkImages;    //图片作业详情
+
 @end
 
 @implementation HomeworkPreviewViewController
@@ -49,6 +52,18 @@ VIResourceLoaderManagerDelegate
     // 作业管理页面已获得cell高度，和预览中高度不匹配，清除高度，重新计算
     self.homework.cellHeight = 0;
     self.homeworkSession.homework = self.homework;
+    
+    //从作业中提取
+    self.homeworkImages = [NSMutableArray array];
+    for (int i = 0; i < self.homeworkSession.homework.items.count; i++)
+    {
+        HomeworkItem * items = [self.homeworkSession.homework.items objectAtIndex:i];
+        if ([items.type isEqualToString:HomeworkItemTypeImage])
+        {
+            [self.homeworkImages addObject:items.imageUrl];
+        }
+    }
+    
     self.view.backgroundColor = [UIColor whiteColor];
     self.tableView.backgroundColor = [UIColor colorWithHex:0xF5F5F5];
     UIView *footerView = [[UIView alloc] init];
@@ -87,9 +102,9 @@ VIResourceLoaderManagerDelegate
     [cell setVideoCallback:^(NSString *videoUrl) {
         [weakSelf playerVideoWithURL:videoUrl];
     }];
-    [cell setImageCallback:^(NSString * imageUrl, NSArray<UIImageView *> * imageViews, NSInteger index) {
-
-        weakSelf.currentSelectedImageView = imageViews[index];
+    [cell setImageCallback:^(NSString * imageUrl, UIImageView * currentImage, NSInteger index) {
+       
+        weakSelf.currentSelectedImageView = currentImage;
         weakSelf.currentSelectedImageUrl = imageUrl;
         [weakSelf showCurrentSelectedImage];
     }];

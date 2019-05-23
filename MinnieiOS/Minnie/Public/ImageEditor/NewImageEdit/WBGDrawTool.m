@@ -9,12 +9,15 @@
 #import "WBGDrawTool.h"
 #import "WBGImageEditorGestureManager.h"
 
-@interface WBGDrawTool ()
-@property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
-@property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
+@interface WBGDrawTool ()<DrawImageViewDelegate>
+
+// 双手缩放，单手捏合
+@property (nonatomic,assign) BOOL isDouble;
+
 @end
+
 @implementation WBGDrawTool {
-    __weak UIImageView        *_drawingView;
+    __weak DrawImageView        *_drawingView;
     CGSize                     _originalImageSize;
 }
 
@@ -44,53 +47,64 @@
         self.drawToolStatus(_allLineMutableArray.count > 0 ? : NO);
     }
 }
-#pragma mark - Gesture
-//tap
-- (void)drawingViewDidTap:(UITapGestureRecognizer *)sender {
-    if (self.drawingDidTap) {
-        self.drawingDidTap();
-    }
-}
 
-//draw
-- (void)drawingViewDidPan:(UIPanGestureRecognizer*)sender
-{
-    CGPoint currentDraggingPosition = [sender locationInView:_drawingView];
+#pragma mark - 收集单手绘图的点，进行绘制
+#pragma mark - DrawImageViewDelegate
+- (void)drawImageViewTouchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     
-    if(sender.state == UIGestureRecognizerStateBegan) {
-        //取消所有加入文字激活状态
-        
+    if (event.allTouches.count == 2) {
+        self.isDouble = YES;
+    }
+    UITouch *aTouch = [touches anyObject];
+    CGPoint currentPoint = [aTouch locationInView:_drawingView];
+    
+    if (!self.isDouble) {
+       
         // 初始化一个UIBezierPath对象, 把起始点存储到UIBezierPath对象中, 用来存储所有的轨迹点
-        WBGPath *path = [WBGPath pathToPoint:currentDraggingPosition pathWidth:MAX(1, self.pathWidth)];
+        WBGPath *path = [WBGPath pathToPoint:currentPoint pathWidth:MAX(1, self.pathWidth)];
         path.pathColor         = self.editor.colorPan.currentColor;
         path.shape.strokeColor = self.editor.colorPan.currentColor.CGColor;
         [_allLineMutableArray addObject:path];
-        
-    }
-    
-    if(sender.state == UIGestureRecognizerStateChanged) {
-        // 获得数组中的最后一个UIBezierPath对象(因为我们每次都把UIBezierPath存入到数组最后一个,因此获取时也取最后一个)
-        WBGPath *path = [_allLineMutableArray lastObject];
-        [path pathLineToPoint:currentDraggingPosition];//添加点
-        [self drawLine];
-        
-        if (self.drawingCallback) {
-            self.drawingCallback(YES);
-        }
-    }
-    
-    if (sender.state == UIGestureRecognizerStateEnded) {
-        if (self.drawToolStatus) {
-            self.drawToolStatus(_allLineMutableArray.count > 0 ? : NO);
-        }
-        
-        if (self.drawingCallback) {
-            self.drawingCallback(NO);
-        }
     }
 }
 
+- (void)drawImageViewTouchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+   
+    if (event.allTouches.count == 2) {// 双手缩放
+        self.isDouble = YES;
+    }
+    UITouch *aTouch = [touches anyObject];
+    CGPoint currentPoint = [aTouch locationInView:_drawingView];
+
+    if (!self.isDouble) { // 单手涂鸦
+        
+        // 获得数组中的最后一个UIBezierPath对象(因为我们每次都把UIBezierPath存入到数组最后一个,因此获取时也取最后一个)
+        WBGPath *path = [_allLineMutableArray lastObject];
+        [path pathLineToPoint:currentPoint];//添加点
+        [self drawLine];
+    }
+}
+
+- (void)drawImageViewTouchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+    if (event.allTouches.count == 2) {
+        self.isDouble = YES;
+    }
+    UITouch *aTouch = [touches anyObject];
+    CGPoint currentPoint = [aTouch locationInView:_drawingView];
+    if (!self.isDouble) {
+        
+        // 获得数组中的最后一个UIBezierPath对象(因为我们每次都把UIBezierPath存入到数组最后一个,因此获取时也取最后一个)
+        WBGPath *path = [_allLineMutableArray lastObject];
+        [path pathLineToPoint:currentPoint];//添加点
+        [self drawLine];
+    }
+    self.isDouble = NO;
+}
+
+#pragma mark 划线
 - (void)drawLine {
+    
     CGSize size = _drawingView.frame.size;
     UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -101,13 +115,12 @@
     for (WBGPath *path in _allLineMutableArray) {
         [path drawPath];
     }
-    
     _drawingView.image = UIGraphicsGetImageFromCurrentImageContext();
-    
     UIGraphicsEndImageContext();
 }
 
 - (UIImage *)buildImage {
+   
     UIGraphicsBeginImageContextWithOptions(_originalImageSize, NO, self.editor.editorContent.imageView.image.scale);
     [self.editor.editorContent.imageView.image drawAtPoint:CGPointZero];
     [_drawingView.image drawInRect:CGRectMake(0, 0, _originalImageSize.width, _originalImageSize.height)];
@@ -122,28 +135,7 @@
     //初始化一些东西
     _originalImageSize   = self.editor.editorContent.imageView.image.size;
     _drawingView         = self.editor.drawingView;
-    
-    //滑动手势
-    if (!self.panGesture) {
-        self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(drawingViewDidPan:)];
-        self.panGesture.delegate = [WBGImageEditorGestureManager instance];
-        self.panGesture.maximumNumberOfTouches = 1;
-    }
-    if (!self.panGesture.isEnabled) {
-        self.panGesture.enabled = YES;
-    }
-    
-    //点击手势
-    if (!self.tapGesture) {
-        self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(drawingViewDidTap:)];
-        self.tapGesture.delegate = [WBGImageEditorGestureManager instance];
-        self.tapGesture.numberOfTouchesRequired = 1;
-        self.tapGesture.numberOfTapsRequired = 1;
-        
-    }
-    
-    [_drawingView addGestureRecognizer:self.panGesture];
-    [_drawingView addGestureRecognizer:self.tapGesture];
+    _drawingView.delegate = self;
     _drawingView.userInteractionEnabled = YES;
     _drawingView.layer.shouldRasterize = YES;
     _drawingView.layer.minificationFilter = kCAFilterTrilinear;
@@ -152,15 +144,12 @@
     self.editor.editorContent.scrollView.panGestureRecognizer.minimumNumberOfTouches = 2;
     self.editor.editorContent.scrollView.panGestureRecognizer.delaysTouchesBegan = NO;
     self.editor.editorContent.scrollView.pinchGestureRecognizer.delaysTouchesBegan = NO;
-    
-    //TODO: todo?
-
 }
 
 - (void)cleanup {
     self.editor.editorContent.imageView.userInteractionEnabled = NO;
     self.editor.editorContent.scrollView.panGestureRecognizer.minimumNumberOfTouches = 1;
-    self.panGesture.enabled = NO;
+    _drawingView.delegate = nil;
     //TODO: todo?
 }
 

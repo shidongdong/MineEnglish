@@ -168,6 +168,7 @@
         self.tagsView.hidden = NO;
         self.homeworksView.hidden = YES;
         self.noresultLabel.hidden = YES;
+        [self.selectTags removeAllObjects];
     } else {
         self.tagsView.hidden = YES;
         [self.homeworks removeAllObjects];
@@ -406,24 +407,6 @@
     return itemSize;
 }
 
-//- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView
-//                        layout:(UICollectionViewLayout*)collectionViewLayout
-//        insetForSectionAtIndex:(NSInteger)section {
-//    return UIEdgeInsetsMake(16, 12, 16, 12);
-//}
-//
-//- (CGFloat)collectionView:(UICollectionView *)collectionView
-//                   layout:(UICollectionViewLayout*)collectionViewLayout
-//minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-//    return 12;
-//}
-//
-//- (CGFloat)collectionView:(UICollectionView *)collectionView
-//                   layout:(UICollectionViewLayout*)collectionViewLayout
-//minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-//    return 12;
-//}
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     
@@ -452,6 +435,11 @@
     self.searchTextField.text = searchString;
     
   //  [self textFieldShouldReturn:self.searchTextField];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    [self.searchTextField resignFirstResponder];
 }
 
 @end
