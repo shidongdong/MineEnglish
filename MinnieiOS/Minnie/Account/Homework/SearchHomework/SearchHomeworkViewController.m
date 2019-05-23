@@ -164,6 +164,7 @@
         self.homeworksView.hidden = YES;
         self.noresultLabel.hidden = YES;
         [self.selectTags removeAllObjects];
+        [self.homeworks removeAllObjects];
     } else {
         self.tagsView.hidden = YES;
         [self.homeworks removeAllObjects];
