@@ -33,7 +33,7 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 @property (weak, nonatomic) IBOutlet UIView *topBar;
 @property (weak, nonatomic) IBOutlet UIButton *savePicButton;
 
-@property (strong, nonatomic) UIImageView *drawingView;
+//@property (strong, nonatomic) DrawImageView *drawingView;
 
 @property (strong, nonatomic) IBOutlet WBGColorPan *colorPan;
 @property (nonatomic, strong) WBGDrawTool *drawTool;
@@ -153,13 +153,7 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 - (WBGDrawTool *)drawTool {
     if (_drawTool == nil) {
         _drawTool = [[WBGDrawTool alloc] initWithImageEditor:self];
-        _drawTool.drawToolStatus = ^(BOOL canPrev) {
-        };
-        _drawTool.drawingCallback = ^(BOOL isDrawing) {
-        };
-        _drawTool.drawingDidTap = ^(void) {
-        };
-        _drawTool.pathWidth = 4.0f;
+        _drawTool.pathWidth = 3.0f;
     }
     return _drawTool;
 }
@@ -277,7 +271,7 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
         [self.doneButton setTitle:@"完成" forState:UIControlStateNormal];
         self.mCollectionView.scrollEnabled = NO;
         if (!self.drawingView) {
-            self.drawingView = [[UIImageView alloc] init];
+            self.drawingView = [[DrawImageView alloc] init];
             self.drawingView.backgroundColor = [UIColor clearColor];
             self.drawingView.userInteractionEnabled = YES;
             self.drawingView.frame = [self caculateDrawImageFrameWithImage:self.editorContent.imageView.image];

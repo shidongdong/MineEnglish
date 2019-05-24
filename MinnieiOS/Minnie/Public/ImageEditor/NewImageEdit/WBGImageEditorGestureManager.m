@@ -49,15 +49,23 @@
 // 是否允许接收手指的触摸点
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     
-    if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]] && ![self.gestureTable containsObject:gestureRecognizer]) {
-        [self.gestureTable addObject:gestureRecognizer];
-        if (self.gestureTable.count >= 2) {
-            UIPanGestureRecognizer *drawToolPan = nil;
-            
-            for (UIPanGestureRecognizer *pan in self.gestureTable) {
-                if ([pan.view isKindOfClass:[UIImageView class]]) {
-                    drawToolPan = pan;
-                }
+//    if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]] && ![self.gestureTable containsObject:gestureRecognizer]) {
+//        [self.gestureTable addObject:gestureRecognizer];
+//        if (self.gestureTable.count >= 2) {
+//            UIPanGestureRecognizer *drawToolPan = nil;
+//            
+//            for (UIPanGestureRecognizer *pan in self.gestureTable) {
+//                if ([pan.view isKindOfClass:[UIImageView class]]) {
+//                    drawToolPan = pan;
+//                }
+//            }
+//        }
+//    }
+    if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]] ) {
+        
+        for (UIPanGestureRecognizer *pan in self.gestureTable) {
+            if ([pan.view isKindOfClass:[UIImageView class]]) {
+                return NO;
             }
         }
     }

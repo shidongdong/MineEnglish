@@ -139,15 +139,10 @@
 }
 
 - (void)requestTags {
+    
     [TagService requestTagsWithCallback:^(Result *result, NSError *error) {
         if (error == nil) {
             self.tags = (NSArray *)(result.userInfo);
-            NSMutableArray *array = [NSMutableArray array];
-            [array addObjectsFromArray:(NSArray *)(result.userInfo)];
-            [array addObjectsFromArray:(NSArray *)(result.userInfo)];
-            [array addObjectsFromArray:(NSArray *)(result.userInfo)];
-            [array addObjectsFromArray:(NSArray *)(result.userInfo)];
-            self.tags = array;
             [self.tagsCollectionView reloadData];
             
             if (self.searchTextField.text.length == 0) {
@@ -168,6 +163,8 @@
         self.tagsView.hidden = NO;
         self.homeworksView.hidden = YES;
         self.noresultLabel.hidden = YES;
+        [self.selectTags removeAllObjects];
+        [self.homeworks removeAllObjects];
     } else {
         self.tagsView.hidden = YES;
         [self.homeworks removeAllObjects];
@@ -214,7 +211,6 @@
     NSDictionary *dictionary = (NSDictionary *)(result.userInfo);
     NSString *nextUrl = dictionary[@"next"];
     NSArray *homeworks = dictionary[@"list"];
-    
     BOOL isLoadMore = self.nextUrl.length > 0;
     if (isLoadMore) {
         [self.homeworksTableView footerEndRefreshing];
@@ -406,24 +402,6 @@
     return itemSize;
 }
 
-//- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView
-//                        layout:(UICollectionViewLayout*)collectionViewLayout
-//        insetForSectionAtIndex:(NSInteger)section {
-//    return UIEdgeInsetsMake(16, 12, 16, 12);
-//}
-//
-//- (CGFloat)collectionView:(UICollectionView *)collectionView
-//                   layout:(UICollectionViewLayout*)collectionViewLayout
-//minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-//    return 12;
-//}
-//
-//- (CGFloat)collectionView:(UICollectionView *)collectionView
-//                   layout:(UICollectionViewLayout*)collectionViewLayout
-//minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-//    return 12;
-//}
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     
@@ -452,6 +430,11 @@
     self.searchTextField.text = searchString;
     
   //  [self textFieldShouldReturn:self.searchTextField];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    [self.searchTextField resignFirstResponder];
 }
 
 @end

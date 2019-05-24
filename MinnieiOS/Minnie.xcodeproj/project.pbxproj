@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1226E7D3229572C100BAB1C9 /* DrawImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1226E7D2229572C100BAB1C9 /* DrawImageView.m */; };
+		1226E7D42295786100BAB1C9 /* DrawImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1226E7D2229572C100BAB1C9 /* DrawImageView.m */; };
 		12AF64F5228E4A790031E1F6 /* EqualSpaceFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12AF64F3228E4A780031E1F6 /* EqualSpaceFlowLayout.m */; };
 		12AF64F6228E4A790031E1F6 /* EqualSpaceFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12AF64F3228E4A780031E1F6 /* EqualSpaceFlowLayout.m */; };
 		12B9B63322891C6F00D8F277 /* my_star_rank@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B9B63122891C6F00D8F277 /* my_star_rank@3x.png */; };
@@ -1477,6 +1479,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1226E7D1229572C100BAB1C9 /* DrawImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrawImageView.h; sourceTree = "<group>"; };
+		1226E7D2229572C100BAB1C9 /* DrawImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrawImageView.m; sourceTree = "<group>"; };
 		12AF64F3228E4A780031E1F6 /* EqualSpaceFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EqualSpaceFlowLayout.m; sourceTree = "<group>"; };
 		12AF64F4228E4A790031E1F6 /* EqualSpaceFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EqualSpaceFlowLayout.h; sourceTree = "<group>"; };
 		12B9B63122891C6F00D8F277 /* my_star_rank@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_star_rank@3x.png"; sourceTree = "<group>"; };
@@ -2950,6 +2954,8 @@
 				87C52FAB2164AC47004288F4 /* WBGImageEditorViewController.xib */,
 				87C52FA72164AC3E004288F4 /* WBGDrawTool.h */,
 				87C52FA82164AC3E004288F4 /* WBGDrawTool.m */,
+				1226E7D1229572C100BAB1C9 /* DrawImageView.h */,
+				1226E7D2229572C100BAB1C9 /* DrawImageView.m */,
 				871806E921E05D680023511C /* WBGImageEditorCollectionViewCell.h */,
 				871806EA21E05D680023511C /* WBGImageEditorCollectionViewCell.m */,
 				871806EB21E05D680023511C /* WBGImageEditorCollectionViewCell.xib */,
@@ -6214,6 +6220,7 @@
 				87707876219ABAE900940A88 /* HomeworkSendLog.m in Sources */,
 				870286272181B2EB00559195 /* SearchHomeworkScoreRequest.m in Sources */,
 				8770A2842233B3F5005733E4 /* HomeworkAnswersPickerViewController.m in Sources */,
+				1226E7D3229572C100BAB1C9 /* DrawImageView.m in Sources */,
 				97109D63207A2F0400568785 /* NoticeMessageHeadTableViewCell.m in Sources */,
 				97109952207A0BF600568785 /* PublicService.m in Sources */,
 				97109942207A0BF600568785 /* Result.m in Sources */,
@@ -6515,6 +6522,7 @@
 				871806CF21DF438C0023511C /* MUVideoIconView.m in Sources */,
 				97109AEF207A1C0800568785 /* AddStudentView.m in Sources */,
 				97109D58207A2F0400568785 /* AddNoticeMessageRequest.m in Sources */,
+				1226E7D42295786100BAB1C9 /* DrawImageView.m in Sources */,
 				973649F420AF2F8600511A95 /* CreateTagView.m in Sources */,
 				97109E8F207A7BDD00568785 /* AwardsRequest.m in Sources */,
 				9710990B207A0BF500568785 /* RefreshHeader.m in Sources */,

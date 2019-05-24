@@ -1901,8 +1901,8 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             [weakSelf playerVideoWithURL:videoUrl];
         }];
         
-        [cell setImageCallback:^(NSString * imageUrl, NSArray<UIImageView *> * imageViews, NSInteger index) {
-            weakSelf.currentImageViews = imageViews;
+        [cell setImageCallback:^(NSString * imageUrl, UIImageView *currentImage, NSInteger index) {
+
             NSInteger selectIndex = [weakSelf.homeworkImages indexOfObject:imageUrl];
             [weakSelf showCurrentSelectedImage:selectIndex];
         }];
@@ -2097,7 +2097,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     }
     else
     {
-        cell = [[UITableView alloc] init];
+        cell = [[UITableViewCell alloc] init];
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -2242,34 +2242,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     }
     self.customTitleLabel.attributedText = attrStr;
 }
-
-#pragma mark - NEPhotoBrowserDataSource
-
-//- (NSInteger)numberOfPhotosInPhotoBrowser:(NEPhotoBrowser *)browser {
-//    return self.homeworkImages.count;
-//}
-//- (NSURL* __nonnull)photoBrowser:(NEPhotoBrowser * __nonnull)browser imageURLForIndex:(NSInteger)index {
-//    return [NSURL URLWithString:[self.homeworkImages objectAtIndex:index]];
-//}
-//
-//- (UIImage * __nullable)photoBrowser:(NEPhotoBrowser * __nonnull)browser placeholderImageForIndex:(NSInteger)index {
-//    return [self.currentImageViews objectAtIndex:index].image;
-//}
-
-#pragma mark - NEPhotoBrowserDelegate
-
-//- (void)photoBrowser:(NEPhotoBrowser * __nonnull)browser willSavePhotoWithView:(NEPhotoBrowserView *)view {
-//    [HUD showProgressWithMessage:@"正在保存图片"];
-//}
-//
-//- (void)photoBrowser:(NEPhotoBrowser * __nonnull)browser didSavePhotoSuccessWithImage:(UIImage *)image {
-//    [HUD showWithMessage:@"保存图片成功"];
-//}
-//
-//- (void)photoBrowser:(NEPhotoBrowser * __nonnull)browser savePhotoErrorWithError:(NSError *)error {
-//    [HUD showErrorWithMessage:@"保存图片失败"];
-//}
-
 @end
 
 
