@@ -90,7 +90,7 @@
     NSString *password = [self.passwordTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     if (username.length == 0 ) {
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
 #else
         if (![Utils checkTelNumber:username])
         {
@@ -132,7 +132,7 @@
                             
                                      if (result.userInfo != nil) {
                                          User *user = nil;
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
                                          Teacher *teacher = (Teacher *)(result.userInfo);
                                          [APP setCurrentUser:teacher];
                                          user = teacher;
@@ -147,7 +147,7 @@
                                          [BaseRequest setToken:APP.currentUser.token];
                                          
                                          if (user.avatarUrl == nil || user.nickname == nil) {
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
                                              FullfillProfileViewController *vc = [[FullfillProfileViewController alloc] initWithNibName:@"FullfillProfileViewController_Teacher" bundle:nil];
 #else
                                              FullfillProfileViewController *vc = [[FullfillProfileViewController alloc] initWithNibName:@"FullfillProfileViewController_Student" bundle:nil];

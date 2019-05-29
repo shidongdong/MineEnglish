@@ -30,7 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.logoutButton.layer.cornerRadius = 12.f;
     self.logoutButton.layer.masksToBounds = YES;
     self.logoutButton.layer.borderWidth = 0.5;
@@ -80,7 +80,7 @@
         [[IMManager sharedManager] logout];
         [APP clearData];
         NSString *nibName = nil;
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
         nibName = @"LoginViewController_Teacher";
 #else
         nibName = @"LoginViewController_Student";

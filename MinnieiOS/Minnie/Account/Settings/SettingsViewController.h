@@ -10,4 +10,6 @@
 
 @interface SettingsViewController : BaseViewController
 
+@property (weak, nonatomic) IBOutlet UIButton *backBtn;
+
 @end

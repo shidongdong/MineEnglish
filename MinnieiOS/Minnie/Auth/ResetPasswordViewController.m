@@ -128,7 +128,7 @@
                                               
                                               [APP clearData];
                                               NSString *nibName = nil;
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
                                               nibName = @"LoginViewController_Teacher";
 #else
                                               nibName = @"LoginViewController_Student";

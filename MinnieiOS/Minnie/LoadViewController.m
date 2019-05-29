@@ -6,23 +6,25 @@
 //  Copyright © 2017年 mfox. All rights reserved.
 //
 
-#import "LoadViewController.h"
 #import "User.h"
-#import "BaseRequest.h"
-#import "HomeworkManagerViewController.h"
-#import "PublicService.h"
 #import "AppDelegate.h"
+#import "Application.h"
+#import "BaseRequest.h"
+#import "PublicService.h"
+#import "LoadViewController.h"
 #import "LoginViewController.h"
 #import "PortraitNavigationController.h"
-
-#import "TrialClassViewController.h"
 #import <UserNotifications/UserNotifications.h>
 
-#import "Application.h"
+#if MANAGERSIDE
+#else
+
+#import "TrialClassViewController.h"
+#import "HomeworkManagerViewController.h"
+
+#endif
 
 @interface LoadViewController ()
-
-
 
 @end
 
@@ -42,13 +44,11 @@
     
     [self registerForRemoteNotification];
     
-    
-    
     if (APP.currentUser.token.length == 0 ||
         APP.currentUser.nickname.length==0 ||
         APP.currentUser.avatarUrl.length == 0) {
         NSString *nibName = nil;
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
         nibName = @"LoginViewController_Teacher";
 #else
         nibName = @"LoginViewController_Student";
@@ -64,7 +64,7 @@
                                     callback:^(Result *result, NSError *error) {
                                         BOOL shouldToHome = YES;
                                         if (error == nil) {
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
                                             Teacher *userInfo = (Teacher *)(result.userInfo);
 #else
                                             Student *userInfo = (Student *)(result.userInfo);
@@ -76,7 +76,7 @@
                                             userInfo.token = APP.currentUser.token;
                                             APP.currentUser = userInfo;
                                         } else {
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
 #else
                                             Student *userInfo = (Student *)(APP.currentUser);
                                             if (userInfo.clazz.classId==0 || userInfo.enrollState==1) { // 有班级信息
@@ -89,7 +89,7 @@
                                             AppDelegate * delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                                             [delegate toHome];
                                         } else {
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
 #else
                                             TrialClassViewController *clzzVC = [[TrialClassViewController alloc] initWithNibName:NSStringFromClass([TrialClassViewController class]) bundle:nil];
                                             

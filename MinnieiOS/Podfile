@@ -27,5 +27,6 @@ abstract_target 'Minnie' do
   #pod 'PinYin4Objc'
 target 'MinnieStudent'
 target 'MinnieTeacher'
+target 'MinnieManager'
 
 end

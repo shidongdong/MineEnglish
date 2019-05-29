@@ -13,4 +13,13 @@
 + (UIColor*)colorWithHex:(NSInteger)hexValue;
 + (UIColor*)colorWithHex:(NSInteger)hexValue alpha:(CGFloat)alphaValue;
 
++ (UIColor*)mainColor;
+
++ (UIColor*)normalColor;
+
++ (UIColor*)detailColor;
+
++ (UIColor*)separatorLineColor;
+
++ (UIColor*)bgColor;
 @end

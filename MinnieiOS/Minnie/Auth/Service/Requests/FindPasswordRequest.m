@@ -40,7 +40,7 @@
 - (id)requestArgument {
     NSString *passwordHash = [[[self.password stringByAppendingFormat:@".%@", @"minnie@2018"] md5] md5];
     NSInteger type = 0;
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
     type = 1;
 #endif
     

@@ -149,7 +149,7 @@
                                         
                                         User *user = nil;
                                         NSString *nibName = nil;
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
                                         Teacher *teacher = (Teacher *)(result.userInfo);
                                         [APP setCurrentUser:teacher];
                                         user = teacher;

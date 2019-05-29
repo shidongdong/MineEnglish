@@ -56,5 +56,6 @@
 #import "Constants.h"
 #import "UIColor+HEX.h"
 #import "NSString+Qiniu.h"
+#import <Masonry/Masonry.h>
 
 #endif /* PrefixHeader_pch */

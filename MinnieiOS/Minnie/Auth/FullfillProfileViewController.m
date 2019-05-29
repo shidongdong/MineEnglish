@@ -236,7 +236,7 @@
     }
     
     NSString *gradeText = nil;
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
 #else
     gradeText = [self.gradeTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (gradeText.length == 0) {
@@ -265,7 +265,7 @@
                                      user.nickname = nickname;
                                      user.gender = [genderText isEqualToString:@"男"] ? 1 : -1;
                                      
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
                                      APP.currentUser = (Teacher *)user;
 #else
                                      Student *student = (Student *)user;
@@ -327,7 +327,7 @@
                                          user.nickname = nickname;
                                          user.gender = [genderText isEqualToString:@"男"] ? 1 : -1;
                                          
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
                                          APP.currentUser = (Teacher *)user;
 #else
                                          Student *student = (Student *)user;

@@ -73,6 +73,7 @@
 
 #pragma mark - Update
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+  
     NSString *name = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (name.length < 1 || name.length > 10) {
         [HUD showErrorWithMessage:@"昵称长度1-10个字符"];

@@ -17,7 +17,7 @@
                               callback:(RequestCallback)callback {
     UserRequest *request = [[UserRequest alloc] initWithUserId:userId];
 
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
     request.objectClassName = @"Teacher";
 #else
     request.objectClassName = @"Student";
@@ -31,7 +31,7 @@
 + (BaseRequest *)requestAppUpgradeWithVersion:(NSString *)version
                                  callback:(RequestCallback)callback {
     
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
     NSString * type = @"1";
 #else
     NSString * type = @"0";

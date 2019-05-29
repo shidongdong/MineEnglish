@@ -305,7 +305,7 @@
                                               
                                               [self.navigationController popViewControllerAnimated:YES];
                                               
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
                                               if (self.teacher.userId == APP.currentUser.userId) {
                                                   self.teacher.token = APP.currentUser.token;
                                                   APP.currentUser = self.teacher;

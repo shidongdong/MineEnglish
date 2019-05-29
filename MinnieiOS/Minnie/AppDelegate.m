@@ -6,33 +6,45 @@
 //  Copyright © 2017年 netease. All rights reserved.
 //
 
-#import "AppDelegate.h"
-#import <AVOSCloud/AVOSCloud.h>
-#import "LoadViewController.h"
+#import "Clazz.h"
+#import "Constants.h"
 #import "IMManager.h"
 #import "AuthService.h"
-#import "LoginViewController.h"
-#import "PortraitNavigationController.h"
-#import "TrialClassViewController.h"
-#import "Clazz.h"
+#import "AppDelegate.h"
+#import "PushManager.h"
+#import <Bugly/Bugly.h>
 #import "PublicService.h"
+#import "UITabBar+KSBadge.h"
+#import <AVOSCloud/AVOSCloud.h>
+#import "LoadViewController.h"
+#import "LoginViewController.h"
 //#import <Fabric/Fabric.h>
 //#import <Crashlytics/Crashlytics.h>
-#import <Bugly/Bugly.h>
-#import "HomeworkSessionsContainerViewController.h"
+#import "PortraitNavigationController.h"
+
 #if TEACHERSIDE
-#import "TeacherAccountViewController.h"
-#else
-#import "GuideViewController.h"
-#import "StudentAccountViewController.h"
-#import "TrialClassViewController.h"
-#endif
-#import "TeacherClassesViewController.h"
+
 #import "PortraitTabBarController.h"
+#import "TeacherAccountViewController.h"
+#import "TeacherClassesViewController.h"
+#import "HomeworkSessionsContainerViewController.h"
+
+#elif MANAGERSIDE
+
+#import "MIStockSplitViewController.h"
+
+#else
+
+#import "GuideViewController.h"
+#import "PortraitTabBarController.h"
+#import "TrialClassViewController.h"
 #import "CircleContainerController.h"
-#import "Constants.h"
-#import "UITabBar+KSBadge.h"
-#import "PushManager.h"
+#import "StudentAccountViewController.h"
+#import "TeacherClassesViewController.h"
+#import "HomeworkSessionsContainerViewController.h"
+
+#endif
+
 
 @interface AppDelegate ()<UITabBarControllerDelegate>
 
@@ -52,9 +64,9 @@
     
     [Bugly startWithAppId:@"f82097cc09"];
     //正式版
-    [AVOSCloud setApplicationId:@"pe0Om2fpgh5oHCd0NfSUbwkT-gzGzoHsz" clientKey:@"gfJuGSytpQalwcnAmNtunRoP"];
+//    [AVOSCloud setApplicationId:@"pe0Om2fpgh5oHCd0NfSUbwkT-gzGzoHsz" clientKey:@"gfJuGSytpQalwcnAmNtunRoP"];
     //开发版
-//    [AVOSCloud setApplicationId:@"JE1gHMgc1MJaTRCPFcz30F9E-gzGzoHsz" clientKey:@"Axlm6WN8mJ7j1ivtGjgHxGqb"];
+    [AVOSCloud setApplicationId:@"JE1gHMgc1MJaTRCPFcz30F9E-gzGzoHsz" clientKey:@"Axlm6WN8mJ7j1ivtGjgHxGqb"];
     [AVOSCloud setAllLogsEnabled:YES];
     [AVIMClient setUnreadNotificationEnabled:YES];
     if (@available(iOS 11.0, *)) {
@@ -81,7 +93,7 @@
                                                  name:kNotificationKeyOfAuthForbidden
                                                object:nil];
     
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
 #else
     // 学生端老师批改作业后，刷新个人页面
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -109,7 +121,10 @@
 
 - (void)loginDidSuccess:(NSNotification *)notification {
     BOOL shouldToHome = YES;
-#if TEACHERSIDE
+#if TEACHERSIDE 
+    Teacher *teacher = (Teacher *)(APP.currentUser);
+    [Bugly setUserIdentifier:teacher.nickname];
+#elif MANAGERSIDE
     Teacher *teacher = (Teacher *)(APP.currentUser);
     [Bugly setUserIdentifier:teacher.nickname];
 #else
@@ -141,6 +156,9 @@
     NSString *nibName = nil;
 #if TEACHERSIDE
     nibName = @"LoginViewController_Teacher";
+    
+#elif MANAGERSIDE
+    nibName = @"LoginViewController_Teacher";
 #else
     nibName = @"LoginViewController_Student";
 #endif
@@ -159,7 +177,7 @@
     [PublicService requestUserInfoWithId:userId
                                 callback:^(Result *result, NSError *error) {
                                     if (error == nil) {
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
                                         Teacher *userInfo = (Teacher *)(result.userInfo);
 #else
                                         Student *userInfo = (Student *)(result.userInfo);
@@ -173,7 +191,6 @@
                                     }
                                 }];
 }
-
 
 #if TEACHERSIDE
 - (void)toHome {
@@ -234,6 +251,12 @@
     }
 }
 
+#elif MANAGERSIDE
+- (void)toHome {
+    
+    MIStockSplitViewController *splitView = [[MIStockSplitViewController alloc] init];
+    [UIApplication sharedApplication].keyWindow.rootViewController = splitView;
+}
 #else
 
 - (void)toHome {
@@ -384,7 +407,7 @@
 - (void)openRemoteNotification
 {
     AVInstallation *currentInstallation = [AVInstallation defaultInstallation];
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
     currentInstallation.deviceProfile = @"teacher_pro";
     if (APP.currentUser.authority == TeacherAuthoritySuperManager) {
         [currentInstallation addUniqueObject:@"SuperManager" forKey:@"channels"];
@@ -404,7 +427,7 @@
 - (void)removeRemoteNotification
 {
     AVInstallation *currentInstallation = [AVInstallation defaultInstallation];
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
     currentInstallation.deviceProfile = @"teacher_pro";
     
     if (APP.currentUser.authority == TeacherAuthoritySuperManager) {
@@ -438,7 +461,7 @@
 
 - (void)handleNotiForPushType:(PushManagerType)type
 {
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
 #else
     if ([self.window.rootViewController isKindOfClass:[PortraitTabBarController class]])
     {

@@ -22,5 +22,29 @@
     return [UIColor colorWithHex:hexValue alpha:1.0];
 }
 
++ (UIColor *)mainColor{
+    
+    return [UIColor colorWithHex:0x0098FE];
+}
+
++ (UIColor*)normalColor{
+    
+    return [UIColor colorWithHex:0x333333];
+}
+
++ (UIColor*)detailColor{
+    
+    return [UIColor colorWithHex:0x999999];
+}
+
++ (UIColor*)separatorLineColor{
+    
+    return [UIColor colorWithHex:0xCCCCCC];
+}
+
++ (UIColor*)bgColor{
+    
+    return [UIColor colorWithHex:0xEEEEEE];
+}
 
 @end
