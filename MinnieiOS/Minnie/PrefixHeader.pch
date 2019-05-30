@@ -58,4 +58,55 @@
 #import "NSString+Qiniu.h"
 #import <Masonry/Masonry.h>
 
+typedef NS_ENUM(NSInteger, MIHomeworkCreateContentType) {
+    
+//    MIHomeworkCreateContentType_Localtion,          // 位置
+//    MIHomeworkCreateContentType_Title,              // 标题
+//    MIHomeworkCreateContentType_Content,            // 内容
+//    MIHomeworkCreateContentType_MarkingRemarks,     // 批改备注
+//    MIHomeworkCreateContentType_Requirements,       // 作业要求
+//    MIHomeworkCreateContentType_ActivityReq,        // 活动要求
+//    MIHomeworkCreateContentType_AddWords,           // 添加单词
+//    MIHomeworkCreateContentType_AddCovers,          // 添加封面
+//    MIHomeworkCreateContentType_WordsTimeInterval,  // 播放时间间隔
+//    MIHomeworkCreateContentType_AddAttachments,     // 添加附加
+//    MIHomeworkCreateContentType_Materials,          // 添加材料
+//    MIHomeworkCreateContentType_Answer,             // 添加答案
+//    MIHomeworkCreateContentType_StatisticalType,    // 统计类型
+//    MIHomeworkCreateContentType_CommitTime,         // 提交时间
+//    MIHomeworkCreateContentType_CommitCount,        // 可提交次数
+//    MIHomeworkCreateContentType_ExaminationType,    // 考试类型
+//    MIHomeworkCreateContentType_HomeworkDifficulty, // 作业难度
+//    MIHomeworkCreateContentType_TimeLimit,          // 选择时限
+//    MIHomeworkCreateContentType_Label,              // 标签
+//    MIHomeworkCreateContentType_TypeLabel,          // 类型标签
+//    MIHomeworkCreateContentType_Add,                // 添加按钮
+    
+    MIHomeworkCreateContentType_Localtion,          // 位置
+    MIHomeworkCreateContentType_Title,              // 标题
+    MIHomeworkCreateContentType_Content,            // 内容
+    MIHomeworkCreateContentType_MarkingRemarks,     // 批改备注
+    MIHomeworkCreateContentType_StatisticalType,    // 统计类型
+    MIHomeworkCreateContentType_CommitTime,         // 选择提交时间
+    MIHomeworkCreateContentType_HomeworkDifficulty, // 选择作业难度（选择星级）
+    MIHomeworkCreateContentType_Label,              // 标签（任务类型）
+    MIHomeworkCreateContentType_TypeLabel,          // 分类标签（多选）
+    MIHomeworkCreateContentType_WordsTimeInterval,  // 播放时间间隔
+    MIHomeworkCreateContentType_AddWords,           // 添加单词
+    MIHomeworkCreateContentType_Materials,          // 添加材料
+    MIHomeworkCreateContentType_Answer,             // 添加答案
+    MIHomeworkCreateContentType_ExaminationType,    // 考试类型
+    MIHomeworkCreateContentType_TimeLimit,          // 选择时限
+    MIHomeworkCreateContentType_AddCovers,          // 添加封面
+    MIHomeworkCreateContentType_ActivityReq,        // 活动要求
+    MIHomeworkCreateContentType_CommitCount,        // 可提交次数
+    MIHomeworkCreateContentType_Add,                // 添加按钮
+    MIHomeworkCreateContentType_AddBgMusic,         // 添加背景音乐
+    MIHomeworkCreateContentType_ActivityParticipant,// 活动参与对象
+    MIHomeworkCreateContentType_AddFollowMaterials, // 添加跟读材料
+    MIHomeworkCreateContentType_VideoTimeLimit,     // 视频时限
+    MIHomeworkCreateContentType_ActivityStartTime,  // 活动开始时间
+    MIHomeworkCreateContentType_ActivityEndTime     // 活动结束时间
+};
+
 #endif /* PrefixHeader_pch */

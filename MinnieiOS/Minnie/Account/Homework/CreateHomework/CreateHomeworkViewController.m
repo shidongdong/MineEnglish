@@ -1052,7 +1052,6 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         cell = titleCell;
     } else if (indexPath.row == 1) { // 文本
         WeakifySelf;
-        
         HomeworkTextTableViewCell *textCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTextTableViewCellId forIndexPath:indexPath];
         
         [textCell setupWithText:self.text];

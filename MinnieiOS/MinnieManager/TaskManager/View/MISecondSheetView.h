@@ -14,11 +14,16 @@
 @protocol SecondSheetViewDelegate <NSObject>
 
 @optional
+
+// 查看发送记录
+- (void)toSendRecord;
+
 // 点击任务管理一级文件夹
 - (void)secondSheetViewFirstLevelData:(MIFirLevelFolderModel *_Nullable)data index:(NSInteger)index;
 
 // 点击任务管理二级文件夹
 - (void)secondSheetViewSecondLevelData:(MIFirLevelFolderModel *_Nullable)data index:(NSInteger)index;
+
 
 @end
 

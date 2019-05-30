@@ -609,7 +609,7 @@ VIResourceLoaderManagerDelegate
                                                     handler:^(UIAlertAction * _Nonnull action) {
                                  [weakSelf goToCreateTaskWithType:MIHomeworkTaskType_Activity];
                                                     }];
-    UIAlertAction *action6 = [UIAlertAction actionWithTitle:@"考试统计"
+    UIAlertAction *action6 = [UIAlertAction actionWithTitle:@"成绩统计"
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction * _Nonnull action) {
                         [weakSelf goToCreateTaskWithType:MIHomeworkTaskType_ExaminationStatistics];
@@ -637,14 +637,12 @@ VIResourceLoaderManagerDelegate
     
     MICreateHomeworkTaskView *createTaskView =  [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MICreateHomeworkTaskView class]) owner:nil options:nil].lastObject;
     createTaskView.frame = [UIScreen mainScreen].bounds;
-    createTaskView.taskType = type;
-   
     WeakifySelf;
     createTaskView.callBack = ^{
       
         [weakSelf requestHomeworks];
     };
-    [createTaskView updateData];
+    [createTaskView setupCreateHomework:nil taskType:type];
     [[UIApplication sharedApplication].keyWindow addSubview:createTaskView];
 }
 

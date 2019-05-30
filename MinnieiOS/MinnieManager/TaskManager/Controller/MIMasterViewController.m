@@ -13,6 +13,7 @@
 #import "MITaskListViewController.h"
 #import "MIStockSplitViewController.h"
 #import "MIStockDetailViewController.h"
+#import "HomeWorkSendHistoryViewController.h"
 
 @interface MIMasterViewController ()<
 RootSheetViewDelete,
@@ -70,7 +71,7 @@ SecondSheetViewDelegate
     [nav popToRootViewControllerAnimated:YES];
     UIViewController *detailVC = nav.topViewController;
     
-    if (index == 6) { // 设置
+    if (index == 7) { // 设置
         
         self.customSplitViewController.primaryCloumnScale = kRootModularWidth;
         [self.customSplitViewController setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
@@ -100,6 +101,23 @@ SecondSheetViewDelegate
     }
 }
 
+#pragma mark -
+- (void)toSendRecord{
+    
+    UINavigationController *nav = ((UINavigationController *)self.customSplitViewController.viewControllers[1]);
+    [nav popToRootViewControllerAnimated:YES];
+    
+    UIViewController *detailVC = nav.topViewController;
+    self.customSplitViewController.primaryCloumnScale = kRootModularWidth + kFolderModularWidth;
+    [self.customSplitViewController setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
+   
+    HomeWorkSendHistoryViewController * historyHomeworkVC = [[HomeWorkSendHistoryViewController alloc] initWithNibName:@"HomeWorkSendHistoryViewController" bundle:nil];
+//    [nav pushViewController:historyHomeworkVC animated:YES];
+  
+    if ([detailVC isKindOfClass:[MIStockDetailViewController class]]) {
+        [(MIStockDetailViewController *)detailVC addSubViewController:historyHomeworkVC];
+    }
+}
 
 #pragma mark - SecondSheetViewDelegate  任务管理 一级文件夹 && 二级文件夹
 - (void)secondSheetViewFirstLevelData:(MIFirLevelFolderModel *)data index:(NSInteger)index{

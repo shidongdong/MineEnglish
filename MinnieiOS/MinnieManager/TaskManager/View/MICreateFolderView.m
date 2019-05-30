@@ -29,17 +29,17 @@
     
     self.textField.layer.masksToBounds = YES;
     self.textField.layer.cornerRadius = 12;
-    self.textField.layer.borderWidth = 1.0;
+    self.textField.layer.borderWidth = 0.5;
     self.textField.layer.borderColor = [UIColor separatorLineColor].CGColor;
     
     self.cancelBtn.layer.masksToBounds = YES;
     self.cancelBtn.layer.cornerRadius = 12;
-    self.cancelBtn.layer.borderWidth = 1.0;
+    self.cancelBtn.layer.borderWidth = 0.5;
     self.cancelBtn.layer.borderColor = [UIColor mainColor].CGColor;
     
     self.sureBtn.layer.masksToBounds = YES;
     self.sureBtn.layer.cornerRadius = 12;
-    self.sureBtn.layer.borderWidth = 1.0;
+    self.sureBtn.layer.borderWidth = 0.5;
     self.sureBtn.layer.borderColor = [UIColor mainColor].CGColor;
 }
 

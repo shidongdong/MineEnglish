@@ -21,28 +21,6 @@ typedef NS_ENUM(NSInteger, MIHomeworkTaskType) {
     MIHomeworkTaskType_ExaminationStatistics    // 考试统计
 };
 
-typedef NS_ENUM(NSInteger, MIHomeworkCreateContentType) {
-    
-    MIHomeworkCreateContentType_Localtion,          // 位置
-    MIHomeworkCreateContentType_Title,              // 标题
-    MIHomeworkCreateContentType_Content,            // 内容
-    MIHomeworkCreateContentType_Requirements,       // 作业要求
-    MIHomeworkCreateContentType_ActivityReq,        // 活动要求
-    MIHomeworkCreateContentType_AddWords,           // 添加单词
-    MIHomeworkCreateContentType_AddCovers,          // 添加封面
-    MIHomeworkCreateContentType_WordsTimeInterval,  // 播放时间间隔
-    MIHomeworkCreateContentType_AddAttachments,     // 添加附加
-    MIHomeworkCreateContentType_Materials,          // 添加材料
-    MIHomeworkCreateContentType_Answer,             // 添加答案
-    MIHomeworkCreateContentType_StatisticalType,    // 统计类型
-    MIHomeworkCreateContentType_CommitTime,         // 提交时间
-    MIHomeworkCreateContentType_CommitCount,        // 可提交次数
-    MIHomeworkCreateContentType_ExaminationType,    // 考试类型
-    MIHomeworkCreateContentType_HomeworkDifficulty, // 作业难度
-    MIHomeworkCreateContentType_TimeLimit,          // 选择时限
-    MIHomeworkCreateContentType_Label,              // 标签
-    MIHomeworkCreateContentType_TypeLabel,          // 类型标签
-};
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -50,11 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) CreateCallBack callBack;
 
-@property (nonatomic, strong) Homework *homework;   // 为空创建作业
 
-@property (nonatomic,assign) MIHomeworkTaskType taskType;
-
-- (void)updateData;
+- (void)setupCreateHomework:(Homework *_Nullable)homework taskType:(MIHomeworkTaskType)taskType;
 
 @end
 

@@ -43,13 +43,21 @@ UITableViewDataSource
 - (void)configureUI{
     
     UIButton *addFolderbtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addFolderbtn setTitle:@"添加文件夹" forState:UIControlStateNormal];
+    [addFolderbtn setTitle:@"文件夹" forState:UIControlStateNormal];
     addFolderbtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [addFolderbtn setTitleColor:[UIColor detailColor] forState:UIControlStateNormal];
     [addFolderbtn setImage:[UIImage imageNamed:@"ic_add_black"] forState:UIControlStateNormal];
     [addFolderbtn addTarget:self action:@selector(addFolderBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:addFolderbtn];
-    addFolderbtn.frame = CGRectMake(10, kNaviBarHeight - 26, 100, 16);
+    addFolderbtn.frame = CGRectMake(10, kNaviBarHeight - 26, (kFolderModularWidth - 20)/2.0, 16);
+    
+    UIButton *recordbtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [recordbtn setTitle:@"发送记录" forState:UIControlStateNormal];
+    recordbtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [recordbtn setTitleColor:[UIColor mainColor] forState:UIControlStateNormal];
+    [recordbtn addTarget:self action:@selector(recordbtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:recordbtn];
+    recordbtn.frame = CGRectMake((kFolderModularWidth)/2.0, kNaviBarHeight - 26, (kFolderModularWidth - 20)/2.0, 16);
     
     UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake( 0, kNaviBarHeight - 1, kFolderModularWidth, 1.0)];
     lineView1.backgroundColor = [UIColor separatorLineColor];
@@ -203,6 +211,14 @@ UITableViewDataSource
     }
 }
 
+- (void)recordbtnClicked:(UIButton *)btn{
+  
+    if (self.delegate && [self.delegate respondsToSelector:@selector(toSendRecord)]) {
+        
+        [self.delegate toSendRecord];
+    }
+    
+}
 #pragma mark -  新建一级文件夹
 - (void)addFolderBtnClicked:(UIButton *)addBtn{
     
@@ -254,10 +270,6 @@ UITableViewDataSource
             
             [weakSelf.delegate secondSheetViewSecondLevelData:model index:index];
         }
-//        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(secondSheetViewFirstLevelData:index:)]) {
-//            
-//            [weakSelf.delegate secondSheetViewFirstLevelData:model index:index];
-//        }
     };
     createView.titleName = @"添加子文件夹";
     createView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);

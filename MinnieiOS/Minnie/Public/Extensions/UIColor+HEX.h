@@ -22,4 +22,8 @@
 + (UIColor*)separatorLineColor;
 
 + (UIColor*)bgColor;
+
++ (UIColor*)unSelectedColor;
+
++(UIImage*) createImageWithColor:(UIColor*) color;
 @end

@@ -32,11 +32,13 @@
     NSArray *titleArray = @[@"实时任务",
                             @"教师管理",
                             @"任务管理",
+                            @"活动管理",
                             @"教学统计",
                             @"校区管理",
                             @"礼物管理",
                             @"设置"];
     NSArray *selectImage = @[@"navbar_setup_select",
+                             @"navbar_setup_select",
                              @"navbar_setup_select",
                              @"navbar_setup_select",
                              @"navbar_setup_select",
@@ -49,36 +51,39 @@
                              @"navbar_setup_normal",
                              @"navbar_setup_normal",
                              @"navbar_setup_normal",
+                             @"navbar_setup_normal",
                              @"navbar_setup_normal"];
     
     self.btns = [NSMutableArray array];
     for (NSInteger i = 0; i < titleArray.count; i++) {
         
-        NSString *title = titleArray[i];
         NSString *selectImg = selectImage[i];
         NSString *normalImg = normalImage[i];
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.tag = 1500 + i;
-        [btn setTitle:title forState:UIControlStateNormal];
-        btn.titleLabel.font = [UIFont systemFontOfSize:16];
-        [btn setTitleColor:[UIColor detailColor] forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor mainColor] forState:UIControlStateSelected];
         [btn setImage:[UIImage imageNamed:normalImg] forState:UIControlStateNormal];
         [btn setImage:[UIImage imageNamed:selectImg] forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
-        // 上左下
-        [btn setImageEdgeInsets:UIEdgeInsetsMake(0, 12, 24, 0)];
-        // 上右下
-        [btn setTitleEdgeInsets:UIEdgeInsetsMake(32, -30, 0, -12)];
         [self addSubview:btn];
+        
         // 设置
-        if (i == 6) { 
+        if (i == titleArray.count - 1) {
             btn.frame = CGRectMake(11, [UIScreen mainScreen].bounds.size.height - 90, 48, 50);
         } else {
           
             CGFloat pointY = kNaviBarHeight + (36 + 50) * i;
             btn.frame = CGRectMake(20, pointY, 48, 50);
+            
+            NSString *title = titleArray[i];
+            [btn setTitle:title forState:UIControlStateNormal];
+            btn.titleLabel.font = [UIFont systemFontOfSize:16];
+            [btn setTitleColor:[UIColor detailColor] forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor mainColor] forState:UIControlStateSelected];
+            // 上左下
+            [btn setImageEdgeInsets:UIEdgeInsetsMake(0, 12, 24, 0)];
+            // 上右下
+            [btn setTitleEdgeInsets:UIEdgeInsetsMake(32, -30, 0, -12)];
         }
         [self.btns addObject:btn];
     }
@@ -91,7 +96,7 @@
 - (void)btnClicked:(UIButton *)selectBtn{
     
     NSInteger selectIndex = selectBtn.tag - 1500;
-    if (selectIndex == 2 || selectIndex == 6) {
+    if (selectIndex == 2 || selectIndex == 7) {
         
     } else {
         return;
