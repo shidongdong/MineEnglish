@@ -1,0 +1,64 @@
+//
+//  MISecondActivityTableViewCell.m
+//  MinnieManager
+//
+//  Created by songzhen on 2019/5/31.
+//  Copyright © 2019 minnieedu. All rights reserved.
+//
+
+#import "MISecondActivityTableViewCell.h"
+
+CGFloat const MISecondActivityTableViewCellHeight = 70.f;
+
+NSString * const MISecondActivityTableViewCellId = @"MISecondActivityTableViewCellId";
+
+
+@interface MISecondActivityTableViewCell ()
+
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+
+@property (weak, nonatomic) IBOutlet UIButton *endButton;
+
+@end
+
+
+@implementation MISecondActivityTableViewCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+    
+    self.endButton.layer.masksToBounds = YES;
+    self.endButton.layer.cornerRadius = 20.0;
+}
+
+- (void)setupWithModel:(MIActivityModel *)model selected:(BOOL)selected{
+    
+    self.titleLabel.text = model.title;
+    self.timeLabel.text = model.time;
+    if (selected) {
+        self.titleLabel.textColor = [UIColor mainColor];
+        self.timeLabel.textColor = [UIColor mainColor];
+        [self.endButton setBackgroundColor:[UIColor mainColor]];
+    } else {
+        self.titleLabel.textColor = [UIColor detailColor];
+        self.timeLabel.textColor = [UIColor detailColor];
+        [self.endButton setBackgroundColor:[UIColor unSelectedColor]];
+    }
+}
+
+- (IBAction)endAction:(id)sender {
+    
+    
+}
+
+
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+@end

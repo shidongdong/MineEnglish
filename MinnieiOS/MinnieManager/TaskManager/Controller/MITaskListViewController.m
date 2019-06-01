@@ -12,7 +12,7 @@
 #import "MIFirLevelFolderModel.h"
 #import "MICreateHomeworkTaskView.h"
 #import "MITaskListViewController.h"
-#import "MICreateTaskViewController.h"
+#import "MIScoreListViewController.h"
 #import "HomeworkPreviewViewController.h"
 #import "ClassAndStudentSelectorController.h"
 #import "HomeWorkSendHistoryViewController.h"
@@ -470,12 +470,11 @@ VIResourceLoaderManagerDelegate
         [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
     
-    // 点击空白处 -> 作业详情
+    // 点击空白处 -> 得分列表
     [cell setBlankCallback:^{
         
-//        CreateHomeworkViewController *createHomeworkVC = [[CreateHomeworkViewController alloc] initWithNibName:@"CreateHomeworkViewController" bundle:nil];
-//        createHomeworkVC.homework = homework;
-//        [self.navigationController pushViewController:createHomeworkVC animated:YES];
+        MIScoreListViewController *scoreListVC = [[MIScoreListViewController alloc] initWithNibName:NSStringFromClass([MIScoreListViewController class]) bundle:nil];
+        [self.navigationController pushViewController:scoreListVC animated:YES];
     }];
     [cell setSendCallback:^{
       

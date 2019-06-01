@@ -96,7 +96,7 @@
 - (void)btnClicked:(UIButton *)selectBtn{
     
     NSInteger selectIndex = selectBtn.tag - 1500;
-    if (selectIndex == 2 || selectIndex == 7) {
+    if (selectIndex == 2 || selectIndex == 7 || selectIndex == 3) {
         
     } else {
         return;

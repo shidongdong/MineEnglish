@@ -9,7 +9,7 @@
 #import "CSCustomSplitViewController.h"
 #import "Masonry.h"
 
-#define k_DefaultPrimaryCloumnScale (90 + 154) // 默认的主控制器宽度（同时显示时）
+#define k_DefaultPrimaryCloumnScale (90 + 204) // 默认的主控制器宽度（同时显示时）
 #define k_AnimatedTimeInterval 0.25 // 动画时长
 
 @interface CSCustomSplitViewController ()

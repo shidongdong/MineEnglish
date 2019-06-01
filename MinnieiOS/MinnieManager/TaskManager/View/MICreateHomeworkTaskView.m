@@ -24,6 +24,7 @@ UITableViewDataSource
 @property (copy, nonatomic) NSString *homeworkMarks;    //批改标注
 @property (copy, nonatomic) NSString *activityReq;      //活动要求
 
+@property (assign, nonatomic) NSInteger leftRowCount;
 
 @property (weak, nonatomic) IBOutlet UITableView *leftTableView;
 @property (weak, nonatomic) IBOutlet UITableView *rightTableView;
@@ -56,6 +57,38 @@ UITableViewDataSource
     self.rightTableView.dataSource = self;
     
     [self registerCellNibs];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+}
+- (void)keyboardWillChangeFrame:(NSNotification *)notification{
+    
+    //    NSLog(@"userInfo:%@", notification.userInfo);
+    CGRect keyboredBeginFrame = [notification.userInfo[@"UIKeyboardFrameBeginUserInfoKey"] CGRectValue];
+    CGRect keyboredEndFrame = [notification.userInfo[@"UIKeyboardFrameEndUserInfoKey"] CGRectValue];
+    CGFloat duration = [notification.userInfo[@"UIKeyboardAnimationDurationUserInfoKey"] floatValue];
+    NSLog(@"begin:%@ , end:%@" , NSStringFromCGRect(keyboredBeginFrame) , NSStringFromCGRect(keyboredEndFrame));
+    
+    CGFloat changeHeight = 266;
+    //动画修改对应的视图位置
+    [UIView animateWithDuration:duration delay:1.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+
+        CGFloat yDistance = fabs(keyboredBeginFrame.origin.y - keyboredEndFrame.origin.y);
+        NSLog(@"%f", yDistance);
+        if (!floor(yDistance)) {
+            return;
+        }
+        // 键盘弹出或变化
+        if (keyboredBeginFrame.origin.y > keyboredEndFrame.origin.y || (keyboredBeginFrame.size.height != yDistance)) {
+
+            self.topConstraint.constant -= changeHeight;
+            self.bottomConstraint.constant += changeHeight;
+        }//键盘收起
+        else{
+
+            self.topConstraint.constant += changeHeight;
+            self.bottomConstraint.constant -= changeHeight;
+        }
+    } completion:nil];
 }
 
 - (void)setupCreateHomework:(Homework *_Nullable)homework taskType:(MIHomeworkTaskType)taskType{
@@ -67,6 +100,17 @@ UITableViewDataSource
     [self setupTitleWithTaskType:taskType];
     [self.createTypeArray removeAllObjects];
     [self.createTypeArray addObjectsFromArray:[self getRowCount]];
+    
+    if (taskType == MIHomeworkTaskType_Activity) {
+        
+        self.leftRowCount = 7;
+    } else {
+     
+        self.leftRowCount = 5;
+    }
+    
+    [self.leftTableView reloadData];
+    [self.rightTableView reloadData];
 }
 
 - (IBAction)closeAction:(id)sender {
@@ -86,36 +130,50 @@ UITableViewDataSource
         [self removeFromSuperview];
     }
 }
-
-- (void)updateData{
-    
-    [self.leftTableView reloadData];
-    [self.rightTableView reloadData];
-}
-
 #pragma mark - UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return self.createTypeArray.count;
+  
+    if (tableView == self.leftTableView) {
+        
+        return self.leftRowCount;
+    } else {
+        return self.createTypeArray.count - self.leftRowCount;
+    }
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
    
-    NSNumber *createTypeNum = self.createTypeArray[indexPath.row];
     UITableViewCell *cell = nil;
-    cell = [self getTableViewCellAtIndexPath:indexPath
-                                  createType:createTypeNum.integerValue
-                                   tableView:tableView];
+    if (tableView == self.leftTableView) {
+        
+        NSNumber *createTypeNum = self.createTypeArray[indexPath.row];
+        cell = [self getTableViewCellAtIndexPath:indexPath
+                                      createType:createTypeNum.integerValue
+                                       tableView:self.leftTableView];
+    } else {
+        
+        NSNumber *createTypeNum = self.createTypeArray[indexPath.row + self.leftRowCount];
+        cell = [self getTableViewCellAtIndexPath:indexPath
+                                      createType:createTypeNum.integerValue
+                                       tableView:self.rightTableView];
+    }
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSNumber *createTypeNum = self.createTypeArray[indexPath.row];
-    return [self getRowHeightWithCreateType:createTypeNum.integerValue];
+  
+    if (tableView == self.leftTableView) {
+        
+        NSNumber *createTypeNum = self.createTypeArray[indexPath.row];
+        return [self getRowHeightWithCreateType:createTypeNum.integerValue];
+    } else {
+        
+        NSNumber *createTypeNum = self.createTypeArray[indexPath.row + self.leftRowCount];
+        return [self getRowHeightWithCreateType:createTypeNum.integerValue];
+    }
 }
 
 - (void)setupTitleWithTaskType:(MIHomeworkTaskType)taskType{
@@ -778,10 +836,7 @@ UITableViewDataSource
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     
-    if (self.superview) {
-        
-        [self removeFromSuperview];
-    }
+    [self resignFirstResponder];
 }
 
 @end

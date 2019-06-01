@@ -9,7 +9,7 @@
 #import "MIExpandSelectTypeTableViewCell.h"
 
 NSString * const MIExpandSelectTypeTableViewCellId = @"MIExpandSelectTypeTableViewCellId";
-CGFloat const MIExpandSelectTypeTableViewCellHeight = 103.f;
+CGFloat const MIExpandSelectTypeTableViewCellHeight = 90.f;
 
 @interface MIExpandSelectTypeTableViewCell ()
 @property (weak, nonatomic) IBOutlet UIView *bgContentView;

@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CUU-WC-AbC">
-                        <rect key="frame" x="12" y="12" width="296" height="43.5"/>
+                        <rect key="frame" x="12" y="8" width="296" height="61.5"/>
                         <state key="normal" image="ic_add_small.png">
                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         </state>
@@ -30,10 +30,10 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="CUU-WC-AbC" secondAttribute="bottom" constant="22" id="4Ih-5x-zcs"/>
+                    <constraint firstAttribute="bottom" secondItem="CUU-WC-AbC" secondAttribute="bottom" constant="8" id="4Ih-5x-zcs"/>
                     <constraint firstAttribute="trailing" secondItem="CUU-WC-AbC" secondAttribute="trailing" constant="12" id="TgM-2g-WhC"/>
                     <constraint firstItem="CUU-WC-AbC" firstAttribute="leading" secondItem="l1w-4s-s55" secondAttribute="leading" constant="12" id="bgM-PQ-Ucv"/>
-                    <constraint firstItem="CUU-WC-AbC" firstAttribute="top" secondItem="l1w-4s-s55" secondAttribute="top" constant="12" id="pgF-gV-eLn"/>
+                    <constraint firstItem="CUU-WC-AbC" firstAttribute="top" secondItem="l1w-4s-s55" secondAttribute="top" constant="8" id="pgF-gV-eLn"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="a34-Xr-N3A"/>

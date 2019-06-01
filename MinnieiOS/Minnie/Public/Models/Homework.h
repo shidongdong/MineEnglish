@@ -6,6 +6,7 @@
 //  Copyright © 2017年 mfox. All rights reserved.
 //
 
+#import "ParentFileInfo.h"
 #import <Mantle/Mantle.h>
 #import <UIKit/UIKit.h>
 #import "Teacher.h"
@@ -38,6 +39,13 @@
 @property (nonatomic, strong) NSString * formTag;  //作业类型标签: 拼读，指读，默写，订正等等
 
 @property (nonatomic, strong) NSString * teremark;  //批改备注 长度限制28
+
+// 新增
+@property (nonatomic, strong) HomeworkFileDto *fileInfos; //文件位置信息
+
+@property (nonatomic, strong) NSString *typeName; //任务类型：通知、跟读、单词记忆、普通任务、成绩统计
+
+@property (nonatomic, assign) NSInteger examType; // 任务类型为成绩统计：1:周测；2:正式考试
 
 // UI
 @property (nonatomic, assign) CGFloat cellHeight;

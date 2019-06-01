@@ -9,7 +9,7 @@
 #import "MIAddTypeTableViewCell.h"
 
 NSString * const MIAddTypeTableViewCellId = @"MIAddTypeTableViewCellId";
-CGFloat const MIAddTypeTableViewCellHeight = 78.f;
+CGFloat const MIAddTypeTableViewCellHeight = 60.f;
 
 @interface MIAddTypeTableViewCell ()
 @property (weak, nonatomic) IBOutlet UIButton *addButton;

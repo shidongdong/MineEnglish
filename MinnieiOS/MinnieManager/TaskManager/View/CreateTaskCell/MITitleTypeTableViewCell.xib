@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="作业要求:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E52-om-6Zq">
-                        <rect key="frame" x="12" y="20" width="62" height="17"/>
+                        <rect key="frame" x="12" y="5" width="62" height="17"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                         <color key="textColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -28,7 +28,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="E52-om-6Zq" firstAttribute="leading" secondItem="pmO-qz-FtI" secondAttribute="leading" constant="12" id="FYE-rQ-V7Q"/>
-                    <constraint firstItem="E52-om-6Zq" firstAttribute="top" secondItem="pmO-qz-FtI" secondAttribute="top" constant="20" id="OLw-f0-Hlm"/>
+                    <constraint firstItem="E52-om-6Zq" firstAttribute="top" secondItem="pmO-qz-FtI" secondAttribute="top" constant="5" id="OLw-f0-Hlm"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="OqO-c4-bJU"/>

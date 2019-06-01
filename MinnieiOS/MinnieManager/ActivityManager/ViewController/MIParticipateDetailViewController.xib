@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MIParticipateDetailViewController">
+            <connections>
+                <outlet property="tableView" destination="PyT-UJ-ep7" id="2Ye-Ca-kPA"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6sk-Ix-uwl" userLabel="导航栏">
+                    <rect key="frame" x="0.0" y="24" width="414" height="44"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="提交记录" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FPR-fY-Z2F">
+                            <rect key="frame" x="170.5" y="11" width="73.5" height="22"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                            <color key="textColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dlO-Sw-lf5">
+                            <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="44" id="l5x-hY-Rs8"/>
+                            </constraints>
+                            <state key="normal" image="navbar_back.png"/>
+                            <connections>
+                                <action selector="backAction:" destination="-1" eventType="touchUpInside" id="gsm-3v-KB5"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C5B-vL-d0a">
+                            <rect key="frame" x="0.0" y="43.5" width="414" height="0.5"/>
+                            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="8qn-Aj-odW"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="C5B-vL-d0a" secondAttribute="trailing" id="1BE-OR-QtB"/>
+                        <constraint firstItem="dlO-Sw-lf5" firstAttribute="top" secondItem="6sk-Ix-uwl" secondAttribute="top" id="6iW-iT-p0Z"/>
+                        <constraint firstItem="FPR-fY-Z2F" firstAttribute="centerX" secondItem="6sk-Ix-uwl" secondAttribute="centerX" id="Byj-y1-Bh1"/>
+                        <constraint firstAttribute="height" constant="44" id="RlP-jP-q9w"/>
+                        <constraint firstItem="FPR-fY-Z2F" firstAttribute="centerY" secondItem="6sk-Ix-uwl" secondAttribute="centerY" id="U4m-lX-Mg6"/>
+                        <constraint firstItem="C5B-vL-d0a" firstAttribute="leading" secondItem="6sk-Ix-uwl" secondAttribute="leading" id="Xn8-Pa-Lid"/>
+                        <constraint firstItem="dlO-Sw-lf5" firstAttribute="leading" secondItem="6sk-Ix-uwl" secondAttribute="leading" id="lmY-79-FlI"/>
+                        <constraint firstAttribute="bottom" secondItem="dlO-Sw-lf5" secondAttribute="bottom" id="mJA-rp-pZF"/>
+                        <constraint firstAttribute="bottom" secondItem="C5B-vL-d0a" secondAttribute="bottom" id="pAV-JD-crK"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="qEm-pv-qBV"/>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PyT-UJ-ep7">
+                    <rect key="frame" x="0.0" y="68" width="414" height="794"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="MqK-uY-9Bg"/>
+                        <outlet property="delegate" destination="-1" id="yep-NV-uMm"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="PyT-UJ-ep7" firstAttribute="top" secondItem="6sk-Ix-uwl" secondAttribute="bottom" id="5fj-fw-PIk"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="PyT-UJ-ep7" secondAttribute="bottom" id="A8I-NR-pFX"/>
+                <constraint firstItem="PyT-UJ-ep7" firstAttribute="leading" secondItem="6sk-Ix-uwl" secondAttribute="leading" id="AGb-dY-2Qe"/>
+                <constraint firstItem="6sk-Ix-uwl" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="Sq7-5U-a1E"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="6sk-Ix-uwl" secondAttribute="trailing" id="mVk-fM-OQf"/>
+                <constraint firstItem="PyT-UJ-ep7" firstAttribute="trailing" secondItem="6sk-Ix-uwl" secondAttribute="trailing" id="nba-oK-4oR"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="top" secondItem="6sk-Ix-uwl" secondAttribute="top" constant="20" id="uCX-Z9-rb0"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="navbar_back.png" width="24" height="24"/>
+    </resources>
+</document>

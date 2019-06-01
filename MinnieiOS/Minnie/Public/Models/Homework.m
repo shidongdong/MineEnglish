@@ -23,7 +23,10 @@
              @"category":@"category",
              @"limitTimes":@"limitTimes",
              @"formTag":@"formTag",
-             @"teremark":@"teremark"
+             @"teremark":@"teremark",
+             @"fileInfos":@"fileInfos",
+             @"typeName":@"typeName",
+             @"examType":@"examType"
              };
 }
 
@@ -42,6 +45,11 @@
 + (NSValueTransformer *)answerItemsJSONTransformer {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[HomeworkAnswerItem class]];
 }
+
++ (NSValueTransformer *)fileInfosJSONTransformer {
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[HomeworkFileDto class]];
+}
+
 
 - (NSDictionary *)dictionaryForUpload {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -72,6 +80,18 @@
             itemDict[@"imageUrl"] = item.imageUrl;
             itemDict[@"imageWidth"] = @(item.imageWidth);
             itemDict[@"imageHeight"] = @(item.imageHeight);
+        } else if ([item.type isEqualToString:HomeworkItemTypeWord]) {
+            
+            itemDict[@"bgmusicUrl"] = item.bgmusicUrl;
+            itemDict[@"palytime"] = @(item.palytime);
+            
+            NSMutableArray *words = [NSMutableArray array];
+            dict[@"words"] = words;
+            for (WordInfo *word in item.words) {
+                NSMutableDictionary *wordDic = [NSMutableDictionary dictionary];
+                wordDic[@"english"] = word.english;
+                wordDic[@"chinese"] = @(word.chinese);
+            }
         }
         
         [items addObject:itemDict];
@@ -104,6 +124,9 @@
     dict[@"limitTimes"] = @(self.limitTimes);
     dict[@"formTag"] = self.formTag;
     dict[@"teremark"] = self.teremark;
+    dict[@"fileInfos"] = self.fileInfos;
+    dict[@"typeName"] = self.typeName;
+    dict[@"examType"] = @(self.examType);
     return dict;
 }
 

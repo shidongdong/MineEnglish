@@ -8,7 +8,7 @@
 
 #import "MITitleTypeTableViewCell.h"
 
-CGFloat const MITitleTypeTableViewCellHeight = 37.f;
+CGFloat const MITitleTypeTableViewCellHeight = 25.f;
 
 NSString * const MITitleTypeTableViewCellId = @"MITitleTypeTableViewCellId";
 

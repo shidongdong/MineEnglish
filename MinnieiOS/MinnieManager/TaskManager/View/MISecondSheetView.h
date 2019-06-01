@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MIFirLevelFolderModel.h"
 
-#define kFolderModularWidth         154.f
+#define kFolderModularWidth         204.f
 
 @protocol SecondSheetViewDelegate <NSObject>
 

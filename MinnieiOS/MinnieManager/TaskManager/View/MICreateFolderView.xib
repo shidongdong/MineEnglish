@@ -41,10 +41,10 @@
                             </connections>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixA-lF-nHD">
-                            <rect key="frame" x="20" y="136" width="120" height="44"/>
+                            <rect key="frame" x="20" y="136" width="120" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="120" id="2qo-Ua-7zU"/>
-                                <constraint firstAttribute="height" constant="44" id="Yk2-P2-hjL"/>
+                                <constraint firstAttribute="height" constant="40" id="Yk2-P2-hjL"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                             <state key="normal" title="取消">
@@ -55,9 +55,9 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hRm-9H-Z89">
-                            <rect key="frame" x="155" y="136" width="120" height="44"/>
+                            <rect key="frame" x="155" y="136" width="120" height="40"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="44" id="BnH-gy-Zja"/>
+                                <constraint firstAttribute="height" constant="40" id="BnH-gy-Zja"/>
                                 <constraint firstAttribute="width" constant="120" id="m7F-tB-zX7"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>

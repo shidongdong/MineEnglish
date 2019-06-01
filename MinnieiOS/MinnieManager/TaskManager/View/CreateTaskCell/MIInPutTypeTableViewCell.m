@@ -107,7 +107,12 @@ NSString * const MIInPutTypeTableViewCellId = @"MIInPutTypeTableViewCellId";
     CGFloat screenWidth = ([UIScreen mainScreen].bounds.size.width  - 148 * 2)/2.0;
     CGSize size = [textView sizeThatFits:CGSizeMake(screenWidth-36.f, MAXFLOAT)];
     
-    return size.height + 51.f;;
+    return size.height + 50.f;;
 }
 
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+    [self.homeworkTextView resignFirstResponder];
+}
 @end
