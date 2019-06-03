@@ -21,8 +21,9 @@
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CUU-WC-AbC">
                         <rect key="frame" x="12" y="8" width="296" height="61.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" image="ic_add_small.png">
-                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="titleColor" red="1" green="0.071534000337123871" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <connections>
                             <action selector="addBtnAction:" destination="bMY-4B-uE9" eventType="touchUpInside" id="j87-1C-hWA"/>

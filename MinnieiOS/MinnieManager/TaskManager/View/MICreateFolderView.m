@@ -78,4 +78,10 @@
     self.titleLabel.text = _titleName;
 }
 
+- (void)setFileName:(NSString *)fileName{
+    
+    _fileName = fileName;
+    self.textField.text = _fileName;
+}
+
 @end

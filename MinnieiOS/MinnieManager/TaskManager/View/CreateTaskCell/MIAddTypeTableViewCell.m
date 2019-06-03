@@ -27,13 +27,21 @@ CGFloat const MIAddTypeTableViewCellHeight = 60.f;
     self.addButton.layer.masksToBounds = NO;
     
     self.addButton.layer.borderWidth = 1.f;
-    self.addButton.layer.borderColor = [UIColor colorWithHex:0x0098FE].CGColor;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
+- (void)setupWithCreateType:(MIHomeworkCreateContentType)createType{
+    
+    if (createType == MIHomeworkCreateContentType_Add) {
+        
+        [self.addButton setTitle:@"" forState:UIControlStateNormal];
+        [self.addButton setImage:[UIImage imageNamed:@"ic_add_small"] forState:UIControlStateNormal];
+        self.addButton.layer.borderColor = [UIColor mainColor].CGColor;
+    } else if (createType == MIHomeworkCreateContentType_Delete) {
+        [self.addButton setTitle:@"删除" forState:UIControlStateNormal];
+        [self.addButton setImage:[UIImage imageNamed:@" "] forState:UIControlStateNormal];
+        self.addButton.layer.borderColor = [UIColor redColor].CGColor;
+    }
 }
 - (IBAction)addBtnAction:(id)sender {
     

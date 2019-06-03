@@ -6,6 +6,7 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //  任务列表
 
+#import "ParentFileInfo.h"
 #import "BaseViewController.h"
 
 typedef void(^ActionAddFolderCallBack) (NSInteger folderIndex);
@@ -18,8 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *folderTitle;
 
-- (void)updateTaskList:(NSArray *)taskArray;
 
+- (void)showTaskListWithFoldInfo:(FileInfo * _Nullable)fileInfo;
+
+// yes 添加文件夹 no 添加文件
 - (void)showEmptyViewWithIsFolder:(BOOL)isAddFolder folderIndex:(NSInteger)folder;
 
 @end

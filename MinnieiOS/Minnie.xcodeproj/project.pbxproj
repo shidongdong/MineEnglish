@@ -222,6 +222,15 @@
 		12961CDD229FD72D0075B04A /* TagsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 973649B020AF2F8500511A95 /* TagsRequest.m */; };
 		12AF64F5228E4A790031E1F6 /* EqualSpaceFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12AF64F3228E4A780031E1F6 /* EqualSpaceFlowLayout.m */; };
 		12AF64F6228E4A790031E1F6 /* EqualSpaceFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12AF64F3228E4A780031E1F6 /* EqualSpaceFlowLayout.m */; };
+		12B7081922A40B6D00117537 /* MIEidtFileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12B7081822A40B6D00117537 /* MIEidtFileView.m */; };
+		12B7081B22A40B8A00117537 /* MIEidtFileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12B7081A22A40B8A00117537 /* MIEidtFileView.xib */; };
+		12B7081C22A4F40600117537 /* ChooseDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EED4A1219443E200AEA974 /* ChooseDatePickerView.m */; };
+		12B7081D22A4F41000117537 /* ChooseDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87EED4A2219443E200AEA974 /* ChooseDatePickerView.xib */; };
+		12B7082022A4F8CC00117537 /* MIChoosePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12B7081F22A4F8CC00117537 /* MIChoosePickerView.m */; };
+		12B7082322A4F8F500117537 /* MIExpandPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12B7082222A4F8F500117537 /* MIExpandPickerView.m */; };
+		12B7082522A4F90100117537 /* MIExpandPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12B7082422A4F90100117537 /* MIExpandPickerView.xib */; };
+		12B7082622A5207200117537 /* DatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109ADB207A1C0800568785 /* DatePickerView.m */; };
+		12B7082722A5207B00117537 /* DatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109ADD207A1C0800568785 /* DatePickerView.xib */; };
 		12B9B63322891C6F00D8F277 /* my_star_rank@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B9B63122891C6F00D8F277 /* my_star_rank@3x.png */; };
 		12B9B63422891C6F00D8F277 /* my_star_rank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B9B63222891C6F00D8F277 /* my_star_rank@2x.png */; };
 		12B9B6372289341400D8F277 /* btn_mission_preview@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B9B6352289341300D8F277 /* btn_mission_preview@3x.png */; };
@@ -1860,6 +1869,14 @@
 		12961CBE229F734C0075B04A /* MITitleTypeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MITitleTypeTableViewCell.xib; sourceTree = "<group>"; };
 		12AF64F3228E4A780031E1F6 /* EqualSpaceFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EqualSpaceFlowLayout.m; sourceTree = "<group>"; };
 		12AF64F4228E4A790031E1F6 /* EqualSpaceFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EqualSpaceFlowLayout.h; sourceTree = "<group>"; };
+		12B7081722A40B6D00117537 /* MIEidtFileView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIEidtFileView.h; sourceTree = "<group>"; };
+		12B7081822A40B6D00117537 /* MIEidtFileView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MIEidtFileView.m; sourceTree = "<group>"; };
+		12B7081A22A40B8A00117537 /* MIEidtFileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MIEidtFileView.xib; sourceTree = "<group>"; };
+		12B7081E22A4F8CC00117537 /* MIChoosePickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIChoosePickerView.h; sourceTree = "<group>"; };
+		12B7081F22A4F8CC00117537 /* MIChoosePickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MIChoosePickerView.m; sourceTree = "<group>"; };
+		12B7082122A4F8F500117537 /* MIExpandPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIExpandPickerView.h; sourceTree = "<group>"; };
+		12B7082222A4F8F500117537 /* MIExpandPickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MIExpandPickerView.m; sourceTree = "<group>"; };
+		12B7082422A4F90100117537 /* MIExpandPickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MIExpandPickerView.xib; sourceTree = "<group>"; };
 		12B9B63122891C6F00D8F277 /* my_star_rank@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_star_rank@3x.png"; sourceTree = "<group>"; };
 		12B9B63222891C6F00D8F277 /* my_star_rank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_star_rank@2x.png"; sourceTree = "<group>"; };
 		12B9B6352289341300D8F277 /* btn_mission_preview@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_mission_preview@3x.png"; sourceTree = "<group>"; };
@@ -3315,6 +3332,14 @@
 				12DCE76322A15C7C00E2DAFE /* MIScoreListTableViewCell.h */,
 				12DCE76422A15C7C00E2DAFE /* MIScoreListTableViewCell.m */,
 				12DCE76522A15C7C00E2DAFE /* MIScoreListTableViewCell.xib */,
+				12B7081E22A4F8CC00117537 /* MIChoosePickerView.h */,
+				12B7081F22A4F8CC00117537 /* MIChoosePickerView.m */,
+				12B7082122A4F8F500117537 /* MIExpandPickerView.h */,
+				12B7082222A4F8F500117537 /* MIExpandPickerView.m */,
+				12B7082422A4F90100117537 /* MIExpandPickerView.xib */,
+				12B7081722A40B6D00117537 /* MIEidtFileView.h */,
+				12B7081822A40B6D00117537 /* MIEidtFileView.m */,
+				12B7081A22A40B8A00117537 /* MIEidtFileView.xib */,
 				12ED3B1E229D107600255F8B /* MITaskEmptyView.h */,
 				12ED3B1F229D107600255F8B /* MITaskEmptyView.m */,
 				12ED3B21229D108E00255F8B /* MITaskEmptyView.xib */,
@@ -5836,13 +5861,16 @@
 				1226F3072297F3BF00BAB1C9 /* Assets.xcassets in Resources */,
 				12961CC6229FD58C0075B04A /* HomeworkTagsTableViewCell.xib in Resources */,
 				12ED3B5D229D96AD00255F8B /* hud_ic_cancel@3x.png in Resources */,
+				12B7081D22A4F41000117537 /* ChooseDatePickerView.xib in Resources */,
 				123042D922A0CDB700E111A4 /* MISecondActivityTableViewCell.xib in Resources */,
 				12961C84229E69190075B04A /* attachment_placeholder@2x.png in Resources */,
 				1226F3462298394000BAB1C9 /* Main.storyboard in Resources */,
 				12ED3B15229C34F000255F8B /* TIP.xib in Resources */,
 				12961C4B229E5B590075B04A /* icon_mission_choice@2x.png in Resources */,
+				12B7082522A4F90100117537 /* MIExpandPickerView.xib in Resources */,
 				1226F3482298399D00BAB1C9 /* splash_img_logo@2x.png in Resources */,
 				12961C50229E5E150075B04A /* SessionHomeworkTableViewCell.xib in Resources */,
+				12B7082722A5207B00117537 /* DatePickerView.xib in Resources */,
 				12ED3B38229D6D3000255F8B /* MICreateFolderView.xib in Resources */,
 				12961C4C229E5B5B0075B04A /* icon_mission_choice@3x.png in Resources */,
 				12961C83229E690F0075B04A /* attachment_placeholder@3x.png in Resources */,
@@ -5893,6 +5921,7 @@
 				12961C94229ECAAB0075B04A /* MIInPutTypeTableViewCell.xib in Resources */,
 				12961CC2229FD4F70075B04A /* TagsViewController.xib in Resources */,
 				12ED3B1D229D0CDA00255F8B /* MITaskListViewController.xib in Resources */,
+				12B7081B22A40B8A00117537 /* MIEidtFileView.xib in Resources */,
 				1226F32E229832DE00BAB1C9 /* InputPhoneNumberViewController.xib in Resources */,
 				12ED3B3F229D8F0800255F8B /* HomeWorkSendHistoryViewController.xib in Resources */,
 				12961C5D229E65870075B04A /* SendTimePickerView.xib in Resources */,
@@ -7174,18 +7203,23 @@
 				12961CBF229F734C0075B04A /* MITitleTypeTableViewCell.m in Sources */,
 				123042E222A0FF6900E111A4 /* MIActivityRankListTableViewCell.m in Sources */,
 				12961CC7229FD59B0075B04A /* CustomCollectionView.m in Sources */,
+				12B7081C22A4F40600117537 /* ChooseDatePickerView.m in Sources */,
 				122A1ECE22A2332A009358DE /* ManagerRequest.m in Sources */,
 				1226F3212298322500BAB1C9 /* SMSCodeRequest.m in Sources */,
 				12961C69229E66810075B04A /* PinyinFormatter.m in Sources */,
 				12ED3B2B229D2DA100255F8B /* MISecLevelFolderModel.m in Sources */,
 				12ED3B4A229D907500255F8B /* SendHomeworkHistoryRequest.m in Sources */,
 				12961CD6229FD6DC0075B04A /* SearchHomeworkNameRequest.m in Sources */,
+				12B7082022A4F8CC00117537 /* MIChoosePickerView.m in Sources */,
 				12ED3B0F229C2E5E00255F8B /* MIStockSplitViewController.m in Sources */,
 				12961CB1229ECCB50075B04A /* MIExpandSelectTypeTableViewCell.m in Sources */,
 				123042E622A1086B00E111A4 /* MIParticipateModel.m in Sources */,
 				12ED3B12229C34B000255F8B /* SettingTableViewCell.m in Sources */,
 				1226F3362298334C00BAB1C9 /* FileUploader.m in Sources */,
+				12B7082322A4F8F500117537 /* MIExpandPickerView.m in Sources */,
 				12961CDD229FD72D0075B04A /* TagsRequest.m in Sources */,
+				12B7082622A5207200117537 /* DatePickerView.m in Sources */,
+				12B7081922A40B6D00117537 /* MIEidtFileView.m in Sources */,
 				12961C6F229E66E60075B04A /* HomeworkImageCollectionViewCell.m in Sources */,
 				12961C74229E67290075B04A /* HomeworkConfirmViewController.m in Sources */,
 				12ED3B4D229D95A800255F8B /* UIView+Load.m in Sources */,

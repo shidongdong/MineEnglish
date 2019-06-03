@@ -106,7 +106,8 @@ typedef NS_ENUM(NSInteger, MIHomeworkCreateContentType) {
     MIHomeworkCreateContentType_AddFollowMaterials, // 添加跟读材料
     MIHomeworkCreateContentType_VideoTimeLimit,     // 视频时限
     MIHomeworkCreateContentType_ActivityStartTime,  // 活动开始时间
-    MIHomeworkCreateContentType_ActivityEndTime     // 活动结束时间
+    MIHomeworkCreateContentType_ActivityEndTime,    // 活动结束时间
+    MIHomeworkCreateContentType_Delete              // 删除
 };
 
 #endif /* PrefixHeader_pch */

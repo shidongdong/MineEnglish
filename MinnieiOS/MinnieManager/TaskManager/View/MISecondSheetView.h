@@ -7,7 +7,7 @@
 //  任务管理文件夹
 
 #import <UIKit/UIKit.h>
-#import "MIFirLevelFolderModel.h"
+#import "ParentFileInfo.h"
 
 #define kFolderModularWidth         204.f
 
@@ -19,10 +19,10 @@
 - (void)toSendRecord;
 
 // 点击任务管理一级文件夹
-- (void)secondSheetViewFirstLevelData:(MIFirLevelFolderModel *_Nullable)data index:(NSInteger)index;
+- (void)secondSheetViewFirstLevelData:(FileInfo *_Nullable)data index:(NSInteger)index;
 
 // 点击任务管理二级文件夹
-- (void)secondSheetViewSecondLevelData:(MIFirLevelFolderModel *_Nullable)data index:(NSInteger)index;
+- (void)secondSheetViewSecondLevelData:(FileInfo *_Nullable)data index:(NSInteger)index;
 
 
 @end
@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<SecondSheetViewDelegate> delegate;
 
-- (void)updateData:(NSArray *)taskArray;
+- (void)updateFileListInfo;
 
 // 新建二级文件夹
 - (void)addSecondLevelFolderIndex:(NSInteger)index;

@@ -6,6 +6,9 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
+#import "DatePickerView.h"
+#import "MIExpandPickerView.h"
+#import "ChooseDatePickerView.h"
 #import "TagsViewController.h"
 #import "HomeworkTagsTableViewCell.h"
 #import "MIAddTypeTableViewCell.h"
@@ -17,7 +20,8 @@
 
 @interface MICreateHomeworkTaskView ()<
 UITableViewDelegate,
-UITableViewDataSource
+UITableViewDataSource,
+ChooseDatePickerViewDelegate
 >
 @property (copy, nonatomic) NSString *homeworkTitle;
 @property (copy, nonatomic) NSString *homeworkContent;
@@ -47,7 +51,7 @@ UITableViewDataSource
 -(void)awakeFromNib{
     
     [super awakeFromNib];
-    self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    self.backgroundColor = [UIColor clearColor];
     self.leftTableView.separatorColor = [UIColor clearColor];
     self.rightTableView.separatorColor = [UIColor clearColor];
     
@@ -62,13 +66,12 @@ UITableViewDataSource
 }
 - (void)keyboardWillChangeFrame:(NSNotification *)notification{
     
-    //    NSLog(@"userInfo:%@", notification.userInfo);
     CGRect keyboredBeginFrame = [notification.userInfo[@"UIKeyboardFrameBeginUserInfoKey"] CGRectValue];
     CGRect keyboredEndFrame = [notification.userInfo[@"UIKeyboardFrameEndUserInfoKey"] CGRectValue];
     CGFloat duration = [notification.userInfo[@"UIKeyboardAnimationDurationUserInfoKey"] floatValue];
     NSLog(@"begin:%@ , end:%@" , NSStringFromCGRect(keyboredBeginFrame) , NSStringFromCGRect(keyboredEndFrame));
     
-    CGFloat changeHeight = 266;
+//    CGFloat changeHeight = 266;
     //动画修改对应的视图位置
     [UIView animateWithDuration:duration delay:1.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
 
@@ -80,21 +83,21 @@ UITableViewDataSource
         // 键盘弹出或变化
         if (keyboredBeginFrame.origin.y > keyboredEndFrame.origin.y || (keyboredBeginFrame.size.height != yDistance)) {
 
-            self.topConstraint.constant -= changeHeight;
-            self.bottomConstraint.constant += changeHeight;
+//            self.topConstraint.constant -= changeHeight;
+//            self.bottomConstraint.constant += changeHeight;
         }//键盘收起
         else{
 
-            self.topConstraint.constant += changeHeight;
-            self.bottomConstraint.constant -= changeHeight;
+//            self.topConstraint.constant += changeHeight;
+//            self.bottomConstraint.constant -= changeHeight;
         }
     } completion:nil];
 }
 
 - (void)setupCreateHomework:(Homework *_Nullable)homework taskType:(MIHomeworkTaskType)taskType{
     
-    self.topConstraint.constant = 132;
-    self.bottomConstraint.constant = 132;
+//    self.topConstraint.constant = 132;
+//    self.bottomConstraint.constant = 132;
     self.homework = homework;
     self.taskType = taskType;
     [self setupTitleWithTaskType:taskType];
@@ -106,7 +109,7 @@ UITableViewDataSource
         self.leftRowCount = 7;
     } else {
      
-        self.leftRowCount = 5;
+        self.leftRowCount = 7;
     }
     
     [self.leftTableView reloadData];
@@ -230,7 +233,8 @@ UITableViewDataSource
                           @(MIHomeworkCreateContentType_Materials),
                           @(MIHomeworkCreateContentType_Add),
                           @(MIHomeworkCreateContentType_Label),
-                          @(MIHomeworkCreateContentType_TypeLabel)
+                          @(MIHomeworkCreateContentType_TypeLabel),
+                          @(MIHomeworkCreateContentType_Delete)
                           ];
         }
             break;
@@ -251,7 +255,8 @@ UITableViewDataSource
                           @(MIHomeworkCreateContentType_Answer),
                           @(MIHomeworkCreateContentType_Add),
                           @(MIHomeworkCreateContentType_Label),
-                          @(MIHomeworkCreateContentType_TypeLabel)
+                          @(MIHomeworkCreateContentType_TypeLabel),
+                          @(MIHomeworkCreateContentType_Delete)
                           ];
         }
             break;
@@ -272,7 +277,8 @@ UITableViewDataSource
                           @(MIHomeworkCreateContentType_Materials),
                           @(MIHomeworkCreateContentType_Add),
                           @(MIHomeworkCreateContentType_Label),
-                          @(MIHomeworkCreateContentType_TypeLabel)
+                          @(MIHomeworkCreateContentType_TypeLabel),
+                          @(MIHomeworkCreateContentType_Delete)
                           ];
         }
             break;
@@ -292,7 +298,8 @@ UITableViewDataSource
                           @(MIHomeworkCreateContentType_Answer),
                           @(MIHomeworkCreateContentType_Add),
                           @(MIHomeworkCreateContentType_Label),
-                          @(MIHomeworkCreateContentType_TypeLabel)
+                          @(MIHomeworkCreateContentType_TypeLabel),
+                          @(MIHomeworkCreateContentType_Delete)
                           ];
         }
             break;
@@ -309,7 +316,8 @@ UITableViewDataSource
                           @(MIHomeworkCreateContentType_VideoTimeLimit),
                           @(MIHomeworkCreateContentType_ActivityStartTime),
                           @(MIHomeworkCreateContentType_ActivityEndTime),
-                          @(MIHomeworkCreateContentType_ActivityParticipant)
+                          @(MIHomeworkCreateContentType_ActivityParticipant),
+                          @(MIHomeworkCreateContentType_Delete)
                           ];
         }
             break;
@@ -330,6 +338,7 @@ UITableViewDataSource
                           @(MIHomeworkCreateContentType_Add),
                           @(MIHomeworkCreateContentType_Label),
                           @(MIHomeworkCreateContentType_TypeLabel),
+                          @(MIHomeworkCreateContentType_Delete)
                           ];
         }
             break;
@@ -350,6 +359,43 @@ UITableViewDataSource
         case MIHomeworkCreateContentType_Localtion:
         {
             MIExpandSelectTypeTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MIExpandSelectTypeTableViewCellId forIndexPath:indexPath];
+            
+            contentCell.leftExpandCallback = ^{
+                
+                MIExpandPickerView * chooseDataPicker = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIExpandPickerView class]) owner:nil options:nil] lastObject];
+                FileInfo *file = [[FileInfo alloc] init];
+                file.fileName = @"文件夹1";
+                
+                FileInfo *file1 = [[FileInfo alloc] init];
+                file1.fileName = @"文件夹2";
+                
+                FileInfo *file2 = [[FileInfo alloc] init];
+                file2.fileName = @"文件夹3";
+                
+                [chooseDataPicker setDefultFileInfo:file1 fileArray:(NSArray<FileInfo>*)@[file,file1,file2]];
+                 chooseDataPicker.localCallback = ^(FileInfo * _Nonnull result) {
+                     
+                 };
+                [chooseDataPicker show];
+            };
+            contentCell.rightExpandCallback = ^{
+                
+                MIExpandPickerView * chooseDataPicker = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIExpandPickerView class]) owner:nil options:nil] lastObject];
+                FileInfo *file = [[FileInfo alloc] init];
+                file.fileName = @"子文件夹1";
+                
+                FileInfo *file1 = [[FileInfo alloc] init];
+                file1.fileName = @"子文件夹2";
+                
+                FileInfo *file2 = [[FileInfo alloc] init];
+                file2.fileName = @"子文件夹3";
+                
+                [chooseDataPicker setDefultFileInfo:file1 fileArray:(NSArray<FileInfo>*)@[file,file1,file2]];
+                chooseDataPicker.localCallback = ^(FileInfo * _Nonnull result) {
+                    
+                };
+                [chooseDataPicker show];
+            };
             [contentCell setupWithLeftText:@"普通任务" rightText:@"第一周" createType:createType];
             cell = contentCell;
         }
@@ -485,6 +531,11 @@ UITableViewDataSource
         case MIHomeworkCreateContentType_WordsTimeInterval:
         {
             MIExpandSelectTypeTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MIExpandSelectTypeTableViewCellId forIndexPath:indexPath];
+            contentCell.expandCallback = ^{
+                MIExpandPickerView * chooseDataPicker = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIExpandPickerView class]) owner:nil options:nil] firstObject];
+                [chooseDataPicker setDefultText:@"2.5" createType:createType];
+                [chooseDataPicker show];
+            };
             [contentCell setupWithLeftText:@"2.5" rightText:nil createType:createType];
             cell = contentCell;
         }
@@ -544,6 +595,13 @@ UITableViewDataSource
         case MIHomeworkCreateContentType_TimeLimit:
         {
             MIExpandSelectTypeTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MIExpandSelectTypeTableViewCellId forIndexPath:indexPath];
+            
+            contentCell.expandCallback = ^{
+              
+                MIExpandPickerView * chooseDataPicker = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIExpandPickerView class]) owner:nil options:nil] firstObject];
+                [chooseDataPicker setDefultText:@"2.5" createType:createType];
+                [chooseDataPicker show];
+            };
             [contentCell setupWithLeftText:@"250" rightText:nil createType:createType];
             cell = contentCell;
         }
@@ -551,21 +609,36 @@ UITableViewDataSource
         case MIHomeworkCreateContentType_ActivityStartTime:
         {
             MIExpandSelectTypeTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MIExpandSelectTypeTableViewCellId forIndexPath:indexPath];
-            [contentCell setupWithLeftText:@"250" rightText:nil createType:createType];
+            
+            contentCell.expandCallback = ^{
+               
+                [DatePickerView showInView:[UIApplication sharedApplication].keyWindow
+                                      date:[NSDate date]
+                                  callback:^(NSDate *date) {
+                                  }];
+            };
+            [contentCell setupWithLeftText:@"2019年6月2日" rightText:nil createType:createType];
             cell = contentCell;
         }
             break;
         case MIHomeworkCreateContentType_ActivityEndTime:
         {
             MIExpandSelectTypeTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MIExpandSelectTypeTableViewCellId forIndexPath:indexPath];
-            [contentCell setupWithLeftText:@"250" rightText:nil createType:createType];
+            contentCell.expandCallback = ^{
+                
+                [DatePickerView showInView:[UIApplication sharedApplication].keyWindow
+                                      date:[NSDate date]
+                                  callback:^(NSDate *date) {
+                                  }];
+            };
+            [contentCell setupWithLeftText:@"2019年6月20日" rightText:nil createType:createType];
             cell = contentCell;
         }
             break;
         case MIHomeworkCreateContentType_VideoTimeLimit:
         {
             MIExpandSelectTypeTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MIExpandSelectTypeTableViewCellId forIndexPath:indexPath];
-            [contentCell setupWithLeftText:@"250" rightText:nil createType:createType];
+            [contentCell setupWithLeftText:@"250" rightText:nil createType:MIHomeworkCreateContentType_TimeLimit];
             cell = contentCell;
         }
             break;
@@ -658,6 +731,17 @@ UITableViewDataSource
             contentCell.addCallback = ^{
                 
             };
+            [contentCell setupWithCreateType:createType];
+            cell = contentCell;
+        }
+            break;
+        case MIHomeworkCreateContentType_Delete:
+        {
+            MIAddTypeTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MIAddTypeTableViewCellId forIndexPath:indexPath];
+            contentCell.addCallback = ^{
+                
+            };
+            [contentCell setupWithCreateType:createType];
             cell = contentCell;
         }
             break;
@@ -797,10 +881,20 @@ UITableViewDataSource
             rowHeight = MIAddTypeTableViewCellHeight;
         }
             break;
+        case MIHomeworkCreateContentType_Delete:
+        {
+            rowHeight = MIAddTypeTableViewCellHeight;
+        }
+            break;
         default:
             break;
     }
     return rowHeight;
+}
+
+#pragma mark - ChooseDatePickerViewDelegate
+- (void)finishSelectDate:(NSInteger)seconds{
+    
 }
 
 - (void)registerCellNibs {
@@ -837,6 +931,9 @@ UITableViewDataSource
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     
     [self resignFirstResponder];
+    if (self.superview) {
+        [self removeFromSuperview];
+    }
 }
 
 @end

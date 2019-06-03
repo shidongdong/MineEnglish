@@ -66,7 +66,7 @@ NSString * const MISegmentTypeTableViewCellId = @"MISegmentTypeTableViewCellId";
         [self showTwoSegment:index];
     } else if (createType == MIHomeworkCreateContentType_HomeworkDifficulty) {
         
-        self.titleLabel.text = @"作业难度:";
+        self.titleLabel.text = @"选择星级:";
         [self showFiveSegment:index];
     } else if (createType == MIHomeworkCreateContentType_StatisticalType) {
        
@@ -78,7 +78,7 @@ NSString * const MISegmentTypeTableViewCellId = @"MISegmentTypeTableViewCellId";
         [self showTwoSegment:index];
     } else if (createType == MIHomeworkCreateContentType_CommitTime){
         
-        self.titleLabel.text = @"选择提交时间:";
+        self.titleLabel.text = @"提交时间:";
         [self showFiveSegment:index];
     }
 }

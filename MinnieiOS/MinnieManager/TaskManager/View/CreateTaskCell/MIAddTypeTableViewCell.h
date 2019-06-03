@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) AddActionCallback addCallback;
 
+- (void)setupWithCreateType:(MIHomeworkCreateContentType)createType;
+
 @end
 
 NS_ASSUME_NONNULL_END

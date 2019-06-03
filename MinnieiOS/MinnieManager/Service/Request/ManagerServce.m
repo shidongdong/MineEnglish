@@ -103,7 +103,7 @@
 
 
 // 获取活动任务列表（ipad管理端&学生端）
-+ (BaseRequest *)requestGetActivityListWithcallback:(RequestCallback)callback{
++ (BaseRequest *)requestGetActivityListWithCallback:(RequestCallback)callback{
     
     ActGetRequest *request = [[ActGetRequest alloc] init];
     [request setCallback:callback];
@@ -114,9 +114,9 @@
 }
 
 // 获取活动排名(ipad管理端)
-+ (BaseRequest *)requestGetActivityRankListWithcallback:(RequestCallback)callback{
++ (BaseRequest *)requestGetActivityRankListWithActId:(NSInteger)actId callback:(RequestCallback)callback{
     
-    ActGetActivityRankRequest *request = [[ActGetActivityRankRequest alloc] init];
+    ActGetActivityRankRequest *request = [[ActGetActivityRankRequest alloc] initWithActId:actId];
     [request setCallback:callback];
 //    request.objectKey = @"list";
     request.objectClassName = @"ActivityRankListInfo";

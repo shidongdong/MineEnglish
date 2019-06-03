@@ -40,7 +40,7 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F9A-YH-9VY">
-                            <rect key="frame" x="304" y="24" width="30" height="40"/>
+                            <rect key="frame" x="310" y="24" width="30" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="W3K-Hu-Zp8"/>
                             </constraints>
@@ -82,7 +82,7 @@
                         <constraint firstItem="IOA-BV-c2a" firstAttribute="leading" secondItem="reE-sz-sjS" secondAttribute="leading" constant="20" id="UcU-Ad-XKq"/>
                         <constraint firstAttribute="trailing" secondItem="YPY-tv-4Bx" secondAttribute="trailing" constant="20" id="Vp6-zf-i3s"/>
                         <constraint firstItem="WHG-zH-kTA" firstAttribute="leading" secondItem="reE-sz-sjS" secondAttribute="leading" id="lCw-Wg-oEV"/>
-                        <constraint firstItem="YPY-tv-4Bx" firstAttribute="leading" secondItem="F9A-YH-9VY" secondAttribute="trailing" constant="30" id="rA2-0u-XcD"/>
+                        <constraint firstItem="YPY-tv-4Bx" firstAttribute="leading" secondItem="F9A-YH-9VY" secondAttribute="trailing" constant="24" id="rA2-0u-XcD"/>
                         <constraint firstAttribute="bottom" secondItem="WHG-zH-kTA" secondAttribute="bottom" id="s9l-F5-EFP"/>
                         <constraint firstItem="IOA-BV-c2a" firstAttribute="centerY" secondItem="YPY-tv-4Bx" secondAttribute="centerY" id="yKO-2b-pcC"/>
                     </constraints>

@@ -33,10 +33,14 @@ NSString * const MISecondActivityTableViewCellId = @"MISecondActivityTableViewCe
     self.endButton.layer.cornerRadius = 20.0;
 }
 
-- (void)setupWithModel:(MIActivityModel *)model selected:(BOOL)selected{
+- (void)setupWithModel:(ActivityInfo *)model selected:(BOOL)selected{
     
     self.titleLabel.text = model.title;
-    self.timeLabel.text = model.time;
+    self.timeLabel.text = [NSString stringWithFormat:@"%@-%@",model.startTime,model.endTime];
+    self.endButton.hidden = YES;
+    if (model.status == 2) {
+        self.endButton.hidden = NO;
+    }
     if (selected) {
         self.titleLabel.textColor = [UIColor mainColor];
         self.timeLabel.textColor = [UIColor mainColor];

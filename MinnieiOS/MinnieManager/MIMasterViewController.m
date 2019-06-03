@@ -98,7 +98,7 @@ MISecondActivitySheetViewDelegate
         if ([detailVC isKindOfClass:[MIStockDetailViewController class]]) {
             [(MIStockDetailViewController *)detailVC addSubViewController:settingsVC];
         }
-    } else if (index == 2){ // 任务管理
+    } else if (index == 2){ // 任务管理 不展开文件夹，不显示内容
        
         self.secondSheetView.hidden = NO;
         self.secondActivitySheetView.hidden = YES;
@@ -108,10 +108,8 @@ MISecondActivitySheetViewDelegate
         if ([detailVC isKindOfClass:[MIStockDetailViewController class]]) {
             [(MIStockDetailViewController *)detailVC addSubViewController:self.taskListVC];
         }
-        [self.taskListVC updateTaskList:@[]];
-        
-        NSArray *folderArray = [NSArray array];
-        [_secondSheetView updateData:folderArray];
+        [self.taskListVC showTaskListWithFoldInfo:nil];
+        [_secondSheetView updateFileListInfo];
     } else if (index == 3) { // 活动管理
         
         self.secondSheetView.hidden = YES;
@@ -123,6 +121,7 @@ MISecondActivitySheetViewDelegate
             [(MIStockDetailViewController *)detailVC addSubViewController:self.activityListVC];
             [self.activityListVC updateRankListWithActivityModel:nil index:-1];
         }
+        [_secondActivitySheetView updateActivityListInfo];
     }
 }
 
@@ -146,7 +145,7 @@ MISecondActivitySheetViewDelegate
 }
 
 #pragma mark - SecondSheetViewDelegate  任务管理 一级文件夹 && 二级文件夹
-- (void)secondSheetViewFirstLevelData:(MIFirLevelFolderModel *)data index:(NSInteger)index{
+- (void)secondSheetViewFirstLevelData:(FileInfo *_Nullable)data index:(NSInteger)index{
    
     UINavigationController *nav = ((UINavigationController *)self.customSplitViewController.viewControllers[1]);
     [nav popToRootViewControllerAnimated:YES];
@@ -159,15 +158,15 @@ MISecondActivitySheetViewDelegate
         
         [(MIStockDetailViewController *)detailVC addSubViewController:self.taskListVC];
     }
-    if (data.folderArray.count) { // 显示空内容
-        [self.taskListVC updateTaskList:@[]];
+    if (data.subFileList.count) { // 显示空内容
         
+        [self.taskListVC showTaskListWithFoldInfo:nil];
     } else {// 显示创建文件夹
         [self.taskListVC showEmptyViewWithIsFolder:YES folderIndex:index];
     }
 }
 
-- (void)secondSheetViewSecondLevelData:(MIFirLevelFolderModel *)data index:(NSInteger)index{
+- (void)secondSheetViewSecondLevelData:(FileInfo *_Nullable)data index:(NSInteger)index{
     
     UINavigationController *nav = ((UINavigationController *)self.customSplitViewController.viewControllers[1]);
     [nav popToRootViewControllerAnimated:YES];
@@ -177,16 +176,13 @@ MISecondActivitySheetViewDelegate
         [self.customSplitViewController setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
     }
    
-    MISecLevelFolderModel *secFolder;
-    if (index < data.folderArray.count) {
-        secFolder = data.folderArray[index];
-    }
     if ([detailVC isKindOfClass:[MIStockDetailViewController  class]]) {
         
         [(MIStockDetailViewController *)detailVC addSubViewController:self.taskListVC];
     }
-    if (secFolder.taskArray.count) { // 显示当前index文件夹下内容
-        [self.taskListVC updateTaskList:@[@"测试内容"]];
+    if (data.subFileList.count) { // 显示当前index文件夹下内容
+        FileInfo *subFile = data.subFileList[index];
+        [self.taskListVC showTaskListWithFoldInfo:subFile];
     } else {// 显示创建任务
         
         [self.taskListVC showEmptyViewWithIsFolder:NO folderIndex:index];
@@ -195,7 +191,7 @@ MISecondActivitySheetViewDelegate
 
 #pragma mark -
 #pragma mark - 活动管理
-- (void)secondActivitySheetViewDidClickedActivity:(MIActivityModel *)data index:(NSInteger)index{
+- (void)secondActivitySheetViewDidClickedActivity:(ActivityInfo *_Nullable)data index:(NSInteger)index{
     
     UINavigationController *nav = ((UINavigationController *)self.customSplitViewController.viewControllers[1]);
     [nav popToRootViewControllerAnimated:YES];

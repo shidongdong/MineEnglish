@@ -5,7 +5,8 @@
 //  Created by songzhen on 2019/5/31.
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
-#import "MIParticipateModel.h"
+
+#import "ManagerServce.h"
 #import "MICreateHomeworkTaskView.h"
 #import "MIActivityRankListTableViewCell.h"
 #import "MIActivityRankListViewController.h"
@@ -15,6 +16,8 @@
 UITableViewDelegate,
 UITableViewDataSource
 >
+
+@property (strong, nonatomic) ActivityInfo *curActInfo;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *editBtn;
@@ -44,14 +47,16 @@ UITableViewDataSource
     _tableView.cellLayoutMarginsFollowReadableWidth = NO;
 }
 
-- (void)updateRankListWithActivityModel:(MIActivityModel *_Nullable)model index:(NSInteger)currentIndex{
-    
+- (void)updateRankListWithActivityModel:(ActivityInfo *_Nullable)model index:(NSInteger)currentIndex{
+   
+    self.curActInfo = model;
     self.currentActivityIndex =  currentIndex;
     
-    MIParticipateModel *participate= [[MIParticipateModel alloc] init];
-    participate.name = @"哈哈哈";
-    participate.time = @"2分15秒";
-    [self.participateArray addObject:participate];
+    [self.participateArray removeAllObjects];
+    
+    ActivityRankInfo *listInfo = [[ActivityRankInfo alloc] init];
+    listInfo.nickName = @"哈哈哈哈";
+    [self.participateArray addObject:listInfo];
     //请求排名列表
     if (self.participateArray.count) {
         
@@ -64,6 +69,13 @@ UITableViewDataSource
     [self.tableView reloadData];
 }
 
+#pragma mark -
+- (void)request{
+    
+    [ManagerServce requestGetActivityRankListWithActId:self.curActInfo.activityId callback:^(Result *result, NSError *error) {
+        
+    }];
+}
 
 - (IBAction)editActivityAction:(id)sender {
     
@@ -99,7 +111,7 @@ UITableViewDataSource
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIActivityRankListTableViewCell class]) owner:nil options:nil] lastObject];
     }
-    MIParticipateModel *model = self.participateArray[indexPath.row];
+    ActivityRankInfo *model = self.participateArray[indexPath.row];
     [cell setupWithModel:model index:indexPath.row];
     return cell;
 }

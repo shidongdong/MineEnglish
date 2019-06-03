@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MIParticipateModel.h"
+#import "ActivityInfo.h"
 
 extern CGFloat const MIActivityRankListTableViewCellHeight;
 
@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MIActivityRankListTableViewCell : UITableViewCell
 
-- (void)setupWithModel:(MIParticipateModel *)model index:(NSInteger)index;
+- (void)setupWithModel:(ActivityRankInfo *)model index:(NSInteger)index;
 
 @end
 

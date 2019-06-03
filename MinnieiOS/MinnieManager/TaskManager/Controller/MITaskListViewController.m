@@ -6,7 +6,7 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //  任务管理 - 任务列表
 
-
+#import "ManagerServce.h"
 #import "MITaskEmptyView.h"
 #import "HomeworkTableViewCell.h"
 #import "MIFirLevelFolderModel.h"
@@ -68,6 +68,9 @@ VIResourceLoaderManagerDelegate
 @property (nonatomic, strong) VIResourceLoaderManager *resourceLoaderManager;
 
 @property (nonatomic, assign) BOOL shouldReloadWhenAppeared;
+
+@property (nonatomic, strong) FileInfo *currentFileInfo;
+
 
 @end
 
@@ -219,13 +222,24 @@ VIResourceLoaderManagerDelegate
 }
 
 #pragma mark - 请求作业列表
-- (void)requestHomeworks {
+- (void)requestHomeworksTaskList {
+   
     if (self.homeworksRequest != nil) {
         return;
     }
-//    [self.containerView showLoadingView];
     self.tableView.hidden = YES;
-    
+    WeakifySelf;
+    self.homeworksRequest = [ManagerServce requesthomeworksByFileWithFileId:self.currentFileInfo.fileId callback:^(Result *result, NSError *error) {
+        StrongifySelf;
+        [strongSelf handleRequestResult:result error:error];
+    }];
+}
+- (void)requestHomeworks {
+   
+    if (self.homeworksRequest != nil) {
+        return;
+    }
+    self.tableView.hidden = YES;
     WeakifySelf;
     self.homeworksRequest = [HomeworkService requestHomeworksWithCallback:^(Result *result, NSError *error) {
         StrongifySelf;
@@ -248,12 +262,10 @@ VIResourceLoaderManagerDelegate
 - (void)handleRequestResult:(Result *)result error:(NSError *)error {
    
     self.homeworksRequest = nil;
-//    [self.containerView hideAllStateView];
     NSDictionary *dictionary = (NSDictionary *)(result.userInfo);
     NSString *nextUrl = dictionary[@"next"];
     NSArray *homeworks = dictionary[@"list"];
-    
-    [self updateTaskList:homeworks];
+    [self showTaskList:YES];
     
     BOOL isLoadMore = self.nextUrl.length > 0;
     if (isLoadMore) {
@@ -517,10 +529,22 @@ VIResourceLoaderManagerDelegate
 //    [self.navigationController pushViewController:createHomeworkVC animated:YES];
 }
 
-// 更新内容
-- (void)updateTaskList:(NSArray *)taskArray{
+// 请求作业列表
+- (void)showTaskListWithFoldInfo:(FileInfo * _Nullable)fileInfo{
+   
+    self.currentFileInfo = fileInfo;
+    if (fileInfo) {
+        // 显示任务列表
+//        [self requestHomeworksTaskList];
+        [self requestHomeworks];// 临时
+    } else { // 显示为空
+        [self showTaskList:NO];
+    }
+}
+
+- (void)showTaskList:(BOOL)isShow{
     
-    if (taskArray.count) {
+    if (isShow) {
         
         self.tableView.hidden = NO;
         self.headerView.hidden = NO;
@@ -546,7 +570,7 @@ VIResourceLoaderManagerDelegate
         }
     }
 }
-
+            
 - (void)showEmptyViewWithIsFolder:(BOOL)isAddFolder folderIndex:(NSInteger)index{
     
     if (self.emptyView == nil) {

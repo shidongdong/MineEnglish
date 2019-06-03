@@ -6,6 +6,10 @@
 //  Copyright © 2019 songzhen. All rights reserved.
 //
 
+#import "MIEidtFileView.h"
+#import "ManagerServce.h"
+#import "ParentFileInfo.h"
+#import "MIRootSheetView.h"
 #import "MISecondSheetView.h"
 #import "MICreateFolderView.h"
 #import "MIHeaderTableViewCell.h"
@@ -19,10 +23,12 @@ UITableViewDataSource
 @property (nonatomic,strong) UITableView *tableView;
 
 // 任务分类数组
-@property (nonatomic,strong) NSMutableArray *taskTypeArray;
+//@property (nonatomic,strong) NSMutableArray *taskTypeArray;
 
 // 当前选中的二级文件夹 -1为未选中任何文件夹
 @property (nonatomic,assign) NSInteger currentIndex;
+
+@property (nonatomic, strong) ParentFileInfo *parentFileInfo;
 
 @end
 
@@ -34,7 +40,6 @@ UITableViewDataSource
     if (self) {
         
         _currentIndex = -1;
-        _taskTypeArray = [NSMutableArray array];
         [self configureUI];
     }
     return self;
@@ -42,28 +47,33 @@ UITableViewDataSource
 
 - (void)configureUI{
     
-    UIButton *addFolderbtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addFolderbtn setTitle:@"文件夹" forState:UIControlStateNormal];
-    addFolderbtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    [addFolderbtn setTitleColor:[UIColor detailColor] forState:UIControlStateNormal];
-    [addFolderbtn setImage:[UIImage imageNamed:@"ic_add_black"] forState:UIControlStateNormal];
-    [addFolderbtn addTarget:self action:@selector(addFolderBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:addFolderbtn];
-    addFolderbtn.frame = CGRectMake(10, kNaviBarHeight - 26, (kFolderModularWidth - 20)/2.0, 16);
-    
     UIButton *recordbtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [recordbtn setTitle:@"发送记录" forState:UIControlStateNormal];
     recordbtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [recordbtn setTitleColor:[UIColor mainColor] forState:UIControlStateNormal];
     [recordbtn addTarget:self action:@selector(recordbtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:recordbtn];
-    recordbtn.frame = CGRectMake((kFolderModularWidth)/2.0, kNaviBarHeight - 26, (kFolderModularWidth - 20)/2.0, 16);
+    recordbtn.frame = CGRectMake(12, kNaviBarHeight - 32, 80, 32);
+    recordbtn.layer.masksToBounds = YES;
+    recordbtn.layer.cornerRadius = 5.f;
+    recordbtn.layer.borderWidth = 0.5;
+    recordbtn.layer.borderColor = [UIColor mainColor].CGColor;
     
-    UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake( 0, kNaviBarHeight - 1, kFolderModularWidth, 1.0)];
+    UIButton *addFolderbtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [addFolderbtn setTitle:@"添加文件夹" forState:UIControlStateNormal];
+    addFolderbtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [addFolderbtn setTitleColor:[UIColor detailColor] forState:UIControlStateNormal];
+    [addFolderbtn setImage:[UIImage imageNamed:@"ic_add_black"] forState:UIControlStateNormal];
+    [addFolderbtn addTarget:self action:@selector(addFolderBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:addFolderbtn];
+    addFolderbtn.frame = CGRectMake(12, kNaviBarHeight, 90, kNaviBarHeight);
+    
+    
+    UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake( 0, kNaviBarHeight*2 - 1, kFolderModularWidth, 1.0)];
     lineView1.backgroundColor = [UIColor separatorLineColor];
     [self addSubview:lineView1];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNaviBarHeight, self.frame.size.width, self.frame.size.height)style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNaviBarHeight * 2, self.frame.size.width, self.frame.size.height - kNaviBarHeight *2)style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self addSubview:_tableView];
@@ -81,17 +91,17 @@ UITableViewDataSource
 
 #pragma mark -
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    return self.taskTypeArray.count;
+    // 父级文件夹
+    return self.parentFileInfo.subFileList.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 60.f;
+    return MIHeaderTableViewCellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    return 60.f;
+    return MIHeaderTableViewCellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -101,9 +111,9 @@ UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    MIFirLevelFolderModel *model = self.taskTypeArray[section];
-    if (model.isOpen) {
-        return model.folderArray.count;
+    FileInfo *subFile = self.parentFileInfo.subFileList[section];
+    if (subFile.isOpen) {
+        return subFile.subFileList.count;
     } else {
         return 0;
     }
@@ -111,36 +121,32 @@ UITableViewDataSource
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *identifier = @"MISecondSheetViewCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        cell.textLabel.textColor = [UIColor detailColor];
-        cell.textLabel.font = [UIFont systemFontOfSize:14];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+    
+    FileInfo *subFile = self.parentFileInfo.subFileList[indexPath.section];
+    FileInfo *subFileInfo = subFile.subFileList[indexPath.row];
+
+    MIHeaderTableViewCell *fileCell = [tableView dequeueReusableCellWithIdentifier:MIHeaderTableViewCellId];
+    if (fileCell == nil) {
+        fileCell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIHeaderTableViewCell class]) owner:nil options:nil] lastObject];
+        fileCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        fileCell.delegate = self;
     }
-    MIFirLevelFolderModel *model = self.taskTypeArray[indexPath.section];
-    MISecLevelFolderModel *secModel = model.folderArray[indexPath.row];
-    if (indexPath.row == _currentIndex) {
-        cell.textLabel.textColor = [UIColor mainColor];
-    } else {
-        cell.textLabel.textColor = [UIColor detailColor];
-    }
-    cell.textLabel.text = [NSString stringWithFormat:@"   %@",secModel.title];
-    return cell;
+    BOOL selected = (indexPath.row == _currentIndex) ? YES : NO;
+    [fileCell setupFilesWithFileInfo:subFileInfo indexPath:indexPath isParentFile:NO selected:selected];
+    return fileCell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    MIFirLevelFolderModel *model = self.taskTypeArray[indexPath.section];
+    FileInfo *parentFileInfo = self.parentFileInfo.subFileList[indexPath.section];
+    FileInfo *subFileInfo = parentFileInfo.subFileList[indexPath.row];
     _currentIndex = indexPath.row;
     // 任务管理二级文件夹
     if (self.delegate && [self.delegate respondsToSelector:@selector(secondSheetViewSecondLevelData:index:)]) {
         
-        [self.delegate secondSheetViewSecondLevelData:model index:indexPath.row];
+        [self.delegate secondSheetViewSecondLevelData:subFileInfo index:indexPath.row];
     }
     [tableView reloadData];
 }
@@ -148,71 +154,166 @@ UITableViewDataSource
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
+    FileInfo *parentFileInfo = self.parentFileInfo.subFileList[section];
+    
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 60)];
     view.backgroundColor = [UIColor whiteColor];
     MIHeaderTableViewCell *headerView = [[[NSBundle mainBundle] loadNibNamed:@"MIHeaderTableViewCell" owner:self options:nil] lastObject];
     headerView.frame = view.bounds;
     headerView.delegate = self;
-    headerView.typeModel = self.taskTypeArray[section];
-    headerView.section = section;
+    NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:section];
+    [headerView setupFilesWithFileInfo:parentFileInfo indexPath:path isParentFile:YES selected:NO];
     headerView.tag = 1000+section;
     [view addSubview:headerView];
     return view;
 }
 
-//定义编辑样式
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
-  
-    return UITableViewCellEditingStyleDelete;
-}
-
-//修改编辑按钮文字
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return @"删除";
-}
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {// 删除
-        
-        MIFirLevelFolderModel *typeModel = self.taskTypeArray[indexPath.section];
-        NSMutableArray *temp = [NSMutableArray arrayWithArray:typeModel.folderArray];
-        if (indexPath.row < temp.count) {
-           
-            [temp removeObjectAtIndex:indexPath.row];
-        }
-        typeModel.folderArray = temp;
-        if (typeModel.folderArray.count == 0) {// 无子文件夹
-            typeModel.isOpen = NO;
-        }
-        [_tableView reloadData];
-    }
-}
-
 #pragma mark -  HeaderViewDelegate  一级文件展开折叠
-- (void)headerViewDidCellClicked:(NSInteger)index{
+- (void)headerViewDidCellClicked:(NSIndexPath *)indexPath isParentFile:(BOOL)isParentFile{
     
-    MIFirLevelFolderModel *model = self.taskTypeArray[index];
-    if (model.folderArray.count == 0) {
-        model.isOpen = YES;
-    } else {
-        model.isOpen = !model.isOpen;
-    }
-    
-    // 点击一级文件夹，折叠其他文件夹
-    [self collapseFolders:model];
-   
-    _currentIndex = -1;
-    [_tableView reloadData];
-    
-    if (self.delegate && [self.delegate respondsToSelector:@selector(secondSheetViewFirstLevelData:index:)]) {
+    if (isParentFile) {
         
-        [self.delegate secondSheetViewFirstLevelData:model index:index];
+        FileInfo *parentInfo = self.parentFileInfo.subFileList[indexPath.section];
+        if (self.parentFileInfo.subFileList.count == 0) {
+            parentInfo.isOpen = YES;
+        } else {
+            parentInfo.isOpen = !parentInfo.isOpen;
+        }
+        
+        // 点击一级文件夹，折叠其他文件夹
+        [self collapseFolders:parentInfo];
+        
+        _currentIndex = -1;
+        [_tableView reloadData];
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(secondSheetViewFirstLevelData:index:)]) {
+            
+            [self.delegate secondSheetViewFirstLevelData:parentInfo index:indexPath.section];
+        }
+    } else {
+        
+        FileInfo *parentFileInfo = self.parentFileInfo.subFileList[indexPath.section];
+        FileInfo *subFileInfo = parentFileInfo.subFileList[indexPath.row];
+        _currentIndex = indexPath.row;
+        [self.tableView reloadData];
+        // 任务管理二级文件夹
+        if (self.delegate && [self.delegate respondsToSelector:@selector(secondSheetViewSecondLevelData:index:)]) {
+            
+            [self.delegate secondSheetViewSecondLevelData:subFileInfo index:indexPath.row];
+        }
     }
+}
+- (void)headerViewEditFileClicked:(NSIndexPath *_Nullable)indexPath isParentFile:(BOOL)isParentFile{
+    
+    // 长按一级文件夹
+    if (isParentFile) {
+        
+        MIEidtFileView *editFileView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIEidtFileView class]) owner:nil options:nil].lastObject;
+        WeakifySelf;
+        editFileView.deleteCallback = ^{
+            if (indexPath.section < weakSelf.parentFileInfo.subFileList.count) {
+                [weakSelf deleteFile:weakSelf.parentFileInfo.subFileList[indexPath.section] indexPath:indexPath];
+            }
+        };
+        editFileView.renameCallBack = ^{
+            if (indexPath.section < weakSelf.parentFileInfo.subFileList.count) {
+                [weakSelf renameFileWithFileInfo:weakSelf.parentFileInfo.subFileList[indexPath.section]];
+            }
+        };
+        editFileView.frame = [UIScreen mainScreen].bounds;
+        
+        // header位置
+        CGRect rectInTableView = [self.tableView rectForHeaderInSection:indexPath.section];
+        CGRect rect = [self.tableView convertRect:rectInTableView toView:[self.tableView superview]];
+        CGFloat editViewY = CGRectGetMidY(rect) - 85;
+        
+        if (editViewY >= [UIScreen mainScreen].bounds.size.height - 120) {
+            editViewY = [UIScreen mainScreen].bounds.size.height - 120;
+        }
+        editFileView.topConstraint.constant = editViewY;
+        editFileView.leftContraint.constant = kFolderModularWidth + kRootModularWidth;
+        [[UIApplication sharedApplication].keyWindow addSubview:editFileView];
+    } else {
+        
+        MIEidtFileView *editFileView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIEidtFileView class]) owner:nil options:nil].lastObject;
+        WeakifySelf;
+        editFileView.deleteCallback = ^{
+            
+            if (indexPath.section < weakSelf.parentFileInfo.subFileList.count) {
+                FileInfo *parentInfo = weakSelf.parentFileInfo.subFileList[indexPath.section];
+                if (indexPath.row < parentInfo.subFileList.count) {
+                    FileInfo *subInfo = parentInfo.subFileList[indexPath.row];
+                    [weakSelf deleteFile:subInfo indexPath:indexPath];
+                }
+            }
+        };
+        editFileView.renameCallBack = ^{
+           
+            if (indexPath.section < weakSelf.parentFileInfo.subFileList.count) {
+                FileInfo *parentInfo = weakSelf.parentFileInfo.subFileList[indexPath.section];
+                if (indexPath.row < parentInfo.subFileList.count) {
+                    FileInfo *subInfo = parentInfo.subFileList[indexPath.row];
+                    [weakSelf renameFileWithFileInfo:subInfo];
+                }
+            }
+        };
+        editFileView.frame = [UIScreen mainScreen].bounds;
+        
+        // header位置
+        
+        CGRect rectInTableView = [self.tableView rectForRowAtIndexPath:indexPath];
+        CGRect rect = [self.tableView convertRect:rectInTableView toView:[self.tableView superview]];
+        CGFloat editViewY = CGRectGetMidY(rect) - 85;
+        
+        if (editViewY >= [UIScreen mainScreen].bounds.size.height - 120) {
+            editViewY = [UIScreen mainScreen].bounds.size.height - 120;
+        }
+        editFileView.topConstraint.constant = editViewY;
+        editFileView.leftContraint.constant = kFolderModularWidth + kRootModularWidth;
+        [[UIApplication sharedApplication].keyWindow addSubview:editFileView];
+    }
+}
+
+#pragma mark - 新建二级文件夹
+- (void)headerViewAddClicked:(NSInteger)index{
+    
+    MICreateFolderView *createView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MICreateFolderView class]) owner:nil options:nil] lastObject];
+    WeakifySelf;
+    createView.sureCallBack = ^(NSString * _Nullable name) {
+        
+        // 新建二级子文件夹
+        FileInfo *parentFile = weakSelf.parentFileInfo.subFileList[index];
+        NSMutableArray *parentFileList = [NSMutableArray arrayWithArray:parentFile.subFileList];
+       
+        FileInfo *fileInfo = [[FileInfo alloc] init];
+        fileInfo.fileName = @"新建二级文件夹";
+        fileInfo.depth = 2;
+        [parentFileList addObject:fileInfo];
+        parentFile.subFileList = (NSArray<FileInfo>*)parentFileList;
+        
+        // 添加二级文件夹后打开当前一级文件夹
+        parentFile.isOpen = YES;
+        [self collapseFolders:parentFile];
+        // 选中当前新建文件夹
+        weakSelf.currentIndex = parentFileList.count - 1;
+        [weakSelf.tableView reloadData];
+        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(secondSheetViewSecondLevelData:index:)]) {
+            
+            [weakSelf.delegate secondSheetViewSecondLevelData:fileInfo index:index];
+        }
+    };
+    createView.titleName = @"添加子文件夹";
+    createView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+    [[UIApplication sharedApplication].keyWindow addSubview:createView];
+}
+
+- (void)addSecondLevelFolderIndex:(NSInteger)index{
+    
+    [self headerViewAddClicked:index];
 }
 
 - (void)recordbtnClicked:(UIButton *)btn{
-  
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(toSendRecord)]) {
         
         [self.delegate toSendRecord];
@@ -226,83 +327,140 @@ UITableViewDataSource
     WeakifySelf;
     createView.sureCallBack = ^(NSString * _Nullable name) {
         
-        // 添加文件夹
-        MIFirLevelFolderModel *model = [[MIFirLevelFolderModel alloc] init];
-        model.title = name;
-        [weakSelf.taskTypeArray addObject:model];
+        // 新建一级文件夹
+        FileInfo *fileInfo = [[FileInfo alloc] init];
+        fileInfo.fileName = @"新建一级文件夹";
+        static int index = 10;
+        index++;
+        fileInfo.fileId = index;
+        fileInfo.depth = 1;
+        NSMutableArray *fileList = [NSMutableArray arrayWithArray:weakSelf.parentFileInfo.subFileList];
+        [fileList addObject:fileInfo];
+        weakSelf.parentFileInfo.subFileList = (NSArray<FileInfo>*)fileList;
         
-        // 添加二级文件夹后打开当前一级文件夹
-        model.isOpen = YES;
-        [weakSelf collapseFolders:model];
+        // 添加一级文件夹后打开当前一级文件夹
+        fileInfo.isOpen = YES;
+        [weakSelf collapseFolders:fileInfo];
         weakSelf.currentIndex = -1;
         [weakSelf.tableView reloadData];
         if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(secondSheetViewFirstLevelData:index:)]) {
             
-            [weakSelf.delegate secondSheetViewFirstLevelData:model index:weakSelf.taskTypeArray.count - 1];
+            [weakSelf.delegate secondSheetViewFirstLevelData:fileInfo index:weakSelf.parentFileInfo.subFileList.count - 1];
         }
+//        [weakSelf requestCreateFilesWithFileDto:fileInfo];
     };
     createView.titleName = @"添加父级文件夹";
     createView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
     [[UIApplication sharedApplication].keyWindow addSubview:createView];
 }
 
-#pragma mark - 新建二级文件夹
-- (void)headerViewAddClicked:(NSInteger)index{
-    MICreateFolderView *createView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MICreateFolderView class]) owner:nil options:nil] lastObject];
-    WeakifySelf;
-    createView.sureCallBack = ^(NSString * _Nullable name) {
-        
-        // 添加子文件夹
-        MIFirLevelFolderModel *model = weakSelf.taskTypeArray[index];
-        NSMutableArray *folder = [NSMutableArray arrayWithArray:model.folderArray];
-        MISecLevelFolderModel * secFolder = [[MISecLevelFolderModel alloc] init];
-        secFolder.title = name;
-        [folder addObject:secFolder];
-        model.folderArray = folder;
-        
-        // 添加二级文件夹后打开当前一级文件夹
-        model.isOpen = YES;
-        [self collapseFolders:model];
-        
-        weakSelf.currentIndex = folder.count - 1;
-        [weakSelf.tableView reloadData];
-        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(secondSheetViewSecondLevelData:index:)]) {
-            
-            [weakSelf.delegate secondSheetViewSecondLevelData:model index:index];
-        }
-    };
-    createView.titleName = @"添加子文件夹";
-    createView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
-    [[UIApplication sharedApplication].keyWindow addSubview:createView];
-}
-
-- (void)addSecondLevelFolderIndex:(NSInteger)index{
-    
-    [self headerViewAddClicked:index];
-}
-
-
 #pragma mark - 折叠其他文件夹
-- (void)collapseFolders:(MIFirLevelFolderModel *)model{
+- (void)collapseFolders:(FileInfo *)parentFileInfo{
     
     // 其他文件夹折叠
-    for (MIFirLevelFolderModel *firModel in self.taskTypeArray) {
+    for (FileInfo *otherFileInfo in self.parentFileInfo.subFileList) {
         
-        if (![model isEqual:firModel]) {
-            
-            firModel.isOpen = NO;
-        }
-        for (MISecLevelFolderModel *secModel in firModel.folderArray) {
-            secModel.isSelected = NO;
+        if (parentFileInfo.fileId != otherFileInfo.fileId) {
+           
+            otherFileInfo.isOpen = NO;
         }
     }
 }
 
-- (void)updateData:(NSArray *)taskArray{
+#pragma mark - 删除文件夹
+- (void)deleteFile:(FileInfo *)fileInfo indexPath:(NSIndexPath *)indexPath{
     
-    [self.taskTypeArray  removeAllObjects];
-    [self.taskTypeArray addObjectsFromArray:taskArray];
+    if (fileInfo.depth == 1) {
+        
+        if (fileInfo.subFileList.count) {
+            
+            [HUD showErrorWithMessage:@"请先删除子文件夹"];
+        } else {
+            
+            NSMutableArray *fileInfoList = [NSMutableArray arrayWithArray:self.parentFileInfo.subFileList];
+            [fileInfoList removeObject:fileInfo];
+            self.parentFileInfo.subFileList = (NSArray<FileInfo>*)fileInfoList;
+            [self.tableView reloadData];
+        }
+        
+    } else if (fileInfo.depth == 2) {
+        // 判断是否有任务，有任务先清空任务列表
+        FileInfo *parentInfo = self.parentFileInfo.subFileList[indexPath.section];
+        NSMutableArray *fileInfoList = [NSMutableArray arrayWithArray:parentInfo.subFileList];
+        if (fileInfoList.count > indexPath.row) {
+            [fileInfoList removeObjectAtIndex:indexPath.row];
+        }
+        parentInfo.subFileList = (NSArray<FileInfo>*)fileInfoList;
+        [self.tableView reloadData];
+    }
+}
+
+#pragma mark - 编辑文件夹
+- (void)renameFileWithFileInfo:(FileInfo *)fileInfo{
+    
+    MICreateFolderView *createView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MICreateFolderView class]) owner:nil options:nil] lastObject];
+    WeakifySelf;
+    createView.sureCallBack = ^(NSString * _Nullable name) {
+        
+        // 一级文件夹
+        fileInfo.fileName = name;
+        [weakSelf.tableView reloadData];
+    };
+    createView.titleName = @"编辑文件名";
+    createView.fileName = fileInfo.fileName;
+    createView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+    [[UIApplication sharedApplication].keyWindow addSubview:createView];
+}
+
+- (void)updateFileListInfo{
+    
+    self.parentFileInfo = [[ParentFileInfo alloc] init];
+   
+    FileInfo *fileInfo = [[FileInfo alloc] init];
+    fileInfo.fileName = @"一级文件夹";
+    fileInfo.fileId = 0;
+    fileInfo.depth = 0;
+    
+    FileInfo *fileInfo1 = [[FileInfo alloc] init];
+    fileInfo1.fileName = @"一级文件夹1";
+    fileInfo1.fileId = 1;
+    fileInfo1.depth = 1;
+    
+    
+    FileInfo *fileInfo3 = [[FileInfo alloc] init];
+    fileInfo3.fileName = @"二级级文件夹2";
+    fileInfo3.fileId = 3;
+    fileInfo3.depth = 2;
+    fileInfo1.subFileList = (NSArray<FileInfo> *)@[fileInfo3];
+    
+    FileInfo *fileInfo2 = [[FileInfo alloc] init];
+    fileInfo2.fileName = @"一级文件夹2";
+    fileInfo2.fileId = 2;
+    fileInfo2.depth = 1;
+    
+    
+    
+    self.parentFileInfo.subFileList =(NSArray<FileInfo> *)@[fileInfo1,fileInfo2];
+//    [self requestGetParentFilesInfo];
     [_tableView reloadData];
 }
+
+#pragma mark - 获取文件夹列表
+- (void)requestGetParentFilesInfo{
+   
+    // 获取一级文件夹列表
+    [ManagerServce requestGetFilesWithFileId:0 callback:^(Result *result, NSError *error) {
+        if (error) return ;
+        
+    }];
+}
+- (void)requestCreateFilesWithFileDto:(FileInfo *)fileInfo{
+
+    // 获取一级文件夹列表
+    [ManagerServce requestCreateFilesWithFileDto:fileInfo callback:^(Result *result, NSError *error) {
+        
+    }];
+}
+
 
 @end

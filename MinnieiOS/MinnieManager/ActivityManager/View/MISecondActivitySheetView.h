@@ -6,6 +6,7 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //  活动管理  活动列表
 
+#import "ActivityInfo.h"
 #import <UIKit/UIKit.h>
 #import "MIActivityModel.h"
 
@@ -15,7 +16,7 @@
 @protocol MISecondActivitySheetViewDelegate <NSObject>
 
 // 点击活动列表
-- (void)secondActivitySheetViewDidClickedActivity:(MIActivityModel *_Nullable)data index:(NSInteger)index;
+- (void)secondActivitySheetViewDidClickedActivity:(ActivityInfo *_Nullable)data index:(NSInteger)index;
 
 @end
 
@@ -26,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<MISecondActivitySheetViewDelegate> delegate;
 
-- (void)updateData:(NSArray *)activityArray;
+- (void)updateActivityListInfo;
 
 // 编辑活动
 - (void)activitySheetDidEditIndex:(NSInteger)index;

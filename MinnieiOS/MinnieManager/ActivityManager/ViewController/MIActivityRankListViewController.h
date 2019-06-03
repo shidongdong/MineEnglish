@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MIActivityModel.h"
+#import "ActivityInfo.h"
 
 typedef void(^ActivityRankListCallback)(NSInteger activityIndex);
 
@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,copy) ActivityRankListCallback callback;
 
-- (void)updateRankListWithActivityModel:(MIActivityModel *_Nullable)model index:(NSInteger)currentIndex;
+- (void)updateRankListWithActivityModel:(ActivityInfo *_Nullable)model index:(NSInteger)currentIndex;
 
 @end
 

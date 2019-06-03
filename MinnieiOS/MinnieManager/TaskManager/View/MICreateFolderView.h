@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *titleName;
 
+@property (nonatomic, copy) NSString *fileName;
+
 @property (nonatomic, copy) SureCallBack sureCallBack;
 
 @property (nonatomic, copy) CancelCallBack cancelCallBack;

@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 // 获取任务管理文件夹
 + (BaseRequest *)requestGetFilesWithFileId:(NSInteger)fileId callback:(RequestCallback)callback;
 
-// 任务位置移动
+// 任务位置移动 未做
 + (BaseRequest *)requestMoveFilesWithFileId:(NSInteger)fileId
                                    parentId:(NSInteger)parentId
                                 homeworkIds:(NSArray *)homeworkIds
@@ -45,16 +45,16 @@ NS_ASSUME_NONNULL_BEGIN
 // 新建活动（ipad管理端）
 + (BaseRequest *)requestCreateActivity:(ActivityInfo *)activityInfo callback:(RequestCallback)callback;
 
-// 删除活动(ipad管理端)
+// 删除活动(ipad管理端) 未用
 + (BaseRequest *)requestDeleteActivityId:(NSInteger)actId callback:(RequestCallback)callback;
 
 // 获取活动任务列表（ipad管理端&学生端）
-+ (BaseRequest *)requestGetActivityListWithcallback:(RequestCallback)callback;
++ (BaseRequest *)requestGetActivityListWithCallback:(RequestCallback)callback;
 
 // 结束活动(ipad管理端)
 
 // 获取活动排名(ipad管理端)
-+ (BaseRequest *)requestGetActivityRankListWithcallback:(RequestCallback)callback;
++ (BaseRequest *)requestGetActivityRankListWithActId:(NSInteger)actId callback:(RequestCallback)callback;
 
 // 获取活动排名(学生端)
 + (BaseRequest *)requestGetStuActivityRankListWithcallback:(RequestCallback)callback;

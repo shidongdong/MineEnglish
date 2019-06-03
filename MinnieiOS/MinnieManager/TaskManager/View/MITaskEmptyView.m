@@ -39,7 +39,7 @@
     _isAddFolder = isAddFolder;
     if (_isAddFolder) {
         self.detail.text = @"请先创建子文件夹";
-        [self.addFolderBtn setTitle:@"添加子文件夹" forState:UIControlStateNormal];
+        [self.addFolderBtn setTitle:@"创建子文件夹" forState:UIControlStateNormal];
     } else {
         self.detail.text = @"请先创建任务";
         [self.addFolderBtn setTitle:@"创建任务" forState:UIControlStateNormal];

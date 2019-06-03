@@ -6,6 +6,7 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
+#import "ManagerServce.h"
 #import "MICreateHomeworkTaskView.h"
 #import "MISecondActivitySheetView.h"
 #import "MISecondActivityTableViewCell.h"
@@ -54,7 +55,7 @@ UITableViewDataSource
     lineView1.backgroundColor = [UIColor separatorLineColor];
     [self addSubview:lineView1];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNaviBarHeight, self.frame.size.width, self.frame.size.height)style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNaviBarHeight, self.frame.size.width, self.frame.size.height - kNaviBarHeight)style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self addSubview:_tableView];
@@ -87,8 +88,9 @@ UITableViewDataSource
     MISecondActivityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MISecondActivityTableViewCellId];
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MISecondActivityTableViewCell class]) owner:nil options:nil] lastObject];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    MIActivityModel *model = self.activityArray[indexPath.row];
+    ActivityInfo *model = self.activityArray[indexPath.row];
     if (indexPath.row == _currentIndex) {
         [cell setupWithModel:model selected:YES];
     } else {
@@ -102,7 +104,7 @@ UITableViewDataSource
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    MIActivityModel *model = self.activityArray[indexPath.row];
+    ActivityInfo *model = self.activityArray[indexPath.row];
     _currentIndex = indexPath.row;
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(secondActivitySheetViewDidClickedActivity:index:)]) {
@@ -120,18 +122,24 @@ UITableViewDataSource
     WeakifySelf;
     createTaskView.callBack = ^{
         
-        MIActivityModel *model = [[MIActivityModel alloc] init];
-        model.title = @"活动标题";
-        model.time = @"6月12日-6月18日";
-        [weakSelf.activityArray addObject:model];
+        static int actId = 100;
+        actId ++;
+        ActivityInfo *actInfo1 = [[ActivityInfo alloc] init];
+        actInfo1.activityId = 2;
+        actInfo1.title = @"活动标题2";
+        actInfo1.startTime = @"6月12日";
+        actInfo1.endTime = @"6月24日";
+        actInfo1.status = 1;
+        
+        [weakSelf.activityArray addObject:actInfo1];
         weakSelf.currentIndex = weakSelf.activityArray.count - 1;
         
         if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(secondActivitySheetViewDidClickedActivity:index:)]) {
             
-            [weakSelf.delegate secondActivitySheetViewDidClickedActivity:model index:weakSelf.currentIndex];
+            [weakSelf.delegate secondActivitySheetViewDidClickedActivity:actInfo1 index:weakSelf.currentIndex];
         }
         [weakSelf.tableView reloadData];
-        
+        [weakSelf requestCreateActivity:actInfo1];
     };
     [createTaskView setupCreateHomework:nil taskType:MIHomeworkTaskType_Activity];
     [[UIApplication sharedApplication].keyWindow addSubview:createTaskView];
@@ -143,11 +151,49 @@ UITableViewDataSource
     _currentIndex = index;
     [_tableView reloadData];
 }
-- (void)updateData:(NSArray *)activityArray{
+
+- (void)updateActivityListInfo{
     
-    [self.activityArray  removeAllObjects];
-    [self.activityArray addObjectsFromArray:activityArray];
-    [_tableView reloadData];
+    _currentIndex = -1;
+    ActivityInfo *actInfo = [[ActivityInfo alloc] init];
+    actInfo.activityId = 1;
+    actInfo.title = @"活动标题1";
+    actInfo.startTime = @"6月12日";
+    actInfo.endTime = @"6月18日";
+    actInfo.status = 2;
+    
+    
+    ActivityInfo *actInfo1 = [[ActivityInfo alloc] init];
+    actInfo1.activityId = 2;
+    actInfo1.title = @"活动标题2";
+    actInfo1.startTime = @"6月12日";
+    actInfo1.endTime = @"6月24日";
+    actInfo1.status = 1;
+    
+    [self.activityArray addObject:actInfo];
+    [self.activityArray addObject:actInfo1];
+    
+    [self.tableView reloadData];
+//    [self requestGetActivityList];
 }
+
+#pragma mark - 请求活动列表
+- (void)requestGetActivityList{
+    
+    [ManagerServce requestGetActivityListWithCallback:^(Result *result, NSError *error) {
+        
+        
+    }];
+}
+
+#pragma mark - 新建活动
+- (void)requestCreateActivity:(ActivityInfo *)actInfo{
+    
+    [ManagerServce requestCreateActivity:actInfo callback:^(Result *result, NSError *error) {
+        
+        
+    }];
+}
+
 
 @end

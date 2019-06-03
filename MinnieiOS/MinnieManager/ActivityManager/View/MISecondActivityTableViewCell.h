@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MIActivityModel.h"
+#import "ActivityInfo.h"
 
 extern CGFloat const MISecondActivityTableViewCellHeight;
 
@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MISecondActivityTableViewCell : UITableViewCell
 
-- (void)setupWithModel:(MIActivityModel *)model selected:(BOOL)selected;
+- (void)setupWithModel:(ActivityInfo *)model selected:(BOOL)selected;
 
 @end
 
