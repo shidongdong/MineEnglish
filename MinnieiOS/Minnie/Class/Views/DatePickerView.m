@@ -36,6 +36,31 @@
     }];
 }
 
+- (void)showActionAnimated {
+    
+    CATransform3D translate = CATransform3DMakeTranslation(0, ScreenHeight, 0); //平移
+    self.datePicker.layer.transform = translate;
+    self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.0];
+    
+    [UIView animateWithDuration:0.4 delay:0 usingSpringWithDamping:1.0 initialSpringVelocity:1.0 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+        self.datePicker.layer.transform = CATransform3DIdentity;
+    } completion:nil];
+}
+
+- (void)hideActionAnimated {
+    CATransform3D translate = CATransform3DMakeTranslation(0, ScreenHeight, 0); //平移
+    self.datePicker.layer.transform = CATransform3DIdentity;
+    self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    
+    [UIView animateWithDuration:0.4 delay:0 usingSpringWithDamping:1.0 initialSpringVelocity:1.0 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.0];
+        self.datePicker.layer.transform = translate;
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+    }];
+}
+
 - (void)setDefaultDate:(NSDate *)defaultDate {
     self.datePicker.date = defaultDate;
 }

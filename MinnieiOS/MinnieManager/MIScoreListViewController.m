@@ -9,6 +9,8 @@
 #import "MICreateHomeworkTaskView.h"
 #import "MIScoreListTableViewCell.h"
 #import "MIScoreListViewController.h"
+#import "CSCustomSplitViewController.h"
+#import "MICreateTaskViewController.h"
 
 @interface MIScoreListViewController ()<
 UITableViewDelegate,
@@ -61,17 +63,20 @@ UITableViewDataSource
 }
 
 - (IBAction)editTaskAction:(id)sender {
-    
-    MICreateHomeworkTaskView *createTaskView =  [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MICreateHomeworkTaskView class]) owner:nil options:nil].lastObject;
-    createTaskView.frame = [UIScreen mainScreen].bounds;
-    createTaskView.callBack = ^{
-        
-    };
-    [createTaskView setupCreateHomework:nil taskType:MIHomeworkTaskType_notify];
-    [[UIApplication sharedApplication].keyWindow addSubview:createTaskView];
+//
+//    MICreateHomeworkTaskView *createTaskView =  [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MICreateHomeworkTaskView class]) owner:nil options:nil].lastObject;
+//    createTaskView.frame = [UIScreen mainScreen].bounds;
+//    WeakifySelf;
+//    createTaskView.callBack = ^{
+//           [weakSelf updateSplit:90 + 204];
+//    };
+//    [[UIApplication sharedApplication].keyWindow addSubview:createTaskView];
+//    [self updateSplit:90];
+    MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] init];
+    [createVC setupCreateHomework:nil taskType:MIHomeworkTaskType_notify];
+    [self.navigationController pushViewController:createVC animated:YES];
     
 }
-
 
 #pragma mark -
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

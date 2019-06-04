@@ -107,7 +107,10 @@ typedef NS_ENUM(NSInteger, MIHomeworkCreateContentType) {
     MIHomeworkCreateContentType_VideoTimeLimit,     // 视频时限
     MIHomeworkCreateContentType_ActivityStartTime,  // 活动开始时间
     MIHomeworkCreateContentType_ActivityEndTime,    // 活动结束时间
-    MIHomeworkCreateContentType_Delete              // 删除
+    MIHomeworkCreateContentType_Delete,             // 删除
+    MIHomeworkCreateContentType_Video,              // 视频
+    MIHomeworkCreateContentType_Audio,              // 音频
+    MIHomeworkCreateContentType_Image,              // 图片
 };
 
 #endif /* PrefixHeader_pch */

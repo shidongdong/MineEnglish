@@ -24,7 +24,7 @@
                     <rect key="frame" x="0.0" y="24" width="414" height="64"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0y5-n1-zBD">
-                            <rect key="frame" x="0.0" y="10" width="44" height="44"/>
+                            <rect key="frame" x="0.0" y="30" width="44" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="44" id="Onz-Fl-q4j"/>
                             </constraints>
@@ -41,7 +41,7 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mc5-3d-jKQ">
-                            <rect key="frame" x="310" y="12" width="30" height="40"/>
+                            <rect key="frame" x="310" y="22" width="30" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="Nlr-dK-HgP"/>
                             </constraints>
@@ -54,7 +54,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sSj-O2-A3C">
-                            <rect key="frame" x="364" y="12" width="30" height="40"/>
+                            <rect key="frame" x="364" y="22" width="30" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="3nS-r0-1vs"/>
                             </constraints>
@@ -68,7 +68,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="得分列表" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zd0-sT-jzl">
-                            <rect key="frame" x="170.5" y="21" width="73.5" height="22"/>
+                            <rect key="frame" x="170.5" y="30" width="73.5" height="24"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                             <color key="textColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -83,7 +83,7 @@
                         <constraint firstAttribute="trailing" secondItem="cBO-Ma-aLm" secondAttribute="trailing" id="gra-YP-amr"/>
                         <constraint firstItem="sSj-O2-A3C" firstAttribute="centerY" secondItem="zd0-sT-jzl" secondAttribute="centerY" id="gth-60-EWx"/>
                         <constraint firstItem="cBO-Ma-aLm" firstAttribute="leading" secondItem="won-3V-XEJ" secondAttribute="leading" id="hqb-ql-9a7"/>
-                        <constraint firstAttribute="bottom" secondItem="zd0-sT-jzl" secondAttribute="bottom" constant="21" id="l58-Ih-cdY"/>
+                        <constraint firstAttribute="bottom" secondItem="zd0-sT-jzl" secondAttribute="bottom" constant="10" id="l58-Ih-cdY"/>
                         <constraint firstItem="zd0-sT-jzl" firstAttribute="centerX" secondItem="won-3V-XEJ" secondAttribute="centerX" id="oWQ-YU-VRS"/>
                         <constraint firstItem="0y5-n1-zBD" firstAttribute="centerY" secondItem="zd0-sT-jzl" secondAttribute="centerY" id="r6J-cN-abO"/>
                         <constraint firstItem="0y5-n1-zBD" firstAttribute="leading" secondItem="won-3V-XEJ" secondAttribute="leading" id="rcC-N3-uw7"/>
