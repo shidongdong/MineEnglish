@@ -73,9 +73,8 @@ UITableViewDataSource
 //    [[UIApplication sharedApplication].keyWindow addSubview:createTaskView];
 //    [self updateSplit:90];
     MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] init];
-    [createVC setupCreateHomework:nil taskType:MIHomeworkTaskType_notify];
+    [createVC setupCreateHomework:self.homework taskType:MIHomeworkTaskType_GeneralTask];
     [self.navigationController pushViewController:createVC animated:YES];
-    
 }
 
 #pragma mark -

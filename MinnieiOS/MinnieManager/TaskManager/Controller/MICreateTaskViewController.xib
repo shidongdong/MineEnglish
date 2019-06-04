@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tI5-cC-K2m" userLabel="bgView">
-                    <rect key="frame" x="0.0" y="24" width="414" height="783"/>
+                    <rect key="frame" x="0.0" y="24" width="414" height="838"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tmy-io-xu5" userLabel="titleView">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
@@ -82,7 +82,7 @@
                             </constraints>
                         </view>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="odG-La-Sfy" userLabel="leftTable View">
-                            <rect key="frame" x="0.0" y="64" width="206.5" height="719"/>
+                            <rect key="frame" x="0.0" y="64" width="206.5" height="774"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" priority="750" constant="714" id="jeP-0i-F0v"/>
@@ -93,14 +93,14 @@
                             </connections>
                         </tableView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mW5-RS-q7W" userLabel="lineView">
-                            <rect key="frame" x="206.5" y="64" width="1" height="719"/>
+                            <rect key="frame" x="206.5" y="64" width="1" height="774"/>
                             <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="1" id="dC3-7W-Lqw"/>
                             </constraints>
                         </view>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="C7V-yK-WNg" userLabel="rightTable View">
-                            <rect key="frame" x="207.5" y="64" width="206.5" height="719"/>
+                            <rect key="frame" x="207.5" y="64" width="206.5" height="774"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <outlet property="dataSource" destination="-1" id="uol-3r-Dle"/>
@@ -131,7 +131,7 @@
             <constraints>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="tI5-cC-K2m" secondAttribute="trailing" id="5eZ-Pj-dgN"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="top" secondItem="tI5-cC-K2m" secondAttribute="top" constant="20" id="BXd-Rw-ljG"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="tI5-cC-K2m" secondAttribute="bottom" constant="55" id="ZOZ-n3-fUU"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="tI5-cC-K2m" secondAttribute="bottom" id="ZOZ-n3-fUU"/>
                 <constraint firstItem="tI5-cC-K2m" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="aWA-t6-D5P"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>

@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy)ExpandSelectCallback expandCallback;
 
-
 @property (nonatomic, copy)LeftExpandSelectCallback leftExpandCallback;
 
 @property (nonatomic, copy)RightExpandSelectCallback rightExpandCallback;

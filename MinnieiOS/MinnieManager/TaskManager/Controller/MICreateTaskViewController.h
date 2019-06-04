@@ -19,8 +19,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) CreateTaskCallBack callBack;
 
+// 活动
+- (void)setupCreateActivity:(ActivityInfo *_Nullable)activity;
 
+// 作业
 - (void)setupCreateHomework:(Homework *_Nullable)homework taskType:(MIHomeworkTaskType)taskType;
+
+
 
 @end
 

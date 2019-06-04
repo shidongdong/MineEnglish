@@ -22,15 +22,17 @@
 @property (nonatomic, strong) NSString *title; // 标题
 @property (nonatomic, strong) NSArray <HomeworkItem *>* items; // 作业内容项
 
+@property (nonatomic, strong) NSArray <HomeworkItem *>* otherItem; // 跟读材料
+
 @property (nonatomic, strong) NSArray <HomeworkAnswerItem *>* answerItems; // 作业内容项
 
 @property (nonatomic, assign) long long createTime; // 创建的时间
 
 @property (nonatomic, strong) NSArray <NSString *> *tags; // 标签
 
-@property (nonatomic, assign) NSInteger style; //作业类型：日常1、假期2、集训3
+@property (nonatomic, assign) NSInteger style; //提交时间：1/2/3/4天
 
-@property (nonatomic, assign) NSInteger level; //作业难度，简单1，一般2，困难3
+@property (nonatomic, assign) NSInteger level; //作业难度，1-5星
 
 @property (nonatomic, assign) NSInteger category; //作业类型：普通1、附件2、初始化0
 

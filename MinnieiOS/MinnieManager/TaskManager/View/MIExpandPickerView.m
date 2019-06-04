@@ -49,9 +49,13 @@ UIPickerViewDelegate>{
     [self.fileLocationArray addObjectsFromArray:fileArray];
 
     secIndex = [fileArray indexOfObject:fileInfo];
+    if (secIndex >= self.fileLocationArray.count) {
+        secIndex = 0;
+    }
     [self.pickerView selectRow:secIndex inComponent:0 animated:YES];
     [self pickerView:self.pickerView didSelectRow:secIndex inComponent:0];
 }
+
 - (void)setDefultText:(NSString *)text createType:(MIHomeworkCreateContentType)createType{
     
     self.createType = createType;
@@ -341,5 +345,8 @@ UIPickerViewDelegate>{
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self hideActionAnimated];
 }
+
+#pragma mark - 获取文件夹列表
+
 
 @end

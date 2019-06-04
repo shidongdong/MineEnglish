@@ -738,7 +738,7 @@ UIDocumentPickerDelegate
         case MIHomeworkCreateContentType_Add:
         {
             MIAddTypeTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MIAddTypeTableViewCellId forIndexPath:indexPath];
-            contentCell.addCallback = ^{
+            contentCell.addCallback = ^(BOOL isAdd) {
                 
             };
             [contentCell setupWithCreateType:createType];
@@ -748,7 +748,7 @@ UIDocumentPickerDelegate
         case MIHomeworkCreateContentType_Delete:
         {
             MIAddTypeTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MIAddTypeTableViewCellId forIndexPath:indexPath];
-            contentCell.addCallback = ^{
+            contentCell.addCallback = ^(BOOL isAdd) {
                 
             };
             [contentCell setupWithCreateType:createType];

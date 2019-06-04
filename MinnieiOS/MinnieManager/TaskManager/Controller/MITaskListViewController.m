@@ -13,10 +13,10 @@
 #import "MICreateHomeworkTaskView.h"
 #import "MITaskListViewController.h"
 #import "MIScoreListViewController.h"
+#import "MICreateTaskViewController.h"
 #import "HomeworkPreviewViewController.h"
 #import "ClassAndStudentSelectorController.h"
 #import "HomeWorkSendHistoryViewController.h"
-
 
 #import "HomeworkService.h"
 #import "UIView+Load.h"
@@ -486,6 +486,7 @@ VIResourceLoaderManagerDelegate
     [cell setBlankCallback:^{
         
         MIScoreListViewController *scoreListVC = [[MIScoreListViewController alloc] initWithNibName:NSStringFromClass([MIScoreListViewController class]) bundle:nil];
+        scoreListVC.homework = homework;
         [self.navigationController pushViewController:scoreListVC animated:YES];
     }];
     [cell setSendCallback:^{
@@ -658,15 +659,23 @@ VIResourceLoaderManagerDelegate
 
 - (void)goToCreateTaskWithType:(MIHomeworkTaskType)type{
     
-    MICreateHomeworkTaskView *createTaskView =  [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MICreateHomeworkTaskView class]) owner:nil options:nil].lastObject;
-    createTaskView.frame = [UIScreen mainScreen].bounds;
+//    MICreateHomeworkTaskView *createTaskView =  [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MICreateHomeworkTaskView class]) owner:nil options:nil].lastObject;
+//    createTaskView.frame = [UIScreen mainScreen].bounds;
+//    WeakifySelf;
+//    createTaskView.callBack = ^{
+//
+//        [weakSelf requestHomeworks];
+//    };
+//    [createTaskView setupCreateHomework:nil taskType:type];
+//    [[UIApplication sharedApplication].keyWindow addSubview:createTaskView];
+    
+    MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] init];
+    [createVC setupCreateHomework:nil taskType:type];
     WeakifySelf;
-    createTaskView.callBack = ^{
-      
-        [weakSelf requestHomeworks];
+    createVC.callBack = ^{
+      [weakSelf requestHomeworks];
     };
-    [createTaskView setupCreateHomework:nil taskType:type];
-    [[UIApplication sharedApplication].keyWindow addSubview:createTaskView];
+    [self.navigationController pushViewController:createVC animated:YES];
 }
 
 - (void)dealloc {

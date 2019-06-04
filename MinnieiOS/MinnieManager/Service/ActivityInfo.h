@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic ,copy) NSString *title;
 // 活动材料，相当于附件
 @property (nonatomic ,strong) NSArray<HomeworkItem*> *items;
+// 活动材料，相当于附件
+@property (nonatomic ,strong) HomeworkItem *coverItems;
 // 创建时间，XXXX-xx-XX XX-XX-xx
 @property (nonatomic ,copy) NSString *createTime;
 // 提交的次数:1/2/3/4

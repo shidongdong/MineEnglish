@@ -8,6 +8,7 @@
 
 #import "ManagerServce.h"
 #import "MICreateHomeworkTaskView.h"
+#import "MICreateTaskViewController.h"
 #import "MIActivityRankListTableViewCell.h"
 #import "MIActivityRankListViewController.h"
 #import "MIParticipateDetailViewController.h"
@@ -79,18 +80,22 @@ UITableViewDataSource
 
 - (IBAction)editActivityAction:(id)sender {
     
-    MICreateHomeworkTaskView *createTaskView =  [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MICreateHomeworkTaskView class]) owner:nil options:nil].lastObject;
-    createTaskView.frame = [UIScreen mainScreen].bounds;
-    WeakifySelf;
-    createTaskView.callBack = ^{
-        
-        if (weakSelf.callback) {
-            
-            weakSelf.callback(weakSelf.currentActivityIndex);
-        }
-    };
-    [createTaskView setupCreateHomework:nil taskType:MIHomeworkTaskType_Activity];
-    [[UIApplication sharedApplication].keyWindow addSubview:createTaskView];
+//    MICreateHomeworkTaskView *createTaskView =  [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MICreateHomeworkTaskView class]) owner:nil options:nil].lastObject;
+//    createTaskView.frame = [UIScreen mainScreen].bounds;
+//    WeakifySelf;
+//    createTaskView.callBack = ^{
+//
+//        if (weakSelf.callback) {
+//
+//            weakSelf.callback(weakSelf.currentActivityIndex);
+//        }
+//    };
+//    [createTaskView setupCreateHomework:nil taskType:MIHomeworkTaskType_Activity];
+//    [[UIApplication sharedApplication].keyWindow addSubview:createTaskView];
+    
+    MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] init];
+    [createVC setupCreateHomework:nil taskType:MIHomeworkTaskType_Activity];
+    [self.navigationController pushViewController:createVC animated:YES];
 }
 
 #pragma mark -

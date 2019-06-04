@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^AddActionCallback)(void);
+typedef void(^AddActionCallback)(BOOL isAdd);
 
 extern CGFloat const MIAddTypeTableViewCellHeight;
 
