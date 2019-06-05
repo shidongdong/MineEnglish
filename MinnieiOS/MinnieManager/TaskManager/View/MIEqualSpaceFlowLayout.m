@@ -1,21 +1,28 @@
 //
-//  EqualSpaceFlowLayout.m
-//  UICollectionViewDemo
+//  MIEqualSpaceFlowLayout.m
+//  MinnieManager
 //
-//  Created by CHC on 15/5/12.
-//  Copyright (c) 2015年 CHC. All rights reserved.
+//  Created by songzhen on 2019/6/5.
+//  Copyright © 2019 minnieedu. All rights reserved.
 //
 
-#import "EqualSpaceFlowLayout.h"
 
-@interface EqualSpaceFlowLayout()
+#import "MIEqualSpaceFlowLayout.h"
+
+@interface MIEqualSpaceFlowLayout()
+
 @property (nonatomic, strong) NSMutableArray *itemAttributes;
+@property (nonatomic, assign) CGFloat collectionViewWidth;
+
 @end
 
-@implementation EqualSpaceFlowLayout
-- (id)init
+@implementation MIEqualSpaceFlowLayout
+
+- (id)initWithCollectionViewWidth:(CGFloat)collectionViewWidth
 {
     if (self = [super init]) {
+        
+        self.collectionViewWidth = collectionViewWidth;
         self.scrollDirection = UICollectionViewScrollDirectionVertical;
         self.minimumInteritemSpacing = 10;
         self.minimumLineSpacing = 10;
@@ -41,8 +48,7 @@
         CGSize itemSize = [self.delegate collectionView:self.collectionView layout:self sizeForItemAtIndexPath:indexPath];
         
         xNextOffset+=(self.minimumInteritemSpacing + itemSize.width);
-        NSLog(@"prepareLayout%f    %f",[self collectionView].bounds.size.width,[UIScreen mainScreen].bounds.size.width);
-        if (xNextOffset >= [self collectionView].bounds.size.width - self.sectionInset.right) {
+        if (xNextOffset >= self.collectionViewWidth - self.sectionInset.right) {
             xOffset = self.sectionInset.left;
             xNextOffset = (self.sectionInset.left + self.minimumInteritemSpacing + itemSize.width);
             yOffset += (itemSize.height + self.minimumLineSpacing);

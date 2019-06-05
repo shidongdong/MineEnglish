@@ -68,11 +68,11 @@ NSString * const MISegmentTypeTableViewCellId = @"MISegmentTypeTableViewCellId";
     }
     self.createType = createType;
     
-    self.constraint1.constant = self.constraint1.constant - 10;
-    self.constraint2.constant = self.constraint2.constant - 10;
-    self.constraint3.constant = self.constraint3.constant - 10;
-    self.constraint4.constant = self.constraint4.constant - 10;
-    self.constraint5.constant = self.constraint5.constant - 10;
+    self.constraint1.constant = self.constraint1.constant - 5;
+    self.constraint2.constant = self.constraint2.constant - 5;
+    self.constraint3.constant = self.constraint3.constant - 5;
+    self.constraint4.constant = self.constraint4.constant - 5;
+    self.constraint5.constant = self.constraint5.constant - 5;
     if (self.createType == MIHomeworkCreateContentType_CommitCount) {
         
         self.btnNum =4;

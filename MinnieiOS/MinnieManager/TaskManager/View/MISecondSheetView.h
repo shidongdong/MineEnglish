@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "ParentFileInfo.h"
 
-#define kFolderModularWidth         204.f
-
 @protocol SecondSheetViewDelegate <NSObject>
 
 @optional

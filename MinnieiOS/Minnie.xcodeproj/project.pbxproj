@@ -246,6 +246,15 @@
 		12A1E95622A6995C001247D7 /* icon_Enclosure@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87FD07CE21BE443700664AF1 /* icon_Enclosure@3x.png */; };
 		12A1E95722A6997B001247D7 /* ic_remove_plat@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109653207A006D00568785 /* ic_remove_plat@3x.png */; };
 		12A1E95822A6997D001247D7 /* ic_remove_plat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710961A207A006D00568785 /* ic_remove_plat@2x.png */; };
+		12A2723C22A74DF10020A3BA /* MITagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A2723A22A74DF10020A3BA /* MITagsViewController.m */; };
+		12A2723D22A74DF10020A3BA /* MITagsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12A2723B22A74DF10020A3BA /* MITagsViewController.xib */; };
+		12A2723E22A754840020A3BA /* MITagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A2723A22A74DF10020A3BA /* MITagsViewController.m */; };
+		12A2723F22A754840020A3BA /* MITagsViewController.xib in Sources */ = {isa = PBXBuildFile; fileRef = 12A2723B22A74DF10020A3BA /* MITagsViewController.xib */; };
+		12A2724222A756240020A3BA /* MIEqualSpaceFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A2724122A756240020A3BA /* MIEqualSpaceFlowLayout.m */; };
+		12A2724522A75E4E0020A3BA /* MITagsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A2724422A75E4E0020A3BA /* MITagsTableViewCell.m */; };
+		12A2724722A75FF00020A3BA /* MITagsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12A2724622A75FF00020A3BA /* MITagsTableViewCell.xib */; };
+		12A2724822A761230020A3BA /* MITagsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A2724422A75E4E0020A3BA /* MITagsTableViewCell.m */; };
+		12A2724922A761230020A3BA /* MITagsTableViewCell.xib in Sources */ = {isa = PBXBuildFile; fileRef = 12A2724622A75FF00020A3BA /* MITagsTableViewCell.xib */; };
 		12AF64F5228E4A790031E1F6 /* EqualSpaceFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12AF64F3228E4A780031E1F6 /* EqualSpaceFlowLayout.m */; };
 		12AF64F6228E4A790031E1F6 /* EqualSpaceFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 12AF64F3228E4A780031E1F6 /* EqualSpaceFlowLayout.m */; };
 		12B7081922A40B6D00117537 /* MIEidtFileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12B7081822A40B6D00117537 /* MIEidtFileView.m */; };
@@ -1896,6 +1905,14 @@
 		12A1E93722A55ADD001247D7 /* MICreateTaskViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MICreateTaskViewController.h; sourceTree = "<group>"; };
 		12A1E93822A55ADD001247D7 /* MICreateTaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MICreateTaskViewController.m; sourceTree = "<group>"; };
 		12A1E93922A55ADD001247D7 /* MICreateTaskViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MICreateTaskViewController.xib; sourceTree = "<group>"; };
+		12A2723922A74DF10020A3BA /* MITagsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MITagsViewController.h; sourceTree = "<group>"; };
+		12A2723A22A74DF10020A3BA /* MITagsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MITagsViewController.m; sourceTree = "<group>"; };
+		12A2723B22A74DF10020A3BA /* MITagsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MITagsViewController.xib; sourceTree = "<group>"; };
+		12A2724022A756240020A3BA /* MIEqualSpaceFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIEqualSpaceFlowLayout.h; sourceTree = "<group>"; };
+		12A2724122A756240020A3BA /* MIEqualSpaceFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MIEqualSpaceFlowLayout.m; sourceTree = "<group>"; };
+		12A2724322A75E4E0020A3BA /* MITagsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MITagsTableViewCell.h; sourceTree = "<group>"; };
+		12A2724422A75E4E0020A3BA /* MITagsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MITagsTableViewCell.m; sourceTree = "<group>"; };
+		12A2724622A75FF00020A3BA /* MITagsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MITagsTableViewCell.xib; sourceTree = "<group>"; };
 		12AF64F3228E4A780031E1F6 /* EqualSpaceFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EqualSpaceFlowLayout.m; sourceTree = "<group>"; };
 		12AF64F4228E4A790031E1F6 /* EqualSpaceFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EqualSpaceFlowLayout.h; sourceTree = "<group>"; };
 		12B7081722A40B6D00117537 /* MIEidtFileView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIEidtFileView.h; sourceTree = "<group>"; };
@@ -3355,6 +3372,16 @@
 			isa = PBXGroup;
 			children = (
 				12961C8F229EC9F50075B04A /* CreateTaskCell */,
+				12ED3AFB229C2E4C00255F8B /* MISecondSheetView.h */,
+				12ED3AFD229C2E4C00255F8B /* MISecondSheetView.m */,
+				12ED3B34229D6D1F00255F8B /* MICreateFolderView.h */,
+				12ED3B35229D6D1F00255F8B /* MICreateFolderView.m */,
+				12ED3B37229D6D3000255F8B /* MICreateFolderView.xib */,
+				12A2724322A75E4E0020A3BA /* MITagsTableViewCell.h */,
+				12A2724422A75E4E0020A3BA /* MITagsTableViewCell.m */,
+				12A2724622A75FF00020A3BA /* MITagsTableViewCell.xib */,
+				12A2724122A756240020A3BA /* MIEqualSpaceFlowLayout.m */,
+				12A2724022A756240020A3BA /* MIEqualSpaceFlowLayout.h */,
 				12ED3AFF229C2E4D00255F8B /* MIHeaderTableViewCell.h */,
 				12ED3AFA229C2E4C00255F8B /* MIHeaderTableViewCell.m */,
 				12ED3B00229C2E4D00255F8B /* MIHeaderTableViewCell.xib */,
@@ -3372,11 +3399,6 @@
 				12ED3B1E229D107600255F8B /* MITaskEmptyView.h */,
 				12ED3B1F229D107600255F8B /* MITaskEmptyView.m */,
 				12ED3B21229D108E00255F8B /* MITaskEmptyView.xib */,
-				12ED3AFB229C2E4C00255F8B /* MISecondSheetView.h */,
-				12ED3AFD229C2E4C00255F8B /* MISecondSheetView.m */,
-				12ED3B34229D6D1F00255F8B /* MICreateFolderView.h */,
-				12ED3B35229D6D1F00255F8B /* MICreateFolderView.m */,
-				12ED3B37229D6D3000255F8B /* MICreateFolderView.xib */,
 				12ED3B6F229E1EDC00255F8B /* MICreateHomeworkTaskView.h */,
 				12ED3B70229E1EDC00255F8B /* MICreateHomeworkTaskView.m */,
 				12ED3B72229E1F1A00255F8B /* MICreateHomeworkTaskView.xib */,
@@ -3402,6 +3424,9 @@
 				12A1E93722A55ADD001247D7 /* MICreateTaskViewController.h */,
 				12A1E93822A55ADD001247D7 /* MICreateTaskViewController.m */,
 				12A1E93922A55ADD001247D7 /* MICreateTaskViewController.xib */,
+				12A2723922A74DF10020A3BA /* MITagsViewController.h */,
+				12A2723A22A74DF10020A3BA /* MITagsViewController.m */,
+				12A2723B22A74DF10020A3BA /* MITagsViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -5946,6 +5971,7 @@
 				12961CCB229FD6590075B04A /* CreateTagView.xib in Resources */,
 				12A1E95322A69954001247D7 /* icon_Enclosure_noedit@3x.png in Resources */,
 				12961C87229E69370075B04A /* btn_mission_send@2x.png in Resources */,
+				12A2723D22A74DF10020A3BA /* MITagsViewController.xib in Resources */,
 				12ED3B57229D961700255F8B /* 加载动画05@3x.png in Resources */,
 				12ED3B75229E2AC900255F8B /* label_close_gray@2x.png in Resources */,
 				123042F222A1249500E111A4 /* MIParticipateDetailTableViewCell.xib in Resources */,
@@ -5993,6 +6019,7 @@
 				12961C60229E65CA0075B04A /* NEPhotoBrowser.bundle in Resources */,
 				12A1E95822A6997D001247D7 /* ic_remove_plat@2x.png in Resources */,
 				12DCE76822A1653F00E2DAFE /* MIScoreListViewController.xib in Resources */,
+				12A2724722A75FF00020A3BA /* MITagsTableViewCell.xib in Resources */,
 				12DCE76722A15C7C00E2DAFE /* MIScoreListTableViewCell.xib in Resources */,
 				1226F34B22983A2000BAB1C9 /* navbar_back@3x.png in Resources */,
 				12ED3B61229D96B900255F8B /* hud_ic_loading@3x.png in Resources */,
@@ -7309,6 +7336,7 @@
 				123042F122A1249500E111A4 /* MIParticipateDetailTableViewCell.m in Sources */,
 				123042D122A0CB6B00E111A4 /* MISecondActivitySheetView.m in Sources */,
 				122A1ECB22A23306009358DE /* ManagerServce.m in Sources */,
+				12A2724522A75E4E0020A3BA /* MITagsTableViewCell.m in Sources */,
 				12ED3B1C229D0CDA00255F8B /* MITaskListViewController.m in Sources */,
 				12961CD2229FD6BC0075B04A /* CorrectHomeworkAddCommentRequest.m in Sources */,
 				1226F3262298328A00BAB1C9 /* InputPhoneNumberViewController.m in Sources */,
@@ -7410,6 +7438,8 @@
 				123042EC22A1160F00E111A4 /* MIParticipateDetailViewController.m in Sources */,
 				122A1EDD22A24DDD009358DE /* ScoreInfo.m in Sources */,
 				12961CD5229FD6D40075B04A /* SearchHomeworkTypeRequest.m in Sources */,
+				12A2723C22A74DF10020A3BA /* MITagsViewController.m in Sources */,
+				12A2724222A756240020A3BA /* MIEqualSpaceFlowLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7714,6 +7744,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12A2724822A761230020A3BA /* MITagsTableViewCell.m in Sources */,
+				12A2724922A761230020A3BA /* MITagsTableViewCell.xib in Sources */,
+				12A2723E22A754840020A3BA /* MITagsViewController.m in Sources */,
+				12A2723F22A754840020A3BA /* MITagsViewController.xib in Sources */,
 				123042F322A12AE300E111A4 /* MIParticipateDetailTableViewCell.m in Sources */,
 				123042F422A12AE300E111A4 /* MIParticipateDetailTableViewCell.xib in Sources */,
 				123042E722A10E8400E111A4 /* MISecondActivityTableViewCell.m in Sources */,

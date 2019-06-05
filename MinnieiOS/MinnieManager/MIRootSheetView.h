@@ -7,8 +7,6 @@
 
 #import <UIKit/UIKit.h>
 
-#define kRootModularWidth           90.f
-
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol RootSheetViewDelete <NSObject>

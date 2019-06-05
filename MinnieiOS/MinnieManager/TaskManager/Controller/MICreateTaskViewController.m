@@ -12,8 +12,8 @@
 #import "DatePickerView.h"
 #import "MIExpandPickerView.h"
 #import "ChooseDatePickerView.h"
-#import "TagsViewController.h"
-#import "HomeworkTagsTableViewCell.h"
+#import "MITagsViewController.h"
+#import "MITagsTableViewCell.h"
 #import "MIAddTypeTableViewCell.h"
 #import "MITitleTypeTableViewCell.h"
 #import "MIInPutTypeTableViewCell.h"
@@ -26,14 +26,12 @@
 #import "HomeworkImageTableViewCell.h"
 #import "HomeworkAudioTableViewCell.h"
 
-
-#import <objc/runtime.h>
-#import <AVKit/AVKit.h>
-#import "FileUploader.h"
-#import <AssetsLibrary/AssetsLibrary.h>
-#import <MobileCoreServices/MobileCoreServices.h>
-
-static const char keyOfPickerDocument;
+//
+//#import <objc/runtime.h>
+//#import <AVKit/AVKit.h>
+//#import "FileUploader.h"
+//#import <AssetsLibrary/AssetsLibrary.h>
+//#import <MobileCoreServices/MobileCoreServices.h>
 
 @interface MICreateTaskViewController ()<
 UITableViewDelegate,
@@ -88,7 +86,7 @@ UIDocumentPickerDelegate
     [self updateSplit:90];
 }
 
--(void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self updateSplit:90+204];
 }
@@ -221,7 +219,7 @@ UIDocumentPickerDelegate
     }
     self.leftRowCount = 7;
     [self.createTypeArray removeAllObjects];
-    [self.createTypeArray addObjectsFromArray:[self getRowCount]];
+    [self.createTypeArray addObjectsFromArray:[self getNumberOfRowsInSection]];
     [self.leftTableView reloadData];
     [self.rightTableView reloadData];
 }
@@ -250,7 +248,7 @@ UIDocumentPickerDelegate
     [self updateHomeworkInfo];
     
     [self.createTypeArray removeAllObjects];
-    [self.createTypeArray addObjectsFromArray:[self getRowCount]];
+    [self.createTypeArray addObjectsFromArray:[self getNumberOfRowsInSection]];
     self.leftRowCount = 7;
     
     [self.leftTableView reloadData];
@@ -314,17 +312,16 @@ UIDocumentPickerDelegate
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    NSNumber *createTypeNum;
     if (tableView == self.leftTableView) {
-        
-        NSNumber *createTypeNum = self.createTypeArray[indexPath.row];
-        return [self getRowHeightWithCreateType:createTypeNum.integerValue];
+        createTypeNum = self.createTypeArray[indexPath.row];
     } else {
-        
-        NSNumber *createTypeNum = self.createTypeArray[indexPath.row + self.leftRowCount];
-        return [self getRowHeightWithCreateType:createTypeNum.integerValue];
+        createTypeNum = self.createTypeArray[indexPath.row + self.leftRowCount];
     }
+    return [self getHeightForRowWithCreateType:createTypeNum.integerValue];
 }
 
+#pragma mark - 设置标题
 - (void)setupTitleWithTaskType:(MIHomeworkTaskType)taskType{
     
     switch (taskType) {
@@ -349,125 +346,6 @@ UIDocumentPickerDelegate
         default:
             break;
     }
-}
-
-- (NSArray *)getRowCount{
-    
-    NSArray *typeArray;
-    switch (self.taskType) {
-        case MIHomeworkTaskType_notify:// 通知
-        {
-            // 位置、标题、内容、统计类型、选择提交时间，选择星级、添加材料、任务类型(单选)、分类标签（多选）
-            typeArray = @[@(MIHomeworkCreateContentType_Localtion),
-                          @(MIHomeworkCreateContentType_Title),
-                          @(MIHomeworkCreateContentType_Content),
-                          @(MIHomeworkCreateContentType_StatisticalType),
-                          @(MIHomeworkCreateContentType_CommitTime),
-                          @(MIHomeworkCreateContentType_HomeworkDifficulty),
-                          @(MIHomeworkCreateContentType_Materials),
-                          @(MIHomeworkCreateContentType_Label),
-                          @(MIHomeworkCreateContentType_TypeLabel),
-                          @(MIHomeworkCreateContentType_Delete)
-                          ];
-        }
-            break;
-        case MIHomeworkTaskType_FollowUp:// 跟读
-        {
-            // 位置、标题、内容、批改备注、统计类型、选择提交时间、选择星级、添加跟读材料、添加材料、添加答案、任务类型(单选)、分类标签（多选）
-            typeArray = @[@(MIHomeworkCreateContentType_Localtion),
-                          @(MIHomeworkCreateContentType_Title),
-                          @(MIHomeworkCreateContentType_Content),
-                          @(MIHomeworkCreateContentType_MarkingRemarks),
-                          @(MIHomeworkCreateContentType_StatisticalType),
-                          @(MIHomeworkCreateContentType_CommitTime),
-                          @(MIHomeworkCreateContentType_HomeworkDifficulty),
-                          @(MIHomeworkCreateContentType_AddFollowMaterials),
-                          @(MIHomeworkCreateContentType_Materials),
-                          @(MIHomeworkCreateContentType_Answer),
-                          @(MIHomeworkCreateContentType_Label),
-                          @(MIHomeworkCreateContentType_TypeLabel),
-                          @(MIHomeworkCreateContentType_Delete)
-                          ];
-        }
-            break;
-        case MIHomeworkTaskType_WordMemory:// 单词记忆
-        {
-            // 位置、标题、批改备注、统计类型、选择提交时间、选择星级、添加单词、播放时间间隔、添加背景音乐、添加材料、任务类型(单选)、分类标签（多选）
-            typeArray = @[@(MIHomeworkCreateContentType_Localtion),
-                          @(MIHomeworkCreateContentType_Title),
-                          @(MIHomeworkCreateContentType_Content),
-                          @(MIHomeworkCreateContentType_MarkingRemarks),
-                          @(MIHomeworkCreateContentType_StatisticalType),
-                          @(MIHomeworkCreateContentType_CommitTime),
-                          @(MIHomeworkCreateContentType_HomeworkDifficulty),
-                          @(MIHomeworkCreateContentType_AddWords),
-                          @(MIHomeworkCreateContentType_WordsTimeInterval),
-                          @(MIHomeworkCreateContentType_AddBgMusic),
-                          @(MIHomeworkCreateContentType_Materials),
-                          @(MIHomeworkCreateContentType_Label),
-                          @(MIHomeworkCreateContentType_TypeLabel),
-                          @(MIHomeworkCreateContentType_Delete)
-                          ];
-        }
-            break;
-        case MIHomeworkTaskType_GeneralTask:// 普通作业
-        {
-            // 位置、标题、内容、批改备注、统计类型、选择提交时间、选择星级、选择时限、添加材料、添加答案、任务类型(单选)、分类标签（多选）
-            typeArray = @[@(MIHomeworkCreateContentType_Localtion),
-                          @(MIHomeworkCreateContentType_Title),
-                          @(MIHomeworkCreateContentType_Content),
-                          @(MIHomeworkCreateContentType_MarkingRemarks),
-                          @(MIHomeworkCreateContentType_StatisticalType),
-                          @(MIHomeworkCreateContentType_CommitTime),
-                          @(MIHomeworkCreateContentType_HomeworkDifficulty),
-                          @(MIHomeworkCreateContentType_TimeLimit),
-                          @(MIHomeworkCreateContentType_Materials),
-                          @(MIHomeworkCreateContentType_Answer),
-                          @(MIHomeworkCreateContentType_Label),
-                          @(MIHomeworkCreateContentType_TypeLabel),
-                          @(MIHomeworkCreateContentType_Delete)
-                          ];
-        }
-            break;
-        case MIHomeworkTaskType_Activity:
-        {
-            // 标题、添加封面、活动要求、添加材料、可提交次数、视频时限、活动开始时间、活动结束时间、活动参与对象
-            typeArray = @[@(MIHomeworkCreateContentType_Title),
-                          @(MIHomeworkCreateContentType_AddCovers),
-                          @(MIHomeworkCreateContentType_ActivityReq),
-                          @(MIHomeworkCreateContentType_Materials),
-                          @(MIHomeworkCreateContentType_CommitCount),
-                          @(MIHomeworkCreateContentType_VideoTimeLimit),
-                          @(MIHomeworkCreateContentType_ActivityStartTime),
-                          @(MIHomeworkCreateContentType_ActivityEndTime),
-                          @(MIHomeworkCreateContentType_ActivityParticipant),
-                          @(MIHomeworkCreateContentType_Delete)
-                          ];
-        }
-            break;
-        case MIHomeworkTaskType_ExaminationStatistics:// 考试统计
-        {
-            
-            // 位置、标题、内容、批改备注、考试类型、选择提交时间、选择星级、添加材料、添加答案、任务类型(单选)、分类标签（多选）
-            typeArray = @[@(MIHomeworkCreateContentType_Localtion),
-                          @(MIHomeworkCreateContentType_Title),
-                          @(MIHomeworkCreateContentType_Content),
-                          @(MIHomeworkCreateContentType_MarkingRemarks),
-                          @(MIHomeworkCreateContentType_ExaminationType),
-                          @(MIHomeworkCreateContentType_CommitTime),
-                          @(MIHomeworkCreateContentType_HomeworkDifficulty),
-                          @(MIHomeworkCreateContentType_Materials),
-                          @(MIHomeworkCreateContentType_Answer),
-                          @(MIHomeworkCreateContentType_Label),
-                          @(MIHomeworkCreateContentType_TypeLabel),
-                          @(MIHomeworkCreateContentType_Delete)
-                          ];
-        }
-            break;
-        default:
-            break;
-    }
-    return typeArray;
 }
 
 - (UITableViewCell *)getTableViewCellAtIndexPath:(NSIndexPath *)indexPath
@@ -609,7 +487,7 @@ UIDocumentPickerDelegate
         case MIHomeworkCreateContentType_ActivityReq:
         {
             MIInPutTypeTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MIInPutTypeTableViewCellId forIndexPath:indexPath];
-
+            
             __weak MIInPutTypeTableViewCell *weakContentCell = contentCell;
             __weak UITableView *weakTableView = tableView;
             contentCell.callback = ^(NSString *text, BOOL heightChanged) {
@@ -687,7 +565,7 @@ UIDocumentPickerDelegate
             contentCell.title = @"添加单词:";
             contentCell.addItemCallback = ^(NSArray * _Nullable items) {
             };
-//            [contentCell setupWithItems:@[self.wordsItem] vc:self];
+            //            [contentCell setupWithItems:@[self.wordsItem] vc:self];
             [contentCell setupWithItems:@[] vc:self];
             cell = contentCell;
         }
@@ -732,14 +610,14 @@ UIDocumentPickerDelegate
             __weak MITitleTypeTableViewCell *weakContentCell = contentCell;
             __weak UITableView *weakTableView = tableView;
             contentCell.addItemCallback = ^(NSArray * _Nullable items) {
-              
+                
                 weakSelf.activityInfo.coverItems = items.firstObject;
                 [weakContentCell setupWithItems:items vc:weakSelf];
                 [weakTableView beginUpdates];
                 [weakTableView endUpdates];
             };
             [contentCell setupWithItems:@[] vc:self];
-//            [contentCell setupWithItems:@[self.activityInfo.coverItems] vc:self];
+            //            [contentCell setupWithItems:@[self.activityInfo.coverItems] vc:self];
             cell = contentCell;
         }
             break;
@@ -774,7 +652,7 @@ UIDocumentPickerDelegate
                 [weakTableView beginUpdates];
                 [weakTableView endUpdates];
             };
-//            [contentCell setupWithItems:self.followItems vc:self];
+            //            [contentCell setupWithItems:self.followItems vc:self];
             [contentCell setupWithItems:@[] vc:self];
             cell = contentCell;
         }
@@ -799,7 +677,7 @@ UIDocumentPickerDelegate
                 
                 MIExpandPickerView * chooseDataPicker = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIExpandPickerView class]) owner:nil options:nil] firstObject];
                 chooseDataPicker.callback = ^(NSString * _Nonnull text) {
-                 
+                    
                     [weakContentCell setupWithLeftText:text rightText:nil createType:createType];
                     weakSelf.homework.limitTimes = text.integerValue;
                 };
@@ -853,7 +731,7 @@ UIDocumentPickerDelegate
             __weak MIExpandSelectTypeTableViewCell *weakContentCell = contentCell;
             NSString *limit = [NSString stringWithFormat:@"%lu",self.activityInfo.limitTimes];
             contentCell.expandCallback = ^{
-               
+                
                 MIExpandPickerView * chooseDataPicker = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIExpandPickerView class]) owner:nil options:nil] firstObject];
                 chooseDataPicker.callback = ^(NSString * _Nonnull text) {
                     
@@ -881,7 +759,7 @@ UIDocumentPickerDelegate
             break;
         case MIHomeworkCreateContentType_Label:
         {
-            HomeworkTagsTableViewCell *tagsCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTagsTableViewCellId forIndexPath:indexPath];
+            MITagsTableViewCell *tagsCell = [tableView dequeueReusableCellWithIdentifier:MITagsTableViewCellId forIndexPath:indexPath];
             tagsCell.type = HomeworkTagsTableViewCellSelectSigleType;
             NSMutableArray * selectFormTags = [[NSMutableArray alloc] init];
             if (self.selectFormTag)
@@ -894,8 +772,9 @@ UIDocumentPickerDelegate
             [tagsCell setSelectCallback:^(NSString *tag) {
                 weakSelf.selectFormTag = (weakSelf.selectFormTag.length > 0) ? @"" : tag;
             }];
+            
             [tagsCell setManageCallback:^{
-                TagsViewController *tagsVC = [[TagsViewController alloc] initWithNibName:@"TagsViewController" bundle:nil];
+                MITagsViewController *tagsVC = [[MITagsViewController alloc] initWithNibName:@"MITagsViewController" bundle:nil];
                 tagsVC.type = TagsHomeworkFormType;
                 [weakSelf.navigationController pushViewController:tagsVC animated:YES];
             }];
@@ -905,7 +784,7 @@ UIDocumentPickerDelegate
             break;
         case MIHomeworkCreateContentType_TypeLabel:
         {
-            HomeworkTagsTableViewCell *tagsCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTagsTableViewCellId forIndexPath:indexPath];
+            MITagsTableViewCell *tagsCell = [tableView dequeueReusableCellWithIdentifier:MITagsTableViewCellId forIndexPath:indexPath];
             tagsCell.type = HomeworkTagsTableViewCellSelectMutiType;
             [tagsCell setupWithTags:self.tags selectedTags:self.selectedTags typeTitle:@"分类标签(多选):"];
             
@@ -918,7 +797,7 @@ UIDocumentPickerDelegate
                 }
             }];
             [tagsCell setManageCallback:^{
-                TagsViewController *tagsVC = [[TagsViewController alloc] initWithNibName:@"TagsViewController" bundle:nil];
+                MITagsViewController *tagsVC = [[MITagsViewController alloc] initWithNibName:@"MITagsViewController" bundle:nil];
                 tagsVC.type = TagsHomeworkTipsType;
                 [weakSelf.navigationController pushViewController:tagsVC animated:YES];
             }];
@@ -928,7 +807,7 @@ UIDocumentPickerDelegate
             break;
         case MIHomeworkCreateContentType_ActivityParticipant:
         {
-            HomeworkTagsTableViewCell *tagsCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTagsTableViewCellId forIndexPath:indexPath];
+            MITagsTableViewCell *tagsCell = [tableView dequeueReusableCellWithIdentifier:MITagsTableViewCellId forIndexPath:indexPath];
             tagsCell.type = HomeworkTagsTableViewCellSelectMutiType;
             [tagsCell setupWithTags:@[] selectedTags:@[] typeTitle:@"活动参与对象:"];
             
@@ -941,7 +820,7 @@ UIDocumentPickerDelegate
                 }
             }];
             [tagsCell setManageCallback:^{
-                TagsViewController *tagsVC = [[TagsViewController alloc] initWithNibName:@"TagsViewController" bundle:nil];
+                MITagsViewController *tagsVC = [[MITagsViewController alloc] initWithNibName:@"MITagsViewController" bundle:nil];
                 tagsVC.type = TagsHomeworkTipsType;
                 [weakSelf.navigationController pushViewController:tagsVC animated:YES];
             }];
@@ -969,7 +848,135 @@ UIDocumentPickerDelegate
     return cell;
 }
 
-- (CGFloat)getRowHeightWithCreateType:(MIHomeworkCreateContentType) createType{
+#pragma mark - 设置行数、行高
+- (NSArray *)getNumberOfRowsInSection{
+    
+    NSMutableArray *typeArray;
+    switch (self.taskType) {
+        case MIHomeworkTaskType_notify:// 通知
+        {
+            // 位置、标题、内容、统计类型、选择提交时间，选择星级、添加材料、任务类型(单选)、分类标签（多选）
+            typeArray =
+            [NSMutableArray arrayWithArray:@[@(MIHomeworkCreateContentType_Localtion),
+                          @(MIHomeworkCreateContentType_Title),
+                          @(MIHomeworkCreateContentType_Content),
+                          @(MIHomeworkCreateContentType_StatisticalType),
+                          @(MIHomeworkCreateContentType_CommitTime),
+                          @(MIHomeworkCreateContentType_HomeworkDifficulty),
+                          @(MIHomeworkCreateContentType_Materials),
+                          @(MIHomeworkCreateContentType_Label),
+                          @(MIHomeworkCreateContentType_TypeLabel),
+                          @(MIHomeworkCreateContentType_Delete)
+                          ]];
+        }
+            break;
+        case MIHomeworkTaskType_FollowUp:// 跟读
+        {
+            // 位置、标题、内容、批改备注、统计类型、选择提交时间、选择星级、添加跟读材料、添加材料、添加答案、任务类型(单选)、分类标签（多选）
+            typeArray =
+            [NSMutableArray arrayWithArray:@[@(MIHomeworkCreateContentType_Localtion),
+                          @(MIHomeworkCreateContentType_Title),
+                          @(MIHomeworkCreateContentType_Content),
+                          @(MIHomeworkCreateContentType_MarkingRemarks),
+                          @(MIHomeworkCreateContentType_StatisticalType),
+                          @(MIHomeworkCreateContentType_CommitTime),
+                          @(MIHomeworkCreateContentType_HomeworkDifficulty),
+                          @(MIHomeworkCreateContentType_AddFollowMaterials),
+                          @(MIHomeworkCreateContentType_Materials),
+                          @(MIHomeworkCreateContentType_Answer),
+                          @(MIHomeworkCreateContentType_Label),
+                          @(MIHomeworkCreateContentType_TypeLabel),
+                          @(MIHomeworkCreateContentType_Delete)
+                          ]];
+        }
+            break;
+        case MIHomeworkTaskType_WordMemory:// 单词记忆
+        {
+            // 位置、标题、批改备注、统计类型、选择提交时间、选择星级、添加单词、播放时间间隔、添加背景音乐、添加材料、任务类型(单选)、分类标签（多选）
+            typeArray =
+            [NSMutableArray arrayWithArray:@[@(MIHomeworkCreateContentType_Localtion),
+                          @(MIHomeworkCreateContentType_Title),
+                          @(MIHomeworkCreateContentType_Content),
+                          @(MIHomeworkCreateContentType_MarkingRemarks),
+                          @(MIHomeworkCreateContentType_StatisticalType),
+                          @(MIHomeworkCreateContentType_CommitTime),
+                          @(MIHomeworkCreateContentType_HomeworkDifficulty),
+                          @(MIHomeworkCreateContentType_AddWords),
+                          @(MIHomeworkCreateContentType_WordsTimeInterval),
+                          @(MIHomeworkCreateContentType_AddBgMusic),
+                          @(MIHomeworkCreateContentType_Materials),
+                          @(MIHomeworkCreateContentType_Label),
+                          @(MIHomeworkCreateContentType_TypeLabel),
+                          @(MIHomeworkCreateContentType_Delete)
+                          ]];
+        }
+            break;
+        case MIHomeworkTaskType_GeneralTask:// 普通作业
+        {
+            // 位置、标题、内容、批改备注、统计类型、选择提交时间、选择星级、选择时限、添加材料、添加答案、任务类型(单选)、分类标签（多选）
+            typeArray =
+            [NSMutableArray arrayWithArray:@[@(MIHomeworkCreateContentType_Localtion),
+                          @(MIHomeworkCreateContentType_Title),
+                          @(MIHomeworkCreateContentType_Content),
+                          @(MIHomeworkCreateContentType_MarkingRemarks),
+                          @(MIHomeworkCreateContentType_StatisticalType),
+                          @(MIHomeworkCreateContentType_CommitTime),
+                          @(MIHomeworkCreateContentType_HomeworkDifficulty),
+                          @(MIHomeworkCreateContentType_TimeLimit),
+                          @(MIHomeworkCreateContentType_Materials),
+                          @(MIHomeworkCreateContentType_Answer),
+                          @(MIHomeworkCreateContentType_Label),
+                          @(MIHomeworkCreateContentType_TypeLabel),
+                          @(MIHomeworkCreateContentType_Delete)
+                          ]];
+        }
+            break;
+        case MIHomeworkTaskType_Activity:
+        {
+            // 标题、添加封面、活动要求、添加材料、可提交次数、视频时限、活动开始时间、活动结束时间、活动参与对象
+            typeArray =
+            [NSMutableArray arrayWithArray:@[@(MIHomeworkCreateContentType_Title),
+                          @(MIHomeworkCreateContentType_AddCovers),
+                          @(MIHomeworkCreateContentType_ActivityReq),
+                          @(MIHomeworkCreateContentType_Materials),
+                          @(MIHomeworkCreateContentType_CommitCount),
+                          @(MIHomeworkCreateContentType_VideoTimeLimit),
+                          @(MIHomeworkCreateContentType_ActivityStartTime),
+                          @(MIHomeworkCreateContentType_ActivityEndTime),
+                          @(MIHomeworkCreateContentType_ActivityParticipant),
+                          @(MIHomeworkCreateContentType_Delete)
+                          ]];
+        }
+            break;
+        case MIHomeworkTaskType_ExaminationStatistics:// 考试统计
+        {
+            
+            // 位置、标题、内容、批改备注、考试类型、选择提交时间、选择星级、添加材料、添加答案、任务类型(单选)、分类标签（多选）
+            typeArray =
+            [NSMutableArray arrayWithArray:@[@(MIHomeworkCreateContentType_Localtion),
+                          @(MIHomeworkCreateContentType_Title),
+                          @(MIHomeworkCreateContentType_Content),
+                          @(MIHomeworkCreateContentType_MarkingRemarks),
+                          @(MIHomeworkCreateContentType_ExaminationType),
+                          @(MIHomeworkCreateContentType_CommitTime),
+                          @(MIHomeworkCreateContentType_HomeworkDifficulty),
+                          @(MIHomeworkCreateContentType_Materials),
+                          @(MIHomeworkCreateContentType_Answer),
+                          @(MIHomeworkCreateContentType_Label),
+                          @(MIHomeworkCreateContentType_TypeLabel),
+                          @(MIHomeworkCreateContentType_Delete)
+                          ]];
+        }
+            break;
+        default:
+            break;
+    }
+    if (self.isCreateTask) {
+        [typeArray removeLastObject];
+    }
+    return typeArray;
+}
+- (CGFloat)getHeightForRowWithCreateType:(MIHomeworkCreateContentType) createType{
     
     CGFloat rowHeight = 0;
     switch (createType) {
@@ -1035,13 +1042,13 @@ UIDocumentPickerDelegate
             rowHeight = MIExpandSelectTypeTableViewCellHeight;
             break;
         case MIHomeworkCreateContentType_Label:
-            rowHeight = [HomeworkTagsTableViewCell heightWithTags:@[] typeTitle:@"任务类型(单选)"] + 125;
+            rowHeight = [MITagsTableViewCell heightWithTags:self.formTags] + 50;
             break;
         case MIHomeworkCreateContentType_TypeLabel:
-            rowHeight = [HomeworkTagsTableViewCell heightWithTags:@[] typeTitle:@"分类标签(多选)"] + 125;
+            rowHeight = [MITagsTableViewCell heightWithTags:self.tags] + 50;
             break;
         case MIHomeworkCreateContentType_ActivityParticipant:
-            rowHeight = [HomeworkTagsTableViewCell heightWithTags:@[] typeTitle:@"活动参与对象:"] + 45;
+            rowHeight = [MITagsTableViewCell heightWithTags:@[]] + 45;
             break;
         case MIHomeworkCreateContentType_Add:
         case MIHomeworkCreateContentType_Delete:
@@ -1076,8 +1083,8 @@ UIDocumentPickerDelegate
     [self.leftTableView registerNib:[UINib nibWithNibName:@"MIExpandSelectTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MIExpandSelectTypeTableViewCellId];
     [self.rightTableView registerNib:[UINib nibWithNibName:@"MIExpandSelectTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MIExpandSelectTypeTableViewCellId];
     
-    [self.leftTableView registerNib:[UINib nibWithNibName:@"HomeworkTagsTableViewCell" bundle:nil] forCellReuseIdentifier:HomeworkTagsTableViewCellId];
-    [self.rightTableView registerNib:[UINib nibWithNibName:@"HomeworkTagsTableViewCell" bundle:nil] forCellReuseIdentifier:HomeworkTagsTableViewCellId];
+    [self.leftTableView registerNib:[UINib nibWithNibName:@"MITagsTableViewCell" bundle:nil] forCellReuseIdentifier:MITagsTableViewCellId];
+    [self.rightTableView registerNib:[UINib nibWithNibName:@"MITagsTableViewCell" bundle:nil] forCellReuseIdentifier:MITagsTableViewCellId];
 }
 
 #pragma mark - setter && getter

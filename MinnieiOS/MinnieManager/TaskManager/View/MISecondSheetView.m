@@ -13,7 +13,7 @@
 #import "MISecondSheetView.h"
 #import "MICreateFolderView.h"
 #import "MIHeaderTableViewCell.h"
-
+#import "Result.h"
 @interface MISecondSheetView ()<
 HeaderViewDelegate,
 UITableViewDelegate,
@@ -28,8 +28,9 @@ UITableViewDataSource
 // 当前选中的二级文件夹 -1为未选中任何文件夹
 @property (nonatomic,assign) NSInteger currentIndex;
 
-@property (nonatomic, strong) ParentFileInfo *parentFileInfo;
+//@property (nonatomic, strong) ParentFileInfo *parentFileInfo;
 
+@property (nonatomic, strong) NSMutableArray *parentFileList;
 @end
 
 @implementation MISecondSheetView
@@ -40,6 +41,7 @@ UITableViewDataSource
     if (self) {
         
         _currentIndex = -1;
+        self.parentFileList = [NSMutableArray array];
         [self configureUI];
     }
     return self;
@@ -91,8 +93,8 @@ UITableViewDataSource
 
 #pragma mark -
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // 父级文件夹
-    return self.parentFileInfo.subFileList.count;
+    
+    return self.parentFileList.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -111,9 +113,9 @@ UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    FileInfo *subFile = self.parentFileInfo.subFileList[section];
-    if (subFile.isOpen) {
-        return subFile.subFileList.count;
+    ParentFileInfo *parentInfo = self.parentFileList[section];
+    if (parentInfo.fileInfo.isOpen) {
+        return parentInfo.subFileList.count;
     } else {
         return 0;
     }
@@ -122,8 +124,8 @@ UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    FileInfo *subFile = self.parentFileInfo.subFileList[indexPath.section];
-    FileInfo *subFileInfo = subFile.subFileList[indexPath.row];
+    ParentFileInfo *parentInfo = self.parentFileList[indexPath.section];
+    FileInfo *subFileInfo = parentInfo.subFileList[indexPath.row];
 
     MIHeaderTableViewCell *fileCell = [tableView dequeueReusableCellWithIdentifier:MIHeaderTableViewCellId];
     if (fileCell == nil) {
@@ -140,8 +142,8 @@ UITableViewDataSource
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    FileInfo *parentFileInfo = self.parentFileInfo.subFileList[indexPath.section];
-    FileInfo *subFileInfo = parentFileInfo.subFileList[indexPath.row];
+    ParentFileInfo *parentInfo = self.parentFileList[indexPath.section];
+    FileInfo *subFileInfo = parentInfo.subFileList[indexPath.row];
     _currentIndex = indexPath.row;
     // 任务管理二级文件夹
     if (self.delegate && [self.delegate respondsToSelector:@selector(secondSheetViewSecondLevelData:index:)]) {
@@ -153,9 +155,7 @@ UITableViewDataSource
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    
-    FileInfo *parentFileInfo = self.parentFileInfo.subFileList[section];
-    
+    ParentFileInfo *parentFileInfo = self.parentFileList[section];
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 60)];
     view.backgroundColor = [UIColor whiteColor];
     MIHeaderTableViewCell *headerView = [[[NSBundle mainBundle] loadNibNamed:@"MIHeaderTableViewCell" owner:self options:nil] lastObject];
@@ -173,26 +173,26 @@ UITableViewDataSource
     
     if (isParentFile) {
         
-        FileInfo *parentInfo = self.parentFileInfo.subFileList[indexPath.section];
-        if (self.parentFileInfo.subFileList.count == 0) {
-            parentInfo.isOpen = YES;
-        } else {
-            parentInfo.isOpen = !parentInfo.isOpen;
-        }
+        ParentFileInfo *parentInfo = self.parentFileList[indexPath.section];
         
+        if (parentInfo.subFileList.count == 0) {
+            parentInfo.fileInfo.isOpen = YES;
+        } else {
+            parentInfo.fileInfo.isOpen = !parentInfo.fileInfo.isOpen;
+        }
         // 点击一级文件夹，折叠其他文件夹
-        [self collapseFolders:parentInfo];
+        [self collapseFolders:parentInfo.fileInfo];
         
         _currentIndex = -1;
         [_tableView reloadData];
         
         if (self.delegate && [self.delegate respondsToSelector:@selector(secondSheetViewFirstLevelData:index:)]) {
             
-            [self.delegate secondSheetViewFirstLevelData:parentInfo index:indexPath.section];
+            [self.delegate secondSheetViewFirstLevelData:parentInfo.fileInfo index:indexPath.section];
         }
     } else {
         
-        FileInfo *parentFileInfo = self.parentFileInfo.subFileList[indexPath.section];
+        ParentFileInfo *parentFileInfo = self.parentFileList[indexPath.section];
         FileInfo *subFileInfo = parentFileInfo.subFileList[indexPath.row];
         _currentIndex = indexPath.row;
         [self.tableView reloadData];
@@ -211,13 +211,15 @@ UITableViewDataSource
         MIEidtFileView *editFileView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIEidtFileView class]) owner:nil options:nil].lastObject;
         WeakifySelf;
         editFileView.deleteCallback = ^{
-            if (indexPath.section < weakSelf.parentFileInfo.subFileList.count) {
-                [weakSelf deleteFile:weakSelf.parentFileInfo.subFileList[indexPath.section] indexPath:indexPath];
+            ParentFileInfo *parentFileInfo = weakSelf.parentFileList[indexPath.section];
+            if (indexPath.section < parentFileInfo.subFileList.count) {
+                [weakSelf deleteFile:parentFileInfo.fileInfo indexPath:indexPath];
             }
         };
         editFileView.renameCallBack = ^{
-            if (indexPath.section < weakSelf.parentFileInfo.subFileList.count) {
-                [weakSelf renameFileWithFileInfo:weakSelf.parentFileInfo.subFileList[indexPath.section]];
+            ParentFileInfo *parentFileInfo = weakSelf.parentFileList[indexPath.section];
+            if (indexPath.section < parentFileInfo.subFileList.count) {
+                [weakSelf renameFileWithFileInfo:parentFileInfo.fileInfo];
             }
         };
         editFileView.frame = [UIScreen mainScreen].bounds;
@@ -239,20 +241,20 @@ UITableViewDataSource
         WeakifySelf;
         editFileView.deleteCallback = ^{
             
-            if (indexPath.section < weakSelf.parentFileInfo.subFileList.count) {
-                FileInfo *parentInfo = weakSelf.parentFileInfo.subFileList[indexPath.section];
-                if (indexPath.row < parentInfo.subFileList.count) {
-                    FileInfo *subInfo = parentInfo.subFileList[indexPath.row];
+            if (indexPath.section < weakSelf.parentFileList.count) {
+                ParentFileInfo *parentFileInfo = weakSelf.parentFileList[indexPath.section];
+                if (indexPath.row < parentFileInfo.subFileList.count) {
+                    FileInfo *subInfo = parentFileInfo.subFileList[indexPath.row];
                     [weakSelf deleteFile:subInfo indexPath:indexPath];
                 }
             }
         };
         editFileView.renameCallBack = ^{
            
-            if (indexPath.section < weakSelf.parentFileInfo.subFileList.count) {
-                FileInfo *parentInfo = weakSelf.parentFileInfo.subFileList[indexPath.section];
-                if (indexPath.row < parentInfo.subFileList.count) {
-                    FileInfo *subInfo = parentInfo.subFileList[indexPath.row];
+            if (indexPath.section < weakSelf.parentFileList.count) {
+                ParentFileInfo *parentFileInfo = weakSelf.parentFileList[indexPath.section];
+                if (indexPath.row < parentFileInfo.subFileList.count) {
+                    FileInfo *subInfo = parentFileInfo.subFileList[indexPath.row];
                     [weakSelf renameFileWithFileInfo:subInfo];
                 }
             }
@@ -281,26 +283,10 @@ UITableViewDataSource
     WeakifySelf;
     createView.sureCallBack = ^(NSString * _Nullable name) {
         
-        // 新建二级子文件夹
-        FileInfo *parentFile = weakSelf.parentFileInfo.subFileList[index];
-        NSMutableArray *parentFileList = [NSMutableArray arrayWithArray:parentFile.subFileList];
-       
         FileInfo *fileInfo = [[FileInfo alloc] init];
-        fileInfo.fileName = @"新建二级文件夹";
+        fileInfo.fileName = name;
         fileInfo.depth = 2;
-        [parentFileList addObject:fileInfo];
-        parentFile.subFileList = (NSArray<FileInfo>*)parentFileList;
-        
-        // 添加二级文件夹后打开当前一级文件夹
-        parentFile.isOpen = YES;
-        [self collapseFolders:parentFile];
-        // 选中当前新建文件夹
-        weakSelf.currentIndex = parentFileList.count - 1;
-        [weakSelf.tableView reloadData];
-        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(secondSheetViewSecondLevelData:index:)]) {
-            
-            [weakSelf.delegate secondSheetViewSecondLevelData:fileInfo index:index];
-        }
+        [weakSelf requestCreateFilesWithFileDto:fileInfo];
     };
     createView.titleName = @"添加子文件夹";
     createView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
@@ -329,40 +315,23 @@ UITableViewDataSource
         
         // 新建一级文件夹
         FileInfo *fileInfo = [[FileInfo alloc] init];
-        fileInfo.fileName = @"新建一级文件夹";
-        static int index = 10;
-        index++;
-        fileInfo.fileId = index;
+        fileInfo.fileName = name;
         fileInfo.depth = 1;
-        NSMutableArray *fileList = [NSMutableArray arrayWithArray:weakSelf.parentFileInfo.subFileList];
-        [fileList addObject:fileInfo];
-        weakSelf.parentFileInfo.subFileList = (NSArray<FileInfo>*)fileList;
-        
-        // 添加一级文件夹后打开当前一级文件夹
-        fileInfo.isOpen = YES;
-        [weakSelf collapseFolders:fileInfo];
-        weakSelf.currentIndex = -1;
-        [weakSelf.tableView reloadData];
-        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(secondSheetViewFirstLevelData:index:)]) {
-            
-            [weakSelf.delegate secondSheetViewFirstLevelData:fileInfo index:weakSelf.parentFileInfo.subFileList.count - 1];
-        }
-//        [weakSelf requestCreateFilesWithFileDto:fileInfo];
+        [weakSelf requestCreateFilesWithFileDto:fileInfo];
     };
     createView.titleName = @"添加父级文件夹";
     createView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
     [[UIApplication sharedApplication].keyWindow addSubview:createView];
 }
 
-#pragma mark - 折叠其他文件夹
 - (void)collapseFolders:(FileInfo *)parentFileInfo{
     
     // 其他文件夹折叠
-    for (FileInfo *otherFileInfo in self.parentFileInfo.subFileList) {
+    for (ParentFileInfo *otherFileInfo in self.parentFileList) {
         
-        if (parentFileInfo.fileId != otherFileInfo.fileId) {
+        if (parentFileInfo.fileId != otherFileInfo.fileInfo.fileId) {
            
-            otherFileInfo.isOpen = NO;
+            otherFileInfo.fileInfo.isOpen = NO;
         }
     }
 }
@@ -377,21 +346,15 @@ UITableViewDataSource
             [HUD showErrorWithMessage:@"请先删除子文件夹"];
         } else {
             
-            NSMutableArray *fileInfoList = [NSMutableArray arrayWithArray:self.parentFileInfo.subFileList];
-            [fileInfoList removeObject:fileInfo];
-            self.parentFileInfo.subFileList = (NSArray<FileInfo>*)fileInfoList;
-            [self.tableView reloadData];
+            ParentFileInfo *parentInfo = self.parentFileList[indexPath.section];
+            [self requestDelFilesWithFileInfo:parentInfo.fileInfo];
         }
         
     } else if (fileInfo.depth == 2) {
         // 判断是否有任务，有任务先清空任务列表
-        FileInfo *parentInfo = self.parentFileInfo.subFileList[indexPath.section];
-        NSMutableArray *fileInfoList = [NSMutableArray arrayWithArray:parentInfo.subFileList];
-        if (fileInfoList.count > indexPath.row) {
-            [fileInfoList removeObjectAtIndex:indexPath.row];
-        }
-        parentInfo.subFileList = (NSArray<FileInfo>*)fileInfoList;
-        [self.tableView reloadData];
+        ParentFileInfo *parentInfo = self.parentFileList[indexPath.section];
+        FileInfo *subFileInfo = parentInfo.subFileList[indexPath.row];
+        [self requestDelFilesWithFileInfo:subFileInfo];
     }
 }
 
@@ -404,7 +367,7 @@ UITableViewDataSource
         
         // 一级文件夹
         fileInfo.fileName = name;
-        [weakSelf.tableView reloadData];
+        [weakSelf requestCreateFilesWithFileDto:fileInfo];
     };
     createView.titleName = @"编辑文件名";
     createView.fileName = fileInfo.fileName;
@@ -414,53 +377,90 @@ UITableViewDataSource
 
 - (void)updateFileListInfo{
     
-    self.parentFileInfo = [[ParentFileInfo alloc] init];
-   
-    FileInfo *fileInfo = [[FileInfo alloc] init];
-    fileInfo.fileName = @"一级文件夹";
-    fileInfo.fileId = 0;
-    fileInfo.depth = 0;
-    
-    FileInfo *fileInfo1 = [[FileInfo alloc] init];
-    fileInfo1.fileName = @"一级文件夹1";
-    fileInfo1.fileId = 1;
-    fileInfo1.depth = 1;
-    
-    
-    FileInfo *fileInfo3 = [[FileInfo alloc] init];
-    fileInfo3.fileName = @"二级级文件夹2";
-    fileInfo3.fileId = 3;
-    fileInfo3.depth = 2;
-    fileInfo1.subFileList = (NSArray<FileInfo> *)@[fileInfo3];
-    
-    FileInfo *fileInfo2 = [[FileInfo alloc] init];
-    fileInfo2.fileName = @"一级文件夹2";
-    fileInfo2.fileId = 2;
-    fileInfo2.depth = 1;
-    
-    
-    
-    self.parentFileInfo.subFileList =(NSArray<FileInfo> *)@[fileInfo1,fileInfo2];
-//    [self requestGetParentFilesInfo];
-    [_tableView reloadData];
+    [self requestGetParentFilesInfo];
 }
 
 #pragma mark - 获取文件夹列表
 - (void)requestGetParentFilesInfo{
-   
     // 获取一级文件夹列表
+    WeakifySelf;
     [ManagerServce requestGetFilesWithFileId:0 callback:^(Result *result, NSError *error) {
+    
         if (error) return ;
-        
+        NSDictionary *dict = (NSDictionary *)(result.userInfo);
+        NSArray *fileInfoList = (NSArray *)(dict[@"list"]);
+        [weakSelf.parentFileList removeAllObjects];
+        [weakSelf.parentFileList addObjectsFromArray:fileInfoList];
+        [weakSelf.tableView reloadData];
     }];
 }
+
 - (void)requestCreateFilesWithFileDto:(FileInfo *)fileInfo{
 
-    // 获取一级文件夹列表
+    if (fileInfo.fileName.length == 0) {
+        [HUD showErrorWithMessage:@"文件夹名称不能为空"];
+        return;
+    }
+    // 创建一级文件夹列表
+    WeakifySelf;
     [ManagerServce requestCreateFilesWithFileDto:fileInfo callback:^(Result *result, NSError *error) {
-        
+        if (error) {
+            [HUD showWithMessage:@"创建失败"];
+            return ;
+        } else {
+           
+            if (fileInfo.depth == 1) {
+//
+//                NSMutableArray *fileList = [NSMutableArray arrayWithArray:weakSelf.parentFileInfo.subFileList];
+//                [fileList addObject:fileInfo];
+//                weakSelf.parentFileInfo.subFileList = (NSArray<FileInfo>*)fileList;
+//                // 添加一级文件夹后打开当前一级文件夹
+//                fileInfo.isOpen = YES;
+//                [weakSelf collapseFolders:fileInfo];
+//                weakSelf.currentIndex = -1;
+//                [weakSelf.tableView reloadData];
+//                if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(secondSheetViewFirstLevelData:index:)]) {
+//
+//                    [weakSelf.delegate secondSheetViewFirstLevelData:fileInfo index:weakSelf.parentFileInfo.subFileList.count - 1];
+//                }
+            } else {
+                
+//                // 新建二级子文件夹
+//                FileInfo *parentFile = weakSelf.parentFileInfo.subFileList[index];
+//                NSMutableArray *parentFileList = [NSMutableArray arrayWithArray:parentFile.subFileList];
+//                [parentFileList addObject:fileInfo];
+//                parentFile.subFileList = (NSArray<FileInfo>*)parentFileList;
+//
+//                // 添加二级文件夹后打开当前一级文件夹
+//                parentFile.isOpen = YES;
+//                [self collapseFolders:parentFile];
+//                // 选中当前新建文件夹
+//                weakSelf.currentIndex = parentFileList.count - 1;
+//                [weakSelf.tableView reloadData];
+//                if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(secondSheetViewSecondLevelData:index:)]) {
+//
+//                    [weakSelf.delegate secondSheetViewSecondLevelData:fileInfo index:index];
+//                }
+            }
+            [HUD showWithMessage:@"创建成功"];
+            [weakSelf requestGetParentFilesInfo];
+        }
     }];
 }
 
+
+- (void)requestDelFilesWithFileInfo:(FileInfo *)fileInfo{
+   
+    WeakifySelf;
+    [ManagerServce requestDelFilesWithFileId:fileInfo.fileId callback:^(Result *result, NSError *error) {
+        if (error) {
+            [HUD showWithMessage:@"删除失败"];
+            return ;
+        } else {
+            [HUD showWithMessage:@"删除成功"];
+            [weakSelf requestGetParentFilesInfo];
+        }
+    }];
+}
 
 @end

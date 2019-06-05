@@ -35,8 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic , assign) id<HeaderViewDelegate> delegate;
 
-- (void)setupFilesWithFileInfo:(FileInfo *)fileInfo indexPath:(NSIndexPath *)indexPath isParentFile:(NSInteger)isParentFile selected:(BOOL)selected;
-
+- (void)setupFilesWithFileInfo:(id)fileInfo indexPath:(NSIndexPath *)indexPath isParentFile:(NSInteger)isParentFile selected:(BOOL)selected;
 @end
 
 NS_ASSUME_NONNULL_END

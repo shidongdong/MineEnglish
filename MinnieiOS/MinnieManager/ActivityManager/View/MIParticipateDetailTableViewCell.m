@@ -37,12 +37,16 @@ NSString * const MIParticipateDetailTableViewCellId = @"MIParticipateDetailTable
     self.bgImageView.layer.cornerRadius = 20.0;
 }
 
-- (void)setupWithModel:(MIParticipateModel *)model{
+- (void)setupWithModel:(MIParticipateModel *_Nullable)model{
     
+    [self.bgImageView sd_setImageWithURL:[@"http://file.zhengminyi.com/mBa6QMBfbOttwEAqplMNPoD.mp4" videoCoverUrlWithWidth:90.f height:90.f] placeholderImage:[UIImage imageNamed:@"attachment_placeholder"]];
 }
 
 - (IBAction)playVideoAction:(id)sender {
     
+    if (self.playVideoCallback) {
+        self.playVideoCallback();
+    }
 }
 
 - (IBAction)unqualifiedAction:(id)sender {

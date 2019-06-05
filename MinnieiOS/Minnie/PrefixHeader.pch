@@ -57,6 +57,13 @@
 #import "UIColor+HEX.h"
 #import "NSString+Qiniu.h"
 #import <Masonry/Masonry.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+
+
+#define kRootModularWidth           90.f
+#define kActivitySheetWidth         204.f
+#define kFolderModularWidth         204.f
+
 
 typedef NS_ENUM(NSInteger, MIHomeworkCreateContentType) {
     

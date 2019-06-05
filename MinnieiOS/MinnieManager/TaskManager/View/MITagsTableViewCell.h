@@ -1,0 +1,37 @@
+//
+//  MITagsTableViewCell.h
+//  MinnieManager
+//
+//  Created by songzhen on 2019/6/5.
+//  Copyright © 2019 minnieedu. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "HomeworkTagsTableViewCell.h"
+
+typedef void(^MITagsTableViewCellManageCallback)(void);
+typedef void(^MITagsTableViewCellSelectCallback)(NSString *_Nullable);
+
+extern NSString * _Nullable const MITagsTableViewCellId;
+
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface MITagsTableViewCell : UITableViewCell
+
+@property (nonatomic, copy) MITagsTableViewCellSelectCallback selectCallback;
+@property (nonatomic, copy) MITagsTableViewCellManageCallback manageCallback;
+
+@property (nonatomic, assign) HomeworkTagsTableViewCellSelectType type; //选择状态
+
+
+- (void)setupWithTags:(NSArray <NSString *> *)tags
+         selectedTags:(NSArray <NSString *> *)selectedTags
+            typeTitle:(NSString *)title;
+
++ (CGFloat)heightWithTags:(NSArray <NSString *> *)tags;
+
+@end
+
+
+NS_ASSUME_NONNULL_END

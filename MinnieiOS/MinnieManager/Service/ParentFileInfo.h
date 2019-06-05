@@ -28,7 +28,7 @@
 // 父文件夹id
 @property (nonatomic ,assign) NSInteger parentId;
 
-// 文件夹深度
+// 文件夹深度 1一级文件夹 2二级文件夹
 @property (nonatomic ,assign) NSInteger depth;
 
 // 本地使用

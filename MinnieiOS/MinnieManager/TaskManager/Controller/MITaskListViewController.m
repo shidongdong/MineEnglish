@@ -659,16 +659,6 @@ VIResourceLoaderManagerDelegate
 
 - (void)goToCreateTaskWithType:(MIHomeworkTaskType)type{
     
-//    MICreateHomeworkTaskView *createTaskView =  [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MICreateHomeworkTaskView class]) owner:nil options:nil].lastObject;
-//    createTaskView.frame = [UIScreen mainScreen].bounds;
-//    WeakifySelf;
-//    createTaskView.callBack = ^{
-//
-//        [weakSelf requestHomeworks];
-//    };
-//    [createTaskView setupCreateHomework:nil taskType:type];
-//    [[UIApplication sharedApplication].keyWindow addSubview:createTaskView];
-    
     MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] init];
     [createVC setupCreateHomework:nil taskType:type];
     WeakifySelf;

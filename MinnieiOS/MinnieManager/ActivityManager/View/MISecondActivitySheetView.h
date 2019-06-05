@@ -10,9 +10,6 @@
 #import <UIKit/UIKit.h>
 #import "MIActivityModel.h"
 
-#define kActivitySheetWidth         204.f
-
-
 @protocol MISecondActivitySheetViewDelegate <NSObject>
 
 // 点击活动列表

@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "MIParticipateModel.h"
 
+typedef void(^MIPlayVideoCallback)(void);
+
 extern CGFloat const MIParticipateDetailTableViewCellHeight;
 
 extern NSString * _Nullable const MIParticipateDetailTableViewCellId;
@@ -18,7 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MIParticipateDetailTableViewCell : UITableViewCell
 
-- (void)setupWithModel:(MIParticipateModel *)model;
+@property (nonatomic, copy) MIPlayVideoCallback playVideoCallback;
+
+- (void)setupWithModel:(MIParticipateModel *_Nullable)model;
 
 @end
 

@@ -24,7 +24,7 @@
 + (BaseRequest *)requestGetFilesWithFileId:(NSInteger)fileId callback:(RequestCallback)callback{
     
     GetFilesRequest * request = [[GetFilesRequest alloc] initWithFileId:fileId];
-//    request.objectKey = @"list";
+    request.objectKey = @"list";
     request.objectClassName = @"ParentFileInfo";
     [request setCallback:callback];
     [request start];
