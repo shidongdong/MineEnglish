@@ -10,4 +10,6 @@
 
 @interface HomeWorkSendHistoryViewController : BaseViewController
 
+@property (nonatomic, assign) BOOL hiddenBackBtn;
+
 @end

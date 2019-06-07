@@ -27,8 +27,8 @@ UITableViewDataSource
 
 // 当前选中的二级文件夹 -1为未选中任何文件夹
 @property (nonatomic,assign) NSInteger currentIndex;
-
-//@property (nonatomic, strong) ParentFileInfo *parentFileInfo;
+// 当前展开一级文件 id -1为未展开任何文件夹
+@property (nonatomic,assign) NSInteger currentParentFileId;
 
 @property (nonatomic, strong) NSMutableArray *parentFileList;
 @end
@@ -39,8 +39,8 @@ UITableViewDataSource
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
         _currentIndex = -1;
+        _currentParentFileId = -1;
         self.parentFileList = [NSMutableArray array];
         [self configureUI];
     }
@@ -138,21 +138,6 @@ UITableViewDataSource
     return fileCell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    ParentFileInfo *parentInfo = self.parentFileList[indexPath.section];
-    FileInfo *subFileInfo = parentInfo.subFileList[indexPath.row];
-    _currentIndex = indexPath.row;
-    // 任务管理二级文件夹
-    if (self.delegate && [self.delegate respondsToSelector:@selector(secondSheetViewSecondLevelData:index:)]) {
-        
-        [self.delegate secondSheetViewSecondLevelData:subFileInfo index:indexPath.row];
-    }
-    [tableView reloadData];
-}
-
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     ParentFileInfo *parentFileInfo = self.parentFileList[section];
@@ -167,8 +152,23 @@ UITableViewDataSource
     [view addSubview:headerView];
     return view;
 }
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//
+//    ParentFileInfo *parentInfo = self.parentFileList[indexPath.section];
+//    FileInfo *subFileInfo = parentInfo.subFileList[indexPath.row];
+//    _currentIndex = indexPath.row;
+//    // 任务管理二级文件夹
+//    if (self.delegate && [self.delegate respondsToSelector:@selector(secondSheetViewSecondLevelData:index:)]) {
+//
+//        [self.delegate secondSheetViewSecondLevelData:subFileInfo index:indexPath.row];
+//    }
+//    [tableView reloadData];
+//}
 
-#pragma mark -  HeaderViewDelegate  一级文件展开折叠
+
+#pragma mark -  HeaderViewDelegate  一级、二级文件展开折叠
 - (void)headerViewDidCellClicked:(NSIndexPath *)indexPath isParentFile:(BOOL)isParentFile{
     
     if (isParentFile) {
@@ -180,15 +180,20 @@ UITableViewDataSource
         } else {
             parentInfo.fileInfo.isOpen = !parentInfo.fileInfo.isOpen;
         }
-        // 点击一级文件夹，折叠其他文件夹
-        [self collapseFolders:parentInfo.fileInfo];
-        
+        if (parentInfo.fileInfo.isOpen) {
+            self.currentParentFileId = parentInfo.fileInfo.fileId;
+        } else {
+            self.currentParentFileId = -1;
+        }
+        // 处理折叠文件夹
+        [self collapseFolders];
+        // 一级文件展开、折叠，不选中二级文件夹
         _currentIndex = -1;
         [_tableView reloadData];
         
         if (self.delegate && [self.delegate respondsToSelector:@selector(secondSheetViewFirstLevelData:index:)]) {
             
-            [self.delegate secondSheetViewFirstLevelData:parentInfo.fileInfo index:indexPath.section];
+            [self.delegate secondSheetViewFirstLevelData:parentInfo index:indexPath.section];
         }
     } else {
         
@@ -203,15 +208,17 @@ UITableViewDataSource
         }
     }
 }
+#pragma mark - 长按编辑文件夹
 - (void)headerViewEditFileClicked:(NSIndexPath *_Nullable)indexPath isParentFile:(BOOL)isParentFile{
     
-    // 长按一级文件夹
+    // 一级文件夹
     if (isParentFile) {
         
         MIEidtFileView *editFileView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIEidtFileView class]) owner:nil options:nil].lastObject;
         WeakifySelf;
         editFileView.deleteCallback = ^{
             ParentFileInfo *parentFileInfo = weakSelf.parentFileList[indexPath.section];
+                weakSelf.currentParentFileId = -1;
             if (indexPath.section < parentFileInfo.subFileList.count) {
                 [weakSelf deleteFile:parentFileInfo.fileInfo indexPath:indexPath];
             }
@@ -227,7 +234,7 @@ UITableViewDataSource
         // header位置
         CGRect rectInTableView = [self.tableView rectForHeaderInSection:indexPath.section];
         CGRect rect = [self.tableView convertRect:rectInTableView toView:[self.tableView superview]];
-        CGFloat editViewY = CGRectGetMidY(rect) - 85;
+        CGFloat editViewY = CGRectGetMidY(rect) - 70;
         
         if (editViewY >= [UIScreen mainScreen].bounds.size.height - 120) {
             editViewY = [UIScreen mainScreen].bounds.size.height - 120;
@@ -265,7 +272,7 @@ UITableViewDataSource
         
         CGRect rectInTableView = [self.tableView rectForRowAtIndexPath:indexPath];
         CGRect rect = [self.tableView convertRect:rectInTableView toView:[self.tableView superview]];
-        CGFloat editViewY = CGRectGetMidY(rect) - 85;
+        CGFloat editViewY = CGRectGetMidY(rect) - 70;
         
         if (editViewY >= [UIScreen mainScreen].bounds.size.height - 120) {
             editViewY = [UIScreen mainScreen].bounds.size.height - 120;
@@ -286,7 +293,7 @@ UITableViewDataSource
         FileInfo *fileInfo = [[FileInfo alloc] init];
         fileInfo.fileName = name;
         fileInfo.depth = 2;
-        [weakSelf requestCreateFilesWithFileDto:fileInfo];
+        [weakSelf requestCreateFilesWithFileDto:fileInfo isEidt:NO];
     };
     createView.titleName = @"添加子文件夹";
     createView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
@@ -317,21 +324,24 @@ UITableViewDataSource
         FileInfo *fileInfo = [[FileInfo alloc] init];
         fileInfo.fileName = name;
         fileInfo.depth = 1;
-        [weakSelf requestCreateFilesWithFileDto:fileInfo];
+        [weakSelf requestCreateFilesWithFileDto:fileInfo isEidt:NO];
     };
     createView.titleName = @"添加父级文件夹";
     createView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
     [[UIApplication sharedApplication].keyWindow addSubview:createView];
 }
 
-- (void)collapseFolders:(FileInfo *)parentFileInfo{
+#pragma mark  展开当前文件夹,折叠其他文件
+- (void)collapseFolders{
     
     // 其他文件夹折叠
     for (ParentFileInfo *otherFileInfo in self.parentFileList) {
         
-        if (parentFileInfo.fileId != otherFileInfo.fileInfo.fileId) {
+        if (self.currentParentFileId != otherFileInfo.fileInfo.fileId) {
            
             otherFileInfo.fileInfo.isOpen = NO;
+        } else {
+            otherFileInfo.fileInfo.isOpen = YES;
         }
     }
 }
@@ -341,12 +351,12 @@ UITableViewDataSource
     
     if (fileInfo.depth == 1) {
         
-        if (fileInfo.subFileList.count) {
+        ParentFileInfo *parentInfo = self.parentFileList[indexPath.section];
+        if (parentInfo.subFileList.count) {
             
             [HUD showErrorWithMessage:@"请先删除子文件夹"];
         } else {
-            
-            ParentFileInfo *parentInfo = self.parentFileList[indexPath.section];
+        
             [self requestDelFilesWithFileInfo:parentInfo.fileInfo];
         }
         
@@ -365,9 +375,8 @@ UITableViewDataSource
     WeakifySelf;
     createView.sureCallBack = ^(NSString * _Nullable name) {
         
-        // 一级文件夹
         fileInfo.fileName = name;
-        [weakSelf requestCreateFilesWithFileDto:fileInfo];
+        [weakSelf requestCreateFilesWithFileDto:fileInfo isEidt:YES];
     };
     createView.titleName = @"编辑文件名";
     createView.fileName = fileInfo.fileName;
@@ -377,6 +386,8 @@ UITableViewDataSource
 
 - (void)updateFileListInfo{
     
+    self.currentIndex = -1;
+    self.currentParentFileId = -1;
     [self requestGetParentFilesInfo];
 }
 
@@ -391,11 +402,12 @@ UITableViewDataSource
         NSArray *fileInfoList = (NSArray *)(dict[@"list"]);
         [weakSelf.parentFileList removeAllObjects];
         [weakSelf.parentFileList addObjectsFromArray:fileInfoList];
+        [weakSelf collapseFolders];
         [weakSelf.tableView reloadData];
     }];
 }
 
-- (void)requestCreateFilesWithFileDto:(FileInfo *)fileInfo{
+- (void)requestCreateFilesWithFileDto:(FileInfo *)fileInfo isEidt:(BOOL)isEdit{
 
     if (fileInfo.fileName.length == 0) {
         [HUD showErrorWithMessage:@"文件夹名称不能为空"];
@@ -405,44 +417,27 @@ UITableViewDataSource
     WeakifySelf;
     [ManagerServce requestCreateFilesWithFileDto:fileInfo callback:^(Result *result, NSError *error) {
         if (error) {
-            [HUD showWithMessage:@"创建失败"];
+            if (isEdit) {
+                [HUD showWithMessage:@"编辑失败"];
+            } else {
+                [HUD showWithMessage:@"创建失败"];
+            }
             return ;
         } else {
            
             if (fileInfo.depth == 1) {
-//
-//                NSMutableArray *fileList = [NSMutableArray arrayWithArray:weakSelf.parentFileInfo.subFileList];
-//                [fileList addObject:fileInfo];
-//                weakSelf.parentFileInfo.subFileList = (NSArray<FileInfo>*)fileList;
-//                // 添加一级文件夹后打开当前一级文件夹
-//                fileInfo.isOpen = YES;
-//                [weakSelf collapseFolders:fileInfo];
-//                weakSelf.currentIndex = -1;
-//                [weakSelf.tableView reloadData];
-//                if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(secondSheetViewFirstLevelData:index:)]) {
-//
-//                    [weakSelf.delegate secondSheetViewFirstLevelData:fileInfo index:weakSelf.parentFileInfo.subFileList.count - 1];
-//                }
-            } else {
-                
-//                // 新建二级子文件夹
-//                FileInfo *parentFile = weakSelf.parentFileInfo.subFileList[index];
-//                NSMutableArray *parentFileList = [NSMutableArray arrayWithArray:parentFile.subFileList];
-//                [parentFileList addObject:fileInfo];
-//                parentFile.subFileList = (NSArray<FileInfo>*)parentFileList;
-//
-//                // 添加二级文件夹后打开当前一级文件夹
-//                parentFile.isOpen = YES;
-//                [self collapseFolders:parentFile];
-//                // 选中当前新建文件夹
-//                weakSelf.currentIndex = parentFileList.count - 1;
-//                [weakSelf.tableView reloadData];
-//                if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(secondSheetViewSecondLevelData:index:)]) {
-//
-//                    [weakSelf.delegate secondSheetViewSecondLevelData:fileInfo index:index];
-//                }
+                if (fileInfo.isOpen) {
+                    
+                    weakSelf.currentParentFileId =fileInfo.fileId;
+                } else {
+                    weakSelf.currentParentFileId = -1;
+                }
             }
-            [HUD showWithMessage:@"创建成功"];
+            if (isEdit) {
+                [HUD showWithMessage:@"编辑成功"];
+            } else {
+                [HUD showWithMessage:@"创建成功"];
+            }
             [weakSelf requestGetParentFilesInfo];
         }
     }];

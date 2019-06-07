@@ -85,8 +85,10 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)sendButtonPressed:(id)sender {
-    if (self.homeworks.count == 0) { // 说明是发送消息的
+- (IBAction)sendButtonPressed:(id)sender{
+    
+    if (_isCreateActivityTask) {
+        
         if (self.studentSelectorChildController.selectedStudents.count > 0 &&
             [self.delegate respondsToSelector:@selector(studentsDidSelect:)]) {
             [self.delegate studentsDidSelect:self.studentSelectorChildController.selectedStudents];
@@ -96,32 +98,48 @@
             [self.delegate respondsToSelector:@selector(classesDidSelect:)]) {
             [self.delegate classesDidSelect:self.classSelectorChildController.selectedClasses];
         }
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        if (self.homeworks.count == 0) { // 说明是发送消息的
+            if (self.studentSelectorChildController.selectedStudents.count > 0 &&
+                [self.delegate respondsToSelector:@selector(studentsDidSelect:)]) {
+                [self.delegate studentsDidSelect:self.studentSelectorChildController.selectedStudents];
+            }
+            
+            if (self.classSelectorChildController.selectedClasses.count > 0 &&
+                [self.delegate respondsToSelector:@selector(classesDidSelect:)]) {
+                [self.delegate classesDidSelect:self.classSelectorChildController.selectedClasses];
+            }
+            
+            return;
+        }
         
-        return;
-    }
-    
-    if (self.teachers.count == 0) {
-        [self requestTeachers];
+        if (self.teachers.count == 0) {
+            [self requestTeachers];
+            
+            return;
+        }
         
-        return;
+        WeakifySelf;
+        [SelectTeacherView showInSuperView:self.view
+                                  teachers:self.teachers
+                                  callback:^(Teacher *teacher, NSDate *date) {
+                                      
+                                      [SelectTeacherView hideAnimated:NO];
+                                      //                                  [weakSelf sendHomeworkWithTeacher:teacher date:date];
+                                      
+                                      HomeworkConfirmViewController *vc = [[HomeworkConfirmViewController alloc] init];
+                                      vc.classes = weakSelf.classSelectorChildController.selectedClasses;
+                                      vc.homeworks = weakSelf.homeworks;
+                                      vc.students = weakSelf.studentSelectorChildController.selectedStudents;
+                                      vc.teacher = teacher;
+                                      [weakSelf.navigationController presentViewController:vc animated:YES completion:nil];
+                                  }];
     }
-    
-    WeakifySelf;
-    [SelectTeacherView showInSuperView:self.view
-                              teachers:self.teachers
-                              callback:^(Teacher *teacher, NSDate *date) {
-                                
-                                  [SelectTeacherView hideAnimated:NO];
-//                                  [weakSelf sendHomeworkWithTeacher:teacher date:date];
-                                  
-                                  HomeworkConfirmViewController *vc = [[HomeworkConfirmViewController alloc] init];
-                                  vc.classes = weakSelf.classSelectorChildController.selectedClasses;
-                                  vc.homeworks = weakSelf.homeworks;
-                                  vc.students = weakSelf.studentSelectorChildController.selectedStudents;
-                                  vc.teacher = teacher;
-                                  [weakSelf.navigationController presentViewController:vc animated:YES completion:nil];
-                              }];
 }
+
+
+
 
 #pragma mark - Private Method
 

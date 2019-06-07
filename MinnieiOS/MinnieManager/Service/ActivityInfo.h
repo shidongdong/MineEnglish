@@ -15,6 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface StringObj : MTLModel<MTLJSONSerializing>
+
+@end
+
 @interface ActivityInfo : MTLModel<MTLJSONSerializing>
 
 // 返回目录id
@@ -23,8 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic ,copy) NSString *title;
 // 活动材料，相当于附件
 @property (nonatomic ,strong) NSArray<HomeworkItem*> *items;
-// 活动材料，相当于附件
-@property (nonatomic ,strong) HomeworkItem *coverItems;
+//// 活动材料，相当于附件
+//@property (nonatomic ,strong) HomeworkItem *coverItems;
 // 创建时间，XXXX-xx-XX XX-XX-xx
 @property (nonatomic ,copy) NSString *createTime;
 // 提交的次数:1/2/3/4
@@ -40,11 +44,11 @@ NS_ASSUME_NONNULL_BEGIN
 // 学生id列表
 @property (nonatomic ,strong) NSArray *studentIds;
 // 班级id列表
-@property (nonatomic ,copy) NSString *classIds;
+@property (nonatomic ,copy) NSArray *classIds;
 // 学生姓名列表跟studentIds对应
-@property (nonatomic ,copy) NSString *studentNames;
+@property (nonatomic ,copy) NSArray *studentNames;
 // 班级名称列表跟classIds对应
-@property (nonatomic ,copy) NSString *classNames;
+@property (nonatomic ,copy) NSArray *classNames;
 // 状态，0未开始，1正在进行中，2已结束
 @property (nonatomic ,assign) NSInteger status;
 
@@ -68,6 +72,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic ,copy) NSString *nickName;
 // 0:待审核；1合格；2不合格
 @property (nonatomic ,assign) NSInteger isOk;
+
+@property (nonatomic ,assign) NSInteger actId;
 
 @end
 

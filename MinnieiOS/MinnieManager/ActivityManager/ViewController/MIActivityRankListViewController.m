@@ -6,6 +6,8 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
+#import "Result.h"
+#import "UIView+Load.h"
 #import "ManagerServce.h"
 #import "MICreateHomeworkTaskView.h"
 #import "MICreateTaskViewController.h"
@@ -24,7 +26,8 @@ UITableViewDataSource
 @property (weak, nonatomic) IBOutlet UIButton *editBtn;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 
-@property (strong, nonatomic) NSMutableArray *participateArray;
+@property (strong, nonatomic) NSMutableArray *okRankArray;
+@property (strong, nonatomic) NSMutableArray *checkRankArray;
 
 @property (assign, nonatomic) NSInteger currentActivityIndex;
 
@@ -40,7 +43,8 @@ UITableViewDataSource
 
 - (void)configureUI{
     self.view.backgroundColor = [UIColor bgColor];
-    self.participateArray = [NSMutableArray array];
+    self.okRankArray = [NSMutableArray array];
+    self.checkRankArray = [NSMutableArray array];
   
     UIView *footrView = [[UIView alloc] init];
     footrView.backgroundColor = [UIColor clearColor];
@@ -48,60 +52,96 @@ UITableViewDataSource
     _tableView.cellLayoutMarginsFollowReadableWidth = NO;
 }
 
+#pragma mark -
+- (void)requestGetActivityRankList{
+    WeakifySelf;
+    self.tableView.hidden = YES;
+    [self.view showLoadingView];
+    [ManagerServce requestGetActivityRankListWithActId:self.curActInfo.activityId callback:^(Result *result, NSError *error) {
+        
+        [weakSelf.view hideAllStateView];
+        if (error) {
+            WeakifySelf;
+            
+            weakSelf.tableView.hidden = YES;
+            weakSelf.headerView.hidden = YES;
+            [weakSelf.view showFailureViewWithRetryCallback:^{
+                [weakSelf requestGetActivityRankList];
+            }];
+            return ;
+        }
+        
+        ActivityRankListInfo * rankListInfo= (ActivityRankListInfo *)(result.userInfo);
+        [weakSelf.okRankArray removeAllObjects];
+        [weakSelf.okRankArray addObjectsFromArray:rankListInfo.okRank];
+        [weakSelf.checkRankArray removeAllObjects];
+        [weakSelf.checkRankArray addObjectsFromArray:rankListInfo.checkRank];
+        
+        if (weakSelf.okRankArray.count + weakSelf.checkRankArray.count == 0) {// 无数据
+            
+            weakSelf.tableView.hidden = YES;
+            weakSelf.headerView.hidden = NO;
+            [weakSelf.view showEmptyViewWithImage:[UIImage imageNamed:@"缺省插画_无作业"] title:@"暂无排行数据" centerYOffset:0 linkTitle:0 linkClickCallback:nil retryCallback:^{
+                [weakSelf requestGetActivityRankList];
+            }];
+        } else {
+            weakSelf.tableView.hidden = NO;
+            weakSelf.headerView.hidden = NO;
+        }
+        [self.tableView reloadData];
+    }];
+}
+
+#pragma mark - 编辑活动
+- (IBAction)editActivityAction:(id)sender {
+    
+    WeakifySelf;
+    MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] init];
+    [createVC setupCreateActivity:self.curActInfo];
+    createVC.callBack = ^(BOOL isDelete) {
+        if (isDelete) {
+            self.currentActivityIndex = -1;
+        }
+        if (weakSelf.callback) {
+            
+            weakSelf.callback(self.currentActivityIndex);
+        }
+    };
+    [self.navigationController pushViewController:createVC animated:YES];
+}
+
+#pragma mark - 新建活动
+- (void)createActivity{
+    MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] init];
+    [createVC setupCreateActivity:nil];
+    WeakifySelf;
+    createVC.callBack = ^(BOOL isDelete) {
+        if (weakSelf.callback) {
+            
+            weakSelf.callback(-1);
+        }
+    };
+    [self.navigationController pushViewController:createVC animated:YES];
+}
+
+
 - (void)updateRankListWithActivityModel:(ActivityInfo *_Nullable)model index:(NSInteger)currentIndex{
-   
+    
     self.curActInfo = model;
     self.currentActivityIndex =  currentIndex;
-    
-    [self.participateArray removeAllObjects];
-    
-    ActivityRankInfo *listInfo = [[ActivityRankInfo alloc] init];
-    listInfo.nickName = @"哈哈哈哈";
-    [self.participateArray addObject:listInfo];
-    //请求排名列表
-    if (self.participateArray.count) {
+    if (model) {
         
-        self.tableView.hidden = NO;
-        self.headerView.hidden = NO;
+        [self requestGetActivityRankList];
     } else {
         self.tableView.hidden = YES;
         self.headerView.hidden = YES;
     }
-    [self.tableView reloadData];
-}
-
-#pragma mark -
-- (void)request{
-    
-    [ManagerServce requestGetActivityRankListWithActId:self.curActInfo.activityId callback:^(Result *result, NSError *error) {
-        
-    }];
-}
-
-- (IBAction)editActivityAction:(id)sender {
-    
-//    MICreateHomeworkTaskView *createTaskView =  [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MICreateHomeworkTaskView class]) owner:nil options:nil].lastObject;
-//    createTaskView.frame = [UIScreen mainScreen].bounds;
-//    WeakifySelf;
-//    createTaskView.callBack = ^{
-//
-//        if (weakSelf.callback) {
-//
-//            weakSelf.callback(weakSelf.currentActivityIndex);
-//        }
-//    };
-//    [createTaskView setupCreateHomework:nil taskType:MIHomeworkTaskType_Activity];
-//    [[UIApplication sharedApplication].keyWindow addSubview:createTaskView];
-    
-    MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] init];
-    [createVC setupCreateHomework:nil taskType:MIHomeworkTaskType_Activity];
-    [self.navigationController pushViewController:createVC animated:YES];
 }
 
 #pragma mark -
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return self.participateArray.count;
+    return self.okRankArray.count + self.checkRankArray.count;
 }
 
 
@@ -116,8 +156,14 @@ UITableViewDataSource
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIActivityRankListTableViewCell class]) owner:nil options:nil] lastObject];
     }
-    ActivityRankInfo *model = self.participateArray[indexPath.row];
-    [cell setupWithModel:model index:indexPath.row];
+    if (indexPath.row < self.okRankArray.count) {
+        ActivityRankInfo *model = self.okRankArray[indexPath.row];
+        [cell setupWithModel:model index:indexPath.row + 1];
+    } else {
+        
+        ActivityRankInfo *model = self.checkRankArray[indexPath.row - self.okRankArray.count];
+        [cell setupWithModel:model index:0];
+    }
     return cell;
 }
 
@@ -130,4 +176,12 @@ UITableViewDataSource
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
+
+- (ActivityInfo *)curActInfo{
+    
+    if (!_curActInfo) {
+        _curActInfo = [[ActivityInfo alloc] init];
+    }
+    return _curActInfo;
+}
 @end

@@ -94,7 +94,7 @@ MISecondActivitySheetViewDelegate
         
         SettingsViewController *settingsVC = [[SettingsViewController alloc] initWithNibName:NSStringFromClass([SettingsViewController class]) bundle:nil];
         [settingsVC setHidesBottomBarWhenPushed:YES];
-        settingsVC.backBtn.hidden = YES;
+        settingsVC.hiddenBackBtn = YES;
         if ([detailVC isKindOfClass:[MIStockDetailViewController class]]) {
             [(MIStockDetailViewController *)detailVC addSubViewController:settingsVC];
         }
@@ -108,7 +108,7 @@ MISecondActivitySheetViewDelegate
         if ([detailVC isKindOfClass:[MIStockDetailViewController class]]) {
             [(MIStockDetailViewController *)detailVC addSubViewController:self.taskListVC];
         }
-        [self.taskListVC showTaskListWithFoldInfo:nil];
+        [self.taskListVC showTaskListWithFoldInfo:nil folderIndex:-1];
         [_secondSheetView updateFileListInfo];
     } else if (index == 3) { // 活动管理
         
@@ -137,15 +137,14 @@ MISecondActivitySheetViewDelegate
     [self.customSplitViewController setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
    
     HomeWorkSendHistoryViewController * historyHomeworkVC = [[HomeWorkSendHistoryViewController alloc] initWithNibName:@"HomeWorkSendHistoryViewController" bundle:nil];
-//    [nav pushViewController:historyHomeworkVC animated:YES];
-  
+    historyHomeworkVC.hiddenBackBtn = YES;
     if ([detailVC isKindOfClass:[MIStockDetailViewController class]]) {
         [(MIStockDetailViewController *)detailVC addSubViewController:historyHomeworkVC];
     }
 }
 
 #pragma mark - SecondSheetViewDelegate  任务管理 一级文件夹 && 二级文件夹
-- (void)secondSheetViewFirstLevelData:(FileInfo *_Nullable)data index:(NSInteger)index{
+- (void)secondSheetViewFirstLevelData:(ParentFileInfo *_Nullable)data index:(NSInteger)index{
    
     UINavigationController *nav = ((UINavigationController *)self.customSplitViewController.viewControllers[1]);
     [nav popToRootViewControllerAnimated:YES];
@@ -160,7 +159,7 @@ MISecondActivitySheetViewDelegate
     }
     if (data.subFileList.count) { // 显示空内容
         
-        [self.taskListVC showTaskListWithFoldInfo:nil];
+        [self.taskListVC showTaskListWithFoldInfo:nil folderIndex:index];
     } else {// 显示创建文件夹
         [self.taskListVC showEmptyViewWithIsFolder:YES folderIndex:index];
     }
@@ -180,17 +179,27 @@ MISecondActivitySheetViewDelegate
         
         [(MIStockDetailViewController *)detailVC addSubViewController:self.taskListVC];
     }
-    if (data.subFileList.count) { // 显示当前index文件夹下内容
-        FileInfo *subFile = data.subFileList[index];
-        [self.taskListVC showTaskListWithFoldInfo:subFile];
-    } else {// 显示创建任务
-        
-        [self.taskListVC showEmptyViewWithIsFolder:NO folderIndex:index];
-    }
+    [self.taskListVC showTaskListWithFoldInfo:data folderIndex:index];
 }
 
 #pragma mark -
 #pragma mark - 活动管理
+- (void)createActivity{
+    
+    UINavigationController *nav = ((UINavigationController *)self.customSplitViewController.viewControllers[1]);
+    [nav popToRootViewControllerAnimated:YES];
+    UIViewController *detailVC = nav.topViewController;
+    if (self.customSplitViewController.displayMode != CSSplitDisplayModeDisplayPrimaryAndSecondary) {
+        
+        [self.customSplitViewController setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
+    }
+    
+    if ([detailVC isKindOfClass:[MIStockDetailViewController  class]]) {
+        
+        [(MIStockDetailViewController *)detailVC addSubViewController:self.activityListVC];
+        [self.activityListVC createActivity];
+    }
+}
 - (void)secondActivitySheetViewDidClickedActivity:(ActivityInfo *_Nullable)data index:(NSInteger)index{
     
     UINavigationController *nav = ((UINavigationController *)self.customSplitViewController.viewControllers[1]);

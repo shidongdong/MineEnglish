@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ActivityInfo.h"
 #import "BaseViewController.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MIParticipateDetailViewController : BaseViewController
+
+@property (nonatomic,strong) ActivityRankInfo *rankInfo;
 
 @end
 

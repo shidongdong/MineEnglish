@@ -29,6 +29,29 @@
              };
 }
 
+
++ (NSValueTransformer *)itemsJSONTransformer {
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[HomeworkItem class]];
+}
+
++ (NSValueTransformer *)coverItemsJSONTransformer {
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[HomeworkItem class]];
+}
+
+//+ (NSValueTransformer *)studentIdsJSONTransformer {
+//    return [MTLJSONAdapter arrayTransformerWithModelClass:[NSString class]];
+//}
+//+ (NSValueTransformer *)classIdsJSONTransformer {
+//    return [MTLJSONAdapter arrayTransformerWithModelClass:[NSString class]];
+//}
+//
+//+ (NSValueTransformer *)studentNamesJSONTransformer {
+//    return [MTLJSONAdapter arrayTransformerWithModelClass:[NSString class]];
+//}
+//+ (NSValueTransformer *)classNamesJSONTransformer {
+//    return [MTLJSONAdapter arrayTransformerWithModelClass:[NSString class]];
+//}
+
 - (NSDictionary *)dictionaryForUpload {
    
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -56,20 +79,7 @@
             itemDict[@"imageUrl"] = item.imageUrl;
             itemDict[@"imageWidth"] = @(item.imageWidth);
             itemDict[@"imageHeight"] = @(item.imageHeight);
-        } else if ([item.type isEqualToString:HomeworkItemTypeWord]) {
-            
-            itemDict[@"bgmusicUrl"] = item.bgmusicUrl;
-            itemDict[@"palytime"] = @(item.palytime);
-            
-            NSMutableArray *words = [NSMutableArray array];
-            dict[@"words"] = words;
-            for (WordInfo *word in item.words) {
-                NSMutableDictionary *wordDic = [NSMutableDictionary dictionary];
-                wordDic[@"english"] = word.english;
-                wordDic[@"chinese"] = @(word.chinese);
-            }
-        }
-        
+        } 
         [items addObject:itemDict];
     }
     dict[@"createTime"] = self.createTime;
@@ -97,7 +107,8 @@
              @"avatar":@"avatar",
              @"userId":@"userId",
              @"nickName":@"nickName",
-             @"isOk":@"isOk"
+             @"isOk":@"isOk",
+             @"actId":@"actId"
              };
 }
 
@@ -109,15 +120,14 @@
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     
     return @{@"okRank":@"okRank",
-             @"checkRank":@"checkRank"
-             };
+             @"checkRank":@"checkRank"};
 }
 
-+ (NSValueTransformer *)fileInfoJSONTransformer {
++ (NSValueTransformer *)okRankJSONTransformer {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[ActivityRankInfo class]];
 }
 
-+ (NSValueTransformer *)subFileListJSONTransformer {
++ (NSValueTransformer *)checkRankJSONTransformer {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[ActivityRankInfo class]];
 }
 

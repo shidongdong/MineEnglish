@@ -8,8 +8,11 @@
 
 #import <YYCategories/NSDate+YYAdd.h>
 #import "TagService.h"
+#import "ManagerServce.h"
 #import "HomeworkService.h"
 #import "DatePickerView.h"
+#import "NSDate+Extension.h"
+#import "MICreateWordView.h"
 #import "MIExpandPickerView.h"
 #import "ChooseDatePickerView.h"
 #import "MITagsViewController.h"
@@ -22,16 +25,10 @@
 #import "MICreateTaskViewController.h"
 #import "CSCustomSplitViewController.h"
 
-#import "HomeworkVideoTableViewCell.h"
-#import "HomeworkImageTableViewCell.h"
-#import "HomeworkAudioTableViewCell.h"
+#import "MIAddWordTableViewCell.h"
+#import "ClassAndStudentSelectorController.h"
 
-//
-//#import <objc/runtime.h>
-//#import <AVKit/AVKit.h>
-//#import "FileUploader.h"
-//#import <AssetsLibrary/AssetsLibrary.h>
-//#import <MobileCoreServices/MobileCoreServices.h>
+
 
 @interface MICreateTaskViewController ()<
 UITableViewDelegate,
@@ -39,7 +36,8 @@ UITableViewDataSource,
 ChooseDatePickerViewDelegate,
 UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
-UIDocumentPickerDelegate
+UIDocumentPickerDelegate,
+ClassAndStudentSelectorControllerDelegate
 >
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UITableView *leftTableView;
@@ -52,9 +50,15 @@ UIDocumentPickerDelegate
 @property (nonatomic, strong) Homework *homework;           // 为空创建作业
 @property (nonatomic, strong) ActivityInfo *activityInfo;   // 为空创建活动
 
+@property (nonatomic,strong) FileInfo *currentFileInfo;
+@property (nonatomic,strong) NSArray<ParentFileInfo*> *currentFileList;
 
 @property (nonatomic, strong) HomeworkItem *wordsItem;    // 内容 word文本格式
 @property (nonatomic, strong) HomeworkItem *contentItem;    // 内容 text文本格式
+
+
+@property (nonatomic, strong) NSArray<Clazz *> *clazzs;     //班级对象列表
+@property (nonatomic, strong) NSArray<User *> *students;    // 学生对象列表
 
 @property (nonatomic, strong) NSMutableArray<HomeworkItem *> *items;// 材料
 @property (nonatomic, strong) NSMutableArray<HomeworkAnswerItem *> *answerItems; // 答案
@@ -95,7 +99,6 @@ UIDocumentPickerDelegate
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor whiteColor];
-    
     self.leftTableView.separatorColor = [UIColor clearColor];
     self.rightTableView.separatorColor = [UIColor clearColor];
     
@@ -114,6 +117,7 @@ UIDocumentPickerDelegate
     
     [self requestTags];
     [self requestFormTags];
+    [self requestGetFiles];
 }
 
 - (IBAction)closeBtnAction:(id)sender {
@@ -122,61 +126,11 @@ UIDocumentPickerDelegate
 }
 - (IBAction)sendBtnAction:(id)sender {
     
-    if (self.callBack) {
-        self.callBack();
-    }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfAddHomework object:nil];
-    [self.navigationController popViewControllerAnimated:YES];
-    return;
-    if (self.homework.title.length == 0) {
-        [HUD showErrorWithMessage:@"作业标题不能为空"];
-        return;
-    }
-    if (self.contentItem.text.length == 0) {
-        [HUD showErrorWithMessage:@"作业内容不能为空"];
-        return;
-    }
-    NSMutableArray *resultItems = [NSMutableArray array];
-    [resultItems addObject:self.contentItem];
-    [resultItems addObject:self.wordsItem];
-    [resultItems addObjectsFromArray:self.items];
-    [resultItems addObjectsFromArray:self.followItems];
-    
-    self.homework.tags = self.selectedTags;
-    self.homework.formTag = self.selectFormTag;
-    self.homework.items = resultItems;
-    self.homework.answerItems = self.answerItems;
-    
-    if (self.homework.homeworkId == 0) {
-        [HUD showProgressWithMessage:@"正在新建作业"];
+    if (self.taskType == MIHomeworkTaskType_Activity) {
+        [self createActivity];
     } else {
-        [HUD showProgressWithMessage:@"正在更新作业"];
+        [self createHomeworkTask];
     }
-    WeakifySelf;
-    [HomeworkService createHomework:self.homework
-                           callback:^(Result *result, NSError *error) {
-                               if (error != nil) {
-                                   if (weakSelf.homework.homeworkId == 0) {
-                                       [HUD showErrorWithMessage:@"新建作业失败"];
-                                   } else {
-                                       [HUD showErrorWithMessage:@"更新作业失败"];
-                                   }
-                                   return;
-                               }
-                               
-                               if (weakSelf.homework.homeworkId == 0) {
-                                   [HUD showWithMessage:@"新建作业成功"];
-                               } else {
-                                   [HUD showWithMessage:@"更新作业成功"];
-                               }
-                               if (weakSelf.callBack) {
-                                   weakSelf.callBack();
-                               }
-                               
-                               [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfAddHomework object:nil];
-                               [weakSelf.navigationController popViewControllerAnimated:YES];
-                           }];
 }
 
 - (void)updateSplit:(NSInteger)offset{
@@ -205,8 +159,10 @@ UIDocumentPickerDelegate
     self.taskType = MIHomeworkTaskType_Activity;
     [self setupTitleWithTaskType:self.taskType];
     
-    if (self.activityInfo) {
-        
+    if (activity) {
+       
+        self.isCreateTask = NO;
+        self.activityInfo = activity;
         for (int i = 0; i < self.activityInfo.items.count; i++) {
            
             HomeworkItem *item = self.activityInfo.items[i];
@@ -216,6 +172,40 @@ UIDocumentPickerDelegate
                 [self.items addObject:item];
             }
         }
+        NSMutableArray *classArray = [NSMutableArray array];
+        for (int i = 0; i < self.activityInfo.classIds.count; i++) {
+            Clazz *clazz = [[Clazz alloc] init];
+            NSNumber *classId = self.activityInfo.classIds[i];
+            clazz.classId = classId.integerValue;
+            if (i < self.activityInfo.classNames.count) {
+                
+                clazz.name = self.activityInfo.classNames[i];
+            } else {
+                break;
+            }
+            [classArray addObject:clazz];
+        } self.clazzs = classArray;
+        
+        NSMutableArray *studentArray = [NSMutableArray array];
+        for (int i = 0; i < self.activityInfo.studentIds.count; i++) {
+            User *studnet = [[User alloc] init];
+            NSNumber *studentId = self.activityInfo.studentIds[i];
+            studnet.userId = studentId.integerValue;
+            if (i < self.activityInfo.studentNames.count) {
+                
+                studnet.nickname = self.activityInfo.studentNames[i];
+            } else {
+                break;
+            }
+            [studentArray addObject:studnet];
+        } self.students = studentArray;
+        
+    } else {
+        self.isCreateTask = YES;
+        self.activityInfo.submitNum = 4;
+        self.activityInfo.limitTimes = 300;
+        self.activityInfo.endTime = [[NSDate date] stringWithFormat:@"yyyy-MM-dd"];
+        self.activityInfo.startTime = [[NSDate date] stringWithFormat:@"yyyy-MM-dd"];
     }
     self.leftRowCount = 7;
     [self.createTypeArray removeAllObjects];
@@ -225,27 +215,37 @@ UIDocumentPickerDelegate
 }
 
 
-- (void)setupCreateHomework:(Homework *_Nullable)homework taskType:(MIHomeworkTaskType)taskType{
+- (void)setupCreateHomework:(Homework *_Nullable)homework
+            currentFileInfo:(FileInfo *)currentFileInfo
+                   taskType:(MIHomeworkTaskType)taskType{
+   
+    if (taskType == MIHomeworkTaskType_Activity) {
+        [self setupCreateActivity:nil];
+        return;
+    }
     
-    if (homework == nil) {
+    self.currentFileInfo = currentFileInfo;
+    if (homework == nil) {// 新建作业
+      
+        self.taskType = taskType;
         self.isCreateTask = YES;
         self.limitTimeSecs = 300;
-        //作业类型：日常1、假期2、集训3
         self.homework.style = 1;
         self.homework.level = 1;
         self.homework.category = 1;
         self.homework.limitTimes = 300;
         self.homework.examType = 1;
-    } else {
+        self.wordsItem.palytime = 1.0;
+    } else {// 编辑作业
+        
+        self.taskType = [self setTaskTypeWithHomeWork:homework];
         self.isCreateTask = NO;
         self.homework = homework;
-        
+        [self updateHomeworkItemData];
         self.selectFormTag = self.homework.formTag;
         self.selectedTags = [NSMutableArray arrayWithArray:self.homework.tags];
+        self.followItems = [NSMutableArray arrayWithArray:self.homework.otherItem];
     }
-    self.taskType = taskType;
-    
-    [self updateHomeworkInfo];
     
     [self.createTypeArray removeAllObjects];
     [self.createTypeArray addObjectsFromArray:[self getNumberOfRowsInSection]];
@@ -255,27 +255,24 @@ UIDocumentPickerDelegate
     [self.rightTableView reloadData];
 }
 
-- (void)updateHomeworkInfo{
+- (void)updateHomeworkItemData{
     
-    if (self.homework) {
-        
-        for (int i = 0; i < self.homework.items.count; i++) {
-            HomeworkItem *item = self.homework.items[i];
-            if (i == 0) {   // 内容
-                self.contentItem = item;
-            } else if ([item.type isEqualToString:@"word"] ) {// 单词
-                self.wordsItem = item;
-            } else { // 附件
-                [self.items addObject:item];
-            }
+    for (int i = 0; i < self.homework.items.count; i++) {
+        HomeworkItem *item = self.homework.items[i];
+        if (i == 0) {   // 内容
+            self.contentItem = item;
+        } else if ([item.type isEqualToString:@"word"] ) {// 单词
+            self.wordsItem = item;
+        } else { // 附件
+            [self.items addObject:item];
         }
-        self.selectFormTag = self.homework.formTag;
-        self.selectedTags = [NSMutableArray arrayWithArray:self.homework.tags];
-        [self.followItems removeAllObjects];
-        [self.followItems addObjectsFromArray:self.homework.otherItem];
-        [self.answerItems removeAllObjects];
-        [self.answerItems addObjectsFromArray:self.homework.answerItems];
     }
+    self.selectFormTag = self.homework.formTag;
+    self.selectedTags = [NSMutableArray arrayWithArray:self.homework.tags];
+    [self.followItems removeAllObjects];
+    [self.followItems addObjectsFromArray:self.homework.otherItem];
+    [self.answerItems removeAllObjects];
+    [self.answerItems addObjectsFromArray:self.homework.answerItems];
 }
 
 #pragma mark - UITableViewDelegate
@@ -321,31 +318,57 @@ UIDocumentPickerDelegate
     return [self getHeightForRowWithCreateType:createTypeNum.integerValue];
 }
 
+
 #pragma mark - 设置标题
 - (void)setupTitleWithTaskType:(MIHomeworkTaskType)taskType{
     
     switch (taskType) {
         case MIHomeworkTaskType_notify:
+            self.homework.typeName = @"通知";
             self.titleLabel.text = self.isCreateTask ? @"新建通知" : @"通知详情";
             break;
         case MIHomeworkTaskType_FollowUp:
-            self.titleLabel.text = self.isCreateTask ? @"新建跟读" : @"跟读详情";
+            self.homework.typeName = @"跟读任务";
+            self.titleLabel.text = self.isCreateTask ? @"新建跟读任务" : @"跟读任务详情";
             break;
         case MIHomeworkTaskType_WordMemory:
+            self.homework.typeName = @"单词记忆";
             self.titleLabel.text = self.isCreateTask ? @"新建单词记忆" : @"单词记忆详情";
             break;
         case MIHomeworkTaskType_GeneralTask:
-            self.titleLabel.text = self.isCreateTask ? @"新建普通作业" : @"普通作业详情";
+            self.homework.typeName = @"普通任务";
+            self.titleLabel.text = self.isCreateTask ? @"新建普通任务" : @"普通任务详情";
             break;
         case MIHomeworkTaskType_Activity:
+            self.homework.typeName = @"活动";
             self.titleLabel.text = self.isCreateTask ? @"新建活动" : @"活动详情";
             break;
         case MIHomeworkTaskType_ExaminationStatistics:
+            self.homework.typeName = @"考试统计";
             self.titleLabel.text = self.isCreateTask ? @"新建考试统计" : @"考试统计详情";
             break;
         default:
             break;
     }
+}
+- (MIHomeworkTaskType)setTaskTypeWithHomeWork:(Homework *)homework{
+    
+    MIHomeworkTaskType taskType = MIHomeworkTaskType_GeneralTask;
+    if (homework.typeName.length == 0) {
+        return taskType;
+    }
+    if ([homework.typeName isEqualToString:@"通知"]) {
+        taskType = MIHomeworkTaskType_notify;
+    } else if ([homework.typeName isEqualToString:@"跟读任务"]) {
+        taskType = MIHomeworkTaskType_FollowUp;
+    } else if ([homework.typeName isEqualToString:@"单词记忆"]) {
+        taskType = MIHomeworkTaskType_WordMemory;
+    } else if ([homework.typeName isEqualToString:@"普通任务"]) {
+        taskType = MIHomeworkTaskType_GeneralTask;
+    } else if ([homework.typeName isEqualToString:@"考试统计"]) {
+        taskType = MIHomeworkTaskType_ExaminationStatistics;
+    }
+    return taskType;
 }
 
 - (UITableViewCell *)getTableViewCellAtIndexPath:(NSIndexPath *)indexPath
@@ -364,49 +387,41 @@ UIDocumentPickerDelegate
             contentCell.leftExpandCallback = ^{
                 
                 MIExpandPickerView * chooseDataPicker = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIExpandPickerView class]) owner:nil options:nil] lastObject];
-                FileInfo *file = [[FileInfo alloc] init];
-                file.fileName = @"文件夹1";
-                
-                FileInfo *file1 = [[FileInfo alloc] init];
-                file1.fileName = @"文件夹2";
-                
-                FileInfo *file2 = [[FileInfo alloc] init];
-                file2.fileName = @"文件夹3";
-                
-                self.homework.fileInfos.parentFile = file2;
-                [chooseDataPicker setDefultFileInfo:
-                 self.homework.fileInfos.parentFile fileArray:(NSArray<FileInfo>*)@[file,file1,file2]];
+                [chooseDataPicker setDefultParentFileInfo:self.homework.fileInfos.parentFile fileArray:self.currentFileList];
                 WeakifySelf;
-                chooseDataPicker.localCallback = ^(FileInfo * _Nonnull result) {
-                    weakSelf.homework.fileInfos.parentFile = result;
-                    [weakContentCell setupWithLeftText:result.fileName
-                                             rightText:weakSelf.homework.fileInfos.subFile.fileName
-                                            createType:createType];
-                    
+                chooseDataPicker.localCallback = ^(id _Nonnull result) {
+                  
+                    // 选则父文件夹，默认选择对应文件夹下面的子文件夹
+                    if ([result isKindOfClass:[ParentFileInfo class]]) {
+                        
+                        ParentFileInfo *parentResult = result;
+                        if (weakSelf.homework.fileInfos.subFile.parentId !=parentResult.fileInfo.fileId) {
+                            FileInfo *subInfo = parentResult.subFileList.firstObject;
+                            weakSelf.homework.fileInfos.subFile = subInfo;
+                        }
+                        weakSelf.homework.fileInfos.parentFile = parentResult.fileInfo;
+                        [weakContentCell setupWithLeftText:parentResult.fileInfo.fileName
+                                                 rightText:weakSelf.homework.fileInfos.subFile.fileName
+                                                createType:createType];
+                    }
                 };
                 [chooseDataPicker show];
             };
             contentCell.rightExpandCallback = ^{
                 
                 MIExpandPickerView * chooseDataPicker = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIExpandPickerView class]) owner:nil options:nil] lastObject];
-                FileInfo *file = [[FileInfo alloc] init];
-                file.fileName = @"子文件夹1";
-                
-                FileInfo *file1 = [[FileInfo alloc] init];
-                file1.fileName = @"子文件夹2";
-                
-                FileInfo *file2 = [[FileInfo alloc] init];
-                file2.fileName = @"子文件夹3";
-                
-                self.homework.fileInfos.subFile = file1;
-                [chooseDataPicker setDefultFileInfo:
-                 self.homework.fileInfos.subFile fileArray:(NSArray<FileInfo>*)@[file,file1,file2]];
-                chooseDataPicker.localCallback = ^(FileInfo * _Nonnull result) {
-                    weakSelf.homework.fileInfos.subFile = result;
-                    [weakContentCell setupWithLeftText:weakSelf.homework.fileInfos.parentFile.fileName
-                                             rightText:result.fileName
-                                            createType:createType];
+                chooseDataPicker.localCallback = ^(id _Nonnull result) {
+                    if ([result isKindOfClass:[FileInfo class]]) {
+                        
+                        FileInfo *subResult = result;
+                        weakSelf.homework.fileInfos.subFile = result;
+                        [weakContentCell setupWithLeftText:weakSelf.homework.fileInfos.parentFile.fileName
+                                                 rightText:subResult.fileName
+                                                createType:createType];
+                    }
                 };
+                [chooseDataPicker setDefultFileInfo:
+                 self.homework.fileInfos.subFile fileArray:self.currentFileList];
                 [chooseDataPicker show];
             };
             [contentCell setupWithLeftText:weakSelf.homework.fileInfos.parentFile.fileName
@@ -421,7 +436,11 @@ UIDocumentPickerDelegate
             __weak MIInPutTypeTableViewCell *weakTitleCell = titleCell;
             __weak UITableView *weakTableView = tableView;
             titleCell.callback = ^(NSString *text, BOOL heightChanged) {
-                weakSelf.homework.title = text;
+                if (weakSelf.taskType == MIHomeworkTaskType_Activity) {
+                    weakSelf.activityInfo.title = text;
+                } else {
+                    weakSelf.homework.title = text;
+                }
                 if (heightChanged) {
                     [weakTableView beginUpdates];
                     [weakTableView endUpdates];
@@ -430,21 +449,29 @@ UIDocumentPickerDelegate
                     });
                 }
             };
-            [titleCell setupWithText:self.homework.title
-                               title:@"标题:"
-                          createType:createType
-                         placeholder:@"输入题目"];
+            if (self.taskType == MIHomeworkTaskType_Activity) {
+                
+                [titleCell setupWithText:self.activityInfo.title
+                                   title:@"标题:"
+                              createType:createType
+                             placeholder:@"输入题目"];
+            } else {
+                [titleCell setupWithText:self.homework.title
+                                   title:@"标题:"
+                              createType:createType
+                             placeholder:@"输入题目"];
+            }
             cell = titleCell;
         }
             break;
-        case MIHomeworkCreateContentType_Content:
+        case MIHomeworkCreateContentType_Content: // 内容 && 活动要求
         {
             MIInPutTypeTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MIInPutTypeTableViewCellId forIndexPath:indexPath];
             
             __weak MIInPutTypeTableViewCell *weakContentCell = contentCell;
             __weak UITableView *weakTableView = tableView;
             contentCell.callback = ^(NSString *text, BOOL heightChanged) {
-                
+
                 weakSelf.contentItem.text = text;
                 if (heightChanged) {
                     [weakTableView beginUpdates];
@@ -454,10 +481,17 @@ UIDocumentPickerDelegate
                     });
                 }
             };
-            [contentCell setupWithText:self.contentItem.text
-                                 title:@"内容:"
-                            createType:createType
-                           placeholder:@"输入作业题目或具体要求"];
+            if (weakSelf.taskType == MIHomeworkTaskType_Activity) {
+                [contentCell setupWithText:self.contentItem.text
+                                     title:@"活动要求:"
+                                createType:createType
+                               placeholder:@"请输入活动或具体要求"];
+            } else {
+                [contentCell setupWithText:self.contentItem.text
+                                     title:@"内容:"
+                                createType:createType
+                               placeholder:@"输入作业题目或具体要求"];
+            }
             cell = contentCell;
         }
             break;
@@ -481,29 +515,6 @@ UIDocumentPickerDelegate
                                  title:@"批改备注:"
                             createType:createType
                            placeholder:@"输入批改要求"];
-            cell = contentCell;
-        }
-            break;
-        case MIHomeworkCreateContentType_ActivityReq:
-        {
-            MIInPutTypeTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MIInPutTypeTableViewCellId forIndexPath:indexPath];
-            
-            __weak MIInPutTypeTableViewCell *weakContentCell = contentCell;
-            __weak UITableView *weakTableView = tableView;
-            contentCell.callback = ^(NSString *text, BOOL heightChanged) {
-                weakSelf.contentItem.text = text;
-                if (heightChanged) {
-                    [weakTableView beginUpdates];
-                    [weakTableView endUpdates];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [weakContentCell ajustTextView];
-                    });
-                }
-            };
-            [contentCell setupWithText:self.contentItem.text
-                                 title:@"活动要求:"
-                            createType:createType
-                           placeholder:@"请输入活动或具体要求"];
             cell = contentCell;
         }
             break;
@@ -561,13 +572,41 @@ UIDocumentPickerDelegate
             break;
         case MIHomeworkCreateContentType_AddWords:
         {
-            MITitleTypeTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MITitleTypeTableViewCellId forIndexPath:indexPath];
-            contentCell.title = @"添加单词:";
-            contentCell.addItemCallback = ^(NSArray * _Nullable items) {
+            MIAddWordTableViewCell *tagsCell = [tableView dequeueReusableCellWithIdentifier:MIAddWordTableViewCellId forIndexPath:indexPath];
+            __weak UITableView *weakTableView = tableView;
+            __weak MIAddWordTableViewCell *weakTagCell = tagsCell;
+            tagsCell.callback = ^(BOOL isAdd, NSArray * _Nonnull dataArray) {
+                if (isAdd) {
+                    
+                    MICreateWordView *wordView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MICreateWordView class]) owner:nil options:nil].lastObject;
+                    wordView.callback = ^(WordInfo * _Nullable word) {
+                        
+                        NSMutableArray *wordInfoList = [NSMutableArray arrayWithArray:weakSelf.wordsItem.words];
+                        [wordInfoList addObject:word];
+                        weakSelf.wordsItem.words = (NSArray<WordInfo>*)wordInfoList;
+                        [weakTagCell setupAwordWithDataArray:weakSelf.wordsItem.words];
+                        [weakTableView beginUpdates];
+                        [weakTableView endUpdates];
+                    };
+                    wordView.frame = [UIScreen mainScreen].bounds;
+                    [[UIApplication sharedApplication].keyWindow addSubview:wordView];
+                    
+                } else {
+                    
+                    NSMutableArray *wordInfo = [NSMutableArray array];
+                    for (id tempObjc in dataArray) {
+                        if ([tempObjc isKindOfClass:[WordInfo class]]) {
+                            [wordInfo addObject:tempObjc];
+                        }
+                    }
+                    weakSelf.wordsItem.words = (NSArray<WordInfo>*)wordInfo;
+                    [weakTagCell setupAwordWithDataArray:weakSelf.wordsItem.words];
+                    [weakTableView beginUpdates];
+                    [weakTableView endUpdates];
+                }
             };
-            //            [contentCell setupWithItems:@[self.wordsItem] vc:self];
-            [contentCell setupWithItems:@[] vc:self];
-            cell = contentCell;
+            [tagsCell setupAwordWithDataArray:self.wordsItem.words];
+            cell = tagsCell;
         }
             break;
         case MIHomeworkCreateContentType_Materials:
@@ -579,11 +618,11 @@ UIDocumentPickerDelegate
             contentCell.addItemCallback = ^(NSArray * _Nullable items) {
                 [weakSelf.items removeAllObjects];
                 [weakSelf.items addObjectsFromArray:items];
-                [weakContentCell setupWithItems:weakSelf.items vc:weakSelf];
+                [weakContentCell setupWithItems:weakSelf.items vc:weakSelf contentType:createType];
                 [weakTableView beginUpdates];
                 [weakTableView endUpdates];
             };
-            [contentCell setupWithItems:self.items vc:self];
+            [contentCell setupWithItems:self.items vc:self contentType:createType];
             cell = contentCell;
         }   break;
         case MIHomeworkCreateContentType_Answer:
@@ -611,13 +650,21 @@ UIDocumentPickerDelegate
             __weak UITableView *weakTableView = tableView;
             contentCell.addItemCallback = ^(NSArray * _Nullable items) {
                 
-                weakSelf.activityInfo.coverItems = items.firstObject;
-                [weakContentCell setupWithItems:items vc:weakSelf];
+                HomeworkItem *coverItem = items.lastObject;
+                weakSelf.activityInfo.actCoverUrl = coverItem.imageUrl;
+                [weakContentCell setupWithItems:items vc:weakSelf contentType:createType];
                 [weakTableView beginUpdates];
                 [weakTableView endUpdates];
             };
-            [contentCell setupWithItems:@[] vc:self];
-            //            [contentCell setupWithItems:@[self.activityInfo.coverItems] vc:self];
+            if (self.activityInfo.actCoverUrl.length) {
+                
+                HomeworkItem *coverItem = [[HomeworkItem alloc] init];
+                coverItem.imageUrl = self.activityInfo.actCoverUrl;
+                coverItem.type = @"image";
+                [contentCell setupWithItems:@[coverItem] vc:self contentType:createType];
+            } else {
+                [contentCell setupWithItems:@[] vc:self contentType:createType];
+            }
             cell = contentCell;
         }
             break;
@@ -629,13 +676,16 @@ UIDocumentPickerDelegate
             __weak UITableView *weakTableView = tableView;
             contentCell.addItemCallback = ^(NSArray * _Nullable items) {
                 
-                weakSelf.wordsItem = items.firstObject;
-                [weakContentCell setupWithItems:items vc:weakSelf];
+                weakSelf.wordsItem = items.lastObject;
+                [weakContentCell setupWithItems:items vc:weakSelf contentType:createType];
                 [weakTableView beginUpdates];
                 [weakTableView endUpdates];
             };
-            [contentCell setupWithItems:@[self.wordsItem] vc:self];
-            [contentCell setupWithItems:@[] vc:self];
+            if (self.wordsItem.audioUrl.length) {
+                [contentCell setupWithItems:@[self.wordsItem] vc:self contentType:createType];
+            } else {
+                [contentCell setupWithItems:@[] vc:self contentType:createType];
+            }
             cell = contentCell;
         }
             break;
@@ -647,13 +697,12 @@ UIDocumentPickerDelegate
             __weak UITableView *weakTableView = tableView;
             contentCell.addItemCallback = ^(NSArray * _Nullable items) {
                 [weakSelf.followItems removeAllObjects];
-                [weakSelf.followItems addObjectsFromArray:items];
-                [weakContentCell setupWithItems:weakSelf.followItems vc:weakSelf];
+                [weakSelf.followItems addObject:items.lastObject];
+                [weakContentCell setupWithItems:weakSelf.followItems vc:weakSelf contentType:createType];
                 [weakTableView beginUpdates];
                 [weakTableView endUpdates];
             };
-            //            [contentCell setupWithItems:self.followItems vc:self];
-            [contentCell setupWithItems:@[] vc:self];
+            [contentCell setupWithItems:self.followItems vc:self contentType:createType];
             cell = contentCell;
         }
             break;
@@ -695,11 +744,12 @@ UIDocumentPickerDelegate
             WeakifySelf;
             contentCell.expandCallback = ^{
                 
-                NSDate *starDate = [NSDate dateWithString:weakSelf.activityInfo.startTime format:@"yyyy:MM:dd"];
+                NSDate *starDate = [NSDate dateWithString:weakSelf.activityInfo.startTime format:@"yyyy-MM-dd HH:mm:ss"];
                 [DatePickerView showInView:[UIApplication sharedApplication].keyWindow
-                                      date:starDate
+                                      date:[starDate dateAtStartOfDay]
                                   callback:^(NSDate *date) {
-                                      NSString *startTime = [date stringWithFormat:@"yyyy:MM:dd"];
+                                      NSString *startTime = [[date dateAtStartOfDay] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
+                                      weakSelf.activityInfo.startTime = startTime;
                                       [weakContentCell setupWithLeftText:startTime rightText:nil createType:createType];
                                   }];
             };
@@ -712,11 +762,12 @@ UIDocumentPickerDelegate
             MIExpandSelectTypeTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MIExpandSelectTypeTableViewCellId forIndexPath:indexPath];
             __weak MIExpandSelectTypeTableViewCell *weakContentCell = contentCell;
             contentCell.expandCallback = ^{
-                NSDate *endDate = [NSDate dateWithString:weakSelf.activityInfo.endTime format:@"yyyy:MM:dd"];
+                NSDate *endDate = [NSDate dateWithString:weakSelf.activityInfo.endTime format:@"yyyy-MM-dd HH:mm:ss"];
                 [DatePickerView showInView:[UIApplication sharedApplication].keyWindow
-                                      date:endDate
+                                      date:[endDate dateAtStartOfDay]
                                   callback:^(NSDate *date) {
-                                      NSString *endTime = [date stringWithFormat:@"yyyy:MM:dd"];
+                                      NSString *endTime = [[date dateAtStartOfDay] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
+                                      weakSelf.activityInfo.endTime = endTime;
                                       [weakContentCell setupWithLeftText:endTime rightText:nil createType:createType];
                                   }];
             };
@@ -807,24 +858,37 @@ UIDocumentPickerDelegate
             break;
         case MIHomeworkCreateContentType_ActivityParticipant:
         {
-            MITagsTableViewCell *tagsCell = [tableView dequeueReusableCellWithIdentifier:MITagsTableViewCellId forIndexPath:indexPath];
-            tagsCell.type = HomeworkTagsTableViewCellSelectMutiType;
-            [tagsCell setupWithTags:@[] selectedTags:@[] typeTitle:@"活动参与对象:"];
-            
+            MIAddWordTableViewCell *tagsCell = [tableView dequeueReusableCellWithIdentifier:MIAddWordTableViewCellId forIndexPath:indexPath];
             WeakifySelf;
-            [tagsCell setSelectCallback:^(NSString *tag) {
-                if ([weakSelf.selectedTags containsObject:tag]) {
-                    [weakSelf.selectedTags removeObject:tag];
+            __weak UITableView *weakTableView = tableView;
+            __weak MIAddWordTableViewCell *weakTagCell = tagsCell;
+            tagsCell.callback = ^(BOOL isAdd, NSArray * _Nonnull dataArray) {
+                
+                if (isAdd) {
+                    
+                    ClassAndStudentSelectorController *vc = [[ClassAndStudentSelectorController alloc] init];
+                    vc.delegate = weakSelf;
+                    vc.isCreateActivityTask = YES;
+                    [weakSelf.navigationController presentViewController:vc animated:YES completion:nil];
                 } else {
-                    [weakSelf.selectedTags addObject:tag];
+                    
+                    NSMutableArray *tempClazz = [NSMutableArray array];
+                    NSMutableArray *tempStudent = [NSMutableArray array];
+                    for (id tempObjc in dataArray) {
+                        if ([tempObjc isKindOfClass:[Clazz class]]) {
+                            [tempClazz addObject:tempObjc];
+                        } else if ([tempObjc isKindOfClass:[User class]]){
+                            [tempStudent addObject:tempObjc];
+                        }
+                    }
+                    weakSelf.clazzs = tempClazz;
+                    weakSelf.students = tempStudent;
+                    [weakTagCell setupParticipateWithClazzArray:weakSelf.clazzs studentArray:weakSelf.students];
+                    [weakTableView beginUpdates];
+                    [weakTableView endUpdates];
                 }
-            }];
-            [tagsCell setManageCallback:^{
-                MITagsViewController *tagsVC = [[MITagsViewController alloc] initWithNibName:@"MITagsViewController" bundle:nil];
-                tagsVC.type = TagsHomeworkTipsType;
-                [weakSelf.navigationController pushViewController:tagsVC animated:YES];
-            }];
-            
+            };
+            [tagsCell setupParticipateWithClazzArray:self.clazzs studentArray:self.students];
             cell = tagsCell;
         }
             break;
@@ -866,7 +930,7 @@ UIDocumentPickerDelegate
                           @(MIHomeworkCreateContentType_Materials),
                           @(MIHomeworkCreateContentType_Label),
                           @(MIHomeworkCreateContentType_TypeLabel),
-                          @(MIHomeworkCreateContentType_Delete)
+//                          @(MIHomeworkCreateContentType_Delete)
                           ]];
         }
             break;
@@ -886,7 +950,7 @@ UIDocumentPickerDelegate
                           @(MIHomeworkCreateContentType_Answer),
                           @(MIHomeworkCreateContentType_Label),
                           @(MIHomeworkCreateContentType_TypeLabel),
-                          @(MIHomeworkCreateContentType_Delete)
+//                          @(MIHomeworkCreateContentType_Delete)
                           ]];
         }
             break;
@@ -907,7 +971,7 @@ UIDocumentPickerDelegate
                           @(MIHomeworkCreateContentType_Materials),
                           @(MIHomeworkCreateContentType_Label),
                           @(MIHomeworkCreateContentType_TypeLabel),
-                          @(MIHomeworkCreateContentType_Delete)
+//                          @(MIHomeworkCreateContentType_Delete)
                           ]];
         }
             break;
@@ -927,7 +991,7 @@ UIDocumentPickerDelegate
                           @(MIHomeworkCreateContentType_Answer),
                           @(MIHomeworkCreateContentType_Label),
                           @(MIHomeworkCreateContentType_TypeLabel),
-                          @(MIHomeworkCreateContentType_Delete)
+//                          @(MIHomeworkCreateContentType_Delete)
                           ]];
         }
             break;
@@ -937,14 +1001,14 @@ UIDocumentPickerDelegate
             typeArray =
             [NSMutableArray arrayWithArray:@[@(MIHomeworkCreateContentType_Title),
                           @(MIHomeworkCreateContentType_AddCovers),
-                          @(MIHomeworkCreateContentType_ActivityReq),
+                          @(MIHomeworkCreateContentType_Content),
                           @(MIHomeworkCreateContentType_Materials),
                           @(MIHomeworkCreateContentType_CommitCount),
                           @(MIHomeworkCreateContentType_VideoTimeLimit),
                           @(MIHomeworkCreateContentType_ActivityStartTime),
                           @(MIHomeworkCreateContentType_ActivityEndTime),
                           @(MIHomeworkCreateContentType_ActivityParticipant),
-                          @(MIHomeworkCreateContentType_Delete)
+//                          @(MIHomeworkCreateContentType_Delete)
                           ]];
         }
             break;
@@ -964,15 +1028,22 @@ UIDocumentPickerDelegate
                           @(MIHomeworkCreateContentType_Answer),
                           @(MIHomeworkCreateContentType_Label),
                           @(MIHomeworkCreateContentType_TypeLabel),
-                          @(MIHomeworkCreateContentType_Delete)
+//                          @(MIHomeworkCreateContentType_Delete)
                           ]];
         }
             break;
         default:
             break;
     }
-    if (self.isCreateTask) {
-        [typeArray removeLastObject];
+    if (self.isCreateTask == NO && self.taskType == MIHomeworkTaskType_Activity) {
+        
+        NSDate *startDate = [NSDate dateWithString:self.activityInfo.startTime format:@"yyyy-MM-dd HH:mm:ss"];
+        NSDate *endDate = [NSDate dateWithString:self.activityInfo.endTime format:@"yyyy-MM-dd HH:mm:ss"];
+        if ([startDate isLaterThanDate:[[NSDate date] dateAtStartOfDay]] ||
+            [endDate isEarlierThanDate:[[NSDate date] dateAtStartOfDay]]
+            ) {
+            [typeArray addObject:@(MIHomeworkCreateContentType_Delete)];
+        }
     }
     return typeArray;
 }
@@ -992,9 +1063,6 @@ UIDocumentPickerDelegate
         case MIHomeworkCreateContentType_MarkingRemarks:
             rowHeight = [MIInPutTypeTableViewCell cellHeightWithText:self.homework.teremark];
             break;
-        case MIHomeworkCreateContentType_ActivityReq:
-            rowHeight = [MIInPutTypeTableViewCell cellHeightWithText:self.contentItem.text];
-            break;
         case MIHomeworkCreateContentType_CommitCount:
         case MIHomeworkCreateContentType_StatisticalType:
         case MIHomeworkCreateContentType_CommitTime:
@@ -1003,36 +1071,49 @@ UIDocumentPickerDelegate
             rowHeight = MISegmentTypeTableViewCellHeight;
             break;
         case MIHomeworkCreateContentType_AddWords:
-            if (self.wordsItem) {
-                rowHeight = 112 + MITitleTypeTableViewCellHeight;
+            if (self.wordsItem.words.count) {
+                NSMutableArray *words = [NSMutableArray array];
+                [words addObjectsFromArray:self.wordsItem.words];
+                [words addObject:@"+添加单词"];
+                rowHeight = [MIAddWordTableViewCell heightWithTags:words] + 30;
                 break;
+            } else {
+                rowHeight = MITitleTypeTableViewCellHeight;
             }
         case MIHomeworkCreateContentType_Materials:
             if (self.items.count) {
                 rowHeight = self.items.count * 112 + MITitleTypeTableViewCellHeight;
-                break;
+            } else {
+                rowHeight = MITitleTypeTableViewCellHeight;
             }
+            break;
         case MIHomeworkCreateContentType_Answer:
             if (self.answerItems.count) {
                 rowHeight = self.answerItems.count * 112  + MITitleTypeTableViewCellHeight;
-                break;
+            } else {
+                rowHeight = MITitleTypeTableViewCellHeight;
             }
+            break;
         case MIHomeworkCreateContentType_AddCovers:
-            if (self.activityInfo.coverItems) {
+            if (self.activityInfo.actCoverUrl.length) {
                 rowHeight = 112 + MITitleTypeTableViewCellHeight;
-                break;
+            } else {
+                rowHeight = MITitleTypeTableViewCellHeight;
             }
+            break;
         case MIHomeworkCreateContentType_AddBgMusic:
-            if (self.activityInfo.coverItems) {
+            if (self.wordsItem.bgmusicUrl.length) {
                 rowHeight = 112 + MITitleTypeTableViewCellHeight;
-                break;
+            } else {
+                rowHeight = MITitleTypeTableViewCellHeight;
             }
+            break;
         case MIHomeworkCreateContentType_AddFollowMaterials:
-            if (self.activityInfo.coverItems) {
-                rowHeight = 112 + MITitleTypeTableViewCellHeight;
-                break;
+            if (self.followItems.count) {
+                rowHeight = self.followItems.count * 112 + MITitleTypeTableViewCellHeight;
+            } else {
+                rowHeight = MITitleTypeTableViewCellHeight;
             }
-            rowHeight = MITitleTypeTableViewCellHeight;
             break;
         case MIHomeworkCreateContentType_WordsTimeInterval:
         case MIHomeworkCreateContentType_TimeLimit:
@@ -1048,7 +1129,13 @@ UIDocumentPickerDelegate
             rowHeight = [MITagsTableViewCell heightWithTags:self.tags] + 50;
             break;
         case MIHomeworkCreateContentType_ActivityParticipant:
-            rowHeight = [MITagsTableViewCell heightWithTags:@[]] + 45;
+        {
+            NSMutableArray *participant = [NSMutableArray array];
+            [participant addObjectsFromArray:self.clazzs];
+            [participant addObjectsFromArray:self.students];
+            [participant addObject:@"+添加对象"];
+            rowHeight = [MIAddWordTableViewCell heightWithTags:participant] + 50;
+        }
             break;
         case MIHomeworkCreateContentType_Add:
         case MIHomeworkCreateContentType_Delete:
@@ -1085,6 +1172,9 @@ UIDocumentPickerDelegate
     
     [self.leftTableView registerNib:[UINib nibWithNibName:@"MITagsTableViewCell" bundle:nil] forCellReuseIdentifier:MITagsTableViewCellId];
     [self.rightTableView registerNib:[UINib nibWithNibName:@"MITagsTableViewCell" bundle:nil] forCellReuseIdentifier:MITagsTableViewCellId];
+    
+    [self.leftTableView registerNib:[UINib nibWithNibName:@"MIAddWordTableViewCell" bundle:nil] forCellReuseIdentifier:MIAddWordTableViewCellId];
+    [self.rightTableView registerNib:[UINib nibWithNibName:@"MIAddWordTableViewCell" bundle:nil] forCellReuseIdentifier:MIAddWordTableViewCellId];
 }
 
 #pragma mark - setter && getter
@@ -1099,13 +1189,23 @@ UIDocumentPickerDelegate
     if (!_homework) {
         _homework = [[Homework alloc] init];
         _homework.fileInfos = [[HomeworkFileDto alloc] init];
+        _homework.fileInfos.subFile = [[FileInfo alloc] init];
+        _homework.fileInfos.parentFile = [[FileInfo alloc] init];
     }
     return _homework;
 }
+
+- (ActivityInfo *)activityInfo{
+    if (!_activityInfo) {
+        _activityInfo = [[ActivityInfo alloc] init];
+    }
+    return _activityInfo;
+}
+
 - (HomeworkItem *)wordsItem{
     if (!_wordsItem) {
         _wordsItem = [[HomeworkItem alloc] init];
-        _wordsItem.type = @"audio";
+        _wordsItem.type = @"word";
     }
     return _wordsItem;
 }
@@ -1135,6 +1235,7 @@ UIDocumentPickerDelegate
     }
     return _answerItems;
 }
+
 - (NSMutableArray *)selectedTags{
     if (!_selectedTags) {
         _selectedTags = [NSMutableArray array];
@@ -1142,6 +1243,15 @@ UIDocumentPickerDelegate
     return _selectedTags;
 }
 
+- (FileInfo *)currentFileInfo{
+
+    if (!_currentFileInfo) {
+        _currentFileInfo = [[FileInfo alloc] init];
+    }
+    return _currentFileInfo;
+}
+
+#pragma mark - 删除任务 && 活动
 - (void)deleteHomework {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确认删除?"
                                                                              message:nil
@@ -1151,15 +1261,33 @@ UIDocumentPickerDelegate
                                                            style:UIAlertActionStyleCancel
                                                          handler:^(UIAlertAction * _Nonnull action) {
                                                          }];
-    
+    WeakifySelf;
     UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"删除"
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * _Nonnull action) {
+                                                              
+                                                              [weakSelf deleteTask];
                                                           }];
     
     [alertController addAction:cancelAction];
     [alertController addAction:confirmAction];
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)deleteTask{
+    
+    if (self.taskType == MIHomeworkTaskType_Activity) {
+        WeakifySelf;
+        [ManagerServce requestDeleteActivityId:self.activityInfo.activityId callback:^(Result *result, NSError *error) {
+            
+            if (error) return;
+            [HUD showWithMessage:@"删除成功"];
+            if (weakSelf.callBack) {
+                weakSelf.callBack(YES);
+            }
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        }];
+    }
 }
 
 
@@ -1190,4 +1318,216 @@ UIDocumentPickerDelegate
         [self.rightTableView reloadData];
     }];
 }
+
+- (void)requestGetFiles{
+    
+    WeakifySelf;
+    [ManagerServce requestGetFilesWithFileId:0 callback:^(Result *result, NSError *error) {
+        StrongifySelf;
+        if (error) return ;
+        NSDictionary *dict = (NSDictionary *)(result.userInfo);
+        weakSelf.currentFileList = (NSArray *)(dict[@"list"]);
+        [strongSelf setFileInfo:strongSelf.currentFileList];
+        if (weakSelf.createTypeArray.count) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+            [weakSelf.leftTableView rectForRowAtIndexPath:indexPath];
+        }
+    }];
+}
+
+- (void)setFileInfo:(NSArray *)currentFileList{
+    
+    for (ParentFileInfo *parentInfo in currentFileList) {
+        
+        for (FileInfo *subInfo in parentInfo.subFileList) {
+           
+            if (subInfo.fileId == self.currentFileInfo.fileId) {
+                
+                self.homework.fileInfos.subFile = subInfo;
+                self.homework.fileInfos.parentFile = parentInfo.fileInfo;
+            }
+        }
+    }
+}
+
+#pragma mark - ClassAndStudentSelectorControllerDelegate
+- (void)classesDidSelect:(NSArray<Clazz *> *)classes{
+    
+    NSMutableArray *clazzs = [NSMutableArray array];
+    [clazzs addObjectsFromArray:self.clazzs];
+    [clazzs addObjectsFromArray:classes];
+    
+    // 去重
+    NSMutableArray *resultArrM = [NSMutableArray array];
+    for (Clazz *tempClass in clazzs) {
+        if (![resultArrM containsObject:tempClass]) {
+            [resultArrM addObject:tempClass];
+        }
+    }
+    self.clazzs = resultArrM;
+    
+    [self.leftTableView reloadData];
+    [self.rightTableView reloadData];
+}
+- (void)studentsDidSelect:(NSArray<User *> *)students{
+    
+    NSMutableArray *tempStudents = [NSMutableArray array];
+    [tempStudents addObjectsFromArray:self.students];
+    [tempStudents addObjectsFromArray:students];
+    
+    // 去重
+    NSMutableArray *resultArrM = [NSMutableArray array];
+    for (User *tempStu in tempStudents) {
+        if (![resultArrM containsObject:tempStu]) {
+            [resultArrM addObject:tempStu];
+        }
+    }
+    self.students = resultArrM;
+    [self.leftTableView reloadData];
+    [self.rightTableView reloadData];
+}
+
+
+#pragma mark - 创建活动
+- (void)createActivity{
+   
+    if (self.activityInfo.title.length == 0) {
+        [HUD showErrorWithMessage:@"活动标题不能为空"];
+        return;
+    }
+    if (self.contentItem.text.length == 0) {
+        [HUD showErrorWithMessage:@"活动要求不能为空"];
+        return;
+    }
+    if (self.activityInfo.actCoverUrl.length == 0) {
+        [HUD showErrorWithMessage:@"请添加活动封面"];
+        return;
+    }
+    
+    if ([[NSDate dateWithString:self.activityInfo.startTime format:@"yyyy-MM-dd HH:mm:ss"] isLaterThanDate:[NSDate dateWithString:self.activityInfo.endTime format:@"yyyy-MM-dd HH:mm:ss"]]) {
+        [HUD showErrorWithMessage:@"开始时间晚于结束时间"];
+        return;
+    }
+    
+    NSMutableArray *resultItems = [NSMutableArray array];
+    [resultItems addObject:self.contentItem];
+    [resultItems addObjectsFromArray:self.items];
+    self.activityInfo.items = resultItems;
+    
+    NSMutableArray *tempClazzIds = [NSMutableArray array];
+    NSMutableArray *tempStudentIds = [NSMutableArray array];
+    NSMutableArray *tempClazzNames = [NSMutableArray array];
+    NSMutableArray *tempStudentNames = [NSMutableArray array];
+    for (Clazz *tempObjc in self.clazzs) {
+        
+        [tempClazzIds addObject:@(tempObjc.classId)];
+        [tempClazzNames addObject:tempObjc.name];
+    }
+    for (User *tempObjc in self.students) {
+        
+        [tempStudentIds addObject:@(tempObjc.userId)];
+        [tempStudentNames addObject:tempObjc.nickname];
+    }
+    self.activityInfo.classIds = tempClazzIds;
+    self.activityInfo.classNames = tempClazzNames;
+    self.activityInfo.studentIds = tempStudentIds;
+    self.activityInfo.studentNames = tempStudentNames;
+    if (self.activityInfo.studentIds.count + self.activityInfo.classIds.count == 0) {
+        [HUD showErrorWithMessage:@"活动参与对象不能为空"];
+        return;
+    }
+    
+    if (self.isCreateTask == 0) {
+        [HUD showProgressWithMessage:@"正在新建活动"];
+    } else {
+        [HUD showProgressWithMessage:@"正在更新活动"];
+    }
+    WeakifySelf;
+    [ManagerServce requestCreateActivity:self.activityInfo callback:^(Result *result, NSError *error) {
+        if (error != nil) {
+            if (weakSelf.isCreateTask) {
+                [HUD showErrorWithMessage:@"新建活动失败"];
+            } else {
+                [HUD showErrorWithMessage:@"更新活动失败"];
+            }
+            return;
+        }
+        
+        if (weakSelf.isCreateTask) {
+            [HUD showWithMessage:@"新建活动成功"];
+        } else {
+            [HUD showWithMessage:@"更新活动成功"];
+        }
+        if (weakSelf.callBack) {
+            weakSelf.callBack(NO);
+        }
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+    }];
+}
+
+#pragma mark - 创建作业任务
+- (void)createHomeworkTask{
+    
+    if (self.homework.title.length == 0) {
+        [HUD showErrorWithMessage:@"作业标题不能为空"];
+        return;
+    }
+    if (self.contentItem.text.length == 0) {
+        [HUD showErrorWithMessage:@"作业内容不能为空"];
+        return;
+    }
+    NSMutableArray *resultItems = [NSMutableArray array];
+    if (self.taskType == MIHomeworkTaskType_WordMemory) {
+        
+        if (self.wordsItem.words.count == 0) {
+            [HUD showErrorWithMessage:@"单词个数不能为空"];
+            return;
+        }
+        [resultItems addObject:self.wordsItem];
+    }
+    if (self.taskType == MIHomeworkTaskType_FollowUp) {
+        if (self.followItems.count == 0) {
+            [HUD showErrorWithMessage:@"请添加跟读材料"];
+        }
+    }
+    [resultItems addObject:self.contentItem];
+    [resultItems addObjectsFromArray:self.items];
+    
+    self.homework.tags = self.selectedTags;
+    self.homework.formTag = self.selectFormTag;
+    self.homework.items = resultItems;
+    self.homework.answerItems = self.answerItems;
+    self.homework.createTeacher = APP.currentUser;
+    self.homework.otherItem = self.followItems;
+    
+    if (self.isCreateTask == 0) {
+        [HUD showProgressWithMessage:@"正在新建作业"];
+    } else {
+        [HUD showProgressWithMessage:@"正在更新作业"];
+    }
+    WeakifySelf;
+    [HomeworkService createHomework:self.homework
+                           callback:^(Result *result, NSError *error) {
+                               if (error != nil) {
+                                   if (weakSelf.isCreateTask) {
+                                       [HUD showErrorWithMessage:@"新建作业失败"];
+                                   } else {
+                                       [HUD showErrorWithMessage:@"更新作业失败"];
+                                   }
+                                   return;
+                               }
+                               
+                               if (weakSelf.isCreateTask) {
+                                   [HUD showWithMessage:@"新建作业成功"];
+                               } else {
+                                   [HUD showWithMessage:@"更新作业成功"];
+                               }
+                               if (weakSelf.callBack) {
+                                   weakSelf.callBack(NO);
+                               }
+                               [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfAddHomework object:nil];
+                               [weakSelf.navigationController popViewControllerAnimated:YES];
+                           }];
+}
+
 @end

@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ScoreInfo : MTLModel
+@protocol ScoreInfo <NSObject>
+
+@end
+
+@interface ScoreInfo : MTLModel<MTLJSONSerializing>
 
 @property(nonatomic, copy) NSString * avatar;
 
@@ -19,6 +23,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign) NSInteger score;
 
 @property(nonatomic, assign) NSInteger userId;
+
+@end
+
+
+@interface ScoreInfoList : MTLModel<MTLJSONSerializing>
+
+@property(nonatomic, copy) NSString * next;
+
+@property(nonatomic, copy) NSArray<ScoreInfo>* list;
 
 @end
 

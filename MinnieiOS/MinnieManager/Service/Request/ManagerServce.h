@@ -34,21 +34,22 @@ NS_ASSUME_NONNULL_BEGIN
                                    callback:(RequestCallback)callback;
 
 // 根据目录获取任务列表
-+ (BaseRequest *)requesthomeworksByFileWithFileId:(NSInteger)fileId callback:(RequestCallback)callback;
++ (BaseRequest *)requesthomeworksByFileWithFileId:(NSInteger)fileId
+                                          nextUrl:(NSString *_Nullable)nextUrl
+                                         callback:(RequestCallback)callback;
 
 // 获取任务类型
 + (BaseRequest *)requestGetWorkTypesWithCallback:(RequestCallback)callback;
 
 // 任务得分列表
-+ (BaseRequest *)requestScoreListByHomeworkId:(NSInteger)homeworkId callback:(RequestCallback)callback;
-
++ (BaseRequest *)requestScoreListByHomeworkId:(NSInteger)homeworkId nextUrl:(NSString *_Nullable)nextUrl callback:(RequestCallback)callback;
 
 #pragma mark - 活动管理
 
 // 新建活动（ipad管理端）
 + (BaseRequest *)requestCreateActivity:(ActivityInfo *)activityInfo callback:(RequestCallback)callback;
 
-// 删除活动(ipad管理端) 未用
+// 删除活动(ipad管理端) 进行中的活动不能删除，活动开始前和结束后的可以删除
 + (BaseRequest *)requestDeleteActivityId:(NSInteger)actId callback:(RequestCallback)callback;
 
 // 获取活动任务列表（ipad管理端&学生端）
@@ -63,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BaseRequest *)requestGetStuActivityRankListWithcallback:(RequestCallback)callback;
 
 // 上传活动视频(学生端)
-+ (BaseRequest *)requestDeleteActivityId:(NSInteger)actId
++ (BaseRequest *)requestCommitActivityId:(NSInteger)actId
                                 actTimes:(NSInteger)actTimes
                                   actUrl:(NSString *)actUrl
                                 callback:(RequestCallback)callback;
@@ -77,6 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 // 视频审阅（ipad管理端）
 + (BaseRequest *)requestCorrectActVideoId:(NSInteger)videoId
                                      isOk:(NSInteger)isOk
+                                    actId:(NSInteger)actId
                                  callback:(RequestCallback)callback;
 
 @end

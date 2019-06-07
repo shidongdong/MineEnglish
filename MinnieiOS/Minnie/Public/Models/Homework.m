@@ -26,7 +26,8 @@
              @"teremark":@"teremark",
              @"fileInfos":@"fileInfos",
              @"typeName":@"typeName",
-             @"examType":@"examType"
+             @"examType":@"examType",
+             @"otherItem":@"otherItem"
              };
 }
 
@@ -42,12 +43,16 @@
     return [MTLJSONAdapter arrayTransformerWithModelClass:[HomeworkItem class]];
 }
 
++ (NSValueTransformer *)otherItemJSONTransformer {
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[HomeworkItem class]];
+}
+
 + (NSValueTransformer *)answerItemsJSONTransformer {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[HomeworkAnswerItem class]];
 }
 
 + (NSValueTransformer *)fileInfosJSONTransformer {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[HomeworkFileDto class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[HomeworkFileDto class]];
 }
 
 
@@ -60,8 +65,41 @@
     }
     
     dict[@"title"] = self.title;
-    
     dict[@"createTeacher"] = @{@"id":@(self.createTeacher.userId)};
+    
+    
+    NSMutableArray *otherItems = [NSMutableArray array];
+    dict[@"otherItem"] = otherItems;
+    for (HomeworkItem *item in self.otherItem) {
+        NSMutableDictionary *itemDict = [NSMutableDictionary dictionary];
+        itemDict[@"type"] = item.type;
+        if ([item.type isEqualToString:HomeworkItemTypeText]) {
+            itemDict[@"text"] = item.text;
+        } else if ([item.type isEqualToString:HomeworkItemTypeAudio]) {
+            itemDict[@"audioUrl"] = item.audioUrl;
+            itemDict[@"audioCoverUrl"] = item.audioCoverUrl;
+        } else if ([item.type isEqualToString:HomeworkItemTypeVideo]) {
+            itemDict[@"videoUrl"] = item.videoUrl;
+            itemDict[@"videoCoverUrl"] = item.videoCoverUrl;
+        } else if ([item.type isEqualToString:HomeworkItemTypeImage]) {
+            itemDict[@"imageUrl"] = item.imageUrl;
+            itemDict[@"imageWidth"] = @(item.imageWidth);
+            itemDict[@"imageHeight"] = @(item.imageHeight);
+        } else if ([item.type isEqualToString:HomeworkItemTypeWord]) {
+            
+            itemDict[@"bgmusicUrl"] = item.bgmusicUrl;
+            itemDict[@"palytime"] = @(item.palytime);
+            
+            NSMutableArray *words = [NSMutableArray array];
+            dict[@"words"] = words;
+            for (WordInfo *word in item.words) {
+                NSMutableDictionary *wordDic = [NSMutableDictionary dictionary];
+                wordDic[@"english"] = word.english;
+                wordDic[@"chinese"] = word.chinese;
+            }
+        }
+        [otherItems addObject:itemDict];
+    }
     
     NSMutableArray *items = [NSMutableArray array];
     dict[@"items"] = items;
@@ -90,10 +128,9 @@
             for (WordInfo *word in item.words) {
                 NSMutableDictionary *wordDic = [NSMutableDictionary dictionary];
                 wordDic[@"english"] = word.english;
-                wordDic[@"chinese"] = @(word.chinese);
+                wordDic[@"chinese"] = word.chinese;
             }
         }
-        
         [items addObject:itemDict];
     }
     
@@ -113,9 +150,22 @@
             itemDict[@"imageWidth"] = @(item.imageWidth);
             itemDict[@"imageHeight"] = @(item.imageHeight);
         }
-        
         [answserItems addObject:itemDict];
     }
+    
+    NSDictionary *parentFile = @{@"fileId":@(self.fileInfos.parentFile.fileId),
+                                 @"fileName":self.fileInfos.parentFile.fileName,
+                                 @"parentId":@(self.fileInfos.parentFile.parentId),
+                                 @"depth":@(self.fileInfos.parentFile.depth)
+                                 };
+    
+    NSDictionary *subFile = @{@"fileId":@(self.fileInfos.subFile.fileId),
+                              @"fileName":self.fileInfos.subFile.fileName,
+                              @"parentId":@(self.fileInfos.subFile.parentId),
+                              @"depth":@(self.fileInfos.subFile.depth)
+                                 };
+   
+    dict[@"fileInfos"] = @{@"parentFile":parentFile,@"subFile":subFile};
     
     dict[@"tags"] = self.tags;
     dict[@"style"] = @(self.style);
@@ -124,9 +174,9 @@
     dict[@"limitTimes"] = @(self.limitTimes);
     dict[@"formTag"] = self.formTag;
     dict[@"teremark"] = self.teremark;
-    dict[@"fileInfos"] = self.fileInfos;
     dict[@"typeName"] = self.typeName;
     dict[@"examType"] = @(self.examType);
+    
     return dict;
 }
 

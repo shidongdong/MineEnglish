@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingsViewController">
             <connections>
-                <outlet property="backBtn" destination="Swc-vK-gKD" id="yVC-Hm-mOT"/>
+                <outlet property="backButton" destination="Swc-vK-gKD" id="KPH-aL-fTG"/>
                 <outlet property="logoutButton" destination="KV9-xi-vsy" id="WmW-2L-Y52"/>
                 <outlet property="settingsTableView" destination="lKq-XM-ZG1" id="BEL-SB-VO3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

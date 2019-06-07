@@ -6,6 +6,8 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
+#import "NSDate+X5.h"
+#import "NSDate+Extension.h"
 #import "MISecondActivityTableViewCell.h"
 
 CGFloat const MISecondActivityTableViewCellHeight = 70.f;
@@ -30,16 +32,23 @@ NSString * const MISecondActivityTableViewCellId = @"MISecondActivityTableViewCe
     // Initialization code
     
     self.endButton.layer.masksToBounds = YES;
-    self.endButton.layer.cornerRadius = 20.0;
+    self.endButton.layer.cornerRadius = 15.0;
 }
 
 - (void)setupWithModel:(ActivityInfo *)model selected:(BOOL)selected{
     
     self.titleLabel.text = model.title;
-    self.timeLabel.text = [NSString stringWithFormat:@"%@-%@",model.startTime,model.endTime];
-    self.endButton.hidden = YES;
-    if (model.status == 2) {
+    // 活动是否结束
+    NSDate *endDate = [NSDate dateByDateString:model.endTime format:@"yyyy-MM-dd HH:mm:ss"];
+    if ([[endDate dateAtStartOfDay] isEarlierThanDate:[[NSDate date] dateAtStartOfDay]]) {
         self.endButton.hidden = NO;
+    } else {
+        self.endButton.hidden = YES;
+    }
+    // 活动时间
+    if (model.startTime.length >= 10 && model.endTime.length >= 10) {
+        
+        self.timeLabel.text = [NSString stringWithFormat:@"%@-%@",[model.startTime substringToIndex:10] ,[model.endTime substringToIndex:10]];
     }
     if (selected) {
         self.titleLabel.textColor = [UIColor mainColor];
@@ -48,7 +57,7 @@ NSString * const MISecondActivityTableViewCellId = @"MISecondActivityTableViewCe
     } else {
         self.titleLabel.textColor = [UIColor detailColor];
         self.timeLabel.textColor = [UIColor detailColor];
-        [self.endButton setBackgroundColor:[UIColor unSelectedColor]];
+        [self.endButton setBackgroundColor:[UIColor detailColor]];
     }
 }
 

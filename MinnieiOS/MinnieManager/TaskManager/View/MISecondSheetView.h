@@ -17,7 +17,7 @@
 - (void)toSendRecord;
 
 // 点击任务管理一级文件夹
-- (void)secondSheetViewFirstLevelData:(FileInfo *_Nullable)data index:(NSInteger)index;
+- (void)secondSheetViewFirstLevelData:(ParentFileInfo *_Nullable)data index:(NSInteger)index;
 
 // 点击任务管理二级文件夹
 - (void)secondSheetViewSecondLevelData:(FileInfo *_Nullable)data index:(NSInteger)index;

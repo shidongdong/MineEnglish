@@ -18,6 +18,7 @@
                 <outlet property="footerHeightConstraint" destination="FCk-im-OlJ" id="CCl-ZJ-gCh"/>
                 <outlet property="footerView" destination="WCj-rv-B5Y" id="TmI-S8-gb3"/>
                 <outlet property="headerView" destination="reE-sz-sjS" id="tYc-Lu-7m3"/>
+                <outlet property="operatorBtn" destination="YPY-tv-4Bx" id="21j-iH-fvJ"/>
                 <outlet property="selectCountLabel" destination="QdF-S0-wfJ" id="DcP-eI-pAG"/>
                 <outlet property="sendBtn" destination="drd-y9-dbR" id="GM2-Uj-jsH"/>
                 <outlet property="tableView" destination="THK-qy-fml" id="7eQ-Wn-d7A"/>
@@ -123,9 +124,8 @@
                                 <action selector="sendHomeworkAction:" destination="-1" eventType="touchUpInside" id="Re2-33-5Sg"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QdF-S0-wfJ">
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QdF-S0-wfJ">
                             <rect key="frame" x="348" y="14.5" width="21" height="21"/>
-                            <color key="backgroundColor" red="1" green="0.071534000337123871" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="21" id="L9l-Kr-IiD"/>
                                 <constraint firstAttribute="height" constant="21" id="RGw-k3-axR"/>
@@ -134,10 +134,10 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="删除" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y71-Qf-PjG">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="移动" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y71-Qf-PjG">
                             <rect key="frame" x="373" y="16.5" width="29" height="17"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
-                            <color key="textColor" red="1" green="0.071534000337123871" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="textColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fnc-Lx-wTL" userLabel="删除按钮">

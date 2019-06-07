@@ -30,8 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString * title;
 
-- (void)setupWithItems:(NSArray<HomeworkItem *>*)items vc:(UIViewController *)vc;
+- (void)setupWithItems:(NSArray<HomeworkItem *>*)items vc:(UIViewController *)vc contentType:(MIHomeworkCreateContentType)contentType;
 
+// 添加答案
 - (void)setupWithAnswerItems:(NSArray<HomeworkAnswerItem *>*)answerItems vc:(UIViewController *)vc;
 
 @end

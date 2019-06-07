@@ -10,6 +10,6 @@
 
 @interface SettingsViewController : BaseViewController
 
-@property (weak, nonatomic) IBOutlet UIButton *backBtn;
+@property (assign, nonatomic) BOOL hiddenBackBtn;
 
 @end

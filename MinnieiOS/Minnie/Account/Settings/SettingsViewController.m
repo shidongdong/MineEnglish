@@ -23,6 +23,7 @@
 
 @property (nonatomic, weak) IBOutlet UIButton *logoutButton;
 @property (nonatomic, weak) IBOutlet UITableView *settingsTableView;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
 
 @end
 
@@ -31,6 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.backButton.hidden = self.hiddenBackBtn;
     self.logoutButton.layer.cornerRadius = 12.f;
     self.logoutButton.layer.masksToBounds = YES;
     self.logoutButton.layer.borderWidth = 0.5;

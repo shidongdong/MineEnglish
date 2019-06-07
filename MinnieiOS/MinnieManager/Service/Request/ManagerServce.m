@@ -53,9 +53,11 @@
 }
 
 // 根据目录获取任务列表
-+ (BaseRequest *)requesthomeworksByFileWithFileId:(NSInteger)fileId callback:(RequestCallback)callback{
++ (BaseRequest *)requesthomeworksByFileWithFileId:(NSInteger)fileId
+                                          nextUrl:(NSString *_Nullable)nextUrl
+                                         callback:(RequestCallback)callback{
     
-    HomeworksByFileRequest * request = [[HomeworksByFileRequest alloc] initWithFileId:fileId];
+    HomeworksByFileRequest * request = [[HomeworksByFileRequest alloc] initWithFileId:fileId nextUrl:nextUrl];
     [request setCallback:callback];
     request.objectKey = @"list";
     request.objectClassName = @"Homework";
@@ -73,9 +75,11 @@
 }
 
 // 任务得分列表
-+ (BaseRequest *)requestScoreListByHomeworkId:(NSInteger)homeworkId callback:(RequestCallback)callback{
++ (BaseRequest *)requestScoreListByHomeworkId:(NSInteger)homeworkId
+                                      nextUrl:(NSString *_Nullable)nextUrl
+                                     callback:(RequestCallback)callback{
     
-    ScoreListByHomeworkRequest * request = [[ScoreListByHomeworkRequest alloc] initWithHomeworkId:homeworkId];
+    ScoreListByHomeworkRequest * request = [[ScoreListByHomeworkRequest alloc] initWithHomeworkId:homeworkId nextUrl:nextUrl];
     [request setCallback:callback];
     request.objectKey = @"list";
     request.objectClassName = @"ScoreInfo";
@@ -118,7 +122,6 @@
     
     ActGetActivityRankRequest *request = [[ActGetActivityRankRequest alloc] initWithActId:actId];
     [request setCallback:callback];
-//    request.objectKey = @"list";
     request.objectClassName = @"ActivityRankListInfo";
     [request start];
     return request;
@@ -136,7 +139,7 @@
 }
 
 // 上传活动视频(学生端)
-+ (BaseRequest *)requestDeleteActivityId:(NSInteger)actId
++ (BaseRequest *)requestCommitActivityId:(NSInteger)actId
                                 actTimes:(NSInteger)actTimes
                                   actUrl:(NSString *)actUrl
                                 callback:(RequestCallback)callback{
@@ -163,9 +166,10 @@
 // 视频审阅（ipad管理端）
 + (BaseRequest *)requestCorrectActVideoId:(NSInteger)videoId
                                      isOk:(NSInteger)isOk
+                                    actId:(NSInteger)actId
                                  callback:(RequestCallback)callback{
  
-    VideoCorrectActRequest *request = [[VideoCorrectActRequest alloc] initWithVideoId:videoId isOk:isOk];
+    VideoCorrectActRequest *request = [[VideoCorrectActRequest alloc] initWithVideoId:videoId isOk:isOk actId:actId];
     [request setCallback:callback];
     [request start];
     return request;

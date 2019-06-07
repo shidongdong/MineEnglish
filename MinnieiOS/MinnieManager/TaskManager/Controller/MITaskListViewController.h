@@ -19,8 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *folderTitle;
 
-
-- (void)showTaskListWithFoldInfo:(FileInfo * _Nullable)fileInfo;
+- (void)showTaskListWithFoldInfo:(FileInfo * _Nullable)fileInfo folderIndex:(NSInteger)folder;
 
 // yes 添加文件夹 no 添加文件
 - (void)showEmptyViewWithIsFolder:(BOOL)isAddFolder folderIndex:(NSInteger)folder;

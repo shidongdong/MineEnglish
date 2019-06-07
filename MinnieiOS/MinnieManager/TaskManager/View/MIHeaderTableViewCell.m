@@ -21,7 +21,9 @@ CGFloat const MIHeaderTableViewCellHeight = 60.f;
 
 @property (nonatomic , strong) NSIndexPath *indexPath;
 
-//@property (nonatomic , strong) ParentFileInfo *parentFileInfo;
+@property (nonatomic , strong) ParentFileInfo *parentFileInfo;
+
+@property (nonatomic , assign) BOOL isSelected;
 
 @property (nonatomic , assign) NSInteger isParentFile;
 
@@ -52,9 +54,34 @@ CGFloat const MIHeaderTableViewCellHeight = 60.f;
 {
     if (pressGest.state == UIGestureRecognizerStateBegan) {
         
-        if (self.delegate && [self.delegate respondsToSelector:@selector(headerViewEditFileClicked:isParentFile:)]) {
-            [self.delegate headerViewEditFileClicked:self.indexPath isParentFile:self.isParentFile];
+        if (self.isParentFile) {
+            // 父级文件夹，展开，情况下，长按编辑
+            if (self.parentFileInfo.fileInfo.isOpen) {
+               
+                if (self.delegate && [self.delegate respondsToSelector:@selector(headerViewEditFileClicked:isParentFile:)]) {
+                    [self.delegate headerViewEditFileClicked:self.indexPath isParentFile:self.isParentFile];
+                }
+            } else {
+                // 点击文件
+                if (self.delegate && [self.delegate respondsToSelector:@selector(headerViewDidCellClicked:isParentFile:)]) {
+                    [self.delegate headerViewDidCellClicked:self.indexPath isParentFile:self.isParentFile];
+                }
+            }
+        } else {
+            // 子级文件夹，选中，情况下，长按编辑
+            if (self.isSelected) {
+              
+                if (self.delegate && [self.delegate respondsToSelector:@selector(headerViewEditFileClicked:isParentFile:)]) {
+                    [self.delegate headerViewEditFileClicked:self.indexPath isParentFile:self.isParentFile];
+                }
+            } else {
+                // 点击文件
+                if (self.delegate && [self.delegate respondsToSelector:@selector(headerViewDidCellClicked:isParentFile:)]) {
+                    [self.delegate headerViewDidCellClicked:self.indexPath isParentFile:self.isParentFile];
+                }
+            }
         }
+     
     }
 }
 
@@ -75,6 +102,7 @@ CGFloat const MIHeaderTableViewCellHeight = 60.f;
     if (isParentFile) {
         if (![fileInfo isKindOfClass:[ParentFileInfo class]]) return;
         ParentFileInfo *parentFileInfo = fileInfo;
+        self.parentFileInfo = parentFileInfo;
         if (parentFileInfo.fileInfo.isOpen) {
             self.titleLabel.textColor = [UIColor mainColor];
             [self.addBtn setImage:[UIImage imageNamed:@"ic_add_blue"] forState:UIControlStateNormal];
@@ -92,6 +120,7 @@ CGFloat const MIHeaderTableViewCellHeight = 60.f;
     } else {
         if (![fileInfo isKindOfClass:[FileInfo class]]) return;
         FileInfo *subFileInfo = fileInfo;
+        self.isSelected = selected;
         self.addBtn.hidden = YES;
         if (selected) {
             self.titleLabel.textColor = [UIColor mainColor];
@@ -101,6 +130,15 @@ CGFloat const MIHeaderTableViewCellHeight = 60.f;
         self.titleLabel.font = [UIFont systemFontOfSize:14];
         self.titleLabel.text = [NSString stringWithFormat:@"   %@",subFileInfo.fileName];
     }
+}
+
+- (ParentFileInfo *)parentFileInfo{
+    
+    if (!_parentFileInfo) {
+        
+        _parentFileInfo = [[ParentFileInfo alloc] init];
+    }
+    return _parentFileInfo;
 }
 
 @end

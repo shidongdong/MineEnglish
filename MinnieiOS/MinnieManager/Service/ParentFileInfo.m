@@ -51,7 +51,7 @@
 }
 
 + (NSValueTransformer *)subFileJSONTransformer {
-    return [MTLJSONAdapter arrayTransformerWithModelClass:[FileInfo class]];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[FileInfo class]];
 }
 
 @end

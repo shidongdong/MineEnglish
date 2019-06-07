@@ -43,7 +43,7 @@
 #import "HomeworkAnswersPickerViewController.h"
 #import "SendAudioManager.h"
 
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
 #import "HomeworkService.h"
 #endif
 static NSString * const kKeyOfCreateTimestamp = @"createTimestamp";
@@ -116,7 +116,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
     [self studentName];
 //    self.correctButton.hidden = self.homeworkSession.score>0;
     self.correctButton.hidden = NO;
@@ -323,7 +323,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         self.homeworkSession.score = [attributes[@"score"] integerValue];
         self.homeworkSession.reviewText = attributes[@"reviewText"];
         self.homeworkSession.isRedo = [attributes[@"isRedo"] integerValue];
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
 #else
         NSInteger star = MIN(5, self.homeworkSession.score);
         APP.currentUser.starCount += star;
@@ -360,7 +360,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 - (void)homeworkDidFinishCorrect:(NSNotification *)notification {
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
 #else
     return ;
 #endif
@@ -545,7 +545,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 - (IBAction)photoButtonPressed:(id)sender {
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
     self.isCommitingHomework = NO;
     UIImagePickerController *photoPicker = [[UIImagePickerController alloc] init];
     
@@ -604,7 +604,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 - (IBAction)videoButtonPressed:(id)sender {
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
     self.isCommitingHomework = NO;
 #else
     self.isCommitingHomework = YES;
@@ -674,7 +674,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                                          handler:^(UIAlertAction * _Nonnull action) {
                                                              
                                                              [self sendImageMessageWithImage:[UIImage imageNamed:@"警告图片"]];
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
                                                              [HomeworkService sendWarnForStudent:self.homeworkSession.student.userId callback:^(Result *result, NSError *error) {
                                                                  if (error)
                                                                  {
@@ -717,7 +717,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                                                return;
                                                            }
                                                            
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
 #else
                                                            NSInteger star = MIN(5, self.homeworkSession.score);
                                                            if (APP.currentUser.starCount > star) {
@@ -754,7 +754,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 - (IBAction)studentButtonPressed:(id)sender {
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
     StudentDetailViewController *vc = [[StudentDetailViewController alloc] initWithNibName:@"StudentDetailViewController" bundle:nil];
     vc.userId = self.homeworkSession.student.userId;
     [self.navigationController pushViewController:vc animated:YES];
@@ -824,7 +824,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     self.resultContentView.backgroundColor = bgColor;
     self.resultPaddingView.backgroundColor = bgColor;
     
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
     self.retryButton.hidden = YES;
 #else
     
@@ -1167,7 +1167,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                 return;
             }
             
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
 #else
             if (self.messages.count==0)
             {
@@ -1298,7 +1298,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     
     
     //发送消息，区分学生端和客户端
-//#if TEACHERSIDE
+//#if TEACHERSIDE || MANAGERSIDE
 //    NSArray * users = @[@(self.homeworkSession.student.userId)];
 //#else
 //    NSArray * users = @[@(self.homeworkSession.correctTeacher.userId)];
@@ -1334,7 +1334,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     [self.conversation sendMessage:message
                             option:option
                           callback:^(BOOL succeeded, NSError * _Nullable error) {
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
 #else
                               if (succeeded && self.messages.count==0)
                               {
@@ -1367,7 +1367,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             return;
         }
 
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
         WBGImageEditorViewController *editVC = [[WBGImageEditorViewController alloc] init];
         [editVC setOnlyForSend:YES];
         [editVC setThumbnailImages:@[image]];
@@ -1391,7 +1391,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             durationInSeconds = CMTimeGetSeconds(asset.duration);
         }
         
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
 #else
         if (durationInSeconds > 5*60) {
             [HUD showErrorWithMessage:@"视频时长不能超过5分钟"];
@@ -1940,7 +1940,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     if ([message.clientId integerValue] == APP.currentUser.userId) {
         user = currentUser;
     } else {
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
         user = self.homeworkSession.student;
 #else
         user = self.homeworkSession.correctTeacher;
@@ -2141,7 +2141,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 #pragma mark - UIScrollViewDelegate
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
     CGFloat height = [SessionHomeworkTableViewCell heightWithHomeworkSession:self.homeworkSession];

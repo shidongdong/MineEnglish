@@ -33,11 +33,12 @@ NSString * const MIActivityRankListTableViewCellId = @"MIActivityRankListTableVi
     self.portraitImagV.layer.cornerRadius = 20.0;
 }
 
-- (void)setupWithModel:(ActivityRankInfo *)model index:(NSInteger)index{
+- (void)setupWithModel:(ActivityRankInfo *)model index:(NSInteger)index {
     
-    self.rankLabel.text = [NSString stringWithFormat:@"%lu",index + 1];
     self.nameLabel.text = model.nickName;
-    self.stateLabel.text = @"待审核";
+    self.stateLabel.hidden = model.isOk;
+    
+    self.rankLabel.text = [NSString stringWithFormat:@"%lu",index];
     self.videoTimeLabel.text = [NSString stringWithFormat:@"%ld",model.actTimes];
 }
 

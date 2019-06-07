@@ -23,19 +23,17 @@ CGFloat const MIScoreListTableViewCellHeight = 74.f;
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.portraitImageV.layer.masksToBounds = YES;
     self.portraitImageV.layer.cornerRadius = 22.0;
 }
 
-- (void)setupWithModel:(id)model{
+
+-(void)setupModel:(ScoreInfo *)scoreInfo{
     
+    self.nameLabel.text = scoreInfo.nickName;
+    self.starLevelLabel.text = [NSString stringWithFormat:@"%lu星",scoreInfo.score];
+    [self.portraitImageV sd_setImageWithURL:[scoreInfo.avatar imageURLWithWidth:44.f] placeholderImage:[UIImage imageNamed:@"attachment_placeholder"]];
+  
 }
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
 @end

@@ -17,6 +17,9 @@
 @property (nonatomic, copy)NSString * nextUrl;
 @property (nonatomic, strong)BaseRequest * hitoryRequest;
 @property (nonatomic, strong)NSMutableArray * homeworks;
+
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
+
 @end
 
 @implementation HomeWorkSendHistoryViewController
@@ -32,6 +35,7 @@
     
     [super viewDidLoad];
     self.homeworks = [NSMutableArray array];
+    self.backButton.hidden = self.hiddenBackBtn;
     [self registerNibCell];
     [self requestHistoryList];
     // Do any additional setup after loading the view from its nib.

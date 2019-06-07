@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HomeworksByFileRequest : BaseRequest
 
-- (instancetype)initWithFileId:(NSInteger)fileId;
+- (instancetype)initWithFileId:(NSInteger)fileId nextUrl:(NSString *_Nullable)nextUrl;
 
 @end
 
@@ -70,7 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 任务得分列表
 @interface ScoreListByHomeworkRequest : BaseRequest
 
-- (instancetype)initWithHomeworkId:(NSInteger)homeworkId;
+- (instancetype)initWithHomeworkId:(NSInteger)homeworkId nextUrl:(NSString *_Nullable)nextUrl;
 
 @end
 
@@ -133,7 +133,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface VideoCorrectActRequest : BaseRequest
 
 // 上传的记录id  1合格；2不合格
-- (instancetype)initWithVideoId:(NSInteger)videoId isOk:(NSInteger)isOk;
+- (instancetype)initWithVideoId:(NSInteger)videoId isOk:(NSInteger)isOk actId:(NSInteger)actId;
 
 @end
 

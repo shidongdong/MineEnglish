@@ -139,7 +139,7 @@
 }
 
 - (YTKRequestMethod)requestMethod {
-    return YTKRequestMethodGET;
+    return YTKRequestMethodPOST;
 }
 
 - (NSString *)requestUrl {
@@ -161,16 +161,18 @@
 
 @property (nonatomic,assign) NSInteger fileId;
 
+@property (nonatomic,copy) NSString *nextUrl;
 @end
 
 @implementation HomeworksByFileRequest
 
 
-- (instancetype)initWithFileId:(NSInteger)fileId{
+- (instancetype)initWithFileId:(NSInteger)fileId nextUrl:(NSString *_Nullable)nextUrl{
     
     self = [super init];
     if (self != nil) {
         self.fileId = fileId;
+        self.nextUrl = nextUrl;
     }
     return self;
 }
@@ -180,7 +182,11 @@
 }
 
 - (NSString *)requestUrl {
-    return [NSString stringWithFormat:@"%@/homework/homeworksByFile", ServerProjectName];
+    if (self.nextUrl.length >0) {
+        return self.nextUrl;
+    } else {
+        return [NSString stringWithFormat:@"%@/homework/homeworksByFile", ServerProjectName];
+    }
 }
 
 - (id)requestArgument {
@@ -209,15 +215,18 @@
 
 @property (nonatomic,assign) NSInteger homeworkId;
 
+@property (nonatomic,copy) NSString *nextUrl;
+
 @end
 
 
 @implementation ScoreListByHomeworkRequest
 
-- (instancetype)initWithHomeworkId:(NSInteger)homeworkId{
+- (instancetype)initWithHomeworkId:(NSInteger)homeworkId nextUrl:(NSString *_Nullable)nextUrl{
     
     self = [super init];
     if (self != nil) {
+        self.nextUrl = nextUrl;
         self.homeworkId = homeworkId;
     }
     return self;
@@ -227,7 +236,13 @@
 }
 
 - (NSString *)requestUrl {
-    return [NSString stringWithFormat:@"%@/homework/scoreListByHomework", ServerProjectName];
+    if (self.nextUrl.length > 0) {
+        
+        return self.nextUrl;
+    } else {
+        
+        return [NSString stringWithFormat:@"%@/homeworkTask/scoreListByHomework", ServerProjectName];
+    }
 }
 
 - (id)requestArgument {
@@ -287,7 +302,7 @@
     return self;
 }
 - (YTKRequestMethod)requestMethod {
-    return YTKRequestMethodGET;
+    return YTKRequestMethodPOST;
 }
 
 - (NSString *)requestUrl {
@@ -336,7 +351,7 @@
 }
 
 - (NSString *)requestUrl {
-    return [NSString stringWithFormat:@"%@/actwork/actDetails", ServerProjectName];
+    return [NSString stringWithFormat:@"%@/actworkTask/actRankByTech", ServerProjectName];
 }
 
 - (id)requestArgument {
@@ -460,6 +475,7 @@
 @interface VideoCorrectActRequest ()
 
 @property (nonatomic,assign) NSInteger isOk;
+@property (nonatomic,assign) NSInteger actId;
 @property (nonatomic,assign) NSInteger videoId;
 
 
@@ -467,11 +483,12 @@
 
 @implementation VideoCorrectActRequest
 
-- (instancetype)initWithVideoId:(NSInteger)videoId isOk:(NSInteger)isOk{
+- (instancetype)initWithVideoId:(NSInteger)videoId isOk:(NSInteger)isOk actId:(NSInteger)actId{
     
     self = [super init];
     if (self != nil) {
         self.isOk = isOk;
+        self.actId = actId;
         self.videoId = videoId;
     }
     return self;
@@ -486,7 +503,8 @@
 
 - (id)requestArgument {
     return @{@"id":@(self.videoId),
-             @"isOk":@(self.isOk)
+             @"isOk":@(self.isOk),
+             @"actId":@(self.actId)
              };
 }
 

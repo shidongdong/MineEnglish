@@ -11,7 +11,7 @@
 #import "ActivityInfo.h"
 #import "MICreateHomeworkTaskView.h"
 
-typedef void(^CreateTaskCallBack)(void);
+typedef void(^CreateTaskCallBack)(BOOL isDelete);
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,7 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setupCreateActivity:(ActivityInfo *_Nullable)activity;
 
 // 作业
-- (void)setupCreateHomework:(Homework *_Nullable)homework taskType:(MIHomeworkTaskType)taskType;
+- (void)setupCreateHomework:(Homework *_Nullable)homework
+            currentFileInfo:(FileInfo *)currentFileInfo
+                   taskType:(MIHomeworkTaskType)taskType;
 
 
 

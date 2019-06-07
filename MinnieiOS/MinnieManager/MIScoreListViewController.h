@@ -10,9 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^MIScoreEditTaskCallBack)(void);
+
 @interface MIScoreListViewController : UIViewController
 
 @property (nonatomic, strong) Homework *homework;
+@property (nonatomic, strong) FileInfo *currentFileInfo;
+
+@property (nonatomic, copy) MIScoreEditTaskCallBack callBack;
 
 @end
 

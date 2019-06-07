@@ -31,9 +31,6 @@
 // 文件夹深度 1一级文件夹 2二级文件夹
 @property (nonatomic ,assign) NSInteger depth;
 
-// 本地使用
-@property (nonatomic ,strong) NSArray<FileInfo> *subFileList;
-
 // 一级文件夹展开、折叠
 @property (nonatomic ,assign) BOOL isOpen;
 

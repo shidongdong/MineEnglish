@@ -6,7 +6,9 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
+#import "Result.h"
 #import "ManagerServce.h"
+#import "MICreateTaskViewController.h"
 #import "MICreateHomeworkTaskView.h"
 #import "MISecondActivitySheetView.h"
 #import "MISecondActivityTableViewCell.h"
@@ -117,72 +119,44 @@ UITableViewDataSource
 #pragma mark -  新建一活动
 - (void)addActivityBtnClicked:(UIButton *)addBtn{
     
-    MICreateHomeworkTaskView *createTaskView =  [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MICreateHomeworkTaskView class]) owner:nil options:nil].lastObject;
-    createTaskView.frame = [UIScreen mainScreen].bounds;
-    WeakifySelf;
-    createTaskView.callBack = ^{
-        
-        static int actId = 100;
-        actId ++;
-        ActivityInfo *actInfo1 = [[ActivityInfo alloc] init];
-        actInfo1.activityId = 2;
-        actInfo1.title = @"活动标题2";
-        actInfo1.startTime = @"6月12日";
-        actInfo1.endTime = @"6月24日";
-        actInfo1.status = 1;
-        
-        [weakSelf.activityArray addObject:actInfo1];
-        weakSelf.currentIndex = weakSelf.activityArray.count - 1;
-        
-        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(secondActivitySheetViewDidClickedActivity:index:)]) {
-            
-            [weakSelf.delegate secondActivitySheetViewDidClickedActivity:actInfo1 index:weakSelf.currentIndex];
-        }
-        [weakSelf.tableView reloadData];
-        [weakSelf requestCreateActivity:actInfo1];
-    };
-    [createTaskView setupCreateHomework:nil taskType:MIHomeworkTaskType_Activity];
-    [[UIApplication sharedApplication].keyWindow addSubview:createTaskView];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(createActivity)]) {
+        [self.delegate createActivity];
+    }
 }
-
 
 - (void)activitySheetDidEditIndex:(NSInteger)index{
     
     _currentIndex = index;
-    [_tableView reloadData];
+    [self requestGetActivityList];
 }
 
 - (void)updateActivityListInfo{
-    
-    _currentIndex = -1;
-    ActivityInfo *actInfo = [[ActivityInfo alloc] init];
-    actInfo.activityId = 1;
-    actInfo.title = @"活动标题1";
-    actInfo.startTime = @"6月12日";
-    actInfo.endTime = @"6月18日";
-    actInfo.status = 2;
-    
-    
-    ActivityInfo *actInfo1 = [[ActivityInfo alloc] init];
-    actInfo1.activityId = 2;
-    actInfo1.title = @"活动标题2";
-    actInfo1.startTime = @"6月12日";
-    actInfo1.endTime = @"6月24日";
-    actInfo1.status = 1;
-    
-    [self.activityArray addObject:actInfo];
-    [self.activityArray addObject:actInfo1];
-    
-    [self.tableView reloadData];
-//    [self requestGetActivityList];
+    self.currentIndex = -1;
+    [self requestGetActivityList];
 }
 
 #pragma mark - 请求活动列表
 - (void)requestGetActivityList{
-    
+    WeakifySelf;
     [ManagerServce requestGetActivityListWithCallback:^(Result *result, NSError *error) {
         
+        if (error) return ;
+        NSDictionary *dictionary = (NSDictionary *)(result.userInfo);
+        NSArray *list = dictionary[@"list"];
+        [self.activityArray removeAllObjects];
+        [self.activityArray addObjectsFromArray:list];
         
+        ActivityInfo *model;
+        if (weakSelf.currentIndex>= 0 && weakSelf.currentIndex < weakSelf.activityArray.count) {
+            model = weakSelf.activityArray[weakSelf.currentIndex];
+        } else {
+            weakSelf.currentIndex = -1;
+        }
+        if (self.delegate && [self.delegate respondsToSelector:@selector(secondActivitySheetViewDidClickedActivity:index:)]) {
+            
+            [self.delegate secondActivitySheetViewDidClickedActivity:model index:weakSelf.currentIndex];
+        }
+        [self.tableView reloadData];
     }];
 }
 
@@ -194,6 +168,5 @@ UITableViewDataSource
         
     }];
 }
-
 
 @end

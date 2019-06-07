@@ -10,7 +10,7 @@
 
 @implementation ScoreInfo
 
--(NSDictionary *)JSONKeyPathsByPropertyKey {
++(NSDictionary *)JSONKeyPathsByPropertyKey {
     
     return @{@"score":@"score",
              @"avatar":@"avatar",
@@ -18,4 +18,22 @@
              @"nickName":@"nickName"
              };
 }
+
 @end
+
+
+@implementation ScoreInfoList
+
++(NSDictionary *)JSONKeyPathsByPropertyKey {
+    
+    return @{@"next":@"next",
+             @"list":@"list"};
+}
+
++ (NSValueTransformer *)listJSONTransformer {
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[ScoreInfo class]];
+}
+
+@end
+
+

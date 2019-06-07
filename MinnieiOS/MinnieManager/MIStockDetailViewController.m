@@ -6,7 +6,6 @@
 //  Copyright © 2016年 Aaron. All rights reserved.
 //
 
-#import "SettingsViewController.h"
 #import "MIStockDetailViewController.h"
 #import "MIStockSplitViewController.h"
 #import "Masonry.h"

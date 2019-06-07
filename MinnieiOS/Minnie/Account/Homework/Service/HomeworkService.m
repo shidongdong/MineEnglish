@@ -17,10 +17,9 @@
 @implementation HomeworkService
 
 + (BaseRequest *)createHomework:(Homework *)homework callback:(RequestCallback)callback {
+   
     CreateHomeworkRequest *request = [[CreateHomeworkRequest alloc] initWithHomework:homework];
-    
     request.callback = callback;
-    
     [request start];
     
     return request;
@@ -33,7 +32,6 @@
     request.callback = callback;
     
     [request start];
-    
     return request;
 }
 

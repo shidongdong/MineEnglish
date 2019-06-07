@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 // 英文释义
 @property (nonatomic, copy) NSString *english;
 // 中文释义
-@property (nonatomic, assign) NSInteger chinese;
+@property (nonatomic, copy) NSString *chinese;
 
 @end
 

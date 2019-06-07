@@ -11,7 +11,7 @@
 
 typedef void(^ExpandPickerViewCallback)(NSString *_Nonnull);
 
-typedef void(^ExpandPickerLocalCallback)(FileInfo *_Nonnull);
+typedef void(^ExpandPickerLocalCallback)(id _Nonnull);
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,9 +27,10 @@ NS_ASSUME_NONNULL_BEGIN
 // 时间选择
 - (void)setDefultText:(NSString *)text createType:(MIHomeworkCreateContentType)createType;
 
-// 文件夹位置选择
-- (void)setDefultFileInfo:(FileInfo *)fileInfo fileArray:(NSArray<FileInfo>*)fileArray;
-
+// 子文件夹位置选择
+- (void)setDefultFileInfo:(FileInfo *)fileInfo fileArray:(NSArray<ParentFileInfo*>*)fileArray;
+// 父文件夹位置选择
+- (void)setDefultParentFileInfo:(FileInfo *)fileInfo fileArray:(NSArray<ParentFileInfo*>*)fileArray;
 @end
 
 NS_ASSUME_NONNULL_END

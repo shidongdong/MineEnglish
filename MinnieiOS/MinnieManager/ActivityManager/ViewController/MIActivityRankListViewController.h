@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateRankListWithActivityModel:(ActivityInfo *_Nullable)model index:(NSInteger)currentIndex;
 
+- (void)createActivity;
+
 @end
 
 NS_ASSUME_NONNULL_END

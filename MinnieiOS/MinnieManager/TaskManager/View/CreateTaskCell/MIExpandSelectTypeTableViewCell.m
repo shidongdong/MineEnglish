@@ -77,11 +77,15 @@ CGFloat const MIExpandSelectTypeTableViewCellHeight = 90.f;
     } else if (createType == MIHomeworkCreateContentType_ActivityEndTime) {
         
         self.titleLabel.text = @"活动结束时间:";
-        [self showOneSelectedText:leftText];
+        if (leftText.length >= 10) {
+            [self showOneSelectedText:[leftText substringToIndex:10]];
+        }
     } else if (createType == MIHomeworkCreateContentType_ActivityStartTime) {
         
         self.titleLabel.text = @"活动开始时间:";
-        [self showOneSelectedText:leftText];
+        if (leftText.length >= 10) {
+            [self showOneSelectedText:[leftText substringToIndex:10]];
+        }
     }
 }
 

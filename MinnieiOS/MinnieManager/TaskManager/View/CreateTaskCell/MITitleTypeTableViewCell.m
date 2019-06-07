@@ -48,6 +48,8 @@ UIDocumentPickerDelegate
 
 @property (nonatomic, strong) MBProgressHUD * mHud;
 
+@property (nonatomic, assign) MIHomeworkCreateContentType contentType;
+
 @end
 
 @implementation MITitleTypeTableViewCell
@@ -57,6 +59,7 @@ UIDocumentPickerDelegate
     [super awakeFromNib];
     // Initialization code
     self.items = [NSMutableArray array];
+    self.answerItems = [NSMutableArray array];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.scrollEnabled = NO;
@@ -73,7 +76,8 @@ UIDocumentPickerDelegate
     [self.tableView registerNib:[UINib nibWithNibName:@"MIAddTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MIAddTypeTableViewCellId];
 }
 
-- (void)setupWithItems:(NSArray<HomeworkItem *>*)items vc:(UIViewController *)vc{
+- (void)setupWithItems:(NSArray<HomeworkItem *>*)items vc:(UIViewController *)vc contentType:(MIHomeworkCreateContentType)contentType{
+    self.contentType = contentType;
     self.vc = vc;
     self.isAddingAnswerItem = NO;
     self.items = [NSMutableArray arrayWithArray:items];
@@ -128,7 +132,7 @@ UIDocumentPickerDelegate
             MIAddTypeTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MIAddTypeTableViewCellId forIndexPath:indexPath];
             WeakifySelf;
             contentCell.addCallback = ^(BOOL isAdd) {
-                [weakSelf handleAddItem];
+                [weakSelf handleAddAnswerItem];
             };
             [contentCell setupWithCreateType:MIHomeworkCreateContentType_Add];
             cell = contentCell;
@@ -285,10 +289,26 @@ UIDocumentPickerDelegate
                                                          handler:^(UIAlertAction * _Nonnull action) {
                                                          }];
     
-    [alertVC addAction:fileAction];
-    [alertVC addAction:videoAction];
-    [alertVC addAction:imageAction];
-    [alertVC addAction:cancelAction];
+   
+    if (self.contentType == MIHomeworkCreateContentType_AddCovers) {
+      
+        [alertVC addAction:imageAction];
+        [alertVC addAction:cancelAction];
+    } else if ((self.contentType == MIHomeworkCreateContentType_AddFollowMaterials)){
+        
+        [alertVC addAction:fileAction];
+        [alertVC addAction:cancelAction];
+    } else if ((self.contentType == MIHomeworkCreateContentType_AddBgMusic)){
+        
+        [alertVC addAction:fileAction];
+        [alertVC addAction:cancelAction];
+    } else {
+      
+        [alertVC addAction:fileAction];
+        [alertVC addAction:videoAction];
+        [alertVC addAction:imageAction];
+        [alertVC addAction:cancelAction];
+    }
     [self.vc.navigationController presentViewController:alertVC
                                             animated:YES
                                           completion:nil];
@@ -393,6 +413,7 @@ UIDocumentPickerDelegate
                                                               item.audioCoverUrl = @"";
                                                               item.type = HomeworkItemTypeImage;
                                                               [weakSelf.tableView reloadData];
+                                                              [weakSelf callBack];
                                                           }];
     
     [alertController addAction:cancelAction];
@@ -707,7 +728,6 @@ UIDocumentPickerDelegate
                     item.imageUrl = imageUrl;
                     item.imageWidth = image.size.width;
                     item.imageHeight = image.size.height;
-                    
                     [weakSelf.answerItems addObject:item];
                 } else {
                     HomeworkItem *item = [[HomeworkItem alloc] init];

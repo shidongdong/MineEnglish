@@ -41,16 +41,44 @@ UIPickerViewDelegate>{
     self.pickerView.dataSource = self;
 }
 
-// 文件夹位置选择
-- (void)setDefultFileInfo:(FileInfo *)fileInfo fileArray:(NSArray<FileInfo>*)fileArray{
+// 子文件夹位置选择
+- (void)setDefultFileInfo:(FileInfo *)fileInfo fileArray:(NSArray<ParentFileInfo*>*)fileArray{
+    
+    self.createType = MIHomeworkCreateContentType_Localtion;
+    for (NSInteger i = 0; i < fileArray.count; i++) {
+        
+        ParentFileInfo *parentInfo = fileArray[i];
+        if (fileInfo.parentId == parentInfo.fileInfo.fileId) {
+            
+            [self.fileLocationArray removeAllObjects];
+            [self.fileLocationArray addObjectsFromArray:parentInfo.subFileList];
+            for (NSInteger j = 0; j < parentInfo.subFileList.count; j++) {
+                FileInfo *subInfo = parentInfo.subFileList[i];
+                if (fileInfo.fileId == subInfo.fileId) {
+                    secIndex = j;
+                    break;
+                }
+            }
+            break;
+        }
+    }
+    [self.pickerView selectRow:secIndex inComponent:0 animated:YES];
+    [self pickerView:self.pickerView didSelectRow:secIndex inComponent:0];
+}
+
+// 父文件夹位置选择
+- (void)setDefultParentFileInfo:(FileInfo *)fileInfo fileArray:(NSArray<ParentFileInfo*>*)fileArray{
     
     self.createType = MIHomeworkCreateContentType_Localtion;
     [self.fileLocationArray removeAllObjects];
     [self.fileLocationArray addObjectsFromArray:fileArray];
-
-    secIndex = [fileArray indexOfObject:fileInfo];
-    if (secIndex >= self.fileLocationArray.count) {
-        secIndex = 0;
+    for (NSInteger i = 0; i < fileArray.count; i++) {
+        
+        ParentFileInfo *parentInfo = fileArray[i];
+        if (fileInfo.fileId == parentInfo.fileInfo.fileId) {
+            secIndex = i;
+            break;
+        }
     }
     [self.pickerView selectRow:secIndex inComponent:0 animated:YES];
     [self pickerView:self.pickerView didSelectRow:secIndex inComponent:0];
@@ -59,7 +87,9 @@ UIPickerViewDelegate>{
 - (void)setDefultText:(NSString *)text createType:(MIHomeworkCreateContentType)createType{
     
     self.createType = createType;
-    if (createType == MIHomeworkCreateContentType_TimeLimit) { // 0-5分
+    if (createType == MIHomeworkCreateContentType_TimeLimit ||
+        createType == MIHomeworkCreateContentType_VideoTimeLimit
+        ) { // 0-5分
         
         NSInteger secs = text.integerValue;
         secIndex = secs % 60;
@@ -117,7 +147,8 @@ UIPickerViewDelegate>{
 }
 
 - (NSMutableArray *)secArray {
-    if (self.createType == MIHomeworkCreateContentType_TimeLimit) {
+    if (self.createType == MIHomeworkCreateContentType_TimeLimit ||
+        self.createType == MIHomeworkCreateContentType_VideoTimeLimit) {
        
         if (_secArray == nil) {
             _secArray = [NSMutableArray array];
@@ -185,7 +216,8 @@ UIPickerViewDelegate>{
     if (self.createType == MIHomeworkCreateContentType_Localtion ||
         self.createType == MIHomeworkCreateContentType_WordsTimeInterval) {
         return 1;
-    } else if (self.createType == MIHomeworkCreateContentType_TimeLimit) { // 0-5分
+    } else if (self.createType == MIHomeworkCreateContentType_TimeLimit ||
+               self.createType == MIHomeworkCreateContentType_VideoTimeLimit) { // 0-5分
         return 2;
     }
     return 2;
@@ -197,7 +229,8 @@ UIPickerViewDelegate>{
         if (component == 0) {
             return self.fileLocationArray.count;
         }
-    } else if (self.createType == MIHomeworkCreateContentType_TimeLimit) { // 0-5分
+    } else if (self.createType == MIHomeworkCreateContentType_TimeLimit ||
+               self.createType == MIHomeworkCreateContentType_VideoTimeLimit) { // 0-5分
         if (component == 0) {
             return self.minArray.count;
         } else {
@@ -226,7 +259,8 @@ UIPickerViewDelegate>{
    
     if (self.createType == MIHomeworkCreateContentType_Localtion) {
         secIndex = row;
-    } else if (self.createType == MIHomeworkCreateContentType_TimeLimit) { // 0-5分
+    } else if (self.createType == MIHomeworkCreateContentType_TimeLimit ||
+               self.createType == MIHomeworkCreateContentType_VideoTimeLimit) { // 0-5分
        
         if (component == 0) {
             minIndex = row;
@@ -256,9 +290,18 @@ UIPickerViewDelegate>{
     UILabel *genderLabel = [[UILabel alloc] init];
     genderLabel.textAlignment = NSTextAlignmentCenter;
     if (self.createType == MIHomeworkCreateContentType_Localtion) {
-        FileInfo *fileInfo = self.fileLocationArray[row];
-        genderLabel.text = fileInfo.fileName;
-    } else if (self.createType == MIHomeworkCreateContentType_TimeLimit) { // 0-5分
+        id fileObjec = self.fileLocationArray[row];
+        if ([fileObjec isKindOfClass:[FileInfo class]]) {
+            
+            FileInfo *fileInfo = self.fileLocationArray[row];
+            genderLabel.text = fileInfo.fileName;
+        } else if ([fileObjec isKindOfClass:[ParentFileInfo class]]){
+            
+            ParentFileInfo *fileInfo = self.fileLocationArray[row];
+            genderLabel.text = fileInfo.fileInfo.fileName;
+        }
+    } else if (self.createType == MIHomeworkCreateContentType_TimeLimit ||
+               self.createType == MIHomeworkCreateContentType_VideoTimeLimit) { // 0-5分
         if (component == 0) {
             genderLabel.text = self.minArray[row];
         }else {
@@ -328,7 +371,8 @@ UIPickerViewDelegate>{
                 self.localCallback(self.fileLocationArray[secIndex]);
             }
         }
-    } else if (self.createType == MIHomeworkCreateContentType_TimeLimit) { // 0-5分
+    } else if (self.createType == MIHomeworkCreateContentType_TimeLimit ||
+               self.createType == MIHomeworkCreateContentType_VideoTimeLimit) { // 0-5分
         NSString *min = [NSString stringWithFormat:@"%lu",minIndex * 60 + secIndex];
         if (self.callback) {
             self.callback(min);
