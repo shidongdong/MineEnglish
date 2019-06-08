@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
            createType:(MIHomeworkCreateContentType)createType
           placeholder:(NSString *)holder;
 
-+ (CGFloat)cellHeightWithText:(NSString *)text;
++ (CGFloat)cellHeightWithText:(NSString *)text cellWidth:(CGFloat)cellWidth;
 
 - (void)ajustTextView;
 

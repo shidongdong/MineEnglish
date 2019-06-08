@@ -1104,13 +1104,13 @@ ClassAndStudentSelectorControllerDelegate
             rowHeight = MIExpandSelectTypeTableViewCellHeight;
             break;
         case MIHomeworkCreateContentType_Title:
-            rowHeight = [MIInPutTypeTableViewCell cellHeightWithText:self.homework.title];
+            rowHeight = [MIInPutTypeTableViewCell cellHeightWithText:self.homework.title cellWidth:self.collectionWidth];
             break;
         case MIHomeworkCreateContentType_Content:
-            rowHeight = [MIInPutTypeTableViewCell cellHeightWithText:self.contentItem.text];
+            rowHeight = [MIInPutTypeTableViewCell cellHeightWithText:self.contentItem.text cellWidth:self.collectionWidth];
             break;
         case MIHomeworkCreateContentType_MarkingRemarks:
-            rowHeight = [MIInPutTypeTableViewCell cellHeightWithText:self.homework.teremark];
+            rowHeight = [MIInPutTypeTableViewCell cellHeightWithText:self.homework.teremark cellWidth:self.collectionWidth];
             break;
         case MIHomeworkCreateContentType_CommitCount:
         case MIHomeworkCreateContentType_StatisticalType:

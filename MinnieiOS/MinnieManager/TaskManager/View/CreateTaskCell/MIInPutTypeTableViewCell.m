@@ -93,7 +93,8 @@ NSString * const MIInPutTypeTableViewCellId = @"MIInPutTypeTableViewCellId";
     [self.homeworkTextView scrollRangeToVisible:NSMakeRange(0, 1)];
 }
 
-+ (CGFloat)cellHeightWithText:(NSString *)text {
+
++ (CGFloat)cellHeightWithText:(NSString *)text cellWidth:(CGFloat)cellWidth{
    
     static UITextView *textView = nil;
     static dispatch_once_t onceToken;
@@ -103,7 +104,7 @@ NSString * const MIInPutTypeTableViewCellId = @"MIInPutTypeTableViewCellId";
     });
     
     textView.text = text;
-    CGFloat screenWidth = ([UIScreen mainScreen].bounds.size.width  - 148 * 2)/2.0;
+    CGFloat screenWidth = cellWidth;
     CGSize size = [textView sizeThatFits:CGSizeMake(screenWidth-36.f, MAXFLOAT)];
     
     return size.height + 50.f;;
