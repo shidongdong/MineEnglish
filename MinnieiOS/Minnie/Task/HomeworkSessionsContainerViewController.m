@@ -32,7 +32,9 @@
 
 @interface HomeworkSessionsContainerViewController ()
 
+// 未完成
 @property (nonatomic, strong) HomeworkSessionsViewController *unfinishedClassesChildController;
+// 已完成
 @property (nonatomic, strong) HomeworkSessionsViewController *finishedClassesChildController;
 
 @property (nonatomic, assign) NSInteger  currentFliterType;  //教师端： 0 按时间 1 按作业 2 按人 学生端： 0星~6星
@@ -40,6 +42,7 @@
 @property (nonatomic, assign) HomeworkSessionsViewController * currentViewController;
 @property (nonatomic ,strong) NSArray * fliterTitles;
 #if TEACHERSIDE
+//未提交
 @property (nonatomic, strong) HomeworkSessionsViewController *uncommitClassesChildController;
 
 #else

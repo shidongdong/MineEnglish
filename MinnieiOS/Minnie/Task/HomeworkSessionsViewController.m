@@ -6,6 +6,9 @@
 //  Copyright © 2017年 mfox. All rights reserved.
 //
 
+#import "ActivityInfo.h"
+#import "ManagerServce.h"
+#import "MIActivityBannerView.h"
 #import "HomeworkSessionsViewController.h"
 #import "HomeworkSessionViewController.h"
 #import "HomeworkSessionTableViewCell.h"
@@ -16,13 +19,18 @@
 #import "NetworkStateErrorView.h"
 #import <AFNetworking/AFNetworking.h>
 #import "AppDelegate.h"
-@interface HomeworkSessionsViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface HomeworkSessionsViewController ()<
+UITableViewDataSource,
+UITableViewDelegate,
+MIActivityBannerViewDelegate
+>
 {
-//   作业状态 0：待批改；1已完成；2未提交
-    NSInteger mState;
-    
 }
+//   作业状态 0：待批改；1已完成；2未提交
+@property (nonatomic, assign) NSInteger mState;
+
 @property (nonatomic, weak) IBOutlet UITableView *homeworkSessionsTableView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 
 // 作业会话请求
 @property (nonatomic, strong) BaseRequest *homeworkSessionsRequest;
@@ -39,6 +47,10 @@
 //目前只有学生端处理
 @property (nonatomic, strong) NSMutableArray * unReadHomeworkSessions;
 @property (nonatomic, strong) NSMutableArray * noHandleNotications;
+
+// banner 只显示在学生端，未完成
+@property (nonatomic, strong) NSArray *bannerArray;
+@property (nonatomic, strong) MIActivityBannerView *bannerView;
 
 @end
 
@@ -64,15 +76,19 @@
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 12.f)];
     self.homeworkSessionsTableView.tableFooterView = footerView;
     
+    
     [self setupRequestState];
+#if TEACHERSIDE
+#else
+    [self requestGetActivityList];
+#endif
+    
     if (self.searchFliter != -1)
     {
-        
         [self setupAndLoadConversations];
         [self requestHomeworkSessions];
     }
     [self addNotificationObservers];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -93,7 +109,6 @@
         }
     }
 }
-
 
 - (void)dealloc {
     
@@ -162,33 +177,32 @@
                 break;
             }
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSInteger tabbarCount = self.unReadHomeworkSessions.count + self.noHandleNotications.count;
-            
-            AppDelegate * appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            NSInteger tabbarCount = self.unReadHomeworkSessions.count + self.noHandleNotications.count;
+//            AppDelegate * appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
           //  [appDel showTabBarBadgeNum:tabbarCount atIndex:0];
-            
-        });
+//        });
 
     });
 }
 
 - (void)setupRequestState
-{
-    if (self.isUnfinished)
+{   // 学生端：未完成、已完成
+    // 老师端：待批改、已完成、未提交
+    if (self.isUnfinished)// 进行中
     {
         if (self.bLoadConversion)
-        {
-            mState = 0;
+        {//   作业状态 0：待批改；1已完成；2未提交
+            self.mState = 0;
         }
         else
         {
-            mState = 2;
+            self.mState = 2;
         }
     }
     else
     {
-        mState = 1;
+        self.mState = 1;
     }
 }
 
@@ -552,7 +566,7 @@
             return;
         }
         WeakifySelf;
-        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithName:self.searchFilterName forState:mState callback:^(Result *result, NSError *error) {
+        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithName:self.searchFilterName forState:self.mState callback:^(Result *result, NSError *error) {
             StrongifySelf;
             [strongSelf handleRequestResult:result isLoadMore:NO error:error];
         }];
@@ -560,7 +574,7 @@
     }
     else if (self.searchFliter == 0) // 0 按时间
     {
-        self.homeworkSessionsRequest = [HomeworkSessionService requestHomeworkSessionsWithFinishState:mState
+        self.homeworkSessionsRequest = [HomeworkSessionService requestHomeworkSessionsWithFinishState:self.mState
                                                                                              callback:^(Result *result, NSError *error) {
                                                                                                  StrongifySelf;
                                                                                                  [strongSelf handleRequestResult:result
@@ -573,7 +587,7 @@
         // mState        0：待批改；1已完成；2未提交
        WeakifySelf;
 #if TEACHERSIDE
-        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithType:self.searchFliter forState:mState callback:^(Result *result, NSError *error) {
+        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithType:self.searchFliter forState:self.mState callback:^(Result *result, NSError *error) {
             
             StrongifySelf;
             [strongSelf handleRequestResult:result isLoadMore:NO error:error];
@@ -701,10 +715,8 @@
             
             [self.homeworkSessions addObjectsFromArray:homeworkSessions];
             [self loadConversations];
-//            [self mergeAndReload];
-            
             [self.homeworkSessionsTableView addPullToRefreshWithTarget:self
-                                                      refreshingAction:@selector(requestHomeworkSessions)];
+                                                      refreshingAction:@selector(pullToRefresh)];
             
             if (nextUrl.length > 0) {
                 WeakifySelf;
@@ -714,13 +726,6 @@
             } else {
                 [self.homeworkSessionsTableView removeFooter];
             }
-            
-//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                [self.homeworkSessionsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-//            });
-            
-            
         } else {
             UIImage *image = self.isUnfinished?[UIImage imageNamed:@"缺省插画_无作业"]:nil;
             NSString *text = nil;
@@ -743,6 +748,59 @@
         }
     }
     self.nextUrl = nextUrl;
+}
+- (void)pullToRefresh{
+    
+#if TEACHERSIDE || MANAGERSIDE
+    [self requestHomeworkSessions];
+#else
+    [self requestGetActivityList];
+#endif
+}
+
+#pragma mark - 获取活动列表
+- (void)requestGetActivityList{
+    WeakifySelf;
+    [ManagerServce requestGetActivityListWithCallback:^(Result *result, NSError *error) {
+        
+        NSDictionary *dict = (NSDictionary *)result.userInfo;
+        NSArray *list = dict[@"list"];
+        
+        ActivityInfo *act2 = [[ActivityInfo alloc] init];
+        act2.activityId = 9;
+        act2.actCoverUrl = @"http://res.zhengminyi.com/FtlXAfzMJPI6YyO3fiQQUcVw9LQT";
+        HomeworkItem *textItem2 = [[HomeworkItem alloc] init];
+        textItem2.type = @"text";
+        textItem2.text = @"测试测试测试测试测哈哈哈哈啊哈哈👌试测试测试测试测试";
+        act2.items = @[textItem2];
+        
+        ActivityInfo *act1 = [[ActivityInfo alloc] init];
+        act1.activityId = 11;
+        act1.actCoverUrl = @"http://res.zhengminyi.com/FtlXAfzMJPI6YyO3fiQQUcVw9LQT";
+        HomeworkItem *textItem = [[HomeworkItem alloc] init];
+        textItem.type = @"text";
+        textItem.text = @"测试测试测试测试测试测试测试测试测试";
+        act1.items = @[textItem];
+    
+        list = @[act1,act2];
+        weakSelf.bannerArray = list;
+        if (weakSelf.mState == 0) {
+            weakSelf.topConstraint.constant = 124;
+            [weakSelf.view addSubview:weakSelf.bannerView];
+            weakSelf.bannerView.imagesGroup = list;
+        } else {
+            weakSelf.topConstraint.constant = 0;
+            if (weakSelf.bannerView.superview) {
+                [weakSelf.bannerView removeFromSuperview];
+            }
+        }
+    }];
+}
+
+#pragma mark - MIActivityBannerViewDelegate
+- (void)bannerView:(MIActivityBannerView *)bannerView didSelectItemAtIndex:(NSInteger)index{
+    
+    ActivityInfo *actInfo = self.bannerArray[index];
 }
 
 #pragma mark -
@@ -857,6 +915,17 @@
     }
     
     [self.homeworkSessionsTableView reloadData];
+}
+
+#pragma mark - setter && getter
+- (MIActivityBannerView *)bannerView
+{
+    if (!_bannerView) {
+        _bannerView = [[MIActivityBannerView alloc] initWithFrame:CGRectMake(0, 12, ScreenWidth, 110)];
+        _bannerView.delegate = self;
+        _bannerView.backgroundColor = [UIColor bgColor];
+    }
+    return _bannerView;
 }
 @end
 

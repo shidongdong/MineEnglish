@@ -12,7 +12,7 @@ typedef void(^HomeworkSessionsCallback)(BOOL);
 
 @interface HomeworkSessionsViewController : BaseViewController
 
-@property (nonatomic, assign) BOOL isUnfinished; // 是否是进行中的  
+@property (nonatomic, assign) BOOL isUnfinished; // 是否是进行中的  (老师端和学生端)
 @property (nonatomic, assign) BOOL bLoadConversion; //加载对话
 @property (nonatomic, assign) NSInteger searchFliter;   //搜索条件  类型 0 按时间 1 按作业 2 按人 如果为 -1的话表示是按名字搜索
 
