@@ -7,7 +7,6 @@
 //  文件夹cell
 
 #import <UIKit/UIKit.h>
-#import "MIFirLevelFolderModel.h"
 
 extern NSString * _Nullable const MIHeaderTableViewCellId;
 

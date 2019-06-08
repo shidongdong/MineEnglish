@@ -42,7 +42,9 @@ MIEqualSpaceFlowLayoutDelegate
 -(void)viewWillAppear:(BOOL)animated{
 
     [super viewWillAppear:animated];
-    [self updateSplit:kRootModularWidth];
+    if (!self.teacherSider) {
+        [self updateSplit:kRootModularWidth];
+    }
 }
 
 
@@ -483,7 +485,9 @@ MIEqualSpaceFlowLayoutDelegate
 
 - (void)addContentView{
     
-    MIEqualSpaceFlowLayout *flowLayout = [[MIEqualSpaceFlowLayout alloc] initWithCollectionViewWidth:[UIScreen mainScreen].bounds.size.width - kRootModularWidth];
+    CGFloat collectionWidth = self.teacherSider ? ScreenWidth : (ScreenWidth - kRootModularWidth);
+    
+    MIEqualSpaceFlowLayout *flowLayout = [[MIEqualSpaceFlowLayout alloc] initWithCollectionViewWidth:collectionWidth];
     flowLayout.delegate = self;
     CGFloat footerHeight = isIPhoneX ? (44 + 34) :44;
     self.tagsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kNaviBarHeight, ScreenWidth, ScreenHeight - kNaviBarHeight - footerHeight) collectionViewLayout:flowLayout];

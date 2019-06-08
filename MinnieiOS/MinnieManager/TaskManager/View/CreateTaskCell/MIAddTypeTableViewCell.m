@@ -13,8 +13,10 @@ CGFloat const MIAddTypeTableViewCellHeight = 60.f;
 
 @interface MIAddTypeTableViewCell ()
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
+@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 
 @property (nonatomic,assign) MIHomeworkCreateContentType contentType;
+@property (weak, nonatomic) IBOutlet UIView *sepLineView;
 
 @end
 
@@ -27,14 +29,23 @@ CGFloat const MIAddTypeTableViewCellHeight = 60.f;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.addButton.layer.cornerRadius = 12.f;
     self.addButton.layer.masksToBounds = NO;
-    
     self.addButton.layer.borderWidth = 1.f;
 }
 
+- (void)setupWithContentTitle:(NSString *)title{
+    
+    self.addButton.hidden = YES;
+    self.sepLineView.hidden = NO;
+    self.contentLabel.hidden = NO;
+    self.contentLabel.text = title;
+}
 
 - (void)setupWithCreateType:(MIHomeworkCreateContentType)createType{
     
     self.contentType = createType;
+    self.addButton.hidden = NO;
+    self.sepLineView.hidden = YES;
+    self.contentLabel.hidden = YES;
     if (self.contentType == MIHomeworkCreateContentType_Add) {
         
         [self.addButton setTitle:@"" forState:UIControlStateNormal];

@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -29,17 +28,41 @@
                             <action selector="addBtnAction:" destination="bMY-4B-uE9" eventType="touchUpInside" id="j87-1C-hWA"/>
                         </connections>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H4D-Ww-Dg4">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="76.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ijw-Y5-Dr6">
+                        <rect key="frame" x="0.0" y="77" width="320" height="0.5"/>
+                        <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="VPG-NU-bw7"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="Ijw-Y5-Dr6" firstAttribute="leading" secondItem="l1w-4s-s55" secondAttribute="leading" id="1su-OB-oYd"/>
                     <constraint firstAttribute="bottom" secondItem="CUU-WC-AbC" secondAttribute="bottom" constant="8" id="4Ih-5x-zcs"/>
+                    <constraint firstAttribute="trailing" secondItem="H4D-Ww-Dg4" secondAttribute="trailing" id="4xx-IW-pZk"/>
+                    <constraint firstAttribute="bottom" secondItem="H4D-Ww-Dg4" secondAttribute="bottom" constant="1" id="68M-xd-IEF"/>
+                    <constraint firstItem="H4D-Ww-Dg4" firstAttribute="leading" secondItem="l1w-4s-s55" secondAttribute="leading" id="NOy-XJ-JUa"/>
+                    <constraint firstItem="H4D-Ww-Dg4" firstAttribute="top" secondItem="l1w-4s-s55" secondAttribute="top" id="Ple-zI-bh5"/>
                     <constraint firstAttribute="trailing" secondItem="CUU-WC-AbC" secondAttribute="trailing" constant="12" id="TgM-2g-WhC"/>
+                    <constraint firstAttribute="trailing" secondItem="Ijw-Y5-Dr6" secondAttribute="trailing" id="aSF-zO-UA2"/>
                     <constraint firstItem="CUU-WC-AbC" firstAttribute="leading" secondItem="l1w-4s-s55" secondAttribute="leading" constant="12" id="bgM-PQ-Ucv"/>
+                    <constraint firstItem="Ijw-Y5-Dr6" firstAttribute="trailing" secondItem="H4D-Ww-Dg4" secondAttribute="trailing" id="dP2-5j-NEG"/>
                     <constraint firstItem="CUU-WC-AbC" firstAttribute="top" secondItem="l1w-4s-s55" secondAttribute="top" constant="8" id="pgF-gV-eLn"/>
+                    <constraint firstItem="Ijw-Y5-Dr6" firstAttribute="leading" secondItem="H4D-Ww-Dg4" secondAttribute="leading" id="qdc-S5-oSA"/>
+                    <constraint firstAttribute="bottom" secondItem="Ijw-Y5-Dr6" secondAttribute="bottom" id="z3m-KU-a9b"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="a34-Xr-N3A"/>
             <connections>
                 <outlet property="addButton" destination="CUU-WC-AbC" id="IDl-P5-ihq"/>
+                <outlet property="contentLabel" destination="H4D-Ww-Dg4" id="QJR-Ov-q3b"/>
+                <outlet property="sepLineView" destination="Ijw-Y5-Dr6" id="kOK-Fr-dMH"/>
             </connections>
             <point key="canvasLocation" x="-131" y="-19.5"/>
         </tableViewCell>

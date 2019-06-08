@@ -24,6 +24,7 @@
 #import "MessageService.h"
 #import "TeacherAwardService.h"
 #import "PublicService.h"
+#import "MIHomeworkManagerViewController.h"
 
 @interface TeacherAccountViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -158,9 +159,15 @@
         WeakifySelf;
         accountManageCell.homeworkManageCallback = ^{
             StrongifySelf;
-            HomeworkManagerViewController *vc = [[HomeworkManagerViewController alloc] initWithNibName:@"HomeworkManagerViewController" bundle:nil];
+//            HomeworkManagerViewController *vc = [[HomeworkManagerViewController alloc] initWithNibName:@"HomeworkManagerViewController" bundle:nil];
+//            [vc setHidesBottomBarWhenPushed:YES];
+//            [strongSelf.navigationController pushViewController:vc animated:YES];
+//
+            
+            MIHomeworkManagerViewController *vc = [[MIHomeworkManagerViewController alloc] initWithNibName:@"MIHomeworkManagerViewController" bundle:nil];
             [vc setHidesBottomBarWhenPushed:YES];
             [strongSelf.navigationController pushViewController:vc animated:YES];
+            
         };
         
         accountManageCell.teacherManageCallback = ^{

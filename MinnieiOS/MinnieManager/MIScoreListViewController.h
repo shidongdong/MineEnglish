@@ -17,6 +17,8 @@ typedef void(^MIScoreEditTaskCallBack)(void);
 @property (nonatomic, strong) Homework *homework;
 @property (nonatomic, strong) FileInfo *currentFileInfo;
 
+@property (nonatomic, assign) BOOL teacherSider;
+
 @property (nonatomic, copy) MIScoreEditTaskCallBack callBack;
 
 @end

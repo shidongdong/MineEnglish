@@ -26,8 +26,9 @@
 #import "CSCustomSplitViewController.h"
 
 #import "MIAddWordTableViewCell.h"
+#import "MIStockDetailViewController.h"
+#import "MIHomeworkManagerViewController.h"
 #import "ClassAndStudentSelectorController.h"
-
 
 
 @interface MICreateTaskViewController ()<
@@ -43,6 +44,10 @@ ClassAndStudentSelectorControllerDelegate
 @property (weak, nonatomic) IBOutlet UITableView *leftTableView;
 @property (weak, nonatomic) IBOutlet UITableView *rightTableView;
 @property (assign, nonatomic) NSInteger leftRowCount;
+@property (weak, nonatomic) IBOutlet UIView *midLineView;
+
+// 老师端创建作业
+@property (weak, nonatomic) IBOutlet UITableView *contentTableView;
 
 @property (nonatomic, strong) NSMutableArray *createTypeArray;
 @property (nonatomic,assign) MIHomeworkTaskType taskType;   // 任务类型
@@ -78,6 +83,7 @@ ClassAndStudentSelectorControllerDelegate
 @property (nonatomic, strong) MBProgressHUD * mHud;
 
 
+@property (nonatomic, assign) CGFloat collectionWidth;
 @property (nonatomic, assign) NSInteger isCreateTask;
 
 @end
@@ -87,32 +93,50 @@ ClassAndStudentSelectorControllerDelegate
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
-    [self updateSplit:90];
+    
+    if (!self.teacherSider) {
+        [self updateSplit:kRootModularWidth];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self updateSplit:90+204];
+    
+    if (!self.teacherSider) {
+        [self updateSplit:kRootModularWidth+kFolderModularWidth];
+    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor whiteColor];
-    self.leftTableView.separatorColor = [UIColor clearColor];
-    self.rightTableView.separatorColor = [UIColor clearColor];
     
-    self.leftTableView.delegate = self;
-    self.leftTableView.dataSource = self;
-    self.rightTableView.delegate = self;
-    self.rightTableView.dataSource = self;
+    
+    if (self.teacherSider) {
+        self.collectionWidth = ScreenWidth;
+        self.leftTableView.hidden = YES;
+        self.rightTableView.hidden = YES;
+        self.contentTableView.hidden = NO;
+        self.contentTableView.separatorColor = [UIColor clearColor];
+    } else {
+        self.collectionWidth = (ScreenWidth - kRootModularWidth)/2.0;
+        self.leftTableView.hidden = NO;
+        self.rightTableView.hidden = NO;
+        self.contentTableView.hidden = YES;
+       
+        self.leftTableView.delegate = self;
+        self.leftTableView.dataSource = self;
+        self.rightTableView.delegate = self;
+        self.rightTableView.dataSource = self;
+        
+        self.leftTableView.separatorColor = [UIColor clearColor];
+        self.rightTableView.separatorColor = [UIColor clearColor];
+        self.leftTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+        self.rightTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    }
     
     [self registerCellNibs];
-  
-    self.leftTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    self.rightTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    [self registerCellNibs];
-    
     [self setupTitleWithTaskType:self.taskType];
     
     [self requestTags];
@@ -207,16 +231,21 @@ ClassAndStudentSelectorControllerDelegate
         self.activityInfo.endTime = [[NSDate date] stringWithFormat:@"yyyy-MM-dd"];
         self.activityInfo.startTime = [[NSDate date] stringWithFormat:@"yyyy-MM-dd"];
     }
-    self.leftRowCount = 7;
     [self.createTypeArray removeAllObjects];
     [self.createTypeArray addObjectsFromArray:[self getNumberOfRowsInSection]];
-    [self.leftTableView reloadData];
-    [self.rightTableView reloadData];
+    
+    if (self.teacherSider) {
+        [self.contentTableView reloadData];
+    } else {
+        self.leftRowCount = 7;
+        [self.leftTableView reloadData];
+        [self.rightTableView reloadData];
+    }
 }
 
 
 - (void)setupCreateHomework:(Homework *_Nullable)homework
-            currentFileInfo:(FileInfo *)currentFileInfo
+            currentFileInfo:(FileInfo *_Nullable)currentFileInfo
                    taskType:(MIHomeworkTaskType)taskType{
    
     if (taskType == MIHomeworkTaskType_Activity) {
@@ -249,10 +278,14 @@ ClassAndStudentSelectorControllerDelegate
     
     [self.createTypeArray removeAllObjects];
     [self.createTypeArray addObjectsFromArray:[self getNumberOfRowsInSection]];
-    self.leftRowCount = 7;
-    
-    [self.leftTableView reloadData];
-    [self.rightTableView reloadData];
+
+    if (self.teacherSider) {
+        [self.contentTableView reloadData];
+    } else {
+        self.leftRowCount = 7;
+        [self.leftTableView reloadData];
+        [self.rightTableView reloadData];
+    }
 }
 
 - (void)updateHomeworkItemData{
@@ -278,11 +311,14 @@ ClassAndStudentSelectorControllerDelegate
 #pragma mark - UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if (tableView == self.leftTableView) {
-        
-        return self.leftRowCount;
+    if (tableView == self.contentTableView) {
+        return self.createTypeArray.count;
     } else {
-        return self.createTypeArray.count - self.leftRowCount;
+        if (tableView == self.leftTableView) {
+            return self.leftRowCount;
+        } else {
+            return self.createTypeArray.count - self.leftRowCount;
+        }
     }
 }
 
@@ -290,18 +326,25 @@ ClassAndStudentSelectorControllerDelegate
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = nil;
-    if (tableView == self.leftTableView) {
-        
+    if (tableView == self.contentTableView) {
         NSNumber *createTypeNum = self.createTypeArray[indexPath.row];
         cell = [self getTableViewCellAtIndexPath:indexPath
                                       createType:createTypeNum.integerValue
-                                       tableView:self.leftTableView];
+                                       tableView:tableView];
     } else {
-        
-        NSNumber *createTypeNum = self.createTypeArray[indexPath.row + self.leftRowCount];
-        cell = [self getTableViewCellAtIndexPath:indexPath
-                                      createType:createTypeNum.integerValue
-                                       tableView:self.rightTableView];
+        if (tableView == self.leftTableView) {
+            
+            NSNumber *createTypeNum = self.createTypeArray[indexPath.row];
+            cell = [self getTableViewCellAtIndexPath:indexPath
+                                          createType:createTypeNum.integerValue
+                                           tableView:tableView];
+        } else {
+            
+            NSNumber *createTypeNum = self.createTypeArray[indexPath.row + self.leftRowCount];
+            cell = [self getTableViewCellAtIndexPath:indexPath
+                                          createType:createTypeNum.integerValue
+                                           tableView:tableView];
+        }
     }
     return cell;
 }
@@ -310,10 +353,16 @@ ClassAndStudentSelectorControllerDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSNumber *createTypeNum;
-    if (tableView == self.leftTableView) {
+    if (tableView == self.contentTableView) {
+        
         createTypeNum = self.createTypeArray[indexPath.row];
     } else {
-        createTypeNum = self.createTypeArray[indexPath.row + self.leftRowCount];
+        
+        if (tableView == self.leftTableView) {
+            createTypeNum = self.createTypeArray[indexPath.row];
+        } else {
+            createTypeNum = self.createTypeArray[indexPath.row + self.leftRowCount];
+        }
     }
     return [self getHeightForRowWithCreateType:createTypeNum.integerValue];
 }
@@ -584,7 +633,7 @@ ClassAndStudentSelectorControllerDelegate
                         NSMutableArray *wordInfoList = [NSMutableArray arrayWithArray:weakSelf.wordsItem.words];
                         [wordInfoList addObject:word];
                         weakSelf.wordsItem.words = (NSArray<WordInfo>*)wordInfoList;
-                        [weakTagCell setupAwordWithDataArray:weakSelf.wordsItem.words];
+                        [weakTagCell setupAwordWithDataArray:weakSelf.wordsItem.words collectionView:weakSelf.collectionWidth];
                         [weakTableView beginUpdates];
                         [weakTableView endUpdates];
                     };
@@ -600,12 +649,12 @@ ClassAndStudentSelectorControllerDelegate
                         }
                     }
                     weakSelf.wordsItem.words = (NSArray<WordInfo>*)wordInfo;
-                    [weakTagCell setupAwordWithDataArray:weakSelf.wordsItem.words];
+                    [weakTagCell setupAwordWithDataArray:weakSelf.wordsItem.words collectionView:weakSelf.collectionWidth];
                     [weakTableView beginUpdates];
                     [weakTableView endUpdates];
                 }
             };
-            [tagsCell setupAwordWithDataArray:self.wordsItem.words];
+            [tagsCell setupAwordWithDataArray:self.wordsItem.words collectionView:weakSelf.collectionWidth];
             cell = tagsCell;
         }
             break;
@@ -817,7 +866,7 @@ ClassAndStudentSelectorControllerDelegate
             {
                 [selectFormTags addObject:self.selectFormTag];
             }
-            [tagsCell setupWithTags:self.formTags selectedTags:selectFormTags typeTitle:@"任务类型(单选):"];
+            [tagsCell setupWithTags:self.formTags selectedTags:selectFormTags typeTitle:@"任务类型(单选):" collectionWidth:weakSelf.collectionWidth];
             
             WeakifySelf;
             [tagsCell setSelectCallback:^(NSString *tag) {
@@ -827,6 +876,7 @@ ClassAndStudentSelectorControllerDelegate
             [tagsCell setManageCallback:^{
                 MITagsViewController *tagsVC = [[MITagsViewController alloc] initWithNibName:@"MITagsViewController" bundle:nil];
                 tagsVC.type = TagsHomeworkFormType;
+                tagsVC.teacherSider = weakSelf.teacherSider;
                 [weakSelf.navigationController pushViewController:tagsVC animated:YES];
             }];
             
@@ -837,7 +887,7 @@ ClassAndStudentSelectorControllerDelegate
         {
             MITagsTableViewCell *tagsCell = [tableView dequeueReusableCellWithIdentifier:MITagsTableViewCellId forIndexPath:indexPath];
             tagsCell.type = HomeworkTagsTableViewCellSelectMutiType;
-            [tagsCell setupWithTags:self.tags selectedTags:self.selectedTags typeTitle:@"分类标签(多选):"];
+            [tagsCell setupWithTags:self.tags selectedTags:self.selectedTags typeTitle:@"分类标签(多选):" collectionWidth:self.collectionWidth];
             
             WeakifySelf;
             [tagsCell setSelectCallback:^(NSString *tag) {
@@ -850,9 +900,9 @@ ClassAndStudentSelectorControllerDelegate
             [tagsCell setManageCallback:^{
                 MITagsViewController *tagsVC = [[MITagsViewController alloc] initWithNibName:@"MITagsViewController" bundle:nil];
                 tagsVC.type = TagsHomeworkTipsType;
+                tagsVC.teacherSider = weakSelf.teacherSider;
                 [weakSelf.navigationController pushViewController:tagsVC animated:YES];
             }];
-            
             cell = tagsCell;
         }
             break;
@@ -882,12 +932,12 @@ ClassAndStudentSelectorControllerDelegate
                     }
                     weakSelf.clazzs = tempClazz;
                     weakSelf.students = tempStudent;
-                    [weakTagCell setupParticipateWithClazzArray:weakSelf.clazzs studentArray:weakSelf.students];
+                    [weakTagCell setupParticipateWithClazzArray:weakSelf.clazzs studentArray:weakSelf.students collectionView:weakSelf.collectionWidth];
                     [weakTableView beginUpdates];
                     [weakTableView endUpdates];
                 }
             };
-            [tagsCell setupParticipateWithClazzArray:self.clazzs studentArray:self.students];
+            [tagsCell setupParticipateWithClazzArray:self.clazzs studentArray:self.students collectionView:weakSelf.collectionWidth];
             cell = tagsCell;
         }
             break;
@@ -928,8 +978,7 @@ ClassAndStudentSelectorControllerDelegate
                           @(MIHomeworkCreateContentType_HomeworkDifficulty),
                           @(MIHomeworkCreateContentType_Materials),
                           @(MIHomeworkCreateContentType_Label),
-                          @(MIHomeworkCreateContentType_TypeLabel),
-//                          @(MIHomeworkCreateContentType_Delete)
+                          @(MIHomeworkCreateContentType_TypeLabel)
                           ]];
         }
             break;
@@ -948,8 +997,7 @@ ClassAndStudentSelectorControllerDelegate
                           @(MIHomeworkCreateContentType_Materials),
                           @(MIHomeworkCreateContentType_Answer),
                           @(MIHomeworkCreateContentType_Label),
-                          @(MIHomeworkCreateContentType_TypeLabel),
-//                          @(MIHomeworkCreateContentType_Delete)
+                          @(MIHomeworkCreateContentType_TypeLabel)
                           ]];
         }
             break;
@@ -969,8 +1017,7 @@ ClassAndStudentSelectorControllerDelegate
                           @(MIHomeworkCreateContentType_AddBgMusic),
                           @(MIHomeworkCreateContentType_Materials),
                           @(MIHomeworkCreateContentType_Label),
-                          @(MIHomeworkCreateContentType_TypeLabel),
-//                          @(MIHomeworkCreateContentType_Delete)
+                          @(MIHomeworkCreateContentType_TypeLabel)
                           ]];
         }
             break;
@@ -989,8 +1036,7 @@ ClassAndStudentSelectorControllerDelegate
                           @(MIHomeworkCreateContentType_Materials),
                           @(MIHomeworkCreateContentType_Answer),
                           @(MIHomeworkCreateContentType_Label),
-                          @(MIHomeworkCreateContentType_TypeLabel),
-//                          @(MIHomeworkCreateContentType_Delete)
+                          @(MIHomeworkCreateContentType_TypeLabel)
                           ]];
         }
             break;
@@ -1006,8 +1052,7 @@ ClassAndStudentSelectorControllerDelegate
                           @(MIHomeworkCreateContentType_VideoTimeLimit),
                           @(MIHomeworkCreateContentType_ActivityStartTime),
                           @(MIHomeworkCreateContentType_ActivityEndTime),
-                          @(MIHomeworkCreateContentType_ActivityParticipant),
-//                          @(MIHomeworkCreateContentType_Delete)
+                          @(MIHomeworkCreateContentType_ActivityParticipant)
                           ]];
         }
             break;
@@ -1026,21 +1071,26 @@ ClassAndStudentSelectorControllerDelegate
                           @(MIHomeworkCreateContentType_Materials),
                           @(MIHomeworkCreateContentType_Answer),
                           @(MIHomeworkCreateContentType_Label),
-                          @(MIHomeworkCreateContentType_TypeLabel),
-//                          @(MIHomeworkCreateContentType_Delete)
+                          @(MIHomeworkCreateContentType_TypeLabel)
                           ]];
         }
             break;
         default:
             break;
     }
-    if (self.isCreateTask == NO && self.taskType == MIHomeworkTaskType_Activity) {
-        
-        NSDate *startDate = [NSDate dateWithString:self.activityInfo.startTime format:@"yyyy-MM-dd HH:mm:ss"];
-        NSDate *endDate = [NSDate dateWithString:self.activityInfo.endTime format:@"yyyy-MM-dd HH:mm:ss"];
-        if ([startDate isLaterThanDate:[[NSDate date] dateAtStartOfDay]] ||
-            [endDate isEarlierThanDate:[[NSDate date] dateAtStartOfDay]]
-            ) {
+    if (self.taskType == MIHomeworkTaskType_Activity) {
+        if (self.isCreateTask == NO) {
+          
+            NSDate *startDate = [NSDate dateWithString:self.activityInfo.startTime format:@"yyyy-MM-dd HH:mm:ss"];
+            NSDate *endDate = [NSDate dateWithString:self.activityInfo.endTime format:@"yyyy-MM-dd HH:mm:ss"];
+            if ([startDate isLaterThanDate:[[NSDate date] dateAtStartOfDay]] ||
+                [endDate isEarlierThanDate:[[NSDate date] dateAtStartOfDay]]
+                ) {
+                [typeArray addObject:@(MIHomeworkCreateContentType_Delete)];
+            }
+        }
+    } else {
+        if (self.isCreateTask == NO) {
             [typeArray addObject:@(MIHomeworkCreateContentType_Delete)];
         }
     }
@@ -1077,7 +1127,7 @@ ClassAndStudentSelectorControllerDelegate
                 wordInfo.english = @"+";
                 wordInfo.chinese = @"添加单词";
                 [words addObject:wordInfo];
-                rowHeight = [MIAddWordTableViewCell heightWithTags:words] + 50;
+                rowHeight = [MIAddWordTableViewCell heightWithTags:words collectionView:self.collectionWidth] + 50;
                 break;
             } else {
                 rowHeight = MITitleTypeTableViewCellHeight;
@@ -1125,10 +1175,10 @@ ClassAndStudentSelectorControllerDelegate
             rowHeight = MIExpandSelectTypeTableViewCellHeight;
             break;
         case MIHomeworkCreateContentType_Label:
-            rowHeight = [MITagsTableViewCell heightWithTags:self.formTags] + 50;
+            rowHeight = [MITagsTableViewCell heightWithTags:self.formTags collectionWidth:self.collectionWidth] + 50;
             break;
         case MIHomeworkCreateContentType_TypeLabel:
-            rowHeight = [MITagsTableViewCell heightWithTags:self.tags] + 50;
+            rowHeight = [MITagsTableViewCell heightWithTags:self.tags collectionWidth:self.collectionWidth] + 50;
             break;
         case MIHomeworkCreateContentType_ActivityParticipant:
         {
@@ -1136,7 +1186,7 @@ ClassAndStudentSelectorControllerDelegate
             [participant addObjectsFromArray:self.clazzs];
             [participant addObjectsFromArray:self.students];
             [participant addObject:@"+添加对象"];
-            rowHeight = [MIAddWordTableViewCell heightWithTags:participant] + 50;
+            rowHeight = [MIAddWordTableViewCell heightWithTags:participant collectionView:self.collectionWidth] + 50;
         }
             break;
         case MIHomeworkCreateContentType_Add:
@@ -1177,6 +1227,15 @@ ClassAndStudentSelectorControllerDelegate
     
     [self.leftTableView registerNib:[UINib nibWithNibName:@"MIAddWordTableViewCell" bundle:nil] forCellReuseIdentifier:MIAddWordTableViewCellId];
     [self.rightTableView registerNib:[UINib nibWithNibName:@"MIAddWordTableViewCell" bundle:nil] forCellReuseIdentifier:MIAddWordTableViewCellId];
+    
+    
+    [self.contentTableView registerNib:[UINib nibWithNibName:@"MIInPutTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MIInPutTypeTableViewCellId];
+    [self.contentTableView registerNib:[UINib nibWithNibName:@"MISegmentTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MISegmentTypeTableViewCellId];
+    [self.contentTableView registerNib:[UINib nibWithNibName:@"MIAddTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MIAddTypeTableViewCellId];
+    [self.contentTableView registerNib:[UINib nibWithNibName:@"MITitleTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MITitleTypeTableViewCellId];
+    [self.contentTableView registerNib:[UINib nibWithNibName:@"MIExpandSelectTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MIExpandSelectTypeTableViewCellId];
+    [self.contentTableView registerNib:[UINib nibWithNibName:@"MITagsTableViewCell" bundle:nil] forCellReuseIdentifier:MITagsTableViewCellId];
+    [self.contentTableView registerNib:[UINib nibWithNibName:@"MIAddWordTableViewCell" bundle:nil] forCellReuseIdentifier:MIAddWordTableViewCellId];
 }
 
 #pragma mark - setter && getter
@@ -1268,7 +1327,10 @@ ClassAndStudentSelectorControllerDelegate
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * _Nonnull action) {
                                                               
-                                                              [weakSelf deleteTask];
+                                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                                  
+                                                                  [weakSelf deleteTask];
+                                                              });
                                                           }];
     
     [alertController addAction:cancelAction];
@@ -1280,6 +1342,7 @@ ClassAndStudentSelectorControllerDelegate
     
     if (self.taskType == MIHomeworkTaskType_Activity) {
         WeakifySelf;
+        [HUD showProgressWithMessage:@"正在删除活动"];
         [ManagerServce requestDeleteActivityId:self.activityInfo.activityId callback:^(Result *result, NSError *error) {
             
             if (error) return;
@@ -1289,6 +1352,41 @@ ClassAndStudentSelectorControllerDelegate
             }
             [weakSelf.navigationController popViewControllerAnimated:YES];
         }];
+    } else {
+        WeakifySelf;
+        [HUD showProgressWithMessage:@"正在删除作业"];
+        [HomeworkService deleteHomeworks:@[@(self.homework.homeworkId)]
+                                callback:^(Result *result, NSError *error) {
+                                    if (error != nil) {
+                                        [HUD showErrorWithMessage:@"删除失败"];
+                                        return;
+                                        
+                                    }
+                                    [HUD showWithMessage:@"删除成功"];
+                                        if (weakSelf.callBack) {
+                                            weakSelf.callBack(YES);
+                                        }
+                                    [weakSelf popToVCAfterDelete];
+                                }];
+    }
+}
+- (void)popToVCAfterDelete{
+    
+    UINavigationController *tempNav = self.navigationController;
+    for (UIViewController *tempVC in tempNav.viewControllers) {
+      
+        if (self.teacherSider) {
+            if ([tempVC isKindOfClass:[MIHomeworkManagerViewController class]]) {
+                [self.navigationController popToViewController:tempVC animated:YES];
+                break;
+            }
+            if (!tempVC) {
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                break;
+            }
+        } else {
+            [self.navigationController popViewControllerAnimated:YES];
+        } 
     }
 }
 
@@ -1303,12 +1401,17 @@ ClassAndStudentSelectorControllerDelegate
             return ;
         }
         self.tags = (NSArray *)(result.userInfo);
-        [self.leftTableView reloadData];
-        [self.rightTableView reloadData];
+        if (self.teacherSider) {
+            [self.contentTableView reloadData];
+        } else {
+            [self.leftTableView reloadData];
+            [self.rightTableView reloadData];
+        }
     }];
 }
 - (void)requestFormTags{
     
+    WeakifySelf;
     [TagService requestFormTagsWithCallback:^(Result *result, NSError *error) {
         if (error != nil) {
             
@@ -1316,8 +1419,12 @@ ClassAndStudentSelectorControllerDelegate
             return ;
         }
         self.formTags = (NSArray *)(result.userInfo);
-        [self.leftTableView reloadData];
-        [self.rightTableView reloadData];
+        if (weakSelf.teacherSider) {
+            [weakSelf.contentTableView reloadData];
+        } else {
+            [weakSelf.leftTableView reloadData];
+            [weakSelf.rightTableView reloadData];
+        }
     }];
 }
 
@@ -1332,7 +1439,11 @@ ClassAndStudentSelectorControllerDelegate
         [strongSelf setFileInfo:strongSelf.currentFileList];
         if (weakSelf.createTypeArray.count) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-            [weakSelf.leftTableView rectForRowAtIndexPath:indexPath];
+            if (weakSelf.teacherSider) {
+                [weakSelf.contentTableView rectForRowAtIndexPath:indexPath];
+            } else {
+                [weakSelf.leftTableView rectForRowAtIndexPath:indexPath];
+            }
         }
     }];
 }
@@ -1349,6 +1460,12 @@ ClassAndStudentSelectorControllerDelegate
                 self.homework.fileInfos.parentFile = parentInfo.fileInfo;
             }
         }
+    }
+    if (self.homework.fileInfos.parentFile.fileName.length == 0) {
+       
+        ParentFileInfo *parentFileInfo = currentFileList.firstObject;
+        self.homework.fileInfos.parentFile = parentFileInfo.fileInfo;
+        self.homework.fileInfos.subFile = parentFileInfo.subFileList.firstObject;
     }
 }
 
@@ -1367,9 +1484,12 @@ ClassAndStudentSelectorControllerDelegate
         }
     }
     self.clazzs = resultArrM;
-    
-    [self.leftTableView reloadData];
-    [self.rightTableView reloadData];
+    if (self.teacherSider) {
+        [self.contentTableView reloadData];
+    } else {
+        [self.leftTableView reloadData];
+        [self.rightTableView reloadData];
+    }
 }
 - (void)studentsDidSelect:(NSArray<User *> *)students{
     
@@ -1385,8 +1505,12 @@ ClassAndStudentSelectorControllerDelegate
         }
     }
     self.students = resultArrM;
-    [self.leftTableView reloadData];
-    [self.rightTableView reloadData];
+    if (self.teacherSider) {
+        [self.contentTableView reloadData];
+    } else {
+        [self.leftTableView reloadData];
+        [self.rightTableView reloadData];
+    }
 }
 
 
@@ -1471,25 +1595,25 @@ ClassAndStudentSelectorControllerDelegate
 - (void)createHomeworkTask{
     
     if (self.homework.title.length == 0) {
-        [HUD showErrorWithMessage:@"作业标题不能为空"];
-        return;
+        [HUD showErrorWithMessage:@"作业标题不能为空"]; return;
     }
     if (self.contentItem.text.length == 0) {
-        [HUD showErrorWithMessage:@"作业内容不能为空"];
-        return;
+        [HUD showErrorWithMessage:@"作业内容不能为空"]; return;
+    }
+    if (self.homework.fileInfos.parentFile == nil || self.homework.fileInfos.subFile == nil) {
+        [HUD showErrorWithMessage:@"请选择位置"]; return;
     }
     NSMutableArray *resultItems = [NSMutableArray array];
     if (self.taskType == MIHomeworkTaskType_WordMemory) {
         
         if (self.wordsItem.words.count == 0) {
-            [HUD showErrorWithMessage:@"单词个数不能为空"];
-            return;
+            [HUD showErrorWithMessage:@"单词个数不能为空"]; return;
         }
         [resultItems addObject:self.wordsItem];
     }
     if (self.taskType == MIHomeworkTaskType_FollowUp) {
         if (self.followItems.count == 0) {
-            [HUD showErrorWithMessage:@"请添加跟读材料"];
+            [HUD showErrorWithMessage:@"请添加跟读材料"]; return;
         }
     }
     [resultItems addObject:self.contentItem];

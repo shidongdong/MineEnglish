@@ -60,7 +60,6 @@ NSString * const MIInPutTypeTableViewCellId = @"MIInPutTypeTableViewCellId";
     CGSize size = [textView sizeThatFits:CGSizeMake(screenWidth - 36.f, MAXFLOAT)];
     CGFloat cellHeight = size.height + 51.f;
     
-    NSLog(@"cellHeight  %f",cellHeight);
     if (self.cellHeight != cellHeight) {
         self.cellHeight = cellHeight;
         

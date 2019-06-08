@@ -41,6 +41,8 @@
 }
 - (IBAction)sureAction:(id)sender {
  
+    [self.English resignFirstResponder];
+    [self.chinese resignFirstResponder];
     if (self.word.english.length == 0) {
         [HUD showErrorWithMessage:@"请输入英文单词"];
         return;
@@ -56,16 +58,22 @@
         [self removeFromSuperview];
     }
 }
-- (IBAction)englistTextfieldChanged:(id)sender {
-    
-    self.word.english = self.English.text;
+
+- (IBAction)textFieldChanged:(UITextField *)sender {
+    self.word.english = sender.text;
+}
+- (IBAction)chineseTextFieldChanged:(UITextField *)sender {
+       self.word.chinese = sender.text;
+}
+- (IBAction)englishAction:(id)sender {
+    UITextField *textField = sender;
+    self.word.english = textField.text;
 }
 
-- (IBAction)chineseTextfieldChanged:(id)sender {
-    
-    self.word.chinese = self.chinese.text;
+- (IBAction)chineseAction:(id)sender {
+    UITextField *textField = sender;
+    self.word.chinese = textField.text;
 }
-
 
 - (WordInfo *)word{
     

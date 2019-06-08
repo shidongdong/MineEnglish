@@ -194,7 +194,6 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = nil;
-    
     HomeworkItem *item = self.homework.items[indexPath.row+1];
     if ([item.type isEqualToString:HomeworkItemTypeImage]) {
         HomeworkImageCollectionViewCell *imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:HomeworkImageCollectionViewCellId forIndexPath:indexPath];
@@ -215,7 +214,9 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
         
         cell = audioCell;
     }
-    
+    if (!cell) {
+        cell = [[UICollectionViewCell alloc] init];
+    }
     return cell;
 }
 

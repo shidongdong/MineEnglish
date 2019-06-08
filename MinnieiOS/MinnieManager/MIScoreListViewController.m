@@ -12,7 +12,6 @@
 #import "HomeworkSessionService.h"
 #import "UIScrollView+Refresh.h"
 #import "MIMoveHomeworkTaskView.h"
-#import "MICreateHomeworkTaskView.h"
 #import "MIScoreListTableViewCell.h"
 #import "MIScoreListViewController.h"
 #import "CSCustomSplitViewController.h"
@@ -45,7 +44,7 @@ UITableViewDataSource
 
 -(void)configureUI{
     
-    self.view.backgroundColor = [UIColor bgColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.scoreListArray = [NSMutableArray array];
     
     UIView *footrView = [[UIView alloc] init];
@@ -76,11 +75,10 @@ UITableViewDataSource
 - (IBAction)editTaskAction:(id)sender {
 
     MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] init];
-
+    createVC.teacherSider = self.teacherSider;
     [createVC setupCreateHomework:self.homework currentFileInfo:self.currentFileInfo taskType:-1];
     WeakifySelf;
     createVC.callBack = ^(BOOL isDelete) {
-        // 更新活动列表
         if (weakSelf.callBack) {
             weakSelf.callBack();
         }

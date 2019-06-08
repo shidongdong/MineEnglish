@@ -45,20 +45,25 @@ MIEqualSpaceFlowLayoutDelegate>
         [NSLayoutConstraint activateConstraints:@[leftConstraint, rightConstraint, topConstraint, bottomConstraint]];
     }
     
-    _collecttionViewWidth = (ScreenWidth - kRootModularWidth) /2.0;
     self.tagsCollectionView.layer.cornerRadius = 12;
     self.tagsCollectionView.layer.masksToBounds = YES;
-    [self addContentView];
 }
-
 
 - (void)setupWithTags:(NSArray <NSString *> *)tags
          selectedTags:(NSArray <NSString *> *)selectedTags
-            typeTitle:(NSString *)title {
+            typeTitle:(NSString *)title
+      collectionWidth:(CGFloat)collectionWidth{
+   
+    _collecttionViewWidth = collectionWidth;
     self.typeLabel.text = title;
     self.tags = tags;
     self.selectedTags = [NSMutableArray arrayWithArray:selectedTags];
-    self.tagsCollectionView.frame = CGRectMake(0, 40, _collecttionViewWidth, [MITagsTableViewCell heightWithTags:tags]);
+    if (!self.tagsCollectionView) {
+        
+        [self addContentView];
+    }
+    self.tagsCollectionView.frame = CGRectMake(0, 40, _collecttionViewWidth, [MITagsTableViewCell heightWithTags:tags collectionWidth:collectionWidth]);
+    
     [self.tagsCollectionView reloadData];
 }
 
@@ -68,7 +73,6 @@ MIEqualSpaceFlowLayoutDelegate>
         self.manageCallback();
     }
 }
-
 
 #pragma mark - UICollectionViewDataSource
 
@@ -151,7 +155,7 @@ MIEqualSpaceFlowLayoutDelegate>
     [self.tagsCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([TagCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:TagCollectionViewCellId];
 }
 
-+ (CGFloat)heightWithTags:(NSArray <NSString *> *)tags{
++ (CGFloat)heightWithTags:(NSArray <NSString *> *)tags collectionWidth:(CGFloat)collectionWidth{
     
     if (tags.count == 0) {
         return 50.f;
@@ -168,7 +172,7 @@ MIEqualSpaceFlowLayoutDelegate>
     
     CGFloat height = 0;
     
-    CGFloat collecttionViewWidth = (ScreenWidth - kRootModularWidth) /2.0;
+    CGFloat collecttionViewWidth = collectionWidth;
     for (NSInteger idx = 0; idx < tags.count; idx++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:idx inSection:0];
         
@@ -176,7 +180,7 @@ MIEqualSpaceFlowLayoutDelegate>
         CGSize itemSize = [TagCollectionViewCell cellSizeWithTag:tag];
         
         xNextOffset+=(minimumInteritemSpacing + itemSize.width);
-        if (xNextOffset >= collecttionViewWidth - 30 - rightSpace) {
+        if (xNextOffset >= collecttionViewWidth - rightSpace) {
             xOffset = leftSpace;
             xNextOffset = (leftSpace + minimumInteritemSpacing + itemSize.width);
             yOffset += (itemSize.height + minimumLineSpacing);
@@ -190,9 +194,5 @@ MIEqualSpaceFlowLayoutDelegate>
     return height;
 }
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
-    NSLog(@"touchesBegan%@",self.managerBtn);
-    
-}
+
 @end

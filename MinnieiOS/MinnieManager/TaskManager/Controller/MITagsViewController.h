@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign)TagsType type;
 
+@property (nonatomic, assign) BOOL teacherSider;
+
 @end
 
 NS_ASSUME_NONNULL_END

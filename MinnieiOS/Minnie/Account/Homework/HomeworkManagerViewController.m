@@ -494,7 +494,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeworkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HomeworkTableViewCellId forIndexPath:indexPath];
-    
     Homework *homework = self.homeworks[indexPath.row];
     
     [cell setupWithHomework:homework];
@@ -550,6 +549,11 @@
         [weakSelf showAudioWithURL:audioUrl withCoverURL:audioCoverUrl];
     }];
     
+    if (!cell) {
+        
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        return cell;
+    }
     return cell;
 }
 

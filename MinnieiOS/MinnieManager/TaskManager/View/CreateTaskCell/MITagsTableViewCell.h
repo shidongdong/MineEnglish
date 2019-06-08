@@ -27,9 +27,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setupWithTags:(NSArray <NSString *> *)tags
          selectedTags:(NSArray <NSString *> *)selectedTags
-            typeTitle:(NSString *)title;
+            typeTitle:(NSString *)title
+      collectionWidth:(CGFloat)collectionWidth;
 
-+ (CGFloat)heightWithTags:(NSArray <NSString *> *)tags;
++ (CGFloat)heightWithTags:(NSArray <NSString *> *)tags collectionWidth:(CGFloat)collectionWidth;
 
 @end
 

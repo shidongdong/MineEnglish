@@ -7,6 +7,7 @@
 //
 
 #import "MIEidtFileView.h"
+#import "ParentFileInfo.h"
 #import "MIHeaderTableViewCell.h"
 
 

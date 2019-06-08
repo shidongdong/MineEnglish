@@ -1,57 +1,49 @@
 //
-//  MITaskListViewController.m
-//  MinnieManager
+//  MIHomeworkTaskListViewController.m
+//  Minnie
 //
-//  Created by songzhen on 2019/5/28.
+//  Created by songzhen on 2019/6/8.
 //  Copyright © 2019 minnieedu. All rights reserved.
-//  任务管理 - 任务列表
+//
 
+#import "Result.h"
 #import "ManagerServce.h"
-#import "MITaskEmptyView.h"
 #import "HomeworkTableViewCell.h"
 #import "MIMoveHomeworkTaskView.h"
-#import "MITaskListViewController.h"
 #import "MIScoreListViewController.h"
 #import "MICreateTaskViewController.h"
 #import "HomeworkPreviewViewController.h"
 #import "ClassAndStudentSelectorController.h"
 #import "HomeWorkSendHistoryViewController.h"
 
-#import "HomeworkService.h"
-#import "UIView+Load.h"
-#import "UIScrollView+Refresh.h"
 #import "TIP.h"
 #import <AVKit/AVKit.h>
+#import "UIView+Load.h"
 #import "VICacheManager.h"
 #import "NEPhotoBrowser.h"
+#import "UIScrollView+Refresh.h"
 #import "AudioPlayerViewController.h"
 #import "VIResourceLoaderManager.h"
+#import "MIHomeworkTaskListViewController.h"
 
-@interface MITaskListViewController ()<
+@interface MIHomeworkTaskListViewController ()<
 UITableViewDelegate,
 UITableViewDataSource,
 NEPhotoBrowserDelegate,
 NEPhotoBrowserDataSource,
 VIResourceLoaderManagerDelegate
 >
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
-@property (nonatomic, assign) BOOL inEditMode;
-
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-@property (weak, nonatomic) IBOutlet UIView *headerView;
-@property (weak, nonatomic) IBOutlet UIButton *createBtn;
-@property (weak, nonatomic) IBOutlet UILabel *folderLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomContraint;
 @property (weak, nonatomic) IBOutlet UIView *footerView;
+@property (weak, nonatomic) IBOutlet UILabel *countLabel;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *operatorBtn;
-
-@property (weak, nonatomic) IBOutlet UILabel *selectCountLabel;
 @property (weak, nonatomic) IBOutlet UIButton *sendBtn;
 @property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *footerHeightConstraint;
-
-@property (nonatomic, strong)  MITaskEmptyView *emptyView;
+@property (nonatomic, assign) BOOL inEditMode;
 
 @property (nonatomic, strong) NSMutableArray <Homework *> *homeworks;
 
@@ -68,56 +60,43 @@ VIResourceLoaderManagerDelegate
 
 @property (nonatomic, assign) BOOL shouldReloadWhenAppeared;
 
-@property (nonatomic, strong) FileInfo *currentFileInfo;
-
 @property (nonatomic, assign) NSInteger currFileIndex;
-
 
 
 @end
 
-@implementation MITaskListViewController
+@implementation MIHomeworkTaskListViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.folderLabel.text = self.currentFileInfo.fileName;
     _homeworks = [NSMutableArray array];
-    _currentFileInfo = [[FileInfo alloc] init];
     _selectedHomeworkIds = [NSMutableArray array];
+    self.titleLabel.text = self.currentFileInfo.fileName;
     [self registerCellNibs];
     [self configureUI];
+    self.footerView.hidden = !self.inEditMode;
+    self.view.backgroundColor = [UIColor whiteColor];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(shouldReloadDataWhenAppeared:)
                                                  name:kNotificationKeyOfAddHomework
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(homeworkDidSendSuccess) name:kNotificationKeyOfHomeworkSendSuccess object:nil];
+    [self requestHomeworks];
 }
-
-- (void)setFolderTitle:(NSString *)folderTitle{
-    
-    _folderTitle = folderTitle;
-}
-
 - (void)configureUI{
     
     self.view.backgroundColor = [UIColor bgColor];
     self.tableView.backgroundColor = [UIColor bgColor];
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 12.f)];
     self.tableView.tableFooterView = footerView;
-    self.selectCountLabel.layer.masksToBounds = YES;
-    self.selectCountLabel.layer.cornerRadius = 10.5;
-}
-- (void)registerCellNibs {
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([HomeworkTableViewCell class]) bundle:nil] forCellReuseIdentifier:HomeworkTableViewCellId];
 }
 
-#pragma mark - actions  新建  发送记录  操作
-- (IBAction)addTaskAction:(id)sender {
-  
-    [self showSelectedTask];
+- (IBAction)backAction:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)operationAction:(id)sender {
@@ -127,21 +106,16 @@ VIResourceLoaderManagerDelegate
     if (self.inEditMode) {
         
         [self.selectedHomeworkIds removeAllObjects];
-        self.createBtn.hidden = YES;
-        self.folderLabel.hidden = YES;
         self.footerView.hidden = NO;
-        self.footerHeightConstraint.constant = 50;
+        self.bottomContraint.constant = 50;
     } else {
-        self.createBtn.hidden = NO;
-        self.folderLabel.hidden = NO;
         self.footerView.hidden = YES;
-        self.footerHeightConstraint.constant = 0;
+        self.bottomContraint.constant = 0;
     }
     [self.tableView reloadData];
 }
 
-#pragma mark - 发送作业 && 删除作业
-- (IBAction)sendHomeworkAction:(id)sender {
+- (IBAction)sendAction:(id)sender {
     
     if (self.selectedHomeworkIds.count == 0) {
         return;
@@ -162,16 +136,14 @@ VIResourceLoaderManagerDelegate
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
-
-// 新需求改为移动任务
-- (IBAction)deleteHomeworkAction:(id)sender{
+- (IBAction)deleteAction:(id)sender {
     
     MIMoveHomeworkTaskView *view = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIMoveHomeworkTaskView class]) owner:nil options:nil].lastObject;
     view.frame = [UIScreen mainScreen].bounds;
     view.isMultiple = NO;
     WeakifySelf;
     view.callback = ^{
-       
+        
         [weakSelf.homeworks removeAllObjects];
         [weakSelf.selectedHomeworkIds removeAllObjects];
         weakSelf.nextUrl = nil;
@@ -183,47 +155,10 @@ VIResourceLoaderManagerDelegate
     view.currentFileInfo = self.currentFileInfo;
     [[UIApplication sharedApplication].keyWindow addSubview:view];
 }
-//{
-//
-//    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确认删除?"
-//                                                                             message:nil
-//                                                                      preferredStyle:UIAlertControllerStyleAlert];
-//
-//    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
-//                                                           style:UIAlertActionStyleCancel
-//                                                         handler:^(UIAlertAction * _Nonnull action) {
-//                                                         }];
-//
-//    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"删除"
-//                                                            style:UIAlertActionStyleDefault
-//                                                          handler:^(UIAlertAction * _Nonnull action) {
-//                                                              [HUD showProgressWithMessage:@"正在删除"];
-//
-//                                                              [HomeworkService deleteHomeworks:self.selectedHomeworkIds
-//                                                                                      callback:^(Result *result, NSError *error) {
-//                                                                                          if (error != nil) {
-//                                                                                              [HUD showErrorWithMessage:@"删除失败"];
-//                                                                                              return;
-//                                                                                          }
-//
-//                                                                                          [HUD showWithMessage:@"删除成功"];
-//
-//                                                                                          [self.homeworks removeAllObjects];
-//                                                                                          [self.selectedHomeworkIds removeAllObjects];
-//                                                                                          self.nextUrl = nil;
-//
-//                                                                                          [self.tableView reloadData];
-//
-//                                                                                          [self operationAction:nil];
-//                                                                                          [self requestHomeworks];
-//                                                                                      }];
-//                                                          }];
-//
-//    [alertController addAction:cancelAction];
-//    [alertController addAction:confirmAction];
-//    [self.navigationController presentViewController:alertController animated:YES completion:nil];
-//}
 
+- (void)registerCellNibs {
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([HomeworkTableViewCell class]) bundle:nil] forCellReuseIdentifier:HomeworkTableViewCellId];
+}
 
 #pragma mark - Private Methods
 - (void)shouldReloadDataWhenAppeared:(NSNotification *)notification {
@@ -237,18 +172,17 @@ VIResourceLoaderManagerDelegate
 
 #pragma mark - 请求作业列表
 - (void)requestHomeworks {
-   
+    
     if (self.homeworksRequest != nil) {
         return;
     }
-    [self showTaskList:NO];
+    self.tableView.hidden = YES;
+    self.footerView.hidden = YES;
+    [self.view showLoadingView];
     WeakifySelf;
-    if (self.emptyView.superview) {
-        [self.emptyView removeFromSuperview];
-    }
     [self.view showLoadingView];
     self.homeworksRequest = [ManagerServce requesthomeworksByFileWithFileId:self.currentFileInfo.fileId nextUrl:nil callback:^(Result *result, NSError *error) {
-
+        
         StrongifySelf;
         [weakSelf.view hideAllStateView];
         [strongSelf handleRequestResult:result error:error isLoad:NO];
@@ -259,12 +193,9 @@ VIResourceLoaderManagerDelegate
         return;
     }
     WeakifySelf;
-    if (self.emptyView.superview) {
-        [self.emptyView removeFromSuperview];
-    }
     [self.view showLoadingView];
     self.homeworksRequest = [ManagerServce requesthomeworksByFileWithFileId:self.currentFileInfo.fileId nextUrl:self.nextUrl callback:^(Result *result, NSError *error) {
-
+        
         StrongifySelf;
         [weakSelf.view hideAllStateView];
         [strongSelf handleRequestResult:result error:error isLoad:YES];
@@ -272,7 +203,7 @@ VIResourceLoaderManagerDelegate
 }
 
 - (void)handleRequestResult:(Result *)result error:(NSError *)error isLoad:(BOOL)isLoadMore{
-   
+    
     self.homeworksRequest = nil;
     NSDictionary *dictionary = (NSDictionary *)(result.userInfo);
     NSString *nextUrl = dictionary[@"next"];
@@ -292,10 +223,20 @@ VIResourceLoaderManagerDelegate
         }
         [self.homeworks addObjectsFromArray:homeworks];
         if (self.homeworks.count == 0) {
-  
-            [self showEmptyViewWithIsFolder:NO folderIndex:self.currFileIndex];
+            WeakifySelf;
+            self.operatorBtn.enabled = NO;
+            [self.view showEmptyViewWithImage:nil title:@"作业列表为空"
+                                centerYOffset:0
+                                    linkTitle:nil
+                            linkClickCallback:nil retryCallback:^{
+                
+                                [weakSelf requestHomeworks];
+                            }];
         } else {
-            [self showTaskList:YES];
+            
+            self.operatorBtn.enabled = YES;
+            self.tableView.hidden = NO;
+            self.footerView.hidden = !self.inEditMode;
         }
         if (nextUrl.length == 0) {
             [self.tableView removeFooter];
@@ -304,8 +245,6 @@ VIResourceLoaderManagerDelegate
     } else {
         // 停止加载
         [self.tableView headerEndRefreshing];
-        self.tableView.hidden = homeworks.count==0;
-        
         if (error != nil) {
             if (homeworks.count > 0) {
                 [TIP showText:@"加载失败" inView:self.view];
@@ -320,10 +259,7 @@ VIResourceLoaderManagerDelegate
         
         if (homeworks.count > 0) {
             
-            [self.view hideAllStateView];
             [self.homeworks addObjectsFromArray:homeworks];
-            [self showTaskList:YES];
-            [self.tableView reloadData];
             
             if (nextUrl.length > 0) {
                 WeakifySelf;
@@ -333,9 +269,21 @@ VIResourceLoaderManagerDelegate
             } else {
                 [self.tableView removeFooter];
             }
-        } else {
             
-            [self showEmptyViewWithIsFolder:NO folderIndex:self.currFileIndex];
+            self.operatorBtn.enabled = YES;
+            self.tableView.hidden = NO;
+            self.footerView.hidden = !self.inEditMode;
+            [self.tableView reloadData];
+        } else {
+            WeakifySelf;
+            self.operatorBtn.enabled = NO;
+            [self.view showEmptyViewWithImage:nil title:@"作业列表为空"
+                                centerYOffset:0
+                                    linkTitle:nil
+                            linkClickCallback:nil retryCallback:^{
+                                
+                                [weakSelf requestHomeworks];
+                            }];
         }
     }
     self.nextUrl = nextUrl;
@@ -398,7 +346,6 @@ VIResourceLoaderManagerDelegate
         AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
         player = [AVPlayer playerWithPlayerItem:playerItem];
     }
-    
     
     playerViewController.player = player;
     [self presentViewController:playerViewController animated:YES completion:nil];
@@ -483,7 +430,6 @@ VIResourceLoaderManagerDelegate
         } else {
             [weakSelf.selectedHomeworkIds addObject:@(homework.homeworkId)];
         }
-        weakSelf.selectCountLabel.text = [NSString stringWithFormat:@"%zd", weakSelf.selectedHomeworkIds.count];
         weakSelf.deleteBtn.enabled = weakSelf.selectedHomeworkIds.count>0;
         weakSelf.sendBtn.enabled = weakSelf.selectedHomeworkIds.count>0;
     }];
@@ -506,10 +452,11 @@ VIResourceLoaderManagerDelegate
         };
         scoreListVC.homework = homework;
         scoreListVC.currentFileInfo = self.currentFileInfo;
+        scoreListVC.teacherSider = YES;
         [self.navigationController pushViewController:scoreListVC animated:YES];
     }];
     [cell setSendCallback:^{
-      
+        
         ClassAndStudentSelectorController *vc = [[ClassAndStudentSelectorController alloc] init];
         [vc setHomeworks:@[homework]];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
@@ -550,144 +497,18 @@ VIResourceLoaderManagerDelegate
         [weakSelf requestHomeworks];
     };
     scoreListVC.homework = homework;
+    scoreListVC.teacherSider = YES;
     scoreListVC.currentFileInfo = self.currentFileInfo;
     [self.navigationController pushViewController:scoreListVC animated:YES];
 }
 
-// 请求作业列表
-- (void)showTaskListWithFoldInfo:(FileInfo * _Nullable)fileInfo folderIndex:(NSInteger)folder{
-  
-    self.currFileIndex = folder;
-    self.currentFileInfo = fileInfo;
-    if (fileInfo) {
-        // 显示任务列表
-        [self requestHomeworks];
-    } else { // 显示为空
-        [self showTaskList:NO];
-    }
-}
 
-- (void)showTaskList:(BOOL)isShow{
-    
-    if (isShow) {
-        
-        self.tableView.hidden = NO;
-        self.headerView.hidden = NO;
-        if (self.inEditMode) {
-            self.footerView.hidden = NO;
-            self.footerHeightConstraint.constant = 50;
-        } else {
-            self.footerView.hidden = YES;
-            self.footerHeightConstraint.constant = 0;
-        }
-        if (self.emptyView.superview) {
-            
-            [self.emptyView removeFromSuperview];
-        }
-    } else {
-        self.tableView.hidden = YES;
-        self.headerView.hidden = YES;
-        self.footerView.hidden = YES;
-        self.footerHeightConstraint.constant = 0;
-        if (self.emptyView.superview) {
-            
-            [self.emptyView removeFromSuperview];
-        }
-    }
-}
-            
-- (void)showEmptyViewWithIsFolder:(BOOL)isAddFolder folderIndex:(NSInteger)index{
-    
-    if (self.emptyView == nil) {
-        
-        self.emptyView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MITaskEmptyView class]) owner:nil options:nil] lastObject];
-    }
-    self.tableView.hidden = YES;
-    [self.view addSubview:self.emptyView];
-    WeakifySelf;
-    self.emptyView.callBack = ^(BOOL isAddFolder) {
-        
-        __block NSInteger currIndex = index;
-        if (isAddFolder) { // 添加二级文件夹
-            
-            if (weakSelf.addFolderCallBack) {
-                
-                weakSelf.addFolderCallBack(currIndex);
-            }
-        } else { // 新建任务
-            [weakSelf showSelectedTask];
-        }
-    };
-    [self.emptyView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.right.top.bottom.equalTo(self.view);
-    }];
-    self.emptyView.isAddFolder = isAddFolder;
-}
-
-- (void)showSelectedTask{
-    
-    WeakifySelf;
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"选择任务类型"
-                                                                     message:nil
-                                                              preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"通知"
-                                                           style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * _Nonnull action) {
-                                 [weakSelf goToCreateTaskWithType:MIHomeworkTaskType_notify];
-                                                         }];
-    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"跟读"
-                                                      style:UIAlertActionStyleDefault
-                                                    handler:^(UIAlertAction * _Nonnull action) {
-                                 [weakSelf goToCreateTaskWithType:MIHomeworkTaskType_FollowUp];
-                                                        
-                                                    }];
-    UIAlertAction *action3 = [UIAlertAction actionWithTitle:@"单词记忆"
-                                                      style:UIAlertActionStyleDefault
-                                                    handler:^(UIAlertAction * _Nonnull action) {
-                                 [weakSelf goToCreateTaskWithType:MIHomeworkTaskType_WordMemory];
-                                                    }];
-    UIAlertAction *action4 = [UIAlertAction actionWithTitle:@"普通任务"
-                                                      style:UIAlertActionStyleDefault
-                                                    handler:^(UIAlertAction * _Nonnull action) {
-                                 [weakSelf goToCreateTaskWithType:MIHomeworkTaskType_GeneralTask];
-                                                    }];
-    UIAlertAction *action6 = [UIAlertAction actionWithTitle:@"成绩统计"
-                                                      style:UIAlertActionStyleDefault
-                                                    handler:^(UIAlertAction * _Nonnull action) {
-                        [weakSelf goToCreateTaskWithType:MIHomeworkTaskType_ExaminationStatistics];
-                                                    }];
-    UIAlertAction *action7 = [UIAlertAction actionWithTitle:@"取消"
-                                                      style:UIAlertActionStyleCancel
-                                                    handler:^(UIAlertAction * _Nonnull action) {
-                                                        
-                                                    }];
-    
-    [alertVC addAction:action1];
-    [alertVC addAction:action2];
-    [alertVC addAction:action3];
-    [alertVC addAction:action4];
-    [alertVC addAction:action6];
-    [alertVC addAction:action7];
-    
-    [self presentViewController:alertVC
-                       animated:YES
-                     completion:nil];
-}
-
-- (void)goToCreateTaskWithType:(MIHomeworkTaskType)type{
-    
-    MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] init];
-    [createVC setupCreateHomework:nil currentFileInfo:self.currentFileInfo taskType:type];
-    WeakifySelf;
-    createVC.callBack = ^(BOOL isDelete) {
-      [weakSelf requestHomeworks];
-    };
-    [self.navigationController pushViewController:createVC animated:YES];
+- (void)setCurrentFileInfo:(FileInfo *)currentFileInfo{
+    _currentFileInfo = currentFileInfo;
 }
 
 - (void)dealloc {
-  
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [self.homeworksRequest clearCompletionBlock];

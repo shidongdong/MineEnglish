@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,7 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MICreateTaskViewController">
             <connections>
+                <outlet property="contentTableView" destination="Cdr-Gh-znX" id="ZXo-wh-N18"/>
                 <outlet property="leftTableView" destination="odG-La-Sfy" id="47t-fk-bDx"/>
+                <outlet property="midLineView" destination="mW5-RS-q7W" id="elk-kN-KC2"/>
                 <outlet property="rightTableView" destination="C7V-yK-WNg" id="lgE-CA-q5G"/>
                 <outlet property="titleLabel" destination="zmL-Dq-2xM" id="rNh-3d-r3R"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -107,18 +108,30 @@
                                 <outlet property="delegate" destination="-1" id="XDN-Ut-jxm"/>
                             </connections>
                         </tableView>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Cdr-Gh-znX">
+                            <rect key="frame" x="0.0" y="64" width="414" height="774"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="lCv-lm-NZ8"/>
+                                <outlet property="delegate" destination="-1" id="zOg-Px-XUD"/>
+                            </connections>
+                        </tableView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="C7V-yK-WNg" firstAttribute="width" secondItem="odG-La-Sfy" secondAttribute="width" id="1f1-8q-gUA"/>
+                        <constraint firstItem="Cdr-Gh-znX" firstAttribute="top" secondItem="tmy-io-xu5" secondAttribute="bottom" id="39m-87-tLP"/>
+                        <constraint firstItem="Cdr-Gh-znX" firstAttribute="trailing" secondItem="tmy-io-xu5" secondAttribute="trailing" id="3GN-pB-4dG"/>
                         <constraint firstItem="odG-La-Sfy" firstAttribute="top" secondItem="tmy-io-xu5" secondAttribute="bottom" id="3zL-fQ-91p"/>
                         <constraint firstItem="mW5-RS-q7W" firstAttribute="leading" secondItem="odG-La-Sfy" secondAttribute="trailing" id="4UQ-a4-j1C"/>
                         <constraint firstItem="odG-La-Sfy" firstAttribute="leading" secondItem="tI5-cC-K2m" secondAttribute="leading" id="8o1-5b-jdA"/>
                         <constraint firstAttribute="trailing" secondItem="tmy-io-xu5" secondAttribute="trailing" id="8pB-U3-8BO"/>
                         <constraint firstAttribute="bottom" secondItem="odG-La-Sfy" secondAttribute="bottom" id="AM7-ID-fYW"/>
+                        <constraint firstAttribute="bottom" secondItem="Cdr-Gh-znX" secondAttribute="bottom" id="CqT-mk-WBV"/>
                         <constraint firstItem="C7V-yK-WNg" firstAttribute="leading" secondItem="odG-La-Sfy" secondAttribute="trailing" constant="1" id="MEF-TR-t4k"/>
                         <constraint firstItem="C7V-yK-WNg" firstAttribute="height" secondItem="odG-La-Sfy" secondAttribute="height" id="R7b-8b-DNy"/>
                         <constraint firstItem="C7V-yK-WNg" firstAttribute="top" secondItem="odG-La-Sfy" secondAttribute="top" id="Rnu-ic-d7x"/>
+                        <constraint firstItem="Cdr-Gh-znX" firstAttribute="leading" secondItem="tmy-io-xu5" secondAttribute="leading" id="WdA-aC-65U"/>
                         <constraint firstItem="mW5-RS-q7W" firstAttribute="bottom" secondItem="odG-La-Sfy" secondAttribute="bottom" id="X87-2k-DeF"/>
                         <constraint firstItem="tmy-io-xu5" firstAttribute="top" secondItem="tI5-cC-K2m" secondAttribute="top" id="ZIQ-kM-HP7"/>
                         <constraint firstAttribute="trailing" secondItem="C7V-yK-WNg" secondAttribute="trailing" id="b2k-xw-3ZI"/>

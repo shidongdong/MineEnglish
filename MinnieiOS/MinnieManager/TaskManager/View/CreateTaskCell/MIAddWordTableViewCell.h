@@ -19,12 +19,14 @@ extern NSString * _Nullable const MIAddWordTableViewCellId;
 @property (nonatomic,copy) MIAddWordTableViewCellCallback callback;
 
 //Clazz ,User,NSString
-+ (CGFloat)heightWithTags:(NSArray*)tags;
++ (CGFloat)heightWithTags:(NSArray*)tags collectionView:(CGFloat)collectionWidth;
 
-- (void)setupAwordWithDataArray:(NSArray <WordInfo *> *)dataArray;
+- (void)setupAwordWithDataArray:(NSArray <WordInfo *> *)dataArray
+                 collectionView:(CGFloat)collectionWidth;
 
 - (void)setupParticipateWithClazzArray:(NSArray <Clazz *> *)clazzArray
-                          studentArray:(NSArray <User *> *)studentArray;
+                          studentArray:(NSArray <User *> *)studentArray
+                        collectionView:(CGFloat)collectionWidth;
 @end
 
 NS_ASSUME_NONNULL_END

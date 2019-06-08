@@ -51,14 +51,14 @@ MIEqualSpaceFlowLayoutDelegate
         [NSLayoutConstraint activateConstraints:@[leftConstraint, rightConstraint, topConstraint, bottomConstraint]];
     }
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    _collecttionViewWidth = (ScreenWidth - kRootModularWidth) /2.0;
     self.dataArray = [NSMutableArray array];
-    [self addContentView];
 }
 
 
-- (void)setupAwordWithDataArray:(NSArray <WordInfo *> *)dataArray{
+- (void)setupAwordWithDataArray:(NSArray <WordInfo *> *)dataArray
+                 collectionView:(CGFloat)collectionWidth{
    
+    _collecttionViewWidth = collectionWidth;
     self.titleLabel.text = @"添加单词";
     self.createType = MIHomeworkCreateContentType_AddWords;
     [self.dataArray removeAllObjects];
@@ -67,26 +67,35 @@ MIEqualSpaceFlowLayoutDelegate
     wordInfo.english = @"+";
     wordInfo.chinese = @"添加单词";
     [self.dataArray addObject:wordInfo];
-    self.collectionView.frame = CGRectMake(0, 30, _collecttionViewWidth, [MIAddWordTableViewCell heightWithTags:self.dataArray]);
+    if (!self.collectionView) {
+        [self addContentView];
+    }
+    self.collectionView.frame = CGRectMake(0, 30, _collecttionViewWidth, [MIAddWordTableViewCell heightWithTags:self.dataArray collectionView:collectionWidth]);
+ 
     [self.collectionView reloadData];
 }
 
 - (void)setupParticipateWithClazzArray:(NSArray <Clazz *> *)clazzArray
-                          studentArray:(NSArray <User *> *)studentArray{
+                          studentArray:(NSArray <User *> *)studentArray
+                        collectionView:(CGFloat)collectionWidth{
     
+    _collecttionViewWidth = collectionWidth;
     self.titleLabel.text = @"添加参与对象";
     self.createType = MIHomeworkCreateContentType_ActivityParticipant;
     [self.dataArray removeAllObjects];
     [self.dataArray addObjectsFromArray:clazzArray];
     [self.dataArray addObjectsFromArray:studentArray];
     [self.dataArray addObject:@" + 添加对象"];
-    self.collectionView.frame = CGRectMake(0, 40, _collecttionViewWidth, [MIAddWordTableViewCell heightWithTags:self.dataArray]);
+    if (!self.collectionView) {
+        [self addContentView];
+    }
+    self.collectionView.frame = CGRectMake(0, 40, _collecttionViewWidth, [MIAddWordTableViewCell heightWithTags:self.dataArray collectionView:collectionWidth]);
+
     [self.collectionView reloadData];
-    
 }
 
 
-+ (CGFloat)heightWithTags:(NSArray*)tags{
++ (CGFloat)heightWithTags:(NSArray*)tags collectionView:(CGFloat)collectionWidth{
     
     if (tags.count == 0) {
         return 50.f;
@@ -103,7 +112,7 @@ MIEqualSpaceFlowLayoutDelegate
     
     CGFloat height = 0;
     
-    CGFloat collecttionViewWidth = (ScreenWidth - kRootModularWidth) /2.0;
+    CGFloat collecttionViewWidth = collectionWidth;
     for (NSInteger idx = 0; idx < tags.count; idx++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:idx inSection:0];
       
