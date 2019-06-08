@@ -63,7 +63,10 @@ MIEqualSpaceFlowLayoutDelegate
     self.createType = MIHomeworkCreateContentType_AddWords;
     [self.dataArray removeAllObjects];
     [self.dataArray addObjectsFromArray:dataArray];
-    [self.dataArray addObject:@" + 添加单词"];
+    WordInfo *wordInfo = [[WordInfo alloc] init];
+    wordInfo.english = @"+";
+    wordInfo.chinese = @"添加单词";
+    [self.dataArray addObject:wordInfo];
     self.collectionView.frame = CGRectMake(0, 30, _collecttionViewWidth, [MIAddWordTableViewCell heightWithTags:self.dataArray]);
     [self.collectionView reloadData];
 }
@@ -103,22 +106,29 @@ MIEqualSpaceFlowLayoutDelegate
     CGFloat collecttionViewWidth = (ScreenWidth - kRootModularWidth) /2.0;
     for (NSInteger idx = 0; idx < tags.count; idx++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:idx inSection:0];
-        
-        NSString *tag;
-        if ([tags[indexPath.row] isKindOfClass:[NSString class]]) {
-            tag = tags[indexPath.row];
-        } else if ([tags[indexPath.row] isKindOfClass:[WordInfo class]]) {
-          
-            tag = ((WordInfo *)tags[indexPath.row]).english;
-        } else if ([tags[indexPath.row] isKindOfClass:[Clazz class]]) {
-            tag = ((Clazz *)tags[indexPath.row]).name;
-        } else if ([tags[indexPath.row] isKindOfClass:[User class]]) {
-            tag = ((User *)tags[indexPath.row]).nickname;
+      
+        CGSize itemSize ;
+        if ([tags[indexPath.row] isKindOfClass:[WordInfo class]]) {
+            
+           itemSize = [MIWordTagCollectionViewCell cellSizeWithTag:tags[indexPath.row]];
+        } else {
+            
+            NSString *tag;
+            if ([tags[indexPath.row] isKindOfClass:[NSString class]]) {
+                tag = tags[indexPath.row];
+            } else if ([tags[indexPath.row] isKindOfClass:[WordInfo class]]) {
+                
+                tag = ((WordInfo *)tags[indexPath.row]).english;
+            } else if ([tags[indexPath.row] isKindOfClass:[Clazz class]]) {
+                tag = ((Clazz *)tags[indexPath.row]).name;
+            } else if ([tags[indexPath.row] isKindOfClass:[User class]]) {
+                tag = ((User *)tags[indexPath.row]).nickname;
+            }
+            itemSize = [MIWordTagCollectionViewCell cellSizeWithTag:tag];
         }
-        CGSize itemSize = [MIWordTagCollectionViewCell cellSizeWithTag:tag];
         
         xNextOffset+=(minimumInteritemSpacing + itemSize.width);
-        if (xNextOffset >= collecttionViewWidth - 30 - rightSpace) {
+        if (xNextOffset >= collecttionViewWidth - rightSpace) {
             xOffset = leftSpace;
             xNextOffset = (leftSpace + minimumInteritemSpacing + itemSize.width);
             yOffset += (itemSize.height + minimumLineSpacing);
@@ -145,23 +155,32 @@ MIEqualSpaceFlowLayoutDelegate
     MIWordTagCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MIWordTagCollectionViewCellId
                                                                             forIndexPath:indexPath];
     NSString *tag;
-    if ([self.dataArray[indexPath.row] isKindOfClass:[NSString class]]) {
-        tag = self.dataArray[indexPath.row];
-    } else if ([self.dataArray[indexPath.row] isKindOfClass:[WordInfo class]]) {
+    if ([self.dataArray[indexPath.row] isKindOfClass:[WordInfo class]]) {
         WordInfo *word = self.dataArray[indexPath.row];
-        tag = word.english;
-    } else if ([self.dataArray[indexPath.row] isKindOfClass:[Clazz class]]) {
-        Clazz *clazz = self.dataArray[indexPath.row];
-        tag = clazz.name;
-    } else if ([self.dataArray[indexPath.row] isKindOfClass:[User class]]) {
-        User *student = self.dataArray[indexPath.row];
-        tag = student.nickname;
-    }
-    if (indexPath.row == self.dataArray.count - 1) {
-        [cell setupWithText:tag isEditState:self.isEditState isLast:YES];
+       
+        if (indexPath.row == self.dataArray.count - 1) {
+            [cell setupWithText:word isEditState:self.isEditState isLast:YES];
+        } else {
+            [cell setupWithText:word isEditState:self.isEditState isLast:NO];
+        }
     } else {
-        [cell setupWithText:tag isEditState:self.isEditState isLast:NO];
+        
+        if ([self.dataArray[indexPath.row] isKindOfClass:[NSString class]]) {
+            tag = self.dataArray[indexPath.row];
+        } else if ([self.dataArray[indexPath.row] isKindOfClass:[Clazz class]]) {
+            Clazz *clazz = self.dataArray[indexPath.row];
+            tag = clazz.name;
+        } else if ([self.dataArray[indexPath.row] isKindOfClass:[User class]]) {
+            User *student = self.dataArray[indexPath.row];
+            tag = student.nickname;
+        }
+        if (indexPath.row == self.dataArray.count - 1) {
+            [cell setupWithText:tag isEditState:self.isEditState isLast:YES];
+        } else {
+            [cell setupWithText:tag isEditState:self.isEditState isLast:NO];
+        }
     }
+
     
     return cell;
 }
@@ -173,22 +192,24 @@ MIEqualSpaceFlowLayoutDelegate
       
         if (self.isEditState) {
             
-            NSString *tag = self.dataArray[indexPath.row];
+            id tag = self.dataArray[indexPath.row];
             [self.dataArray removeObject:tag];
             if (self.callback) {
-                
-                self.callback(NO,self.dataArray);
+                NSMutableArray *returnArray = [NSMutableArray arrayWithArray:self.dataArray];
+                [returnArray removeLastObject];
+                self.callback(NO,returnArray);
             }
             [self.collectionView reloadData];
         }
-    } else {// 添加单词
+    } else {// 添加
         if (self.isEditState) {
             self.isEditState = NO;
             [self.collectionView reloadData];
         }
         if (self.callback) {
-            
-            self.callback(YES,self.dataArray[indexPath.row]);
+            NSMutableArray *returnArray = [NSMutableArray arrayWithArray:self.dataArray];
+            [returnArray removeLastObject];
+            self.callback(YES,returnArray);
         }
     }
 }
@@ -198,26 +219,37 @@ MIEqualSpaceFlowLayoutDelegate
                   layout:(UICollectionViewLayout*)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSString *tag;
-    if ([self.dataArray[indexPath.row] isKindOfClass:[NSString class]]) {
-        tag = self.dataArray[indexPath.row];
-    } else if ([self.dataArray[indexPath.row] isKindOfClass:[WordInfo class]]) {
+    if ([self.dataArray[indexPath.row] isKindOfClass:[WordInfo class]]) {
         WordInfo *word = self.dataArray[indexPath.row];
-        tag = word.english;
-    } else if ([self.dataArray[indexPath.row] isKindOfClass:[Clazz class]]) {
-        Clazz *clazz = self.dataArray[indexPath.row];
-        tag = clazz.name;
-    } else if ([self.dataArray[indexPath.row] isKindOfClass:[User class]]) {
-        User *student = self.dataArray[indexPath.row];
-        tag = student.nickname;
-    }
-    CGSize itemSize = [MIWordTagCollectionViewCell cellSizeWithTag:tag];
-    // 标签长度大于屏幕
-    if (itemSize.width > _collecttionViewWidth -30) {
         
-        itemSize.width = _collecttionViewWidth - 30;
+        CGSize itemSize = [MIWordTagCollectionViewCell cellSizeWithTag:word];
+        // 标签长度大于屏幕
+        if (itemSize.width > _collecttionViewWidth -30) {
+            
+            itemSize.width = _collecttionViewWidth - 30;
+        }
+        return itemSize;
+    } else {
+       
+        NSString *tag;
+        if ([self.dataArray[indexPath.row] isKindOfClass:[NSString class]]) {
+            tag = self.dataArray[indexPath.row];
+        } else if ([self.dataArray[indexPath.row] isKindOfClass:[Clazz class]]) {
+            Clazz *clazz = self.dataArray[indexPath.row];
+            tag = clazz.name;
+        } else if ([self.dataArray[indexPath.row] isKindOfClass:[User class]]) {
+            User *student = self.dataArray[indexPath.row];
+            tag = student.nickname;
+        }
+        CGSize itemSize = [MIWordTagCollectionViewCell cellSizeWithTag:tag];
+        // 标签长度大于屏幕
+        if (itemSize.width > _collecttionViewWidth -30) {
+            
+            itemSize.width = _collecttionViewWidth - 30;
+        }
+        return itemSize;
     }
-    return itemSize;
+   
 }
 
 - (void)addContentView{
@@ -242,6 +274,13 @@ MIEqualSpaceFlowLayoutDelegate
        
         self.isEditState = !self.isEditState;
         [self.collectionView reloadData];
+    }
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+ 
+    if (self.isEditState) {
+        self.isEditState = NO;
     }
 }
 @end

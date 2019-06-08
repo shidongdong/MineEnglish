@@ -18,12 +18,13 @@ MIEqualSpaceFlowLayoutDelegate>
 
 @property (nonatomic, strong) NSArray<NSString *> *tags;
 @property (nonatomic, strong) NSMutableArray<NSString *> *selectedTags;
-//@property (weak, nonatomic) IBOutlet UILabel *typeLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *typeLabel;
 
 @property (nonatomic, strong) UICollectionView *tagsCollectionView;
 
 @property (nonatomic, assign) NSInteger collecttionViewWidth;
+@property (weak, nonatomic) IBOutlet UIButton *managerBtn;
 
 @end
 
@@ -43,6 +44,7 @@ MIEqualSpaceFlowLayoutDelegate>
         
         [NSLayoutConstraint activateConstraints:@[leftConstraint, rightConstraint, topConstraint, bottomConstraint]];
     }
+    
     _collecttionViewWidth = (ScreenWidth - kRootModularWidth) /2.0;
     self.tagsCollectionView.layer.cornerRadius = 12;
     self.tagsCollectionView.layer.masksToBounds = YES;
@@ -56,57 +58,17 @@ MIEqualSpaceFlowLayoutDelegate>
     self.typeLabel.text = title;
     self.tags = tags;
     self.selectedTags = [NSMutableArray arrayWithArray:selectedTags];
-    self.tagsCollectionView.frame = CGRectMake(0, 50, _collecttionViewWidth, [MITagsTableViewCell heightWithTags:tags]);
+    self.tagsCollectionView.frame = CGRectMake(0, 40, _collecttionViewWidth, [MITagsTableViewCell heightWithTags:tags]);
     [self.tagsCollectionView reloadData];
 }
 
-
-+ (CGFloat)heightWithTags:(NSArray <NSString *> *)tags{
-    
-    if (tags.count == 0) {
-        return 50.f;
-    }
-    CGFloat leftSpace = 10;
-    CGFloat topSpace = 10;
-    CGFloat rightSpace = 10;
-    CGFloat minimumInteritemSpacing = 10;
-    CGFloat minimumLineSpacing = 10;
-    
-    CGFloat xOffset = leftSpace;
-    CGFloat yOffset = topSpace;
-    CGFloat xNextOffset = leftSpace;
-    
-    CGFloat height = 0;
-    
-    CGFloat collecttionViewWidth = (ScreenWidth - kRootModularWidth) /2.0;
-    for (NSInteger idx = 0; idx < tags.count; idx++) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:idx inSection:0];
-        
-        NSString *tag = tags[indexPath.row];
-        CGSize itemSize = [TagCollectionViewCell cellSizeWithTag:tag];
-        
-        xNextOffset+=(minimumInteritemSpacing + itemSize.width);
-        if (xNextOffset >= collecttionViewWidth - 30 - rightSpace) {
-            xOffset = leftSpace;
-            xNextOffset = (leftSpace + minimumInteritemSpacing + itemSize.width);
-            yOffset += (itemSize.height + minimumLineSpacing);
-        }
-        else
-        {
-            xOffset = xNextOffset - (minimumInteritemSpacing + itemSize.width);
-        }
-        height = yOffset + itemSize.height + 10;
-    }
-    return height;
-}
-
 #pragma mark - IBActions
-
-- (IBAction)manageButtonPressed:(id)sender {
-    if (self.manageCallback != nil) {
+- (IBAction)managerButtionAction:(UIButton *)sender {
+    if (self.manageCallback) {
         self.manageCallback();
     }
 }
+
 
 #pragma mark - UICollectionViewDataSource
 
@@ -189,4 +151,48 @@ MIEqualSpaceFlowLayoutDelegate>
     [self.tagsCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([TagCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:TagCollectionViewCellId];
 }
 
++ (CGFloat)heightWithTags:(NSArray <NSString *> *)tags{
+    
+    if (tags.count == 0) {
+        return 50.f;
+    }
+    CGFloat leftSpace = 10;
+    CGFloat topSpace = 10;
+    CGFloat rightSpace = 10;
+    CGFloat minimumInteritemSpacing = 10;
+    CGFloat minimumLineSpacing = 10;
+    
+    CGFloat xOffset = leftSpace;
+    CGFloat yOffset = topSpace;
+    CGFloat xNextOffset = leftSpace;
+    
+    CGFloat height = 0;
+    
+    CGFloat collecttionViewWidth = (ScreenWidth - kRootModularWidth) /2.0;
+    for (NSInteger idx = 0; idx < tags.count; idx++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:idx inSection:0];
+        
+        NSString *tag = tags[indexPath.row];
+        CGSize itemSize = [TagCollectionViewCell cellSizeWithTag:tag];
+        
+        xNextOffset+=(minimumInteritemSpacing + itemSize.width);
+        if (xNextOffset >= collecttionViewWidth - 30 - rightSpace) {
+            xOffset = leftSpace;
+            xNextOffset = (leftSpace + minimumInteritemSpacing + itemSize.width);
+            yOffset += (itemSize.height + minimumLineSpacing);
+        }
+        else
+        {
+            xOffset = xNextOffset - (minimumInteritemSpacing + itemSize.width);
+        }
+        height = yOffset + itemSize.height + 10;
+    }
+    return height;
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+    NSLog(@"touchesBegan%@",self.managerBtn);
+    
+}
 @end

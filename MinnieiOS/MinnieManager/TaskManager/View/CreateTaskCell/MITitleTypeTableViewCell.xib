@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="作业要求:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E52-om-6Zq">
-                        <rect key="frame" x="12" y="5" width="330" height="17"/>
+                        <rect key="frame" x="12" y="10" width="330" height="17"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -38,8 +38,8 @@
                     <constraint firstItem="dJM-uT-wRz" firstAttribute="trailing" secondItem="E52-om-6Zq" secondAttribute="trailing" id="5eq-ZP-LNJ"/>
                     <constraint firstItem="E52-om-6Zq" firstAttribute="leading" secondItem="pmO-qz-FtI" secondAttribute="leading" constant="12" id="FYE-rQ-V7Q"/>
                     <constraint firstItem="dJM-uT-wRz" firstAttribute="leading" secondItem="E52-om-6Zq" secondAttribute="leading" id="JaJ-Tt-w52"/>
-                    <constraint firstItem="E52-om-6Zq" firstAttribute="top" secondItem="pmO-qz-FtI" secondAttribute="top" constant="5" id="OLw-f0-Hlm"/>
-                    <constraint firstItem="dJM-uT-wRz" firstAttribute="top" secondItem="E52-om-6Zq" secondAttribute="bottom" constant="15" id="Z3B-r3-y2g"/>
+                    <constraint firstItem="E52-om-6Zq" firstAttribute="top" secondItem="pmO-qz-FtI" secondAttribute="top" constant="10" id="OLw-f0-Hlm"/>
+                    <constraint firstItem="dJM-uT-wRz" firstAttribute="top" secondItem="E52-om-6Zq" secondAttribute="bottom" constant="10" id="Z3B-r3-y2g"/>
                     <constraint firstAttribute="trailing" secondItem="E52-om-6Zq" secondAttribute="trailing" constant="12" id="jiE-7e-78W"/>
                     <constraint firstAttribute="bottom" secondItem="dJM-uT-wRz" secondAttribute="bottom" constant="15" id="kdk-n5-cB1"/>
                 </constraints>

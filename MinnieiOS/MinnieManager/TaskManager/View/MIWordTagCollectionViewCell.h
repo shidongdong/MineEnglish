@@ -14,9 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MIWordTagCollectionViewCell : UICollectionViewCell
 
-- (void)setupWithText:(NSString *)text isEditState:(BOOL)isEditState isLast:(BOOL)isLast;
+// sting wordInfo
+- (void)setupWithText:(id)text isEditState:(BOOL)isEditState isLast:(BOOL)isLast;
 
-+ (CGSize)cellSizeWithTag:(NSString *)tag;
++ (CGSize)cellSizeWithTag:(id)tag;
 
 @end
 

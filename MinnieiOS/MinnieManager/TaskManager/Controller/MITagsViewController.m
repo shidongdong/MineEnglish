@@ -39,16 +39,12 @@ MIEqualSpaceFlowLayoutDelegate
 
 @implementation MITagsViewController
 
-//-(void)viewWillAppear:(BOOL)animated{
-//
-//    [super viewWillAppear:animated];
-//    [self updateSplit:90];
-//}
-//
-//- (void)viewDidDisappear:(BOOL)animated{
-//    [super viewDidDisappear:animated];
-//    [self updateSplit:90+204];
-//}
+-(void)viewWillAppear:(BOOL)animated{
+
+    [super viewWillAppear:animated];
+    [self updateSplit:kRootModularWidth];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -487,7 +483,7 @@ MIEqualSpaceFlowLayoutDelegate
 
 - (void)addContentView{
     
-    MIEqualSpaceFlowLayout *flowLayout = [[MIEqualSpaceFlowLayout alloc] initWithCollectionViewWidth:[UIScreen mainScreen].bounds.size.width - 90 - 205];
+    MIEqualSpaceFlowLayout *flowLayout = [[MIEqualSpaceFlowLayout alloc] initWithCollectionViewWidth:[UIScreen mainScreen].bounds.size.width - kRootModularWidth];
     flowLayout.delegate = self;
     CGFloat footerHeight = isIPhoneX ? (44 + 34) :44;
     self.tagsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kNaviBarHeight, ScreenWidth, ScreenHeight - kNaviBarHeight - footerHeight) collectionViewLayout:flowLayout];

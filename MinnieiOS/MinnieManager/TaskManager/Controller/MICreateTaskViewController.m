@@ -865,7 +865,6 @@ ClassAndStudentSelectorControllerDelegate
             tagsCell.callback = ^(BOOL isAdd, NSArray * _Nonnull dataArray) {
                 
                 if (isAdd) {
-                    
                     ClassAndStudentSelectorController *vc = [[ClassAndStudentSelectorController alloc] init];
                     vc.delegate = weakSelf;
                     vc.isCreateActivityTask = YES;
@@ -1074,8 +1073,11 @@ ClassAndStudentSelectorControllerDelegate
             if (self.wordsItem.words.count) {
                 NSMutableArray *words = [NSMutableArray array];
                 [words addObjectsFromArray:self.wordsItem.words];
-                [words addObject:@"+添加单词"];
-                rowHeight = [MIAddWordTableViewCell heightWithTags:words] + 30;
+                WordInfo *wordInfo = [[WordInfo alloc] init];
+                wordInfo.english = @"+";
+                wordInfo.chinese = @"添加单词";
+                [words addObject:wordInfo];
+                rowHeight = [MIAddWordTableViewCell heightWithTags:words] + 50;
                 break;
             } else {
                 rowHeight = MITitleTypeTableViewCellHeight;
