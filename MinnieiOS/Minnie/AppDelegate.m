@@ -479,6 +479,10 @@
 #endif
 }
 
+#if MANAGERSIDE
+
+#else
+
 #pragma mark - 不支持横屏
 //是否支持屏幕旋转
 - (BOOL)shouldAutorotate{
@@ -492,6 +496,9 @@
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
     return UIInterfaceOrientationMaskPortrait;
 }
+
+#endif
+
 
 @end
 
