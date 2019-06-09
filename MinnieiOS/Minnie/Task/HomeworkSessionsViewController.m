@@ -19,7 +19,10 @@
 #import "NetworkStateErrorView.h"
 #import <AFNetworking/AFNetworking.h>
 #import "AppDelegate.h"
+#if TEACHERSIDE || MANAGERSIDE
+#else
 #import "MISutdentActDetailViewController.h"
+#endif
 
 @interface HomeworkSessionsViewController ()<
 UITableViewDataSource,
@@ -793,7 +796,7 @@ MIActivityBannerViewDelegate
         textItem.text = @"测试测试测试测试测试测试测试测试测试";
         act1.items = @[textItem];
     
-        list = @[act1,act2];
+//        list = @[act1,act2];
         weakSelf.bannerArray = list;
         if (weakSelf.mState == 0) {
             weakSelf.topConstraint.constant = 124;
@@ -811,12 +814,15 @@ MIActivityBannerViewDelegate
 #pragma mark - MIActivityBannerViewDelegate
 - (void)bannerView:(MIActivityBannerView *)bannerView didSelectItemAtIndex:(NSInteger)index{
     
+#if TEACHERSIDE || MANAGERSIDE
+#else
     ActivityInfo *actInfo = self.bannerArray[index];
     MISutdentActDetailViewController *stuActDetailVC = [[MISutdentActDetailViewController alloc] initWithNibName:NSStringFromClass([MISutdentActDetailViewController class]) bundle:nil];
     stuActDetailVC.actInfo = actInfo;
     [stuActDetailVC setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:stuActDetailVC animated:YES];
     
+#endif
 }
 
 #pragma mark -

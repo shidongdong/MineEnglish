@@ -101,30 +101,9 @@ VIResourceLoaderManagerDelegate
             }];
             return;
         }
-        
         [weakSelf.view hideAllStateView];
         NSDictionary *dict = (NSDictionary *)(result.userInfo);
         NSArray *folderList = (NSArray *)(dict[@"list"]);
-        
-        ActLogsInfo *rankInfo2 = [[ActLogsInfo alloc] init];
-        rankInfo2.isOk  = 2;
-        rankInfo2.actId = weakSelf.actId;
-        rankInfo2.actTimes = 500;
-        rankInfo2.actUrl = @"http://file.zhengminyi.com/mBa6QMBfbOttwEAqplMNPoD.mp4";
-        
-        ActLogsInfo *rankInfo = [[ActLogsInfo alloc] init];
-        rankInfo.isOk  = 1;
-        rankInfo.actId = weakSelf.actId;
-        rankInfo.actTimes = 500;
-        rankInfo.actUrl = @"http://file.zhengminyi.com/mBa6QMBfbOttwEAqplMNPoD.mp4";
-        
-        ActLogsInfo *rankInfo1 = [[ActLogsInfo alloc] init];
-        rankInfo1.isOk  = 0;
-        rankInfo1.actId = weakSelf.actId;
-        rankInfo1.actTimes = 500;
-        rankInfo1.actUrl = @"http://file.zhengminyi.com/mBa6QMBfbOttwEAqplMNPoD.mp4";
-        
-        folderList = @[rankInfo1,rankInfo,rankInfo1,rankInfo1,rankInfo2];
         weakSelf.uploadList = folderList;
         
         if (weakSelf.uploadList.count) {

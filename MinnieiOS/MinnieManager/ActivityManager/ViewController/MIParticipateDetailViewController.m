@@ -7,6 +7,7 @@
 //
 
 
+#import "Result.h"
 #import "TIP.h"
 #import <AVKit/AVKit.h>
 #import "UIView+Load.h"
@@ -28,7 +29,7 @@ VIResourceLoaderManagerDelegate
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (strong, nonatomic) NSMutableArray *uploadArray;
+@property (strong, nonatomic) NSArray *uploadArray;
 
 @property (nonatomic, strong) VIResourceLoaderManager *resourceLoaderManager;
 @end
@@ -43,9 +44,8 @@ VIResourceLoaderManagerDelegate
 }
 
 - (void)configureUI{
-    self.view.backgroundColor = [UIColor bgColor];
-    self.uploadArray = [NSMutableArray array];
     
+    self.view.backgroundColor = [UIColor bgColor];
     UIView *footrView = [[UIView alloc] init];
     footrView.backgroundColor = [UIColor clearColor];
     _tableView.tableFooterView = footrView;
@@ -147,6 +147,7 @@ VIResourceLoaderManagerDelegate
     WeakifySelf;
     [ManagerServce requestCorrectActVideoId:logInfo.logId isOk:isOk actId:logInfo.actId callback:^(Result *result, NSError *error) {
         if (error) return ;
+        [HUD showWithMessage:@"审核成功"];
         [weakSelf requestactLogs];
     }];
 }
@@ -155,36 +156,36 @@ VIResourceLoaderManagerDelegate
 - (void)requestactLogs{
     
     WeakifySelf;
+    self.tableView.hidden = YES;
+    [self.view showLoadingView];
     [ManagerServce requestactLogsActivityId:self.rankInfo.actId stuId:self.rankInfo.userId callback:^(Result *result, NSError *error) {
-        if (error) return;
         
-        ActLogsInfo *logs2 = [[ActLogsInfo alloc] init];
-        logs2.logId = 1;
-        logs2.actTimes = 200;
-        logs2.actUrl = @"http://file.zhengminyi.com/mBa6QMBfbOttwEAqplMNPoD.mp4";
-        logs2.actId = 1;
-        logs2.isOk = 0;
-        logs2.upTime = @"2019-10-15 10:20:00";
+        [weakSelf.view hideAllStateView];
+        if (error) {
+            
+            [weakSelf.view showFailureViewWithRetryCallback:^{
+                [weakSelf requestactLogs];
+            }];
+            return;
+        }
+        [weakSelf.view hideAllStateView];
+        NSDictionary *dict = (NSDictionary *)(result.userInfo);
+        NSArray *folderList = (NSArray *)(dict[@"list"]);
+        weakSelf.uploadArray = folderList;
         
-        ActLogsInfo *logs1 = [[ActLogsInfo alloc] init];
-        logs1.logId = 1;
-        logs1.actTimes = 200;
-        logs1.actUrl = @"http://file.zhengminyi.com/mBa6QMBfbOttwEAqplMNPoD.mp4";
-        logs1.actId = 1;
-        logs1.isOk = 1;
-        logs1.upTime = @"2019-10-15 10:20:00";
-        
-        ActLogsInfo *logs = [[ActLogsInfo alloc] init];
-        logs.logId = 1;
-        logs.actTimes = 200;
-        logs.actUrl = @"http://file.zhengminyi.com/mBa6QMBfbOttwEAqplMNPoD.mp4";
-        logs.actId = 1;
-        logs.isOk = 2;
-        logs.upTime = @"2019-10-15 10:20:00";
-        [weakSelf.uploadArray addObject:logs];
-        [weakSelf.uploadArray addObject:logs1];
-        [weakSelf.uploadArray addObject:logs2];
-        [weakSelf.tableView reloadData];
+        if (weakSelf.uploadArray.count) {
+            weakSelf.tableView.hidden = NO;
+            [weakSelf.tableView reloadData];
+        } else {
+            [weakSelf.view showEmptyViewWithImage:nil
+                                            title:@"列表为空"
+                                    centerYOffset:0
+                                        linkTitle:nil
+                                linkClickCallback:nil
+                                    retryCallback:^{
+                                        
+                                    }];
+        }
     }];
 }
 @end

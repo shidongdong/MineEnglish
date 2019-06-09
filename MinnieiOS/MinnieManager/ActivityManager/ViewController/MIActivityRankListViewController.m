@@ -170,8 +170,14 @@ UITableViewDataSource
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    ActivityRankInfo *model;
+    if (indexPath.row < self.okRankArray.count) {
+        model = self.okRankArray[indexPath.row];
+    } else {
+        model = self.checkRankArray[indexPath.row - self.okRankArray.count];
+    }
     MIParticipateDetailViewController *detailVC = [[MIParticipateDetailViewController alloc] init];
+    detailVC.rankInfo = model;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 

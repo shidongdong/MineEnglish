@@ -201,6 +201,7 @@ NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCell
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = nil;
     
+    //第一个放跟读
     HomeworkItem *item = self.homeworkSession.homework.items[indexPath.row+1];
     if ([item.type isEqualToString:HomeworkItemTypeImage]) {
         HomeworkImageCollectionViewCell *imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:HomeworkImageCollectionViewCellId forIndexPath:indexPath];
@@ -237,34 +238,6 @@ NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCell
       
         if (self.imageCallback != nil) {
             self.imageCallback(item.imageUrl, cell.homeworkImageView, indexPath.item);
-        }
-        return;
-        //取出所有包含图片类型的cell
-        NSMutableArray * imageTypeCells = [[NSMutableArray alloc] init];
-        for (int i = 0; i < self.homeworkSession.homework.items.count; i++)
-        {
-            HomeworkItem * tmpitem = [self.homeworkSession.homework.items objectAtIndex:i];
-            
-            if ([tmpitem.type isEqualToString:HomeworkItemTypeImage]) {
-              
-                HomeworkImageCollectionViewCell *cell = (HomeworkImageCollectionViewCell *)[collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:i-1 inSection:0]];
-                if (cell.homeworkImageView)
-                {
-                    [imageTypeCells addObject:cell.homeworkImageView];
-                }
-                else
-                {
-                    UIImageView * imageView = [[UIImageView alloc] init];
-                    [imageView sd_setImageWithURL:[item.imageUrl imageURLWithWidth:90] placeholderImage:[UIImage imageNamed:@"attachment_placeholder"]];
-                    [imageTypeCells addObject:imageView];
-                }
-                
-            }
-        }
-
-        
-        if (self.imageCallback != nil) {
-            self.imageCallback(item.imageUrl, imageTypeCells, indexPath.item);
         }
     } else if ([item.type isEqualToString:HomeworkItemTypeVideo]) {
         if (self.videoCallback != nil) {

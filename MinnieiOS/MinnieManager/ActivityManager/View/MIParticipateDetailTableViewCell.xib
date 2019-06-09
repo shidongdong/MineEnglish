@@ -46,11 +46,20 @@
                             <action selector="playVideoAction:" destination="7eW-3q-a41" eventType="touchUpInside" id="Rno-CV-4wt"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Lk-vI-RHr">
+                        <rect key="frame" x="171" y="174.5" width="100" height="40"/>
+                        <color key="backgroundColor" red="0.75406885150000003" green="0.75408679249999999" blue="0.75407713649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                        <state key="normal" title="不合格"/>
+                        <connections>
+                            <action selector="unqualifiedAction:" destination="7eW-3q-a41" eventType="touchUpInside" id="vsO-pH-dSQ"/>
+                        </connections>
+                    </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TGX-mg-M5I">
-                        <rect key="frame" x="12" y="174.5" width="120" height="40"/>
+                        <rect key="frame" x="331" y="174.5" width="100" height="40"/>
                         <color key="backgroundColor" red="0.75406885150000003" green="0.75408679249999999" blue="0.75407713649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="120" id="VJR-pv-MjI"/>
+                            <constraint firstAttribute="width" constant="100" id="VJR-pv-MjI"/>
                             <constraint firstAttribute="height" constant="40" id="eyz-iI-j6q"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
@@ -59,20 +68,13 @@
                             <action selector="qualifiedAction:" destination="7eW-3q-a41" eventType="touchUpInside" id="wBS-ga-nvX"/>
                         </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Lk-vI-RHr">
-                        <rect key="frame" x="192" y="174.5" width="120" height="40"/>
-                        <color key="backgroundColor" red="0.75406885150000003" green="0.75408679249999999" blue="0.75407713649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                        <state key="normal" title="不合格"/>
-                        <connections>
-                            <action selector="unqualifiedAction:" destination="7eW-3q-a41" eventType="touchUpInside" id="vsO-pH-dSQ"/>
-                        </connections>
-                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="UuF-7y-grp" firstAttribute="centerY" secondItem="FYL-8i-Vth" secondAttribute="centerY" id="3Jh-BN-LEb"/>
+                    <constraint firstItem="TGX-mg-M5I" firstAttribute="leading" secondItem="3Lk-vI-RHr" secondAttribute="trailing" constant="60" id="GOf-Ht-m6o"/>
                     <constraint firstItem="u8u-ub-10e" firstAttribute="top" secondItem="7d6-P3-ewk" secondAttribute="top" constant="12" id="Lh6-cj-OJi"/>
                     <constraint firstItem="TGX-mg-M5I" firstAttribute="top" secondItem="UuF-7y-grp" secondAttribute="bottom" constant="12" id="MfJ-9a-gyn"/>
+                    <constraint firstItem="TGX-mg-M5I" firstAttribute="trailing" secondItem="9IB-Ts-EOa" secondAttribute="trailing" id="PXv-rr-vO6"/>
                     <constraint firstItem="QdB-SW-Rsz" firstAttribute="leading" secondItem="UuF-7y-grp" secondAttribute="leading" id="QqP-Rh-gBX"/>
                     <constraint firstItem="3Lk-vI-RHr" firstAttribute="height" secondItem="TGX-mg-M5I" secondAttribute="height" id="Quh-nN-JY3"/>
                     <constraint firstItem="QdB-SW-Rsz" firstAttribute="top" secondItem="UuF-7y-grp" secondAttribute="top" id="TkA-th-GBz"/>
@@ -84,13 +86,11 @@
                     <constraint firstItem="3Lk-vI-RHr" firstAttribute="width" secondItem="TGX-mg-M5I" secondAttribute="width" id="fkW-Bo-Smd"/>
                     <constraint firstItem="9IB-Ts-EOa" firstAttribute="height" secondItem="u8u-ub-10e" secondAttribute="height" id="hhW-Uw-eGc"/>
                     <constraint firstItem="QdB-SW-Rsz" firstAttribute="bottom" secondItem="UuF-7y-grp" secondAttribute="bottom" id="i0d-oP-pIZ"/>
-                    <constraint firstItem="TGX-mg-M5I" firstAttribute="leading" secondItem="u8u-ub-10e" secondAttribute="leading" id="k6Q-3K-P4H"/>
                     <constraint firstAttribute="bottom" secondItem="TGX-mg-M5I" secondAttribute="bottom" constant="12" id="mFS-M2-bdl"/>
                     <constraint firstAttribute="trailing" secondItem="UuF-7y-grp" secondAttribute="trailing" constant="12" id="osI-KC-qEu"/>
                     <constraint firstItem="UuF-7y-grp" firstAttribute="leading" secondItem="7d6-P3-ewk" secondAttribute="leading" constant="12" id="q6e-yH-EQL"/>
                     <constraint firstItem="9IB-Ts-EOa" firstAttribute="top" secondItem="u8u-ub-10e" secondAttribute="top" id="qC0-hk-ydM"/>
                     <constraint firstItem="QdB-SW-Rsz" firstAttribute="trailing" secondItem="UuF-7y-grp" secondAttribute="trailing" id="xMO-bc-fpq"/>
-                    <constraint firstItem="3Lk-vI-RHr" firstAttribute="leading" secondItem="TGX-mg-M5I" secondAttribute="trailing" constant="60" id="zH4-4e-1Fs"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="LFM-Nk-pKS"/>

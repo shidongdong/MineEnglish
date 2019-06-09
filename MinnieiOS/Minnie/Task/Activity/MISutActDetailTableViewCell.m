@@ -53,9 +53,9 @@ NSString * const MISutActDetailTableViewCellId = @"MISutActDetailTableViewCellId
     self.stateBtn.hidden = NO;
     
     [self.playImageV sd_setImageWithURL:[logsInfo.actUrl videoCoverUrlWithWidth:112 height:112] completed:nil];
-    [self.iconImageV sd_setImageWithURL:[@"http://res.zhengminyi.com/FtlXAfzMJPI6YyO3fiQQUcVw9LQT" imageURLWithWidth:32] completed:nil];
-    self.stuNameLabel.text = @"😃😁😸哈哈哈";
-    self.videoTimeLabel.text = [NSString stringWithFormat:@"%.2ld分%.2ld秒",self.rankInfo.actTimes/60,self.rankInfo.actTimes%60];
+    [self.iconImageV sd_setImageWithURL:[APP.currentUser.avatarUrl imageURLWithWidth:32] completed:nil];
+    self.stuNameLabel.text = APP.currentUser.nickname;
+    self.videoTimeLabel.text = [NSString stringWithFormat:@"%.2ld分%.2ld秒",self.logsInfo.actTimes/60,self.logsInfo.actTimes%60];
     self.imageLeadConstraint.constant = 12;
     
     NSString *stateStr;

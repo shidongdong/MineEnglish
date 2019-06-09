@@ -34,7 +34,7 @@
 //#import "FileUploader.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
-
+#import "MIReadingTaskViewController.h"
 
 @interface MISutdentActDetailViewController ()<
 NEPhotoBrowserDelegate,
@@ -108,6 +108,10 @@ UINavigationControllerDelegate
     MIStuUploadVideoViewController *uploadVC = [[MIStuUploadVideoViewController alloc] initWithNibName:NSStringFromClass([MIStuUploadVideoViewController class]) bundle:nil];
     uploadVC.actId = self.actInfo.activityId;
     [self.navigationController pushViewController:uploadVC animated:YES];
+    
+//    MIReadingTaskViewController *uploadVC = [[MIReadingTaskViewController alloc] initWithNibName:NSStringFromClass([MIReadingTaskViewController class]) bundle:nil];
+//    [self.navigationController pushViewController:uploadVC animated:YES];
+    
 }
 
 #pragma mark - UITableViewDataSource && UITableViewDelagete
@@ -362,11 +366,11 @@ UINavigationControllerDelegate
     [HUD showProgressWithMessage:@"正在压缩视频文件..."];
     AVURLAsset *avAsset = [[AVURLAsset alloc] initWithURL:videoUrl options:nil];
     
+    
     NSTimeInterval durationInSeconds = 0.0;
     if (avAsset != nil) {
         durationInSeconds = CMTimeGetSeconds(avAsset.duration);
     }
-    
     NSArray *compatiblePresets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avAsset];
     
     if ([compatiblePresets containsObject:AVAssetExportPresetHighestQuality]) {
@@ -399,7 +403,6 @@ UINavigationControllerDelegate
                         return flag;
                     }];
                     
-                    
                     [[FileUploader shareInstance] qn_uploadFile:path type:UploadFileTypeVideo option:option completionBlock:^(NSString * _Nullable videoUrl, NSError * _Nullable error) {
                         weakSelf.mHud = nil;
                         if (videoUrl.length == 0) {
@@ -407,16 +410,9 @@ UINavigationControllerDelegate
                             
                             return ;
                         }
-                        
-                        [HUD showWithMessage:@"视频上传成功"];
-                        
                         [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
                         
-                        HomeworkItem *item = [[HomeworkItem alloc] init];
-                        item.type = HomeworkItemTypeVideo;
-                        item.videoUrl = videoUrl;
-                        item.videoCoverUrl = @"";
-                        
+                        [weakSelf requestCommitActivityVideoWithActTimes:ceil(durationInSeconds) videoUrl:videoUrl];
                         [weakSelf.tableview reloadData];
                     }];
                 });
@@ -427,6 +423,18 @@ UINavigationControllerDelegate
             
         }];
     }
+}
+
+#pragma mark
+- (void)requestCommitActivityVideoWithActTimes:(NSInteger)times videoUrl:(NSString *)videoUrl{
+    
+    [ManagerServce requestCommitActivityId:self.actInfo.activityId actTimes:times actUrl:videoUrl callback:^(Result *result, NSError *error) {
+        if (error) {
+            [HUD showErrorWithMessage:@"视频上传失败"];
+        } else {
+            [HUD showWithMessage:@"视频上传成功"];
+        }
+    }];
 }
 
 #pragma mark - UIImagePickerDelegate

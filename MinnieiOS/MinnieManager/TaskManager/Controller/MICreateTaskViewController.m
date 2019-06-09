@@ -701,7 +701,7 @@ ClassAndStudentSelectorControllerDelegate
                 
                 HomeworkItem *coverItem = items.lastObject;
                 weakSelf.activityInfo.actCoverUrl = coverItem.imageUrl;
-                [weakContentCell setupWithItems:items vc:weakSelf contentType:createType];
+                [weakContentCell setupWithItems:@[coverItem] vc:weakSelf contentType:createType];
                 [weakTableView beginUpdates];
                 [weakTableView endUpdates];
             };
