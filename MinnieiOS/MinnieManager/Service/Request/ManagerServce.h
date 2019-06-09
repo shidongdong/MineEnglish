@@ -61,8 +61,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (BaseRequest *)requestGetActivityRankListWithActId:(NSInteger)actId callback:(RequestCallback)callback;
 
 // 获取活动排名(学生端)
-+ (BaseRequest *)requestGetStuActivityRankListWithcallback:(RequestCallback)callback;
-
++ (BaseRequest *)requestGetStuActivityRankListWithActId:(NSInteger)actId callback:(RequestCallback)callback;
+    
 // 上传活动视频(学生端)
 + (BaseRequest *)requestCommitActivityId:(NSInteger)actId
                                 actTimes:(NSInteger)actTimes

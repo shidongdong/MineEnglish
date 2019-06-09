@@ -128,9 +128,9 @@
 }
 
 // 获取活动排名(学生端)
-+ (BaseRequest *)requestGetStuActivityRankListWithcallback:(RequestCallback)callback{
++ (BaseRequest *)requestGetStuActivityRankListWithActId:(NSInteger)actId callback:(RequestCallback)callback{
     
-    ActGetActivityRankRequest *request = [[ActGetActivityRankRequest alloc] init];
+    ActGetStuActRankRequest *request = [[ActGetStuActRankRequest alloc] initWithActId:actId];
     [request setCallback:callback];
     request.objectKey = @"list";
     request.objectClassName = @"ActivityRankInfo";

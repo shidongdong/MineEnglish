@@ -6,11 +6,14 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
+#import "ActivityInfo.h"
 #import "BaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MISutdentActDetailViewController : BaseViewController
+
+@property (nonatomic,strong) ActivityInfo *actInfo;
 
 @end
 

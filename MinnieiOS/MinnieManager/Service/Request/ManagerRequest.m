@@ -383,7 +383,7 @@
 }
 
 - (NSString *)requestUrl {
-    return [NSString stringWithFormat:@"%@/actworkTask/actRanks", ServerProjectName];
+    return [NSString stringWithFormat:@"%@/actworkTask/actRankByStu", ServerProjectName];
 }
 
 - (id)requestArgument {

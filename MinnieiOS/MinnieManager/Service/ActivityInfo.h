@@ -52,6 +52,8 @@ NS_ASSUME_NONNULL_BEGIN
 // 状态，0未开始，1正在进行中，2已结束
 @property (nonatomic ,assign) NSInteger status;
 
+@property (nonatomic ,assign) CGFloat cellHeight;
+
 - (NSDictionary *)dictionaryForUpload;
 @end
 

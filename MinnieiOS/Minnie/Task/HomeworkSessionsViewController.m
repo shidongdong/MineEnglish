@@ -19,6 +19,8 @@
 #import "NetworkStateErrorView.h"
 #import <AFNetworking/AFNetworking.h>
 #import "AppDelegate.h"
+#import "MISutdentActDetailViewController.h"
+
 @interface HomeworkSessionsViewController ()<
 UITableViewDataSource,
 UITableViewDelegate,
@@ -771,8 +773,17 @@ MIActivityBannerViewDelegate
         act2.actCoverUrl = @"http://res.zhengminyi.com/FtlXAfzMJPI6YyO3fiQQUcVw9LQT";
         HomeworkItem *textItem2 = [[HomeworkItem alloc] init];
         textItem2.type = @"text";
-        textItem2.text = @"测试测试测试测试测哈哈哈哈啊哈哈👌试测试测试测试测试";
-        act2.items = @[textItem2];
+        textItem2.text = @"测试测试测试测试测哈哈哈哈啊哈哈👌试测试测测哈哈哈哈啊哈哈👌试测试测试测哈哈哈哈啊哈哈👌试测试测试测哈哈哈哈啊哈哈👌试测试测试试测试测试";
+        
+        HomeworkItem *textItem3 = [[HomeworkItem alloc] init];
+        textItem3.type = @"video";
+        textItem3.videoUrl = @"http://file.zhengminyi.com/mBa6QMBfbOttwEAqplMNPoD.mp4";
+        
+        HomeworkItem *textItem4 = [[HomeworkItem alloc] init];
+        textItem4.type = @"image";
+        textItem4.imageUrl = @"http://res.zhengminyi.com/FtlXAfzMJPI6YyO3fiQQUcVw9LQT";
+      
+        act2.items = @[textItem2,textItem3,textItem4];
         
         ActivityInfo *act1 = [[ActivityInfo alloc] init];
         act1.activityId = 11;
@@ -801,6 +812,11 @@ MIActivityBannerViewDelegate
 - (void)bannerView:(MIActivityBannerView *)bannerView didSelectItemAtIndex:(NSInteger)index{
     
     ActivityInfo *actInfo = self.bannerArray[index];
+    MISutdentActDetailViewController *stuActDetailVC = [[MISutdentActDetailViewController alloc] initWithNibName:NSStringFromClass([MISutdentActDetailViewController class]) bundle:nil];
+    stuActDetailVC.actInfo = actInfo;
+    [stuActDetailVC setHidesBottomBarWhenPushed:YES];
+    [self.navigationController pushViewController:stuActDetailVC animated:YES];
+    
 }
 
 #pragma mark -
