@@ -259,6 +259,7 @@ VIResourceLoaderManagerDelegate
         
         if (homeworks.count > 0) {
             
+            [self.homeworks removeAllObjects];
             [self.homeworks addObjectsFromArray:homeworks];
             
             if (nextUrl.length > 0) {

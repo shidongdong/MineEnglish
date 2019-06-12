@@ -14,6 +14,7 @@ NSString * const HomeworkImageCollectionViewCellId = @"HomeworkImageCollectionVi
 @interface HomeworkImageCollectionViewCell()
 
 @property (nonatomic, weak) IBOutlet UILabel *homeworkLabel;
+@property (weak, nonatomic) IBOutlet UILabel *statTaskLabel;
 
 @end
 
@@ -27,10 +28,19 @@ NSString * const HomeworkImageCollectionViewCellId = @"HomeworkImageCollectionVi
 }
 
 - (void)setupWithHomeworkItem:(HomeworkItem *)item name:(NSString *)name {
+    
+    self.homeworkLabel.hidden = NO;
+    self.statTaskLabel.hidden = YES;
     [self.homeworkImageView sd_setImageWithURL:[item.imageUrl imageURLWithWidth:90] placeholderImage:[UIImage imageNamed:@"attachment_placeholder"]];
     self.homeworkLabel.text = name;
 }
 
+- (void)setupWithStartTask{
+    
+    self.homeworkLabel.hidden = YES;
+    self.statTaskLabel.hidden = NO;
+    self.homeworkImageView.image = [UIImage imageNamed:@"mainColor"];
+}
 + (CGSize)cellSize {
     return CGSizeMake(90, 110);
 }

@@ -102,7 +102,7 @@ UICollectionViewDelegate>
     if (self.imagesGroup.count <= 1) {
         return;
     }
-    NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(automaticScroll) userInfo:nil repeats:YES];
+    NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(automaticScroll) userInfo:nil repeats:YES];
     _timer = timer;
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }

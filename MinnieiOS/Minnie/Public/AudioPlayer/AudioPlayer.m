@@ -141,7 +141,7 @@ NSString * const kNotificationOfAudioPlayerStateDidChange = @"kNotificationOfAud
     [self installKVO];
     [self addNotificationObserver];
     
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategorySoloAmbient error:nil];
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
     
     [self.player play];

@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, assign) NSInteger userId;
 
+@property(nonatomic, assign) NSInteger hometaskId;
+
 @end
 
 

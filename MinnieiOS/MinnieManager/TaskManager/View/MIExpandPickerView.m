@@ -53,7 +53,7 @@ UIPickerViewDelegate>{
             [self.fileLocationArray removeAllObjects];
             [self.fileLocationArray addObjectsFromArray:parentInfo.subFileList];
             for (NSInteger j = 0; j < parentInfo.subFileList.count; j++) {
-                FileInfo *subInfo = parentInfo.subFileList[i];
+                FileInfo *subInfo = parentInfo.subFileList[j];
                 if (fileInfo.fileId == subInfo.fileId) {
                     secIndex = j;
                     break;
@@ -101,7 +101,7 @@ UIPickerViewDelegate>{
         [self selectActionToPickerView:self.pickerView row:secIndex inComponent:1];
     } else if (createType == MIHomeworkCreateContentType_WordsTimeInterval) {// 0-9秒
         
-        NSInteger secs = text.floatValue;
+        NSInteger secs = text.floatValue/1000;
         
         NSInteger row = (int)secs/0.5;
         [self.bgView addSubview:_secLabel];
@@ -160,7 +160,7 @@ UIPickerViewDelegate>{
     } else if (self.createType == MIHomeworkCreateContentType_WordsTimeInterval) {
         if (_secArray == nil) {
             _secArray = [NSMutableArray array];
-            for (int sec = 0; sec < 19; sec++) {
+            for (int sec = 1; sec < 19; sec++) {
                 NSString *str = [NSString stringWithFormat:@"%.1f", sec/2.0];
                 [_secArray addObject:str];
             }
@@ -379,7 +379,9 @@ UIPickerViewDelegate>{
         }
     } else if (self.createType == MIHomeworkCreateContentType_WordsTimeInterval) {
         if (self.callback) {
-            self.callback(self.secArray[secIndex]);
+            NSString *intervalStr = self.secArray[secIndex];
+            CGFloat wordsTime = intervalStr.floatValue * 1000;
+            self.callback([NSString stringWithFormat:@"%d",(int)wordsTime]);
         }
     }
   

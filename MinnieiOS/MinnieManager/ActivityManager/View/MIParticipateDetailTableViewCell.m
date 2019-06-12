@@ -19,6 +19,7 @@ NSString * const MIParticipateDetailTableViewCellId = @"MIParticipateDetailTable
 @property (weak, nonatomic) IBOutlet UIButton *unqualityBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
 @property (strong , nonatomic) ActLogsInfo *logsInfo;
+@property (weak, nonatomic) IBOutlet UILabel *rankLabel;
 
 @end
 
@@ -40,8 +41,11 @@ NSString * const MIParticipateDetailTableViewCellId = @"MIParticipateDetailTable
     
 }
 
-- (void)setupWithModel:(ActLogsInfo *)model{
+- (void)setupWithModel:(ActLogsInfo *)model index:(NSInteger)index{
+    
     self.logsInfo = model;
+    self.rankLabel.text = [NSString stringWithFormat:@"%.2ld",index];
+    
     self.videoTimeLabel.text = [NSString stringWithFormat:@"视频时长:%.2ld分%.2ld秒",model.actTimes/60,model.actTimes%60];
     self.uploadTimeLabel.text = [NSString stringWithFormat:@"上传时间: %@",model.upTime];
     

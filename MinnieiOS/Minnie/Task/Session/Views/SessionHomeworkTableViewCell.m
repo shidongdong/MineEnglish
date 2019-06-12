@@ -14,7 +14,10 @@
 
 NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCellId";
 
-@interface SessionHomeworkTableViewCell()<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface SessionHomeworkTableViewCell()<
+UICollectionViewDelegate,
+UICollectionViewDataSource,
+UICollectionViewDelegateFlowLayout>
 
 
 @property (nonatomic, weak) IBOutlet UILabel *dateLabel;
@@ -57,9 +60,8 @@ NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCell
 }
 
 - (void)setupWithHomeworkSession:(HomeworkSession *)homeworkSession {
-    self.homeworkSession = homeworkSession;
     
-//    self.homeworkTitleLabel.text = self.homeworkSession.homework.title;
+    self.homeworkSession = homeworkSession;
     
     NSString *text = nil;
     for (HomeworkItem *item in self.homeworkSession.homework.items) {
@@ -118,14 +120,20 @@ NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCell
     
     self.dateLabel.text = [Utils formatedDateString:self.homeworkSession.sendTime];
     
-    if (homeworkSession.homework.items.count == 1) {
-        self.collectionViewHeightConstraint.constant = 0.f;
-        self.collectionViewBottomConstraint.constant = 10.f;
+    
+    if (![homeworkSession.homework.typeName isEqualToString: kHomeworkTaskFollowUpName]){
+       
+        if (homeworkSession.homework.items.count == 1) {
+            self.collectionViewHeightConstraint.constant = 0.f;
+            self.collectionViewBottomConstraint.constant = 10.f;
+        } else {
+            self.collectionViewHeightConstraint.constant = 114.f;
+            self.collectionViewBottomConstraint.constant = 12.f;
+        }
     } else {
         self.collectionViewHeightConstraint.constant = 114.f;
         self.collectionViewBottomConstraint.constant = 12.f;
     }
-    
     [self.homeworksCollectionView reloadData];
 }
 
@@ -175,10 +183,11 @@ NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCell
     
     CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     CGFloat height = size.height + 20;
-    if (homeworkSession.homework.items.count == 1) {
-        height -= (114.f + 12.f);
+    if (![homeworkSession.homework.typeName isEqualToString: kHomeworkTaskFollowUpName]){
+        if (homeworkSession.homework.items.count == 1) {
+            height -= (114.f + 12.f);
+        }
     }
-    
     homeworkSession.homework.cellHeight = height;
     
     return homeworkSession.homework.cellHeight;
@@ -187,42 +196,86 @@ NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCell
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+   
     NSInteger number = 0;
-    
+    // 单词记忆，内容放在items最后一个
+    // items 第一个放text 内容文本
+    // 跟读任务 内容放在 otheritem
+    // 单词记忆、跟读，第一个放开始任务button
+
     for (HomeworkItem *item in self.homeworkSession.homework.items) {
         if (![item.type isEqualToString:HomeworkItemTypeText]) {
             number++;
         }
     }
-    
+    if ([self.homeworkSession.homework.typeName isEqualToString: kHomeworkTaskFollowUpName]) {
+        number++;
+    }
     return number;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = nil;
-    
-    //第一个放跟读
-    HomeworkItem *item = self.homeworkSession.homework.items[indexPath.row+1];
-    if ([item.type isEqualToString:HomeworkItemTypeImage]) {
-        HomeworkImageCollectionViewCell *imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:HomeworkImageCollectionViewCellId forIndexPath:indexPath];
+
+    if ([self.homeworkSession.homework.typeName isEqualToString: kHomeworkTaskFollowUpName] ||
+        [self.homeworkSession.homework.typeName isEqualToString: kHomeworkTaskWordMemoryName]) {
+        if (indexPath.row == 0) {
+           
+            HomeworkImageCollectionViewCell *imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:HomeworkImageCollectionViewCellId forIndexPath:indexPath];
+            [imageCell setupWithStartTask];
         
-        [imageCell setupWithHomeworkItem:item name:[NSString stringWithFormat:@"材料%zd", indexPath.row+1]];
+            cell = imageCell;
+        } else {
+            
+            HomeworkItem *item = self.homeworkSession.homework.items[indexPath.row];
+            if ([item.type isEqualToString:HomeworkItemTypeImage]) {
+                HomeworkImageCollectionViewCell *imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:HomeworkImageCollectionViewCellId forIndexPath:indexPath];
+                
+                [imageCell setupWithHomeworkItem:item name:[NSString stringWithFormat:@"材料%zd", indexPath.row]];
+                
+                cell = imageCell;
+            } else if ([item.type isEqualToString:HomeworkItemTypeVideo]) {
+                HomeworkVideoCollectionViewCell *videoCell = [collectionView dequeueReusableCellWithReuseIdentifier:HomeworkVideoCollectionViewCellId forIndexPath:indexPath];
+                
+                [videoCell setupWithHomeworkItem:item name:[NSString stringWithFormat:@"材料%zd", indexPath.row]];
+                
+                cell = videoCell;
+            } else
+//                if ([item.type isEqualToString:HomeworkItemTypeAudio])
+            {
+                HomeworkAudioCollectionViewCell *audioCell = [collectionView dequeueReusableCellWithReuseIdentifier:HomeworkAudioCollectionViewCellId forIndexPath:indexPath];
+                
+                [audioCell setupWithHomeworkItem:item name:[NSString stringWithFormat:@"材料%zd", indexPath.row]];
+                
+                cell = audioCell;
+            }
+        }
+    } else {
+        HomeworkItem *item = self.homeworkSession.homework.items[indexPath.row+1];
+        if ([item.type isEqualToString:HomeworkItemTypeImage]) {
+            HomeworkImageCollectionViewCell *imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:HomeworkImageCollectionViewCellId forIndexPath:indexPath];
+            
+            [imageCell setupWithHomeworkItem:item name:[NSString stringWithFormat:@"材料%zd", indexPath.row+1]];
+            
+            cell = imageCell;
+        } else if ([item.type isEqualToString:HomeworkItemTypeVideo]) {
+            HomeworkVideoCollectionViewCell *videoCell = [collectionView dequeueReusableCellWithReuseIdentifier:HomeworkVideoCollectionViewCellId forIndexPath:indexPath];
+            
+            [videoCell setupWithHomeworkItem:item name:[NSString stringWithFormat:@"材料%zd", indexPath.row+1]];
+            
+            cell = videoCell;
+        } else
+//            if ([item.type isEqualToString:HomeworkItemTypeAudio])
+            {
+            HomeworkAudioCollectionViewCell *audioCell = [collectionView dequeueReusableCellWithReuseIdentifier:HomeworkAudioCollectionViewCellId forIndexPath:indexPath];
+            
+            [audioCell setupWithHomeworkItem:item name:[NSString stringWithFormat:@"材料%zd", indexPath.row+1]];
+            
+            cell = audioCell;
+        }
         
-        cell = imageCell;
-    } else if ([item.type isEqualToString:HomeworkItemTypeVideo]) {
-        HomeworkVideoCollectionViewCell *videoCell = [collectionView dequeueReusableCellWithReuseIdentifier:HomeworkVideoCollectionViewCellId forIndexPath:indexPath];
-        
-        [videoCell setupWithHomeworkItem:item name:[NSString stringWithFormat:@"材料%zd", indexPath.row+1]];
-        
-        cell = videoCell;
-    } else if ([item.type isEqualToString:HomeworkItemTypeAudio]) {
-        HomeworkAudioCollectionViewCell *audioCell = [collectionView dequeueReusableCellWithReuseIdentifier:HomeworkAudioCollectionViewCellId forIndexPath:indexPath];
-        
-        [audioCell setupWithHomeworkItem:item name:[NSString stringWithFormat:@"材料%zd", indexPath.row+1]];
-        
-        cell = audioCell;
     }
-    
+ 
     return cell;
 }
 
@@ -231,21 +284,50 @@ NSString * const SessionHomeworkTableViewCellId = @"SessionHomeworkTableViewCell
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     
-    HomeworkItem *item = self.homeworkSession.homework.items[indexPath.row+1];
-    if ([item.type isEqualToString:HomeworkItemTypeImage]) {
-        
-        HomeworkImageCollectionViewCell *cell = (HomeworkImageCollectionViewCell *)[self.homeworksCollectionView cellForItemAtIndexPath:indexPath];
-      
-        if (self.imageCallback != nil) {
-            self.imageCallback(item.imageUrl, cell.homeworkImageView, indexPath.item);
+   
+    if ([self.homeworkSession.homework.typeName isEqualToString: kHomeworkTaskFollowUpName] ||
+        [self.homeworkSession.homework.typeName isEqualToString: kHomeworkTaskWordMemoryName]) {
+        if (indexPath.row == 0) {
+            if (self.startTaskCallback) {
+                self.startTaskCallback();
+            }
+        } else {
+            HomeworkItem *item = self.homeworkSession.homework.items[indexPath.row];
+            if ([item.type isEqualToString:HomeworkItemTypeImage]) {
+                
+                HomeworkImageCollectionViewCell *cell = (HomeworkImageCollectionViewCell *)[self.homeworksCollectionView cellForItemAtIndexPath:indexPath];
+                
+                if (self.imageCallback != nil) {
+                    self.imageCallback(item.imageUrl, cell.homeworkImageView, indexPath.item);
+                }
+            } else if ([item.type isEqualToString:HomeworkItemTypeVideo]) {
+                if (self.videoCallback != nil) {
+                    self.videoCallback(item.videoUrl);
+                }
+            } else if ([item.type isEqualToString:HomeworkItemTypeAudio]) {
+                if (self.audioCallback != nil) {
+                    self.audioCallback(item.audioUrl,item.audioCoverUrl);
+                }
+            }
         }
-    } else if ([item.type isEqualToString:HomeworkItemTypeVideo]) {
-        if (self.videoCallback != nil) {
-            self.videoCallback(item.videoUrl);
-        }
-    } else if ([item.type isEqualToString:HomeworkItemTypeAudio]) {
-        if (self.audioCallback != nil) {
-            self.audioCallback(item.audioUrl,item.audioCoverUrl);
+    } else {
+       
+        HomeworkItem *item = self.homeworkSession.homework.items[indexPath.row+1];
+        if ([item.type isEqualToString:HomeworkItemTypeImage]) {
+            
+            HomeworkImageCollectionViewCell *cell = (HomeworkImageCollectionViewCell *)[self.homeworksCollectionView cellForItemAtIndexPath:indexPath];
+            
+            if (self.imageCallback != nil) {
+                self.imageCallback(item.imageUrl, cell.homeworkImageView, indexPath.item);
+            }
+        } else if ([item.type isEqualToString:HomeworkItemTypeVideo]) {
+            if (self.videoCallback != nil) {
+                self.videoCallback(item.videoUrl);
+            }
+        } else if ([item.type isEqualToString:HomeworkItemTypeAudio]) {
+            if (self.audioCallback != nil) {
+                self.audioCallback(item.audioUrl,item.audioCoverUrl);
+            }
         }
     }
 }

@@ -11,15 +11,21 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MIParticipateDetailTableViewCellId" rowHeight="234" id="7eW-3q-a41" customClass="MIParticipateDetailTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="443" height="227"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MIParticipateDetailTableViewCellId" rowHeight="324" id="7eW-3q-a41" customClass="MIParticipateDetailTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="506" height="317"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7eW-3q-a41" id="7d6-P3-ewk">
-                <rect key="frame" x="0.0" y="0.0" width="443" height="226.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="506" height="316.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xy-6D-Wwk">
+                        <rect key="frame" x="12" y="22" width="20" height="21"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上传时间" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8u-ub-10e">
-                        <rect key="frame" x="12" y="12" width="58" height="40"/>
+                        <rect key="frame" x="12" y="48" width="58" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="qIb-34-GAP"/>
                         </constraints>
@@ -28,35 +34,26 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="视频时长" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9IB-Ts-EOa">
-                        <rect key="frame" x="373" y="12" width="58" height="40"/>
+                        <rect key="frame" x="436" y="48" width="58" height="40"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="attachment_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="UuF-7y-grp">
-                        <rect key="frame" x="12" y="64" width="419" height="98.5"/>
+                        <rect key="frame" x="12" y="100" width="482" height="152.5"/>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_play.png" translatesAutoresizingMaskIntoConstraints="NO" id="FYL-8i-Vth">
-                        <rect key="frame" x="197.5" y="89.5" width="48" height="48"/>
+                        <rect key="frame" x="229" y="152.5" width="48" height="48"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QdB-SW-Rsz">
-                        <rect key="frame" x="12" y="64" width="419" height="98.5"/>
+                        <rect key="frame" x="12" y="100" width="482" height="152.5"/>
                         <connections>
                             <action selector="playVideoAction:" destination="7eW-3q-a41" eventType="touchUpInside" id="Rno-CV-4wt"/>
                         </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Lk-vI-RHr">
-                        <rect key="frame" x="171" y="174.5" width="100" height="40"/>
-                        <color key="backgroundColor" red="0.75406885150000003" green="0.75408679249999999" blue="0.75407713649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                        <state key="normal" title="不合格"/>
-                        <connections>
-                            <action selector="unqualifiedAction:" destination="7eW-3q-a41" eventType="touchUpInside" id="vsO-pH-dSQ"/>
-                        </connections>
-                    </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TGX-mg-M5I">
-                        <rect key="frame" x="331" y="174.5" width="100" height="40"/>
+                        <rect key="frame" x="394" y="264.5" width="100" height="40"/>
                         <color key="backgroundColor" red="0.75406885150000003" green="0.75408679249999999" blue="0.75407713649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="VJR-pv-MjI"/>
@@ -68,11 +65,21 @@
                             <action selector="qualifiedAction:" destination="7eW-3q-a41" eventType="touchUpInside" id="wBS-ga-nvX"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Lk-vI-RHr">
+                        <rect key="frame" x="234" y="264.5" width="100" height="40"/>
+                        <color key="backgroundColor" red="0.75406885150000003" green="0.75408679249999999" blue="0.75407713649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                        <state key="normal" title="不合格"/>
+                        <connections>
+                            <action selector="unqualifiedAction:" destination="7eW-3q-a41" eventType="touchUpInside" id="vsO-pH-dSQ"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="UuF-7y-grp" firstAttribute="centerY" secondItem="FYL-8i-Vth" secondAttribute="centerY" id="3Jh-BN-LEb"/>
+                    <constraint firstItem="3xy-6D-Wwk" firstAttribute="leading" secondItem="7d6-P3-ewk" secondAttribute="leading" constant="12" id="FaD-kg-eJ5"/>
                     <constraint firstItem="TGX-mg-M5I" firstAttribute="leading" secondItem="3Lk-vI-RHr" secondAttribute="trailing" constant="60" id="GOf-Ht-m6o"/>
-                    <constraint firstItem="u8u-ub-10e" firstAttribute="top" secondItem="7d6-P3-ewk" secondAttribute="top" constant="12" id="Lh6-cj-OJi"/>
+                    <constraint firstItem="u8u-ub-10e" firstAttribute="top" secondItem="7d6-P3-ewk" secondAttribute="top" constant="48" id="Lh6-cj-OJi"/>
                     <constraint firstItem="TGX-mg-M5I" firstAttribute="top" secondItem="UuF-7y-grp" secondAttribute="bottom" constant="12" id="MfJ-9a-gyn"/>
                     <constraint firstItem="TGX-mg-M5I" firstAttribute="trailing" secondItem="9IB-Ts-EOa" secondAttribute="trailing" id="PXv-rr-vO6"/>
                     <constraint firstItem="QdB-SW-Rsz" firstAttribute="leading" secondItem="UuF-7y-grp" secondAttribute="leading" id="QqP-Rh-gBX"/>
@@ -90,6 +97,7 @@
                     <constraint firstAttribute="trailing" secondItem="UuF-7y-grp" secondAttribute="trailing" constant="12" id="osI-KC-qEu"/>
                     <constraint firstItem="UuF-7y-grp" firstAttribute="leading" secondItem="7d6-P3-ewk" secondAttribute="leading" constant="12" id="q6e-yH-EQL"/>
                     <constraint firstItem="9IB-Ts-EOa" firstAttribute="top" secondItem="u8u-ub-10e" secondAttribute="top" id="qC0-hk-ydM"/>
+                    <constraint firstItem="3xy-6D-Wwk" firstAttribute="top" secondItem="7d6-P3-ewk" secondAttribute="top" constant="22" id="wzB-9E-pEP"/>
                     <constraint firstItem="QdB-SW-Rsz" firstAttribute="trailing" secondItem="UuF-7y-grp" secondAttribute="trailing" id="xMO-bc-fpq"/>
                 </constraints>
             </tableViewCellContentView>
@@ -97,11 +105,12 @@
             <connections>
                 <outlet property="bgImageView" destination="UuF-7y-grp" id="R49-2u-nhf"/>
                 <outlet property="qualityBtn" destination="TGX-mg-M5I" id="hsZ-e7-1Ql"/>
+                <outlet property="rankLabel" destination="3xy-6D-Wwk" id="0HB-B2-Cu9"/>
                 <outlet property="unqualityBtn" destination="3Lk-vI-RHr" id="WQC-zf-Wjw"/>
                 <outlet property="uploadTimeLabel" destination="u8u-ub-10e" id="1ck-Ih-RKB"/>
                 <outlet property="videoTimeLabel" destination="9IB-Ts-EOa" id="Qnf-LT-M9J"/>
             </connections>
-            <point key="canvasLocation" x="122.46376811594205" y="128.90625"/>
+            <point key="canvasLocation" x="168.11594202898553" y="159.04017857142856"/>
         </tableViewCell>
     </objects>
     <resources>

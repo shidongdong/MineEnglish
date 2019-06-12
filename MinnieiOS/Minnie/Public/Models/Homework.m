@@ -69,7 +69,6 @@
     
     
     NSMutableArray *otherItems = [NSMutableArray array];
-    dict[@"otherItem"] = otherItems;
     for (HomeworkItem *item in self.otherItem) {
         NSMutableDictionary *itemDict = [NSMutableDictionary dictionary];
         itemDict[@"type"] = item.type;
@@ -85,21 +84,9 @@
             itemDict[@"imageUrl"] = item.imageUrl;
             itemDict[@"imageWidth"] = @(item.imageWidth);
             itemDict[@"imageHeight"] = @(item.imageHeight);
-        } else if ([item.type isEqualToString:HomeworkItemTypeWord]) {
-            
-            itemDict[@"bgmusicUrl"] = item.bgmusicUrl;
-            itemDict[@"palytime"] = @(item.palytime);
-            
-            NSMutableArray *words = [NSMutableArray array];
-            dict[@"words"] = words;
-            for (WordInfo *word in item.words) {
-                NSMutableDictionary *wordDic = [NSMutableDictionary dictionary];
-                wordDic[@"english"] = word.english;
-                wordDic[@"chinese"] = word.chinese;
-            }
         }
         [otherItems addObject:itemDict];
-    }
+    } dict[@"otherItem"] = otherItems;
     
     NSMutableArray *items = [NSMutableArray array];
     dict[@"items"] = items;
@@ -120,16 +107,16 @@
             itemDict[@"imageHeight"] = @(item.imageHeight);
         } else if ([item.type isEqualToString:HomeworkItemTypeWord]) {
             
-            itemDict[@"bgmusicUrl"] = item.bgmusicUrl;
-            itemDict[@"palytime"] = @(item.palytime);
-            
             NSMutableArray *words = [NSMutableArray array];
-            dict[@"words"] = words;
             for (WordInfo *word in item.words) {
                 NSMutableDictionary *wordDic = [NSMutableDictionary dictionary];
                 wordDic[@"english"] = word.english;
                 wordDic[@"chinese"] = word.chinese;
+                [words addObject:wordDic];
             }
+            itemDict[@"words"] = words;
+            itemDict[@"bgmusicUrl"] = item.bgmusicUrl;
+            itemDict[@"playTime"] = @(item.playTime);
         }
         [items addObject:itemDict];
     }
@@ -152,14 +139,22 @@
         }
         [answserItems addObject:itemDict];
     }
+    NSDictionary *parentFile;
+    if (self.fileInfos.parentFile.parentId == 0) {
+        parentFile = @{@"id":@(self.fileInfos.parentFile.fileId),
+                       @"fileName":self.fileInfos.parentFile.fileName,
+                       @"depth":@(self.fileInfos.parentFile.depth)
+                                     };
+    } else {
+        
+        parentFile = @{@"id":@(self.fileInfos.parentFile.fileId),
+                       @"fileName":self.fileInfos.parentFile.fileName,
+                       @"parentId":@(self.fileInfos.parentFile.parentId),
+                       @"depth":@(self.fileInfos.parentFile.depth)
+                                     };
+    }
     
-    NSDictionary *parentFile = @{@"fileId":@(self.fileInfos.parentFile.fileId),
-                                 @"fileName":self.fileInfos.parentFile.fileName,
-                                 @"parentId":@(self.fileInfos.parentFile.parentId),
-                                 @"depth":@(self.fileInfos.parentFile.depth)
-                                 };
-    
-    NSDictionary *subFile = @{@"fileId":@(self.fileInfos.subFile.fileId),
+    NSDictionary *subFile = @{@"id":@(self.fileInfos.subFile.fileId),
                               @"fileName":self.fileInfos.subFile.fileName,
                               @"parentId":@(self.fileInfos.subFile.parentId),
                               @"depth":@(self.fileInfos.subFile.depth)

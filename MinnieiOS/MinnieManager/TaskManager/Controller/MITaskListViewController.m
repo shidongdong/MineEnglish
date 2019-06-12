@@ -183,47 +183,6 @@ VIResourceLoaderManagerDelegate
     view.currentFileInfo = self.currentFileInfo;
     [[UIApplication sharedApplication].keyWindow addSubview:view];
 }
-//{
-//
-//    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确认删除?"
-//                                                                             message:nil
-//                                                                      preferredStyle:UIAlertControllerStyleAlert];
-//
-//    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
-//                                                           style:UIAlertActionStyleCancel
-//                                                         handler:^(UIAlertAction * _Nonnull action) {
-//                                                         }];
-//
-//    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"删除"
-//                                                            style:UIAlertActionStyleDefault
-//                                                          handler:^(UIAlertAction * _Nonnull action) {
-//                                                              [HUD showProgressWithMessage:@"正在删除"];
-//
-//                                                              [HomeworkService deleteHomeworks:self.selectedHomeworkIds
-//                                                                                      callback:^(Result *result, NSError *error) {
-//                                                                                          if (error != nil) {
-//                                                                                              [HUD showErrorWithMessage:@"删除失败"];
-//                                                                                              return;
-//                                                                                          }
-//
-//                                                                                          [HUD showWithMessage:@"删除成功"];
-//
-//                                                                                          [self.homeworks removeAllObjects];
-//                                                                                          [self.selectedHomeworkIds removeAllObjects];
-//                                                                                          self.nextUrl = nil;
-//
-//                                                                                          [self.tableView reloadData];
-//
-//                                                                                          [self operationAction:nil];
-//                                                                                          [self requestHomeworks];
-//                                                                                      }];
-//                                                          }];
-//
-//    [alertController addAction:cancelAction];
-//    [alertController addAction:confirmAction];
-//    [self.navigationController presentViewController:alertController animated:YES completion:nil];
-//}
-
 
 #pragma mark - Private Methods
 - (void)shouldReloadDataWhenAppeared:(NSNotification *)notification {
@@ -321,6 +280,7 @@ VIResourceLoaderManagerDelegate
         if (homeworks.count > 0) {
             
             [self.view hideAllStateView];
+            [self.homeworks removeAllObjects];
             [self.homeworks addObjectsFromArray:homeworks];
             [self showTaskList:YES];
             [self.tableView reloadData];
@@ -631,28 +591,28 @@ VIResourceLoaderManagerDelegate
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"选择任务类型"
                                                                      message:nil
                                                               preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"通知"
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:kHomeworkTaskNotifyName
                                                            style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * _Nonnull action) {
-                                 [weakSelf goToCreateTaskWithType:MIHomeworkTaskType_notify];
+                                 [weakSelf goToCreateTaskWithType:MIHomeworkTaskType_Notify];
                                                          }];
-    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"跟读"
+    UIAlertAction *action2 = [UIAlertAction actionWithTitle:kHomeworkTaskFollowUpName
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction * _Nonnull action) {
                                  [weakSelf goToCreateTaskWithType:MIHomeworkTaskType_FollowUp];
                                                         
                                                     }];
-    UIAlertAction *action3 = [UIAlertAction actionWithTitle:@"单词记忆"
+    UIAlertAction *action3 = [UIAlertAction actionWithTitle:kHomeworkTaskWordMemoryName
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction * _Nonnull action) {
                                  [weakSelf goToCreateTaskWithType:MIHomeworkTaskType_WordMemory];
                                                     }];
-    UIAlertAction *action4 = [UIAlertAction actionWithTitle:@"普通任务"
+    UIAlertAction *action4 = [UIAlertAction actionWithTitle:kHomeworkTaskGeneralTaskName
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction * _Nonnull action) {
                                  [weakSelf goToCreateTaskWithType:MIHomeworkTaskType_GeneralTask];
                                                     }];
-    UIAlertAction *action6 = [UIAlertAction actionWithTitle:@"成绩统计"
+    UIAlertAction *action6 = [UIAlertAction actionWithTitle:kHomeworkTaskNameExaminationStatistics
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction * _Nonnull action) {
                         [weakSelf goToCreateTaskWithType:MIHomeworkTaskType_ExaminationStatistics];

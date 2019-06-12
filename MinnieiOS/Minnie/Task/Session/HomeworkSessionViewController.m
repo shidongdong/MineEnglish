@@ -42,6 +42,7 @@
 #import "VICacheManager.h"
 #import "HomeworkAnswersPickerViewController.h"
 #import "SendAudioManager.h"
+#import "MIReadingTaskViewController.h"
 
 #if TEACHERSIDE || MANAGERSIDE
 #import "HomeworkService.h"
@@ -1296,13 +1297,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     [[SendAudioManager manager] play];
     BOOL isResend = message.status == AVIMMessageStatusFailed;
     
-    
     //发送消息，区分学生端和客户端
-//#if TEACHERSIDE || MANAGERSIDE
-//    NSArray * users = @[@(self.homeworkSession.student.userId)];
-//#else
-//    NSArray * users = @[@(self.homeworkSession.correctTeacher.userId)];
-//#endif
     NSString * text = @"您有一条消息";
     if (message.mediaType == kAVIMMessageMediaTypeText)
     {
@@ -1335,6 +1330,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                             option:option
                           callback:^(BOOL succeeded, NSError * _Nullable error) {
 #if TEACHERSIDE || MANAGERSIDE
+                              [self correctNotifyHomeworkSession];
 #else
                               if (succeeded && self.messages.count==0)
                               {
@@ -1346,16 +1342,49 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                   [self updateHomeworkSessionModifiedTime];
                               }
 #endif
-
                               [[NSNotificationCenter defaultCenter] postNotificationName:kIMManagerContentMessageDidSendNotification object:nil userInfo:@{@"message": message}];
                               
                               if (!isResend) {
                                   [self.messages addObject:(AVIMTypedMessage *)message];
                               }
-                              
+
                               [self sortMessages];
                               [self reloadDataAndScrollToBottom];
+#if TEACHERSIDE || MANAGERSIDE
+                              [self correctNotifyHomeworkSession];// 教师端批改通知类型作业
+#endif
                           }];
+}
+
+- (void)correctNotifyHomeworkSession{
+    
+    if (![self.homeworkSession.homework.typeName isEqualToString:kHomeworkTaskNotifyName]) {
+        return;
+    }
+    NSMutableArray *studentMessages = [NSMutableArray array];
+    for (NSString *key in self.sortedKeys) {
+        
+        NSArray *messages = self.sortedMessages[key];
+        for (AVIMTypedMessage *message in messages) {
+         
+            if (message.ioType==AVIMMessageIOTypeOut) {
+                [studentMessages addObject:message];
+            };
+        }
+    }
+    // 通知类型作业自动通过
+    if (studentMessages.count == 1) {
+        WeakifySelf;
+        [HomeworkSessionService correctHomeworkSessionWithId:self.homeworkSession.homeworkSessionId
+                                                       score:1
+                                                        redo:0
+                                                  sendCircle:0
+                                                        text:@""
+                                                    callback:^(Result *result, NSError *error) {
+                                                        if (error != nil) return ;
+                                                        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCorrectHomework object:nil userInfo:@{@"HomeworkSession":weakSelf.homeworkSession}];
+                                                    }];
+    }
 }
 
 - (void)handlePhotoPickerResult:(UIImagePickerController *)picker
@@ -1889,7 +1918,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0) {// 作业内容
         NSString *nibName =  @"SessionHomeworkTableViewCell";;
         
         SessionHomeworkTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:nibName owner:nil options:nil] lastObject];
@@ -1897,6 +1926,19 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         [cell setupWithHomeworkSession:self.homeworkSession];
         
         WeakifySelf;
+        [cell setStartTaskCallback:^(void) {
+            MIReadingTaskViewController *taskVC = [[MIReadingTaskViewController alloc] initWithNibName:NSStringFromClass([MIReadingTaskViewController class]) bundle:nil];
+            taskVC.homework = weakSelf.homeworkSession.homework;
+            taskVC.conversation = weakSelf.conversation;
+            taskVC.finishCallBack = ^(AVIMAudioMessage *message){
+              
+                [self.messages addObject:message];
+                [self sortMessages];
+                [self reloadDataAndScrollToBottom];
+            };
+            [weakSelf.navigationController pushViewController:taskVC animated:YES];
+        }];
+        
         [cell setVideoCallback:^(NSString *videoUrl) {
             [weakSelf playerVideoWithURL:videoUrl];
         }];
@@ -1913,8 +1955,8 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         
         return cell;
     }
-    
-    if (indexPath.row == 0) {
+    // 会话内容
+    if (indexPath.row == 0) { // 时间
         MessageTimeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MessageTimeTableViewCellId];
         if (cell == nil) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"MessageTimeTableViewCell" owner:nil options:nil] lastObject];
@@ -2048,7 +2090,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         }];
         
         cell = imageCell;
-    } else if (message.mediaType == kAVIMMessageMediaTypeVideo) { // 文本信息
+    } else if (message.mediaType == kAVIMMessageMediaTypeVideo) { // 视频信息
         NSString *identifier = nil;
         if (isPeerMessage) {
             identifier = LeftVideoMessageTableViewCellId;
@@ -2073,7 +2115,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         }];
         
         cell = videoCell;
-    } else if (message.mediaType == kAVIMMessageMediaTypeAudio) { // 文本信息
+    } else if (message.mediaType == kAVIMMessageMediaTypeAudio) { // 音频信息
         NSString *identifier = nil;
         if (isPeerMessage) {
             identifier = LeftAudioMessageTableViewCellId;

@@ -129,7 +129,6 @@ UITableViewDataSource
     self.curActInfo = model;
     self.currentActivityIndex =  currentIndex;
     if (model) {
-        
         [self requestGetActivityRankList];
     } else {
         self.tableView.hidden = YES;

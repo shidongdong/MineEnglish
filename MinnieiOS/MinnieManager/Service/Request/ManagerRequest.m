@@ -40,10 +40,19 @@
 }
 
 - (id)requestArgument {
-    return @{@"id":@(self.model.fileId),
-             @"fileName":self.model.fileName,
-             @"parentId":@(self.model.parentId),
-             @"depth":@(self.model.depth)};
+
+    if (self.model.fileId == 0) {
+        
+        return @{@"fileName":self.model.fileName,
+                 @"parentId":@(self.model.parentId),
+                 @"depth":@(self.model.depth)};
+    } else {
+      
+        return @{@"id":@(self.model.fileId),
+                 @"fileName":self.model.fileName,
+                 @"parentId":@(self.model.parentId),
+                 @"depth":@(self.model.depth)};
+    }
 }
 
 @end
@@ -494,18 +503,16 @@
     return self;
 }
 - (YTKRequestMethod)requestMethod {
-    return YTKRequestMethodGET;
+    return YTKRequestMethodPOST;
 }
 
 - (NSString *)requestUrl {
-    return [NSString stringWithFormat:@"%@/actworkTask/actLogs", ServerProjectName];
+    return [NSString stringWithFormat:@"%@/actworkTask/correctAct", ServerProjectName];
 }
 
 - (id)requestArgument {
     return @{@"id":@(self.videoId),
-             @"isOk":@(self.isOk),
-             @"actId":@(self.actId)
-             };
+             @"isOk":@(self.isOk)};
 }
 
 @end

@@ -119,28 +119,28 @@
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"选择任务类型"
                                                                      message:nil
                                                               preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"通知"
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:kHomeworkTaskNotifyName
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction * _Nonnull action) {
-                                                        [weakSelf goToCreateTaskWithType:MIHomeworkTaskType_notify];
+                                                        [weakSelf goToCreateTaskWithType:MIHomeworkTaskType_Notify];
                                                     }];
-    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"跟读"
+    UIAlertAction *action2 = [UIAlertAction actionWithTitle:kHomeworkTaskFollowUpName
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction * _Nonnull action) {
                                                         [weakSelf goToCreateTaskWithType:MIHomeworkTaskType_FollowUp];
                                                         
                                                     }];
-    UIAlertAction *action3 = [UIAlertAction actionWithTitle:@"单词记忆"
+    UIAlertAction *action3 = [UIAlertAction actionWithTitle:kHomeworkTaskWordMemoryName
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction * _Nonnull action) {
                                                         [weakSelf goToCreateTaskWithType:MIHomeworkTaskType_WordMemory];
                                                     }];
-    UIAlertAction *action4 = [UIAlertAction actionWithTitle:@"普通任务"
+    UIAlertAction *action4 = [UIAlertAction actionWithTitle:kHomeworkTaskGeneralTaskName
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction * _Nonnull action) {
                                                         [weakSelf goToCreateTaskWithType:MIHomeworkTaskType_GeneralTask];
                                                     }];
-    UIAlertAction *action6 = [UIAlertAction actionWithTitle:@"成绩统计"
+    UIAlertAction *action6 = [UIAlertAction actionWithTitle:kHomeworkTaskNameExaminationStatistics
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction * _Nonnull action) {
                                                         [weakSelf goToCreateTaskWithType:MIHomeworkTaskType_ExaminationStatistics];

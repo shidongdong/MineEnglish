@@ -12,15 +12,6 @@
 
 typedef void(^CreateTaskCallBack)(BOOL isDelete);
 
-typedef NS_ENUM(NSInteger, MIHomeworkTaskType) {
-    
-    MIHomeworkTaskType_notify,                  // 通知
-    MIHomeworkTaskType_FollowUp,                // 跟读
-    MIHomeworkTaskType_WordMemory,              // 单词记忆
-    MIHomeworkTaskType_GeneralTask,             // 普通任务
-    MIHomeworkTaskType_Activity,                // 活动
-    MIHomeworkTaskType_ExaminationStatistics    // 考试统计
-};
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -290,8 +290,10 @@ UITableViewDataSource
     WeakifySelf;
     createView.sureCallBack = ^(NSString * _Nullable name) {
         
+        ParentFileInfo *parentInfo = weakSelf.parentFileList[index];
         FileInfo *fileInfo = [[FileInfo alloc] init];
         fileInfo.fileName = name;
+        fileInfo.parentId = parentInfo.fileInfo.fileId;
         fileInfo.depth = 2;
         [weakSelf requestCreateFilesWithFileDto:fileInfo isEidt:NO];
     };

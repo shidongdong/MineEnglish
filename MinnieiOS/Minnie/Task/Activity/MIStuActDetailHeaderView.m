@@ -71,6 +71,7 @@ UICollectionViewDelegateFlowLayout>
     [mAttribute addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, text.length)];
     [mAttribute addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, text.length)];
     self.contentLabel.attributedText = mAttribute;
+    [self.headerImagV sd_setImageWithURL:[self.actInfo.actCoverUrl imageURLWithWidth:ScreenWidth] completed:nil];
     
 }
 

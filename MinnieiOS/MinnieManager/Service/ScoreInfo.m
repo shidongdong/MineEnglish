@@ -15,7 +15,8 @@
     return @{@"score":@"score",
              @"avatar":@"avatar",
              @"userId":@"userId",
-             @"nickName":@"nickName"
+             @"nickName":@"nickName",
+             @"hometaskId":@"hometaskId"
              };
 }
 

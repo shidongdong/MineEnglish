@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) MIPlayVideoCallback playVideoCallback;
 @property (nonatomic, copy) MIQualifiedCallback qualifiedCallback;
 
-- (void)setupWithModel:(ActLogsInfo *)model;
+- (void)setupWithModel:(ActLogsInfo *)model index:(NSInteger)index;
 
 @end
 

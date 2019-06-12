@@ -81,7 +81,7 @@ VIResourceLoaderManagerDelegate
     cell.qualifiedCallback = ^(BOOL isqualified, ActLogsInfo *logInfo) {
         [weakSelf requestCorrectWithLogInfo:logInfo isOk:isqualified];
     };
-    [cell setupWithModel:self.uploadArray[indexPath.row]];
+    [cell setupWithModel:self.uploadArray[indexPath.row] index:indexPath.row + 1];
     return cell;
 }
 

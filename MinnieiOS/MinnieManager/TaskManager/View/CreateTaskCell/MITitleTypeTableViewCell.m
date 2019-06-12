@@ -290,25 +290,29 @@ UIDocumentPickerDelegate
                                                          }];
     
    
-    if (self.contentType == MIHomeworkCreateContentType_AddCovers) {
-      
-        [alertVC addAction:imageAction];
-        [alertVC addAction:cancelAction];
-    } else if ((self.contentType == MIHomeworkCreateContentType_AddFollowMaterials)){
-        
-        [alertVC addAction:fileAction];
-        [alertVC addAction:cancelAction];
-    } else if ((self.contentType == MIHomeworkCreateContentType_AddBgMusic)){
-        
-        [alertVC addAction:fileAction];
-        [alertVC addAction:cancelAction];
-    } else {
-      
-        [alertVC addAction:fileAction];
-        [alertVC addAction:videoAction];
-        [alertVC addAction:imageAction];
-        [alertVC addAction:cancelAction];
-    }
+//    if (self.contentType == MIHomeworkCreateContentType_AddCovers) {
+//      
+//        [alertVC addAction:imageAction];
+//        [alertVC addAction:cancelAction];
+//    } else if ((self.contentType == MIHomeworkCreateContentType_AddFollowMaterials)){
+//        
+//        [alertVC addAction:fileAction];
+//        [alertVC addAction:cancelAction];
+//    } else if ((self.contentType == MIHomeworkCreateContentType_AddBgMusic)){
+//        
+//        [alertVC addAction:fileAction];
+//        [alertVC addAction:cancelAction];
+//    } else {
+//      
+//        [alertVC addAction:fileAction];
+//        [alertVC addAction:videoAction];
+//        [alertVC addAction:imageAction];
+//        [alertVC addAction:cancelAction];
+//    }
+    [alertVC addAction:fileAction];
+    [alertVC addAction:videoAction];
+    [alertVC addAction:imageAction];
+    [alertVC addAction:cancelAction];
     [self.vc.navigationController presentViewController:alertVC
                                             animated:YES
                                           completion:nil];

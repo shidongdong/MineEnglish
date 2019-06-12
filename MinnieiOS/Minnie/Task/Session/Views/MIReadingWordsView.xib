@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MIReadingWordsView">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IW1-fJ-bvT" userLabel="WordsView">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="world" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5x-Pw-TqT">
+                            <rect key="frame" x="0.0" y="424" width="414" height="48"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="v5x-Pw-TqT" firstAttribute="leading" secondItem="IW1-fJ-bvT" secondAttribute="leading" id="6Vs-Uc-01i"/>
+                        <constraint firstItem="v5x-Pw-TqT" firstAttribute="centerY" secondItem="IW1-fJ-bvT" secondAttribute="centerY" id="eL7-aG-nf1"/>
+                        <constraint firstAttribute="trailing" secondItem="v5x-Pw-TqT" secondAttribute="trailing" id="pL6-Zb-rnl"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="IW1-fJ-bvT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="3kd-W3-TmW"/>
+                <constraint firstItem="IW1-fJ-bvT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="TEE-yh-Hnh"/>
+                <constraint firstAttribute="bottom" secondItem="IW1-fJ-bvT" secondAttribute="bottom" id="V8h-ZS-11P"/>
+                <constraint firstAttribute="trailing" secondItem="IW1-fJ-bvT" secondAttribute="trailing" id="mha-Rz-KEe"/>
+            </constraints>
+            <connections>
+                <outlet property="englishLabel" destination="v5x-Pw-TqT" id="e3m-ej-qat"/>
+                <outlet property="wordsView" destination="IW1-fJ-bvT" id="WTL-jH-Yhj"/>
+            </connections>
+            <point key="canvasLocation" x="131.8840579710145" y="89.732142857142847"/>
+        </view>
+    </objects>
+</document>

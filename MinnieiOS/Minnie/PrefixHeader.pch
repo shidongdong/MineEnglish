@@ -123,4 +123,21 @@ typedef NS_ENUM(NSInteger, MIHomeworkCreateContentType) {
     MIHomeworkCreateContentType_Image,              // 图片
 };
 
+// 作业类型
+typedef NS_ENUM(NSInteger, MIHomeworkTaskType) {
+    
+    MIHomeworkTaskType_Notify,                  // 通知
+    MIHomeworkTaskType_FollowUp,                // 跟读
+    MIHomeworkTaskType_WordMemory,              // 单词记忆
+    MIHomeworkTaskType_GeneralTask,             // 普通任务
+    MIHomeworkTaskType_Activity,                // 活动
+    MIHomeworkTaskType_ExaminationStatistics    // 成绩统计
+};
+
+#define kHomeworkTaskNotifyName                    @"通知"
+#define kHomeworkTaskFollowUpName                  @"跟读"
+#define kHomeworkTaskWordMemoryName                @"单词记忆"
+#define kHomeworkTaskGeneralTaskName               @"普通任务"
+#define kHomeworkTaskNameExaminationStatistics     @"成绩统计"
+#define kHomeworkTaskActivityName                  @"活动"
 #endif /* PrefixHeader_pch */

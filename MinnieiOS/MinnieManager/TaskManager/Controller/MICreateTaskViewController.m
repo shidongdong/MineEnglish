@@ -264,7 +264,7 @@ ClassAndStudentSelectorControllerDelegate
         self.homework.category = 1;
         self.homework.limitTimes = 300;
         self.homework.examType = 1;
-        self.wordsItem.palytime = 1.0;
+        self.wordsItem.playTime = 1000;
     } else {// 编辑作业
         
         self.taskType = [self setTaskTypeWithHomeWork:homework];
@@ -372,28 +372,28 @@ ClassAndStudentSelectorControllerDelegate
 - (void)setupTitleWithTaskType:(MIHomeworkTaskType)taskType{
     
     switch (taskType) {
-        case MIHomeworkTaskType_notify:
-            self.homework.typeName = @"通知";
+        case MIHomeworkTaskType_Notify:
+            self.homework.typeName = kHomeworkTaskNotifyName;
             self.titleLabel.text = self.isCreateTask ? @"新建通知" : @"通知详情";
             break;
         case MIHomeworkTaskType_FollowUp:
-            self.homework.typeName = @"跟读任务";
+            self.homework.typeName = kHomeworkTaskFollowUpName;
             self.titleLabel.text = self.isCreateTask ? @"新建跟读任务" : @"跟读任务详情";
             break;
         case MIHomeworkTaskType_WordMemory:
-            self.homework.typeName = @"单词记忆";
+            self.homework.typeName = kHomeworkTaskWordMemoryName;
             self.titleLabel.text = self.isCreateTask ? @"新建单词记忆" : @"单词记忆详情";
             break;
         case MIHomeworkTaskType_GeneralTask:
-            self.homework.typeName = @"普通任务";
+            self.homework.typeName = kHomeworkTaskGeneralTaskName;
             self.titleLabel.text = self.isCreateTask ? @"新建普通任务" : @"普通任务详情";
             break;
         case MIHomeworkTaskType_Activity:
-            self.homework.typeName = @"活动";
+            self.homework.typeName = kHomeworkTaskActivityName;
             self.titleLabel.text = self.isCreateTask ? @"新建活动" : @"活动详情";
             break;
         case MIHomeworkTaskType_ExaminationStatistics:
-            self.homework.typeName = @"考试统计";
+            self.homework.typeName = kHomeworkTaskNameExaminationStatistics;
             self.titleLabel.text = self.isCreateTask ? @"新建考试统计" : @"考试统计详情";
             break;
         default:
@@ -406,15 +406,15 @@ ClassAndStudentSelectorControllerDelegate
     if (homework.typeName.length == 0) {
         return taskType;
     }
-    if ([homework.typeName isEqualToString:@"通知"]) {
-        taskType = MIHomeworkTaskType_notify;
-    } else if ([homework.typeName isEqualToString:@"跟读任务"]) {
+    if ([homework.typeName isEqualToString:kHomeworkTaskNotifyName]) {
+        taskType = MIHomeworkTaskType_Notify;
+    } else if ([homework.typeName isEqualToString:kHomeworkTaskFollowUpName]) {
         taskType = MIHomeworkTaskType_FollowUp;
-    } else if ([homework.typeName isEqualToString:@"单词记忆"]) {
+    } else if ([homework.typeName isEqualToString:kHomeworkTaskWordMemoryName]) {
         taskType = MIHomeworkTaskType_WordMemory;
-    } else if ([homework.typeName isEqualToString:@"普通任务"]) {
+    } else if ([homework.typeName isEqualToString:kHomeworkTaskGeneralTaskName]) {
         taskType = MIHomeworkTaskType_GeneralTask;
-    } else if ([homework.typeName isEqualToString:@"考试统计"]) {
+    } else if ([homework.typeName isEqualToString:kHomeworkTaskNameExaminationStatistics]) {
         taskType = MIHomeworkTaskType_ExaminationStatistics;
     }
     return taskType;
@@ -605,11 +605,11 @@ ClassAndStudentSelectorControllerDelegate
             MIExpandSelectTypeTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MIExpandSelectTypeTableViewCellId forIndexPath:indexPath];
             
             __weak  MIExpandSelectTypeTableViewCell *weakContentCell = contentCell;
-            NSString *wordPlayTime = [NSString stringWithFormat:@"%lu",self.wordsItem.palytime];
+            NSString *wordPlayTime = [NSString stringWithFormat:@"%lu",self.wordsItem.playTime];
             contentCell.expandCallback = ^{
                 MIExpandPickerView * chooseDataPicker = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIExpandPickerView class]) owner:nil options:nil] firstObject];
                 chooseDataPicker.callback = ^(NSString * _Nonnull text) {
-                    weakSelf.wordsItem.palytime = text.integerValue;
+                    weakSelf.wordsItem.playTime = text.integerValue;
                     [weakContentCell setupWithLeftText:text rightText:nil createType:createType];
                 };
                 [chooseDataPicker setDefultText:wordPlayTime createType:createType];
@@ -966,7 +966,7 @@ ClassAndStudentSelectorControllerDelegate
     
     NSMutableArray *typeArray;
     switch (self.taskType) {
-        case MIHomeworkTaskType_notify:// 通知
+        case MIHomeworkTaskType_Notify:// 通知
         {
             // 位置、标题、内容、统计类型、选择提交时间，选择星级、添加材料、任务类型(单选)、分类标签（多选）
             typeArray =
@@ -1603,21 +1603,24 @@ ClassAndStudentSelectorControllerDelegate
     if (self.homework.fileInfos.parentFile == nil || self.homework.fileInfos.subFile == nil) {
         [HUD showErrorWithMessage:@"请选择位置"]; return;
     }
-    NSMutableArray *resultItems = [NSMutableArray array];
     if (self.taskType == MIHomeworkTaskType_WordMemory) {
         
         if (self.wordsItem.words.count == 0) {
             [HUD showErrorWithMessage:@"单词个数不能为空"]; return;
         }
-        [resultItems addObject:self.wordsItem];
     }
     if (self.taskType == MIHomeworkTaskType_FollowUp) {
         if (self.followItems.count == 0) {
             [HUD showErrorWithMessage:@"请添加跟读材料"]; return;
         }
     }
+    NSMutableArray *resultItems = [NSMutableArray array];
     [resultItems addObject:self.contentItem];
     [resultItems addObjectsFromArray:self.items];
+    
+    if (self.taskType == MIHomeworkTaskType_WordMemory) {
+        [resultItems addObject:self.wordsItem];
+    }
     
     self.homework.tags = self.selectedTags;
     self.homework.formTag = self.selectFormTag;
@@ -1626,7 +1629,7 @@ ClassAndStudentSelectorControllerDelegate
     self.homework.createTeacher = APP.currentUser;
     self.homework.otherItem = self.followItems;
     
-    if (self.isCreateTask == 0) {
+    if (self.isCreateTask) {
         [HUD showProgressWithMessage:@"正在新建作业"];
     } else {
         [HUD showProgressWithMessage:@"正在更新作业"];

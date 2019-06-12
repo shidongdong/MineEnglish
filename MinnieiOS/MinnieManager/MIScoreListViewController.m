@@ -5,10 +5,11 @@
 //  Created by songzhen on 2019/5/31.
 //
 
-
 #import "Result.h"
 #import "ScoreInfo.h"
+#import "UIView+Load.h"
 #import "ManagerServce.h"
+#import "HomeworkSessionService.h"
 #import "HomeworkSessionService.h"
 #import "UIScrollView+Refresh.h"
 #import "MIMoveHomeworkTaskView.h"
@@ -113,49 +114,72 @@ UITableViewDataSource
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     WeakifySelf;
-    [HomeworkSessionService requestHomeworkSessionWithId:self.homework.homeworkId callback:^(Result *result, NSError *error) {
+    ScoreInfo *scoreInfo = self.scoreListArray[indexPath.row];
+    [HomeworkSessionService requestHomeworkSessionWithId:scoreInfo.hometaskId callback:^(Result *result, NSError *error) {
         if (error != nil) {
+            [HUD showErrorWithMessage:@"获取会话内容失败"];
             return;
         }
         HomeworkSession *session = (HomeworkSession *)(result.userInfo);
         HomeworkSessionViewController *vc = [[HomeworkSessionViewController alloc] initWithNibName:@"HomeworkSessionViewController" bundle:nil];
         vc.homeworkSession = session;
-        [vc setHidesBottomBarWhenPushed:YES];
         [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
-  
 }
 #pragma mark - 获取列表
 - (void)requestScoreListIsLoadMore:(BOOL)isLoadMore{
     
+    self.tableView.hidden = YES;
+    [self.view showLoadingView];
     if (isLoadMore) {
         WeakifySelf;
         [ManagerServce requestScoreListByHomeworkId:self.homework.homeworkId nextUrl:nil callback:^(Result *result, NSError *error) {
-            [self.tableView footerEndRefreshing];
-            if (error) return;
+            [weakSelf.view hideAllStateView];
+            [weakSelf.tableView footerEndRefreshing];
+            if (error) {
+                return ;
+            }
             [weakSelf dealWithData:result isLoadMore:isLoadMore];
         }];
     } else {
         WeakifySelf;
         [ManagerServce requestScoreListByHomeworkId:self.homework.homeworkId nextUrl:self.nextUrl callback:^(Result *result, NSError *error) {
             
-            [self.tableView footerEndRefreshing];
-            if (error) return;
+            [weakSelf.view hideAllStateView];
+            [weakSelf.tableView footerEndRefreshing];
+            if (error) {
+                if (weakSelf.scoreListArray.count == 0) {
+                    
+                    [self.view showEmptyViewWithImage:nil title:@"得分列表为空" centerYOffset:0 linkTitle:nil linkClickCallback:nil retryCallback:^{
+                        [weakSelf requestScoreListIsLoadMore:NO];
+                    }];
+                }
+                return ;
+            }
             [weakSelf dealWithData:result isLoadMore:isLoadMore];
         }];
     }
 }
 
 - (void)dealWithData:(Result *)result isLoadMore:(BOOL)isLoadMore{
-    
     NSDictionary *dict = (NSDictionary *)(result.userInfo);
     NSArray *scoreList = (NSArray *)(dict[@"list"]);
     NSString *nextUrl = dict[@"next"];
     if (isLoadMore) {
+
+        self.tableView.hidden = NO;
         [self.scoreListArray addObjectsFromArray:scoreList];
     } else {
         [self.scoreListArray removeAllObjects];
         [self.scoreListArray addObjectsFromArray:scoreList];
+        if (self.scoreListArray.count == 0) {
+            WeakifySelf;
+            [self.view showEmptyViewWithImage:nil title:@"得分列表为空" centerYOffset:0 linkTitle:nil linkClickCallback:nil retryCallback:^{
+                [weakSelf requestScoreListIsLoadMore:NO];
+            }];
+        } else {
+            self.tableView.hidden = NO;
+        }
     }
     self.nextUrl = nextUrl;
     if (self.nextUrl.length >0) {
@@ -169,6 +193,7 @@ UITableViewDataSource
     }
     [self.tableView reloadData];
 }
+
 
 - (FileInfo *)currentFileInfo{
     

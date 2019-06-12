@@ -756,8 +756,8 @@ MIActivityBannerViewDelegate
 }
 - (void)pullToRefresh{
     
-#if TEACHERSIDE || MANAGERSIDE
     [self requestHomeworkSessions];
+#if TEACHERSIDE || MANAGERSIDE
 #else
     [self requestGetActivityList];
 #endif
@@ -770,35 +770,9 @@ MIActivityBannerViewDelegate
         
         NSDictionary *dict = (NSDictionary *)result.userInfo;
         NSArray *list = dict[@"list"];
-        
-        ActivityInfo *act2 = [[ActivityInfo alloc] init];
-        act2.activityId = 9;
-        act2.actCoverUrl = @"http://res.zhengminyi.com/FtlXAfzMJPI6YyO3fiQQUcVw9LQT";
-        HomeworkItem *textItem2 = [[HomeworkItem alloc] init];
-        textItem2.type = @"text";
-        textItem2.text = @"测试测试测试测试测哈哈哈哈啊哈哈👌试测试测测哈哈哈哈啊哈哈👌试测试测试测哈哈哈哈啊哈哈👌试测试测试测哈哈哈哈啊哈哈👌试测试测试试测试测试";
-        
-        HomeworkItem *textItem3 = [[HomeworkItem alloc] init];
-        textItem3.type = @"video";
-        textItem3.videoUrl = @"http://file.zhengminyi.com/mBa6QMBfbOttwEAqplMNPoD.mp4";
-        
-        HomeworkItem *textItem4 = [[HomeworkItem alloc] init];
-        textItem4.type = @"image";
-        textItem4.imageUrl = @"http://res.zhengminyi.com/FtlXAfzMJPI6YyO3fiQQUcVw9LQT";
-      
-        act2.items = @[textItem2,textItem3,textItem4];
-        
-        ActivityInfo *act1 = [[ActivityInfo alloc] init];
-        act1.activityId = 11;
-        act1.actCoverUrl = @"http://res.zhengminyi.com/FtlXAfzMJPI6YyO3fiQQUcVw9LQT";
-        HomeworkItem *textItem = [[HomeworkItem alloc] init];
-        textItem.type = @"text";
-        textItem.text = @"测试测试测试测试测试测试测试测试测试";
-        act1.items = @[textItem];
-    
-//        list = @[act1,act2];
         weakSelf.bannerArray = list;
-        if (weakSelf.mState == 0) {
+
+        if (weakSelf.mState == 0 && list.count > 0) {
             weakSelf.topConstraint.constant = 124;
             [weakSelf.view addSubview:weakSelf.bannerView];
             weakSelf.bannerView.imagesGroup = list;

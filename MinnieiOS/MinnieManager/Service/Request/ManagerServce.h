@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 // 删除任务管理文件夹
 + (BaseRequest *)requestDelFilesWithFileId:(NSInteger)fileId callback:(RequestCallback)callback;
 
-// 任务位置移动 未做
+// 任务位置移动 
 + (BaseRequest *)requestMoveFilesWithFileId:(NSInteger)fileId
                                    parentId:(NSInteger)parentId
                                 homeworkIds:(NSArray *)homeworkIds

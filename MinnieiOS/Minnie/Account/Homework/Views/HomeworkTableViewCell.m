@@ -182,13 +182,12 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     NSInteger number = 0;
-    
+    //  items 第一个为内容文本，最后一个为单词
     for (HomeworkItem *item in self.homework.items) {
-        if (![item.type isEqualToString:HomeworkItemTypeText]) {
+        if (![item.type isEqualToString:HomeworkItemTypeText] && ![item.type isEqualToString:HomeworkItemTypeWord]) {
             number++;
         }
     }
-    
     return number;
 }
 

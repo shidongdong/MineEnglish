@@ -31,10 +31,8 @@
 
 #import <objc/runtime.h>
 #import <AVKit/AVKit.h>
-//#import "FileUploader.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "MIReadingTaskViewController.h"
 
 @interface MISutdentActDetailViewController ()<
 NEPhotoBrowserDelegate,
@@ -108,10 +106,6 @@ UINavigationControllerDelegate
     MIStuUploadVideoViewController *uploadVC = [[MIStuUploadVideoViewController alloc] initWithNibName:NSStringFromClass([MIStuUploadVideoViewController class]) bundle:nil];
     uploadVC.actId = self.actInfo.activityId;
     [self.navigationController pushViewController:uploadVC animated:YES];
-    
-//    MIReadingTaskViewController *uploadVC = [[MIReadingTaskViewController alloc] initWithNibName:NSStringFromClass([MIReadingTaskViewController class]) bundle:nil];
-//    [self.navigationController pushViewController:uploadVC animated:YES];
-    
 }
 
 #pragma mark - UITableViewDataSource && UITableViewDelagete
@@ -140,7 +134,7 @@ UINavigationControllerDelegate
     return contentCell;
 }
 
-#pragma mark - 获取文件夹信息
+#pragma mark - 获取活动排行列表
 - (void)requestGetStuActivityRankList{
     
     WeakifySelf;
@@ -160,20 +154,6 @@ UINavigationControllerDelegate
         [weakSelf.tableview hideAllStateView];
         NSDictionary *dict = (NSDictionary *)(result.userInfo);
         NSArray *folderList = (NSArray *)(dict[@"list"]);
-        
-        ActivityRankInfo *rankInfo1 = [[ActivityRankInfo alloc] init];
-        rankInfo1.avatar  = @"http://res.zhengminyi.com/FtlXAfzMJPI6YyO3fiQQUcVw9LQT";
-        rankInfo1.nickName = @"哈哈😁哈哈";
-        rankInfo1.actTimes = 500;
-        rankInfo1.actUrl = @"http://file.zhengminyi.com/mBa6QMBfbOttwEAqplMNPoD.mp4";
-        
-        ActivityRankInfo *rankInfo = [[ActivityRankInfo alloc] init];
-        rankInfo.avatar  = @"http://res.zhengminyi.com/FtlXAfzMJPI6YyO3fiQQUcVw9LQT";
-        rankInfo.nickName = @"哈哈😁";
-        rankInfo.actTimes = 500;
-        rankInfo.actUrl = @"http://file.zhengminyi.com/mBa6QMBfbOttwEAqplMNPoD.mp4";
-        
-        folderList = @[rankInfo1,rankInfo,rankInfo1,rankInfo,rankInfo1,rankInfo,rankInfo1,rankInfo];
         weakSelf.rankList = folderList;
        
         if (weakSelf.rankList.count) {

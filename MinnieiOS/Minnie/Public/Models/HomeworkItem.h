@@ -40,8 +40,8 @@ extern NSString * const HomeworkItemTypeWord;
 @property (nonatomic, strong) NSArray<WordInfo> *words;
 // 背景音乐地址
 @property (nonatomic, copy) NSString *bgmusicUrl;
-// 播放间隔时间（秒）
-@property (nonatomic, assign) NSInteger palytime;
+// 播放间隔时间（毫秒）
+@property (nonatomic, assign) NSInteger playTime;
 
 
 @end
