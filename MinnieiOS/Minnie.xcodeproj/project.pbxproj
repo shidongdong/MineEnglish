@@ -583,6 +583,9 @@
 		12EAC64E22B0D73100F1F3DB /* AVIMWordsMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC64D22B0D73000F1F3DB /* AVIMWordsMessage.m */; };
 		12EAC64F22B0D73100F1F3DB /* AVIMWordsMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC64D22B0D73000F1F3DB /* AVIMWordsMessage.m */; };
 		12EAC65022B0D73100F1F3DB /* AVIMWordsMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC64D22B0D73000F1F3DB /* AVIMWordsMessage.m */; };
+		12EAC65822B229F000F1F3DB /* UIImagePickerController+ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC65722B229F000F1F3DB /* UIImagePickerController+ImagePicker.m */; };
+		12EAC65922B229F000F1F3DB /* UIImagePickerController+ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC65722B229F000F1F3DB /* UIImagePickerController+ImagePicker.m */; };
+		12EAC65A22B229F000F1F3DB /* UIImagePickerController+ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC65722B229F000F1F3DB /* UIImagePickerController+ImagePicker.m */; };
 		12ED3B01229C2E4D00255F8B /* MIHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12ED3AFA229C2E4C00255F8B /* MIHeaderTableViewCell.m */; };
 		12ED3B02229C2E4D00255F8B /* MIRootSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12ED3AFC229C2E4C00255F8B /* MIRootSheetView.m */; };
 		12ED3B03229C2E4D00255F8B /* MISecondSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12ED3AFD229C2E4C00255F8B /* MISecondSheetView.m */; };
@@ -2271,6 +2274,8 @@
 		12EAC64522AE2B3B00F1F3DB /* MIReadingWordsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MIReadingWordsView.xib; sourceTree = "<group>"; };
 		12EAC64C22B0D73000F1F3DB /* AVIMWordsMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AVIMWordsMessage.h; sourceTree = "<group>"; };
 		12EAC64D22B0D73000F1F3DB /* AVIMWordsMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AVIMWordsMessage.m; sourceTree = "<group>"; };
+		12EAC65622B229F000F1F3DB /* UIImagePickerController+ImagePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+ImagePicker.h"; sourceTree = "<group>"; };
+		12EAC65722B229F000F1F3DB /* UIImagePickerController+ImagePicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+ImagePicker.m"; sourceTree = "<group>"; };
 		12ED3AFA229C2E4C00255F8B /* MIHeaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIHeaderTableViewCell.m; sourceTree = "<group>"; };
 		12ED3AFB229C2E4C00255F8B /* MISecondSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MISecondSheetView.h; sourceTree = "<group>"; };
 		12ED3AFC229C2E4C00255F8B /* MIRootSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIRootSheetView.m; sourceTree = "<group>"; };
@@ -4430,6 +4435,8 @@
 				971098BA207A0BF500568785 /* PublicService */,
 				97109856207A0BF500568785 /* UI */,
 				971098AA207A0BF500568785 /* Utils */,
+				12EAC65622B229F000F1F3DB /* UIImagePickerController+ImagePicker.h */,
+				12EAC65722B229F000F1F3DB /* UIImagePickerController+ImagePicker.m */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -7811,6 +7818,7 @@
 				12747C9522A96E8E009C390E /* MICreateWordView.m in Sources */,
 				12961C82229E682B0075B04A /* UpdateTeacherRequest.m in Sources */,
 				12961C4F229E5E110075B04A /* SessionHomeworkTableViewCell.m in Sources */,
+				12EAC65A22B229F000F1F3DB /* UIImagePickerController+ImagePicker.m in Sources */,
 				12747C0522A7CEF0009C390E /* StudentAwardService.m in Sources */,
 				12961C72229E670A0075B04A /* ClassSelectorTableViewCell.m in Sources */,
 				12ED3B49229D906F00255F8B /* HomeworksRequest.m in Sources */,
@@ -8144,6 +8152,7 @@
 				871806BE21DF438C0023511C /* MUAssetsViewController.m in Sources */,
 				97109D55207A2F0400568785 /* NoticeMessageRequest.m in Sources */,
 				122F798B22ACB02B00D2AA53 /* MIStuActDetailHeaderView.m in Sources */,
+				12EAC65822B229F000F1F3DB /* UIImagePickerController+ImagePicker.m in Sources */,
 				971098EE207A0BF500568785 /* EmojiInputView.m in Sources */,
 				97109C30207A2E3E00568785 /* AddHomeworkCommentRequest.m in Sources */,
 				87707871219AB5BA00940A88 /* SendHomeworkHistoryRequest.m in Sources */,
@@ -8626,6 +8635,7 @@
 				8725588D21D1D2A70028BC2A /* CorrectHomeworkAddCommentViewController.m in Sources */,
 				8770A2B5223CA9F8005733E4 /* PinyinFormatter.m in Sources */,
 				97109A55207A158C00568785 /* SessionHomeworkTableViewCell.m in Sources */,
+				12EAC65922B229F000F1F3DB /* UIImagePickerController+ImagePicker.m in Sources */,
 				8770A2802232950E005733E4 /* ModifyStarRequest.m in Sources */,
 				12AF64F6228E4A790031E1F6 /* EqualSpaceFlowLayout.m in Sources */,
 				973649D620AF2F8600511A95 /* StudentSelectorTableViewCell.m in Sources */,
