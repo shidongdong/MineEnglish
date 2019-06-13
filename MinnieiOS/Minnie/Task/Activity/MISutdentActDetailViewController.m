@@ -142,7 +142,7 @@ UINavigationControllerDelegate
 //    [self.tableview showLoadingView];
     [ManagerServce requestGetStuActivityRankListWithActId:self.actInfo.activityId callback:^(Result *result, NSError *error) {
         
-        [weakSelf.view hideAllStateView];
+        [weakSelf.tableview hideAllStateView];
         if (error) {
             
             [weakSelf.tableview showFailureViewWithRetryCallback:^{
@@ -161,7 +161,7 @@ UINavigationControllerDelegate
         } else {
             [weakSelf.tableview showEmptyViewWithImage:nil
                                             title:@"列表为空"
-                                    centerYOffset:0
+                                    centerYOffset:ScreenHeight/5.0
                                         linkTitle:nil
                                 linkClickCallback:nil
                                     retryCallback:^{

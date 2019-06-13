@@ -6,54 +6,18 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
+#import "IMManager.h"
+#import "PushManager.h"
 #import "AudioPlayer.h"
 #import "FileUploader.h"
+#import "VICacheManager.h"
 #import "MIReadingWordsView.h"
+#import "VIResourceLoaderManager.h"
+#import <AVOSCloudIM/AVOSCloudIM.h>
 #import "MIReadingTaskViewController.h"
 #import <AVFoundation/AVFoundation.h>
-#import <StreamingKit/STKAudioPlayer.h>
 #import "AudioPlayerViewController.h"
-#import "VICacheManager.h"
 
-#import "VIResourceLoaderManager.h"
-
-
-#import "HomeworkSessionViewController.h"
-#import "FileUploader.h"
-#import "IMManager.h"
-#import "User.h"
-#import "PushManager.h"
-#import "NEPhotoBrowser.h"
-#import "TextMessageTableViewCell.h"
-#import "ImageMessageTableViewCell.h"
-#import "MessageTimeTableViewCell.h"
-#import "EmojiMessageTableViewCell.h"
-#import "VideoMessageTableViewCell.h"
-#import "AudioMessageTableViewCell.h"
-#import <AVOSCloudIM/AVOSCloudIM.h>
-#import <MobileCoreServices/MobileCoreServices.h>
-#import <AssetsLibrary/AssetsLibrary.h>
-#import <AVKit/AVKit.h>
-#import <Bugly/Bugly.h>
-#import "UIView+Load.h"
-#import "HomeworkSessionService.h"
-#import "NSDate+X5.h"
-#import "IMManager.h"
-#import "SessionHomeworkTableViewCell.h"
-#import "EmojiInputView.h"
-#import "RecordStateView.h"
-#import "RecordButton.h"
-#import "WBGImageEditorViewController.h"
-#import "AlertView.h"
-#import "StudentDetailViewController.h"
-#import "AudioPlayer.h"
-#import "VIResourceLoaderManager.h"
-#import "AudioPlayerViewController.h"
-#import "CorrectHomeworkViewController.h"
-#import "TZImagePickerController.h"
-#import "VICacheManager.h"
-#import "HomeworkAnswersPickerViewController.h"
-#import "MIReadingTaskViewController.h"
 
 static NSString * const kKeyOfCreateTimestamp = @"createTimestamp";
 static NSString * const kKeyOfAudioDuration = @"audioDuration";
@@ -61,9 +25,10 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 static NSString * const kKeyOfWordType = @"audioOfWordType";
 
 @interface MIReadingTaskViewController ()<
-VIResourceLoaderManagerDelegate,
-AVPlayerViewControllerDelegate
+VIResourceLoaderManagerDelegate
 >
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
 @property (weak, nonatomic) IBOutlet UIView *vedioBgView;
 
 @property (weak, nonatomic) IBOutlet UIButton *rerecordBtn;
@@ -108,10 +73,12 @@ AVPlayerViewControllerDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    if ([self.homework.typeName isEqualToString: kHomeworkTaskWordMemoryName]) {
+    if ([self.homework.typeName isEqualToString:kHomeworkTaskWordMemoryName]) {
         self.isReadingWords = YES;
+        self.titleLabel.text = kHomeworkTaskWordMemoryName;
     } else {
         self.isReadingWords = NO;
+        self.titleLabel.text = kHomeworkTaskFollowUpName;
     }
     [self configureUI];
 }
@@ -124,12 +91,18 @@ AVPlayerViewControllerDelegate
         self.wordsView.wordsItem = self.homework.items.lastObject;
         self.wordsView.hidden = NO;
         [self.vedioBgView addSubview:self.wordsView];
+        [self.wordsView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.bottom.right.equalTo(self.vedioBgView);
+        }];
     } else {
         
         self.wordsView.hidden = YES;
         [self addChildViewController:self.playerVC];
         [self.vedioBgView addSubview:self.playerVC.view];
         [self.playerVC didMoveToParentViewController:self];
+        [_playerVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.bottom.right.equalTo(self.vedioBgView);
+        }];
     }
 }
 
@@ -373,11 +346,12 @@ AVPlayerViewControllerDelegate
     int64_t timestamp = (int64_t)([[NSDate date] timeIntervalSince1970] * 1000);
     AVFile *file = [AVFile fileWithRemoteURL:audioURL];
     NSInteger d = (NSInteger)duration;
+    NSString *typeName = self.isReadingWords ? kHomeworkTaskWordMemoryName : kHomeworkTaskFollowUpName;
     AVIMAudioMessage *message = [AVIMAudioMessage messageWithText:@"audio"
                                                              file:file
                                                        attributes:@{kKeyOfCreateTimestamp:@(timestamp),
                                                                     kKeyOfAudioDuration:@(d),
-                                                                    kKeyOfWordType:kHomeworkTaskWordMemoryName}];
+                                                                    kKeyOfWordType:typeName}];
     [self sendMessage:message];
 }
 
@@ -471,7 +445,6 @@ AVPlayerViewControllerDelegate
     if (!_wordsView) {
         
         _wordsView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIReadingWordsView class]) owner:nil options:nil].lastObject;
-        _wordsView.frame = CGRectMake(0, 0, ScreenWidth, 210);
         WeakifySelf;
         _wordsView.readingWordsCallBack = ^{
             [weakSelf.bgMusicPlayer pause];
@@ -509,12 +482,11 @@ AVPlayerViewControllerDelegate
         _playerVC.player = player;
         _playerVC.showsPlaybackControls = NO;
         _playerVC.player.volume = 1.0;
-        _playerVC.view.frame = CGRectMake(0, 0, ScreenWidth, 210);
-        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(vedioPlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     }
     return _playerVC;
 }
+
 
 - (AVPlayer *)getPlayerWith:(NSString *)urlStr isLocal:(BOOL)isLocal{
     

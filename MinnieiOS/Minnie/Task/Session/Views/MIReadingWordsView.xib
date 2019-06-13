@@ -18,7 +18,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="world" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5x-Pw-TqT">
-                            <rect key="frame" x="0.0" y="424" width="414" height="48"/>
+                            <rect key="frame" x="155" y="424" width="104.5" height="48"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -26,9 +26,9 @@
                     </subviews>
                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="v5x-Pw-TqT" firstAttribute="leading" secondItem="IW1-fJ-bvT" secondAttribute="leading" id="6Vs-Uc-01i"/>
+                        <constraint firstItem="v5x-Pw-TqT" firstAttribute="centerX" secondItem="IW1-fJ-bvT" secondAttribute="centerX" id="QUl-h3-tZv"/>
+                        <constraint firstAttribute="height" constant="896" id="c4v-wR-9uL"/>
                         <constraint firstItem="v5x-Pw-TqT" firstAttribute="centerY" secondItem="IW1-fJ-bvT" secondAttribute="centerY" id="eL7-aG-nf1"/>
-                        <constraint firstAttribute="trailing" secondItem="v5x-Pw-TqT" secondAttribute="trailing" id="pL6-Zb-rnl"/>
                     </constraints>
                 </view>
             </subviews>

@@ -60,7 +60,7 @@ UICollectionViewDelegateFlowLayout>
         self.collectionHeightContraint.constant = 0.f;
         self.collectionView.hidden = YES;
     } else {
-        self.collectionHeightContraint.constant = 114.f;
+        self.collectionHeightContraint.constant = 110.f;
         self.collectionView.hidden = NO;
         [self.collectionView reloadData];
         
@@ -106,7 +106,7 @@ UICollectionViewDelegateFlowLayout>
     if (actInfo.items.count > 1) {
         size.height += 110;
     }
-    size.height = size.height + 210 + 48;
+    size.height = size.height + 210 + 55;
     return size.height;
 }
 

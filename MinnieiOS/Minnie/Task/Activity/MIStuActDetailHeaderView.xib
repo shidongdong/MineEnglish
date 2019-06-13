@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,6 +26,13 @@
                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oeH-kG-zKC">
+                    <rect key="frame" x="0.0" y="354" width="414" height="12"/>
+                    <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="12" id="LK7-D7-WQ5"/>
+                    </constraints>
+                </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="frm-Vz-SF6">
                     <rect key="frame" x="12" y="234" width="390" height="110"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -44,13 +50,6 @@
                         <outlet property="delegate" destination="-1" id="HO0-GL-l3Y"/>
                     </connections>
                 </collectionView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oeH-kG-zKC">
-                    <rect key="frame" x="0.0" y="344" width="414" height="12"/>
-                    <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="12" id="LK7-D7-WQ5"/>
-                    </constraints>
-                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
@@ -65,7 +64,7 @@
                 <constraint firstItem="Ly7-yh-5KY" firstAttribute="leading" secondItem="8KO-p7-j77" secondAttribute="leading" id="npQ-rU-foC"/>
                 <constraint firstItem="oeH-kG-zKC" firstAttribute="leading" secondItem="8KO-p7-j77" secondAttribute="leading" id="qNp-Uw-CY0"/>
                 <constraint firstItem="Ly7-yh-5KY" firstAttribute="top" secondItem="8KO-p7-j77" secondAttribute="top" id="uoe-UV-cvG"/>
-                <constraint firstItem="oeH-kG-zKC" firstAttribute="top" secondItem="frm-Vz-SF6" secondAttribute="bottom" id="v4S-WJ-tnE"/>
+                <constraint firstItem="oeH-kG-zKC" firstAttribute="top" secondItem="frm-Vz-SF6" secondAttribute="bottom" constant="10" id="v4S-WJ-tnE"/>
             </constraints>
             <connections>
                 <outlet property="collectionHeightContraint" destination="KVp-nc-GHE" id="6TO-Kg-wDD"/>

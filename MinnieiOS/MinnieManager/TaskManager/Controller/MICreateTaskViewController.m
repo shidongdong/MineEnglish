@@ -259,8 +259,17 @@ ClassAndStudentSelectorControllerDelegate
         self.taskType = taskType;
         self.isCreateTask = YES;
         self.limitTimeSecs = 300;
+      
         self.homework.style = 1;
         self.homework.level = 1;
+        if (self.taskType == MIHomeworkTaskType_Notify) {
+            
+            self.homework.style = 3;
+        } else if (self.taskType == MIHomeworkTaskType_ExaminationStatistics) {
+            
+            self.homework.style = 4;
+            self.homework.level = 5;
+        }
         self.homework.category = 1;
         self.homework.limitTimes = 300;
         self.homework.examType = 1;
@@ -367,6 +376,10 @@ ClassAndStudentSelectorControllerDelegate
     return [self getHeightForRowWithCreateType:createTypeNum.integerValue];
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+}
 
 #pragma mark - 设置标题
 - (void)setupTitleWithTaskType:(MIHomeworkTaskType)taskType{
@@ -374,31 +387,32 @@ ClassAndStudentSelectorControllerDelegate
     switch (taskType) {
         case MIHomeworkTaskType_Notify:
             self.homework.typeName = kHomeworkTaskNotifyName;
-            self.titleLabel.text = self.isCreateTask ? @"新建通知" : @"通知详情";
             break;
         case MIHomeworkTaskType_FollowUp:
             self.homework.typeName = kHomeworkTaskFollowUpName;
-            self.titleLabel.text = self.isCreateTask ? @"新建跟读任务" : @"跟读任务详情";
             break;
         case MIHomeworkTaskType_WordMemory:
             self.homework.typeName = kHomeworkTaskWordMemoryName;
-            self.titleLabel.text = self.isCreateTask ? @"新建单词记忆" : @"单词记忆详情";
             break;
         case MIHomeworkTaskType_GeneralTask:
             self.homework.typeName = kHomeworkTaskGeneralTaskName;
-            self.titleLabel.text = self.isCreateTask ? @"新建普通任务" : @"普通任务详情";
             break;
         case MIHomeworkTaskType_Activity:
             self.homework.typeName = kHomeworkTaskActivityName;
-            self.titleLabel.text = self.isCreateTask ? @"新建活动" : @"活动详情";
             break;
         case MIHomeworkTaskType_ExaminationStatistics:
             self.homework.typeName = kHomeworkTaskNameExaminationStatistics;
-            self.titleLabel.text = self.isCreateTask ? @"新建考试统计" : @"考试统计详情";
             break;
         default:
             break;
     }
+    NSString*titleName;
+    if (self.isCreateTask) {
+        titleName = [NSString stringWithFormat:@"新建%@",self.homework.typeName];
+    } else {
+        titleName = [NSString stringWithFormat:@"%@详情",self.homework.typeName];
+    }
+    self.titleLabel.text = titleName;
 }
 - (MIHomeworkTaskType)setTaskTypeWithHomeWork:(Homework *)homework{
     
@@ -424,7 +438,6 @@ ClassAndStudentSelectorControllerDelegate
                                       createType:(MIHomeworkCreateContentType) createType
                                        tableView:(UITableView *)tableView
 {
-    
     WeakifySelf;
     UITableViewCell *cell;
     switch (createType) {
@@ -498,18 +511,11 @@ ClassAndStudentSelectorControllerDelegate
                     });
                 }
             };
-            if (self.taskType == MIHomeworkTaskType_Activity) {
-                
-                [titleCell setupWithText:self.activityInfo.title
-                                   title:@"标题:"
-                              createType:createType
-                             placeholder:@"输入题目"];
-            } else {
-                [titleCell setupWithText:self.homework.title
-                                   title:@"标题:"
-                              createType:createType
-                             placeholder:@"输入题目"];
-            }
+            NSString *text = (self.taskType == MIHomeworkTaskType_Activity) ? self.activityInfo.title : self.homework.title;
+            [titleCell setupWithText:text
+                               title:@"标题:"
+                          createType:createType
+                         placeholder:@"输入题目"];
             cell = titleCell;
         }
             break;
@@ -530,17 +536,11 @@ ClassAndStudentSelectorControllerDelegate
                     });
                 }
             };
-            if (weakSelf.taskType == MIHomeworkTaskType_Activity) {
-                [contentCell setupWithText:self.contentItem.text
-                                     title:@"活动要求:"
-                                createType:createType
-                               placeholder:@"请输入活动或具体要求"];
-            } else {
-                [contentCell setupWithText:self.contentItem.text
-                                     title:@"内容:"
-                                createType:createType
-                               placeholder:@"输入作业题目或具体要求"];
-            }
+            NSString *placeholder = (weakSelf.taskType == MIHomeworkTaskType_Activity) ? @"请输入活动或具体要求" : @"输入作业题目或具体要求";
+            [contentCell setupWithText:self.contentItem.text
+                                 title:@"内容:"
+                            createType:createType
+                           placeholder:placeholder];
             cell = contentCell;
         }
             break;

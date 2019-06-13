@@ -222,7 +222,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     
     [self setupConversation];
     
-    // -1表示喂批改过
+    // -1表示为批改过
     if (self.homeworkSession.score >= 0) {
         [self setupResultView];
         
@@ -1330,7 +1330,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                             option:option
                           callback:^(BOOL succeeded, NSError * _Nullable error) {
 #if TEACHERSIDE || MANAGERSIDE
-                              [self correctNotifyHomeworkSession];
 #else
                               if (succeeded && self.messages.count==0)
                               {
@@ -1351,14 +1350,19 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                               [self sortMessages];
                               [self reloadDataAndScrollToBottom];
 #if TEACHERSIDE || MANAGERSIDE
-                              [self correctNotifyHomeworkSession];// 教师端批改通知类型作业
+#else
+                              [self correctNotifyHomeworkSession];
 #endif
                           }];
 }
 
+#pragma mark - 通知类学生端发送任意消息，自动批改
 - (void)correctNotifyHomeworkSession{
     
     if (![self.homeworkSession.homework.typeName isEqualToString:kHomeworkTaskNotifyName]) {
+        return;
+    } // -1表示未批改过
+    if (self.homeworkSession.score != -1) {
         return;
     }
     NSMutableArray *studentMessages = [NSMutableArray array];
@@ -1374,16 +1378,9 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     }
     // 通知类型作业自动通过
     if (studentMessages.count == 1) {
-        WeakifySelf;
-        [HomeworkSessionService correctHomeworkSessionWithId:self.homeworkSession.homeworkSessionId
-                                                       score:1
-                                                        redo:0
-                                                  sendCircle:0
-                                                        text:@""
-                                                    callback:^(Result *result, NSError *error) {
-                                                        if (error != nil) return ;
-                                                        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCorrectHomework object:nil userInfo:@{@"HomeworkSession":weakSelf.homeworkSession}];
-                                                    }];
+        [self.navigationController popViewControllerAnimated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfLoginSuccess
+                                                            object:nil];// 更新作业列表
     }
 }
 

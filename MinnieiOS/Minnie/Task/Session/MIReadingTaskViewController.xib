@@ -15,6 +15,7 @@
                 <outlet property="rerecordBtn" destination="4C4-Xu-rYN" id="f7D-co-g7e"/>
                 <outlet property="startRecordBtn" destination="2Vy-Ij-6GQ" id="lZm-pG-W2C"/>
                 <outlet property="startRecordLabel" destination="kGm-Nv-4oN" id="3ua-a2-V2x"/>
+                <outlet property="titleLabel" destination="sNA-gt-mqL" id="Wxz-v0-dlw"/>
                 <outlet property="vedioBgView" destination="Y6T-sm-2PX" id="xxO-OC-q7c"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
