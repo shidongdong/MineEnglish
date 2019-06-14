@@ -2120,19 +2120,36 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             identifier = RightAudioMessageTableViewCellId;
         }
         
-        AudioMessageTableViewCell *audioCell = (AudioMessageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
-        if (audioCell == nil) {
-            NSString *nibName = isPeerMessage?@"LeftAudioMessageTableViewCell":@"RightAudioMessageTableViewCell";
-            audioCell = [[[NSBundle mainBundle] loadNibNamed:nibName owner:nil options:nil] lastObject];
+        NSString *typeName = message.attributes[@"typeName"];
+        if ([typeName isEqualToString:kHomeworkTaskWordMemoryName] ||
+            [typeName isEqualToString:kHomeworkTaskFollowUpName]) {
+          
+            VideoMessageTableViewCell *videoCell = (VideoMessageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
+            if (videoCell == nil) {
+                NSString *nibName = isPeerMessage?@"LeftVideoMessageTableViewCell":@"RightVideoMessageTableViewCell";
+                videoCell = [[[NSBundle mainBundle] loadNibNamed:nibName owner:nil options:nil] lastObject];
+            }
+            [videoCell setupWithUser:user message:message];
+            [videoCell setVideoPlayCallback:^{
+                [[AudioPlayer sharedPlayer] playURL:[NSURL URLWithString:message.file.url]];
+            }];
+            cell = videoCell;
+        } else {
+            
+            AudioMessageTableViewCell *audioCell = (AudioMessageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
+            if (audioCell == nil) {
+                NSString *nibName = isPeerMessage?@"LeftAudioMessageTableViewCell":@"RightAudioMessageTableViewCell";
+                audioCell = [[[NSBundle mainBundle] loadNibNamed:nibName owner:nil options:nil] lastObject];
+            }
+            [audioCell setupWithUser:user message:message];
+            
+            WeakifySelf;
+            [audioCell setResendCallback:^{
+                [weakSelf sendMessage:message];
+            }];
+            
+            cell = audioCell;
         }
-        [audioCell setupWithUser:user message:message];
-        
-        WeakifySelf;
-        [audioCell setResendCallback:^{
-            [weakSelf sendMessage:message];
-        }];
-        
-        cell = audioCell;
     }
     else
     {
@@ -2173,7 +2190,14 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     } else if (message.mediaType == kAVIMMessageMediaTypeVideo) {
         return VideoMessageTableViewCellHeight;
     } else if (message.mediaType == kAVIMMessageMediaTypeAudio) {
-        return AudioMessageTableViewCellHeight;
+        
+        NSString *typeName = ((AVIMTypedMessage*)message).attributes[@"typeName"];
+        if ([typeName isEqualToString:kHomeworkTaskWordMemoryName] ||
+            [typeName isEqualToString:kHomeworkTaskFollowUpName]) {
+            return VideoMessageTableViewCellHeight;
+        } else {
+            return AudioMessageTableViewCellHeight;
+        }
     }
     
     return 0.f;

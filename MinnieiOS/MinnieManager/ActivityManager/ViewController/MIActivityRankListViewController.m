@@ -177,6 +177,10 @@ UITableViewDataSource
     }
     MIParticipateDetailViewController *detailVC = [[MIParticipateDetailViewController alloc] init];
     detailVC.rankInfo = model;
+    WeakifySelf;
+    detailVC.correctCallBack = ^{
+        [weakSelf requestGetActivityRankList];
+    };
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 

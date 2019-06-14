@@ -82,6 +82,7 @@ NSString * const MIParticipateDetailTableViewCellId = @"MIParticipateDetailTable
         self.unqualityBtn.hidden = NO;
         self.unqualityBtn.enabled = NO;
         self.unqualityBtn.backgroundColor = [UIColor colorWithHex:0x00CE00];
+        [self.unqualityBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
     [self.bgImageView sd_setImageWithURL:[model.actUrl videoCoverUrlWithWidth:90.f height:90.f] placeholderImage:[UIImage imageNamed:@"attachment_placeholder"]];
 }
@@ -95,12 +96,12 @@ NSString * const MIParticipateDetailTableViewCellId = @"MIParticipateDetailTable
 
 - (IBAction)unqualifiedAction:(id)sender {
     if (self.qualifiedCallback) {
-        self.qualifiedCallback(NO,self.logsInfo);
+        self.qualifiedCallback(2,self.logsInfo);
     }
 }
 - (IBAction)qualifiedAction:(id)sender {
     if (self.qualifiedCallback) {
-        self.qualifiedCallback(YES,self.logsInfo);
+        self.qualifiedCallback(1,self.logsInfo);
     }
 }
 

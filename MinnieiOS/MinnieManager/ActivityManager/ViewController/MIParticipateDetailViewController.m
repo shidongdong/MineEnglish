@@ -78,8 +78,8 @@ VIResourceLoaderManagerDelegate
     cell.playVideoCallback = ^(NSString * _Nullable videoUrl) {
         [weakSelf showVideoWithUrl:videoUrl];
     };
-    cell.qualifiedCallback = ^(BOOL isqualified, ActLogsInfo *logInfo) {
-        [weakSelf requestCorrectWithLogInfo:logInfo isOk:isqualified];
+    cell.qualifiedCallback = ^(NSInteger isOk, ActLogsInfo *logInfo) {
+        [weakSelf requestCorrectWithLogInfo:logInfo isOk:isOk];
     };
     [cell setupWithModel:self.uploadArray[indexPath.row] index:indexPath.row + 1];
     return cell;
@@ -143,12 +143,15 @@ VIResourceLoaderManagerDelegate
 }
 
 #pragma mark - 视频审阅
-- (void)requestCorrectWithLogInfo:(ActLogsInfo *)logInfo isOk:(BOOL)isOk{
+- (void)requestCorrectWithLogInfo:(ActLogsInfo *)logInfo isOk:(NSInteger)isOk{
     WeakifySelf;
     [ManagerServce requestCorrectActVideoId:logInfo.logId isOk:isOk actId:logInfo.actId callback:^(Result *result, NSError *error) {
         if (error) return ;
         [HUD showWithMessage:@"审核成功"];
         [weakSelf requestactLogs];
+        if (weakSelf.correctCallBack) {
+            weakSelf.correctCallBack();
+        }
     }];
 }
 #pragma mark - 获取上传列表

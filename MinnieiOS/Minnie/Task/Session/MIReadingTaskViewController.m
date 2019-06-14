@@ -18,15 +18,19 @@
 #import <AVFoundation/AVFoundation.h>
 #import "AudioPlayerViewController.h"
 
+static NSString *const kAnimation = @"animation1";
 
 static NSString * const kKeyOfCreateTimestamp = @"createTimestamp";
 static NSString * const kKeyOfAudioDuration = @"audioDuration";
 static NSString * const kKeyOfVideoDuration = @"videoDuration";
-static NSString * const kKeyOfWordType = @"audioOfWordType";
 
 @interface MIReadingTaskViewController ()<
+CAAnimationDelegate,
 VIResourceLoaderManagerDelegate
->
+>{
+    
+   CAShapeLayer *shapeLayer;
+}
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @property (weak, nonatomic) IBOutlet UIView *vedioBgView;
@@ -58,6 +62,10 @@ VIResourceLoaderManagerDelegate
 
 
 @property (nonatomic, strong) AVPlayer *bgMusicPlayer;
+
+
+@property (nonatomic, strong) CALayer *bgLayer;
+
 
 
 @end
@@ -162,12 +170,7 @@ VIResourceLoaderManagerDelegate
 
 }
 
-- (IBAction)rerecordAction:(id)sender {
-    
-    if (self.recordState == 0) {
-        [HUD showWithMessage:@"你还没有开始录制"];
-        return;
-    }
+- (void)rerecordAlert {
     
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"确定重新录制？"
                                                                      message:nil
@@ -179,7 +182,6 @@ VIResourceLoaderManagerDelegate
                                                             
                                                             [weakSelf starRecoreFound];
                                                         }];
-    
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
                                                            style:UIAlertActionStyleCancel
                                                          handler:^(UIAlertAction * _Nonnull action) {
@@ -190,13 +192,24 @@ VIResourceLoaderManagerDelegate
     [self.navigationController presentViewController:alertVC
                                             animated:YES
                                           completion:nil];
+}
+
+- (IBAction)rerecordAction:(id)sender {
     
+    if (self.recordState == 0) {
+        [HUD showWithMessage:@"你还没有开始录制"];
+        return;
+    }
+    [self rerecordAlert];
 }
 - (IBAction)startRecordAction:(id)sender {
   
     if (self.recordState == 0) {
         
         [self starRecoreFound];
+    } else if (self.recordState == 2) {
+        
+        [self rerecordAlert];
     }
 }
 
@@ -254,6 +267,78 @@ VIResourceLoaderManagerDelegate
         self.duration = 0;
         self.startTime = [NSDate date];
     }
+    
+    [self startRecordAnimation];
+}
+
+- (void)startRecordAnimation{
+
+    CABasicAnimation *rotateAni = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotateAni.fromValue = [NSNumber numberWithFloat:M_PI * 2];
+    rotateAni.toValue = [NSNumber numberWithFloat:0];
+    rotateAni.removedOnCompletion = NO;
+    rotateAni.fillMode = kCAFillModeForwards;
+    rotateAni.repeatCount = MAXFLOAT;
+    rotateAni.duration = 2.0;
+    [self.startRecordBtn.layer addAnimation:rotateAni forKey:nil];
+}
+
+- (void)setupshapeLayer {
+    
+    _bgLayer = [CALayer layer];
+    _bgLayer.frame = CGRectMake(0, 0, 88, 88);
+    [self.startRecordBtn.layer addSublayer:_bgLayer];
+
+    shapeLayer = [[CAShapeLayer alloc] init];
+    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(44.0, 44.0) radius:30.0 startAngle:0 endAngle:(M_PI * 1)/100.0 clockwise:NO];
+    shapeLayer.path = path.CGPath;
+    shapeLayer.strokeColor = [UIColor whiteColor].CGColor;
+    shapeLayer.lineWidth = 5.0;
+    shapeLayer.lineCap = kCALineCapRound;
+    shapeLayer.frame = CGRectMake(0, 0, 88, 88);
+    shapeLayer.fillColor = [UIColor clearColor].CGColor;
+    [_bgLayer addSublayer:shapeLayer];
+    
+    
+    CABasicAnimation *startAni = [CABasicAnimation animationWithKeyPath:@"strokeStart"];
+    startAni.fromValue = @1.0;
+    startAni.toValue = @0.1;
+    startAni.repeatCount = 1;
+    
+    CABasicAnimation *rotateAni = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotateAni.fromValue = [NSNumber numberWithFloat:M_PI * 4.0];
+    rotateAni.toValue = [NSNumber numberWithFloat: 0.0];
+    rotateAni.repeatCount = MAXFLOAT;
+    
+    CAAnimationGroup *aniGroup = [CAAnimationGroup animation];
+    aniGroup.duration = 3.0;
+    aniGroup.removedOnCompletion = NO;
+    aniGroup.fillMode = kCAFillModeForwards;
+    aniGroup.delegate = self;
+    aniGroup.animations = @[startAni,rotateAni];
+    [shapeLayer addAnimation:aniGroup forKey:nil];
+}
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
+  
+    CABasicAnimation *rotateAni = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotateAni.fromValue = [NSNumber numberWithFloat:(M_PI * 201)/100.0];
+    rotateAni.toValue = [NSNumber numberWithFloat: (M_PI * 1)/100.0];
+    rotateAni.removedOnCompletion = NO;
+    rotateAni.fillMode = kCAFillModeForwards;
+    rotateAni.repeatCount = MAXFLOAT;
+    rotateAni.duration = 2.0;
+    [_bgLayer addAnimation:rotateAni forKey:nil];
+    
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    gradientLayer.frame = CGRectMake(0, 0, 88, 88);
+    gradientLayer.colors = @[(id)[UIColor whiteColor].CGColor,
+                             (id)[UIColor colorWithHex:0x20A4FE].CGColor];
+    gradientLayer.locations = @[@0.5,@1.0];
+    gradientLayer.startPoint = CGPointMake(0.8, 0.3);
+    gradientLayer.endPoint = CGPointMake(1.0, 0.5);
+    gradientLayer.mask = shapeLayer;
+    [_bgLayer addSublayer:gradientLayer];
 }
 
 - (NSDictionary *)audioRecordingSettings{
@@ -351,7 +436,7 @@ VIResourceLoaderManagerDelegate
                                                              file:file
                                                        attributes:@{kKeyOfCreateTimestamp:@(timestamp),
                                                                     kKeyOfAudioDuration:@(d),
-                                                                    kKeyOfWordType:typeName}];
+                                                                    @"typeName":typeName}];
     [self sendMessage:message];
 }
 
@@ -537,6 +622,7 @@ VIResourceLoaderManagerDelegate
     [self removeRecordSound];
     self.startRecordLabel.text = @"正在录制";
     self.recordState = 1;
+    [self.startRecordBtn setBackgroundImage:[UIImage imageNamed:@"btn_recording"] forState:UIControlStateNormal];
     if (self.isReadingWords) {
         // 播放单词、背景音乐、开始录音
         HomeworkItem *wordsItem = self.homework.items.lastObject;
@@ -558,6 +644,8 @@ VIResourceLoaderManagerDelegate
     
     self.recordState = 2;
     self.startRecordLabel.text = @"录制完成";
+    [self.startRecordBtn setBackgroundImage:[UIImage imageNamed:@"btn_record"] forState:UIControlStateNormal];
+    [self.startRecordBtn.layer removeAllAnimations];
     [self performSelector:@selector(stopRecord) withObject:nil afterDelay:3.0];
 }
 

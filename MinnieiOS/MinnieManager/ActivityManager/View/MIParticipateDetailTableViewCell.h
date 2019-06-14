@@ -11,7 +11,7 @@
 
 typedef void(^MIPlayVideoCallback)(NSString *_Nullable videoUrl);
 
-typedef void(^MIQualifiedCallback)(BOOL isqualified, ActLogsInfo * _Nullable logInfo);
+typedef void(^MIQualifiedCallback)(NSInteger isOk, ActLogsInfo * _Nullable logInfo);
 
 extern CGFloat const MIParticipateDetailTableViewCellHeight;
 

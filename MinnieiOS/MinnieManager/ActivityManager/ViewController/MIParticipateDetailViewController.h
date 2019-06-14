@@ -10,12 +10,15 @@
 #import "ActivityInfo.h"
 #import "BaseViewController.h"
 
+typedef void(^CorrectActivitySuccessCallBack)(void);
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MIParticipateDetailViewController : BaseViewController
 
 @property (nonatomic,strong) ActivityRankInfo *rankInfo;
+
+@property (nonatomic,copy)CorrectActivitySuccessCallBack correctCallBack;
 
 @end
 

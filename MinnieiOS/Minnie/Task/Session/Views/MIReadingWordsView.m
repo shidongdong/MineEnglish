@@ -51,8 +51,11 @@
 -(NSTimer *)wordsTimer{
     
     if (!_wordsTimer) {
-    
-        _wordsTimer = [NSTimer scheduledTimerWithTimeInterval:self.wordsItem.playTime target:self selector:@selector(playWords) userInfo:nil repeats:YES];
+        NSInteger playTime = self.wordsItem.playTime/1000;
+        if (playTime == 0) {
+            playTime = 3.0;
+        }
+        _wordsTimer = [NSTimer scheduledTimerWithTimeInterval:playTime target:self selector:@selector(playWords) userInfo:nil repeats:YES];
         [[NSRunLoop mainRunLoop] addTimer:self.wordsTimer forMode:NSDefaultRunLoopMode];
     }
     return _wordsTimer;

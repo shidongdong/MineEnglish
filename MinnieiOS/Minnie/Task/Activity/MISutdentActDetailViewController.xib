@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MISutdentActDetailViewController">
             <connections>
                 <outlet property="actTitleLabel" destination="YdH-Kc-kuJ" id="MAi-az-yVD"/>
+                <outlet property="commitBtn" destination="KqG-SY-c0p" id="eBy-bV-1Tj"/>
                 <outlet property="tableview" destination="eU5-UE-qrY" id="Whq-KF-Os1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

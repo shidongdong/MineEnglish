@@ -43,6 +43,7 @@ UINavigationControllerDelegate
 >
 @property (weak, nonatomic) IBOutlet UILabel *actTitleLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
+@property (weak, nonatomic) IBOutlet UIButton *commitBtn;
 
 @property (strong,nonatomic) NSArray *rankList;
 
@@ -54,6 +55,8 @@ UINavigationControllerDelegate
 @property (nonatomic, strong) VIResourceLoaderManager *resourceLoaderManager;
 
 @property (nonatomic, weak) NSString *currentSelectedImageUrl;
+
+@property (nonatomic, assign) NSInteger submitNum;
 
 @end
 
@@ -90,6 +93,7 @@ UINavigationControllerDelegate
     self.tableview.tableFooterView = footerView;
     
     [self requestGetStuActivityRankList];
+    [self requestactLogsActivity];
 }
 
 
@@ -172,6 +176,29 @@ UINavigationControllerDelegate
     }];
 }
 
+#pragma mark - 获取我的上传
+- (void)requestactLogsActivity{
+    
+    WeakifySelf;
+    [ManagerServce requestactLogsActivityId:self.actInfo.activityId stuId:APP.currentUser.userId callback:^(Result *result, NSError *error) {
+        
+        if (error) return;
+        [weakSelf.view hideAllStateView];
+        NSDictionary *dict = (NSDictionary *)(result.userInfo);
+        NSArray *folderList = (NSArray *)(dict[@"list"]);
+        
+        weakSelf.submitNum = folderList.count;
+        weakSelf.commitBtn.enabled = YES;
+        if (folderList.count == 0) {
+            [weakSelf.commitBtn setTitle:[NSString stringWithFormat:@"上传(可提交%lu次)",weakSelf.actInfo.submitNum] forState:UIControlStateNormal];
+        } else  if (folderList.count >= weakSelf.actInfo.submitNum) {
+            weakSelf.commitBtn.enabled = NO;
+            [weakSelf.commitBtn setTitle:@"上传（剩余0次)" forState:UIControlStateNormal];
+        } else {
+            [weakSelf.commitBtn setTitle:[NSString stringWithFormat:@"上传（剩余%lu次)",weakSelf.actInfo.submitNum - folderList.count] forState:UIControlStateNormal];
+        }
+    }];
+}
 
 #pragma mark - 播放视频、展示图片
 - (void)showCurrentSelectedImage {
@@ -407,12 +434,14 @@ UINavigationControllerDelegate
 
 #pragma mark
 - (void)requestCommitActivityVideoWithActTimes:(NSInteger)times videoUrl:(NSString *)videoUrl{
-    
+    WeakifySelf;
     [ManagerServce requestCommitActivityId:self.actInfo.activityId actTimes:times actUrl:videoUrl callback:^(Result *result, NSError *error) {
         if (error) {
             [HUD showErrorWithMessage:@"视频上传失败"];
         } else {
             [HUD showWithMessage:@"视频上传成功"];
+            [weakSelf requestGetStuActivityRankList];
+            [weakSelf requestactLogsActivity];
         }
     }];
 }
