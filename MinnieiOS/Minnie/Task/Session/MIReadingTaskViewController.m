@@ -18,6 +18,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "AudioPlayerViewController.h"
 
+#import "MIRecordWaveView.h"
 #import "EditAudioVideo.h"
 #import <AFNetworking/AFNetworking.h>
 
@@ -39,11 +40,13 @@ VIResourceLoaderManagerDelegate
 
 @property (weak, nonatomic) IBOutlet UIView *vedioBgView;
 
-@property (weak, nonatomic) IBOutlet UIButton *rerecordBtn;
+//@property (weak, nonatomic) IBOutlet UIButton *rerecordBtn;
 @property (weak, nonatomic) IBOutlet UIButton *startRecordBtn;
 @property (weak, nonatomic) IBOutlet UILabel *startRecordLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *myRecordBtn;
+@property (weak, nonatomic) IBOutlet UILabel *myRecordLabel;
+@property (weak, nonatomic) IBOutlet UIButton *commitBtn;
 
 @property (strong,nonatomic) MIReadingWordsView *wordsView;
 
@@ -64,6 +67,9 @@ VIResourceLoaderManagerDelegate
 // 我的录音
 @property (nonatomic, strong) AVPlayer *myRecordPlayer;
 
+@property (weak, nonatomic) IBOutlet UIView *recordAniBgView;
+
+@property (nonatomic, strong) MIRecordWaveView *recordWaveView;
 
 @property (nonatomic, strong) AVPlayer *bgMusicPlayer;
 
@@ -76,12 +82,23 @@ VIResourceLoaderManagerDelegate
 -(void)viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:animated];
-    [self removeRecordSound];
+    if (self.isChecking) {
+        
+        [self.bgMusicPlayer pause];
+        [self.wordsView stopPlayWords];
+        self.startRecordBtn.selected = NO;
+        self.startRecordLabel.text = @"点击查看录音";
+        [self.playerVC.player seekToTime:CMTimeMake(0, 1)];
+        [self.playerVC.player pause];
+    } else {
+        
+        [self removeRecordSound];
+    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+ 
     if ([self.homework.typeName isEqualToString:kHomeworkTaskWordMemoryName]) {
         self.isReadingWords = YES;
         self.titleLabel.text = kHomeworkTaskWordMemoryName;
@@ -96,6 +113,22 @@ VIResourceLoaderManagerDelegate
 - (void) configureUI{
     
     self.view.backgroundColor = [UIColor whiteColor];
+    if (self.isChecking) {
+        self.commitBtn.hidden = YES;
+        self.myRecordBtn.hidden = YES;//btn_stop_green
+        self.myRecordLabel.hidden = YES;
+        [self.startRecordBtn setBackgroundImage:[UIImage imageNamed:@"btn_play_green"] forState:UIControlStateNormal];
+        [self.startRecordBtn setBackgroundImage:[UIImage imageNamed:@"btn_stop_green"] forState:UIControlStateSelected];
+        self.startRecordLabel.text = @"点击查看录音";
+    } else {
+      
+        self.commitBtn.hidden = NO;
+        self.myRecordBtn.hidden = NO;//
+        self.myRecordLabel.hidden = NO;
+        self.myRecordBtn.enabled = NO;
+        [self.startRecordBtn setBackgroundImage:[UIImage imageNamed:@"btn_record"] forState:UIControlStateNormal];
+        self.startRecordLabel.text = @"点击开始录制";
+    }
     if (self.isReadingWords) {
         
         self.wordsView.wordsItem = self.homework.items.lastObject;
@@ -110,7 +143,7 @@ VIResourceLoaderManagerDelegate
         [self addChildViewController:self.playerVC];
         [self.vedioBgView addSubview:self.playerVC.view];
         [self.playerVC didMoveToParentViewController:self];
-        [_playerVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.playerVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.bottom.right.equalTo(self.vedioBgView);
         }];
     }
@@ -154,10 +187,11 @@ VIResourceLoaderManagerDelegate
                                                         
                                                              if (weakSelf.recordState == 1) {
                                                                  
-                                                                 [weakSelf stopRecord];
+                                                                 [weakSelf stopRecordFound];
                                                                  [weakSelf removeRecordSound];
                                                              } else {
                                                                 
+                                                                 weakSelf.myRecordBtn.selected = NO;
                                                                  [weakSelf.myRecordPlayer pause];
                                                                  [weakSelf removeRecordSound];
                                                              }
@@ -172,17 +206,24 @@ VIResourceLoaderManagerDelegate
 
 }
 
-- (void)rerecordAlert {
+- (void)rerecordAlert:(NSString *)title message:(NSString *)message {
     
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"确定重新录制？"
-                                                                     message:nil
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:title
+                                                                     message:message
                                                               preferredStyle:UIAlertControllerStyleAlert];
     WeakifySelf;
     UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定"
                                                           style:UIAlertActionStyleDefault
                                                         handler:^(UIAlertAction * _Nonnull action) {
                                                             
-                                                            [weakSelf starRecoreFound];
+                                                            if (weakSelf.recordState == 1) {
+                                                             
+                                                                [weakSelf stopRecordFound];
+                                                            } else {
+                                                                [weakSelf.myRecordPlayer pause];
+                                                                weakSelf.myRecordBtn.selected = NO;
+                                                                [weakSelf starRecoreFound];
+                                                            }
                                                         }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
                                                            style:UIAlertActionStyleCancel
@@ -196,24 +237,53 @@ VIResourceLoaderManagerDelegate
                                           completion:nil];
 }
 
-- (IBAction)rerecordAction:(id)sender {
-    
-    if (self.recordState == 0) {
-        [HUD showWithMessage:@"你还没有开始录制"];
-        return;
-    }
-    [self rerecordAlert];
-}
 - (IBAction)startRecordAction:(id)sender {
-  
-    if (self.recordState == 0) {
-        
-        [self starRecoreFound];
-    } else if (self.recordState == 2) {
-        
-        [self.myRecordPlayer pause];
-        self.myRecordBtn.selected = NO;
-        [self rerecordAlert];
+   
+    if (self.isChecking) {
+      
+        if (self.startRecordBtn.selected) {
+            
+            if (self.isReadingWords) {
+                
+                [self.bgMusicPlayer pause];
+                [self.wordsView stopPlayWords];
+            } else {
+                
+                [self.playerVC.player seekToTime:CMTimeMake(0, 1)];
+                [self.playerVC.player pause];
+                [self.bgMusicPlayer pause];
+            }
+            self.startRecordBtn.selected = NO;
+            self.startRecordLabel.text = @"点击查看录音";
+        } else {
+         
+            if (self.isReadingWords) {
+                self.bgMusicPlayer = [self getPlayerWith:self.audioUrl isLocal:NO];
+                [self.bgMusicPlayer play];
+                [self.wordsView startPlayWords];
+            } else {
+                // 播放视频，开始录音
+                [self.playerVC.player seekToTime:CMTimeMake(0, 1)];
+                self.playerVC.player.volume = 0.0;
+                [self.playerVC.player play];
+                self.bgMusicPlayer = [self getPlayerWith:self.audioUrl isLocal:NO];
+                [self.bgMusicPlayer play];
+            }
+            self.startRecordBtn.selected = YES;
+            self.startRecordLabel.text = @"点击停止";
+        }
+    } else {
+     
+        if (self.recordState == 0) {
+            
+            [self starRecoreFound];
+        } else if (self.recordState == 1) { // 正在录音
+            
+            [self rerecordAlert:@"正在录音" message:@"确定停止录制？"];
+        } else if (self.recordState == 2) {
+            
+            [self rerecordAlert:@"确定重新录制？" message:nil];
+        }
     }
 }
 
@@ -241,87 +311,6 @@ VIResourceLoaderManagerDelegate
 - (IBAction)commitAction:(id)sender {
     
     [self uploadRecord];
-}
-
-#pragma mark - 开始、停止录制音频
-- (void)startRecord {
-   
-    [self.myRecordPlayer pause];
-    [self removeRecordSound];
-    
-    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(
-                                                            NSLibraryDirectory, NSUserDomainMask, YES);
-    NSString *docsDir = [dirPaths objectAtIndex:0];
-    NSString *soundFilePath = [docsDir
-                               stringByAppendingPathComponent:@"sample.aac"];
-    [[NSFileManager defaultManager] removeItemAtPath:soundFilePath
-                                               error:nil];
-    
-    NSURL *url = [NSURL fileURLWithPath:soundFilePath];
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
-    [[AVAudioSession sharedInstance] setActive:YES error:nil];
-    
-    NSError *error = nil;
-    self.audioRecorder = [[AVAudioRecorder alloc] initWithURL:url settings:[self audioRecordingSettings] error:&error];
-    self.audioRecorder.meteringEnabled = YES;
-    if ([self.audioRecorder prepareToRecord]){
-        self.audioRecorder.meteringEnabled = YES;
-        [self.audioRecorder record];
-        self.duration = 0;
-        self.startTime = [NSDate date];
-    }
-    
-    [self startRecordAnimation];
-}
-
-- (void)startRecordAnimation{
-
-    CABasicAnimation *rotateAni = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    rotateAni.fromValue = [NSNumber numberWithFloat:M_PI * 2];
-    rotateAni.toValue = [NSNumber numberWithFloat:0];
-    rotateAni.removedOnCompletion = NO;
-    rotateAni.fillMode = kCAFillModeForwards;
-    rotateAni.repeatCount = MAXFLOAT;
-    rotateAni.duration = 2.0;
-    [self.startRecordBtn.layer addAnimation:rotateAni forKey:nil];
-}
-
-- (NSDictionary *)audioRecordingSettings{
-    
-    NSDictionary *settings = [NSDictionary dictionaryWithObjectsAndKeys:
-                              [NSNumber numberWithInt:kAudioFormatMPEG4AAC], AVFormatIDKey,
-                              [NSNumber numberWithFloat:16000], AVSampleRateKey,
-                              [NSNumber numberWithInt:2], AVNumberOfChannelsKey,
-                              [NSNumber numberWithInt:AVAudioQualityMedium], AVSampleRateConverterAudioQualityKey,
-                              [NSNumber numberWithInt:64000], AVEncoderBitRateKey,
-                              [NSNumber numberWithInt:8], AVEncoderBitDepthHintKey,
-                              nil];
-    
-    return settings;
-}
-
-- (void)stopRecord {
-   
-    [self.audioRecorder stop];
-    self.audioRecorder = nil;
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
-    [[AVAudioSession sharedInstance] setActive:NO error:nil];
-    
-    self.duration = [[NSDate date] timeIntervalSinceDate:self.startTime];
-    if (self.duration < 1.f) { // 小于1s直接忽略
-        return ;
-    }
-    
-    NSString *soundFilePath = [self getRecordSoundPath];
-    NSData *data = [NSData dataWithContentsOfFile:soundFilePath];
-    if (data.length == 0) {
-        [HUD showErrorWithMessage:@"语音录制失败"];
-        
-        self.startRecordLabel.text = @"点击开始录制";
-        self.recordState = 0;
-        return;
-    }
-    [[AudioPlayer sharedPlayer] stop];
 }
 
 #pragma mark - 上传录制音频
@@ -358,21 +347,7 @@ VIResourceLoaderManagerDelegate
     });
 }
 
-- (NSString *)getRecordSoundPath{
-    
-    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-    NSString *docsDir = [dirPaths objectAtIndex:0];
-    NSString *soundFilePath = [docsDir stringByAppendingPathComponent:@"sample.aac"];
-    return soundFilePath;
-}
-
-- (void)removeRecordSound{
-    
-    NSString *soundFilePath = [self getRecordSoundPath];
-    [[NSFileManager defaultManager] removeItemAtPath:soundFilePath
-                                               error:nil];
-}
-
+#pragma mark - 发送消息
 - (void)sendAudioMessage:(NSURL *)audioURL duration:(CGFloat)duration {
     int64_t timestamp = (int64_t)([[NSDate date] timeIntervalSince1970] * 1000);
     AVFile *file = [AVFile fileWithRemoteURL:audioURL];
@@ -386,7 +361,6 @@ VIResourceLoaderManagerDelegate
     [self sendMessage:message];
 }
 
-#pragma mark - 发送消息
 - (void)sendMessage:(AVIMMessage *)message {
     
     //发送消息之前进行IM服务判断
@@ -444,8 +418,16 @@ VIResourceLoaderManagerDelegate
         _wordsView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIReadingWordsView class]) owner:nil options:nil].lastObject;
         WeakifySelf;
         _wordsView.readingWordsCallBack = ^{
-            [weakSelf.bgMusicPlayer pause];
-            [weakSelf finishRecordFound];
+            if (weakSelf.isChecking) {
+            } else {
+                [weakSelf.bgMusicPlayer pause];
+                [weakSelf finishRecordFound];
+                NSData *data = [NSData dataWithContentsOfFile:[weakSelf getRecordSoundPath]];
+                if (data.length == 0) {
+                    [HUD showErrorWithMessage:@"语音录制失败"];
+                }
+            }
+            
         };
     }
     return _wordsView;
@@ -484,6 +466,15 @@ VIResourceLoaderManagerDelegate
     return _playerVC;
 }
 
+- (MIRecordWaveView *)recordWaveView{
+    
+    if (!_recordWaveView) {
+        _recordWaveView = [[MIRecordWaveView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth - 180, 150)];
+    }
+    
+    [self.recordAniBgView addSubview:_recordWaveView];
+    return _recordWaveView;
+}
 
 - (AVPlayer *)getPlayerWith:(NSString *)urlStr isLocal:(BOOL)isLocal{
     
@@ -518,23 +509,65 @@ VIResourceLoaderManagerDelegate
         self.myRecordBtn.selected = NO;
     } else if (playItem == self.playerVC.player.currentItem) {// 播放视频完成
         
-        [self.playerVC.player seekToTime:CMTimeMake(0, 1)];
-        [self finishRecordFound];
+        if (self.isChecking) {
+            
+        } else {
+          
+            [self.playerVC.player seekToTime:CMTimeMake(0, 1)];
+            [self finishRecordFound];
+        }
         
     } else if (playItem == self.bgMusicPlayer.currentItem) {
-       // 录制未结束循环播放
-        [self.bgMusicPlayer seekToTime:CMTimeMake(0, 1)];
-        [self.bgMusicPlayer play];
+        
+        if (self.isChecking) {
+            
+            self.startRecordBtn.selected = NO;
+            self.startRecordLabel.text = @"点击查看录音";
+            [self.playerVC.player seekToTime:CMTimeMake(0, 1)];
+            [self.playerVC.player pause];
+            [self.wordsView stopPlayWords];
+            [self.bgMusicPlayer seekToTime:CMTimeMake(0, 1)];
+        } else {
+          
+            // 录制未结束循环播放
+            [self.bgMusicPlayer seekToTime:CMTimeMake(0, 1)];
+            [self.bgMusicPlayer play];
+        }
     }
 }
 
-#pragma mark -
+- (void)didEnterBackground{
+    
+    if (self.isChecking) {
+        
+        [self.bgMusicPlayer pause];
+        [self.wordsView stopPlayWords];
+        self.startRecordBtn.selected = NO;
+        self.startRecordLabel.text = @"点击查看录音";
+        [self.playerVC.player seekToTime:CMTimeMake(0, 1)];
+        [self.playerVC.player pause];
+    } else {
+      
+        if (self.recordState == 1) {
+            // 停止录制
+            [self stopRecordFound];
+        } else if (self.recordState == 2) {
+            _myRecordBtn.selected = NO;
+            [self.myRecordPlayer pause];
+        }
+    }
+}
+
+
+#pragma mark - 开始、停止、完成、删除录制
 - (void)starRecoreFound{
     
+    self.myRecordBtn.enabled = NO;
+    [self.myRecordPlayer pause];
     [self removeRecordSound];
-    self.startRecordLabel.text = @"正在录制";
     self.recordState = 1;
-    [self.startRecordBtn setBackgroundImage:[UIImage imageNamed:@"btn_recording"] forState:UIControlStateNormal];
+    self.startRecordLabel.text = @"停止";
+    [self.startRecordBtn setBackgroundImage:[UIImage imageNamed:@"btn_replay"] forState:UIControlStateNormal];
     if (self.isReadingWords) {
         // 播放单词、背景音乐、开始录音
         HomeworkItem *wordsItem = self.homework.items.lastObject;
@@ -543,30 +576,98 @@ VIResourceLoaderManagerDelegate
             [self.bgMusicPlayer play];
         }
         [self.wordsView startPlayWords];
-        [self startRecord];
     } else {
         // 播放视频，开始录音
         [self.playerVC.player seekToTime:CMTimeMake(0, 1)];
         [self.playerVC.player play];
-        [self startRecord]; // 开始录音
     }
+    
+     // 开始录音
+    NSString *soundFilePath = [self getRecordSoundPath];
+    [[NSFileManager defaultManager] removeItemAtPath:soundFilePath error:nil];
+    NSURL *url = [NSURL fileURLWithPath:soundFilePath];
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+    [[AVAudioSession sharedInstance] setActive:YES error:nil];
+    
+    NSError *error = nil;
+    self.audioRecorder = [[AVAudioRecorder alloc] initWithURL:url settings:[self audioRecordingSettings] error:&error];
+    self.audioRecorder.meteringEnabled = YES;
+    if ([self.audioRecorder prepareToRecord]){
+        self.audioRecorder.meteringEnabled = YES;
+        [self.audioRecorder record];
+        self.duration = 0;
+        self.startTime = [NSDate date];
+    }
+    [self.recordWaveView startRecordAnimation];
+}
+
+- (void)stopRecordFound{
+    
+    self.recordState = 0;
+    self.startRecordLabel.text = @"点击开始录音";
+    self.myRecordBtn.enabled = NO;
+    [self.startRecordBtn setBackgroundImage:[UIImage imageNamed:@"btn_record"] forState:UIControlStateNormal];
+    [self.recordWaveView stopRecordAnimation];
+    
+    // 停止录制
+    [self.audioRecorder stop];
+    self.audioRecorder = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    [[AVAudioSession sharedInstance] setActive:NO error:nil];
+    if (self.isReadingWords) {
+        [self.bgMusicPlayer seekToTime:CMTimeMake(0, 1)];
+        [self.bgMusicPlayer pause];
+        [self.wordsView stopPlayWords];
+    } else {
+        [self.playerVC.player seekToTime:CMTimeMake(0, 1)];
+        [self.playerVC.player pause];
+    }
+    [[AudioPlayer sharedPlayer] stop];
 }
 
 - (void)finishRecordFound{
     
+    self.myRecordBtn.enabled = YES;
     self.recordState = 2;
-    self.startRecordLabel.text = @"录制完成";
-    [self.startRecordBtn setBackgroundImage:[UIImage imageNamed:@"btn_record"] forState:UIControlStateNormal];
-    [self.startRecordBtn.layer removeAllAnimations];
-    [self performSelector:@selector(stopRecord) withObject:nil afterDelay:2.0];
+    self.startRecordLabel.text = @"重录";
+    [self.startRecordBtn setBackgroundImage:[UIImage imageNamed:@"btn_replay"] forState:UIControlStateNormal];
+    [self.recordWaveView stopRecordAnimation];
+    
+    // 停止录音
+    [self.audioRecorder stop];
+    self.audioRecorder = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    [[AVAudioSession sharedInstance] setActive:NO error:nil];
+    [[AudioPlayer sharedPlayer] stop];
 }
 
-- (void)didEnterBackground{
+- (NSDictionary *)audioRecordingSettings{
     
-    if (self.recordState == 1) {
-        // 停止录制
-        [self finishRecordFound];
-    }
+    NSDictionary *settings = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [NSNumber numberWithInt:kAudioFormatMPEG4AAC], AVFormatIDKey,
+                              [NSNumber numberWithFloat:16000], AVSampleRateKey,
+                              [NSNumber numberWithInt:2], AVNumberOfChannelsKey,
+                              [NSNumber numberWithInt:AVAudioQualityMedium], AVSampleRateConverterAudioQualityKey,
+                              [NSNumber numberWithInt:64000], AVEncoderBitRateKey,
+                              [NSNumber numberWithInt:8], AVEncoderBitDepthHintKey,
+                              nil];
+    
+    return settings;
+}
+
+- (void)removeRecordSound{
+    
+    NSString *soundFilePath = [self getRecordSoundPath];
+    [[NSFileManager defaultManager] removeItemAtPath:soundFilePath
+                                               error:nil];
+}
+
+- (NSString *)getRecordSoundPath{
+    
+    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    NSString *docsDir = [dirPaths objectAtIndex:0];
+    NSString *soundFilePath = [docsDir stringByAppendingPathComponent:@"sample.aac"];
+    return soundFilePath;
 }
 
 #pragma mark - 视频下载
@@ -641,7 +742,6 @@ VIResourceLoaderManagerDelegate
     
     [self.downloadTask resume];
 }
-
 
 - (void)dealloc{
     

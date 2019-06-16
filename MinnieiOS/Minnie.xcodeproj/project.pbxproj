@@ -589,6 +589,9 @@
 		12EAC65F22B39D8C00F1F3DB /* EditAudioVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC65E22B39D8B00F1F3DB /* EditAudioVideo.m */; };
 		12EAC66022B39D8C00F1F3DB /* EditAudioVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC65E22B39D8B00F1F3DB /* EditAudioVideo.m */; };
 		12EAC66122B39D8C00F1F3DB /* EditAudioVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC65E22B39D8B00F1F3DB /* EditAudioVideo.m */; };
+		12EAC66622B65F3C00F1F3DB /* MIRecordWaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC66522B65F3B00F1F3DB /* MIRecordWaveView.m */; };
+		12EAC66722B65F3C00F1F3DB /* MIRecordWaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC66522B65F3B00F1F3DB /* MIRecordWaveView.m */; };
+		12EAC66822B65F3C00F1F3DB /* MIRecordWaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC66522B65F3B00F1F3DB /* MIRecordWaveView.m */; };
 		12ED3B01229C2E4D00255F8B /* MIHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12ED3AFA229C2E4C00255F8B /* MIHeaderTableViewCell.m */; };
 		12ED3B02229C2E4D00255F8B /* MIRootSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12ED3AFC229C2E4C00255F8B /* MIRootSheetView.m */; };
 		12ED3B03229C2E4D00255F8B /* MISecondSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12ED3AFD229C2E4C00255F8B /* MISecondSheetView.m */; };
@@ -2281,6 +2284,8 @@
 		12EAC65722B229F000F1F3DB /* UIImagePickerController+ImagePicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+ImagePicker.m"; sourceTree = "<group>"; };
 		12EAC65D22B39D8A00F1F3DB /* EditAudioVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAudioVideo.h; sourceTree = "<group>"; };
 		12EAC65E22B39D8B00F1F3DB /* EditAudioVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAudioVideo.m; sourceTree = "<group>"; };
+		12EAC66422B65F3B00F1F3DB /* MIRecordWaveView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIRecordWaveView.h; sourceTree = "<group>"; };
+		12EAC66522B65F3B00F1F3DB /* MIRecordWaveView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MIRecordWaveView.m; sourceTree = "<group>"; };
 		12ED3AFA229C2E4C00255F8B /* MIHeaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIHeaderTableViewCell.m; sourceTree = "<group>"; };
 		12ED3AFB229C2E4C00255F8B /* MISecondSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MISecondSheetView.h; sourceTree = "<group>"; };
 		12ED3AFC229C2E4C00255F8B /* MIRootSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIRootSheetView.m; sourceTree = "<group>"; };
@@ -4931,6 +4936,8 @@
 		971099FF207A158C00568785 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				12EAC66422B65F3B00F1F3DB /* MIRecordWaveView.h */,
+				12EAC66522B65F3B00F1F3DB /* MIRecordWaveView.m */,
 				97109A75207A171600568785 /* HomeworkItemViews */,
 				12EAC64022AE2AED00F1F3DB /* MIReadingWordsView.h */,
 				12EAC64122AE2AED00F1F3DB /* MIReadingWordsView.m */,
@@ -7868,6 +7875,7 @@
 				12961C6F229E66E60075B04A /* HomeworkImageCollectionViewCell.m in Sources */,
 				12961C74229E67290075B04A /* HomeworkConfirmViewController.m in Sources */,
 				12ED3B4D229D95A800255F8B /* UIView+Load.m in Sources */,
+				12EAC66822B65F3C00F1F3DB /* MIRecordWaveView.m in Sources */,
 				12747BEC22A7CD81009C390E /* ModifyStarCountViewController.m in Sources */,
 				1226F3332298334200BAB1C9 /* NSString+MD5.m in Sources */,
 				12961CCF229FD69D0075B04A /* DeleteTagRequest.m in Sources */,
@@ -8213,6 +8221,7 @@
 				871806C421DF438C0023511C /* MUOverlayView.m in Sources */,
 				872558A621D4CB7F0028BC2A /* CorrectHomeworkCommentTableViewCell.m in Sources */,
 				97109922207A0BF600568785 /* AlertView.m in Sources */,
+				12EAC66622B65F3C00F1F3DB /* MIRecordWaveView.m in Sources */,
 				97DC3AEB208343DA009D811B /* PortraitNavigationController.m in Sources */,
 				872558A021D398010028BC2A /* CorrectHomeworkDelCommentRequest.m in Sources */,
 				9710991E207A0BF600568785 /* TIP.m in Sources */,
@@ -8504,6 +8513,7 @@
 				97109D82207A2F0400568785 /* TeacherService.m in Sources */,
 				12EAC64322AE2AED00F1F3DB /* MIReadingWordsView.m in Sources */,
 				971098EF207A0BF500568785 /* EmojiInputView.m in Sources */,
+				12EAC66722B65F3C00F1F3DB /* MIRecordWaveView.m in Sources */,
 				9710995D207A0BF600568785 /* NSString+MD5.m in Sources */,
 				87AF73012193D164003E87F0 /* StudentDetailCell.m in Sources */,
 				879CE5302191725800BBE4B7 /* AchieverService.m in Sources */,

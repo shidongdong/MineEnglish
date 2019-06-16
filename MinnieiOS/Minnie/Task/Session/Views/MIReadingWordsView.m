@@ -53,7 +53,7 @@
     if (!_wordsTimer) {
         NSInteger playTime = self.wordsItem.playTime/1000;
         if (playTime == 0) {
-            playTime = 3.0;
+            playTime = 2.0;
         }
         _wordsTimer = [NSTimer scheduledTimerWithTimeInterval:playTime target:self selector:@selector(playWords) userInfo:nil repeats:YES];
         [[NSRunLoop mainRunLoop] addTimer:self.wordsTimer forMode:NSDefaultRunLoopMode];
@@ -72,10 +72,7 @@
     
     if (_currentWordIndex < self.wordsItem.words.count) {
         WordInfo *tempWord = self.wordsItem.words[_currentWordIndex];
-        [UIView animateWithDuration:0.5 animations:^{
-            
-            self.englishLabel.text = tempWord.english;
-        }];
+        self.englishLabel.text = tempWord.english;
     } else {
         
         [self stopPlayWords];

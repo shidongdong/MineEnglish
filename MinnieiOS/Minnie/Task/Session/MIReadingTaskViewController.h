@@ -16,6 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MIReadingTaskViewController : UIViewController
 
+// 查阅
+@property (nonatomic,assign) BOOL isChecking;
+@property (nonatomic,copy) NSString *audioUrl;
+
+
 @property (nonatomic,strong) Homework *homework;
 
 @property (nonatomic, strong) AVIMConversation *conversation;

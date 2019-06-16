@@ -11,8 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MIReadingTaskViewController">
             <connections>
+                <outlet property="commitBtn" destination="ap6-30-NOq" id="M6p-Rw-bNi"/>
                 <outlet property="myRecordBtn" destination="sW1-9q-kJd" id="c5l-2i-9oF"/>
-                <outlet property="rerecordBtn" destination="4C4-Xu-rYN" id="f7D-co-g7e"/>
+                <outlet property="myRecordLabel" destination="zrC-Nd-sCb" id="dp0-LC-8Lu"/>
+                <outlet property="recordAniBgView" destination="8Vz-gc-PVO" id="31v-jq-d78"/>
                 <outlet property="startRecordBtn" destination="2Vy-Ij-6GQ" id="lZm-pG-W2C"/>
                 <outlet property="startRecordLabel" destination="kGm-Nv-4oN" id="3ua-a2-V2x"/>
                 <outlet property="titleLabel" destination="sNA-gt-mqL" id="Wxz-v0-dlw"/>
@@ -73,6 +75,13 @@
                         <constraint firstAttribute="height" constant="210" id="q7W-Kx-epn"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Vz-gc-PVO" userLabel="recordBgView">
+                    <rect key="frame" x="80" y="358" width="254" height="150"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="150" id="0rG-nJ-7hm"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oqB-rv-40c" userLabel="FooterView">
                     <rect key="frame" x="0.0" y="642" width="414" height="220"/>
                     <subviews>
@@ -85,15 +94,12 @@
                                         <constraint firstAttribute="width" constant="64" id="WEu-tV-NG1"/>
                                         <constraint firstAttribute="width" secondItem="4C4-Xu-rYN" secondAttribute="height" multiplier="1:1" id="o6y-0t-FXx"/>
                                     </constraints>
-                                    <state key="normal" backgroundImage="btn_replay">
+                                    <state key="normal">
                                         <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
-                                    <connections>
-                                        <action selector="rerecordAction:" destination="-1" eventType="touchUpInside" id="ll8-Ji-c7U"/>
-                                    </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="重录" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bOj-lr-6ul">
-                                    <rect key="frame" x="54.5" y="90" width="29" height="17"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bOj-lr-6ul">
+                                    <rect key="frame" x="69" y="98.5" width="0.0" height="0.0"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -209,10 +215,13 @@
                 <constraint firstItem="Y6T-sm-2PX" firstAttribute="top" secondItem="q2u-cl-GoB" secondAttribute="bottom" id="1WY-8p-KXm"/>
                 <constraint firstItem="Y6T-sm-2PX" firstAttribute="leading" secondItem="q2u-cl-GoB" secondAttribute="leading" id="8lq-zj-AfL"/>
                 <constraint firstItem="Y6T-sm-2PX" firstAttribute="trailing" secondItem="q2u-cl-GoB" secondAttribute="trailing" id="TN0-n5-8yH"/>
+                <constraint firstItem="8Vz-gc-PVO" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="80" id="Tbl-XR-4Ia"/>
+                <constraint firstItem="8Vz-gc-PVO" firstAttribute="top" secondItem="Y6T-sm-2PX" secondAttribute="bottom" constant="60" id="at3-lr-Xkl"/>
                 <constraint firstItem="oqB-rv-40c" firstAttribute="trailing" secondItem="q2u-cl-GoB" secondAttribute="trailing" id="bvL-NO-MFS"/>
                 <constraint firstItem="q2u-cl-GoB" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="c4z-j6-s1m"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="q2u-cl-GoB" secondAttribute="trailing" id="ctm-3f-AjT"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="oqB-rv-40c" secondAttribute="bottom" id="hlB-4W-u1d"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="8Vz-gc-PVO" secondAttribute="trailing" constant="80" id="pNx-0E-bvn"/>
                 <constraint firstItem="q2u-cl-GoB" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="ssR-SC-215"/>
                 <constraint firstItem="oqB-rv-40c" firstAttribute="leading" secondItem="q2u-cl-GoB" secondAttribute="leading" id="wI8-J8-562"/>
             </constraints>
@@ -223,7 +232,6 @@
     <resources>
         <image name="btn_play_green" width="64" height="64"/>
         <image name="btn_record" width="88" height="88"/>
-        <image name="btn_replay" width="64" height="64"/>
         <image name="btn_stop_green" width="64" height="64"/>
         <image name="navbar_back.png" width="24" height="24"/>
     </resources>

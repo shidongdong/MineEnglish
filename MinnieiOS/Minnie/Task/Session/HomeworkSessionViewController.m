@@ -1925,8 +1925,9 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         WeakifySelf;
         [cell setStartTaskCallback:^(void) {
             MIReadingTaskViewController *taskVC = [[MIReadingTaskViewController alloc] initWithNibName:NSStringFromClass([MIReadingTaskViewController class]) bundle:nil];
-            taskVC.homework = weakSelf.homeworkSession.homework;
+            taskVC.isChecking = NO;
             taskVC.conversation = weakSelf.conversation;
+            taskVC.homework = weakSelf.homeworkSession.homework;
             taskVC.finishCallBack = ^(AVIMAudioMessage *message){
               
                 [self.messages addObject:message];
@@ -2143,11 +2144,14 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                 [weakSelf sendMessage:message];
             }];
             [textCell setClickCallback:^{
-//
-//                MIReadingTaskViewController *taskVC = [[MIReadingTaskViewController alloc] initWithNibName:NSStringFromClass([MIReadingTaskViewController class]) bundle:nil];
-//                taskVC.homework = weakSelf.homeworkSession.homework;
-//                taskVC.conversation = weakSelf.conversation;
-//                [weakSelf.navigationController pushViewController:taskVC animated:YES];
+
+                MIReadingTaskViewController *taskVC = [[MIReadingTaskViewController alloc] initWithNibName:NSStringFromClass([MIReadingTaskViewController class]) bundle:nil];
+                NSString *fileUrl = message.file.url;
+                taskVC.audioUrl = fileUrl;
+                taskVC.isChecking = YES;
+                taskVC.homework = weakSelf.homeworkSession.homework;
+                [weakSelf.navigationController pushViewController:taskVC animated:YES];
+//                [[AudioPlayer sharedPlayer] playURL:[NSURL URLWithString:fileUrl]];
             }];
             cell = textCell;
             
