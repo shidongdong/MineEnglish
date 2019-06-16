@@ -37,21 +37,21 @@
                             @"校区管理",
                             @"礼物管理",
                             @"设置"];
-    NSArray *selectImage = @[@"navbar_setup_select",
-                             @"navbar_setup_select",
-                             @"navbar_setup_select",
-                             @"navbar_setup_select",
-                             @"navbar_setup_select",
-                             @"navbar_setup_select",
-                             @"navbar_setup_select",
+    NSArray *selectImage = @[@"menu_mission_def",
+                             @"menu_number_def",
+                             @"menu_mission_manage_sel",
+                             @"menu_activity_sel",
+                             @"menu_Statistics_sel",
+                             @"menu_school_def",
+                             @"menu_gift_def",
                              @"navbar_setup_select"];
-    NSArray *normalImage = @[@"navbar_setup_normal",
-                             @"navbar_setup_normal",
-                             @"navbar_setup_normal",
-                             @"navbar_setup_normal",
-                             @"navbar_setup_normal",
-                             @"navbar_setup_normal",
-                             @"navbar_setup_normal",
+    NSArray *normalImage = @[@"menu_mission_def",
+                             @"menu_number_def",
+                             @"menu_mission_manage_def",
+                             @"menu_activity_def",
+                             @"menu_Statistics_def",
+                             @"menu_school_def",
+                             @"menu_gift_def",
                              @"navbar_setup_normal"];
     
     self.btns = [NSMutableArray array];
@@ -73,7 +73,7 @@
         } else {
           
             CGFloat pointY = kNaviBarHeight + (36 + 50) * i;
-            btn.frame = CGRectMake(20, pointY, 48, 50);
+            btn.frame = CGRectMake((kRootModularWidth - 50)/2.0, pointY, 50, 50);
             
             NSString *title = titleArray[i];
             [btn setTitle:title forState:UIControlStateNormal];
@@ -83,7 +83,7 @@
             // 上左下
             [btn setImageEdgeInsets:UIEdgeInsetsMake(0, 12, 24, 0)];
             // 上右下
-            [btn setTitleEdgeInsets:UIEdgeInsetsMake(32, -30, 0, -12)];
+            [btn setTitleEdgeInsets:UIEdgeInsetsMake(32, -35, 0, -12)];
         }
         [self.btns addObject:btn];
     }

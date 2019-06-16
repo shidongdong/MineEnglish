@@ -18,6 +18,10 @@
 #import <AVFoundation/AVFoundation.h>
 #import "AudioPlayerViewController.h"
 
+#import "EditAudioVideo.h"
+#import <AFNetworking/AFNetworking.h>
+
+
 static NSString *const kAnimation = @"animation1";
 
 static NSString * const kKeyOfCreateTimestamp = @"createTimestamp";
@@ -63,10 +67,7 @@ VIResourceLoaderManagerDelegate
 
 @property (nonatomic, strong) AVPlayer *bgMusicPlayer;
 
-
-@property (nonatomic, strong) CALayer *bgLayer;
-
-
+@property (nonatomic, strong) NSURLSessionDownloadTask *downloadTask;
 
 @end
 
@@ -89,6 +90,7 @@ VIResourceLoaderManagerDelegate
         self.titleLabel.text = kHomeworkTaskFollowUpName;
     }
     [self configureUI];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterBackground) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void) configureUI{
@@ -209,6 +211,8 @@ VIResourceLoaderManagerDelegate
         [self starRecoreFound];
     } else if (self.recordState == 2) {
         
+        [self.myRecordPlayer pause];
+        self.myRecordBtn.selected = NO;
         [self rerecordAlert];
     }
 }
@@ -254,8 +258,7 @@ VIResourceLoaderManagerDelegate
                                                error:nil];
     
     NSURL *url = [NSURL fileURLWithPath:soundFilePath];
-    
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
     
     NSError *error = nil;
@@ -281,64 +284,6 @@ VIResourceLoaderManagerDelegate
     rotateAni.repeatCount = MAXFLOAT;
     rotateAni.duration = 2.0;
     [self.startRecordBtn.layer addAnimation:rotateAni forKey:nil];
-}
-
-- (void)setupshapeLayer {
-    
-    _bgLayer = [CALayer layer];
-    _bgLayer.frame = CGRectMake(0, 0, 88, 88);
-    [self.startRecordBtn.layer addSublayer:_bgLayer];
-
-    shapeLayer = [[CAShapeLayer alloc] init];
-    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(44.0, 44.0) radius:30.0 startAngle:0 endAngle:(M_PI * 1)/100.0 clockwise:NO];
-    shapeLayer.path = path.CGPath;
-    shapeLayer.strokeColor = [UIColor whiteColor].CGColor;
-    shapeLayer.lineWidth = 5.0;
-    shapeLayer.lineCap = kCALineCapRound;
-    shapeLayer.frame = CGRectMake(0, 0, 88, 88);
-    shapeLayer.fillColor = [UIColor clearColor].CGColor;
-    [_bgLayer addSublayer:shapeLayer];
-    
-    
-    CABasicAnimation *startAni = [CABasicAnimation animationWithKeyPath:@"strokeStart"];
-    startAni.fromValue = @1.0;
-    startAni.toValue = @0.1;
-    startAni.repeatCount = 1;
-    
-    CABasicAnimation *rotateAni = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    rotateAni.fromValue = [NSNumber numberWithFloat:M_PI * 4.0];
-    rotateAni.toValue = [NSNumber numberWithFloat: 0.0];
-    rotateAni.repeatCount = MAXFLOAT;
-    
-    CAAnimationGroup *aniGroup = [CAAnimationGroup animation];
-    aniGroup.duration = 3.0;
-    aniGroup.removedOnCompletion = NO;
-    aniGroup.fillMode = kCAFillModeForwards;
-    aniGroup.delegate = self;
-    aniGroup.animations = @[startAni,rotateAni];
-    [shapeLayer addAnimation:aniGroup forKey:nil];
-}
-
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
-  
-    CABasicAnimation *rotateAni = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    rotateAni.fromValue = [NSNumber numberWithFloat:(M_PI * 201)/100.0];
-    rotateAni.toValue = [NSNumber numberWithFloat: (M_PI * 1)/100.0];
-    rotateAni.removedOnCompletion = NO;
-    rotateAni.fillMode = kCAFillModeForwards;
-    rotateAni.repeatCount = MAXFLOAT;
-    rotateAni.duration = 2.0;
-    [_bgLayer addAnimation:rotateAni forKey:nil];
-    
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.frame = CGRectMake(0, 0, 88, 88);
-    gradientLayer.colors = @[(id)[UIColor whiteColor].CGColor,
-                             (id)[UIColor colorWithHex:0x20A4FE].CGColor];
-    gradientLayer.locations = @[@0.5,@1.0];
-    gradientLayer.startPoint = CGPointMake(0.8, 0.3);
-    gradientLayer.endPoint = CGPointMake(1.0, 0.5);
-    gradientLayer.mask = shapeLayer;
-    [_bgLayer addSublayer:gradientLayer];
 }
 
 - (NSDictionary *)audioRecordingSettings{
@@ -376,6 +321,7 @@ VIResourceLoaderManagerDelegate
         self.recordState = 0;
         return;
     }
+    [[AudioPlayer sharedPlayer] stop];
 }
 
 #pragma mark - 上传录制音频
@@ -482,40 +428,6 @@ VIResourceLoaderManagerDelegate
                           }];
 }
 
-- (void)playerVideoWithURL:(NSString *)url {
-    
-    [[AudioPlayer sharedPlayer] stop];
-    AVAudioSession *session =[AVAudioSession sharedInstance];
-    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-    NSInteger playMode = [[Application sharedInstance] playMode];
-    
-    AVPlayerViewController *playerViewController = [[AVPlayerViewController alloc]init];
-    AVPlayer *player;
-    if (playMode == 1)// 在线播放
-    {
-        [VICacheManager cleanCacheForURL:[NSURL URLWithString:url] error:nil];
-        player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:url]];
-    }
-    else
-    {
-        VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
-        resourceLoaderManager.delegate = self;
-        self.resourceLoaderManager = resourceLoaderManager;
-        AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
-        player = [AVPlayer playerWithPlayerItem:playerItem];
-    }
-    
-    playerViewController.player = player;
-    playerViewController.showsPlaybackControls = NO;
-    playerViewController.player.volume = 1.0;
-    self.wordsView.hidden = YES;
-    self.vedioBgView.hidden = NO;
-    [self addChildViewController:playerViewController];
-    [self.vedioBgView addSubview:playerViewController.view];
-    playerViewController.view.frame = CGRectMake(0, 0, ScreenWidth, 210);
-    [playerViewController didMoveToParentViewController:self];
-    [playerViewController.player play];
-}
 #pragma mark - VIResourceLoaderManagerDelegate
 - (void)resourceLoaderManagerLoadURL:(NSURL *)url didFailWithError:(NSError *)error
 {
@@ -544,7 +456,7 @@ VIResourceLoaderManagerDelegate
     if (!_playerVC) {
        
         AVAudioSession *session =[AVAudioSession sharedInstance];
-        [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+        [session setCategory:AVAudioSessionCategoryPlayback error:nil];
         
         _playerVC = [[AVPlayerViewController alloc]init];
         AVPlayer *player;
@@ -566,7 +478,7 @@ VIResourceLoaderManagerDelegate
         
         _playerVC.player = player;
         _playerVC.showsPlaybackControls = NO;
-        _playerVC.player.volume = 1.0;
+        _playerVC.player.volume = 0.5;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(vedioPlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     }
     return _playerVC;
@@ -646,7 +558,88 @@ VIResourceLoaderManagerDelegate
     self.startRecordLabel.text = @"录制完成";
     [self.startRecordBtn setBackgroundImage:[UIImage imageNamed:@"btn_record"] forState:UIControlStateNormal];
     [self.startRecordBtn.layer removeAllAnimations];
-    [self performSelector:@selector(stopRecord) withObject:nil afterDelay:3.0];
+    [self performSelector:@selector(stopRecord) withObject:nil afterDelay:2.0];
+}
+
+- (void)didEnterBackground{
+    
+    if (self.recordState == 1) {
+        // 停止录制
+        [self finishRecordFound];
+    }
+}
+
+#pragma mark - 视频下载
+- (void)combineVideo{
+//    @"http://res.zhengminyi.com/lhR6nxeM9T_safC7VmMgYS19ExIS"
+    
+    HomeworkItem *otherItem = self.homework.otherItem.firstObject;
+    [self downloadUrl:[NSURL URLWithString:otherItem.videoUrl] completionHandler:^(NSURL *localFileURL) {
+        
+        NSLog(@"completionHandler%@",localFileURL);
+        AVAsset *asset = [AVAsset assetWithURL:localFileURL];
+        CMTime duration = asset.duration;
+        CGFloat videoDuration = duration.value / (float)duration.timescale;
+        NSLog(@"%f",videoDuration);
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [EditAudioVideo editVideoSynthesizeVieoPath:localFileURL
+                                                BGMPath:[NSURL fileURLWithPath:[self getRecordSoundPath]]
+                                      needOriginalVoice:NO
+                                            videoVolume:0.5
+                                              BGMVolume:1.0 complition:^(NSURL *outputPath, BOOL isSucceed) {
+                                                  
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                      [self playerVideoWithURL:outputPath];
+                                                  });
+                                                  
+                                              }];
+        });
+        
+    }];
+}
+
+- (void)playerVideoWithURL:(NSURL *)url {
+    
+    [[AudioPlayer sharedPlayer] stop];
+    AVAudioSession *session =[AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    
+    AVPlayerViewController *playerViewController = [[AVPlayerViewController alloc]init];
+    
+    AVPlayerItem *playItem = [[AVPlayerItem alloc]initWithURL:url];
+    AVPlayer *player = [AVPlayer playerWithPlayerItem:playItem];
+    
+    playerViewController.player = player;
+    playerViewController.showsPlaybackControls = NO;
+    playerViewController.player.volume = 1.0;
+    self.wordsView.hidden = YES;
+    self.vedioBgView.hidden = NO;
+    [self addChildViewController:playerViewController];
+    [self.vedioBgView addSubview:playerViewController.view];
+    playerViewController.view.frame = CGRectMake(0, 0, ScreenWidth, 210);
+    [playerViewController didMoveToParentViewController:self];
+    [playerViewController.player play];
+}
+
+- (void)downloadUrl:(NSURL *)url completionHandler:(void (^)(NSURL *localFileURL))completionHandler {
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    self.downloadTask = [manager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
+    } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+        NSURL *path = [[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+        return [path URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.mp4",url.lastPathComponent]];
+    } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable fileURL, NSError * _Nullable error) {
+        if (fileURL!=nil && error==nil) {
+            completionHandler(fileURL);
+        } else {
+            completionHandler(nil);
+        }
+    }];
+    
+    [self.downloadTask resume];
 }
 
 
