@@ -28,10 +28,10 @@ NSString * const RightTextMessageTableViewCellId = @"RightTextMessageTableViewCe
 }
 
 + (CGFloat)heightOfMessage:(AVIMTypedMessage *)message {
-    CGFloat height = 0.f;
-    if (![message isKindOfClass:[AVIMTextMessage class]]) {
-        return height;
-    }
+//    CGFloat height = 0.f;
+//    if (![message isKindOfClass:[AVIMTextMessage class]]) {
+//        return height;
+//    }
     
     static TextMessageTableViewCell *cell = nil;
     static dispatch_once_t onceToken;
@@ -50,9 +50,10 @@ NSString * const RightTextMessageTableViewCellId = @"RightTextMessageTableViewCe
 - (void)setupWithUser:(User *)user message:(AVIMTypedMessage *)message {
     [super setupWithUser:user message:message];
     
-    if (![message isKindOfClass:[AVIMTextMessage class]]) {
-        return ;
-    }
+//    if (![message isKindOfClass:[AVIMTextMessage class]] ||
+//        ![message isKindOfClass:[AVIMAudioMessage class]]) {
+//        return ;
+//    }
     
     NSString *backgroundImageName = message.ioType==AVIMMessageIOTypeIn?@"对话框_白色":@"对话框_蓝色";
     UIImage *image = [UIImage imageNamed:backgroundImageName];
@@ -61,6 +62,13 @@ NSString * const RightTextMessageTableViewCellId = @"RightTextMessageTableViewCe
     
     AVIMTextMessage *textMessage = (AVIMTextMessage *)(message);
     self.messageTextLabel.text = textMessage.text;
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+    if (self.clickCallback) {
+        self.clickCallback();
+    }
 }
 
 @end

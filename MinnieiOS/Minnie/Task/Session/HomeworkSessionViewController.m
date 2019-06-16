@@ -2122,18 +2122,35 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         
         NSString *typeName = message.attributes[@"typeName"];
         if ([typeName isEqualToString:kHomeworkTaskWordMemoryName] ||
-            [typeName isEqualToString:kHomeworkTaskFollowUpName]) {
-          
-            VideoMessageTableViewCell *videoCell = (VideoMessageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
-            if (videoCell == nil) {
-                NSString *nibName = isPeerMessage?@"LeftVideoMessageTableViewCell":@"RightVideoMessageTableViewCell";
-                videoCell = [[[NSBundle mainBundle] loadNibNamed:nibName owner:nil options:nil] lastObject];
+            [typeName isEqualToString:kHomeworkTaskFollowUpName]) { // 跟读，单词任务消息
+            NSString *identifier = nil;
+            if (isPeerMessage) {
+                identifier = LeftTextMessageTableViewCellId;
+            } else {
+                identifier = RightTextMessageTableViewCellId;
             }
-            [videoCell setupWithUser:user message:message];
-            [videoCell setVideoPlayCallback:^{
-                [[AudioPlayer sharedPlayer] playURL:[NSURL URLWithString:message.file.url]];
+            
+            TextMessageTableViewCell *textCell = (TextMessageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
+            if (textCell == nil) {
+                NSString *nibName = isPeerMessage?@"LeftTextMessageTableViewCell":@"RightTextMessageTableViewCell";
+                textCell = [[[NSBundle mainBundle] loadNibNamed:nibName owner:nil options:nil] lastObject];
+            }
+            message.text = typeName;
+            [textCell setupWithUser:user message:message];
+            
+            WeakifySelf;
+            [textCell setResendCallback:^{
+                [weakSelf sendMessage:message];
             }];
-            cell = videoCell;
+            [textCell setClickCallback:^{
+//
+//                MIReadingTaskViewController *taskVC = [[MIReadingTaskViewController alloc] initWithNibName:NSStringFromClass([MIReadingTaskViewController class]) bundle:nil];
+//                taskVC.homework = weakSelf.homeworkSession.homework;
+//                taskVC.conversation = weakSelf.conversation;
+//                [weakSelf.navigationController pushViewController:taskVC animated:YES];
+            }];
+            cell = textCell;
+            
         } else {
             
             AudioMessageTableViewCell *audioCell = (AudioMessageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
@@ -2194,7 +2211,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         NSString *typeName = ((AVIMTypedMessage*)message).attributes[@"typeName"];
         if ([typeName isEqualToString:kHomeworkTaskWordMemoryName] ||
             [typeName isEqualToString:kHomeworkTaskFollowUpName]) {
-            return VideoMessageTableViewCellHeight;
+            return [TextMessageTableViewCell heightOfMessage:(AVIMTypedMessage *)message];
         } else {
             return AudioMessageTableViewCellHeight;
         }
