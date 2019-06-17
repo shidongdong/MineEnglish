@@ -54,8 +54,8 @@ CGFloat const MIExpandSelectTypeTableViewCellHeight = 90.f;
     
     if (createType == MIHomeworkCreateContentType_TimeLimit) {
        
-        NSInteger sec = leftText.integerValue;
         self.titleLabel.text = @"选择时限:";
+        NSInteger sec = leftText.integerValue;
         NSInteger secIndex = sec % 60;
         NSInteger minIndex = sec / 60;
         NSString *text = [NSString stringWithFormat:@"%ld分%02ld秒",minIndex,secIndex];
@@ -74,7 +74,11 @@ CGFloat const MIExpandSelectTypeTableViewCellHeight = 90.f;
     } else if (createType == MIHomeworkCreateContentType_VideoTimeLimit) {
         
         self.titleLabel.text = @"视频时限:";
-        [self showOneSelectedText:leftText];
+        NSInteger sec = leftText.integerValue;
+        NSInteger secIndex = sec % 60;
+        NSInteger minIndex = sec / 60;
+        NSString *text = [NSString stringWithFormat:@"%ld分%02ld秒",minIndex,secIndex];
+        [self showOneSelectedText:text];
     } else if (createType == MIHomeworkCreateContentType_ActivityEndTime) {
         
         self.titleLabel.text = @"活动结束时间:";

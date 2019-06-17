@@ -62,7 +62,7 @@ MISecondActivitySheetViewDelegate
     _firstSheetView.delegate = self;
     [self.view addSubview:_firstSheetView];
     
-    _secondSheetView = [[MISecondSheetView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kFolderModularWidth, self.view.frame.size.height)];
+    _secondSheetView = [[MISecondSheetView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kFolderModularWidth, ScreenHeight)];
     _secondSheetView.delegate = self;
     [self.view addSubview:_secondSheetView];
     

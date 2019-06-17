@@ -69,7 +69,7 @@
         
         // 设置
         if (i == titleArray.count - 1) {
-            btn.frame = CGRectMake(11, [UIScreen mainScreen].bounds.size.height - 90, 48, 50);
+            btn.frame = CGRectMake((kRootModularWidth - 50)/2.0, ScreenHeight - 90, 50, 50);
         } else {
           
             CGFloat pointY = kNaviBarHeight + (36 + 50) * i;
@@ -88,8 +88,8 @@
         [self.btns addObject:btn];
     }
     
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(kRootModularWidth - 1.0, 0, 1.0, [UIScreen mainScreen].bounds.size.height)];
-    lineView.backgroundColor = [UIColor lightGrayColor];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(kRootModularWidth - 1.0, 0, 0.5, ScreenHeight)];
+    lineView.backgroundColor = [UIColor separatorLineColor];
     [self addSubview:lineView];
 }
 

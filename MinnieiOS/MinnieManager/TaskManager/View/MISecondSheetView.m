@@ -22,8 +22,8 @@ UITableViewDataSource
 
 @property (nonatomic,strong) UITableView *tableView;
 
-// 任务分类数组
-//@property (nonatomic,strong) NSMutableArray *taskTypeArray;
+
+@property (nonatomic,assign) CGFloat viewWidth;
 
 // 当前选中的二级文件夹 -1为未选中任何文件夹
 @property (nonatomic,assign) NSInteger currentIndex;
@@ -39,6 +39,7 @@ UITableViewDataSource
 {
     self = [super initWithFrame:frame];
     if (self) {
+        _viewWidth = frame.size.width;
         _currentIndex = -1;
         _currentParentFileId = -1;
         self.parentFileList = [NSMutableArray array];
@@ -75,13 +76,13 @@ UITableViewDataSource
     lineView1.backgroundColor = [UIColor separatorLineColor];
     [self addSubview:lineView1];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNaviBarHeight * 2, self.frame.size.width, self.frame.size.height - kNaviBarHeight *2)style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNaviBarHeight * 2, _viewWidth, ScreenHeight - kNaviBarHeight *2)style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self addSubview:_tableView];
     _tableView.separatorColor = [UIColor separatorLineColor];
 
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(kFolderModularWidth - 1.0, 0, 1.0, [UIScreen mainScreen].bounds.size.height)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(kFolderModularWidth - 1, 0, 0.5, ScreenHeight)];
     lineView.backgroundColor = [UIColor separatorLineColor];
     [self addSubview:lineView];
 
