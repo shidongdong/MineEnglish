@@ -725,13 +725,17 @@ ClassAndStudentSelectorControllerDelegate
             __weak UITableView *weakTableView = tableView;
             contentCell.addItemCallback = ^(NSArray * _Nullable items) {
                 
-                weakSelf.wordsItem = items.lastObject;
-                [weakContentCell setupWithItems:items vc:weakSelf contentType:createType];
+                HomeworkItem *tempItem = items.lastObject;
+                weakSelf.wordsItem.bgmusicUrl = tempItem.audioUrl;
+                [weakContentCell setupWithItems:@[tempItem] vc:weakSelf contentType:createType];
                 [weakTableView beginUpdates];
                 [weakTableView endUpdates];
             };
-            if (self.wordsItem.audioUrl.length) {
-                [contentCell setupWithItems:@[self.wordsItem] vc:self contentType:createType];
+            if (self.wordsItem.bgmusicUrl.length) {
+                HomeworkItem *wordsItem = [[HomeworkItem alloc] init];
+                wordsItem.audioUrl = self.wordsItem.bgmusicUrl;
+                wordsItem.type = @"audioUrl";
+                [contentCell setupWithItems:@[wordsItem] vc:self contentType:createType];
             } else {
                 [contentCell setupWithItems:@[] vc:self contentType:createType];
             }
@@ -770,7 +774,7 @@ ClassAndStudentSelectorControllerDelegate
             MIExpandSelectTypeTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MIExpandSelectTypeTableViewCellId forIndexPath:indexPath];
             
             __weak MIExpandSelectTypeTableViewCell *weakContentCell = contentCell;
-            NSString *limit = [NSString stringWithFormat:@"%lu",self.homework.limitTimes];
+            NSString *limit = [NSString stringWithFormat:@"%ld",(long)self.homework.limitTimes];
             contentCell.expandCallback = ^{
                 
                 MIExpandPickerView * chooseDataPicker = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIExpandPickerView class]) owner:nil options:nil] firstObject];

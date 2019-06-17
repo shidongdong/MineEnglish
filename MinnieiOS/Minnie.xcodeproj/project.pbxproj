@@ -2310,6 +2310,7 @@
 		12ED3B34229D6D1F00255F8B /* MICreateFolderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MICreateFolderView.h; sourceTree = "<group>"; };
 		12ED3B35229D6D1F00255F8B /* MICreateFolderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MICreateFolderView.m; sourceTree = "<group>"; };
 		12ED3B37229D6D3000255F8B /* MICreateFolderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MICreateFolderView.xib; sourceTree = "<group>"; };
+		12FD85B722B721EE0026B7E2 /* MinnieManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MinnieManager.entitlements; sourceTree = "<group>"; };
 		1923CB10228117E20056B2AD /* EditStudentMarkView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditStudentMarkView.h; sourceTree = "<group>"; };
 		1923CB11228117E20056B2AD /* EditStudentMarkView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditStudentMarkView.m; sourceTree = "<group>"; };
 		1923CB13228118030056B2AD /* EditStudentMarkView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditStudentMarkView.xib; sourceTree = "<group>"; };
@@ -3538,6 +3539,7 @@
 		1226F2D62297F37900BAB1C9 /* MinnieManager */ = {
 			isa = PBXGroup;
 			children = (
+				12FD85B722B721EE0026B7E2 /* MinnieManager.entitlements */,
 				12ED3AFE229C2E4D00255F8B /* MIRootSheetView.h */,
 				12ED3AFC229C2E4C00255F8B /* MIRootSheetView.m */,
 				12ED3B0C229C2E5E00255F8B /* CSCustomSplitViewController.h */,
@@ -6226,6 +6228,11 @@
 				TargetAttributes = {
 					1226F2D42297F37900BAB1C9 = {
 						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					1226F2EB2297F37A00BAB1C9 = {
 						CreatedOnToolsVersion = 10.2.1;
@@ -8812,6 +8819,7 @@
 			baseConfigurationReference = 9A15FE42AB1B39B1863F8391 /* Pods-Minnie-MinnieManager.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MinnieManager/MinnieManager.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 7ZN897DBZ8;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Minnie/PrefixHeader.pch";
@@ -8831,7 +8839,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.minnieedu.manager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = minnie_manager_dev;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -8840,6 +8848,7 @@
 			baseConfigurationReference = 076775FF9B01C30860548086 /* Pods-Minnie-MinnieManager.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MinnieManager/MinnieManager.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 7ZN897DBZ8;
@@ -8859,7 +8868,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.minnieedu.manager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = minnie_manager_dis;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

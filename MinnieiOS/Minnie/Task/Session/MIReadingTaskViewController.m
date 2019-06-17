@@ -460,6 +460,7 @@ VIResourceLoaderManagerDelegate
         
         _playerVC.player = player;
         _playerVC.showsPlaybackControls = NO;
+        _playerVC.videoGravity = AVLayerVideoGravityResizeAspectFill;
         _playerVC.player.volume = 0.5;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(vedioPlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     }
