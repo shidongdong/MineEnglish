@@ -21,14 +21,8 @@
 RootSheetViewDelete,
 SecondSheetViewDelegate,
 MISecondActivitySheetViewDelegate
->{
-    
-    NSArray *_secondDataArray;
-    
-    NSInteger _firstSelectIndex;
-}
-
-// 跟菜单视图
+>
+// 根菜单视图
 @property (nonatomic, strong)MIRootSheetView *firstSheetView;
 
 // 二级任务管理文件夹视图
@@ -70,7 +64,7 @@ MISecondActivitySheetViewDelegate
     _secondActivitySheetView.delegate = self;
     [self.view addSubview:_secondActivitySheetView];
     
-    // 默认 任务管理
+    // 默认选中 任务管理
     _firstSheetView.selectIndex = 2;
     self.secondActivitySheetView.hidden = YES;
 }

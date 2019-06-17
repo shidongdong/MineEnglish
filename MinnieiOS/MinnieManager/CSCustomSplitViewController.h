@@ -25,7 +25,7 @@ typedef NS_ENUM(NSInteger, CSSplitDisplayMode) {
 
 @property (nonatomic, assign, readonly) CSSplitDisplayMode displayMode; // 当前展示状态
 
-@property(nonatomic, assign) CGFloat primaryCloumnScale;   // 当同时显示时，主控制器的宽度占比 范围<0.1-0.5> 默认0.3
+@property(nonatomic, assign) CGFloat primaryCloumnScale;   // 当同时显示时，主控制器的宽度占比 范围<> 默认
 
 - (void)setDisplayMode:(CSSplitDisplayMode)displayMode withAnimated:(BOOL)animated; // 切换显示状态
 
