@@ -76,7 +76,12 @@ VIResourceLoaderManagerDelegate
     }
     WeakifySelf;
     cell.playVideoCallback = ^(NSString * _Nullable videoUrl) {
-        [weakSelf showVideoWithUrl:videoUrl];
+        if (videoUrl.length) {
+           
+            [weakSelf showVideoWithUrl:videoUrl];
+        } else {
+            [HUD showErrorWithMessage:@"数据错误"];
+        }
     };
     cell.qualifiedCallback = ^(NSInteger isOk, ActLogsInfo *logInfo) {
         [weakSelf requestCorrectWithLogInfo:logInfo isOk:isOk];

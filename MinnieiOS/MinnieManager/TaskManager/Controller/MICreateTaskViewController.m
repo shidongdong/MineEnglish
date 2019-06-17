@@ -26,7 +26,6 @@
 #import "CSCustomSplitViewController.h"
 
 #import "MIAddWordTableViewCell.h"
-#import "MIStockDetailViewController.h"
 #import "MIHomeworkManagerViewController.h"
 #import "ClassAndStudentSelectorController.h"
 

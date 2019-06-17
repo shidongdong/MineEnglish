@@ -12,7 +12,7 @@
 @protocol MISecondActivitySheetViewDelegate <NSObject>
 
 // 创建文件夹
-- (void)createActivity;
+- (void)secondActivitySheetViewCreateActivity;
 
 // 点击活动列表
 - (void)secondActivitySheetViewDidClickedActivity:(ActivityInfo *_Nullable)data index:(NSInteger)index;

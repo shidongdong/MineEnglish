@@ -118,8 +118,8 @@ UITableViewDataSource
 #pragma mark -  新建一活动
 - (void)addActivityBtnClicked:(UIButton *)addBtn{
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(createActivity)]) {
-        [self.delegate createActivity];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(secondActivitySheetViewCreateActivity)]) {
+        [self.delegate secondActivitySheetViewCreateActivity];
     }
 }
 

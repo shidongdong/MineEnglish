@@ -2141,10 +2141,10 @@
 		1226F2F72297F37A00BAB1C9 /* MinnieManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MinnieManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1226F2FB2297F37A00BAB1C9 /* MinnieManagerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MinnieManagerUITests.m; sourceTree = "<group>"; };
 		1226F2FD2297F37B00BAB1C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		122A1EC922A23306009358DE /* ManagerServce.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ManagerServce.h; sourceTree = "<group>"; };
-		122A1ECA22A23306009358DE /* ManagerServce.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ManagerServce.m; sourceTree = "<group>"; };
-		122A1ECC22A2332A009358DE /* ManagerRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ManagerRequest.h; sourceTree = "<group>"; };
-		122A1ECD22A2332A009358DE /* ManagerRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ManagerRequest.m; sourceTree = "<group>"; };
+		122A1EC922A23306009358DE /* ManagerServce.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ManagerServce.h; path = Request/ManagerServce.h; sourceTree = "<group>"; };
+		122A1ECA22A23306009358DE /* ManagerServce.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ManagerServce.m; path = Request/ManagerServce.m; sourceTree = "<group>"; };
+		122A1ECC22A2332A009358DE /* ManagerRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ManagerRequest.h; path = Request/ManagerRequest.h; sourceTree = "<group>"; };
+		122A1ECD22A2332A009358DE /* ManagerRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ManagerRequest.m; path = Request/ManagerRequest.m; sourceTree = "<group>"; };
 		122A1ED822A241DA009358DE /* ParentFileInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ParentFileInfo.h; path = ../ParentFileInfo.h; sourceTree = "<group>"; };
 		122A1ED922A241DA009358DE /* ParentFileInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ParentFileInfo.m; path = ../ParentFileInfo.m; sourceTree = "<group>"; };
 		122A1EDB22A24DDD009358DE /* ScoreInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScoreInfo.h; path = ../ScoreInfo.h; sourceTree = "<group>"; };
@@ -3565,7 +3565,10 @@
 			isa = PBXGroup;
 			children = (
 				122A1EC722A232D6009358DE /* Model */,
-				122A1EC822A232D6009358DE /* Request */,
+				122A1ECC22A2332A009358DE /* ManagerRequest.h */,
+				122A1ECD22A2332A009358DE /* ManagerRequest.m */,
+				122A1EC922A23306009358DE /* ManagerServce.h */,
+				122A1ECA22A23306009358DE /* ManagerServce.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -3583,17 +3586,6 @@
 				122A1EDC22A24DDD009358DE /* ScoreInfo.m */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		122A1EC822A232D6009358DE /* Request */ = {
-			isa = PBXGroup;
-			children = (
-				122A1ECC22A2332A009358DE /* ManagerRequest.h */,
-				122A1ECD22A2332A009358DE /* ManagerRequest.m */,
-				122A1EC922A23306009358DE /* ManagerServce.h */,
-				122A1ECA22A23306009358DE /* ManagerServce.m */,
-			);
-			path = Request;
 			sourceTree = "<group>";
 		};
 		123042CB22A0C5CD00E111A4 /* ActivityManager */ = {
