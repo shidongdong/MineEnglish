@@ -121,24 +121,27 @@
 }
 
 - (void)registerForRemoteNotification {
-    UNUserNotificationCenter *uncenter = [UNUserNotificationCenter currentNotificationCenter];
-    [uncenter requestAuthorizationWithOptions:(UNAuthorizationOptionAlert+UNAuthorizationOptionBadge+UNAuthorizationOptionSound)
-                            completionHandler:^(BOOL granted, NSError * _Nullable error) {
-                                dispatch_async(dispatch_get_main_queue(), ^{
-                                    [[UIApplication sharedApplication] registerForRemoteNotifications];
-                                });
-                                NSLog(@"%@" , granted ? @"授权成功" : @"授权失败");
-                            }];
-    
-    [uncenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
-        if (settings.authorizationStatus == UNAuthorizationStatusNotDetermined) {
-            NSLog(@"未选择");
-        } else if (settings.authorizationStatus == UNAuthorizationStatusDenied) {
-            NSLog(@"未授权");
-        } else if (settings.authorizationStatus == UNAuthorizationStatusAuthorized) {
-            NSLog(@"已授权");
-        }
-    }];
+    if (@available(iOS 10.0, *)) {
+       
+        UNUserNotificationCenter *uncenter = [UNUserNotificationCenter currentNotificationCenter];
+        [uncenter requestAuthorizationWithOptions:(UNAuthorizationOptionAlert+UNAuthorizationOptionBadge+UNAuthorizationOptionSound)
+                                completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        [[UIApplication sharedApplication] registerForRemoteNotifications];
+                                    });
+                                    NSLog(@"%@" , granted ? @"授权成功" : @"授权失败");
+                                }];
+        
+        [uncenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+            if (settings.authorizationStatus == UNAuthorizationStatusNotDetermined) {
+                NSLog(@"未选择");
+            } else if (settings.authorizationStatus == UNAuthorizationStatusDenied) {
+                NSLog(@"未授权");
+            } else if (settings.authorizationStatus == UNAuthorizationStatusAuthorized) {
+                NSLog(@"已授权");
+            }
+        }];
+    }
 }
 
 @end

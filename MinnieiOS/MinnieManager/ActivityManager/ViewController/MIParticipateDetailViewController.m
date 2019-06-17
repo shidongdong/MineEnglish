@@ -15,7 +15,6 @@
 #import "VICacheManager.h"
 #import "UIScrollView+Refresh.h"
 #import "VIResourceLoaderManager.h"
-#import "AudioPlayerViewController.h"
 #import "MIParticipateDetailTableViewCell.h"
 #import "MIParticipateDetailViewController.h"
 
