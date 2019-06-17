@@ -8,7 +8,6 @@
 
 #import "ActivityInfo.h"
 #import <UIKit/UIKit.h>
-#import "MIActivityModel.h"
 
 @protocol MISecondActivitySheetViewDelegate <NSObject>
 

@@ -201,16 +201,11 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
         self.lastSessionLabel.textColor = [UIColor colorWithHex:0xFFA500];
     }
     
+    
 #else
 //按日期第几次作业有bug恢复到还是取老师名字
-//    if (homeworkSession.rankByDay.length == 0)
-//    {
-        self.nameLabel.text = homeworkSession.correctTeacher.nickname;
-//    }
-//    else
-//    {
-//        self.nameLabel.text = homeworkSession.rankByDay;
-//    }
+    self.nameLabel.text = homeworkSession.correctTeacher.nickname;
+    
     [self.avatarImageView sd_setImageWithURL:[homeworkSession.correctTeacher.avatarUrl imageURLWithWidth:44.f]];
     if ([self.reuseIdentifier isEqualToString:@"UnfinishedStudentHomeworkSessionTableViewCellId"])
     {

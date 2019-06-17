@@ -7,7 +7,6 @@
 //
 
 #import "BaseRequest.h"
-#import "ManagerModel.h"
 #import "ParentFileInfo.h"
 #import "ActivityInfo.h"
 

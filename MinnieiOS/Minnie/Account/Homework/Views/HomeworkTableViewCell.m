@@ -95,12 +95,20 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
         }
     }
     
-    if (self.homework.items.count == 1) {
-        self.homeworksCollectionViewHeightConstraint.constant = 0.f;
+    if ([self.homework.typeName isEqualToString:kHomeworkTaskWordMemoryName]) {
+        if (self.homework.items.count <= 2) {
+            self.homeworksCollectionViewHeightConstraint.constant = 20.f;
+        } else {
+            self.homeworksCollectionViewHeightConstraint.constant = 110.f;
+        }
     } else {
-        self.homeworksCollectionViewHeightConstraint.constant = 110.f;
+      
+        if (self.homework.items.count == 1) {
+            self.homeworksCollectionViewHeightConstraint.constant = 20.f;
+        } else {
+            self.homeworksCollectionViewHeightConstraint.constant = 110.f;
+        }
     }
-
     self.homeworkTextLabel.text = text;
     self.dateLabel.text = [Utils formatedDateString:self.homework.createTime];
     

@@ -153,7 +153,7 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 - (WBGDrawTool *)drawTool {
     if (_drawTool == nil) {
         _drawTool = [[WBGDrawTool alloc] initWithImageEditor:self];
-        _drawTool.pathWidth = 3.0f;
+        _drawTool.pathWidth = 5.0f;
     }
     return _drawTool;
 }

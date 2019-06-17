@@ -31,10 +31,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9UX-ha-NBP">
-                        <rect key="frame" x="334" y="15" width="30" height="30"/>
+                        <rect key="frame" x="324" y="15" width="40" height="40"/>
                         <color key="backgroundColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="30" id="Vbf-th-aI4"/>
+                            <constraint firstAttribute="width" constant="40" id="Vbf-th-aI4"/>
                             <constraint firstAttribute="width" secondItem="9UX-ha-NBP" secondAttribute="height" multiplier="1:1" id="gER-bH-HyS"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>

@@ -81,7 +81,6 @@
 		1226F34C22983A2300BAB1C9 /* navbar_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710960B207A006C00568785 /* navbar_back@2x.png */; };
 		122A1ECB22A23306009358DE /* ManagerServce.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1ECA22A23306009358DE /* ManagerServce.m */; };
 		122A1ECE22A2332A009358DE /* ManagerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1ECD22A2332A009358DE /* ManagerRequest.m */; };
-		122A1ED422A23377009358DE /* ManagerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1ED322A23377009358DE /* ManagerModel.m */; };
 		122A1EDA22A241DA009358DE /* ParentFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1ED922A241DA009358DE /* ParentFileInfo.m */; };
 		122A1EDD22A24DDD009358DE /* ScoreInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1EDC22A24DDD009358DE /* ScoreInfo.m */; };
 		122A1EE022A2528E009358DE /* ActivityInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1EDF22A2528E009358DE /* ActivityInfo.m */; };
@@ -109,7 +108,6 @@
 		122F799D22AD3D7E00D2AA53 /* MIStuUploadVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 122F799222ACFD7800D2AA53 /* MIStuUploadVideoViewController.xib */; };
 		122F799E22AD3D7F00D2AA53 /* MIStuUploadVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 122F799222ACFD7800D2AA53 /* MIStuUploadVideoViewController.xib */; };
 		123042D122A0CB6B00E111A4 /* MISecondActivitySheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 123042D022A0CB6B00E111A4 /* MISecondActivitySheetView.m */; };
-		123042D422A0CBDD00E111A4 /* MIActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 123042D322A0CBDD00E111A4 /* MIActivityModel.m */; };
 		123042D822A0CDB700E111A4 /* MISecondActivityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 123042D622A0CDB700E111A4 /* MISecondActivityTableViewCell.m */; };
 		123042D922A0CDB700E111A4 /* MISecondActivityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 123042D722A0CDB700E111A4 /* MISecondActivityTableViewCell.xib */; };
 		123042DD22A0D63700E111A4 /* MIActivityRankListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 123042DB22A0D63700E111A4 /* MIActivityRankListViewController.m */; };
@@ -316,8 +314,6 @@
 		12747C9222A9108F009C390E /* MIWordTagCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12747C9022A9108F009C390E /* MIWordTagCollectionViewCell.xib */; };
 		12747C9522A96E8E009C390E /* MICreateWordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12747C9422A96E8E009C390E /* MICreateWordView.m */; };
 		12747C9722A96EA1009C390E /* MICreateWordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12747C9622A96EA1009C390E /* MICreateWordView.xib */; };
-		12961C47229E5AA00075B04A /* MITaskListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12961C45229E5AA00075B04A /* MITaskListTableViewCell.m */; };
-		12961C48229E5AA00075B04A /* MITaskListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12961C46229E5AA00075B04A /* MITaskListTableViewCell.xib */; };
 		12961C49229E5B130075B04A /* HomeworkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 973649A320AF2F8500511A95 /* HomeworkTableViewCell.m */; };
 		12961C4A229E5B260075B04A /* HomeworkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9736499C20AF2F8500511A95 /* HomeworkTableViewCell.xib */; };
 		12961C4B229E5B590075B04A /* icon_mission_choice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 971095F2207A006C00568785 /* icon_mission_choice@2x.png */; };
@@ -473,7 +469,6 @@
 		12B7081B22A40B8A00117537 /* MIEidtFileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12B7081A22A40B8A00117537 /* MIEidtFileView.xib */; };
 		12B7081C22A4F40600117537 /* ChooseDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EED4A1219443E200AEA974 /* ChooseDatePickerView.m */; };
 		12B7081D22A4F41000117537 /* ChooseDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87EED4A2219443E200AEA974 /* ChooseDatePickerView.xib */; };
-		12B7082022A4F8CC00117537 /* MIChoosePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12B7081F22A4F8CC00117537 /* MIChoosePickerView.m */; };
 		12B7082322A4F8F500117537 /* MIExpandPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12B7082222A4F8F500117537 /* MIExpandPickerView.m */; };
 		12B7082522A4F90100117537 /* MIExpandPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12B7082422A4F90100117537 /* MIExpandPickerView.xib */; };
 		12B7082622A5207200117537 /* DatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109ADB207A1C0800568785 /* DatePickerView.m */; };
@@ -516,7 +511,6 @@
 		12CB738B22AB53140064FB21 /* MIAddWordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12747C8B22A90B6C009C390E /* MIAddWordTableViewCell.xib */; };
 		12CB738C22AB53180064FB21 /* MIWordTagCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12747C8F22A9108F009C390E /* MIWordTagCollectionViewCell.m */; };
 		12CB738D22AB531B0064FB21 /* MIWordTagCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12747C9022A9108F009C390E /* MIWordTagCollectionViewCell.xib */; };
-		12CB738F22AB53380064FB21 /* MIChoosePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12B7081F22A4F8CC00117537 /* MIChoosePickerView.m */; };
 		12CB739322AB59000064FB21 /* MIHomeworkSubFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12CB739122AB59000064FB21 /* MIHomeworkSubFileViewController.m */; };
 		12CB739422AB59000064FB21 /* MIHomeworkSubFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12CB739122AB59000064FB21 /* MIHomeworkSubFileViewController.m */; };
 		12CB739522AB59000064FB21 /* MIHomeworkSubFileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12CB739222AB59000064FB21 /* MIHomeworkSubFileViewController.xib */; };
@@ -2151,16 +2145,14 @@
 		122A1ECA22A23306009358DE /* ManagerServce.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ManagerServce.m; sourceTree = "<group>"; };
 		122A1ECC22A2332A009358DE /* ManagerRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ManagerRequest.h; sourceTree = "<group>"; };
 		122A1ECD22A2332A009358DE /* ManagerRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ManagerRequest.m; sourceTree = "<group>"; };
-		122A1ED222A23377009358DE /* ManagerModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ManagerModel.h; sourceTree = "<group>"; };
-		122A1ED322A23377009358DE /* ManagerModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ManagerModel.m; sourceTree = "<group>"; };
-		122A1ED822A241DA009358DE /* ParentFileInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParentFileInfo.h; sourceTree = "<group>"; };
-		122A1ED922A241DA009358DE /* ParentFileInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParentFileInfo.m; sourceTree = "<group>"; };
-		122A1EDB22A24DDD009358DE /* ScoreInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScoreInfo.h; sourceTree = "<group>"; };
-		122A1EDC22A24DDD009358DE /* ScoreInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScoreInfo.m; sourceTree = "<group>"; };
-		122A1EDE22A2528E009358DE /* ActivityInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityInfo.h; sourceTree = "<group>"; };
-		122A1EDF22A2528E009358DE /* ActivityInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActivityInfo.m; sourceTree = "<group>"; };
-		122A1EE122A258D2009358DE /* WordInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WordInfo.h; sourceTree = "<group>"; };
-		122A1EE222A258D2009358DE /* WordInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WordInfo.m; sourceTree = "<group>"; };
+		122A1ED822A241DA009358DE /* ParentFileInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ParentFileInfo.h; path = ../ParentFileInfo.h; sourceTree = "<group>"; };
+		122A1ED922A241DA009358DE /* ParentFileInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ParentFileInfo.m; path = ../ParentFileInfo.m; sourceTree = "<group>"; };
+		122A1EDB22A24DDD009358DE /* ScoreInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScoreInfo.h; path = ../ScoreInfo.h; sourceTree = "<group>"; };
+		122A1EDC22A24DDD009358DE /* ScoreInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ScoreInfo.m; path = ../ScoreInfo.m; sourceTree = "<group>"; };
+		122A1EDE22A2528E009358DE /* ActivityInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ActivityInfo.h; path = ../ActivityInfo.h; sourceTree = "<group>"; };
+		122A1EDF22A2528E009358DE /* ActivityInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ActivityInfo.m; path = ../ActivityInfo.m; sourceTree = "<group>"; };
+		122A1EE122A258D2009358DE /* WordInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WordInfo.h; path = ../WordInfo.h; sourceTree = "<group>"; };
+		122A1EE222A258D2009358DE /* WordInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WordInfo.m; path = ../WordInfo.m; sourceTree = "<group>"; };
 		122C16A722AA2DD900084AC7 /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
 		122C16A822AA2DD900084AC7 /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
 		122F797F22AC9ABC00D2AA53 /* MISutActDetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MISutActDetailTableViewCell.h; sourceTree = "<group>"; };
@@ -2174,8 +2166,6 @@
 		122F799222ACFD7800D2AA53 /* MIStuUploadVideoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MIStuUploadVideoViewController.xib; sourceTree = "<group>"; };
 		123042CF22A0CB6B00E111A4 /* MISecondActivitySheetView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MISecondActivitySheetView.h; sourceTree = "<group>"; };
 		123042D022A0CB6B00E111A4 /* MISecondActivitySheetView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MISecondActivitySheetView.m; sourceTree = "<group>"; };
-		123042D222A0CBDD00E111A4 /* MIActivityModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIActivityModel.h; sourceTree = "<group>"; };
-		123042D322A0CBDD00E111A4 /* MIActivityModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MIActivityModel.m; sourceTree = "<group>"; };
 		123042D522A0CDB700E111A4 /* MISecondActivityTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MISecondActivityTableViewCell.h; sourceTree = "<group>"; };
 		123042D622A0CDB700E111A4 /* MISecondActivityTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MISecondActivityTableViewCell.m; sourceTree = "<group>"; };
 		123042D722A0CDB700E111A4 /* MISecondActivityTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MISecondActivityTableViewCell.xib; sourceTree = "<group>"; };
@@ -2203,9 +2193,6 @@
 		12747C9322A96E8E009C390E /* MICreateWordView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MICreateWordView.h; sourceTree = "<group>"; };
 		12747C9422A96E8E009C390E /* MICreateWordView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MICreateWordView.m; sourceTree = "<group>"; };
 		12747C9622A96EA1009C390E /* MICreateWordView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MICreateWordView.xib; sourceTree = "<group>"; };
-		12961C44229E5AA00075B04A /* MITaskListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MITaskListTableViewCell.h; sourceTree = "<group>"; };
-		12961C45229E5AA00075B04A /* MITaskListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MITaskListTableViewCell.m; sourceTree = "<group>"; };
-		12961C46229E5AA00075B04A /* MITaskListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MITaskListTableViewCell.xib; sourceTree = "<group>"; };
 		12961C90229ECAAB0075B04A /* MIInPutTypeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIInPutTypeTableViewCell.h; sourceTree = "<group>"; };
 		12961C91229ECAAB0075B04A /* MIInPutTypeTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MIInPutTypeTableViewCell.m; sourceTree = "<group>"; };
 		12961C92229ECAAB0075B04A /* MIInPutTypeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MIInPutTypeTableViewCell.xib; sourceTree = "<group>"; };
@@ -2237,8 +2224,6 @@
 		12B7081722A40B6D00117537 /* MIEidtFileView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIEidtFileView.h; sourceTree = "<group>"; };
 		12B7081822A40B6D00117537 /* MIEidtFileView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MIEidtFileView.m; sourceTree = "<group>"; };
 		12B7081A22A40B8A00117537 /* MIEidtFileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MIEidtFileView.xib; sourceTree = "<group>"; };
-		12B7081E22A4F8CC00117537 /* MIChoosePickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIChoosePickerView.h; sourceTree = "<group>"; };
-		12B7081F22A4F8CC00117537 /* MIChoosePickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MIChoosePickerView.m; sourceTree = "<group>"; };
 		12B7082122A4F8F500117537 /* MIExpandPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIExpandPickerView.h; sourceTree = "<group>"; };
 		12B7082222A4F8F500117537 /* MIExpandPickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MIExpandPickerView.m; sourceTree = "<group>"; };
 		12B7082422A4F90100117537 /* MIExpandPickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MIExpandPickerView.xib; sourceTree = "<group>"; };
@@ -3579,14 +3564,6 @@
 		122A1EC622A232D6009358DE /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				122A1ED822A241DA009358DE /* ParentFileInfo.h */,
-				122A1ED922A241DA009358DE /* ParentFileInfo.m */,
-				122A1EDE22A2528E009358DE /* ActivityInfo.h */,
-				122A1EDF22A2528E009358DE /* ActivityInfo.m */,
-				122A1EE122A258D2009358DE /* WordInfo.h */,
-				122A1EE222A258D2009358DE /* WordInfo.m */,
-				122A1EDB22A24DDD009358DE /* ScoreInfo.h */,
-				122A1EDC22A24DDD009358DE /* ScoreInfo.m */,
 				122A1EC722A232D6009358DE /* Model */,
 				122A1EC822A232D6009358DE /* Request */,
 			);
@@ -3596,8 +3573,14 @@
 		122A1EC722A232D6009358DE /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				122A1ED222A23377009358DE /* ManagerModel.h */,
-				122A1ED322A23377009358DE /* ManagerModel.m */,
+				122A1ED822A241DA009358DE /* ParentFileInfo.h */,
+				122A1ED922A241DA009358DE /* ParentFileInfo.m */,
+				122A1EDE22A2528E009358DE /* ActivityInfo.h */,
+				122A1EDF22A2528E009358DE /* ActivityInfo.m */,
+				122A1EE122A258D2009358DE /* WordInfo.h */,
+				122A1EE222A258D2009358DE /* WordInfo.m */,
+				122A1EDB22A24DDD009358DE /* ScoreInfo.h */,
+				122A1EDC22A24DDD009358DE /* ScoreInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3626,8 +3609,6 @@
 		123042CC22A0C5CD00E111A4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				123042D222A0CBDD00E111A4 /* MIActivityModel.h */,
-				123042D322A0CBDD00E111A4 /* MIActivityModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3734,6 +3715,12 @@
 				12961C8F229EC9F50075B04A /* CreateTaskCell */,
 				12ED3AFB229C2E4C00255F8B /* MISecondSheetView.h */,
 				12ED3AFD229C2E4C00255F8B /* MISecondSheetView.m */,
+				12ED3AFF229C2E4D00255F8B /* MIHeaderTableViewCell.h */,
+				12ED3AFA229C2E4C00255F8B /* MIHeaderTableViewCell.m */,
+				12ED3B00229C2E4D00255F8B /* MIHeaderTableViewCell.xib */,
+				12B7081722A40B6D00117537 /* MIEidtFileView.h */,
+				12B7081822A40B6D00117537 /* MIEidtFileView.m */,
+				12B7081A22A40B8A00117537 /* MIEidtFileView.xib */,
 				12ED3B34229D6D1F00255F8B /* MICreateFolderView.h */,
 				12ED3B35229D6D1F00255F8B /* MICreateFolderView.m */,
 				12ED3B37229D6D3000255F8B /* MICreateFolderView.xib */,
@@ -3745,29 +3732,18 @@
 				12747C9022A9108F009C390E /* MIWordTagCollectionViewCell.xib */,
 				12A2724022A756240020A3BA /* MIEqualSpaceFlowLayout.h */,
 				12A2724122A756240020A3BA /* MIEqualSpaceFlowLayout.m */,
-				12ED3AFF229C2E4D00255F8B /* MIHeaderTableViewCell.h */,
-				12ED3AFA229C2E4C00255F8B /* MIHeaderTableViewCell.m */,
-				12ED3B00229C2E4D00255F8B /* MIHeaderTableViewCell.xib */,
 				12DCE76322A15C7C00E2DAFE /* MIScoreListTableViewCell.h */,
 				12DCE76422A15C7C00E2DAFE /* MIScoreListTableViewCell.m */,
 				12DCE76522A15C7C00E2DAFE /* MIScoreListTableViewCell.xib */,
-				12B7081E22A4F8CC00117537 /* MIChoosePickerView.h */,
-				12B7081F22A4F8CC00117537 /* MIChoosePickerView.m */,
 				12B7082122A4F8F500117537 /* MIExpandPickerView.h */,
 				12B7082222A4F8F500117537 /* MIExpandPickerView.m */,
 				12B7082422A4F90100117537 /* MIExpandPickerView.xib */,
-				12B7081722A40B6D00117537 /* MIEidtFileView.h */,
-				12B7081822A40B6D00117537 /* MIEidtFileView.m */,
-				12B7081A22A40B8A00117537 /* MIEidtFileView.xib */,
 				12ED3B1E229D107600255F8B /* MITaskEmptyView.h */,
 				12ED3B1F229D107600255F8B /* MITaskEmptyView.m */,
 				12ED3B21229D108E00255F8B /* MITaskEmptyView.xib */,
 				12DCE76922A16A8900E2DAFE /* MIMoveHomeworkTaskView.h */,
 				12DCE76A22A16A8900E2DAFE /* MIMoveHomeworkTaskView.m */,
 				12DCE76C22A16A9600E2DAFE /* MIMoveHomeworkTaskView.xib */,
-				12961C44229E5AA00075B04A /* MITaskListTableViewCell.h */,
-				12961C45229E5AA00075B04A /* MITaskListTableViewCell.m */,
-				12961C46229E5AA00075B04A /* MITaskListTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6507,7 +6483,6 @@
 				12747C9722A96EA1009C390E /* MICreateWordView.xib in Resources */,
 				12747C6A22A7D1DA009C390E /* navbar_calendar@3x.png in Resources */,
 				12A1E95722A6997B001247D7 /* ic_remove_plat@3x.png in Resources */,
-				12961C48229E5AA00075B04A /* MITaskListTableViewCell.xib in Resources */,
 				12ED3B69229D96F900255F8B /* SegmentControl.xib in Resources */,
 				12747BF922A7CE09009C390E /* LeftTextMessageTableViewCell.xib in Resources */,
 				12747BD722A7CC30009C390E /* HomeworkAnswersPickerViewController.xib in Resources */,
@@ -7832,7 +7807,6 @@
 				12961CC9229FD64B0075B04A /* HomeworkSessionService.m in Sources */,
 				12747BF522A7CDDE009C390E /* AudioMessageTableViewCell.m in Sources */,
 				12747BEA22A7CD52009C390E /* WBGImageEditorCollectionViewCell.m in Sources */,
-				123042D422A0CBDD00E111A4 /* MIActivityModel.m in Sources */,
 				12961CDC229FD7100075B04A /* HomeworkSessionsRequest.m in Sources */,
 				12DCE76B22A16A8900E2DAFE /* MIMoveHomeworkTaskView.m in Sources */,
 				1226F3202298322000BAB1C9 /* LogoutRequest.m in Sources */,
@@ -7865,7 +7839,6 @@
 				12747BEE22A7CD91009C390E /* StudentDetailHeaderCell.m in Sources */,
 				12CB73AC22AB91E70064FB21 /* HomeworkLimitTimeCell.m in Sources */,
 				12961CD6229FD6DC0075B04A /* SearchHomeworkNameRequest.m in Sources */,
-				12B7082022A4F8CC00117537 /* MIChoosePickerView.m in Sources */,
 				12ED3B0F229C2E5E00255F8B /* MIStockSplitViewController.m in Sources */,
 				12961CB1229ECCB50075B04A /* MIExpandSelectTypeTableViewCell.m in Sources */,
 				12ED3B12229C34B000255F8B /* SettingTableViewCell.m in Sources */,
@@ -8019,7 +7992,6 @@
 				12ED3B3E229D8F0000255F8B /* HomeWorkSendHistoryViewController.m in Sources */,
 				12CB73B122AB91FE0064FB21 /* HomeworkSegmentTableViewCell.m in Sources */,
 				12747BE022A7CCF8009C390E /* VideoMessageTableViewCell.m in Sources */,
-				122A1ED422A23377009358DE /* ManagerModel.m in Sources */,
 				122F799C22AD3D7A00D2AA53 /* MIStuUploadVideoViewController.m in Sources */,
 				12747C0E22A7CFBF009C390E /* StudentStarRankRequest.m in Sources */,
 				12961C51229E5E430075B04A /* ClassAndStudentSelectorController.m in Sources */,
@@ -8071,7 +8043,6 @@
 				12747BE922A7CD4E009C390E /* WBGDrawTool.m in Sources */,
 				12961C80229E68040075B04A /* DeleteTeacherRequest.m in Sources */,
 				12961CDA229FD6FE0075B04A /* CorrectHomeworkRequest.m in Sources */,
-				12961C47229E5AA00075B04A /* MITaskListTableViewCell.m in Sources */,
 				1226F31322982D5600BAB1C9 /* Constants.m in Sources */,
 				12961C63229E66030075B04A /* HomeworkVideoCollectionViewCell.m in Sources */,
 				12ED3B20229D107600255F8B /* MITaskEmptyView.m in Sources */,
@@ -8568,7 +8539,6 @@
 				12CB736E22AB43440064FB21 /* MIEqualSpaceFlowLayout.m in Sources */,
 				97109C51207A2E3E00568785 /* CircleBottomTableViewCell.m in Sources */,
 				9710991B207A0BF600568785 /* PortraitTabBarController.m in Sources */,
-				12CB738F22AB53380064FB21 /* MIChoosePickerView.m in Sources */,
 				97109923207A0BF600568785 /* AlertView.m in Sources */,
 				12CB738822AB52F00064FB21 /* MIExpandSelectTypeTableViewCell.m in Sources */,
 				97109C1F207A2E3E00568785 /* CircleViewController.m in Sources */,

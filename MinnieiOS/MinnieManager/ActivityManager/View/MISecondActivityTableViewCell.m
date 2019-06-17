@@ -32,7 +32,7 @@ NSString * const MISecondActivityTableViewCellId = @"MISecondActivityTableViewCe
     // Initialization code
     
     self.endButton.layer.masksToBounds = YES;
-    self.endButton.layer.cornerRadius = 15.0;
+    self.endButton.layer.cornerRadius = 20.0;
 }
 
 - (void)setupWithModel:(ActivityInfo *)model selected:(BOOL)selected{

@@ -9,7 +9,7 @@
 #import "CSCustomSplitViewController.h"
 #import "Masonry.h"
 
-#define k_DefaultPrimaryCloumnScale (90 + 204) // 默认的主控制器宽度（同时显示时）
+#define k_DefaultPrimaryCloumnScale (kRootModularWidth + kActivitySheetWidth) // 默认的主控制器宽度（同时显示时）
 #define k_AnimatedTimeInterval 0.25 // 动画时长
 
 @interface CSCustomSplitViewController ()
@@ -57,7 +57,7 @@
 #pragma mark - setter
 - (void)setPrimaryCloumnScale:(CGFloat)primaryCloumnScale {
     _primaryCloumnScale = primaryCloumnScale;
-    if (primaryCloumnScale < 90.0 || primaryCloumnScale > k_DefaultPrimaryCloumnScale) {
+    if (primaryCloumnScale < kRootModularWidth || primaryCloumnScale > k_DefaultPrimaryCloumnScale) {
         _primaryCloumnScale = k_DefaultPrimaryCloumnScale;
     }
 }

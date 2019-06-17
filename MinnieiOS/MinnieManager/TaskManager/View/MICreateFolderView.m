@@ -84,4 +84,9 @@
     self.textField.text = _fileName;
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+    [self.textField resignFirstResponder];
+}
+
 @end

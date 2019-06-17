@@ -61,8 +61,8 @@
 
 
 #define kRootModularWidth           90.f
-#define kActivitySheetWidth         204.f
-#define kFolderModularWidth         204.f
+#define kActivitySheetWidth         234.f
+#define kFolderModularWidth         234.f
 
 /*
  *  环境配置
