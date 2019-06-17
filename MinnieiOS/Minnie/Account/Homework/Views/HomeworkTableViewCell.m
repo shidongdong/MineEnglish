@@ -127,8 +127,6 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
     }
 
     self.choice = selected;
-//    
-//    [self.previewButton setImage:[UIImage imageNamed:@"my_star_rank"] forState:UIControlStateNormal];
     if (selected) {
         [self.selecteButton setImage:[UIImage imageNamed:@"icon_mission_choice"] forState:UIControlStateNormal];
     } else {

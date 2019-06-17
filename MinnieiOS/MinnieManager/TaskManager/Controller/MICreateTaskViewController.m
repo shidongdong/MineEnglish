@@ -40,19 +40,20 @@ UIDocumentPickerDelegate,
 ClassAndStudentSelectorControllerDelegate
 >
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+// 管理端
 @property (weak, nonatomic) IBOutlet UITableView *leftTableView;
 @property (weak, nonatomic) IBOutlet UITableView *rightTableView;
-@property (assign, nonatomic) NSInteger leftRowCount;
 @property (weak, nonatomic) IBOutlet UIView *midLineView;
 
-// 老师端创建作业
+@property (assign, nonatomic) NSInteger leftRowCount;
+// 教师端端创建作业
 @property (weak, nonatomic) IBOutlet UITableView *contentTableView;
 
 @property (nonatomic, strong) NSMutableArray *createTypeArray;
 @property (nonatomic,assign) MIHomeworkTaskType taskType;   // 任务类型
 
-@property (nonatomic, strong) Homework *homework;           // 为空创建作业
-@property (nonatomic, strong) ActivityInfo *activityInfo;   // 为空创建活动
+@property (nonatomic, strong) Homework *homework;           
+@property (nonatomic, strong) ActivityInfo *activityInfo;   
 
 @property (nonatomic,strong) FileInfo *currentFileInfo;
 @property (nonatomic,strong) NSArray<ParentFileInfo*> *currentFileList;
@@ -111,31 +112,21 @@ ClassAndStudentSelectorControllerDelegate
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor whiteColor];
     
-    
     if (self.teacherSider) {
         self.collectionWidth = ScreenWidth;
         self.leftTableView.hidden = YES;
         self.rightTableView.hidden = YES;
         self.contentTableView.hidden = NO;
-        self.contentTableView.separatorColor = [UIColor clearColor];
+        [self registerTableViewCell:self.contentTableView];
     } else {
         self.collectionWidth = (ScreenWidth - kRootModularWidth)/2.0;
         self.leftTableView.hidden = NO;
         self.rightTableView.hidden = NO;
         self.contentTableView.hidden = YES;
-       
-        self.leftTableView.delegate = self;
-        self.leftTableView.dataSource = self;
-        self.rightTableView.delegate = self;
-        self.rightTableView.dataSource = self;
-        
-        self.leftTableView.separatorColor = [UIColor clearColor];
-        self.rightTableView.separatorColor = [UIColor clearColor];
-        self.leftTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        self.rightTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+
+        [self registerTableViewCell:self.leftTableView];
+        [self registerTableViewCell:self.rightTableView];
     }
-    
-    [self registerCellNibs];
     [self setupTitleWithTaskType:self.taskType];
     
     [self requestTags];
@@ -169,7 +160,6 @@ ClassAndStudentSelectorControllerDelegate
     if ([vc isKindOfClass:[CSCustomSplitViewController  class]]) {
         
         CSCustomSplitViewController *detailVC = (CSCustomSplitViewController *)vc;
-        
         detailVC.primaryCloumnScale = offset;
         [detailVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
     }
@@ -189,7 +179,7 @@ ClassAndStudentSelectorControllerDelegate
         for (int i = 0; i < self.activityInfo.items.count; i++) {
            
             HomeworkItem *item = self.activityInfo.items[i];
-            if (i == 0) {   // 内容
+            if (i == 0) { // 内容
                 self.contentItem = item;
             } else { // 附件
                 [self.items addObject:item];
@@ -1208,37 +1198,18 @@ ClassAndStudentSelectorControllerDelegate
     self.limitTimeSecs = seconds;
 }
 
-- (void)registerCellNibs {
+- (void)registerTableViewCell:(UITableView *)tableView{
     
-    [self.leftTableView registerNib:[UINib nibWithNibName:@"MIInPutTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MIInPutTypeTableViewCellId];
-    [self.rightTableView registerNib:[UINib nibWithNibName:@"MIInPutTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MIInPutTypeTableViewCellId];
+    tableView.separatorColor = [UIColor clearColor];
+    tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
-    [self.leftTableView registerNib:[UINib nibWithNibName:@"MISegmentTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MISegmentTypeTableViewCellId];
-    [self.rightTableView registerNib:[UINib nibWithNibName:@"MISegmentTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MISegmentTypeTableViewCellId];
-    
-    [self.leftTableView registerNib:[UINib nibWithNibName:@"MIAddTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MIAddTypeTableViewCellId];
-    [self.rightTableView registerNib:[UINib nibWithNibName:@"MIAddTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MIAddTypeTableViewCellId];
-    
-    [self.leftTableView registerNib:[UINib nibWithNibName:@"MITitleTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MITitleTypeTableViewCellId];
-    [self.rightTableView registerNib:[UINib nibWithNibName:@"MITitleTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MITitleTypeTableViewCellId];
-    
-    [self.leftTableView registerNib:[UINib nibWithNibName:@"MIExpandSelectTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MIExpandSelectTypeTableViewCellId];
-    [self.rightTableView registerNib:[UINib nibWithNibName:@"MIExpandSelectTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MIExpandSelectTypeTableViewCellId];
-    
-    [self.leftTableView registerNib:[UINib nibWithNibName:@"MITagsTableViewCell" bundle:nil] forCellReuseIdentifier:MITagsTableViewCellId];
-    [self.rightTableView registerNib:[UINib nibWithNibName:@"MITagsTableViewCell" bundle:nil] forCellReuseIdentifier:MITagsTableViewCellId];
-    
-    [self.leftTableView registerNib:[UINib nibWithNibName:@"MIAddWordTableViewCell" bundle:nil] forCellReuseIdentifier:MIAddWordTableViewCellId];
-    [self.rightTableView registerNib:[UINib nibWithNibName:@"MIAddWordTableViewCell" bundle:nil] forCellReuseIdentifier:MIAddWordTableViewCellId];
-    
-    
-    [self.contentTableView registerNib:[UINib nibWithNibName:@"MIInPutTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MIInPutTypeTableViewCellId];
-    [self.contentTableView registerNib:[UINib nibWithNibName:@"MISegmentTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MISegmentTypeTableViewCellId];
-    [self.contentTableView registerNib:[UINib nibWithNibName:@"MIAddTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MIAddTypeTableViewCellId];
-    [self.contentTableView registerNib:[UINib nibWithNibName:@"MITitleTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MITitleTypeTableViewCellId];
-    [self.contentTableView registerNib:[UINib nibWithNibName:@"MIExpandSelectTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MIExpandSelectTypeTableViewCellId];
-    [self.contentTableView registerNib:[UINib nibWithNibName:@"MITagsTableViewCell" bundle:nil] forCellReuseIdentifier:MITagsTableViewCellId];
-    [self.contentTableView registerNib:[UINib nibWithNibName:@"MIAddWordTableViewCell" bundle:nil] forCellReuseIdentifier:MIAddWordTableViewCellId];
+    [tableView registerNib:[UINib nibWithNibName:@"MIInPutTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MIInPutTypeTableViewCellId];
+    [tableView registerNib:[UINib nibWithNibName:@"MISegmentTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MISegmentTypeTableViewCellId];
+    [tableView registerNib:[UINib nibWithNibName:@"MIAddTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MIAddTypeTableViewCellId];
+    [tableView registerNib:[UINib nibWithNibName:@"MITitleTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MITitleTypeTableViewCellId];
+    [tableView registerNib:[UINib nibWithNibName:@"MIExpandSelectTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MIExpandSelectTypeTableViewCellId];
+    [tableView registerNib:[UINib nibWithNibName:@"MITagsTableViewCell" bundle:nil] forCellReuseIdentifier:MITagsTableViewCellId];
+    [tableView registerNib:[UINib nibWithNibName:@"MIAddWordTableViewCell" bundle:nil] forCellReuseIdentifier:MIAddWordTableViewCellId];
 }
 
 #pragma mark - setter && getter

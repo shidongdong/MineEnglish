@@ -21,10 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL teacherSider;
 
-// 活动
+// 活动 activity 为空创建活动
 - (void)setupCreateActivity:(ActivityInfo *_Nullable)activity;
 
-// 作业
+// 作业 homework 为空创建作业
 - (void)setupCreateHomework:(Homework *_Nullable)homework
             currentFileInfo:(FileInfo *_Nullable)currentFileInfo
                    taskType:(MIHomeworkTaskType)taskType;
