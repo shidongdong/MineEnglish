@@ -117,16 +117,16 @@ ClassAndStudentSelectorControllerDelegate
         self.leftTableView.hidden = YES;
         self.rightTableView.hidden = YES;
         self.contentTableView.hidden = NO;
-        [self registerTableViewCell:self.contentTableView];
     } else {
         self.collectionWidth = (ScreenWidth - kRootModularWidth)/2.0;
         self.leftTableView.hidden = NO;
         self.rightTableView.hidden = NO;
         self.contentTableView.hidden = YES;
-
-        [self registerTableViewCell:self.leftTableView];
-        [self registerTableViewCell:self.rightTableView];
     }
+    [self registerTableViewCell:self.contentTableView];
+    [self registerTableViewCell:self.leftTableView];
+    [self registerTableViewCell:self.rightTableView];
+    
     [self setupTitleWithTaskType:self.taskType];
     
     [self requestTags];
@@ -324,32 +324,22 @@ ClassAndStudentSelectorControllerDelegate
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = nil;
-    if (tableView == self.contentTableView) {
-        NSNumber *createTypeNum = self.createTypeArray[indexPath.row];
-        cell = [self getTableViewCellAtIndexPath:indexPath
-                                      createType:createTypeNum.integerValue
-                                       tableView:tableView];
-    } else {
-        if (tableView == self.leftTableView) {
-            
-            NSNumber *createTypeNum = self.createTypeArray[indexPath.row];
-            cell = [self getTableViewCellAtIndexPath:indexPath
-                                          createType:createTypeNum.integerValue
-                                           tableView:tableView];
-        } else {
-            
-            NSNumber *createTypeNum = self.createTypeArray[indexPath.row + self.leftRowCount];
-            cell = [self getTableViewCellAtIndexPath:indexPath
-                                          createType:createTypeNum.integerValue
-                                           tableView:tableView];
-        }
-    }
+    NSInteger createType = [self getCurrentCreateTypeWithTableView:tableView indexPath:indexPath];
+    cell = [self getTableViewCellAtIndexPath:indexPath
+                                  createType:createType
+                                   tableView:tableView];
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    NSInteger createType = [self getCurrentCreateTypeWithTableView:tableView indexPath:indexPath];
+    return [self getHeightForRowWithCreateType:createType];
+}
+
+- (NSInteger)getCurrentCreateTypeWithTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath {
+  
     NSNumber *createTypeNum;
     if (tableView == self.contentTableView) {
         
@@ -362,7 +352,7 @@ ClassAndStudentSelectorControllerDelegate
             createTypeNum = self.createTypeArray[indexPath.row + self.leftRowCount];
         }
     }
-    return [self getHeightForRowWithCreateType:createTypeNum.integerValue];
+    return createTypeNum.integerValue;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -403,6 +393,7 @@ ClassAndStudentSelectorControllerDelegate
     }
     self.titleLabel.text = titleName;
 }
+
 - (MIHomeworkTaskType)setTaskTypeWithHomeWork:(Homework *)homework{
     
     MIHomeworkTaskType taskType = MIHomeworkTaskType_GeneralTask;
@@ -1503,7 +1494,6 @@ ClassAndStudentSelectorControllerDelegate
         [HUD showErrorWithMessage:@"请添加活动封面"];
         return;
     }
-    
     if ([[NSDate dateWithString:self.activityInfo.startTime format:@"yyyy-MM-dd HH:mm:ss"] isLaterThanDate:[NSDate dateWithString:self.activityInfo.endTime format:@"yyyy-MM-dd HH:mm:ss"]]) {
         [HUD showErrorWithMessage:@"开始时间晚于结束时间"];
         return;
