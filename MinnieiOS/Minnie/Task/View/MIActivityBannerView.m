@@ -171,7 +171,7 @@ UICollectionViewDelegate>
     if (![url containsString:@"http"]) {
         cell.imageView.image = [UIImage imageNamed:url];
     } else {
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil];
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"activity_placeholder"]];
     }
     return cell;
 }
