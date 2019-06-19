@@ -634,6 +634,9 @@
 		12ED3B77229E2AD500255F8B /* label_ok@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 971095CF207A006C00568785 /* label_ok@3x.png */; };
 		12ED3B78229E2ADE00255F8B /* icon_mission_choice_disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109604207A006C00568785 /* icon_mission_choice_disabled@2x.png */; };
 		12ED3B79229E2AE100255F8B /* icon_mission_choice_disabled@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 971095F3207A006C00568785 /* icon_mission_choice_disabled@3x.png */; };
+		12FD85BD22B9DFAE0026B7E2 /* UIAlertController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85BC22B9DFAE0026B7E2 /* UIAlertController+Alert.m */; };
+		12FD85BE22B9DFAE0026B7E2 /* UIAlertController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85BC22B9DFAE0026B7E2 /* UIAlertController+Alert.m */; };
+		12FD85BF22B9DFAE0026B7E2 /* UIAlertController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85BC22B9DFAE0026B7E2 /* UIAlertController+Alert.m */; };
 		1923CB12228117E20056B2AD /* EditStudentMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1923CB11228117E20056B2AD /* EditStudentMarkView.m */; };
 		1923CB14228118030056B2AD /* EditStudentMarkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1923CB13228118030056B2AD /* EditStudentMarkView.xib */; };
 		1923CB1522812CF00056B2AD /* EditStudentMarkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1923CB13228118030056B2AD /* EditStudentMarkView.xib */; };
@@ -2175,6 +2178,8 @@
 		12ED3B35229D6D1F00255F8B /* MICreateFolderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MICreateFolderView.m; sourceTree = "<group>"; };
 		12ED3B37229D6D3000255F8B /* MICreateFolderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MICreateFolderView.xib; sourceTree = "<group>"; };
 		12FD85B722B721EE0026B7E2 /* MinnieManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MinnieManager.entitlements; sourceTree = "<group>"; };
+		12FD85BB22B9DFAE0026B7E2 /* UIAlertController+Alert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Alert.h"; sourceTree = "<group>"; };
+		12FD85BC22B9DFAE0026B7E2 /* UIAlertController+Alert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Alert.m"; sourceTree = "<group>"; };
 		1923CB10228117E20056B2AD /* EditStudentMarkView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditStudentMarkView.h; sourceTree = "<group>"; };
 		1923CB11228117E20056B2AD /* EditStudentMarkView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditStudentMarkView.m; sourceTree = "<group>"; };
 		1923CB13228118030056B2AD /* EditStudentMarkView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditStudentMarkView.xib; sourceTree = "<group>"; };
@@ -4196,6 +4201,8 @@
 				971098AA207A0BF500568785 /* Utils */,
 				12EAC65622B229F000F1F3DB /* UIImagePickerController+ImagePicker.h */,
 				12EAC65722B229F000F1F3DB /* UIImagePickerController+ImagePicker.m */,
+				12FD85BB22B9DFAE0026B7E2 /* UIAlertController+Alert.h */,
+				12FD85BC22B9DFAE0026B7E2 /* UIAlertController+Alert.m */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -7710,6 +7717,7 @@
 				12A1E93F22A57865001247D7 /* HomeworkVideoTableViewCell.m in Sources */,
 				12747BE922A7CD4E009C390E /* WBGDrawTool.m in Sources */,
 				12961C80229E68040075B04A /* DeleteTeacherRequest.m in Sources */,
+				12FD85BF22B9DFAE0026B7E2 /* UIAlertController+Alert.m in Sources */,
 				12961CDA229FD6FE0075B04A /* CorrectHomeworkRequest.m in Sources */,
 				1226F31322982D5600BAB1C9 /* Constants.m in Sources */,
 				12961C63229E66030075B04A /* HomeworkVideoCollectionViewCell.m in Sources */,
@@ -7976,6 +7984,7 @@
 				97109C34207A2E3E00568785 /* HomeworkDetailCommentTableViewCell.m in Sources */,
 				979BBD7F2081B36A00359253 /* EnrollTrialClassRequest.m in Sources */,
 				97109A62207A158C00568785 /* AudioMessageTableViewCell.m in Sources */,
+				12FD85BD22B9DFAE0026B7E2 /* UIAlertController+Alert.m in Sources */,
 				8709C31F21A2AF7800970757 /* SearchHomeworkTypeRequest.m in Sources */,
 				1923CB1E2283E6620056B2AD /* StarLogs.m in Sources */,
 				122F798222AC9ABC00D2AA53 /* MISutActDetailTableViewCell.m in Sources */,
@@ -8376,6 +8385,7 @@
 				871806E821DF51540023511C /* MUTapDetectingImageView.m in Sources */,
 				97109955207A0BF600568785 /* UserRequest.m in Sources */,
 				97109DA4207A2F0400568785 /* NicknameEditViewController.m in Sources */,
+				12FD85BE22B9DFAE0026B7E2 /* UIAlertController+Alert.m in Sources */,
 				97109C8D207A2EC900568785 /* LoginRequest.m in Sources */,
 				97109C3F207A2E3E00568785 /* CircleMoreCommentsTableViewCell.m in Sources */,
 				97109AF4207A1C0800568785 /* DeleteClassStudentRequest.m in Sources */,
