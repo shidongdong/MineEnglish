@@ -119,8 +119,10 @@
         }
         else
         {
-            
-            [self.rightFuncButton setTitle:[self.fliterTitles objectAtIndex: self.currentFliterType] forState:UIControlStateNormal];
+            if (self.currentFliterType < self.fliterTitles.count) {
+                
+                [self.rightFuncButton setTitle:[self.fliterTitles objectAtIndex: self.currentFliterType] forState:UIControlStateNormal];
+            }
             [self.rightFuncButton setImage:[UIImage imageNamed:@"icon_drop_small"] forState:UIControlStateNormal];
             [self.rightFuncButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -35, 0, 0)];
             [self.rightFuncButton setImageEdgeInsets:UIEdgeInsetsMake(0, 35, 0, 0)];
@@ -305,7 +307,10 @@
         WeakifySelf;
         [FilterAlertView showInView:self.tabBarController.view atFliterType:self.currentFliterType forFliterArray:self.fliterTitles withAtionBlock:^(NSInteger index) {
             StrongifySelf;
-            [strongSelf.rightFuncButton setTitle:[self.fliterTitles objectAtIndex:index] forState:UIControlStateNormal];
+            if (index < self.fliterTitles.count) {
+            
+                [strongSelf.rightFuncButton setTitle:[self.fliterTitles objectAtIndex:index] forState:UIControlStateNormal];
+            }
             [strongSelf.rightFuncButton setImage:[UIImage imageNamed:@"icon_drop_small"] forState:UIControlStateNormal];
             [strongSelf.rightFuncButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -35, 0, 0)];
             [strongSelf.rightFuncButton setImageEdgeInsets:UIEdgeInsetsMake(0, 35, 0, 0)];

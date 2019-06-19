@@ -380,7 +380,6 @@
         NSDate *d = [NSDate dateWithTimeIntervalSince1970:dateNumber.floatValue/1000];
         if ([d isSameDayWithDate:date]) {
             [self.dates removeObjectAtIndex:index];
-            
             break;
         }
         

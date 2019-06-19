@@ -965,7 +965,10 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     NSInteger nextIndex = index+1;
     [HUD showProgressWithMessage:@"正在压缩图片..."];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *editedImage = [self editedImageWithImage:[images objectAtIndex:index]];
+        UIImage *editedImage;
+        if (index < images.count) {
+            editedImage = [self editedImageWithImage:[images objectAtIndex:index]];
+        }
         NSData *data = UIImageJPEGRepresentation(editedImage, 0.7f);
         
         dispatch_async(dispatch_get_main_queue(), ^{

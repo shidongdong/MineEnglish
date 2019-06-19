@@ -471,7 +471,9 @@
                                   self.currentHomework = nil;
                                   
                                   NSInteger index = [self.homeworks indexOfObject:homework];
-                                  [self.homeworks removeObjectAtIndex:index];
+                                  if (index < self.homeworks.count) {
+                                      [self.homeworks removeObjectAtIndex:index];
+                                  }
                                   
                                   [self.homeworksTableView beginUpdates];
                                   [self.homeworksTableView deleteSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationFade];

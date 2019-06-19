@@ -216,8 +216,10 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WBGImageEditorCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:WBGImageEditorCollectionViewCellId forIndexPath:indexPath];
-    [cell setupThumbImage:[self.thumbnailImages objectAtIndex:indexPath.item] withOrignImageURLURL:[self.originalImageUrls objectAtIndex:indexPath.item]];
-    
+    if (indexPath.item < self.thumbnailImages.count && indexPath.item < self.originalImageUrls.count) {
+      
+        [cell setupThumbImage:[self.thumbnailImages objectAtIndex:indexPath.item] withOrignImageURLURL:[self.originalImageUrls objectAtIndex:indexPath.item]];
+    }
     return cell;
 }
 
@@ -549,7 +551,9 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     self.whiteSelectedImageView.hidden = tag!=1;
     self.blackSelectedImageView.hidden = tag!=2;
     self.blueSelectedImageView.hidden = tag!=3;
-    self.currentColor = [self.colors objectAtIndex:tag];
+    if (tag < self.colors.count) {
+        self.currentColor = [self.colors objectAtIndex:tag];
+    }
 }
 
 @end
