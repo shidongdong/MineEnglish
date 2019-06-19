@@ -355,11 +355,6 @@ ClassAndStudentSelectorControllerDelegate
     return createTypeNum.integerValue;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    
-    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
-}
-
 #pragma mark - 设置标题
 - (void)setupTitleWithTaskType:(MIHomeworkTaskType)taskType{
     

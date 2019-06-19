@@ -35,6 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.currentScore = -1;
+    self.mTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     self.commentTags = [NSMutableArray array];
     [self registerCellNibs];
     
@@ -250,6 +251,7 @@
     {
         CorrectHomeworkScoreTableViewCell * scoreCell = [tableView dequeueReusableCellWithIdentifier:CorrectHomeworkScoreTableViewCellId forIndexPath:indexPath];
        
+        scoreCell.selectionStyle = UITableViewCellSelectionStyleNone;
         [scoreCell updateRecommendScoreHomeworkLevel:self.homeworkSession.homework.level score:self.homeworkSession.score];
         [scoreCell setScoreCallback:^(NSInteger score)
         {
@@ -264,6 +266,7 @@
     else if (indexPath.section == 1)
     {
         CorrectHomeworkCommentTableViewCell * commentCell = [tableView dequeueReusableCellWithIdentifier:CorrectHomeworkCommentTableViewCellId forIndexPath:indexPath];
+        commentCell.selectionStyle = UITableViewCellSelectionStyleNone;
         [commentCell setupCommentInfo:self.homeworkSession.reviewText];
         self.commentText = self.homeworkSession.reviewText;
         [commentCell setCommentCallback:^(NSString * text) {
@@ -274,6 +277,7 @@
     else
     {
         HomeworkTagsTableViewCell * addCommentCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTagsTableViewCellId forIndexPath:indexPath];
+        addCommentCell.selectionStyle = UITableViewCellSelectionStyleNone;
         addCommentCell.type = HomeworkTagsTableViewCellSelectNoneType;
         [addCommentCell setupWithTags:self.commentTags selectedTags:@[] typeTitle:@"常用评语:"];
         
