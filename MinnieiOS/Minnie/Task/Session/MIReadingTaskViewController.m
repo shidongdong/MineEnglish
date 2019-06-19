@@ -672,33 +672,33 @@ VIResourceLoaderManagerDelegate
 }
 
 #pragma mark - 视频下载
-- (void)combineVideo{
-//    @"http://res.zhengminyi.com/lhR6nxeM9T_safC7VmMgYS19ExIS"
-    
-    HomeworkItem *otherItem = self.homework.otherItem.firstObject;
-    [self downloadUrl:[NSURL URLWithString:otherItem.videoUrl] completionHandler:^(NSURL *localFileURL) {
-        
-        NSLog(@"completionHandler%@",localFileURL);
-        AVAsset *asset = [AVAsset assetWithURL:localFileURL];
-        CMTime duration = asset.duration;
-        CGFloat videoDuration = duration.value / (float)duration.timescale;
-        NSLog(@"%f",videoDuration);
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            [EditAudioVideo editVideoSynthesizeVieoPath:localFileURL
-                                                BGMPath:[NSURL fileURLWithPath:[self getRecordSoundPath]]
-                                      needOriginalVoice:NO
-                                            videoVolume:0.5
-                                              BGMVolume:1.0 complition:^(NSURL *outputPath, BOOL isSucceed) {
-                                                  
-                                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                      [self playerVideoWithURL:outputPath];
-                                                  });
-                                                  
-                                              }];
-        });
-        
-    }];
-}
+//- (void)combineVideo{
+////    @"http://res.zhengminyi.com/lhR6nxeM9T_safC7VmMgYS19ExIS"
+//    
+//    HomeworkItem *otherItem = self.homework.otherItem.firstObject;
+//    [self downloadUrl:[NSURL URLWithString:otherItem.videoUrl] completionHandler:^(NSURL *localFileURL) {
+//        
+//        NSLog(@"completionHandler%@",localFileURL);
+//        AVAsset *asset = [AVAsset assetWithURL:localFileURL];
+//        CMTime duration = asset.duration;
+//        CGFloat videoDuration = duration.value / (float)duration.timescale;
+//        NSLog(@"%f",videoDuration);
+//        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//            [EditAudioVideo editVideoSynthesizeVieoPath:localFileURL
+//                                                BGMPath:[NSURL fileURLWithPath:[self getRecordSoundPath]]
+//                                      needOriginalVoice:NO
+//                                            videoVolume:0.5
+//                                              BGMVolume:1.0 complition:^(NSURL *outputPath, BOOL isSucceed) {
+//                                                  
+//                                                  dispatch_async(dispatch_get_main_queue(), ^{
+//                                                      [self playerVideoWithURL:outputPath];
+//                                                  });
+//                                                  
+//                                              }];
+//        });
+//        
+//    }];
+//}
 
 - (void)playerVideoWithURL:(NSURL *)url {
     

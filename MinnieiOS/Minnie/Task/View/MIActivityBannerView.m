@@ -139,7 +139,10 @@ UICollectionViewDelegate>
 - (void)automaticScroll
 {
     if (0 == _totalItemsCount) return;
-    int currentIndex = _mainView.contentOffset.x / _flowLayout.itemSize.width;
+    int currentIndex = 0;
+    if (_flowLayout.itemSize.width > 0) {
+        currentIndex = _mainView.contentOffset.x / _flowLayout.itemSize.width;
+    }
     int targetIndex = currentIndex + 1;
     if (targetIndex == _totalItemsCount) {
         if (self.infiniteLoop) {
@@ -186,8 +189,12 @@ UICollectionViewDelegate>
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    int itemIndex = (scrollView.contentOffset.x + self.mainView.width * 0.5) / self.mainView.width;
+    int itemIndex = 0;
+    if (self.mainView.width > 0) {
+        itemIndex = (scrollView.contentOffset.x + self.mainView.width * 0.5) / self.mainView.width;
+    }
     if (!self.imagesGroup.count) return; // 解决清除timer时偶尔会出现的问题
+
     int indexOnPageControl = itemIndex % self.imagesGroup.count;
     self.pageControl.currentPage = indexOnPageControl;
 }

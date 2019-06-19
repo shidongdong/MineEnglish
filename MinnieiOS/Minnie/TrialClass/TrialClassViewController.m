@@ -46,13 +46,18 @@
 //    UIImage *image2 = [UIImage imageNamed:@"首页2.png"];
     
     [self.firstImageView sd_setImageWithURL:[NSURL URLWithString:@"http://api.minniedu.com:8888/main.png"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-        self.image1ViewHeight.constant = ScreenWidth * image.size.height / image.size.width;
+        if (image.size.width > 0) {
+            
+            self.image1ViewHeight.constant = ScreenWidth * image.size.height / image.size.width;
+        }
         self.bFirstDown = YES;
         [self checkDownloadFinish];
     }];
     
     [self.secondImageView sd_setImageWithURL:[NSURL URLWithString:@"http://api.minniedu.com:8888/main_detail.png"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-        self.image2ViewHeight.constant = ScreenWidth * image.size.height / image.size.width;
+        if (image.size.width > 0) {
+            self.image2ViewHeight.constant = ScreenWidth * image.size.height / image.size.width;
+        }
         self.bSecondDown = YES;
         [self checkDownloadFinish];
     }];

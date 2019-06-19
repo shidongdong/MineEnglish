@@ -177,7 +177,10 @@
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     self.imageView.image = image;
     
-    CGFloat height = ScreenWidth * image.size.height / image.size.width;
+    CGFloat height = 0;
+    if (image.size.width > 0) {
+      height = ScreenWidth * image.size.height / image.size.width;
+    }
     self.imageViewHeightConstraint.constant = height;
     
     [picker dismissViewControllerAnimated:YES completion:^{

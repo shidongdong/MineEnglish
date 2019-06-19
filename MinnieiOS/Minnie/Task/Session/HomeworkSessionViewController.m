@@ -1586,7 +1586,12 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 - (void)resizeInputTextView {
-    NSInteger lines = [self.inputTextView sizeThatFits:self.inputTextView.frame.size].height / self.inputTextView.font.lineHeight;
+    
+    NSInteger lines = 0;
+    if (self.inputTextView.font.lineHeight) {
+        lines = [self.inputTextView sizeThatFits:self.inputTextView.frame.size].height / self.inputTextView.font.lineHeight;
+    }
+
     CGFloat height = lines * self.inputTextView.font.lineHeight;
     self.inputTextViewHeightConstraint.constant = MIN(height, self.inputTextView.font.lineHeight * 4);
     

@@ -43,7 +43,10 @@ NSString * const RightImageMessageTableViewCellId = @"RightImageMessageTableView
             return;
         }
         
-        CGFloat rate = image.size.width / image.size.height;
+        CGFloat rate = 0;
+        if (image.size.height > 0) {
+          rate = image.size.width / image.size.height;
+        }
         CGFloat orginRate = 218.0 / 140.0;
         
         if (rate >= orginRate) {
@@ -51,7 +54,9 @@ NSString * const RightImageMessageTableViewCellId = @"RightImageMessageTableView
         }
         else
         {
-            displayImageSize = CGSizeMake(140 * (image.size.width /  image.size.height), 140 );
+            if (image.size.height > 0) {
+                displayImageSize = CGSizeMake(140 * (image.size.width /  image.size.height), 140 );
+            }
         }
         
         
