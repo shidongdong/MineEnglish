@@ -145,6 +145,9 @@ UICollectionViewDelegateFlowLayout>
         [audioCell setupWithHomeworkItem:item name:[NSString stringWithFormat:@"材料%zd", indexPath.row+1]];
         
         cell = audioCell;
+    } else { // 防止异常
+        HomeworkImageCollectionViewCell *imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:HomeworkImageCollectionViewCellId forIndexPath:indexPath];
+        cell = imageCell;
     }
     
     return cell;

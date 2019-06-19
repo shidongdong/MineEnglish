@@ -218,9 +218,9 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
         [audioCell setupWithHomeworkItem:item name:[NSString stringWithFormat:@"材料%zd", indexPath.row+1]];
         
         cell = audioCell;
-    }
-    if (!cell) {
-        cell = [[UICollectionViewCell alloc] init];
+    } else { // 异常保护
+        HomeworkImageCollectionViewCell *imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:HomeworkImageCollectionViewCellId forIndexPath:indexPath];
+        cell = imageCell;
     }
     return cell;
 }
