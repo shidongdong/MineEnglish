@@ -213,7 +213,6 @@ MIActivityBannerViewDelegate
 
 - (void)registerCellNibs {
     [self.homeworkSessionsTableView registerNib:[UINib nibWithNibName:@"FinishedHomeworkSessionTableViewCell" bundle:nil] forCellReuseIdentifier:FinishedHomeworkSessionTableViewCellId];
-//    [self.homeworkSessionsTableView registerNib:[UINib nibWithNibName:@"UnfinishedHomeworkSessionTableViewCell" bundle:nil] forCellReuseIdentifier:UnfinishedHomeworkSessionTableViewCellId];
     [self.homeworkSessionsTableView registerNib:[UINib nibWithNibName:@"UnfinishedStudentHomeworkSessionTableViewCell" bundle:nil] forCellReuseIdentifier:UnfinishedStudentHomeworkSessionTableViewCellId];
 }
 #pragma mark -
@@ -460,7 +459,6 @@ MIActivityBannerViewDelegate
     if (session == nil) {
         return;
     }
-    
     BOOL found = NO;
     for (HomeworkSession *s in self.homeworkSessions) {
         if (s.homeworkSessionId == session.homeworkSessionId) {
@@ -672,22 +670,7 @@ MIActivityBannerViewDelegate
         }
         
         if (homeworkSessions.count > 0) {
-            // 去重
-            NSMutableArray *sessions = [NSMutableArray array];
-            for (HomeworkSession *session in homeworkSessions) {
-                BOOL exists = NO;
-                for (HomeworkSession *s in self.homeworkSessions) {
-                    if (s.homeworkSessionId == session.homeworkSessionId) {
-                        exists = YES;
-                        break;
-                    }
-                }
-                if (!exists) {
-                    [sessions addObject:session];
-                }
-            }
-            
-            [self.homeworkSessions addObjectsFromArray:sessions];
+            [self.homeworkSessions addObjectsFromArray:homeworkSessions];
         }
         [self loadConversations];
         if (nextUrl.length == 0) {
