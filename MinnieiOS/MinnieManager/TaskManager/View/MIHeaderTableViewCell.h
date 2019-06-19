@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MIHeaderTableViewCell : UITableViewCell
 
 
-@property (nonatomic , assign) id<HeaderViewDelegate> delegate;
+@property (nonatomic , weak) id<HeaderViewDelegate> delegate;
 
 - (void)setupFilesWithFileInfo:(id)fileInfo indexPath:(NSIndexPath *)indexPath isParentFile:(NSInteger)isParentFile selected:(BOOL)selected;
 @end

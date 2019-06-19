@@ -19,6 +19,6 @@
 
 @property (nonatomic,strong)NSArray <HomeworkAnswerItem *>* answerItems;
 @property (nonatomic,assign)NSInteger columnNumber;
-@property (nonatomic,assign)id<HomeworkAnswersPickerViewControllerDelegate>delegate;
+@property (nonatomic,weak)id<HomeworkAnswersPickerViewControllerDelegate>delegate;
 @end
 
