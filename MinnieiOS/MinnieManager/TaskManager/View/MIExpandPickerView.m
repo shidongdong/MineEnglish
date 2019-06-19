@@ -102,8 +102,10 @@ UIPickerViewDelegate>{
     } else if (createType == MIHomeworkCreateContentType_WordsTimeInterval) {// 0-9秒
         
         NSInteger secs = text.floatValue/1000;
-        
-        NSInteger row = (int)secs/0.5;
+        NSInteger row = (int)secs/0.5 - 1;
+        if (row <= 0 ||  row >= self.secArray.count) {
+           row = 0;
+        }
         [self.bgView addSubview:_secLabel];
         [self.pickerView selectRow:row inComponent:0 animated:YES];
         [self pickerView:self.pickerView didSelectRow:row inComponent:0];

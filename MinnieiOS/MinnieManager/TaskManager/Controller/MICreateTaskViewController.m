@@ -292,7 +292,7 @@ ClassAndStudentSelectorControllerDelegate
         HomeworkItem *item = self.homework.items[i];
         if (i == 0) {   // 内容
             self.contentItem = item;
-        } else if ([item.type isEqualToString:@"word"] ) {// 单词
+        } else if ([item.type isEqualToString:HomeworkItemTypeWord] ) {// 单词
             self.wordsItem = item;
         } else { // 附件
             [self.items addObject:item];
@@ -392,9 +392,6 @@ ClassAndStudentSelectorControllerDelegate
 - (MIHomeworkTaskType)setTaskTypeWithHomeWork:(Homework *)homework{
     
     MIHomeworkTaskType taskType = MIHomeworkTaskType_GeneralTask;
-    if (homework.typeName.length == 0) {
-        return taskType;
-    }
     if ([homework.typeName isEqualToString:kHomeworkTaskNotifyName]) {
         taskType = MIHomeworkTaskType_Notify;
     } else if ([homework.typeName isEqualToString:kHomeworkTaskFollowUpName]) {
@@ -580,16 +577,17 @@ ClassAndStudentSelectorControllerDelegate
             MIExpandSelectTypeTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MIExpandSelectTypeTableViewCellId forIndexPath:indexPath];
             
             __weak  MIExpandSelectTypeTableViewCell *weakContentCell = contentCell;
-            NSString *wordPlayTime = [NSString stringWithFormat:@"%lu",self.wordsItem.playTime];
             contentCell.expandCallback = ^{
                 MIExpandPickerView * chooseDataPicker = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIExpandPickerView class]) owner:nil options:nil] firstObject];
                 chooseDataPicker.callback = ^(NSString * _Nonnull text) {
                     weakSelf.wordsItem.playTime = text.integerValue;
                     [weakContentCell setupWithLeftText:text rightText:nil createType:createType];
                 };
+                NSString *wordPlayTime = [NSString stringWithFormat:@"%lu",self.wordsItem.playTime];
                 [chooseDataPicker setDefultText:wordPlayTime createType:createType];
                 [chooseDataPicker show];
             };
+            NSString *wordPlayTime = [NSString stringWithFormat:@"%lu",self.wordsItem.playTime];
             [contentCell setupWithLeftText:wordPlayTime rightText:nil createType:createType];
             cell = contentCell;
         }
@@ -709,7 +707,7 @@ ClassAndStudentSelectorControllerDelegate
             if (self.wordsItem.bgmusicUrl.length) {
                 HomeworkItem *wordsItem = [[HomeworkItem alloc] init];
                 wordsItem.audioUrl = self.wordsItem.bgmusicUrl;
-                wordsItem.type = @"audioUrl";
+                wordsItem.type = HomeworkItemTypeAudio;
                 [contentCell setupWithItems:@[wordsItem] vc:self contentType:createType];
             } else {
                 [contentCell setupWithItems:@[] vc:self contentType:createType];
@@ -1226,7 +1224,7 @@ ClassAndStudentSelectorControllerDelegate
 - (HomeworkItem *)wordsItem{
     if (!_wordsItem) {
         _wordsItem = [[HomeworkItem alloc] init];
-        _wordsItem.type = @"word";
+        _wordsItem.type = HomeworkItemTypeWord;
     }
     return _wordsItem;
 }
@@ -1234,7 +1232,7 @@ ClassAndStudentSelectorControllerDelegate
 - (HomeworkItem *)contentItem{
     if (!_contentItem) {
         _contentItem = [[HomeworkItem alloc] init];
-        _contentItem.type = @"text";
+        _contentItem.type = HomeworkItemTypeText;
     }
     return _contentItem;
 }
