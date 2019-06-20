@@ -49,8 +49,12 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
     self.containerView.layer.shadowColor = [UIColor colorWithHex:0xEEEEEE].CGColor;
     self.containerView.layer.shadowRadius = 3;
     self.containerView.layer.shadowOffset = CGSizeMake(2, 4);
+#if MANAGERSIDE
+    self.homeworkTextLabel.preferredMaxLayoutWidth = ScreenWidth - kRootModularWidth - kFolderModularWidth - 36 - 44;
+#else
+    self.homeworkTextLabel.preferredMaxLayoutWidth = ScreenWidth - 36 - 44;
+#endif
     
-    self.homeworkTextLabel.preferredMaxLayoutWidth = [UIScreen mainScreen].bounds.size.width - 36 - 44;
     self.previewButton.layer.masksToBounds = YES;
     self.previewButton.layer.cornerRadius = 16.0;
     
@@ -148,8 +152,7 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
     [cell setupWithHomework:homework];
     
     CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    
-    homework.cellHeight = size.height;
+    homework.cellHeight = size.height + 10;
     
     return homework.cellHeight;
 }

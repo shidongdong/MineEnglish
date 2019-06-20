@@ -345,7 +345,7 @@ MIActivityBannerViewDelegate
     // 每条作业 homeworkSessionId唯一 限制查询数量，减少耗时
     conversation.limit = homeworkSessions.count;
     [conversation findConversationsWithCallback:^(NSArray<AVIMConversation *> * _Nullable conversations, NSError * _Nullable error) {
-        if (error) return ;
+//        if (error) return ;
         dispatch_async(dispatch_get_main_queue(), ^{
             
             self.queriedConversations = conversations;

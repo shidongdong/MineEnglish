@@ -41,8 +41,11 @@ UICollectionViewDelegateFlowLayout>
 - (void)awakeFromNib {
     [super awakeFromNib];
     
+#if MANAGERSIDE
+    self.homeworkTextLabel.preferredMaxLayoutWidth = ScreenWidth - kRootModularWidth - kFolderModularWidth - 36 - 44;
+#else
     self.homeworkTextLabel.preferredMaxLayoutWidth = ScreenWidth - 36 - 44;
-    
+#endif
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     layout.itemSize = CGSizeMake(90, 110);
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
