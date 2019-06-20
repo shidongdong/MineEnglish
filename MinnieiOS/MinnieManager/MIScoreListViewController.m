@@ -6,6 +6,7 @@
 //
 
 #import "Result.h"
+#import "IMManager.h"
 #import "ScoreInfo.h"
 #import "UIView+Load.h"
 #import "ManagerServce.h"
@@ -115,6 +116,27 @@ UITableViewDataSource
     
     WeakifySelf;
     ScoreInfo *scoreInfo = self.scoreListArray[indexPath.row];
+ 
+    AVIMClientStatus status = [IMManager sharedManager].client.status;
+    if (status == AVIMClientStatusNone ||
+        status == AVIMClientStatusClosed ||
+        status == AVIMClientStatusPaused) {
+        NSString *userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
+        [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success,  NSError * error) {
+            if (!success) {
+                [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
+                return;
+            }
+            [weakSelf requestHomeworkSession:scoreInfo];
+        }];
+    } else {
+        [self requestHomeworkSession:scoreInfo];
+    }
+}
+
+- (void)requestHomeworkSession:(ScoreInfo *)scoreInfo {
+    
+    WeakifySelf;
     [HomeworkSessionService requestHomeworkSessionWithId:scoreInfo.hometaskId callback:^(Result *result, NSError *error) {
         if (error != nil) {
             [HUD showErrorWithMessage:@"获取会话内容失败"];
@@ -126,13 +148,13 @@ UITableViewDataSource
         [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
 }
+
 #pragma mark - 获取列表
 - (void)requestScoreListIsLoadMore:(BOOL)isLoadMore{
     
-    self.tableView.hidden = YES;
-    [self.view showLoadingView];
+    WeakifySelf;
     if (isLoadMore) {
-        WeakifySelf;
+        
         [ManagerServce requestScoreListByHomeworkId:self.homework.homeworkId nextUrl:nil callback:^(Result *result, NSError *error) {
             [weakSelf.view hideAllStateView];
             [weakSelf.tableView footerEndRefreshing];
@@ -142,7 +164,9 @@ UITableViewDataSource
             [weakSelf dealWithData:result isLoadMore:isLoadMore];
         }];
     } else {
-        WeakifySelf;
+        
+        self.tableView.hidden = YES;
+        [self.view showLoadingView];
         [ManagerServce requestScoreListByHomeworkId:self.homework.homeworkId nextUrl:self.nextUrl callback:^(Result *result, NSError *error) {
             
             [weakSelf.view hideAllStateView];
