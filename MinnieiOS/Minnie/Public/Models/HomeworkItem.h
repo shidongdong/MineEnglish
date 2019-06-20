@@ -41,7 +41,7 @@ extern NSString * const HomeworkItemTypeWord;
 // 背景音乐地址
 @property (nonatomic, copy) NSString *bgmusicUrl;
 // 播放间隔时间（毫秒）
-@property (nonatomic, assign) NSInteger playTime;
+@property (nonatomic, assign) NSInteger playtime;
 
 
 @end

@@ -98,7 +98,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 @property (nonatomic, weak) IBOutlet UIImageView *start5ImageView;
 @property (nonatomic, weak) IBOutlet UIButton *retryButton;
 
-//@property (nonatomic, strong) NEPhotoBrowser *photoBrowser;
 @property (nonatomic, strong) NSArray<UIImageView *> * currentImageViews;
 @property (nonatomic, strong)NSMutableArray * homeworkImages;    //作业详情所
 
@@ -621,27 +620,18 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 - (IBAction)sendAnswerButtonPressed:(id)sender {
+   
     if (self.homeworkSession.homework.answerItems.count == 0) {
         [HUD showWithMessage:@"当前作业没有设置答案"];
 
         return;
     }
-    
-    
     //跳转到
     HomeworkAnswersPickerViewController *answerPickerVc = [[HomeworkAnswersPickerViewController alloc] init];
     answerPickerVc.delegate = self;
     answerPickerVc.columnNumber = 4;
     answerPickerVc.answerItems = self.homeworkSession.homework.answerItems;
     [self.navigationController pushViewController:answerPickerVc animated:YES];
-    
-//    for (HomeworkAnswerItem *item in self.homeworkSession.homework.answerItems) {
-//        if ([item.type isEqualToString:HomeworkAnswerItemTypeImage]) {
-//            [self sendImageMessageWithURL:[NSURL URLWithString:item.imageUrl]];
-//        } else if ([item.type isEqualToString:HomeworkAnswerItemTypeVideo]) {
-//            [self sendVideoMessage:[NSURL URLWithString:item.videoUrl] duration:1.0];
-//        }
-//    }
 }
 
 - (void)sendAnswer:(NSArray *)answers
@@ -798,7 +788,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     self.start5ImageView.hidden = self.homeworkSession.score<5;
     
     if (self.homeworkSession.score == 0) {
-       // text = @"Pass!";
         bgColor = [UIColor lightGrayColor];
     }else if (self.homeworkSession.score == 1) {
         text = @"Pass!";
@@ -994,26 +983,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                 
                 [strongSelf sendImageMessageWithImages:images withSendIndex:nextIndex];
             }];
-            
-//            [[FileUploader shareInstance] uploadData:data
-//                                                type:UploadFileTypeImage
-//                                       progressBlock:^(NSInteger number) {
-//                                           [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];
-//                                       }
-//                                     completionBlock:^(NSString * _Nullable imageUrl, NSError * _Nullable error) {
-//
-//                                         StrongifySelf;
-//                                         if (imageUrl.length > 0) {
-//                                             [HUD hideAnimated:YES];
-//
-//                                             [self sendImageMessageWithURL:[NSURL URLWithString:imageUrl]];
-//                                         } else {
-//                                             [HUD showErrorWithMessage:@"图片上传失败"];
-//                                         }
-//
-//                                         [strongSelf sendImageMessageWithImages:images withSendIndex:nextIndex];
-//
-//                                     }];
         });
     });
     
@@ -1022,10 +991,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 
 
 - (void)sendImageMessageWithImage:(UIImage *)image {
-    
-//    self.emojiViewBottomLayoutConstraint.constant = -216.f - (isIPhoneX?39:0);
-//    self.operationsViewBottomConstraint.constant = -80.f - (isIPhoneX?39:0);
-//    self.inputViewBottomConstraint.constant = 0.f;
     
     [HUD showProgressWithMessage:@"正在压缩图片..."];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -1050,21 +1015,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                     [HUD showErrorWithMessage:@"图片上传失败"];
                 }
             }];
-            
-//            [[FileUploader shareInstance] uploadData:data
-//                                type:UploadFileTypeImage
-//                       progressBlock:^(NSInteger number) {
-//                           [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];
-//                       }
-//                     completionBlock:^(NSString * _Nullable imageUrl, NSError * _Nullable error) {
-//                         if (imageUrl.length > 0) {
-//                             [HUD hideAnimated:YES];
-//
-//                             [self sendImageMessageWithURL:[NSURL URLWithString:imageUrl]];
-//                         } else {
-//                             [HUD showErrorWithMessage:@"图片上传失败"];
-//                         }
-//                     }];
         });
     });
 }

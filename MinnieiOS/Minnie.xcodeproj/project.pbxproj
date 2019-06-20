@@ -637,6 +637,22 @@
 		12FD85BD22B9DFAE0026B7E2 /* UIAlertController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85BC22B9DFAE0026B7E2 /* UIAlertController+Alert.m */; };
 		12FD85BE22B9DFAE0026B7E2 /* UIAlertController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85BC22B9DFAE0026B7E2 /* UIAlertController+Alert.m */; };
 		12FD85BF22B9DFAE0026B7E2 /* UIAlertController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85BC22B9DFAE0026B7E2 /* UIAlertController+Alert.m */; };
+		12FD85C022BB2B370026B7E2 /* label_key_step@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109601207A006C00568785 /* label_key_step@2x.png */; };
+		12FD85C122BB2B3A0026B7E2 /* label_key_step@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 971095F7207A006C00568785 /* label_key_step@3x.png */; };
+		12FD85C222BB2B3D0026B7E2 /* label_key@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710958D207A006C00568785 /* label_key@2x.png */; };
+		12FD85C322BB2B3F0026B7E2 /* label_key@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710956F207A006C00568785 /* label_key@3x.png */; };
+		12FD85C422BB2F4C0026B7E2 /* label_user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710962D207A006D00568785 /* label_user@2x.png */; };
+		12FD85C522BB2F4F0026B7E2 /* label_user@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109642207A006D00568785 /* label_user@3x.png */; };
+		12FD85C622BB2F5C0026B7E2 /* label_ic_eye_hide@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 971095A3207A006C00568785 /* label_ic_eye_hide@2x.png */; };
+		12FD85C722BB2F5F0026B7E2 /* label_ic_eye_hide@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 971095D4207A006C00568785 /* label_ic_eye_hide@3x.png */; };
+		12FD85C822BB2F630026B7E2 /* label_eye_display@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109565207A006C00568785 /* label_eye_display@3x.png */; };
+		12FD85C922BB2F660026B7E2 /* label_eye_display@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109596207A006C00568785 /* label_eye_display@2x.png */; };
+		12FD85CA22BB2F6A0026B7E2 /* label_drop@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109591207A006C00568785 /* label_drop@3x.png */; };
+		12FD85CB22BB2F6D0026B7E2 /* label_drop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710956B207A006C00568785 /* label_drop@2x.png */; };
+		12FD85CC22BB2F720026B7E2 /* label_phone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109655207A006D00568785 /* label_phone@2x.png */; };
+		12FD85CD22BB2F750026B7E2 /* label_phone@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109619207A006C00568785 /* label_phone@3x.png */; };
+		12FD85CE22BB2FB70026B7E2 /* label_security@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109595207A006C00568785 /* label_security@3x.png */; };
+		12FD85CF22BB2FBA0026B7E2 /* label_security@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109567207A006C00568785 /* label_security@2x.png */; };
 		1923CB12228117E20056B2AD /* EditStudentMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1923CB11228117E20056B2AD /* EditStudentMarkView.m */; };
 		1923CB14228118030056B2AD /* EditStudentMarkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1923CB13228118030056B2AD /* EditStudentMarkView.xib */; };
 		1923CB1522812CF00056B2AD /* EditStudentMarkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1923CB13228118030056B2AD /* EditStudentMarkView.xib */; };
@@ -6047,9 +6063,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12FD85C722BB2F5F0026B7E2 /* label_ic_eye_hide@3x.png in Resources */,
 				12EAC63422AD405E00F1F3DB /* MISutdentActDetailViewController.m in Resources */,
 				122F798F22ACB85900D2AA53 /* MIStuActDetailHeaderView.xib in Resources */,
 				12ED3B51229D960600255F8B /* 加载动画02@3x.png in Resources */,
+				12FD85C122BB2B3A0026B7E2 /* label_key_step@3x.png in Resources */,
 				123042DE22A0D63700E111A4 /* MIActivityRankListViewController.xib in Resources */,
 				12ED3B5E229D96B000255F8B /* hud_ic_error@2x.png in Resources */,
 				12ED3B4F229D960100255F8B /* 加载动画01@2x.png in Resources */,
@@ -6096,8 +6114,10 @@
 				12747C4622A7D1A9009C390E /* teacher@3x.png in Resources */,
 				12CB73A522AB91030064FB21 /* CreateHomeworkViewController.xib in Resources */,
 				12961C64229E66090075B04A /* HomeworkVideoCollectionViewCell.xib in Resources */,
+				12FD85CA22BB2F6A0026B7E2 /* label_drop@3x.png in Resources */,
 				12ED3B04229C2E4D00255F8B /* MIHeaderTableViewCell.xib in Resources */,
 				12747C9222A9108F009C390E /* MIWordTagCollectionViewCell.xib in Resources */,
+				12FD85CD22BB2F750026B7E2 /* label_phone@3x.png in Resources */,
 				12747C3F22A7D19B009C390E /* white_top_corner_bg@3x.png in Resources */,
 				12961C86229E692B0075B04A /* btn_mission_preview@3x.png in Resources */,
 				12747C3922A7D152009C390E /* chat_talk3@2x.png in Resources */,
@@ -6118,12 +6138,15 @@
 				12747C8722A7D2D2009C390E /* EmojiInputCollectionViewCell.xib in Resources */,
 				1226F32F229832F200BAB1C9 /* FullfillProfileViewController_Student.xib in Resources */,
 				12ED3B17229CC2FC00255F8B /* ic_add_small@3x.png in Resources */,
+				12FD85CB22BB2F6D0026B7E2 /* label_drop@2x.png in Resources */,
 				12961C89229E710B0075B04A /* btn_play@2x.png in Resources */,
 				12A1E94422A5788A001247D7 /* HomeworkAudioTableViewCell.xib in Resources */,
+				12FD85C022BB2B370026B7E2 /* label_key_step@2x.png in Resources */,
 				12747C1B22A7D0D5009C390E /* photo_sel_photoPickerVc@2x.png in Resources */,
 				12CB737D22AB49C80064FB21 /* MIHomeworkManagerViewController.xib in Resources */,
 				12961C8B229E716C0075B04A /* ClassSelectorViewController.xib in Resources */,
 				12EAC64822AE2B3B00F1F3DB /* MIReadingWordsView.xib in Resources */,
+				12FD85CF22BB2FBA0026B7E2 /* label_security@2x.png in Resources */,
 				12747C1622A7D0A2009C390E /* btn_send_warning@3x.png in Resources */,
 				12747BF822A7CE06009C390E /* RightTextMessageTableViewCell.xib in Resources */,
 				12747BEF22A7CD94009C390E /* StudentDetailHeaderCell.xib in Resources */,
@@ -6135,6 +6158,7 @@
 				12961C58229E65400075B04A /* TeacherCollectionViewCell.xib in Resources */,
 				12A1E94022A5786F001247D7 /* HomeworkVideoTableViewCell.xib in Resources */,
 				12747C6122A7D1B0009C390E /* right_chat_talk2@3x.png in Resources */,
+				12FD85C822BB2F630026B7E2 /* label_eye_display@3x.png in Resources */,
 				12747C1522A7D092009C390E /* btn_send_photo@2x.png in Resources */,
 				12747C8122A7D28B009C390E /* icon_Voice@3x.png in Resources */,
 				12747BE322A7CD0E009C390E /* RightEmojiMessageTableViewCell.xib in Resources */,
@@ -6176,7 +6200,9 @@
 				12961CBA229F6D220075B04A /* icon_drop_small_black@3x.png in Resources */,
 				12747C2722A7D103009C390E /* navbar_screen@2x.png in Resources */,
 				12ED3B5B229D969A00255F8B /* FilterAlertView.xib in Resources */,
+				12FD85C622BB2F5C0026B7E2 /* label_ic_eye_hide@2x.png in Resources */,
 				12961CCB229FD6590075B04A /* CreateTagView.xib in Resources */,
+				12FD85CE22BB2FB70026B7E2 /* label_security@3x.png in Resources */,
 				12747BD322A7CC13009C390E /* WBGImageEditorViewController.xib in Resources */,
 				12747BF222A7CDC9009C390E /* RecordStateView.xib in Resources */,
 				12CB73B022AB91FA0064FB21 /* HomeworkSegmentTableViewCell.xib in Resources */,
@@ -6221,6 +6247,7 @@
 				12747BDF22A7CCEA009C390E /* RightImageMessageTableViewCell.xib in Resources */,
 				12ED3B3F229D8F0800255F8B /* HomeWorkSendHistoryViewController.xib in Resources */,
 				12747C5822A7D1B0009C390E /* pop_img_welcome@2x.png in Resources */,
+				12FD85C922BB2F660026B7E2 /* label_eye_display@2x.png in Resources */,
 				12747C3122A7D131009C390E /* btn_send_video@2x.png in Resources */,
 				12961C5D229E65870075B04A /* SendTimePickerView.xib in Resources */,
 				12961C88229E693A0075B04A /* btn_mission_send@3x.png in Resources */,
@@ -6235,9 +6262,11 @@
 				12CB73AD22AB91EB0064FB21 /* HomeworkLimitTimeCell.xib in Resources */,
 				12CB73B322AB921B0064FB21 /* HomeworkAddTableViewCell.xib in Resources */,
 				12ED3B5C229D96AA00255F8B /* hud_ic_cancel@2x.png in Resources */,
+				12FD85C422BB2F4C0026B7E2 /* label_user@2x.png in Resources */,
 				12747C5922A7D1B0009C390E /* pop_img_welcome@3x.png in Resources */,
 				12961C52229E5E460075B04A /* ClassAndStudentSelectorController.xib in Resources */,
 				12ED3B56229D961500255F8B /* 加载动画05@2x.png in Resources */,
+				12FD85C522BB2F4F0026B7E2 /* label_user@3x.png in Resources */,
 				12747C2822A7D107009C390E /* navbar_screen@3x.png in Resources */,
 				1226F329229832BB00BAB1C9 /* LoginViewController_Teacher.xib in Resources */,
 				12747C9722A96EA1009C390E /* MICreateWordView.xib in Resources */,
@@ -6278,10 +6307,12 @@
 				12961C99229ECB060075B04A /* MISegmentTypeTableViewCell.xib in Resources */,
 				12747C1422A7D090009C390E /* btn_send_photo@3x.png in Resources */,
 				12961C60229E65CA0075B04A /* NEPhotoBrowser.bundle in Resources */,
+				12FD85C222BB2B3D0026B7E2 /* label_key@2x.png in Resources */,
 				12A1E95822A6997D001247D7 /* ic_remove_plat@2x.png in Resources */,
 				12747C1C22A7D0D8009C390E /* 警告图片@2x.png in Resources */,
 				12747C2322A7D0F5009C390E /* 卡片角标@2x.png in Resources */,
 				12DCE76822A1653F00E2DAFE /* MIScoreListViewController.xib in Resources */,
+				12FD85CC22BB2F720026B7E2 /* label_phone@2x.png in Resources */,
 				12747BFE22A7CE5F009C390E /* AnswerPickerImageCell.xib in Resources */,
 				12A2724722A75FF00020A3BA /* MITagsTableViewCell.xib in Resources */,
 				12CB73A922AB91A40064FB21 /* HomeworkTextTableViewCell.xib in Resources */,
@@ -6290,6 +6321,7 @@
 				12ED3B61229D96B900255F8B /* hud_ic_loading@3x.png in Resources */,
 				12747C3222A7D134009C390E /* btn_send_video@3x.png in Resources */,
 				12747C7722A7D22E009C390E /* ic_stars_coupons_plat@2x.png in Resources */,
+				12FD85C322BB2B3F0026B7E2 /* label_key@3x.png in Resources */,
 				12ED3B5F229D96B300255F8B /* hud_ic_error@3x.png in Resources */,
 				12ED3B16229C444B00255F8B /* SettingsViewController.xib in Resources */,
 				12ED3B79229E2AE100255F8B /* icon_mission_choice_disabled@3x.png in Resources */,

@@ -262,7 +262,7 @@ ClassAndStudentSelectorControllerDelegate
         self.homework.category = 1;
         self.homework.limitTimes = 300;
         self.homework.examType = 1;
-        self.wordsItem.playTime = 1000;
+        self.wordsItem.playtime = 1000;
     } else {// 编辑作业
         
         self.taskType = [self setTaskTypeWithHomeWork:homework];
@@ -580,14 +580,14 @@ ClassAndStudentSelectorControllerDelegate
             contentCell.expandCallback = ^{
                 MIExpandPickerView * chooseDataPicker = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIExpandPickerView class]) owner:nil options:nil] firstObject];
                 chooseDataPicker.callback = ^(NSString * _Nonnull text) {
-                    weakSelf.wordsItem.playTime = text.integerValue;
+                    weakSelf.wordsItem.playtime = text.integerValue;
                     [weakContentCell setupWithLeftText:text rightText:nil createType:createType];
                 };
-                NSString *wordPlayTime = [NSString stringWithFormat:@"%lu",self.wordsItem.playTime];
+                NSString *wordPlayTime = [NSString stringWithFormat:@"%lu",self.wordsItem.playtime];
                 [chooseDataPicker setDefultText:wordPlayTime createType:createType];
                 [chooseDataPicker show];
             };
-            NSString *wordPlayTime = [NSString stringWithFormat:@"%lu",self.wordsItem.playTime];
+            NSString *wordPlayTime = [NSString stringWithFormat:@"%lu",self.wordsItem.playtime];
             [contentCell setupWithLeftText:wordPlayTime rightText:nil createType:createType];
             cell = contentCell;
         }

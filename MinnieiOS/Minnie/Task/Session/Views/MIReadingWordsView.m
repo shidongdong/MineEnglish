@@ -51,7 +51,7 @@
 -(NSTimer *)wordsTimer{
     
     if (!_wordsTimer) {
-        NSInteger playTime = self.wordsItem.playTime/1000;
+        NSInteger playTime = self.wordsItem.playtime/1000;
         if (playTime == 0) {
             playTime = 2.0;
         }

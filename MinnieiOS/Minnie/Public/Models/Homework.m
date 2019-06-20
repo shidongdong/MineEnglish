@@ -116,7 +116,7 @@
             }
             itemDict[@"words"] = words;
             itemDict[@"bgmusicUrl"] = item.bgmusicUrl;
-            itemDict[@"playTime"] = @(item.playTime);
+            itemDict[@"playtime"] = @(item.playtime);
         }
         [items addObject:itemDict];
     }
