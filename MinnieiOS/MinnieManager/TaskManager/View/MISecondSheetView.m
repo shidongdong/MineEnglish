@@ -153,21 +153,6 @@ UITableViewDataSource
     [view addSubview:headerView];
     return view;
 }
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//
-//    ParentFileInfo *parentInfo = self.parentFileList[indexPath.section];
-//    FileInfo *subFileInfo = parentInfo.subFileList[indexPath.row];
-//    _currentIndex = indexPath.row;
-//    // 任务管理二级文件夹
-//    if (self.delegate && [self.delegate respondsToSelector:@selector(secondSheetViewSecondLevelData:index:)]) {
-//
-//        [self.delegate secondSheetViewSecondLevelData:subFileInfo index:indexPath.row];
-//    }
-//    [tableView reloadData];
-//}
-
 
 #pragma mark -  HeaderViewDelegate  一级、二级文件展开折叠
 - (void)headerViewDidCellClicked:(NSIndexPath *)indexPath isParentFile:(BOOL)isParentFile{
@@ -218,15 +203,15 @@ UITableViewDataSource
         MIEidtFileView *editFileView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIEidtFileView class]) owner:nil options:nil].lastObject;
         WeakifySelf;
         editFileView.deleteCallback = ^{
-            ParentFileInfo *parentFileInfo = weakSelf.parentFileList[indexPath.section];
+            if (indexPath.section < weakSelf.parentFileList.count) {
+                ParentFileInfo *parentFileInfo = weakSelf.parentFileList[indexPath.section];
                 weakSelf.currentParentFileId = -1;
-            if (indexPath.section < parentFileInfo.subFileList.count) {
                 [weakSelf deleteFile:parentFileInfo.fileInfo indexPath:indexPath];
             }
         };
         editFileView.renameCallBack = ^{
-            ParentFileInfo *parentFileInfo = weakSelf.parentFileList[indexPath.section];
-            if (indexPath.section < parentFileInfo.subFileList.count) {
+            if (indexPath.section < weakSelf.parentFileList.count) {
+                ParentFileInfo *parentFileInfo = weakSelf.parentFileList[indexPath.section];
                 [weakSelf renameFileWithFileInfo:parentFileInfo.fileInfo];
             }
         };
@@ -275,8 +260,8 @@ UITableViewDataSource
         CGRect rect = [self.tableView convertRect:rectInTableView toView:[self.tableView superview]];
         CGFloat editViewY = CGRectGetMidY(rect) - 70;
         
-        if (editViewY >= [UIScreen mainScreen].bounds.size.height - 120) {
-            editViewY = [UIScreen mainScreen].bounds.size.height - 120;
+        if (editViewY >= ScreenHeight - 120) {
+            editViewY = ScreenHeight - 120;
         }
         editFileView.topConstraint.constant = editViewY;
         editFileView.leftContraint.constant = kFolderModularWidth + kRootModularWidth;
@@ -452,7 +437,11 @@ UITableViewDataSource
     WeakifySelf;
     [ManagerServce requestDelFilesWithFileId:fileInfo.fileId callback:^(Result *result, NSError *error) {
         if (error) {
-            [HUD showWithMessage:@"删除失败"];
+            if (error.code == 711) {
+                [HUD showWithMessage:@"无法删除,存在任务"];
+            } else {
+                [HUD showWithMessage:@"删除失败"];
+            }
             return ;
         } else {
             [HUD showWithMessage:@"删除成功"];
