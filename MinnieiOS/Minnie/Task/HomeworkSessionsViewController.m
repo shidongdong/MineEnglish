@@ -6,6 +6,8 @@
 //  Copyright © 2017年 mfox. All rights reserved.
 //
 
+#import "NSDate+X5.h"
+#import "NSDate+Extension.h"
 #import "ActivityInfo.h"
 #import "ManagerServce.h"
 #import "MIActivityBannerView.h"
@@ -753,12 +755,26 @@ MIActivityBannerViewDelegate
         
         NSDictionary *dict = (NSDictionary *)result.userInfo;
         NSArray *list = dict[@"list"];
-        weakSelf.bannerArray = list;
+        
+        NSMutableArray *tempList = [NSMutableArray array];
+        for (ActivityInfo *actInfo in list) {
+            
+            NSDate *endDate = [NSDate dateByDateString:actInfo.endTime format:@"yyyy-MM-dd HH:mm:ss"];
+            if ([[endDate dateAtStartOfDay] isEarlierThanDate:[[NSDate date] dateAtStartOfDay]]) {
+                continue; // 活动结束
+            }
+            NSDate *startDate = [NSDate dateByDateString:actInfo.startTime format:@"yyyy-MM-dd HH:mm:ss"];
+            if ([[startDate dateAtStartOfDay] isLaterThanDate:[[NSDate date] dateAtStartOfDay]]) {
+                continue; // 活动未开始
+            }
+            [tempList addObject:actInfo];
+        }
+        weakSelf.bannerArray = tempList;
 
-        if (weakSelf.mState == 0 && list.count > 0) {
+        if (weakSelf.mState == 0 && tempList.count > 0) {
             weakSelf.topConstraint.constant = 124;
             [weakSelf.view addSubview:weakSelf.bannerView];
-            weakSelf.bannerView.imagesGroup = list;
+            weakSelf.bannerView.imagesGroup = tempList;
         } else {
             weakSelf.topConstraint.constant = 0;
             if (weakSelf.bannerView.superview) {
