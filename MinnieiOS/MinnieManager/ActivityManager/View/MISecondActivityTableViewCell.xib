@@ -19,13 +19,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="活动标题" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="opI-Pk-z9m">
-                        <rect key="frame" x="10" y="15" width="354" height="17"/>
+                        <rect key="frame" x="10" y="15" width="309" height="17"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2019-10-30 - 2019-10-31" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jGp-nu-BHB">
-                        <rect key="frame" x="10" y="42.5" width="354" height="17"/>
+                        <rect key="frame" x="10" y="42.5" width="309" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -47,7 +47,7 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="opI-Pk-z9m" secondAttribute="trailing" constant="10" id="2To-Sx-Qpy"/>
+                    <constraint firstItem="9UX-ha-NBP" firstAttribute="leading" secondItem="opI-Pk-z9m" secondAttribute="trailing" constant="5" id="2Wg-q3-3bD"/>
                     <constraint firstItem="opI-Pk-z9m" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="5bl-p3-QsS"/>
                     <constraint firstItem="jGp-nu-BHB" firstAttribute="leading" secondItem="opI-Pk-z9m" secondAttribute="leading" id="Fpz-qf-zlG"/>
                     <constraint firstItem="jGp-nu-BHB" firstAttribute="trailing" secondItem="opI-Pk-z9m" secondAttribute="trailing" id="HuY-nG-9tb"/>
