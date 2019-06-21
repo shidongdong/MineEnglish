@@ -51,6 +51,8 @@
     self.handleLaunchDict = launchOptions;
     
     [Bugly startWithAppId:@"f82097cc09"];
+   
+    [self setupLeanCloudServer];
     //正式版
     [AVOSCloud setApplicationId:@"pe0Om2fpgh5oHCd0NfSUbwkT-gzGzoHsz" clientKey:@"gfJuGSytpQalwcnAmNtunRoP"];
     //开发版
@@ -468,6 +470,18 @@
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
     return UIInterfaceOrientationMaskPortrait;
+}
+
+- (void)setupLeanCloudServer{
+    
+    // 配置 SDK 储存
+    [AVOSCloud setServerURLString:@"https://avoscloud.com" forServiceModule:AVServiceModuleAPI];
+    // 配置 SDK 推送
+    [AVOSCloud setServerURLString:@"https://avoscloud.com" forServiceModule:AVServiceModulePush];
+    // 配置 SDK 云引擎
+    [AVOSCloud setServerURLString:@"https://avoscloud.com" forServiceModule:AVServiceModuleEngine];
+    // 配置 SDK 即时通讯
+    [AVOSCloud setServerURLString:@"https://router-g0-push.avoscloud.com" forServiceModule:AVServiceModuleRTM];
 }
 
 @end
