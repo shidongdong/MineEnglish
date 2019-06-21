@@ -57,12 +57,12 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     self.handleLaunchDict = launchOptions;
     
     [Bugly startWithAppId:@"f82097cc09"];
+    [self setupLeanCloudServer];
     [AVOSCloud setApplicationId:kAVOSCloudApplicationId clientKey:kAVOSCloudClientKey];
     //正式版
 //    [AVOSCloud setApplicationId:@"pe0Om2fpgh5oHCd0NfSUbwkT-gzGzoHsz" clientKey:@"gfJuGSytpQalwcnAmNtunRoP"];
@@ -500,6 +500,17 @@
 
 #endif
 
+- (void)setupLeanCloudServer{
+    
+    // 配置 SDK 储存
+    [AVOSCloud setServerURLString:@"https://avoscloud.com" forServiceModule:AVServiceModuleAPI];
+    // 配置 SDK 推送
+    [AVOSCloud setServerURLString:@"https://avoscloud.com" forServiceModule:AVServiceModulePush];
+    // 配置 SDK 云引擎
+    [AVOSCloud setServerURLString:@"https://avoscloud.com" forServiceModule:AVServiceModuleEngine];
+    // 配置 SDK 即时通讯
+    [AVOSCloud setServerURLString:@"https://router-g0-push.avoscloud.com" forServiceModule:AVServiceModuleRTM];
+}
 
 @end
 
