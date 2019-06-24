@@ -81,10 +81,6 @@
 		1226F34C22983A2300BAB1C9 /* navbar_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710960B207A006C00568785 /* navbar_back@2x.png */; };
 		122A1ECB22A23306009358DE /* ManagerServce.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1ECA22A23306009358DE /* ManagerServce.m */; };
 		122A1ECE22A2332A009358DE /* ManagerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1ECD22A2332A009358DE /* ManagerRequest.m */; };
-		122A1EDA22A241DA009358DE /* ParentFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1ED922A241DA009358DE /* ParentFileInfo.m */; };
-		122A1EDD22A24DDD009358DE /* ScoreInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1EDC22A24DDD009358DE /* ScoreInfo.m */; };
-		122A1EE022A2528E009358DE /* ActivityInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1EDF22A2528E009358DE /* ActivityInfo.m */; };
-		122A1EE322A258D2009358DE /* WordInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1EE222A258D2009358DE /* WordInfo.m */; };
 		122C16A522A97AEF00084AC7 /* MICreateWordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12747C9422A96E8E009C390E /* MICreateWordView.m */; };
 		122C16A622A97AEF00084AC7 /* MICreateWordView.xib in Sources */ = {isa = PBXBuildFile; fileRef = 12747C9622A96EA1009C390E /* MICreateWordView.xib */; };
 		122C16A922AA2DD900084AC7 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 122C16A822AA2DD900084AC7 /* NSDate+Extension.m */; };
@@ -407,14 +403,6 @@
 		12A1E94222A5787D001247D7 /* HomeworkImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9736496320AF2F8500511A95 /* HomeworkImageTableViewCell.xib */; };
 		12A1E94322A57885001247D7 /* HomeworkAudioTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87FD07DA21BE464700664AF1 /* HomeworkAudioTableViewCell.m */; };
 		12A1E94422A5788A001247D7 /* HomeworkAudioTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87FD07DB21BE464700664AF1 /* HomeworkAudioTableViewCell.xib */; };
-		12A1E94522A65E61001247D7 /* ParentFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1ED922A241DA009358DE /* ParentFileInfo.m */; };
-		12A1E94622A65E64001247D7 /* ActivityInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1EDF22A2528E009358DE /* ActivityInfo.m */; };
-		12A1E94722A65E66001247D7 /* WordInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1EE222A258D2009358DE /* WordInfo.m */; };
-		12A1E94822A65E69001247D7 /* WordInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1EE222A258D2009358DE /* WordInfo.m */; };
-		12A1E94922A65E6D001247D7 /* ScoreInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1EDC22A24DDD009358DE /* ScoreInfo.m */; };
-		12A1E94A22A65E6E001247D7 /* ScoreInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1EDC22A24DDD009358DE /* ScoreInfo.m */; };
-		12A1E94B22A65E70001247D7 /* ParentFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1ED922A241DA009358DE /* ParentFileInfo.m */; };
-		12A1E94C22A65E73001247D7 /* ActivityInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1EDF22A2528E009358DE /* ActivityInfo.m */; };
 		12A1E94D22A65E80001247D7 /* ManagerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1ECD22A2332A009358DE /* ManagerRequest.m */; };
 		12A1E94E22A65E80001247D7 /* ManagerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1ECD22A2332A009358DE /* ManagerRequest.m */; };
 		12A1E94F22A65E83001247D7 /* ManagerServce.m in Sources */ = {isa = PBXBuildFile; fileRef = 122A1ECA22A23306009358DE /* ManagerServce.m */; };
@@ -653,6 +641,18 @@
 		12FD85CD22BB2F750026B7E2 /* label_phone@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109619207A006C00568785 /* label_phone@3x.png */; };
 		12FD85CE22BB2FB70026B7E2 /* label_security@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109595207A006C00568785 /* label_security@3x.png */; };
 		12FD85CF22BB2FBA0026B7E2 /* label_security@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109567207A006C00568785 /* label_security@2x.png */; };
+		12FD85D822C05C900026B7E2 /* ActivityInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85D022C05C8F0026B7E2 /* ActivityInfo.m */; };
+		12FD85D922C05C900026B7E2 /* ActivityInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85D022C05C8F0026B7E2 /* ActivityInfo.m */; };
+		12FD85DA22C05C900026B7E2 /* ActivityInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85D022C05C8F0026B7E2 /* ActivityInfo.m */; };
+		12FD85DB22C05C900026B7E2 /* ScoreInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85D122C05C8F0026B7E2 /* ScoreInfo.m */; };
+		12FD85DC22C05C900026B7E2 /* ScoreInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85D122C05C8F0026B7E2 /* ScoreInfo.m */; };
+		12FD85DD22C05C900026B7E2 /* ScoreInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85D122C05C8F0026B7E2 /* ScoreInfo.m */; };
+		12FD85DE22C05C900026B7E2 /* WordInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85D222C05C8F0026B7E2 /* WordInfo.m */; };
+		12FD85DF22C05C900026B7E2 /* WordInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85D222C05C8F0026B7E2 /* WordInfo.m */; };
+		12FD85E022C05C900026B7E2 /* WordInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85D222C05C8F0026B7E2 /* WordInfo.m */; };
+		12FD85E122C05C900026B7E2 /* ParentFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85D322C05C8F0026B7E2 /* ParentFileInfo.m */; };
+		12FD85E222C05C900026B7E2 /* ParentFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85D322C05C8F0026B7E2 /* ParentFileInfo.m */; };
+		12FD85E322C05C900026B7E2 /* ParentFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85D322C05C8F0026B7E2 /* ParentFileInfo.m */; };
 		1923CB12228117E20056B2AD /* EditStudentMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1923CB11228117E20056B2AD /* EditStudentMarkView.m */; };
 		1923CB14228118030056B2AD /* EditStudentMarkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1923CB13228118030056B2AD /* EditStudentMarkView.xib */; };
 		1923CB1522812CF00056B2AD /* EditStudentMarkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1923CB13228118030056B2AD /* EditStudentMarkView.xib */; };
@@ -2043,14 +2043,6 @@
 		122A1ECA22A23306009358DE /* ManagerServce.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ManagerServce.m; path = Request/ManagerServce.m; sourceTree = "<group>"; };
 		122A1ECC22A2332A009358DE /* ManagerRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ManagerRequest.h; path = Request/ManagerRequest.h; sourceTree = "<group>"; };
 		122A1ECD22A2332A009358DE /* ManagerRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ManagerRequest.m; path = Request/ManagerRequest.m; sourceTree = "<group>"; };
-		122A1ED822A241DA009358DE /* ParentFileInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ParentFileInfo.h; path = ../ParentFileInfo.h; sourceTree = "<group>"; };
-		122A1ED922A241DA009358DE /* ParentFileInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ParentFileInfo.m; path = ../ParentFileInfo.m; sourceTree = "<group>"; };
-		122A1EDB22A24DDD009358DE /* ScoreInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScoreInfo.h; path = ../ScoreInfo.h; sourceTree = "<group>"; };
-		122A1EDC22A24DDD009358DE /* ScoreInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ScoreInfo.m; path = ../ScoreInfo.m; sourceTree = "<group>"; };
-		122A1EDE22A2528E009358DE /* ActivityInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ActivityInfo.h; path = ../ActivityInfo.h; sourceTree = "<group>"; };
-		122A1EDF22A2528E009358DE /* ActivityInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ActivityInfo.m; path = ../ActivityInfo.m; sourceTree = "<group>"; };
-		122A1EE122A258D2009358DE /* WordInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WordInfo.h; path = ../WordInfo.h; sourceTree = "<group>"; };
-		122A1EE222A258D2009358DE /* WordInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WordInfo.m; path = ../WordInfo.m; sourceTree = "<group>"; };
 		122C16A722AA2DD900084AC7 /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
 		122C16A822AA2DD900084AC7 /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
 		122F797F22AC9ABC00D2AA53 /* MISutActDetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MISutActDetailTableViewCell.h; sourceTree = "<group>"; };
@@ -2196,6 +2188,14 @@
 		12FD85B722B721EE0026B7E2 /* MinnieManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MinnieManager.entitlements; sourceTree = "<group>"; };
 		12FD85BB22B9DFAE0026B7E2 /* UIAlertController+Alert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Alert.h"; sourceTree = "<group>"; };
 		12FD85BC22B9DFAE0026B7E2 /* UIAlertController+Alert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Alert.m"; sourceTree = "<group>"; };
+		12FD85D022C05C8F0026B7E2 /* ActivityInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ActivityInfo.m; path = MinnieManager/Service/ActivityInfo.m; sourceTree = SOURCE_ROOT; };
+		12FD85D122C05C8F0026B7E2 /* ScoreInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScoreInfo.m; path = MinnieManager/Service/ScoreInfo.m; sourceTree = SOURCE_ROOT; };
+		12FD85D222C05C8F0026B7E2 /* WordInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WordInfo.m; path = MinnieManager/Service/WordInfo.m; sourceTree = SOURCE_ROOT; };
+		12FD85D322C05C8F0026B7E2 /* ParentFileInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParentFileInfo.m; path = MinnieManager/Service/ParentFileInfo.m; sourceTree = SOURCE_ROOT; };
+		12FD85D422C05C900026B7E2 /* ActivityInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActivityInfo.h; path = MinnieManager/Service/ActivityInfo.h; sourceTree = SOURCE_ROOT; };
+		12FD85D522C05C900026B7E2 /* ParentFileInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParentFileInfo.h; path = MinnieManager/Service/ParentFileInfo.h; sourceTree = SOURCE_ROOT; };
+		12FD85D622C05C900026B7E2 /* ScoreInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScoreInfo.h; path = MinnieManager/Service/ScoreInfo.h; sourceTree = SOURCE_ROOT; };
+		12FD85D722C05C900026B7E2 /* WordInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WordInfo.h; path = MinnieManager/Service/WordInfo.h; sourceTree = SOURCE_ROOT; };
 		1923CB10228117E20056B2AD /* EditStudentMarkView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditStudentMarkView.h; sourceTree = "<group>"; };
 		1923CB11228117E20056B2AD /* EditStudentMarkView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditStudentMarkView.m; sourceTree = "<group>"; };
 		1923CB13228118030056B2AD /* EditStudentMarkView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditStudentMarkView.xib; sourceTree = "<group>"; };
@@ -3418,28 +3418,20 @@
 		122A1EC622A232D6009358DE /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				122A1EC722A232D6009358DE /* Model */,
+				12FD85D422C05C900026B7E2 /* ActivityInfo.h */,
+				12FD85D022C05C8F0026B7E2 /* ActivityInfo.m */,
+				12FD85D522C05C900026B7E2 /* ParentFileInfo.h */,
+				12FD85D322C05C8F0026B7E2 /* ParentFileInfo.m */,
+				12FD85D622C05C900026B7E2 /* ScoreInfo.h */,
+				12FD85D122C05C8F0026B7E2 /* ScoreInfo.m */,
+				12FD85D722C05C900026B7E2 /* WordInfo.h */,
+				12FD85D222C05C8F0026B7E2 /* WordInfo.m */,
 				122A1ECC22A2332A009358DE /* ManagerRequest.h */,
 				122A1ECD22A2332A009358DE /* ManagerRequest.m */,
 				122A1EC922A23306009358DE /* ManagerServce.h */,
 				122A1ECA22A23306009358DE /* ManagerServce.m */,
 			);
 			path = Service;
-			sourceTree = "<group>";
-		};
-		122A1EC722A232D6009358DE /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				122A1ED822A241DA009358DE /* ParentFileInfo.h */,
-				122A1ED922A241DA009358DE /* ParentFileInfo.m */,
-				122A1EDE22A2528E009358DE /* ActivityInfo.h */,
-				122A1EDF22A2528E009358DE /* ActivityInfo.m */,
-				122A1EE122A258D2009358DE /* WordInfo.h */,
-				122A1EE222A258D2009358DE /* WordInfo.m */,
-				122A1EDB22A24DDD009358DE /* ScoreInfo.h */,
-				122A1EDC22A24DDD009358DE /* ScoreInfo.m */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		123042CB22A0C5CD00E111A4 /* ActivityManager */ = {
@@ -7552,6 +7544,7 @@
 				1226F3362298334C00BAB1C9 /* FileUploader.m in Sources */,
 				12B7082322A4F8F500117537 /* MIExpandPickerView.m in Sources */,
 				12961CDD229FD72D0075B04A /* TagsRequest.m in Sources */,
+				12FD85DD22C05C900026B7E2 /* ScoreInfo.m in Sources */,
 				12CB73B222AB92180064FB21 /* HomeworkAddTableViewCell.m in Sources */,
 				12B7082622A5207200117537 /* DatePickerView.m in Sources */,
 				12B7081922A40B6D00117537 /* MIEidtFileView.m in Sources */,
@@ -7596,6 +7589,7 @@
 				12CB73A422AB90FE0064FB21 /* CreateHomeworkViewController.m in Sources */,
 				12747BD222A7CC0F009C390E /* WBGImageEditorViewController.m in Sources */,
 				12747BE722A7CD42009C390E /* WBGImageToolBase.m in Sources */,
+				12FD85E022C05C900026B7E2 /* WordInfo.m in Sources */,
 				1226F3232298324A00BAB1C9 /* UserRequest.m in Sources */,
 				1226F3402298363C00BAB1C9 /* ModifyStarRequest.m in Sources */,
 				1226F31E229831F800BAB1C9 /* FindPasswordRequest.m in Sources */,
@@ -7641,9 +7635,7 @@
 				12ED3B5A229D968C00255F8B /* FilterAlertView.m in Sources */,
 				1226F31822982F3C00BAB1C9 /* Clazz.m in Sources */,
 				1226F3442298368E00BAB1C9 /* HUD.m in Sources */,
-				122A1EE022A2528E009358DE /* ActivityInfo.m in Sources */,
 				12961CD4229FD6CC0075B04A /* CorrectHomeworkCommentsRequest.m in Sources */,
-				122A1EE322A258D2009358DE /* WordInfo.m in Sources */,
 				12ED3B45229D8F8F00255F8B /* HomeworkService.m in Sources */,
 				12747C1222A7D043009C390E /* CorrectHomeworkScoreTableViewCell.m in Sources */,
 				1226F33E2298361000BAB1C9 /* ProfileService.m in Sources */,
@@ -7697,6 +7689,7 @@
 				12961CC1229FD4EC0075B04A /* TagsViewController.m in Sources */,
 				1226F3432298366B00BAB1C9 /* UpdateProfileRequest.m in Sources */,
 				12ED3B3E229D8F0000255F8B /* HomeWorkSendHistoryViewController.m in Sources */,
+				12FD85E322C05C900026B7E2 /* ParentFileInfo.m in Sources */,
 				12CB73B122AB91FE0064FB21 /* HomeworkSegmentTableViewCell.m in Sources */,
 				12747BE022A7CCF8009C390E /* VideoMessageTableViewCell.m in Sources */,
 				122F799C22AD3D7A00D2AA53 /* MIStuUploadVideoViewController.m in Sources */,
@@ -7737,7 +7730,6 @@
 				12961C77229E677B0075B04A /* StudentsRequest.m in Sources */,
 				12961C6D229E66D00075B04A /* HomeworkAudioCollectionViewCell.m in Sources */,
 				12747C0622A7CF2D009C390E /* AddAwardRequest.m in Sources */,
-				122A1EDA22A241DA009358DE /* ParentFileInfo.m in Sources */,
 				12961C7C229E67CF0075B04A /* ClassesRequest.m in Sources */,
 				1226F33B2298335D00BAB1C9 /* HomeworkItem.m in Sources */,
 				12961C93229ECAAB0075B04A /* MIInPutTypeTableViewCell.m in Sources */,
@@ -7751,12 +7743,12 @@
 				12961C80229E68040075B04A /* DeleteTeacherRequest.m in Sources */,
 				12FD85BF22B9DFAE0026B7E2 /* UIAlertController+Alert.m in Sources */,
 				12961CDA229FD6FE0075B04A /* CorrectHomeworkRequest.m in Sources */,
+				12FD85DA22C05C900026B7E2 /* ActivityInfo.m in Sources */,
 				1226F31322982D5600BAB1C9 /* Constants.m in Sources */,
 				12961C63229E66030075B04A /* HomeworkVideoCollectionViewCell.m in Sources */,
 				12ED3B20229D107600255F8B /* MITaskEmptyView.m in Sources */,
 				123042EC22A1160F00E111A4 /* MIParticipateDetailViewController.m in Sources */,
 				122F799622AD3D5D00D2AA53 /* MISutActDetailTableViewCell.m in Sources */,
-				122A1EDD22A24DDD009358DE /* ScoreInfo.m in Sources */,
 				12961CD5229FD6D40075B04A /* SearchHomeworkTypeRequest.m in Sources */,
 				12A2723C22A74DF10020A3BA /* MITagsViewController.m in Sources */,
 				12A2724222A756240020A3BA /* MIEqualSpaceFlowLayout.m in Sources */,
@@ -7803,7 +7795,6 @@
 				97109C16207A2E3E00568785 /* CircleHomeworksViewController.m in Sources */,
 				97109C50207A2E3E00568785 /* CircleBottomTableViewCell.m in Sources */,
 				97109EDA207A7C1600568785 /* StudentAwardService.m in Sources */,
-				12A1E94822A65E69001247D7 /* WordInfo.m in Sources */,
 				87AF73002193D164003E87F0 /* StudentDetailCell.m in Sources */,
 				97109D3B207A2F0400568785 /* NoticeMessagesViewController.m in Sources */,
 				97364A1A20B1704900511A95 /* MessageUpdateCountRequest.m in Sources */,
@@ -7820,6 +7811,7 @@
 				97109A56207A158C00568785 /* EmojiMessageTableViewCell.m in Sources */,
 				97109946207A0BF600568785 /* User.m in Sources */,
 				97109A34207A158C00568785 /* RedoHomeworkRequest.m in Sources */,
+				12FD85E122C05C900026B7E2 /* ParentFileInfo.m in Sources */,
 				87C52FB52164AC59004288F4 /* WBGImageToolBase.m in Sources */,
 				971098FE207A0BF500568785 /* WebViewController.m in Sources */,
 				9710990A207A0BF500568785 /* RefreshHeader.m in Sources */,
@@ -7863,7 +7855,6 @@
 				875C2629218ADA7D0047E32A /* FilterAlertView.m in Sources */,
 				97109D49207A2F0400568785 /* CommentMessagesViewController.m in Sources */,
 				9790705720C04F4200F1D344 /* HomeworkSessionRequest.m in Sources */,
-				12A1E94A22A65E6E001247D7 /* ScoreInfo.m in Sources */,
 				97109DEC207A5D9700568785 /* RegisterViewController.m in Sources */,
 				9710995C207A0BF600568785 /* NSString+MD5.m in Sources */,
 				8707EFC121D61D9F0060B5A6 /* TagsViewController.m in Sources */,
@@ -7900,6 +7891,7 @@
 				97109E09207A682F00568785 /* MyClassViewController.m in Sources */,
 				97109902207A0BF500568785 /* MaskImageView.m in Sources */,
 				879CE52021905F7100BBE4B7 /* AchieverListCollectionViewCell.m in Sources */,
+				12FD85DE22C05C900026B7E2 /* WordInfo.m in Sources */,
 				9710991A207A0BF600568785 /* PortraitTabBarController.m in Sources */,
 				97109BD0207A1D5000568785 /* CalendarTableViewCell.m in Sources */,
 				872558A821D4CB8C0028BC2A /* CorrectHomeworkHisCommentTableViewCell.m in Sources */,
@@ -7986,7 +7978,6 @@
 				97109C46207A2E3E00568785 /* CircleLikeUsersTableViewCell.m in Sources */,
 				97109EE1207A7C1600568785 /* ExchangeAwardView.m in Sources */,
 				12AF64F5228E4A790031E1F6 /* EqualSpaceFlowLayout.m in Sources */,
-				12A1E94C22A65E73001247D7 /* ActivityInfo.m in Sources */,
 				971098F2207A0BF500568785 /* EmojiInputCollectionViewCell.m in Sources */,
 				97109C84207A2EC900568785 /* ResetPassswordRequest.m in Sources */,
 				97109956207A0BF600568785 /* UIColor+HEX.m in Sources */,
@@ -8002,7 +7993,7 @@
 				97109962207A0BF600568785 /* FileUploader.m in Sources */,
 				1950D7E422774EE5004F7291 /* SendAudioManager.m in Sources */,
 				97109C14207A2E3E00568785 /* CircleHomeworkViewController.m in Sources */,
-				12A1E94B22A65E70001247D7 /* ParentFileInfo.m in Sources */,
+				12FD85D822C05C900026B7E2 /* ActivityInfo.m in Sources */,
 				871806C221DF438C0023511C /* MUImagePickerManager.m in Sources */,
 				9710994C207A0BF600568785 /* HomeworkItem.m in Sources */,
 				879CE54421917CF900BBE4B7 /* AchieverUpdateFlagRequest.m in Sources */,
@@ -8020,6 +8011,7 @@
 				8709C31F21A2AF7800970757 /* SearchHomeworkTypeRequest.m in Sources */,
 				1923CB1E2283E6620056B2AD /* StarLogs.m in Sources */,
 				122F798222AC9ABC00D2AA53 /* MISutActDetailTableViewCell.m in Sources */,
+				12FD85DB22C05C900026B7E2 /* ScoreInfo.m in Sources */,
 				97109D5F207A2F0400568785 /* NoticeMessageImageItemTableViewCell.m in Sources */,
 				97109E90207A7BDD00568785 /* Award.m in Sources */,
 				97109A7F207A171600568785 /* HomeworkVideoCollectionViewCell.m in Sources */,
@@ -8078,6 +8070,7 @@
 			files = (
 				122C16A522A97AEF00084AC7 /* MICreateWordView.m in Sources */,
 				122C16A622A97AEF00084AC7 /* MICreateWordView.xib in Sources */,
+				12FD85D922C05C900026B7E2 /* ActivityInfo.m in Sources */,
 				12A2724822A761230020A3BA /* MITagsTableViewCell.m in Sources */,
 				12A2724922A761230020A3BA /* MITagsTableViewCell.xib in Sources */,
 				12A2723E22A754840020A3BA /* MITagsViewController.m in Sources */,
@@ -8128,7 +8121,6 @@
 				97109C87207A2EC900568785 /* SMSCodeRequest.m in Sources */,
 				973649F320AF2F8600511A95 /* CreateTagRequest.m in Sources */,
 				97109C19207A2E3E00568785 /* CircleContainerController.m in Sources */,
-				12A1E94622A65E64001247D7 /* ActivityInfo.m in Sources */,
 				97109AE7207A1C0800568785 /* ClassesContainerController.m in Sources */,
 				87EED4A5219443E400AEA974 /* ChooseDatePickerView.m in Sources */,
 				973649C620AF2F8600511A95 /* HomeworkLabelTableViewCell.m in Sources */,
@@ -8176,6 +8168,7 @@
 				8753CD1B21C7BC2500762266 /* CircleHomeworkFlag.m in Sources */,
 				97109A23207A158C00568785 /* HomeworkSessionsViewController.m in Sources */,
 				87CF03492188191800B6F574 /* ExchangeRecordsRequest.m in Sources */,
+				12FD85DF22C05C900026B7E2 /* WordInfo.m in Sources */,
 				870286682181E29100559195 /* HomeworkDiffTableViewCell.m in Sources */,
 				97109A33207A158C00568785 /* CommitHomeworkRequest.m in Sources */,
 				973649EF20AF2F8600511A95 /* TagsViewController.m in Sources */,
@@ -8225,7 +8218,6 @@
 				97109D4C207A2F0400568785 /* MessageEditorViewController.m in Sources */,
 				871806C321DF438C0023511C /* MUImagePickerManager.m in Sources */,
 				87707878219BB62500940A88 /* HomeWorkSendHistoryViewController.m in Sources */,
-				12A1E94522A65E61001247D7 /* ParentFileInfo.m in Sources */,
 				1923CB1622812D330056B2AD /* EditStudentMarkView.m in Sources */,
 				973649BD20AF2F8600511A95 /* CreateHomeworkViewController.m in Sources */,
 				977BD094207CA140000A1994 /* PushManager.m in Sources */,
@@ -8235,7 +8227,6 @@
 				973649E020AF2F8600511A95 /* HomeworksRequest.m in Sources */,
 				12CB738222AB52D20064FB21 /* MISegmentTypeTableViewCell.m in Sources */,
 				876D982221D0DC2000A0E06E /* CorrectHomeworkHisCommentTableViewCell.m in Sources */,
-				12A1E94922A65E6D001247D7 /* ScoreInfo.m in Sources */,
 				97364A1E20B170FE00511A95 /* UnexchangedRequestCountRequest.m in Sources */,
 				97109C25207A2E3E00568785 /* CircleService.m in Sources */,
 				97109929207A0BF600568785 /* SegmentControl.m in Sources */,
@@ -8309,7 +8300,6 @@
 				12EAC66022B39D8C00F1F3DB /* EditAudioVideo.m in Sources */,
 				97109C17207A2E3E00568785 /* CircleHomeworksViewController.m in Sources */,
 				97109C35207A2E3E00568785 /* HomeworkDetailCommentTableViewCell.m in Sources */,
-				12A1E94722A65E66001247D7 /* WordInfo.m in Sources */,
 				97109D7E207A2F0400568785 /* TeacherEditViewController.m in Sources */,
 				8702867C2182FE2C00559195 /* StudentStarRankRequest.m in Sources */,
 				12CB739F22AB70360064FB21 /* MIScoreListTableViewCell.m in Sources */,
@@ -8347,6 +8337,7 @@
 				973649D620AF2F8600511A95 /* StudentSelectorTableViewCell.m in Sources */,
 				97109D94207A2F0400568785 /* DeleteTeacherAlertView.m in Sources */,
 				8709C31421A26B6A00970757 /* CreateFormTagRequest.m in Sources */,
+				12FD85DC22C05C900026B7E2 /* ScoreInfo.m in Sources */,
 				8709C31821A26C4E00970757 /* DeleteFormTagsRequest.m in Sources */,
 				9710990F207A0BF500568785 /* ChatRefreshHeader.m in Sources */,
 				97109C2B207A2E3E00568785 /* HomeworkRequest.m in Sources */,
@@ -8362,6 +8353,7 @@
 				870ABA562229290100958ED2 /* QNTokenModel.m in Sources */,
 				973649E920AF2F8600511A95 /* SelectTeacherView.m in Sources */,
 				12EAC63A22AD4BF400F1F3DB /* MIReadingTaskViewController.m in Sources */,
+				12FD85E222C05C900026B7E2 /* ParentFileInfo.m in Sources */,
 				12A1E94D22A65E80001247D7 /* ManagerRequest.m in Sources */,
 				97109957207A0BF600568785 /* UIColor+HEX.m in Sources */,
 				879CE54121917A9A00BBE4B7 /* MedalFlag.m in Sources */,

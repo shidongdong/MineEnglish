@@ -55,6 +55,9 @@ NS_ASSUME_NONNULL_BEGIN
 // 获取活动任务列表（ipad管理端&学生端）
 + (BaseRequest *)requestGetActivityListWithCallback:(RequestCallback)callback;
 
+// 获取活动任务详情（ipad管理端&学生端）
++ (BaseRequest *)requestGetActivityDetailWithActId:(NSInteger)actId callback:(RequestCallback)callback;
+
 // 结束活动(ipad管理端)
 
 // 获取活动排名(ipad管理端)

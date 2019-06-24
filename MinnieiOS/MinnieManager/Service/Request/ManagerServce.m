@@ -117,6 +117,16 @@
     return request;
 }
 
+// 获取活动任务详情（ipad管理端&学生端）
++ (BaseRequest *)requestGetActivityDetailWithActId:(NSInteger)actId callback:(RequestCallback)callback{
+    
+    ActDetailGetRequest *request = [[ActDetailGetRequest alloc] initWithActId:actId];
+    [request setCallback:callback];
+    request.objectClassName = @"ActivityInfo";
+    [request start];
+    return request;
+}
+
 // 获取活动排名(ipad管理端)
 + (BaseRequest *)requestGetActivityRankListWithActId:(NSInteger)actId callback:(RequestCallback)callback{
     

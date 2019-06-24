@@ -93,6 +93,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
+#pragma mark - 获取活动任务详情（ipad管理端&学生端）
+@interface ActDetailGetRequest : BaseRequest
+
+- (instancetype)initWithActId:(NSInteger)actId;
+
+@end
+
 #pragma mark - 结束活动(ipad管理端)
 
 #pragma mark - 获取活动排名(ipad管理端)

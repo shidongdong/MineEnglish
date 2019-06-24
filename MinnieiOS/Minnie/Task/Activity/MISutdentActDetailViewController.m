@@ -7,13 +7,15 @@
 //
 
 #import "Result.h"
+#import "NSDate+X5.h"
+#import "NSDate+Extension.h"
 #import "UIView+Load.h"
 #import "ManagerServce.h"
+#import "UIScrollView+Refresh.h"
 #import "MIStuActDetailHeaderView.h"
 #import "MISutActDetailTableViewCell.h"
 #import "MIStuUploadVideoViewController.h"
 #import "MISutdentActDetailViewController.h"
-
 
 #import "AudioPlayer.h"
 #import <AVKit/AVKit.h>
@@ -58,6 +60,8 @@ UINavigationControllerDelegate
 
 @property (nonatomic, assign) NSInteger submitNum;
 
+@property (nonatomic, strong) MIStuActDetailHeaderView *headerView;
+
 @end
 
 @implementation MISutdentActDetailViewController
@@ -66,38 +70,61 @@ UINavigationControllerDelegate
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    MIStuActDetailHeaderView *header = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIStuActDetailHeaderView class]) owner:nil options:nil].lastObject;
-    header.actInfo = self.actInfo;
-    header.autoresizingMask = UIViewAutoresizingNone;
-    CGFloat height = [MIStuActDetailHeaderView heightWithActInfo:self.actInfo];
-    header.frame = CGRectMake(0, 0, ScreenWidth, height);
-    
+    _headerView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIStuActDetailHeaderView class]) owner:nil options:nil].lastObject;
+    _headerView.autoresizingMask = UIViewAutoresizingNone;
+    [self setupActInfo];
     
     WeakifySelf;
-    [header setVideoCallback:^(NSString *videoUrl) {
+    [_headerView setVideoCallback:^(NSString *videoUrl) {
         [weakSelf playerVideoWithURL:videoUrl];
     }];
-    [header setImageCallback:^(NSString * imageUrl, UIImageView * currentImage, NSInteger index) {
+    [_headerView setImageCallback:^(NSString * imageUrl, UIImageView * currentImage, NSInteger index) {
         weakSelf.currentSelectedImageView = currentImage;
         weakSelf.currentSelectedImageUrl = imageUrl;
         [weakSelf showCurrentSelectedImage];
     }];
     
-    [header setAudioCallback:^(NSString * audioUrl, NSString * audioCoverUrl) {
+    [_headerView setAudioCallback:^(NSString * audioUrl, NSString * audioCoverUrl) {
         [weakSelf playAudioWithURL:audioUrl withCoverURL:audioCoverUrl];
     }];
     
-    self.tableview.tableHeaderView = header;
+    self.tableview.tableHeaderView = _headerView;
     UIView *footerView = [[UIView alloc] init];
     footerView.backgroundColor = [UIColor clearColor];
     self.tableview.tableFooterView = footerView;
     
-    [self requestGetStuActivityRankList];
-    [self requestactLogsActivity];
+    [self.tableview addPullToRefreshWithRefreshingBlock:^{
+        
+        [weakSelf requestGetActivityDetail];
+        [weakSelf requestGetStuActivityRankList];
+        [weakSelf requestactLogsActivity];
+    }];
+    [self.tableview headerBeginRefreshing];
+}
+
+- (void)setupActInfo{
+    
+    NSDate *endDate = [NSDate dateByDateString:self.actInfo.endTime format:@"yyyy-MM-dd HH:mm:ss"];
+    if ([[endDate dateAtStartOfDay] isEarlierThanDate:[[NSDate date] dateAtStartOfDay]]) {
+      
+        if (self.actCallBack) {
+            self.actCallBack();
+        }
+        [HUD showWithMessage:@"活动已结束"];
+        [self.navigationController popViewControllerAnimated:YES];
+        return; // 活动结束
+    }
+    _headerView.actInfo = self.actInfo;
+    CGFloat height = [MIStuActDetailHeaderView heightWithActInfo:self.actInfo];
+    _headerView.frame = CGRectMake(0, 0, ScreenWidth, height);
 }
 
 
 - (IBAction)backAction:(id)sender {
+    
+    if (self.actCallBack) {
+        self.actCallBack();
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -138,15 +165,28 @@ UINavigationControllerDelegate
     return contentCell;
 }
 
+#pragma mark - 获取活动详情
+- (void)requestGetActivityDetail{
+    
+    WeakifySelf;
+    [ManagerServce requestGetActivityDetailWithActId:self.actInfo.activityId callback:^(Result *result, NSError *error) {
+        
+        // 更新活动
+        ActivityInfo *actInfo = (ActivityInfo *)(result.userInfo);
+        weakSelf.actInfo = actInfo;
+        [weakSelf setupActInfo];
+        [weakSelf.tableview headerEndRefreshing];
+    }];
+}
+
 #pragma mark - 获取活动排行列表
 - (void)requestGetStuActivityRankList{
     
     WeakifySelf;
-    
-//    [self.tableview showLoadingView];
     [ManagerServce requestGetStuActivityRankListWithActId:self.actInfo.activityId callback:^(Result *result, NSError *error) {
         
         [weakSelf.tableview hideAllStateView];
+        [weakSelf.tableview headerEndRefreshing];
         if (error) {
             
             [weakSelf.tableview showFailureViewWithRetryCallback:^{
@@ -182,8 +222,9 @@ UINavigationControllerDelegate
     WeakifySelf;
     [ManagerServce requestactLogsActivityId:self.actInfo.activityId stuId:APP.currentUser.userId callback:^(Result *result, NSError *error) {
         
-        if (error) return;
+        [weakSelf.tableview headerEndRefreshing];
         [weakSelf.view hideAllStateView];
+        if (error) return;
         NSDictionary *dict = (NSDictionary *)(result.userInfo);
         NSArray *folderList = (NSArray *)(dict[@"list"]);
         
@@ -432,7 +473,7 @@ UINavigationControllerDelegate
     }
 }
 
-#pragma mark
+#pragma mark 上传活动视频
 - (void)requestCommitActivityVideoWithActTimes:(NSInteger)times videoUrl:(NSString *)videoUrl{
     WeakifySelf;
     [ManagerServce requestCommitActivityId:self.actInfo.activityId actTimes:times actUrl:videoUrl callback:^(Result *result, NSError *error) {

@@ -338,6 +338,38 @@
 @end
 
 
+#pragma mark - 获取活动任务详情（ipad管理端&学生端）
+@interface ActDetailGetRequest ()
+
+@property (nonatomic,assign) NSInteger actId;
+
+@end
+
+@implementation ActDetailGetRequest
+
+- (instancetype)initWithActId:(NSInteger)actId{
+    
+    self = [super init];
+    if (self != nil) {
+        self.actId = actId;
+    }
+    return self;
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+
+- (NSString *)requestUrl {
+    return [NSString stringWithFormat:@"%@/actwork/actworkDetail", ServerProjectName];
+}
+
+- (id)requestArgument {
+    return @{@"actId":@(self.actId)};
+}
+
+@end
+
+
 #pragma mark - 获取活动排名(ipad管理端)
 @interface ActGetActivityRankRequest ()
 

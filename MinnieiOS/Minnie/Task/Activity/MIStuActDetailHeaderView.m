@@ -72,7 +72,6 @@ UICollectionViewDelegateFlowLayout>
     [mAttribute addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, text.length)];
     self.contentLabel.attributedText = mAttribute;
     [self.headerImagV sd_setImageWithURL:[self.actInfo.actCoverUrl imageURLWithWidth:ScreenWidth] placeholderImage:[UIImage imageNamed:@"activity_placeholder"] completed:nil];
-    
 }
 
 

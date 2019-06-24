@@ -78,7 +78,6 @@ VIResourceLoaderManagerDelegate
     [self registerCellNibs];
     [self configureUI];
     self.footerView.hidden = !self.inEditMode;
-    self.view.backgroundColor = [UIColor whiteColor];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(shouldReloadDataWhenAppeared:)
@@ -89,7 +88,7 @@ VIResourceLoaderManagerDelegate
 }
 - (void)configureUI{
     
-    self.view.backgroundColor = [UIColor bgColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.tableView.backgroundColor = [UIColor bgColor];
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 12.f)];
     self.tableView.tableFooterView = footerView;

@@ -792,6 +792,10 @@ MIActivityBannerViewDelegate
     ActivityInfo *actInfo = self.bannerArray[index];
     MISutdentActDetailViewController *stuActDetailVC = [[MISutdentActDetailViewController alloc] initWithNibName:NSStringFromClass([MISutdentActDetailViewController class]) bundle:nil];
     stuActDetailVC.actInfo = actInfo;
+    WeakifySelf;
+    stuActDetailVC.actCallBack = ^{
+        [weakSelf requestGetActivityList];
+    };
     [stuActDetailVC setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:stuActDetailVC animated:YES];
     
