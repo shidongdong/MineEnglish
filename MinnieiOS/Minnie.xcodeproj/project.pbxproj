@@ -656,6 +656,11 @@
 		12FD85E622C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85E522C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m */; };
 		12FD85E722C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85E522C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m */; };
 		12FD85E822C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85E522C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m */; };
+		12FD85E922C0B1D40026B7E2 /* sendMessage.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1950D7E822775641004F7291 /* sendMessage.mp3 */; };
+		12FD85EA22C0B25F0026B7E2 /* 对话框_白色@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109622207A006D00568785 /* 对话框_白色@2x.png */; };
+		12FD85EB22C0B2620026B7E2 /* 对话框_白色@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710964C207A006D00568785 /* 对话框_白色@3x.png */; };
+		12FD85EC22C0B26C0026B7E2 /* 对话框_蓝色@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109594207A006C00568785 /* 对话框_蓝色@2x.png */; };
+		12FD85ED22C0B26F0026B7E2 /* 对话框_蓝色@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109569207A006C00568785 /* 对话框_蓝色@3x.png */; };
 		1923CB12228117E20056B2AD /* EditStudentMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1923CB11228117E20056B2AD /* EditStudentMarkView.m */; };
 		1923CB14228118030056B2AD /* EditStudentMarkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1923CB13228118030056B2AD /* EditStudentMarkView.xib */; };
 		1923CB1522812CF00056B2AD /* EditStudentMarkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1923CB13228118030056B2AD /* EditStudentMarkView.xib */; };
@@ -6099,6 +6104,7 @@
 				1226F3482298399D00BAB1C9 /* splash_img_logo@2x.png in Resources */,
 				12961C50229E5E150075B04A /* SessionHomeworkTableViewCell.xib in Resources */,
 				12B7082722A5207B00117537 /* DatePickerView.xib in Resources */,
+				12FD85EB22C0B2620026B7E2 /* 对话框_白色@3x.png in Resources */,
 				12CB73AF22AB91F60064FB21 /* HomeworkDiffTableViewCell.xib in Resources */,
 				12EAC63E22AD4BF400F1F3DB /* MIReadingTaskViewController.xib in Resources */,
 				12ED3B38229D6D3000255F8B /* MICreateFolderView.xib in Resources */,
@@ -6186,6 +6192,7 @@
 				12747C6522A7D1CC009C390E /* navbar_message@3x.png in Resources */,
 				12747C7522A7D229009C390E /* icon_drop_small@2x.png in Resources */,
 				12747C4B22A7D1B0009C390E /* navbar_setup@3x.png in Resources */,
+				12FD85E922C0B1D40026B7E2 /* sendMessage.mp3 in Resources */,
 				12961C4A229E5B260075B04A /* HomeworkTableViewCell.xib in Resources */,
 				12747C0022A7CE7C009C390E /* EditStudentMarkView.xib in Resources */,
 				12961CC0229F734C0075B04A /* MITitleTypeTableViewCell.xib in Resources */,
@@ -6225,6 +6232,7 @@
 				12747BF322A7CDD9009C390E /* RightAudioMessageTableViewCell.xib in Resources */,
 				12747C1722A7D0A4009C390E /* btn_send_warning@2x.png in Resources */,
 				12ED3B41229D8F2A00255F8B /* HomeworkSendHistoryHeaderView.xib in Resources */,
+				12FD85ED22C0B26F0026B7E2 /* 对话框_蓝色@3x.png in Resources */,
 				12747C5322A7D1B0009C390E /* pop_img_return@3x.png in Resources */,
 				12A1E93B22A55ADD001247D7 /* MICreateTaskViewController.xib in Resources */,
 				12747C6D22A7D222009C390E /* icon_edit@3x.png in Resources */,
@@ -6279,6 +6287,7 @@
 				12961C54229E5E540075B04A /* SelectTeacherView.xib in Resources */,
 				12747BD122A7C876009C390E /* HomeworkSessionViewController.xib in Resources */,
 				12747C4F22A7D1B0009C390E /* pop_finish@3x.png in Resources */,
+				12FD85EC22C0B26C0026B7E2 /* 对话框_蓝色@2x.png in Resources */,
 				12747BD922A7CC95009C390E /* StudentDetailCell.xib in Resources */,
 				12ED3B77229E2AD500255F8B /* label_ok@3x.png in Resources */,
 				12747C3822A7D14F009C390E /* chat_talk2@3x.png in Resources */,
@@ -6327,6 +6336,7 @@
 				12747C2522A7D0FB009C390E /* 弹窗@2x.png in Resources */,
 				12CB73A322AB90D90064FB21 /* SearchHomeworkViewController.xib in Resources */,
 				12747C8422A7D29E009C390E /* btn_add@3x.png in Resources */,
+				12FD85EA22C0B25F0026B7E2 /* 对话框_白色@2x.png in Resources */,
 				12ED3B43229D8F5200255F8B /* HomeworkSendHisTableViewCell.xib in Resources */,
 				12ED3B22229D108E00255F8B /* MITaskEmptyView.xib in Resources */,
 				12747C4E22A7D1B0009C390E /* pop_finish@2x.png in Resources */,

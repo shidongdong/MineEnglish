@@ -64,6 +64,9 @@ NSString * const RightAudioMessageTableViewCellId = @"RightAudioMessageTableView
 
     CGFloat maxWidth = ScreenWidth - (12 + 44 + 8)*2;
     CGFloat minWidth = 60.f;
+#if MANAGERSIDE
+    maxWidth = maxWidth - kRootModularWidth - kFolderModularWidth;
+#endif
     
     NSInteger duration = [message.attributes[@"audioDuration"] integerValue];
     if (duration > 0) {
