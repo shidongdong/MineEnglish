@@ -16,4 +16,6 @@
 
 @property (nonatomic,weak) id<EqualSpaceFlowLayoutDelegate> delegate;
 
+- (id)initWithCollectionViewWidth:(CGFloat)collectionViewWidth;
+
 @end

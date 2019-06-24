@@ -239,7 +239,11 @@
     }
     else
     {
-        return [HomeworkTagsTableViewCell heightWithTags:self.commentTags typeTitle:@"常用评语:"] + 40;
+        CGFloat collectionWidth = ScreenWidth;
+#if MANAGERSIDE
+        collectionWidth = ScreenWidth - kRootModularWidth - kFolderModularWidth;
+#endif
+        return [HomeworkTagsTableViewCell heightWithTags:self.commentTags typeTitle:@"常用评语:" collectionWidth:collectionWidth] + 40;
     }
 }
 
@@ -279,7 +283,12 @@
         HomeworkTagsTableViewCell * addCommentCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTagsTableViewCellId forIndexPath:indexPath];
         addCommentCell.selectionStyle = UITableViewCellSelectionStyleNone;
         addCommentCell.type = HomeworkTagsTableViewCellSelectNoneType;
-        [addCommentCell setupWithTags:self.commentTags selectedTags:@[] typeTitle:@"常用评语:"];
+        
+        CGFloat collectionWidth = ScreenWidth;
+#if MANAGERSIDE
+        collectionWidth = ScreenWidth - kRootModularWidth - kFolderModularWidth;
+#endif
+        [addCommentCell setupWithTags:self.commentTags selectedTags:@[] typeTitle:@"常用评语:" collectionWidth:collectionWidth];
         
         WeakifySelf;
         [addCommentCell setSelectCallback:^(NSString *tag) {

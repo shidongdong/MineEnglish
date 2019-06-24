@@ -23,8 +23,6 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *selectedTeacherNameLabel;
 
-//@property (nonatomic, weak) IBOutlet UICollectionView *teachersCollectionView;
-
 @property (nonatomic, strong) UICollectionView *teachersCollectionView;
 
 @property (nonatomic, weak) IBOutlet UIButton *cancelButton;

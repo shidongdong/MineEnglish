@@ -1280,7 +1280,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         {
             [selectFormTags addObject:self.selectFormTag];
         }
-        [tagsCell setupWithTags:self.formTags selectedTags:selectFormTags typeTitle:@"作业类型:"];
+        [tagsCell setupWithTags:self.formTags selectedTags:selectFormTags typeTitle:@"作业类型:" collectionWidth:ScreenWidth];
         
         WeakifySelf;
         [tagsCell setSelectCallback:^(NSString *tag) {
@@ -1307,7 +1307,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
     {
         HomeworkTagsTableViewCell *tagsCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTagsTableViewCellId forIndexPath:indexPath];
         tagsCell.type = HomeworkTagsTableViewCellSelectMutiType;
-        [tagsCell setupWithTags:self.tags selectedTags:self.selectedTags typeTitle:@"分类标签:"];
+        [tagsCell setupWithTags:self.tags selectedTags:self.selectedTags typeTitle:@"分类标签:" collectionWidth:ScreenWidth];
         
         WeakifySelf;
         [tagsCell setSelectCallback:^(NSString *tag) {
@@ -1397,10 +1397,10 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate,ChooseDatePicker
         height = HomeworkTimeLimitTableViewCellHeight;
     }
     else if (indexPath.row == 3 + self.items.count + 2 + self.answerItems.count + 5) { //form标签
-        height = [HomeworkTagsTableViewCell heightWithTags:self.formTags typeTitle:@"作业类型:"] + 45;
+        height = [HomeworkTagsTableViewCell heightWithTags:self.formTags typeTitle:@"作业类型:" collectionWidth:ScreenWidth] + 45;
     }
     else {
-        height = [HomeworkTagsTableViewCell heightWithTags:self.tags typeTitle:@"分类标签:"];
+        height = [HomeworkTagsTableViewCell heightWithTags:self.tags typeTitle:@"分类标签:" collectionWidth:ScreenWidth];
     }
     
     return height;

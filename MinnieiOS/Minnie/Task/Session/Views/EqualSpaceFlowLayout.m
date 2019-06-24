@@ -9,13 +9,33 @@
 #import "EqualSpaceFlowLayout.h"
 
 @interface EqualSpaceFlowLayout()
+
 @property (nonatomic, strong) NSMutableArray *itemAttributes;
+@property (nonatomic, assign) CGFloat collectionViewWidth;
+
 @end
 
 @implementation EqualSpaceFlowLayout
+
+
 - (id)init
 {
     if (self = [super init]) {
+        
+        self.collectionViewWidth = ScreenWidth;
+        self.scrollDirection = UICollectionViewScrollDirectionVertical;
+        self.minimumInteritemSpacing = 10;
+        self.minimumLineSpacing = 10;
+        self.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    }
+    return self;
+}
+
+- (id)initWithCollectionViewWidth:(CGFloat)collectionViewWidth
+{
+    if (self = [super init]) {
+        
+        self.collectionViewWidth = collectionViewWidth;
         self.scrollDirection = UICollectionViewScrollDirectionVertical;
         self.minimumInteritemSpacing = 10;
         self.minimumLineSpacing = 10;
@@ -41,7 +61,6 @@
         CGSize itemSize = [self.delegate collectionView:self.collectionView layout:self sizeForItemAtIndexPath:indexPath];
         
         xNextOffset+=(self.minimumInteritemSpacing + itemSize.width);
-        NSLog(@"prepareLayout%f    %f",[self collectionView].bounds.size.width,[UIScreen mainScreen].bounds.size.width);
         if (xNextOffset >= [self collectionView].bounds.size.width - self.sectionInset.right) {
             xOffset = self.sectionInset.left;
             xNextOffset = (self.sectionInset.left + self.minimumInteritemSpacing + itemSize.width);

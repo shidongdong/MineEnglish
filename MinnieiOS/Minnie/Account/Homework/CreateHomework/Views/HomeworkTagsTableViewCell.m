@@ -47,18 +47,20 @@ NSString * const HomeworkTagsTableViewCellId = @"HomeworkTagsTableViewCellId";
     [self addContentView];
 }
 
-
 - (void)setupWithTags:(NSArray <NSString *> *)tags
          selectedTags:(NSArray <NSString *> *)selectedTags
-            typeTitle:(NSString *)title {
+            typeTitle:(NSString *)title
+      collectionWidth:(CGFloat)collectionWidth{
+    
+    _collecttionViewWidth = collectionWidth;
     self.typeLabel.text = title;
     self.tags = tags;
     self.selectedTags = [NSMutableArray arrayWithArray:selectedTags];
-    self.tagsCollectionView.frame = CGRectMake(0, 50, _collecttionViewWidth, [HomeworkTagsTableViewCell heightWithTags:tags typeTitle:@"常用评语"]);
+    self.tagsCollectionView.frame = CGRectMake(0, 50, _collecttionViewWidth, [HomeworkTagsTableViewCell heightWithTags:tags typeTitle:@"常用评语" collectionWidth:_collecttionViewWidth]);
     [self.tagsCollectionView reloadData];
 }
 
-+ (CGFloat)heightWithTags:(NSArray <NSString *> *)tags typeTitle:(NSString *)title{
++ (CGFloat)heightWithTags:(NSArray <NSString *> *)tags typeTitle:(NSString *)title collectionWidth:(CGFloat)collectionWidth{
     
     if (tags.count == 0) {
         return 50.f;
@@ -81,7 +83,7 @@ NSString * const HomeworkTagsTableViewCellId = @"HomeworkTagsTableViewCellId";
         CGSize itemSize = [TagCollectionViewCell cellSizeWithTag:tag];
         
         xNextOffset+=(minimumInteritemSpacing + itemSize.width);
-        if (xNextOffset >= [UIScreen mainScreen].bounds.size.width - 30 - rightSpace) {
+        if (xNextOffset >= collectionWidth - rightSpace) {
             xOffset = leftSpace;
             xNextOffset = (leftSpace + minimumInteritemSpacing + itemSize.width);
             yOffset += (itemSize.height + minimumLineSpacing);
@@ -173,10 +175,10 @@ NSString * const HomeworkTagsTableViewCellId = @"HomeworkTagsTableViewCellId";
 
 - (void)addContentView{
     
-    EqualSpaceFlowLayout *flowLayout = [[EqualSpaceFlowLayout alloc] init];
+    EqualSpaceFlowLayout *flowLayout = [[EqualSpaceFlowLayout alloc] initWithCollectionViewWidth:self.collecttionViewWidth];
     flowLayout.delegate = self;
     
-    self.tagsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 50, _collecttionViewWidth, 50) collectionViewLayout:flowLayout];
+    self.tagsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 50, self.collecttionViewWidth, 50) collectionViewLayout:flowLayout];
     self.tagsCollectionView.backgroundColor = [UIColor whiteColor];
     self.tagsCollectionView.delegate = self;
     self.tagsCollectionView.dataSource = self;

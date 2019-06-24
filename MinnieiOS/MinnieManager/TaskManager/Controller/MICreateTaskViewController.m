@@ -93,16 +93,16 @@ ClassAndStudentSelectorControllerDelegate
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
-    if (!self.teacherSider) {
-        [self updatePrimaryCloumnScale:kRootModularWidth];
-    }
+#if MANAGERSIDE
+    [self updatePrimaryCloumnScale:kRootModularWidth];
+#endif
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    if (!self.teacherSider) {
-        [self updatePrimaryCloumnScale:kRootModularWidth+kFolderModularWidth];
-    }
+#if MANAGERSIDE
+    [self updatePrimaryCloumnScale:kRootModularWidth+kFolderModularWidth];
+#endif
 }
 
 - (void)viewDidLoad {

@@ -12,7 +12,6 @@
 @implementation UIViewController (PrimaryCloumnScale)
 
 #if MANAGERSIDE
-
 - (void)updatePrimaryCloumnScale:(NSInteger)offset{
     
     UIViewController *vc = self.parentViewController;
@@ -30,7 +29,6 @@
         [detailVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
     }
 }
-
 #endif
 
 @end
