@@ -16,6 +16,7 @@
 #import "MIStockDetailViewController.h"
 #import "MIActivityRankListViewController.h"
 #import "HomeWorkSendHistoryViewController.h"
+#import "UIViewController+PrimaryCloumnScale.h"
 
 @interface MIMasterViewController ()<
 RootSheetViewDelete,
@@ -77,10 +78,6 @@ MISecondActivitySheetViewDelegate
     UIViewController *detailVC = nav.topViewController;
     
     if (index == 7) { // 设置
-        
-        self.customSplitViewController.primaryCloumnScale = kRootModularWidth;
-        [self.customSplitViewController setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
-        
         SettingsViewController *settingsVC = [[SettingsViewController alloc] initWithNibName:NSStringFromClass([SettingsViewController class]) bundle:nil];
         settingsVC.hiddenBackBtn = YES;
         if ([detailVC isKindOfClass:[MIStockDetailViewController class]]) {
@@ -90,9 +87,8 @@ MISecondActivitySheetViewDelegate
        
         self.secondSheetView.hidden = NO;
         self.secondActivitySheetView.hidden = YES;
+        [self updatePrimaryCloumnScale:kRootModularWidth + kFolderModularWidth];
         
-        self.customSplitViewController.primaryCloumnScale = kRootModularWidth + kFolderModularWidth;
-        [self.customSplitViewController setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
         if ([detailVC isKindOfClass:[MIStockDetailViewController class]]) {
             [(MIStockDetailViewController *)detailVC addSubViewController:self.taskListVC];
         }
@@ -102,9 +98,8 @@ MISecondActivitySheetViewDelegate
         
         self.secondSheetView.hidden = YES;
         self.secondActivitySheetView.hidden = NO;
-        
-        self.customSplitViewController.primaryCloumnScale = kRootModularWidth + kActivitySheetWidth;
-        [self.customSplitViewController setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
+        [self updatePrimaryCloumnScale:kRootModularWidth + kActivitySheetWidth];
+
         if ([detailVC isKindOfClass:[MIStockDetailViewController class]]) {
             [(MIStockDetailViewController *)detailVC addSubViewController:self.activityListVC];
             [self.activityListVC updateRankListWithActivityModel:nil index:-1];

@@ -99,7 +99,6 @@
     if ((self.viewControllers == nil) || self.viewControllers.count < 2) {
         return;
     }
-    
     // self还未加载时直接赋值属性
     if (NO == self.isViewLoaded) {
         _displayMode = displayMode;
@@ -114,6 +113,7 @@
     CGFloat primaryWidth = self.primaryCloumnScale;
     CGFloat secondaryWidth = viewWidth - primaryWidth;
     
+    NSLog(@"primaryCloumnScale %f",self.primaryCloumnScale);
     UIViewController *primaryVC = self.viewControllers[0];
     UIViewController *secondaryVC = self.viewControllers[1];
     UIViewController *additionalVC = (self.viewControllers.count > 2) ? self.viewControllers[2] : nil;

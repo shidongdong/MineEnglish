@@ -653,6 +653,9 @@
 		12FD85E122C05C900026B7E2 /* ParentFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85D322C05C8F0026B7E2 /* ParentFileInfo.m */; };
 		12FD85E222C05C900026B7E2 /* ParentFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85D322C05C8F0026B7E2 /* ParentFileInfo.m */; };
 		12FD85E322C05C900026B7E2 /* ParentFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85D322C05C8F0026B7E2 /* ParentFileInfo.m */; };
+		12FD85E622C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85E522C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m */; };
+		12FD85E722C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85E522C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m */; };
+		12FD85E822C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85E522C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m */; };
 		1923CB12228117E20056B2AD /* EditStudentMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1923CB11228117E20056B2AD /* EditStudentMarkView.m */; };
 		1923CB14228118030056B2AD /* EditStudentMarkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1923CB13228118030056B2AD /* EditStudentMarkView.xib */; };
 		1923CB1522812CF00056B2AD /* EditStudentMarkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1923CB13228118030056B2AD /* EditStudentMarkView.xib */; };
@@ -2196,6 +2199,8 @@
 		12FD85D522C05C900026B7E2 /* ParentFileInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParentFileInfo.h; path = MinnieManager/Service/ParentFileInfo.h; sourceTree = SOURCE_ROOT; };
 		12FD85D622C05C900026B7E2 /* ScoreInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScoreInfo.h; path = MinnieManager/Service/ScoreInfo.h; sourceTree = SOURCE_ROOT; };
 		12FD85D722C05C900026B7E2 /* WordInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WordInfo.h; path = MinnieManager/Service/WordInfo.h; sourceTree = SOURCE_ROOT; };
+		12FD85E422C070010026B7E2 /* UIViewController+PrimaryCloumnScale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+PrimaryCloumnScale.h"; sourceTree = "<group>"; };
+		12FD85E522C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+PrimaryCloumnScale.m"; sourceTree = "<group>"; };
 		1923CB10228117E20056B2AD /* EditStudentMarkView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditStudentMarkView.h; sourceTree = "<group>"; };
 		1923CB11228117E20056B2AD /* EditStudentMarkView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditStudentMarkView.m; sourceTree = "<group>"; };
 		1923CB13228118030056B2AD /* EditStudentMarkView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditStudentMarkView.xib; sourceTree = "<group>"; };
@@ -3385,6 +3390,8 @@
 				12ED3B08229C2E5E00255F8B /* MIStockSplitViewController.m */,
 				12ED3B0C229C2E5E00255F8B /* CSCustomSplitViewController.h */,
 				12ED3B0B229C2E5E00255F8B /* CSCustomSplitViewController.m */,
+				12FD85E422C070010026B7E2 /* UIViewController+PrimaryCloumnScale.h */,
+				12FD85E522C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m */,
 				12ED3B09229C2E5E00255F8B /* MIMasterViewController.h */,
 				12ED3B06229C2E5D00255F8B /* MIMasterViewController.m */,
 				12ED3B07229C2E5D00255F8B /* MIStockDetailViewController.h */,
@@ -7692,6 +7699,7 @@
 				12FD85E322C05C900026B7E2 /* ParentFileInfo.m in Sources */,
 				12CB73B122AB91FE0064FB21 /* HomeworkSegmentTableViewCell.m in Sources */,
 				12747BE022A7CCF8009C390E /* VideoMessageTableViewCell.m in Sources */,
+				12FD85E822C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m in Sources */,
 				122F799C22AD3D7A00D2AA53 /* MIStuUploadVideoViewController.m in Sources */,
 				12747C0E22A7CFBF009C390E /* StudentStarRankRequest.m in Sources */,
 				12961C51229E5E430075B04A /* ClassAndStudentSelectorController.m in Sources */,
@@ -7843,6 +7851,7 @@
 				979BBD57207FBD0D00359253 /* TrialClassTableViewCell.m in Sources */,
 				97109C42207A2E3E00568785 /* HomeworkDetailLikeUsersTableViewCell.m in Sources */,
 				97364A1320B16BFD00511A95 /* NetworkStateErrorView.m in Sources */,
+				12FD85E622C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m in Sources */,
 				97109A5E207A158C00568785 /* TextMessageTableViewCell.m in Sources */,
 				871806BE21DF438C0023511C /* MUAssetsViewController.m in Sources */,
 				97109D55207A2F0400568785 /* NoticeMessageRequest.m in Sources */,
@@ -8394,6 +8403,7 @@
 				9710993B207A0BF600568785 /* AudioPlayer.m in Sources */,
 				12CB739322AB59000064FB21 /* MIHomeworkSubFileViewController.m in Sources */,
 				875C2626218AAB0B0047E32A /* SegementLabelsView.m in Sources */,
+				12FD85E722C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m in Sources */,
 				97109D9A207A2F0400568785 /* UpdateProfileRequest.m in Sources */,
 				97109A4B207A158C00568785 /* ImageMessageTableViewCell.m in Sources */,
 				87915A3721B933BC006C1BFD /* AudioPlayerViewController.m in Sources */,

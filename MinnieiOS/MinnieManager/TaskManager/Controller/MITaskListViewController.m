@@ -16,6 +16,7 @@
 #import "HomeworkPreviewViewController.h"
 #import "ClassAndStudentSelectorController.h"
 #import "HomeWorkSendHistoryViewController.h"
+#import "UIViewController+PrimaryCloumnScale.h"
 
 #import "HomeworkService.h"
 #import "UIView+Load.h"
@@ -77,6 +78,11 @@ VIResourceLoaderManagerDelegate
 @end
 
 @implementation MITaskListViewController
+//
+//- (void)viewWillAppear:(BOOL)animated{
+//    [super viewWillAppear:animated];
+//    [self updatePrimaryCloumnScale:kRootModularWidth+kFolderModularWidth];
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -196,7 +202,7 @@ VIResourceLoaderManagerDelegate
 
 #pragma mark - 请求作业列表
 - (void)requestHomeworks {
-   
+    
     if (self.homeworksRequest != nil) {
         return;
     }
@@ -541,16 +547,16 @@ VIResourceLoaderManagerDelegate
             self.footerHeightConstraint.constant = 0;
         }
         if (self.emptyView.superview) {
-            
             [self.emptyView removeFromSuperview];
         }
     } else {
+        self.inEditMode = YES;
+        [self operationAction:nil];
         self.tableView.hidden = YES;
         self.headerView.hidden = YES;
         self.footerView.hidden = YES;
         self.footerHeightConstraint.constant = 0;
         if (self.emptyView.superview) {
-            
             [self.emptyView removeFromSuperview];
         }
     }

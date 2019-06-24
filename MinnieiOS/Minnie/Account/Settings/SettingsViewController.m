@@ -19,6 +19,8 @@
 #import "IMManager.h"
 #import "PortraitNavigationController.h"
 #import "AppDelegate.h"
+#import "UIViewController+PrimaryCloumnScale.h"
+
 @interface SettingsViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UIButton *logoutButton;
@@ -28,6 +30,13 @@
 @end
 
 @implementation SettingsViewController
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+#if MANAGERSIDE
+    [self updatePrimaryCloumnScale:kRootModularWidth];
+#endif
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

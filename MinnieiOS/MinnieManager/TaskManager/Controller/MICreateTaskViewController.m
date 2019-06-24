@@ -23,7 +23,7 @@
 #import "MISegmentTypeTableViewCell.h"
 #import "MIExpandSelectTypeTableViewCell.h"
 #import "MICreateTaskViewController.h"
-#import "CSCustomSplitViewController.h"
+#import "UIViewController+PrimaryCloumnScale.h"
 
 #import "MIAddWordTableViewCell.h"
 #import "MIHomeworkManagerViewController.h"
@@ -93,17 +93,15 @@ ClassAndStudentSelectorControllerDelegate
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
-    
     if (!self.teacherSider) {
-        [self updateSplit:kRootModularWidth];
+        [self updatePrimaryCloumnScale:kRootModularWidth];
     }
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    
     if (!self.teacherSider) {
-        [self updateSplit:kRootModularWidth+kFolderModularWidth];
+        [self updatePrimaryCloumnScale:kRootModularWidth+kFolderModularWidth];
     }
 }
 
@@ -146,25 +144,6 @@ ClassAndStudentSelectorControllerDelegate
         [self createHomeworkTask];
     }
 }
-
-- (void)updateSplit:(NSInteger)offset{
-    
-    UIViewController *vc = self.parentViewController;
-    while (1) {
-        if ([vc isKindOfClass:[CSCustomSplitViewController  class]]) {
-            break;
-        } else {
-            vc = vc.parentViewController;
-        }
-    }
-    if ([vc isKindOfClass:[CSCustomSplitViewController  class]]) {
-        
-        CSCustomSplitViewController *detailVC = (CSCustomSplitViewController *)vc;
-        detailVC.primaryCloumnScale = offset;
-        [detailVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
-    }
-}
-
 
 - (void)setupCreateActivity:(ActivityInfo *)activity{
     

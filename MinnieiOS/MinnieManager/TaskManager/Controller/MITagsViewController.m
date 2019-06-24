@@ -42,11 +42,7 @@ MIEqualSpaceFlowLayoutDelegate
 -(void)viewWillAppear:(BOOL)animated{
 
     [super viewWillAppear:animated];
-    if (!self.teacherSider) {
-        [self updateSplit:kRootModularWidth];
-    }
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -497,24 +493,4 @@ MIEqualSpaceFlowLayoutDelegate
     [self.view addSubview:self.tagsCollectionView];
     [self.tagsCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([TagCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:TagCollectionViewCellId];
 }
-
-- (void)updateSplit:(NSInteger)offset{
-    
-    UIViewController *vc = self.parentViewController;
-    while (1) {
-        if ([vc isKindOfClass:[CSCustomSplitViewController  class]]) {
-            break;
-        } else {
-            vc = vc.parentViewController;
-        }
-    }
-    if ([vc isKindOfClass:[CSCustomSplitViewController  class]]) {
-        
-        CSCustomSplitViewController *detailVC = (CSCustomSplitViewController *)vc;
-        
-        detailVC.primaryCloumnScale = offset;
-        [detailVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
-    }
-}
-
 @end
