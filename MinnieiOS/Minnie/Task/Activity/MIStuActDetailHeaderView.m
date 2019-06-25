@@ -36,11 +36,12 @@ UICollectionViewDelegateFlowLayout>
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     layout.minimumLineSpacing = 12;
     self.collectionView.collectionViewLayout = layout;
-    
+    self.contentLabel.preferredMaxLayoutWidth = ScreenWidth - 24;
     [self registerCellNibs];
 }
 
 - (void)registerCellNibs {
+    
     [self.collectionView registerNib:[UINib nibWithNibName:@"HomeworkImageCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:HomeworkImageCollectionViewCellId];
     [self.collectionView registerNib:[UINib nibWithNibName:@"HomeworkVideoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:HomeworkVideoCollectionViewCellId];
     [self.collectionView registerNib:[UINib nibWithNibName:@"HomeworkAudioCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:HomeworkAudioCollectionViewCellId];
@@ -101,11 +102,10 @@ UICollectionViewDelegateFlowLayout>
     [mAttribute addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, text.length)];
     headerView.contentLabel.attributedText = mAttribute;
     CGSize size = [headerView.contentLabel systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-
     if (actInfo.items.count > 1) {
         size.height += 110;
     }
-    size.height = size.height + 210 + 55;
+    size.height = size.height + 150 + 50;
     return size.height;
 }
 

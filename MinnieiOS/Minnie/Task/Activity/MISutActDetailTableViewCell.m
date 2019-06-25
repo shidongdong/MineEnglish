@@ -79,7 +79,7 @@ NSString * const MISutActDetailTableViewCellId = @"MISutActDetailTableViewCellId
     self.stateBtn.hidden = YES;
     self.rankInfo = rankInfo;
     self.rankLabel.text = [NSString stringWithFormat:@"%lu",index];
-    if (index < 4) {
+    if (index < 5) {
         self.rankLabel.textColor = [UIColor whiteColor];
         self.rankImageV.hidden = NO;
         self.rankImageV.image = [UIImage imageNamed:[NSString stringWithFormat:@"第%lu名",index]];
@@ -92,7 +92,7 @@ NSString * const MISutActDetailTableViewCellId = @"MISutActDetailTableViewCellId
     [self.iconImageV sd_setImageWithURL:[self.rankInfo.avatar imageURLWithWidth:32] completed:nil];
     self.stuNameLabel.text = self.rankInfo.nickName;
     self.videoTimeLabel.text = [NSString stringWithFormat:@"%.2ld分%.2ld秒",self.rankInfo.actTimes/60,self.rankInfo.actTimes%60];
-    self.imageLeadConstraint.constant = 56;
+    self.imageLeadConstraint.constant = 50;
 
 }
 - (IBAction)playBtnAction:(id)sender {

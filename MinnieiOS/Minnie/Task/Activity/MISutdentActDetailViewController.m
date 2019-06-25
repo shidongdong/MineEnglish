@@ -142,27 +142,50 @@ UINavigationControllerDelegate
 #pragma mark - UITableViewDataSource && UITableViewDelagete
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return MISutActDetailTableViewCellHeight;
+    if (self.rankList.count) {
+        if (indexPath.row == 0) {
+            return 40;
+        } else {
+            return MISutActDetailTableViewCellHeight;
+        }
+    }
+    return 0.01;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
-    return self.rankList.count;
+    if (self.rankList.count) {
+        
+        return self.rankList.count + 1;
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MISutActDetailTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MISutActDetailTableViewCellId];
-    if (contentCell == nil) {
-        contentCell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MISutActDetailTableViewCell class]) owner:nil options:nil] lastObject];
+    if (indexPath.row == 0) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ActDetailCellId"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ActDetailCellId"];
+            cell.textLabel.font = [UIFont systemFontOfSize:14];
+            cell.textLabel.textColor = [UIColor detailColor];
+        }
+        cell.textLabel.text = @"当前排名:";
+        return cell;
+    } else {
+       
+        MISutActDetailTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MISutActDetailTableViewCellId];
+        if (contentCell == nil) {
+            contentCell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MISutActDetailTableViewCell class]) owner:nil options:nil] lastObject];
+        }
+        WeakifySelf;
+        contentCell.videoCallback = ^(NSString * _Nullable videUrl) {
+            [weakSelf playerVideoWithURL:videUrl];
+        };
+        [contentCell setupRanInfo:self.rankList[indexPath.row - 1] index:indexPath.row];
+        return contentCell;
     }
-    WeakifySelf;
-    contentCell.videoCallback = ^(NSString * _Nullable videUrl) {
-        [weakSelf playerVideoWithURL:videUrl];
-    };
-    [contentCell setupRanInfo:self.rankList[indexPath.row] index:indexPath.row + 1];
-    return contentCell;
+    
 }
 
 #pragma mark - 获取活动详情
@@ -199,13 +222,23 @@ UINavigationControllerDelegate
         NSDictionary *dict = (NSDictionary *)(result.userInfo);
         NSArray *folderList = (NSArray *)(dict[@"list"]);
         weakSelf.rankList = folderList;
-       
+    
         if (weakSelf.rankList.count) {
             [weakSelf.tableview reloadData];
         } else {
+            
+            CGFloat offsetY = 0;
+            if ([MIStuActDetailHeaderView heightWithActInfo:weakSelf.actInfo] < ScreenHeight/2.0) {
+                offsetY = ScreenHeight/7.0;
+            } else if (([MIStuActDetailHeaderView heightWithActInfo:weakSelf.actInfo] < ScreenHeight)) {
+                
+                offsetY = ScreenHeight/2.0 - (ScreenHeight - [MIStuActDetailHeaderView heightWithActInfo:weakSelf.actInfo])/2.0;
+            } else {
+                offsetY = [MIStuActDetailHeaderView heightWithActInfo:weakSelf.actInfo] + 40;
+            }
             [weakSelf.tableview showEmptyViewWithImage:nil
                                             title:@"列表为空"
-                                    centerYOffset:ScreenHeight/5.0
+                                    centerYOffset:offsetY
                                         linkTitle:nil
                                 linkClickCallback:nil
                                     retryCallback:^{

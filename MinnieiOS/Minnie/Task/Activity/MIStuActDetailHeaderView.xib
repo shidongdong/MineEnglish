@@ -14,27 +14,27 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="my_exchange_banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ly7-yh-5KY">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="210"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="210" id="Pat-Ea-a3R"/>
+                        <constraint firstAttribute="height" constant="150" id="Pat-Ea-a3R"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r3z-gJ-ufz">
-                    <rect key="frame" x="12" y="222" width="390" height="0.0"/>
+                    <rect key="frame" x="12" y="162" width="390" height="0.0"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oeH-kG-zKC">
-                    <rect key="frame" x="0.0" y="354" width="414" height="12"/>
+                    <rect key="frame" x="0.0" y="294" width="414" height="12"/>
                     <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="12" id="LK7-D7-WQ5"/>
                     </constraints>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="frm-Vz-SF6">
-                    <rect key="frame" x="12" y="234" width="390" height="110"/>
+                    <rect key="frame" x="12" y="174" width="390" height="110"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="110" id="KVp-nc-GHE"/>
