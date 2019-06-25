@@ -141,7 +141,6 @@ MISecondActivitySheetViewDelegate
     }
 }
 
-
 - (void)secondSheetViewSecondLevelData:(FileInfo *_Nullable)data index:(NSInteger)index{
     
     UIViewController *detailVC = [self getRootViewController];
@@ -150,6 +149,11 @@ MISecondActivitySheetViewDelegate
         [(MIStockDetailViewController *)detailVC addSubViewController:self.taskListVC];
     }
     [self.taskListVC showTaskListWithFoldInfo:data folderIndex:index];
+}
+
+- (void)secondSheetViewDeleteFile{
+    
+    [self.taskListVC showTaskListWithFoldInfo:nil folderIndex:-1];
 }
 
 #pragma mark - 活动管理

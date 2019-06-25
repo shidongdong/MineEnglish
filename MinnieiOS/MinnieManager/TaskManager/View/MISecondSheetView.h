@@ -22,6 +22,8 @@
 // 点击任务管理二级文件夹
 - (void)secondSheetViewSecondLevelData:(FileInfo *_Nullable)data index:(NSInteger)index;
 
+// 删除文件夹
+- (void)secondSheetViewDeleteFile;
 
 @end
 

@@ -220,7 +220,7 @@ UITableViewDataSource
         // header位置
         CGRect rectInTableView = [self.tableView rectForHeaderInSection:indexPath.section];
         CGRect rect = [self.tableView convertRect:rectInTableView toView:[self.tableView superview]];
-        CGFloat editViewY = CGRectGetMidY(rect) - 70;
+        CGFloat editViewY = CGRectGetMidY(rect) - 65;
         
         if (editViewY >= [UIScreen mainScreen].bounds.size.height - 120) {
             editViewY = [UIScreen mainScreen].bounds.size.height - 120;
@@ -255,10 +255,9 @@ UITableViewDataSource
         editFileView.frame = [UIScreen mainScreen].bounds;
         
         // header位置
-        
         CGRect rectInTableView = [self.tableView rectForRowAtIndexPath:indexPath];
-        CGRect rect = [self.tableView convertRect:rectInTableView toView:[self.tableView superview]];
-        CGFloat editViewY = CGRectGetMidY(rect) - 70;
+        CGRect rect = [self.tableView convertRect:rectInTableView toView:self];
+        CGFloat editViewY = CGRectGetMidY(rect) - 65;
         
         if (editViewY >= ScreenHeight - 120) {
             editViewY = ScreenHeight - 120;
@@ -299,7 +298,6 @@ UITableViewDataSource
         
         [self.delegate toSendRecord];
     }
-    
 }
 #pragma mark -  新建一级文件夹
 - (void)addFolderBtnClicked:(UIButton *)addBtn{
@@ -345,14 +343,17 @@ UITableViewDataSource
             [HUD showErrorWithMessage:@"请先删除子文件夹"];
         } else {
         
-            [self requestDelFilesWithFileInfo:parentInfo.fileInfo];
+            [self requestDelFilesWithFileInfo:parentInfo.fileInfo isSelectParentFile:NO];
         }
-        
     } else if (fileInfo.depth == 2) {
         // 判断是否有任务，有任务先清空任务列表
         ParentFileInfo *parentInfo = self.parentFileList[indexPath.section];
         FileInfo *subFileInfo = parentInfo.subFileList[indexPath.row];
-        [self requestDelFilesWithFileInfo:subFileInfo];
+        if (parentInfo.subFileList.count <= 1) {
+            [self requestDelFilesWithFileInfo:subFileInfo isSelectParentFile:NO];
+        } else {
+            [self requestDelFilesWithFileInfo:subFileInfo isSelectParentFile:YES];
+        }
     }
 }
 
@@ -408,7 +409,11 @@ UITableViewDataSource
             if (isEdit) {
                 [HUD showWithMessage:@"编辑失败"];
             } else {
-                [HUD showWithMessage:@"创建失败"];
+                if (error.code == 710) {
+                    [HUD showWithMessage:@"文件夹名称相同"];
+                } else {
+                    [HUD showWithMessage:@"创建失败"];
+                }
             }
             return ;
         } else {
@@ -432,7 +437,7 @@ UITableViewDataSource
 }
 
 
-- (void)requestDelFilesWithFileInfo:(FileInfo *)fileInfo{
+- (void)requestDelFilesWithFileInfo:(FileInfo *)fileInfo isSelectParentFile:(BOOL)isSelected{
    
     WeakifySelf;
     [ManagerServce requestDelFilesWithFileId:fileInfo.fileId callback:^(Result *result, NSError *error) {
@@ -445,6 +450,15 @@ UITableViewDataSource
             return ;
         } else {
             [HUD showWithMessage:@"删除成功"];
+            
+            if (!isSelected) {
+                weakSelf.currentParentFileId = -1;
+            }
+            weakSelf.currentIndex = -1;
+            if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(secondSheetViewDeleteFile)]) {
+                
+                [weakSelf.delegate secondSheetViewDeleteFile];
+            }
             [weakSelf requestGetParentFilesInfo];
         }
     }];

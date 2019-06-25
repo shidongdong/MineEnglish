@@ -126,10 +126,10 @@ CGFloat const MIHeaderTableViewCellHeight = 60.f;
         if (selected) {
             self.titleLabel.textColor = [UIColor mainColor];
         } else {
-            self.titleLabel.textColor = [UIColor normalColor];
+            self.titleLabel.textColor = [UIColor detailColor];
         }
         self.titleLabel.font = [UIFont systemFontOfSize:14];
-        self.titleLabel.text = [NSString stringWithFormat:@"   %@",subFileInfo.fileName];
+        self.titleLabel.text = [NSString stringWithFormat:@"    %@",subFileInfo.fileName];
     }
 }
 
