@@ -23,8 +23,6 @@
 #import <AFNetworking/AFNetworking.h>
 
 
-static NSString *const kAnimation = @"animation1";
-
 static NSString * const kKeyOfCreateTimestamp = @"createTimestamp";
 static NSString * const kKeyOfAudioDuration = @"audioDuration";
 static NSString * const kKeyOfVideoDuration = @"videoDuration";
@@ -73,8 +71,6 @@ VIResourceLoaderManagerDelegate
 
 @property (nonatomic, strong) AVPlayer *bgMusicPlayer;
 
-@property (nonatomic, strong) NSURLSessionDownloadTask *downloadTask;
-
 @end
 
 @implementation MIReadingTaskViewController
@@ -82,7 +78,7 @@ VIResourceLoaderManagerDelegate
 -(void)viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:animated];
-    if (self.isChecking) {
+    if (self.isChecking) { // 查看作业
         
         [self.bgMusicPlayer pause];
         [self.wordsView stopPlayWords];
@@ -115,7 +111,7 @@ VIResourceLoaderManagerDelegate
     self.view.backgroundColor = [UIColor whiteColor];
     if (self.isChecking) {
         self.commitBtn.hidden = YES;
-        self.myRecordBtn.hidden = YES;//btn_stop_green
+        self.myRecordBtn.hidden = YES;
         self.myRecordLabel.hidden = YES;
         [self.startRecordBtn setBackgroundImage:[UIImage imageNamed:@"btn_play_green"] forState:UIControlStateNormal];
         [self.startRecordBtn setBackgroundImage:[UIImage imageNamed:@"btn_stop_green"] forState:UIControlStateSelected];
@@ -444,20 +440,22 @@ VIResourceLoaderManagerDelegate
         AVPlayer *player;
         HomeworkItem *otherItem = self.homework.otherItem.firstObject;
         NSInteger playMode = [[Application sharedInstance] playMode];
-        if (playMode == 1)// 在线播放
-        {
-            [VICacheManager cleanCacheForURL:[NSURL URLWithString:otherItem.videoUrl] error:nil];
-            player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:otherItem.videoUrl]];
+        if (otherItem.videoUrl.length) {
+            
+            if (playMode == 1)// 在线播放
+            {
+                [VICacheManager cleanCacheForURL:[NSURL URLWithString:otherItem.videoUrl] error:nil];
+                player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:otherItem.videoUrl]];
+            }
+            else
+            {
+                VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
+                resourceLoaderManager.delegate = self;
+                self.resourceLoaderManager = resourceLoaderManager;
+                AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:otherItem.videoUrl]];
+                player = [AVPlayer playerWithPlayerItem:playerItem];
+            }
         }
-        else
-        {
-            VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
-            resourceLoaderManager.delegate = self;
-            self.resourceLoaderManager = resourceLoaderManager;
-            AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:otherItem.videoUrl]];
-            player = [AVPlayer playerWithPlayerItem:playerItem];
-        }
-        
         _playerVC.player = player;
         _playerVC.showsPlaybackControls = NO;
         _playerVC.videoGravity = AVLayerVideoGravityResizeAspectFill;
@@ -484,10 +482,13 @@ VIResourceLoaderManagerDelegate
     [session setActive:YES error:nil];
     
     AVPlayerItem *playerItem;
-    if (isLocal) {
-        playerItem = [[AVPlayerItem alloc]initWithURL:[NSURL fileURLWithPath:urlStr]];
-    } else {
-        playerItem = [[AVPlayerItem alloc]initWithURL:[NSURL URLWithString:urlStr]];
+    if (urlStr.length) {
+        
+        if (isLocal) {
+            playerItem = [[AVPlayerItem alloc]initWithURL:[NSURL fileURLWithPath:urlStr]];
+        } else {
+            playerItem = [[AVPlayerItem alloc]initWithURL:[NSURL URLWithString:urlStr]];
+        }
     }
     AVPlayer *recordPlayer = [AVPlayer playerWithPlayerItem:playerItem];
     if (@available(iOS 10.0, *)) {
@@ -684,78 +685,6 @@ VIResourceLoaderManagerDelegate
     return soundFilePath;
 }
 
-#pragma mark - 视频下载
-//- (void)combineVideo{
-////    @"http://res.zhengminyi.com/lhR6nxeM9T_safC7VmMgYS19ExIS"
-//    
-//    HomeworkItem *otherItem = self.homework.otherItem.firstObject;
-//    [self downloadUrl:[NSURL URLWithString:otherItem.videoUrl] completionHandler:^(NSURL *localFileURL) {
-//        
-//        NSLog(@"completionHandler%@",localFileURL);
-//        AVAsset *asset = [AVAsset assetWithURL:localFileURL];
-//        CMTime duration = asset.duration;
-//        CGFloat videoDuration = duration.value / (float)duration.timescale;
-//        NSLog(@"%f",videoDuration);
-//        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//            [EditAudioVideo editVideoSynthesizeVieoPath:localFileURL
-//                                                BGMPath:[NSURL fileURLWithPath:[self getRecordSoundPath]]
-//                                      needOriginalVoice:NO
-//                                            videoVolume:0.5
-//                                              BGMVolume:1.0 complition:^(NSURL *outputPath, BOOL isSucceed) {
-//                                                  
-//                                                  dispatch_async(dispatch_get_main_queue(), ^{
-//                                                      [self playerVideoWithURL:outputPath];
-//                                                  });
-//                                                  
-//                                              }];
-//        });
-//        
-//    }];
-//}
-
-- (void)playerVideoWithURL:(NSURL *)url {
-    
-    [[AudioPlayer sharedPlayer] stop];
-    AVAudioSession *session =[AVAudioSession sharedInstance];
-    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-    
-    AVPlayerViewController *playerViewController = [[AVPlayerViewController alloc]init];
-    
-    AVPlayerItem *playItem = [[AVPlayerItem alloc]initWithURL:url];
-    AVPlayer *player = [AVPlayer playerWithPlayerItem:playItem];
-    
-    playerViewController.player = player;
-    playerViewController.showsPlaybackControls = NO;
-    playerViewController.player.volume = 1.0;
-    self.wordsView.hidden = YES;
-    self.vedioBgView.hidden = NO;
-    [self addChildViewController:playerViewController];
-    [self.vedioBgView addSubview:playerViewController.view];
-    playerViewController.view.frame = CGRectMake(0, 0, ScreenWidth, 210);
-    [playerViewController didMoveToParentViewController:self];
-    [playerViewController.player play];
-}
-
-- (void)downloadUrl:(NSURL *)url completionHandler:(void (^)(NSURL *localFileURL))completionHandler {
-    
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    self.downloadTask = [manager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
-    } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
-        NSURL *path = [[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-        return [path URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.mp4",url.lastPathComponent]];
-    } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable fileURL, NSError * _Nullable error) {
-        if (fileURL!=nil && error==nil) {
-            completionHandler(fileURL);
-        } else {
-            completionHandler(nil);
-        }
-    }];
-    
-    [self.downloadTask resume];
-}
 
 - (void)dealloc{
     
