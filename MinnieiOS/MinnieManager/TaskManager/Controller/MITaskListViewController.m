@@ -78,17 +78,11 @@ VIResourceLoaderManagerDelegate
 @end
 
 @implementation MITaskListViewController
-//
-//- (void)viewWillAppear:(BOOL)animated{
-//    [super viewWillAppear:animated];
-//    [self updatePrimaryCloumnScale:kRootModularWidth+kFolderModularWidth];
-//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.folderLabel.text = self.currentFileInfo.fileName;
     _homeworks = [NSMutableArray array];
     _currentFileInfo = [[FileInfo alloc] init];
     _selectedHomeworkIds = [NSMutableArray array];
@@ -525,6 +519,7 @@ VIResourceLoaderManagerDelegate
   
     self.currFileIndex = folder;
     self.currentFileInfo = fileInfo;
+    self.folderLabel.text = self.currentFileInfo.fileName;
     if (fileInfo) {
         // 显示任务列表
         [self requestHomeworks];
