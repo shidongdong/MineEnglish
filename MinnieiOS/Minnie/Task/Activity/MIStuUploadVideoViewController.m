@@ -42,6 +42,7 @@ VIResourceLoaderManagerDelegate
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor whiteColor];
+    self.tableView.backgroundColor = [UIColor bgColor];
     UIView *footerView = [[UIView alloc] init];
     footerView.backgroundColor = [UIColor clearColor];
     self.tableView.tableFooterView = footerView;

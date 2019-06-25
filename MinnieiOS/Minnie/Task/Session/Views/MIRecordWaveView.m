@@ -16,9 +16,8 @@
     
     CGFloat _viewWidth;
     CGFloat _viewHeight;
-    CADisplayLink *_displayLink;
 }
-
+@property (nonatomic,strong) CADisplayLink *displayLink;
 @end
 
 @implementation MIRecordWaveView
@@ -42,12 +41,15 @@
 
 - (void) startRecordAnimation{
     
+    self.hidden = NO;
     [self shaperLayer];
 }
 
 - (void) stopRecordAnimation{
-    [_displayLink invalidate];
-    _displayLink = nil;
+  
+    self.hidden = YES;
+    [self.displayLink invalidate];
+    self.displayLink = nil;
     if (self.superview) {
         [self removeFromSuperview];
     }
@@ -59,7 +61,8 @@
      
         shaper2 = [[CAShapeLayer alloc] init];
         shaper2.fillColor = [UIColor clearColor].CGColor;
-        shaper2.strokeColor = [UIColor mainColor].CGColor;
+        shaper2.strokeColor = [UIColor colorWithHex:0x00CE00].CGColor;
+        shaper2.lineWidth = 3.0;
     }
     shaper2.frame = CGRectMake(0, _viewHeight - 60, _viewWidth, 60);
     [self.layer addSublayer:shaper2];
@@ -68,7 +71,8 @@
         
         shaper1 = [[CAShapeLayer alloc] init];
         shaper1.fillColor = [UIColor clearColor].CGColor;
-        shaper1.strokeColor = [UIColor mainColor].CGColor;
+        shaper1.strokeColor = [UIColor colorWithHex:0xFFAE2A].CGColor;
+        shaper1.lineWidth = 2.0;
     }
     shaper1.frame = shaper2.frame;
     [self.layer addSublayer:shaper1];
@@ -78,6 +82,7 @@
         shaper = [[CAShapeLayer alloc] init];
         shaper.fillColor = [UIColor clearColor].CGColor;
         shaper.strokeColor = [UIColor mainColor].CGColor;
+        shaper.lineWidth = 3.0;
     }
     shaper.frame = shaper2.frame;
     [self.layer addSublayer:shaper];
@@ -92,7 +97,7 @@
 - (void)draePath{
     
     static  CGFloat i = 0;
-    CGFloat A = 20.f;//A振幅
+    CGFloat A = 15.f;//A振幅
     CGFloat h = 0;//y轴偏移
     CGFloat ω = 0.02;//角速度ω变大，则波形在X轴上收缩（波形变紧密）；角速度ω变小，则波形在X轴上延展（波形变稀疏）。不等于0
     CGFloat φ = 0 - i;//初相，x=0时的相位；反映在坐标系上则为图像的左右移动。
@@ -102,7 +107,7 @@
  
     for (int i = 0; i < _viewWidth; i ++) {
         CGFloat x = i;
-        CGFloat y = A * sin(ω*x+φ - M_PI)+h;
+        CGFloat y = A*3/4 * sin(ω*x+φ - M_PI)+h;
         CGFloat y1 = A*2/3 * sin(ω*x+φ - M_PI/2.0)+h;
         CGFloat y2 = A*1/3 * sin(ω*x+φ - M_PI/2.0)+h;
         if (i == 0) {

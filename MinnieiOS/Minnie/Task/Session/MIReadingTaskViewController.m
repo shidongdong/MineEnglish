@@ -50,6 +50,8 @@ VIResourceLoaderManagerDelegate
 
 @property (strong,nonatomic) MIReadingWordsView *wordsView;
 
+@property (nonatomic, strong) MIRecordWaveView *recordWaveView;
+
 // 视频播放器
 @property (strong,nonatomic) AVPlayerViewController *playerVC;
 
@@ -68,8 +70,6 @@ VIResourceLoaderManagerDelegate
 @property (nonatomic, strong) AVPlayer *myRecordPlayer;
 
 @property (weak, nonatomic) IBOutlet UIView *recordAniBgView;
-
-@property (nonatomic, strong) MIRecordWaveView *recordWaveView;
 
 @property (nonatomic, strong) AVPlayer *bgMusicPlayer;
 
@@ -270,7 +270,7 @@ VIResourceLoaderManagerDelegate
                 [self.bgMusicPlayer play];
             }
             self.startRecordBtn.selected = YES;
-            self.startRecordLabel.text = @"点击停止";
+            self.startRecordLabel.text = @"点击停止播放";
         }
     } else {
      
@@ -470,7 +470,7 @@ VIResourceLoaderManagerDelegate
 - (MIRecordWaveView *)recordWaveView{
     
     if (!_recordWaveView) {
-        _recordWaveView = [[MIRecordWaveView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth - 180, 150)];
+        _recordWaveView = [[MIRecordWaveView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 150)];
     }
     
     [self.recordAniBgView addSubview:_recordWaveView];
@@ -568,7 +568,7 @@ VIResourceLoaderManagerDelegate
     [self removeRecordSound];
     self.recordState = 1;
     self.startRecordLabel.text = @"停止";
-    [self.startRecordBtn setBackgroundImage:[UIImage imageNamed:@"btn_replay"] forState:UIControlStateNormal];
+    [self.startRecordBtn setBackgroundImage:[UIImage imageNamed:@"btn_recording"] forState:UIControlStateNormal];
     if (self.isReadingWords) {
         // 播放单词、背景音乐、开始录音
         HomeworkItem *wordsItem = self.homework.items.lastObject;
@@ -600,8 +600,19 @@ VIResourceLoaderManagerDelegate
         self.startTime = [NSDate date];
     }
     [self.recordWaveView startRecordAnimation];
+    [self starRecordBtnAnimation];
 }
 
+- (void)starRecordBtnAnimation{
+    
+    CABasicAnimation *animation = [CABasicAnimation animation];
+    animation.repeatCount = MAXFLOAT;
+    animation.keyPath = @"transform.rotation.z";
+    animation.duration = 2.0;
+    animation.toValue = @(0);
+    animation.fromValue = @(M_PI * 2);
+    [self.startRecordBtn.layer addAnimation:animation forKey:nil];
+}
 - (void)stopRecordFound{
     
     self.recordState = 0;
@@ -609,6 +620,7 @@ VIResourceLoaderManagerDelegate
     self.myRecordBtn.enabled = NO;
     [self.startRecordBtn setBackgroundImage:[UIImage imageNamed:@"btn_record"] forState:UIControlStateNormal];
     [self.recordWaveView stopRecordAnimation];
+    [self.startRecordBtn.layer removeAllAnimations];
     
     // 停止录制
     [self.audioRecorder stop];
@@ -633,6 +645,7 @@ VIResourceLoaderManagerDelegate
     self.startRecordLabel.text = @"重录";
     [self.startRecordBtn setBackgroundImage:[UIImage imageNamed:@"btn_replay"] forState:UIControlStateNormal];
     [self.recordWaveView stopRecordAnimation];
+    [self.startRecordBtn.layer removeAllAnimations];
     
     // 停止录音
     [self.audioRecorder stop];
