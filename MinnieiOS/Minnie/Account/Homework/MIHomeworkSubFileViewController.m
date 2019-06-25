@@ -6,6 +6,7 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
+#import "UIView+Load.h"
 #import "MIAddTypeTableViewCell.h"
 #import "MIHomeworkTaskListViewController.h"
 #import "MIHomeworkSubFileViewController.h"
@@ -25,6 +26,9 @@
     self.titleLabel.text = self.parentFileInfo.fileInfo.fileName;
     self.tableView.separatorColor = [UIColor separatorLineColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"MIAddTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MIAddTypeTableViewCellId];
+    if (self.parentFileInfo.subFileList.count == 0) {
+        [self.tableView showEmptyViewWithImage:nil title:@"文件夹为空" linkTitle:nil linkClickCallback:nil];
+    }
 }
 
 - (IBAction)backAction:(id)sender {

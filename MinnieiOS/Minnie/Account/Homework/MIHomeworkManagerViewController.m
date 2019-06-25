@@ -9,6 +9,7 @@
 #import "Result.h"
 #import "UIView+Load.h"
 #import "ManagerServce.h"
+#import "UIScrollView+Refresh.h"
 #import "MIAddTypeTableViewCell.h"
 #import "MICreateTaskViewController.h"
 #import "SearchHomeworkViewController.h"
@@ -31,7 +32,13 @@
     self.folderArray = [NSMutableArray array];
     // Do any additional setup after loading the view from its nib.
     [self.tableView registerNib:[UINib nibWithNibName:@"MIAddTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MIAddTypeTableViewCellId];
-    [self requestGetFiles];
+    WeakifySelf;
+    [self.tableView addPullToRefreshWithRefreshingBlock:^{
+        
+        if (!weakSelf) return ;
+        [weakSelf requestGetFiles];
+    }];
+    [self.tableView headerBeginRefreshing];
 }
 - (IBAction)backAction:(id)sender {
     
@@ -92,10 +99,15 @@
     
     WeakifySelf;
     weakSelf.tableView.hidden = YES;
-    [self.view showLoadingView];
     [ManagerServce requestGetFilesWithFileId:0 callback:^(Result *result, NSError *error) {
-        if (error) return ;
-        [weakSelf.view hideAllStateView];
+       
+        [weakSelf.tableView headerEndRefreshing];
+        if (error) {
+            [weakSelf.view showFailureViewWithRetryCallback:^{
+                [weakSelf requestGetFiles];
+            }];
+            return ;
+        };
         NSDictionary *dict = (NSDictionary *)(result.userInfo);
         NSArray *folderList = (NSArray *)(dict[@"list"]);
         [weakSelf.folderArray removeAllObjects];
@@ -105,9 +117,7 @@
             weakSelf.tableView.hidden = NO;
             [weakSelf.tableView reloadData];
         } else {
-            [weakSelf.view showFailureViewWithRetryCallback:^{
-                [weakSelf requestGetFiles];
-            }];
+            [weakSelf.view showEmptyViewWithImage:nil title:@"文件夹为空" linkTitle:nil linkClickCallback:nil];
         }
     }];
 }

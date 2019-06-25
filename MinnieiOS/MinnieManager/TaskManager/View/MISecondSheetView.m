@@ -222,8 +222,8 @@ UITableViewDataSource
         CGRect rect = [self.tableView convertRect:rectInTableView toView:[self.tableView superview]];
         CGFloat editViewY = CGRectGetMidY(rect) - 65;
         
-        if (editViewY >= [UIScreen mainScreen].bounds.size.height - 120) {
-            editViewY = [UIScreen mainScreen].bounds.size.height - 120;
+        if (editViewY >= ScreenHeight - 120) {
+            editViewY = ScreenHeight - 120;
         }
         editFileView.topConstraint.constant = editViewY;
         editFileView.leftContraint.constant = kFolderModularWidth + kRootModularWidth;
@@ -275,12 +275,15 @@ UITableViewDataSource
     WeakifySelf;
     createView.sureCallBack = ^(NSString * _Nullable name) {
         
-        ParentFileInfo *parentInfo = weakSelf.parentFileList[index];
-        FileInfo *fileInfo = [[FileInfo alloc] init];
-        fileInfo.fileName = name;
-        fileInfo.parentId = parentInfo.fileInfo.fileId;
-        fileInfo.depth = 2;
-        [weakSelf requestCreateFilesWithFileDto:fileInfo isEidt:NO];
+        if (index < weakSelf.parentFileList.count) {
+            
+            ParentFileInfo *parentInfo = weakSelf.parentFileList[index];
+            FileInfo *fileInfo = [[FileInfo alloc] init];
+            fileInfo.fileName = name;
+            fileInfo.parentId = parentInfo.fileInfo.fileId;
+            fileInfo.depth = 2;
+            [weakSelf requestCreateFilesWithFileDto:fileInfo isEidt:NO];
+        }
     };
     createView.titleName = @"添加子文件夹";
     createView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
