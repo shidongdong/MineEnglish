@@ -1791,7 +1791,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     WBGImageEditorViewController *editVC = [[WBGImageEditorViewController alloc] init];
     [editVC setOriginalImageUrls:self.homeworkImages];
     editVC.selectIndex = index;
-    //            [editVC setThumbnailImage:image];
     [editVC setSendCallback:^(UIImage *image) {
         if (weakSelf.homeworkSession.score > 0) {
             [HUD showErrorWithMessage:@"作业已完成，不能发送"];

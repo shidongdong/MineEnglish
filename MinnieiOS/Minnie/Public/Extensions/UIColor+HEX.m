@@ -44,7 +44,7 @@
 
 + (UIColor*)bgColor{
     
-    return [UIColor colorWithHex:0xEEEEEE];
+    return [UIColor colorWithHex:0xF4F5F6];
 }
 
 + (UIColor*)unSelectedColor{

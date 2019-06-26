@@ -100,6 +100,7 @@ CGFloat const MIHeaderTableViewCellHeight = 60.f;
     
     self.indexPath = indexPath;
     self.isParentFile = isParentFile;
+    self.backgroundColor = [UIColor whiteColor];
     if (isParentFile) {
         if (![fileInfo isKindOfClass:[ParentFileInfo class]]) return;
         ParentFileInfo *parentFileInfo = fileInfo;
@@ -125,6 +126,7 @@ CGFloat const MIHeaderTableViewCellHeight = 60.f;
         self.addBtn.hidden = YES;
         if (selected) {
             self.titleLabel.textColor = [UIColor mainColor];
+            self.backgroundColor = [UIColor colorWithHex:0xF2FAFF];
         } else {
             self.titleLabel.textColor = [UIColor detailColor];
         }

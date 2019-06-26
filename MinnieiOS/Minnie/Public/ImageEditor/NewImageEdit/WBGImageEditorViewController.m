@@ -216,9 +216,17 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WBGImageEditorCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:WBGImageEditorCollectionViewCellId forIndexPath:indexPath];
-    if (indexPath.item < self.thumbnailImages.count && indexPath.item < self.originalImageUrls.count) {
-      
-        [cell setupThumbImage:[self.thumbnailImages objectAtIndex:indexPath.item] withOrignImageURLURL:[self.originalImageUrls objectAtIndex:indexPath.item]];
+    if (indexPath.item < self.originalImageUrls.count) {
+        UIImage *thumImage;
+        if (indexPath.item < self.thumbnailImages.count) {
+            thumImage = [self.thumbnailImages objectAtIndex:indexPath.item];
+        } else {
+            thumImage = [UIImage imageNamed:@"activity_placeholder"];
+        }
+        [cell setupThumbImage:thumImage withOrignImageURLURL:[self.originalImageUrls objectAtIndex:indexPath.item]];
+    } else if (indexPath.item < self.thumbnailImages.count) {
+        
+        [cell setupThumbImage:[self.thumbnailImages objectAtIndex:indexPath.item] withOrignImageURLURL:nil];
     }
     return cell;
 }

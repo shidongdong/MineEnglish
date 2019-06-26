@@ -113,7 +113,6 @@
     CGFloat primaryWidth = self.primaryCloumnScale;
     CGFloat secondaryWidth = viewWidth - primaryWidth;
     
-    NSLog(@"primaryCloumnScale %f",self.primaryCloumnScale);
     UIViewController *primaryVC = self.viewControllers[0];
     UIViewController *secondaryVC = self.viewControllers[1];
     UIViewController *additionalVC = (self.viewControllers.count > 2) ? self.viewControllers[2] : nil;

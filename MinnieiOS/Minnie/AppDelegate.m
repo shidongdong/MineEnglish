@@ -263,7 +263,6 @@
 - (void)toHome {
     
     //新版本引导页
-
     if (!APP.userGuide)
     {
         GuideViewController * guideVc = [[GuideViewController alloc] init];

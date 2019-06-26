@@ -25,6 +25,7 @@
     // Do any additional setup after loading the view from its nib.
     self.titleLabel.text = self.parentFileInfo.fileInfo.fileName;
     self.tableView.separatorColor = [UIColor separatorLineColor];
+    self.tableView.backgroundColor = [UIColor bgColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"MIAddTypeTableViewCell" bundle:nil] forCellReuseIdentifier:MIAddTypeTableViewCellId];
     if (self.parentFileInfo.subFileList.count == 0) {
         [self.tableView showEmptyViewWithImage:nil title:@"文件夹为空" linkTitle:nil linkClickCallback:nil];

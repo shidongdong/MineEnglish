@@ -186,7 +186,7 @@
             if (weakSelf.callback) {
                 weakSelf.callback();
             }
-            [HUD showErrorWithMessage:@"移动成功"];
+            [HUD showWithMessage:@"移动成功"];
         } else {
             [HUD showErrorWithMessage:@"移动失败"];
         };

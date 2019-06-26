@@ -24,7 +24,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cPL-cM-qzS" userLabel="导航栏">
                     <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="作业管理" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F4S-52-uA5">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="子文件" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F4S-52-uA5">
                             <rect key="frame" x="60" y="11" width="294" height="22"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                             <color key="textColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -61,7 +61,7 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="64z-hF-Xgp">
-                    <rect key="frame" x="0.0" y="88.5" width="414" height="773.5"/>
+                    <rect key="frame" x="0.0" y="88.5" width="414" height="807.5"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="dGC-Sb-2Fv"/>
@@ -75,16 +75,16 @@
                 <constraint firstItem="64z-hF-Xgp" firstAttribute="top" secondItem="ubA-2b-vZH" secondAttribute="bottom" id="7Oy-hn-rui"/>
                 <constraint firstItem="ubA-2b-vZH" firstAttribute="leading" secondItem="cPL-cM-qzS" secondAttribute="leading" id="DXP-q4-1w1"/>
                 <constraint firstAttribute="trailing" secondItem="cPL-cM-qzS" secondAttribute="trailing" id="Shy-1V-q3Q"/>
+                <constraint firstAttribute="bottom" secondItem="64z-hF-Xgp" secondAttribute="bottom" id="TjA-Q6-Ns2"/>
                 <constraint firstItem="ubA-2b-vZH" firstAttribute="top" secondItem="cPL-cM-qzS" secondAttribute="bottom" id="fju-rd-Xcj"/>
                 <constraint firstItem="cPL-cM-qzS" firstAttribute="leading" secondItem="HvR-68-iaa" secondAttribute="leading" id="hvF-Vm-xAe"/>
                 <constraint firstItem="ubA-2b-vZH" firstAttribute="trailing" secondItem="cPL-cM-qzS" secondAttribute="trailing" id="qr8-zL-CMs"/>
                 <constraint firstItem="UXi-1n-hF5" firstAttribute="trailing" secondItem="64z-hF-Xgp" secondAttribute="trailing" id="shW-gV-dP7"/>
-                <constraint firstItem="UXi-1n-hF5" firstAttribute="bottom" secondItem="64z-hF-Xgp" secondAttribute="bottom" id="vc6-T2-z53"/>
                 <constraint firstItem="cPL-cM-qzS" firstAttribute="top" secondItem="UXi-1n-hF5" secondAttribute="top" priority="750" id="wRx-Ik-lwL"/>
                 <constraint firstItem="cPL-cM-qzS" firstAttribute="top" relation="greaterThanOrEqual" secondItem="HvR-68-iaa" secondAttribute="top" constant="20" id="xrm-dF-mnu"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="UXi-1n-hF5"/>
-            <point key="canvasLocation" x="-2108" y="-720"/>
+            <point key="canvasLocation" x="-2108.695652173913" y="-720.53571428571422"/>
         </view>
     </objects>
     <resources>

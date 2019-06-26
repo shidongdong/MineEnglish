@@ -66,7 +66,9 @@ UITableViewDataSource
     view.isMultiple = NO;
     WeakifySelf;
     view.callback = ^{
-        
+        if (weakSelf.callBack) {
+            weakSelf.callBack();
+        }
         [weakSelf.navigationController popViewControllerAnimated:YES];
     };
     view.homeworkIds = @[@(self.homework.homeworkId)];
