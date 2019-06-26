@@ -305,7 +305,15 @@ VIResourceLoaderManagerDelegate
 }
 
 - (IBAction)commitAction:(id)sender {
-    
+    if (self.recordState == 0) {
+        
+        [HUD showWithMessage:@"你还没有开始录制"];
+        return;
+    } else if (self.recordState == 1) {
+        
+        [HUD showWithMessage:@"正在录制"];
+        return;
+    }
     [self uploadRecord];
 }
 

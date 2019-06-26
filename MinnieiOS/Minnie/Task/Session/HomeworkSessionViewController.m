@@ -1345,7 +1345,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             [HUD showErrorWithMessage:@"图片选择失败"];
             return;
         }
-
 #if TEACHERSIDE || MANAGERSIDE
         WBGImageEditorViewController *editVC = [[WBGImageEditorViewController alloc] init];
         [editVC setOnlyForSend:YES];
@@ -1354,7 +1353,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             [self sendImageMessageWithImage:image];
         }];
         [self.navigationController presentViewController:editVC animated:YES completion:nil];
-
 #endif
     }];
 }
