@@ -685,12 +685,12 @@ ClassAndStudentSelectorControllerDelegate
                 
                 HomeworkItem *tempItem = items.lastObject;
                 weakSelf.wordsItem.bgmusicUrl = tempItem.audioUrl;
-//                if (tempItem == nil) {
-//
-//                    [weakContentCell setupWithItems:@[] vc:weakSelf contentType:createType];
-//                } else {
-//                }
-                [weakContentCell setupWithItems:@[tempItem] vc:weakSelf contentType:createType];
+                if (tempItem == nil) {
+
+                    [weakContentCell setupWithItems:@[] vc:weakSelf contentType:createType];
+                } else {
+                    [weakContentCell setupWithItems:@[tempItem] vc:weakSelf contentType:createType];
+                }
                 [weakTableView beginUpdates];
                 [weakTableView endUpdates];
             };

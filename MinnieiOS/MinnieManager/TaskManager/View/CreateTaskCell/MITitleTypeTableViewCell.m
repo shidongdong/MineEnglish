@@ -231,7 +231,6 @@ UIDocumentPickerDelegate
                 cell = videoCell;
             } else if ([item.type isEqualToString:@"audio"]) {
                 
-                HomeworkItem *item = [[HomeworkItem alloc] init];
                 HomeworkAudioTableViewCell *audioCell = [tableView dequeueReusableCellWithIdentifier:HomeworkAudioTableViewCellId forIndexPath:indexPath];
                 [audioCell setupWithAudioUrl:item.audioUrl coverUrl:item.audioCoverUrl];
                 
