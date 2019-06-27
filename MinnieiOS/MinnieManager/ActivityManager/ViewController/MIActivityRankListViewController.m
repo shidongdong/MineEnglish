@@ -35,6 +35,14 @@ UITableViewDataSource
 
 @implementation MIActivityRankListViewController
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+#if MANAGERSIDE
+    [self updatePrimaryCloumnScale:kRootModularWidth + kActivitySheetWidth];
+#endif
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.

@@ -84,8 +84,6 @@ NSString * const AchieverListCollectionViewCellId = @"AchieverListCollectionView
     {
         self.nameLabel.text = [titles objectAtIndex:index];
     }
-    
-    
 }
 
 

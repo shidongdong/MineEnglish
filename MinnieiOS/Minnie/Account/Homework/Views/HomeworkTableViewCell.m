@@ -139,10 +139,10 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
 }
 
 + (CGFloat)cellHeightWithHomework:(Homework *)homework {
+   
     if (homework.cellHeight > 0) {
         return homework.cellHeight;
     }
-    
     static HomeworkTableViewCell *cell = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

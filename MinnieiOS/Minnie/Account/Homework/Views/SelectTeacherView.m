@@ -27,17 +27,23 @@
 
 @property (nonatomic, weak) IBOutlet UIButton *cancelButton;
 @property (nonatomic, weak) IBOutlet UIButton *confirmButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentWidthConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentBottomConstraint;
 
 @property (nonatomic, strong) NSArray *teachers;
 @property (nonatomic, strong) Teacher *selectedTeacher;
 
 @property (nonatomic, copy) SelectTeacherViewSendCallback confirmCallback;
 
+@property (nonatomic, copy) SelectTeacherViewCancelCallback cancelCallback;
+
 @end
 
 @implementation SelectTeacherView
 
 + (instancetype)sharedInstance {
+   
     static SelectTeacherView *instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -62,22 +68,33 @@
     self.cancelButton.layer.masksToBounds = YES;
     self.cancelButton.layer.borderWidth = 0.5;
     self.cancelButton.layer.borderColor = [UIColor colorWithHex:0x0098FE].CGColor;
+    
+#if MANAGERSIDE
+    self.contentView.layer.cornerRadius = 12.f;
+    self.contentView.layer.masksToBounds = YES;
+#endif
 }
 
 - (void)addContentView{
     
-    EqualSpaceFlowLayout *flowLayout = [[EqualSpaceFlowLayout alloc] init];
-    flowLayout.delegate = self;
+    CGFloat collectionWidth = ScreenWidth;
+#if MANAGERSIDE
+    collectionWidth = 375;
+#endif
     
-    self.teachersCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 50, ScreenWidth, 50) collectionViewLayout:flowLayout];
+    EqualSpaceFlowLayout *flowLayout = [[EqualSpaceFlowLayout alloc] initWithCollectionViewWidth:collectionWidth];
+    flowLayout.delegate = self;
+    self.teachersCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 50, collectionWidth, 50) collectionViewLayout:flowLayout];
+    
     self.teachersCollectionView.backgroundColor = [UIColor whiteColor];
     self.teachersCollectionView.delegate = self;
     self.teachersCollectionView.dataSource = self;
-    [self addSubview:self.teachersCollectionView];
+    [self.contentView addSubview:self.teachersCollectionView];
     [self.teachersCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([TeacherCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:TeacherCollectionViewCellId];
 }
 
 + (UIImage *)imageWithColor:(UIColor *)color {
+  
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -93,14 +110,16 @@
 
 + (void)showInSuperView:(UIView *)superView
                teachers:(NSArray *)teachers
-               callback:(SelectTeacherViewSendCallback)callback {
+               callback:(SelectTeacherViewSendCallback)callback
+             cancelback:(SelectTeacherViewCancelCallback)cancelback {
+    
     SelectTeacherView *view = [SelectTeacherView sharedInstance];
     if (view.superview != nil) {
         [view removeFromSuperview];
     }
     view.teachers = teachers;
     view.confirmCallback = callback;
-    
+    view.cancelCallback = cancelback;
     [superView addSubview:view];
     [view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(superView);
@@ -109,6 +128,7 @@
 }
 
 - (void)showWithAnimation {
+   
     self.hidden = YES;
     dispatch_async(dispatch_get_main_queue(), ^{
         self.hidden = NO;
@@ -129,28 +149,46 @@
             self.backgroundView.alpha = 1.f;
             self.teachersCollectionView.alpha = 1.f;
             
-            
-            CGFloat collectionHeight = [SelectTeacherView heightWithTags:self.teachers];
+            CGFloat collectionWidth = ScreenWidth;
+#if MANAGERSIDE
+            collectionWidth = 375;
+#endif
+            CGFloat collectionHeight = [SelectTeacherView heightWithTags:self.teachers collectionWidth:collectionWidth];
             CGFloat contentHeight = collectionHeight + 84 + 90;
             if (collectionHeight > ScreenHeight *0.4) {
                 collectionHeight = ScreenHeight * 0.4;
                 contentHeight = collectionHeight + 84 + 90;
             }
+#if MANAGERSIDE
+            
+            self.contentWidthConstraint.constant = collectionWidth;
+            self.contentHeightConstraint.constant = contentHeight;
+            self.contentBottomConstraint.constant = ScreenHeight/2.0 - contentHeight/2.0;
+            
             [self.teachersCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
                 
                 make.height.mas_equalTo(collectionHeight);
                 make.left.right.equalTo(self.contentView);
                 make.top.equalTo(self.contentView.mas_top).offset(84);
             }];
-            [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.height.mas_equalTo(contentHeight);
-                make.left.right.bottom.equalTo(self.backgroundView);
+#elif TEACHERSIDE
+            
+            self.contentWidthConstraint.constant = collectionWidth;
+            self.contentHeightConstraint.constant = contentHeight;
+            self.contentBottomConstraint.constant = 0;
+
+            [self.teachersCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+                
+                make.height.mas_equalTo(collectionHeight);
+                make.left.right.equalTo(self.contentView);
+                make.top.equalTo(self.contentView.mas_top).offset(84);
             }];
+#endif
         } completion:^(BOOL finished) {
         }];
     });
 }
-+ (CGFloat)heightWithTags:(NSArray <Teacher *> *)tags{
++ (CGFloat)heightWithTags:(NSArray <Teacher *> *)tags collectionWidth:(CGFloat)collectionWidth{
     
     if (tags.count == 0) {
         return 50.f;
@@ -173,7 +211,7 @@
         CGSize itemSize = [TeacherCollectionViewCell cellSizeWithTeacher:teacher];
         
         xNextOffset+=(minimumInteritemSpacing + itemSize.width);
-        if (xNextOffset >= [UIScreen mainScreen].bounds.size.width - 30 - rightSpace) {
+        if (xNextOffset >= collectionWidth - rightSpace) {
             xOffset = leftSpace;
             xNextOffset = (leftSpace + minimumInteritemSpacing + itemSize.width);
             yOffset += (itemSize.height + minimumLineSpacing);
@@ -212,6 +250,10 @@
 }
 
 - (IBAction)cancelButtonPressed:(id)sender {
+    
+    if (self.cancelCallback != nil) {
+        self.cancelCallback();
+    }
     [[self class] hideAnimated:YES];
 }
 
@@ -288,10 +330,16 @@
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     Teacher *teacher = self.teachers[indexPath.row];
     CGSize itemSize = [TeacherCollectionViewCell cellSizeWithTeacher:teacher];
+  
+    CGFloat collectionWidth = ScreenWidth;
+#if MANAGERSIDE
+    collectionWidth = 375;
+#endif
+    
     // 标签长度大于屏幕
-    if (itemSize.width > ScreenWidth -30) {
+    if (itemSize.width > collectionWidth -30) {
         
-        itemSize.width = ScreenWidth - 30;
+        itemSize.width = collectionWidth - 30;
     }
     return itemSize;
 }

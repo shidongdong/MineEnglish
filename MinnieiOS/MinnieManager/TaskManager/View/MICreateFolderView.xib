@@ -19,12 +19,21 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Chg-YN-8li">
                     <rect key="frame" x="59.5" y="262.5" width="295" height="200"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="添加父级文件夹" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SqH-OM-nvb">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="添加父级文件夹" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SqH-OM-nvb">
                             <rect key="frame" x="90.5" y="32" width="114.5" height="16"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="16" id="wn7-WF-apc"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第一周" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F9p-b8-q3R">
+                            <rect key="frame" x="20" y="68" width="255" height="16"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="16" id="QI7-is-NKK"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -54,15 +63,31 @@
                                 <action selector="cancelAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="68A-wW-Va4"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNQ-GW-0wt">
+                            <rect key="frame" x="87.5" y="136" width="120" height="40"/>
+                            <color key="backgroundColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="120" id="5zT-91-zt2"/>
+                                <constraint firstAttribute="height" constant="40" id="fUQ-MB-7YG"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                            <state key="normal" title="知道了">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="knownAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="QcY-jb-waf"/>
+                            </connections>
+                        </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hRm-9H-Z89">
                             <rect key="frame" x="155" y="136" width="120" height="40"/>
+                            <color key="backgroundColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="BnH-gy-Zja"/>
                                 <constraint firstAttribute="width" constant="120" id="m7F-tB-zX7"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                             <state key="normal" title="确定">
-                                <color key="titleColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
                                 <action selector="sureAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="CK2-H4-GpF"/>
@@ -73,10 +98,15 @@
                     <constraints>
                         <constraint firstItem="KUT-vc-8mC" firstAttribute="leading" secondItem="Chg-YN-8li" secondAttribute="leading" constant="20" id="0ub-74-e41"/>
                         <constraint firstAttribute="height" constant="200" id="2Sc-Pi-n9A"/>
+                        <constraint firstItem="MNQ-GW-0wt" firstAttribute="centerX" secondItem="Chg-YN-8li" secondAttribute="centerX" id="9Lh-k7-LXm"/>
                         <constraint firstAttribute="width" constant="295" id="AlG-aj-fwa"/>
+                        <constraint firstItem="F9p-b8-q3R" firstAttribute="top" secondItem="SqH-OM-nvb" secondAttribute="bottom" constant="20" id="Hik-S6-lgZ"/>
                         <constraint firstItem="hRm-9H-Z89" firstAttribute="top" secondItem="ixA-lF-nHD" secondAttribute="top" id="Pa5-jO-fv2"/>
                         <constraint firstAttribute="trailing" secondItem="KUT-vc-8mC" secondAttribute="trailing" constant="20" id="SoT-DO-xQD"/>
+                        <constraint firstItem="F9p-b8-q3R" firstAttribute="leading" secondItem="Chg-YN-8li" secondAttribute="leading" constant="20" id="TD1-54-9LC"/>
+                        <constraint firstItem="MNQ-GW-0wt" firstAttribute="top" secondItem="hRm-9H-Z89" secondAttribute="top" id="Viv-W8-cGM"/>
                         <constraint firstItem="hRm-9H-Z89" firstAttribute="trailing" secondItem="KUT-vc-8mC" secondAttribute="trailing" id="dHm-FC-2e2"/>
+                        <constraint firstAttribute="trailing" secondItem="F9p-b8-q3R" secondAttribute="trailing" constant="20" id="lP8-MR-GQa"/>
                         <constraint firstItem="KUT-vc-8mC" firstAttribute="top" secondItem="SqH-OM-nvb" secondAttribute="bottom" constant="12" id="nou-JC-QHg"/>
                         <constraint firstItem="ixA-lF-nHD" firstAttribute="top" secondItem="KUT-vc-8mC" secondAttribute="bottom" constant="38" id="oHH-BE-Njx"/>
                         <constraint firstItem="ixA-lF-nHD" firstAttribute="leading" secondItem="Chg-YN-8li" secondAttribute="leading" constant="20" id="ua3-aa-6bP"/>
@@ -94,6 +124,8 @@
             <connections>
                 <outlet property="bgView" destination="Chg-YN-8li" id="PbU-zB-EZT"/>
                 <outlet property="cancelBtn" destination="ixA-lF-nHD" id="Yrf-FI-uA5"/>
+                <outlet property="detailLabel" destination="F9p-b8-q3R" id="TPy-Og-3bv"/>
+                <outlet property="knownBtn" destination="MNQ-GW-0wt" id="sSt-t9-dgr"/>
                 <outlet property="sureBtn" destination="hRm-9H-Z89" id="cW7-kq-vuK"/>
                 <outlet property="textField" destination="KUT-vc-8mC" id="6qF-H5-YSB"/>
                 <outlet property="titleLabel" destination="SqH-OM-nvb" id="jeb-Ci-MH8"/>

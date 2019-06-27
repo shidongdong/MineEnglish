@@ -467,9 +467,13 @@ EqualSpaceFlowLayoutDelegate
     NSString *tag = self.tags[indexPath.row];
     CGSize itemSize = [TagCollectionViewCell cellSizeWithTag:tag];
     // 标签长度大于屏幕
-    if (itemSize.width > ScreenWidth -30) {
+    CGFloat collectionWidth = ScreenWidth;
+#if MANAGERSIDE
+    collectionWidth = ScreenWidth - kRootModularWidth - kFolderModularWidth;
+#endif
+    if (itemSize.width > collectionWidth -30) {
         
-        itemSize.width = ScreenWidth - 30;
+        itemSize.width = collectionWidth - 30;
     }
     return itemSize;
 }

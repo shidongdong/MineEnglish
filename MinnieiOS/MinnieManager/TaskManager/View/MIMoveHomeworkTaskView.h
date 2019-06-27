@@ -10,13 +10,16 @@
 #import "Homework.h"
 #import "ParentFileInfo.h"
 
-typedef void(^MoveHomeworkTaskCallback)(void);
+typedef void(^MoveHomeworkTaskSuccessCallback)(void);
+typedef void(^MoveHomeworkTaskCancelCallback)(void);
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MIMoveHomeworkTaskView : UIView
 
-@property (nonatomic, copy) MoveHomeworkTaskCallback callback;
+@property (nonatomic, copy) MoveHomeworkTaskSuccessCallback callback;
+@property (nonatomic, copy) MoveHomeworkTaskCancelCallback cancelCallback;
+
 // 两级路径
 @property (nonatomic, assign) BOOL isMultiple;
 

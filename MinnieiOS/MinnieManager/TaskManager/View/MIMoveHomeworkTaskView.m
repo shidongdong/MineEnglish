@@ -80,7 +80,7 @@
         self.homeworkTitle.hidden = YES;
         self.locationLabel.hidden = YES;
         self.locationTextLabel.hidden = YES;
-        self.moveConstraint.constant = 20;
+        self.moveConstraint.constant = 30;
     } else {
         
         self.homeworkTitle.hidden = NO;
@@ -93,6 +93,9 @@
     if (self.superview) {
         
         [self removeFromSuperview];
+    }
+    if (self.cancelCallback) {
+        self.cancelCallback();
     }
 }
 - (IBAction)sureAction:(id)sender {
@@ -189,6 +192,9 @@
             [HUD showWithMessage:@"移动成功"];
         } else {
             [HUD showErrorWithMessage:@"移动失败"];
+            if (self.cancelCallback) {
+                self.cancelCallback();
+            }
         };
         if (self.superview) {
             

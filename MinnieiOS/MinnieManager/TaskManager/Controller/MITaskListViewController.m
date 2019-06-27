@@ -14,10 +14,10 @@
 #import "MIScoreListViewController.h"
 #import "MICreateTaskViewController.h"
 #import "HomeworkPreviewViewController.h"
-#import "ClassAndStudentSelectorController.h"
 #import "HomeWorkSendHistoryViewController.h"
 #import "UIViewController+PrimaryCloumnScale.h"
 
+#import "TeacherService.h"
 #import "HomeworkService.h"
 #import "UIView+Load.h"
 #import "UIScrollView+Refresh.h"
@@ -27,6 +27,9 @@
 #import "NEPhotoBrowser.h"
 #import "AudioPlayerViewController.h"
 #import "VIResourceLoaderManager.h"
+#import "SelectTeacherView.h"
+#import "ClassAndStudentSelectView.h"
+#import "HomeworkConfirmView.h"
 
 @interface MITaskListViewController ()<
 UITableViewDelegate,
@@ -78,6 +81,14 @@ VIResourceLoaderManagerDelegate
 @end
 
 @implementation MITaskListViewController
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+#if MANAGERSIDE
+    [self updatePrimaryCloumnScale:kRootModularWidth + kActivitySheetWidth];
+#endif
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -157,10 +168,92 @@ VIResourceLoaderManagerDelegate
             }
         }
     }
-    ClassAndStudentSelectorController *vc = [[ClassAndStudentSelectorController alloc] init];
-    [vc setHomeworks:homeworks];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self.navigationController presentViewController:nav animated:YES completion:nil];
+ 
+    ClassAndStudentSelectView *selectView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([ClassAndStudentSelectView class]) owner:nil options:nil].lastObject;
+    WeakifySelf;
+    selectView.cancelBack = ^{
+        [weakSelf cancelEditMode];
+    };
+    selectView.selectBack = ^(NSArray<Clazz *> * _Nullable classes, NSArray<User *> * _Nullable students) {
+        [weakSelf classAndStudentSelectViewClasses:classes students:students homeworks:homeworks];
+    };
+    [selectView showSelectView];
+}
+
+- (void)classAndStudentSelectViewClasses:(NSArray<Clazz *> *)classes students:(NSArray<User *> *)students homeworks:(NSArray *)homeworks{
+   
+    WeakifySelf;
+    [TeacherService requestTeachersWithCallback:^(Result *result, NSError *error) {
+        
+        if (error != nil) {
+            
+            [weakSelf cancelEditMode];
+            [HUD showErrorWithMessage:@"教师获取失败"];
+            return;
+        }
+        
+        NSDictionary *dict = (NSDictionary *)(result.userInfo);
+        NSArray *teachers = (NSArray *)(dict[@"list"]);
+        [SelectTeacherView showInSuperView:[UIApplication sharedApplication].keyWindow
+                                  teachers:teachers
+                                  callback:^(Teacher *teacher, NSDate *date) {
+                                      
+                                      [SelectTeacherView hideAnimated:NO];
+                                      
+//                                      HomeworkConfirmViewController *vc = [[HomeworkConfirmViewController alloc] init];
+//                                      vc.classes = classes;
+//                                      vc.students = students;
+//                                      vc.teacher = teacher;
+//                                      vc.homeworks = homeworks;
+//                                      vc.cancelCallBack = ^{
+//                                          [weakSelf cancelEditMode];
+//                                      };
+//                                      [weakSelf.navigationController presentViewController:vc animated:YES completion:nil];
+                                      
+                                      
+                                      
+                                      UIView *confirmViewBg = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                                      confirmViewBg.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+                                      [[UIApplication sharedApplication].keyWindow addSubview:confirmViewBg];
+                                      
+                                      HomeworkConfirmView *confirmView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([HomeworkConfirmView class]) owner:nil options:nil].lastObject;
+                                      [confirmView setupConfirmViewHomeworks:homeworks
+                                                                     classes:classes
+                                                                    students:students
+                                                                     teacher:teacher];
+                                      [confirmViewBg addSubview:confirmView];
+                                      [confirmView mas_makeConstraints:^(MASConstraintMaker *make) {
+                                         
+                                          make.centerX.equalTo(confirmViewBg.mas_centerX);
+                                          make.centerY.equalTo(confirmViewBg.mas_centerY);
+                                          make.width.equalTo(@375);
+                                          make.height.mas_equalTo(ScreenHeight - 102);
+                                      }];
+                                      confirmView.cancelCallBack = ^{
+                                          if (confirmViewBg.superview) {
+                                              [confirmViewBg removeFromSuperview];
+                                          }
+                                          [weakSelf cancelEditMode];
+                                      };
+                                      confirmView.successCallBack = ^{
+                                         
+                                          if (confirmViewBg.superview) {
+                                              [confirmViewBg removeFromSuperview];
+                                          }
+                                          [weakSelf cancelEditMode];
+                                      };
+                                  } cancelback:^{
+                                      [weakSelf cancelEditMode];
+                                  }];
+    }];
+}
+
+- (void)showConfirmViewClasses:(NSArray<Clazz *> *)classes students:(NSArray<User *> *)students homeworks:(NSArray *)homeworks{
+    
+    UIView *confirmViewBg = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    confirmViewBg.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    [[UIApplication sharedApplication].keyWindow addSubview:confirmViewBg];
+    
 }
 
 // 新需求改为移动任务
@@ -168,20 +261,28 @@ VIResourceLoaderManagerDelegate
     
     MIMoveHomeworkTaskView *view = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIMoveHomeworkTaskView class]) owner:nil options:nil].lastObject;
     view.frame = [UIScreen mainScreen].bounds;
-    view.isMultiple = NO;
+    view.isMultiple = YES;
     WeakifySelf;
     view.callback = ^{
        
         [weakSelf.homeworks removeAllObjects];
         [weakSelf.selectedHomeworkIds removeAllObjects];
         weakSelf.nextUrl = nil;
-        
-        [weakSelf operationAction:nil];
+        [weakSelf cancelEditMode];
         [weakSelf requestHomeworks];
+    };
+    view.cancelCallback = ^{
+        [weakSelf cancelEditMode];
     };
     view.homeworkIds = self.selectedHomeworkIds;
     view.currentFileInfo = self.currentFileInfo;
     [[UIApplication sharedApplication].keyWindow addSubview:view];
+}
+
+- (void)cancelEditMode{
+    // 手动取消编辑模式
+    self.inEditMode = YES;
+    [self operationAction:nil];
 }
 
 #pragma mark - Private Methods
@@ -190,8 +291,8 @@ VIResourceLoaderManagerDelegate
 }
 
 - (void)homeworkDidSendSuccess{
-    self.inEditMode = YES;
-    [self operationAction:nil];
+
+    [self cancelEditMode];
 }
 
 #pragma mark - 请求作业列表
@@ -460,7 +561,6 @@ VIResourceLoaderManagerDelegate
     [cell setBlankCallback:^{
         
         MIScoreListViewController *scoreListVC = [[MIScoreListViewController alloc] initWithNibName:NSStringFromClass([MIScoreListViewController class]) bundle:nil];
-        WeakifySelf;
         scoreListVC.callBack = ^{
             [weakSelf requestHomeworks];
         };
@@ -469,11 +569,17 @@ VIResourceLoaderManagerDelegate
         [self.navigationController pushViewController:scoreListVC animated:YES];
     }];
     [cell setSendCallback:^{
-      
-        ClassAndStudentSelectorController *vc = [[ClassAndStudentSelectorController alloc] init];
-        [vc setHomeworks:@[homework]];
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-        [weakSelf.navigationController presentViewController:nav animated:YES completion:nil];
+
+        ClassAndStudentSelectView *selectView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([ClassAndStudentSelectView class]) owner:nil options:nil].lastObject;
+        WeakifySelf;
+        selectView.cancelBack = ^{
+            [weakSelf cancelEditMode];
+        };
+        selectView.selectBack = ^(NSArray<Clazz *> * _Nullable classes, NSArray<User *> * _Nullable students) {
+          
+            [weakSelf classAndStudentSelectViewClasses:classes students:students homeworks:@[homework]];
+        };
+        [selectView showSelectView];
     }];
     
     [cell setImageCallback:^(UIImageView *imageView, NSString *imageUrl) {
@@ -545,8 +651,9 @@ VIResourceLoaderManagerDelegate
             [self.emptyView removeFromSuperview];
         }
     } else {
-        self.inEditMode = YES;
-        [self operationAction:nil];
+        
+        [self cancelEditMode];
+        
         self.tableView.hidden = YES;
         self.headerView.hidden = YES;
         self.footerView.hidden = YES;

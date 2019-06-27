@@ -8,13 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^SelectTeacherViewCancelCallback)(void);
 typedef void(^SelectTeacherViewSendCallback)(Teacher *teacher, NSDate *sendDate);
 
 @interface SelectTeacherView : UIView
 
 + (void)showInSuperView:(UIView *)superView
                teachers:(NSArray *)teachers
-               callback:(SelectTeacherViewSendCallback)callback;
+               callback:(SelectTeacherViewSendCallback)callback
+             cancelback:(SelectTeacherViewCancelCallback)cancelback;
 
 + (void)hideAnimated:(BOOL)animated;
 

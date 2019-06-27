@@ -8,7 +8,7 @@
 
 #import "BaseViewController.h"
 
-//typedef void(^Success)(BOOL sendSuccess);
+typedef void(^HomeworkConfirmCancelCallBack)(void);
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSDate *dateTime;
 
-//@property (nonatomic,copy) Success sendSuccessBlock;
+@property (nonatomic,copy) HomeworkConfirmCancelCallBack cancelCallBack;
 
 @end
 

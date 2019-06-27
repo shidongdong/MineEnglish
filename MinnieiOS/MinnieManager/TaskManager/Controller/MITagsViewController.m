@@ -18,6 +18,7 @@
 #import "HomeworkSessionService.h"
 #import "MIEqualSpaceFlowLayout.h"
 #import "CSCustomSplitViewController.h"
+#import "UIViewController+PrimaryCloumnScale.h"
 
 @interface MITagsViewController () <
 UICollectionViewDataSource,
@@ -42,6 +43,9 @@ MIEqualSpaceFlowLayoutDelegate
 -(void)viewWillAppear:(BOOL)animated{
 
     [super viewWillAppear:animated];
+#if MANAGERSIDE
+    [self updatePrimaryCloumnScale:kRootModularWidth];
+#endif
 }
 
 - (void)viewDidLoad {
@@ -472,9 +476,10 @@ MIEqualSpaceFlowLayoutDelegate
     NSString *tag = self.tags[indexPath.row];
     CGSize itemSize = [TagCollectionViewCell cellSizeWithTag:tag];
     // 标签长度大于屏幕
-    if (itemSize.width > ScreenWidth -30) {
+    CGFloat collectionWidth = self.teacherSider ? ScreenWidth : (ScreenWidth - kRootModularWidth);
+    if (itemSize.width > collectionWidth -30) {
         
-        itemSize.width = ScreenWidth - 30;
+        itemSize.width = collectionWidth - 30;
     }
     return itemSize;
 }

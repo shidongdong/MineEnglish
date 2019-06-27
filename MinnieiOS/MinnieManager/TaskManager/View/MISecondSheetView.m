@@ -285,7 +285,7 @@ UITableViewDataSource
             [weakSelf requestCreateFilesWithFileDto:fileInfo isEidt:NO];
         }
     };
-    createView.titleName = @"添加子文件夹";
+    [createView setupCreateFile:@"创建子文件夹" fileName:nil];
     createView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
     [[UIApplication sharedApplication].keyWindow addSubview:createView];
 }
@@ -315,7 +315,7 @@ UITableViewDataSource
         fileInfo.depth = 1;
         [weakSelf requestCreateFilesWithFileDto:fileInfo isEidt:NO];
     };
-    createView.titleName = @"添加父级文件夹";
+    [createView setupCreateFile:@"创建父级文件夹" fileName:nil];
     createView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
     [[UIApplication sharedApplication].keyWindow addSubview:createView];
 }
@@ -343,7 +343,10 @@ UITableViewDataSource
         ParentFileInfo *parentInfo = self.parentFileList[indexPath.section];
         if (parentInfo.subFileList.count) {
             
-            [HUD showErrorWithMessage:@"请先删除子文件夹"];
+            MICreateFolderView *deleteView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MICreateFolderView class]) owner:nil options:nil] lastObject];
+            [deleteView setupDeleteError:@"请先清空文件夹下子所有内容"];
+            deleteView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+            [[UIApplication sharedApplication].keyWindow addSubview:deleteView];
         } else {
         
             [self requestDelFilesWithFileInfo:parentInfo.fileInfo isSelectParentFile:NO];
@@ -370,8 +373,7 @@ UITableViewDataSource
         fileInfo.fileName = name;
         [weakSelf requestCreateFilesWithFileDto:fileInfo isEidt:YES];
     };
-    createView.titleName = @"编辑文件名";
-    createView.fileName = fileInfo.fileName;
+    [createView setupCreateFile:@"重命名文件夹" fileName:fileInfo.fileName];
     createView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
     [[UIApplication sharedApplication].keyWindow addSubview:createView];
 }
@@ -443,28 +445,39 @@ UITableViewDataSource
 - (void)requestDelFilesWithFileInfo:(FileInfo *)fileInfo isSelectParentFile:(BOOL)isSelected{
    
     WeakifySelf;
-    [ManagerServce requestDelFilesWithFileId:fileInfo.fileId callback:^(Result *result, NSError *error) {
-        if (error) {
-            if (error.code == 711) {
-                [HUD showWithMessage:@"无法删除,存在任务"];
+    MICreateFolderView *deleteView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MICreateFolderView class]) owner:nil options:nil] lastObject];
+    deleteView.sureCallBack = ^(NSString * _Nullable name) {
+       
+        [ManagerServce requestDelFilesWithFileId:fileInfo.fileId callback:^(Result *result, NSError *error) {
+            if (error) {
+                if (error.code == 711) {
+                  
+                    MICreateFolderView *deleteView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MICreateFolderView class]) owner:nil options:nil] lastObject];
+                    [deleteView setupDeleteError:@"请先清空文件夹下子所有任务"];
+                    deleteView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+                    [[UIApplication sharedApplication].keyWindow addSubview:deleteView];
+                } else {
+                    [HUD showWithMessage:@"删除失败"];
+                }
+                return ;
             } else {
-                [HUD showWithMessage:@"删除失败"];
-            }
-            return ;
-        } else {
-            [HUD showWithMessage:@"删除成功"];
-            
-            if (!isSelected) {
-                weakSelf.currentParentFileId = -1;
-            }
-            weakSelf.currentIndex = -1;
-            if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(secondSheetViewDeleteFile)]) {
+                [HUD showWithMessage:@"删除成功"];
                 
-                [weakSelf.delegate secondSheetViewDeleteFile];
+                if (!isSelected) {
+                    weakSelf.currentParentFileId = -1;
+                }
+                weakSelf.currentIndex = -1;
+                if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(secondSheetViewDeleteFile)]) {
+                    
+                    [weakSelf.delegate secondSheetViewDeleteFile];
+                }
+                [weakSelf requestGetParentFilesInfo];
             }
-            [weakSelf requestGetParentFilesInfo];
-        }
-    }];
+        }];
+    };
+    [deleteView setupDeleteFile:fileInfo.fileName];
+    deleteView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+    [[UIApplication sharedApplication].keyWindow addSubview:deleteView];
 }
 
 @end

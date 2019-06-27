@@ -126,7 +126,6 @@
                                   callback:^(Teacher *teacher, NSDate *date) {
                                       
                                       [SelectTeacherView hideAnimated:NO];
-                                      //                                  [weakSelf sendHomeworkWithTeacher:teacher date:date];
                                       
                                       HomeworkConfirmViewController *vc = [[HomeworkConfirmViewController alloc] init];
                                       vc.classes = weakSelf.classSelectorChildController.selectedClasses;
@@ -134,12 +133,9 @@
                                       vc.students = weakSelf.studentSelectorChildController.selectedStudents;
                                       vc.teacher = teacher;
                                       [weakSelf.navigationController presentViewController:vc animated:YES completion:nil];
-                                  }];
+                                  } cancelback:nil];
     }
 }
-
-
-
 
 #pragma mark - Private Method
 
@@ -154,51 +150,6 @@
         
         self.teachers = (NSArray *)(dict[@"list"]);
     }];
-}
-
-- (void)sendHomeworkWithTeacher:(Teacher *)teacher date:(NSDate *)date {
-    [HUD showProgressWithMessage:@"正在发送作业"];
-    
-    NSMutableArray *homeworkIds = [NSMutableArray array];
-    for (Homework *homework in self.homeworks) {
-        [homeworkIds addObject:@(homework.homeworkId)];
-    }
-    
-    NSMutableArray *classIds = [NSMutableArray array];
-    for (Clazz *clazz in self.classSelectorChildController.selectedClasses) {
-        [classIds addObject:@(clazz.classId)];
-    }
-    
-    NSMutableArray *studentIds = [NSMutableArray array];
-    for (User *student in self.studentSelectorChildController.selectedStudents) {
-        [studentIds addObject:@(student.userId)];
-    }
-    
-    [HomeworkService sendHomeworkIds:homeworkIds
-                            classIds:classIds
-                          studentIds:studentIds
-                           teacherId:teacher.userId
-                                date:date
-                            callback:^(Result *result, NSError *error) {
-                                if (error != nil) {
-                                    [HUD showErrorWithMessage:@"作业发送失败"];
-                                    return;
-                                }
-                                
-                                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfSendHomework object:nil];
-                                
-                                if (studentIds.count > 0) {
-                                    [PushManager pushText:@"你有新的作业" toUsers:studentIds date:date];
-                                }
-                                
-                                if (classIds.count > 0) {
-                                    [PushManager pushText:@"你有新的作业" toClasses:classIds date:date];
-                                }
-
-                                [HUD showWithMessage:@"作业发送成功"];
-                                
-                                [self backButtonPressed:nil];
-                            }];
 }
 
 - (void)showChildPageViewControllerWithIndex:(NSUInteger)index animated:(BOOL)animated shouldLocate:(BOOL)shouldLocate {

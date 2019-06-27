@@ -26,9 +26,9 @@
 #import "UIViewController+PrimaryCloumnScale.h"
 
 #import "MIAddWordTableViewCell.h"
+#import "ClassAndStudentSelectView.h"
 #import "MIHomeworkManagerViewController.h"
 #import "ClassAndStudentSelectorController.h"
-
 
 @interface MICreateTaskViewController ()<
 UITableViewDelegate,
@@ -653,7 +653,13 @@ ClassAndStudentSelectorControllerDelegate
                 
                 HomeworkItem *coverItem = items.lastObject;
                 weakSelf.activityInfo.actCoverUrl = coverItem.imageUrl;
-                [weakContentCell setupWithItems:@[coverItem] vc:weakSelf contentType:createType];
+                if (coverItem == nil) {
+                    
+                    [weakContentCell setupWithItems:@[] vc:weakSelf contentType:createType];
+                } else {
+                    
+                    [weakContentCell setupWithItems:@[coverItem] vc:weakSelf contentType:createType];
+                }
                 [weakTableView beginUpdates];
                 [weakTableView endUpdates];
             };
@@ -679,6 +685,11 @@ ClassAndStudentSelectorControllerDelegate
                 
                 HomeworkItem *tempItem = items.lastObject;
                 weakSelf.wordsItem.bgmusicUrl = tempItem.audioUrl;
+//                if (tempItem == nil) {
+//
+//                    [weakContentCell setupWithItems:@[] vc:weakSelf contentType:createType];
+//                } else {
+//                }
                 [weakContentCell setupWithItems:@[tempItem] vc:weakSelf contentType:createType];
                 [weakTableView beginUpdates];
                 [weakTableView endUpdates];
@@ -871,10 +882,22 @@ ClassAndStudentSelectorControllerDelegate
             tagsCell.callback = ^(BOOL isAdd, NSArray * _Nonnull dataArray) {
                 
                 if (isAdd) {
-                    ClassAndStudentSelectorController *vc = [[ClassAndStudentSelectorController alloc] init];
-                    vc.delegate = weakSelf;
-                    vc.isCreateActivityTask = YES;
-                    [weakSelf.navigationController presentViewController:vc animated:YES completion:nil];
+                    
+                    if (self.teacherSider) {
+                       
+                        ClassAndStudentSelectorController *vc = [[ClassAndStudentSelectorController alloc] init];
+                        vc.delegate = weakSelf;
+                        vc.isCreateActivityTask = YES;
+                        [weakSelf.navigationController presentViewController:vc animated:YES completion:nil];
+                    } else {
+                       
+                        ClassAndStudentSelectView *selectView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([ClassAndStudentSelectView class]) owner:nil options:nil].lastObject;
+                        selectView.selectBack = ^(NSArray<Clazz *> * _Nullable classes, NSArray<User *> * _Nullable students) {
+                            
+                            [weakSelf classAndStudentSelectViewClasses:classes students:students];
+                        };
+                        [selectView showSelectView];
+                    }
                 } else {
                     
                     NSMutableArray *tempClazz = [NSMutableArray array];
@@ -1406,51 +1429,6 @@ ClassAndStudentSelectorControllerDelegate
     }
 }
 
-#pragma mark - ClassAndStudentSelectorControllerDelegate
-- (void)classesDidSelect:(NSArray<Clazz *> *)classes{
-    
-    NSMutableArray *clazzs = [NSMutableArray array];
-    [clazzs addObjectsFromArray:self.clazzs];
-    [clazzs addObjectsFromArray:classes];
-    
-    // 去重
-    NSMutableArray *resultArrM = [NSMutableArray array];
-    for (Clazz *tempClass in clazzs) {
-        if (![resultArrM containsObject:tempClass]) {
-            [resultArrM addObject:tempClass];
-        }
-    }
-    self.clazzs = resultArrM;
-    if (self.teacherSider) {
-        [self.contentTableView reloadData];
-    } else {
-        [self.leftTableView reloadData];
-        [self.rightTableView reloadData];
-    }
-}
-- (void)studentsDidSelect:(NSArray<User *> *)students{
-    
-    NSMutableArray *tempStudents = [NSMutableArray array];
-    [tempStudents addObjectsFromArray:self.students];
-    [tempStudents addObjectsFromArray:students];
-    
-    // 去重
-    NSMutableArray *resultArrM = [NSMutableArray array];
-    for (User *tempStu in tempStudents) {
-        if (![resultArrM containsObject:tempStu]) {
-            [resultArrM addObject:tempStu];
-        }
-    }
-    self.students = resultArrM;
-    if (self.teacherSider) {
-        [self.contentTableView reloadData];
-    } else {
-        [self.leftTableView reloadData];
-        [self.rightTableView reloadData];
-    }
-}
-
-
 #pragma mark - 创建活动
 - (void)createActivity{
    
@@ -1595,4 +1573,50 @@ ClassAndStudentSelectorControllerDelegate
                            }];
 }
 
+
+#pragma mark - ClassAndStudentSelectorController
+- (void)classesDidSelect:(NSArray<Clazz *> *)classes{
+    
+    [self classAndStudentSelectViewClasses:classes students:nil];
+}
+
+-(void)studentsDidSelect:(NSArray<User *> *)students{
+    
+    [self classAndStudentSelectViewClasses:nil students:students];
+}
+
+- (void)classAndStudentSelectViewClasses:(NSArray<Clazz *> *)classes students:(NSArray<User *> *)students{
+    
+    NSMutableArray *clazzs = [NSMutableArray array];
+    [clazzs addObjectsFromArray:self.clazzs];
+    [clazzs addObjectsFromArray:classes];
+    
+    NSMutableArray *resultClassArrM = [NSMutableArray array];
+    for (Clazz *tempClass in clazzs) {// 去重
+        if (![resultClassArrM containsObject:tempClass]) {
+            [resultClassArrM addObject:tempClass];
+        }
+    }
+    self.clazzs = resultClassArrM;
+    
+    
+    NSMutableArray *tempStudents = [NSMutableArray array];
+    [tempStudents addObjectsFromArray:self.students];
+    [tempStudents addObjectsFromArray:students];
+    
+    NSMutableArray *resultArrM = [NSMutableArray array];
+    for (User *tempStu in tempStudents) {// 去重
+        if (![resultArrM containsObject:tempStu]) {
+            [resultArrM addObject:tempStu];
+        }
+    }
+    self.students = resultArrM;
+    
+    if (self.teacherSider) {
+        [self.contentTableView reloadData];
+    } else {
+        [self.leftTableView reloadData];
+        [self.rightTableView reloadData];
+    }
+}
 @end

@@ -63,7 +63,7 @@ UITableViewDataSource
     
     MIMoveHomeworkTaskView *view = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIMoveHomeworkTaskView class]) owner:nil options:nil].lastObject;
     view.frame = [UIScreen mainScreen].bounds;
-    view.isMultiple = NO;
+    view.isMultiple = YES;
     WeakifySelf;
     view.callback = ^{
         if (weakSelf.callBack) {

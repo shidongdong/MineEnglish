@@ -10,11 +10,20 @@
 
 @interface MICreateFolderView ()
 
+@property (nonatomic, copy) NSString *titleName;
+
+@property (nonatomic, copy) NSString *fileName;
+
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *detailLabel;
+
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
 @property (weak, nonatomic) IBOutlet UIButton *sureBtn;
+@property (weak, nonatomic) IBOutlet UIButton *knownBtn;
+
+@property (nonatomic, assign) BOOL isDelete;
 
 @end
 
@@ -34,15 +43,62 @@
     
     self.cancelBtn.layer.masksToBounds = YES;
     self.cancelBtn.layer.cornerRadius = 12;
-    self.cancelBtn.layer.borderWidth = 0.5;
-    self.cancelBtn.layer.borderColor = [UIColor mainColor].CGColor;
     
     self.sureBtn.layer.masksToBounds = YES;
     self.sureBtn.layer.cornerRadius = 12;
-    self.sureBtn.layer.borderWidth = 0.5;
-    self.sureBtn.layer.borderColor = [UIColor mainColor].CGColor;
+    
+    self.knownBtn.layer.masksToBounds = YES;
+    self.knownBtn.layer.cornerRadius = 12;
+}
+- (void)setupCreateFile:(NSString *)title fileName:(NSString *_Nullable)fileName{
+    
+    self.isDelete = NO;
+    self.titleName = title;
+    self.fileName = fileName;
+    
+    self.sureBtn.hidden = NO;
+    self.cancelBtn.hidden = NO;
+    self.knownBtn.hidden = YES;
+    self.textField.hidden = NO;
+    self.detailLabel.hidden = YES;
+    self.sureBtn.backgroundColor = [UIColor mainColor];
+    [self.sureBtn setTitle:@"确定" forState:UIControlStateNormal];
+    
+    self.cancelBtn.layer.borderWidth = 0.5;
+    self.cancelBtn.layer.borderColor = [UIColor mainColor].CGColor;
+    [self.cancelBtn setTitleColor:[UIColor mainColor] forState:UIControlStateNormal];
 }
 
+- (void)setupDeleteFile:(NSString *)fileName{
+   
+    self.isDelete = YES;
+    self.titleName = @"删除文件夹";
+    self.detailLabel.text = fileName;
+    self.sureBtn.hidden = NO;
+    self.cancelBtn.hidden = NO;
+    self.knownBtn.hidden = YES;
+    self.textField.hidden = YES;
+    self.detailLabel.hidden = NO;
+    self.sureBtn.backgroundColor = [UIColor redColor];
+    [self.sureBtn setTitle:@"删除" forState:UIControlStateNormal];
+    
+    self.cancelBtn.layer.borderWidth = 0.5;
+    self.cancelBtn.layer.borderColor = [UIColor redColor].CGColor;
+    [self.cancelBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+}
+
+- (void)setupDeleteError:(NSString *)text{
+    
+    self.isDelete = NO;
+    self.titleName = @"无法删除";
+    self.detailLabel.text = text;
+    self.sureBtn.hidden = YES;
+    self.cancelBtn.hidden = YES;
+    self.knownBtn.hidden = NO;
+    self.textField.hidden = YES;
+    self.detailLabel.hidden = NO;
+    
+}
 - (IBAction)cancelAction:(id)sender {
 
     if (self.superview) {
@@ -51,18 +107,35 @@
 }
 
 - (IBAction)sureAction:(id)sender {
-   
-    NSString *name = _textField.text;
-    if (name.length == 0) {
-        name = @"未命名文件夹";
-    }
-    if (self.sureCallBack) {
-        self.sureCallBack(name);
+  
+    if (_isDelete) {
+     
+        if (self.sureCallBack) {
+            self.sureCallBack(self.detailLabel.text);
+        }
+    } else {
+       
+        NSString *name = _textField.text;
+        if (name.length == 0) {
+            [HUD showErrorWithMessage:@"文件名不能为空"];
+            return;
+        }
+        if (self.sureCallBack) {
+            self.sureCallBack(name);
+        }
     }
     if (self.superview) {
         [self removeFromSuperview];
     }
 }
+
+- (IBAction)knownAction:(id)sender {
+
+    if (self.superview) {
+        [self removeFromSuperview];
+    }
+}
+
 - (IBAction)textFieldChangeedAction:(id)sender {
   
     NSString *name = [self.textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];

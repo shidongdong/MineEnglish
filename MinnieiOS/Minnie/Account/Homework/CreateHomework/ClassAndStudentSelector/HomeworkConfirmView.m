@@ -1,39 +1,69 @@
 //
-//  HomeworkConfirmViewController.m
-//  MinnieTeacher
+//  HomeworkConfirmView.m
+//  Minnie
 //
-//  Created by songzhen on 2019/4/30.
+//  Created by songzhen on 2019/6/27.
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
-
 #import "Homework.h"
 #import "PushManager.h"
 #import "NSDate+YYAdd.h"
 #import "HomeworkSendLog.h"
 #import "HomeworkService.h"
+#import "HomeworkConfirmView.h"
 #import "HomeworkSendHistoryHeaderView.h"
 #import "HomeworkSendHisTableViewCell.h"
-#import "HomeworkConfirmViewController.h"
 
-@interface HomeworkConfirmViewController ()<
+@interface HomeworkConfirmView ()<
 UITableViewDelegate,
-UITableViewDataSource>{
-    
+UITableViewDataSource
+>{
     HomeworkSendLog *_sendData;
 }
 
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+// 要发送的作业
+@property (nonatomic, strong) NSArray *homeworks;
+
+// 接收作业的班级
+@property (nonatomic, strong) NSArray *classes;
+
+// 接收作业的学生
+@property (nonatomic, strong) NSArray *students;
+
+// 负责此次作业的老师
+@property (nonatomic, strong) Teacher *teacher;
+
+@property (nonatomic, strong) NSDate *dateTime;
 
 
 @end
 
-@implementation HomeworkConfirmViewController
+@implementation HomeworkConfirmView
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)awakeFromNib{
+   
+    [super awakeFromNib];
     // Do any additional setup after loading the view from its nib.
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([HomeworkSendHisTableViewCell class]) bundle:nil] forCellReuseIdentifier:HomeworkSendHisTableViewCellId];
-    [self footerView];
+
+    _sendData = [[HomeworkSendLog alloc] init];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+}
+
+- (void)setupConfirmViewHomeworks:(NSArray *)homeworks
+                          classes:(NSArray *)classes
+                         students:(NSArray *)students
+                          teacher:(Teacher *)teacher{
+    
+    self.homeworks = homeworks;
+    self.classes = classes;
+    self.students = students;
+    self.teacher = teacher;
+    
     // 处理发送数据
     NSMutableArray *homeworkTitles = [NSMutableArray array];
     for (Homework *homework in self.homeworks) {
@@ -53,41 +83,30 @@ UITableViewDataSource>{
             [studentNames addObject:student.username];
         }
     }
-    _sendData = [[HomeworkSendLog alloc] init];
     _sendData.homeworkTitles = homeworkTitles;
     _sendData.studentNames = studentNames;
     _sendData.classNames = classNames;
-    _sendData.createTime = [self.dateTime stringWithFormat:@"YYYYY-MM-DD HH:mm:ss"];
     if (self.teacher.nickname.length){
         _sendData.teacherName = self.teacher.nickname;
     }else if (self.teacher.username.length) {
         _sendData.teacherName = self.teacher.username;
     }
 }
-- (void)footerView{
+
+- (IBAction)cancelAction:(id)sender {
     
-    UIButton *confirmBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [confirmBtn setTitle:@"确认发送" forState: UIControlStateNormal];
-    confirmBtn.frame = CGRectMake(0, 0, ScreenWidth, 40.0);
-    
-    [confirmBtn setBackgroundColor:[UIColor colorWithHex:0x0098FE]];
-    [confirmBtn addTarget:self action:@selector(confirmSendBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
-    CGFloat footerHeight = (isIPhoneX ? 34 : 0) + 40;
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0,ScreenHeight - footerHeight, ScreenWidth, footerHeight)];
-    [footerView addSubview:confirmBtn];
-    footerView.backgroundColor = [UIColor colorWithHex:0x0098FE];
-    self.tableView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:footerView];
+    if (self.cancelCallBack) {
+        self.cancelCallBack();
+    }
 }
 
-- (void)confirmSendBtnClicked:(UIButton *)btn{
-    
-    [self sendHomeworkWithTeacher:self.teacher date:self.dateTime];
+- (IBAction)sureAction:(id)sender {
+   
+    [self sendHomeworkWithTeacher:self.teacher date:nil];
 }
 
 - (void)sendHomeworkWithTeacher:(Teacher *)teacher date:(NSDate *)date {
-   
+    
     [HUD showProgressWithMessage:@"正在发送作业"];
     NSMutableArray *homeworkIds = [NSMutableArray array];
     for (Homework *homework in self.homeworks) {
@@ -127,28 +146,14 @@ UITableViewDataSource>{
                                 }
                                 [HUD showWithMessage:@"作业发送成功"];
                                 [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfHomeworkSendSuccess object:nil];
-                                [weakSelf dismissToRootViewController];
+                                
+                                if (weakSelf.successCallBack) {
+                                    weakSelf.successCallBack();
+                                }
                             }];
 }
--(void)dismissToRootViewController{
-    
-    UIViewController *vc = self;
-    while(vc.presentingViewController){
-        
-        vc = vc.presentingViewController;
-    }
-    [vc dismissViewControllerAnimated:YES completion:nil];
-}
 
-
-- (IBAction)backBtnClicked:(id)sender {
-    if (self.cancelCallBack) {
-        self.cancelCallBack();
-    }
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
- #pragma mark - UITableViewDataSource && UITableViewDelagete
+#pragma mark - UITableViewDataSource && UITableViewDelagete
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [HomeworkSendHisTableViewCell calculateCellHightForData:_sendData];

@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -44,6 +43,7 @@
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ddb-Rr-Klu" userLabel="确认">
                                     <rect key="frame" x="240" y="186" width="120" height="44"/>
+                                    <color key="backgroundColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="120" id="nNM-2S-Heg"/>
                                         <constraint firstAttribute="height" constant="44" id="xYk-k3-jcB"/>
@@ -82,14 +82,14 @@
                                 <constraint firstItem="Rs9-aZ-0l8" firstAttribute="leading" secondItem="EnJ-XX-Ffb" secondAttribute="leading" constant="15" id="laD-lI-7Ne"/>
                                 <constraint firstAttribute="bottom" secondItem="Rs9-aZ-0l8" secondAttribute="bottom" constant="20" id="ohe-5G-hWD"/>
                                 <constraint firstItem="1lT-A5-OJd" firstAttribute="top" secondItem="05U-Ro-oyI" secondAttribute="bottom" constant="10" id="ww6-cv-rBI"/>
+                                <constraint firstAttribute="width" constant="375" id="ysa-rw-yU3"/>
                             </constraints>
                         </view>
                     </subviews>
                     <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="EnJ-XX-Ffb" firstAttribute="trailing" secondItem="UbK-Nz-oSk" secondAttribute="trailing" id="Ca0-9K-JkX"/>
-                        <constraint firstAttribute="bottom" secondItem="EnJ-XX-Ffb" secondAttribute="bottom" id="Wd4-tM-ScF"/>
-                        <constraint firstItem="EnJ-XX-Ffb" firstAttribute="leading" secondItem="UbK-Nz-oSk" secondAttribute="leading" id="g38-h3-7fh"/>
+                        <constraint firstAttribute="bottom" secondItem="EnJ-XX-Ffb" secondAttribute="bottom" priority="750" id="Wd4-tM-ScF"/>
+                        <constraint firstItem="EnJ-XX-Ffb" firstAttribute="centerX" secondItem="UbK-Nz-oSk" secondAttribute="centerX" id="gzU-lz-Qyd"/>
                     </constraints>
                 </view>
             </subviews>
@@ -97,7 +97,6 @@
             <constraints>
                 <constraint firstItem="UbK-Nz-oSk" firstAttribute="leading" secondItem="QYn-89-81n" secondAttribute="leading" id="HCu-3H-fRn"/>
                 <constraint firstItem="QYn-89-81n" firstAttribute="bottom" secondItem="UbK-Nz-oSk" secondAttribute="bottom" id="QIY-gq-2rr"/>
-                <constraint firstItem="QYn-89-81n" firstAttribute="bottom" secondItem="EnJ-XX-Ffb" secondAttribute="bottom" id="RHA-ml-2oc"/>
                 <constraint firstItem="UbK-Nz-oSk" firstAttribute="top" secondItem="R2y-9E-9Kr" secondAttribute="top" id="hwj-Vn-4OE"/>
                 <constraint firstItem="QYn-89-81n" firstAttribute="trailing" secondItem="UbK-Nz-oSk" secondAttribute="trailing" id="uA3-eb-abV"/>
             </constraints>
@@ -107,7 +106,10 @@
                 <outlet property="backgroundView" destination="UbK-Nz-oSk" id="QpM-N9-bEk"/>
                 <outlet property="cancelButton" destination="Rs9-aZ-0l8" id="4bU-CP-7cK"/>
                 <outlet property="confirmButton" destination="ddb-Rr-Klu" id="Y0I-g7-6eR"/>
+                <outlet property="contentBottomConstraint" destination="Wd4-tM-ScF" id="NWR-It-gcu"/>
+                <outlet property="contentHeightConstraint" destination="OH2-b7-LFR" id="TFv-c7-gjT"/>
                 <outlet property="contentView" destination="EnJ-XX-Ffb" id="jcN-Xa-90E"/>
+                <outlet property="contentWidthConstraint" destination="ysa-rw-yU3" id="nUH-JW-Gcd"/>
                 <outlet property="selectedTeacherNameLabel" destination="1lT-A5-OJd" id="YRC-GU-e3l"/>
             </connections>
             <point key="canvasLocation" x="-1847" y="-383"/>
