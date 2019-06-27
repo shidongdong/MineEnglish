@@ -315,6 +315,7 @@ VIResourceLoaderManagerDelegate
     }];
 }
 - (void)loadMoreHomeworks {
+  
     if (self.homeworksRequest != nil) {
         return;
     }
@@ -322,7 +323,7 @@ VIResourceLoaderManagerDelegate
     if (self.emptyView.superview) {
         [self.emptyView removeFromSuperview];
     }
-    [self.view showLoadingView];
+//    [self.view showLoadingView];
     self.homeworksRequest = [ManagerServce requesthomeworksByFileWithFileId:self.currentFileInfo.fileId nextUrl:self.nextUrl callback:^(Result *result, NSError *error) {
 
         StrongifySelf;

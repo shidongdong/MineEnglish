@@ -1400,9 +1400,9 @@ ClassAndStudentSelectorControllerDelegate
         if (weakSelf.createTypeArray.count) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
             if (weakSelf.teacherSider) {
-                [weakSelf.contentTableView rectForRowAtIndexPath:indexPath];
+                [weakSelf.contentTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
             } else {
-                [weakSelf.leftTableView rectForRowAtIndexPath:indexPath];
+                [weakSelf.leftTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
             }
         }
     }];

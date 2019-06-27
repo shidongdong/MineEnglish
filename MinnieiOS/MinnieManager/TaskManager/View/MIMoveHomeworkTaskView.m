@@ -126,6 +126,12 @@
 }
 
 - (IBAction)twoSelectViewAction:(id)sender {
+    
+    if (self.subFileInfo.fileId == 0) {
+        
+        [HUD showWithMessage:@"请先创建子文件夹"];
+        return;
+    }
     WeakifySelf;
     MIExpandPickerView * chooseDataPicker = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIExpandPickerView class]) owner:nil options:nil] lastObject];
     chooseDataPicker.localCallback = ^(id _Nonnull result) {
@@ -182,6 +188,12 @@
 - (void)requestMoveFiles{
     
     WeakifySelf;
+    if (self.subFileInfo.fileId == 0) {
+        
+        [HUD showWithMessage:@"请先创建子文件夹"];
+        return;
+    }
+    
     [ManagerServce requestMoveFilesWithFileId:self.subFileInfo.fileId parentId:self.parentFileInfo.fileId homeworkIds:self.homeworkIds callback:^(Result *result, NSError *error) {
         
         if (!error) {
