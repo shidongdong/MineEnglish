@@ -27,7 +27,8 @@
 
 #import "MIAddWordTableViewCell.h"
 #import "ClassAndStudentSelectView.h"
-#import "MIHomeworkManagerViewController.h"
+#import "MITaskListViewController.h"
+#import "MIHomeworkTaskListViewController.h"
 #import "ClassAndStudentSelectorController.h"
 
 @interface MICreateTaskViewController ()<
@@ -1329,22 +1330,26 @@ ClassAndStudentSelectorControllerDelegate
                                         if (weakSelf.callBack) {
                                             weakSelf.callBack(YES);
                                         }
-                                    [weakSelf popToVCAfterDelete];
+                                    [weakSelf popToVCAfterDeleteOrEdit];
                                 }];
     }
 }
-- (void)popToVCAfterDelete{
+- (void)popToVCAfterDeleteOrEdit{
     
     UINavigationController *tempNav = self.navigationController;
     for (UIViewController *tempVC in tempNav.viewControllers) {
       
         if (self.teacherSider) {
-            if ([tempVC isKindOfClass:[MIHomeworkManagerViewController class]]) {
+            if ([tempVC isKindOfClass:[MIHomeworkTaskListViewController class]]) {
                 [self.navigationController popToViewController:tempVC animated:YES];
                 break;
             }
-            if (!tempVC) {
-                [self.navigationController popToRootViewControllerAnimated:YES];
+            if ([tempVC isKindOfClass:[MITaskListViewController class]]) {
+                [self.navigationController popToViewController:tempVC animated:YES];
+                break;
+            }
+            if (tempVC == tempNav.viewControllers.lastObject) {
+                [self.navigationController popViewControllerAnimated:YES];
                 break;
             }
         } else {
@@ -1563,16 +1568,16 @@ ClassAndStudentSelectorControllerDelegate
                                    return;
                                }
                                
+                               [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfAddHomework object:nil];
                                if (weakSelf.isCreateTask) {
                                    [HUD showWithMessage:@"新建作业成功"];
                                } else {
                                    [HUD showWithMessage:@"更新作业成功"];
                                }
+                               [weakSelf popToVCAfterDeleteOrEdit];
                                if (weakSelf.callBack) {
                                    weakSelf.callBack(NO);
                                }
-                               [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfAddHomework object:nil];
-                               [weakSelf.navigationController popViewControllerAnimated:YES];
                            }];
 }
 

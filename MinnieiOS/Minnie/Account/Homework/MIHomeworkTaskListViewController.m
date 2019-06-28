@@ -11,7 +11,7 @@
 #import "HomeworkTableViewCell.h"
 #import "MIMoveHomeworkTaskView.h"
 #import "MIScoreListViewController.h"
-#import "MICreateTaskViewController.h"
+//#import "MICreateTaskViewController.h"
 #import "HomeworkPreviewViewController.h"
 #import "ClassAndStudentSelectorController.h"
 #import "HomeWorkSendHistoryViewController.h"
@@ -84,7 +84,13 @@ VIResourceLoaderManagerDelegate
                                                  name:kNotificationKeyOfAddHomework
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(homeworkDidSendSuccess) name:kNotificationKeyOfHomeworkSendSuccess object:nil];
-    [self requestHomeworks];
+
+    WeakifySelf;
+    [self.tableView addPullToRefreshWithRefreshingBlock:^{
+        
+        [weakSelf requestHomeworks];
+    }];
+    [self.tableView headerBeginRefreshing];
 }
 - (void)configureUI{
     
@@ -175,11 +181,8 @@ VIResourceLoaderManagerDelegate
     if (self.homeworksRequest != nil) {
         return;
     }
-    self.tableView.hidden = YES;
     self.footerView.hidden = YES;
-    [self.view showLoadingView];
     WeakifySelf;
-    [self.view showLoadingView];
     self.homeworksRequest = [ManagerServce requesthomeworksByFileWithFileId:self.currentFileInfo.fileId nextUrl:nil callback:^(Result *result, NSError *error) {
         
         StrongifySelf;
@@ -192,7 +195,6 @@ VIResourceLoaderManagerDelegate
         return;
     }
     WeakifySelf;
-    [self.view showLoadingView];
     self.homeworksRequest = [ManagerServce requesthomeworksByFileWithFileId:self.currentFileInfo.fileId nextUrl:self.nextUrl callback:^(Result *result, NSError *error) {
         
         StrongifySelf;
