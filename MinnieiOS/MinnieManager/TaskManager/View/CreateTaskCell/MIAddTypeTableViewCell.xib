@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CUU-WC-AbC">
-                        <rect key="frame" x="0.0" y="8" width="320" height="61.5"/>
+                        <rect key="frame" x="12" y="8" width="296" height="61.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" image="ic_add_small.png">
                             <color key="titleColor" red="1" green="0.071534000337123871" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -49,9 +49,9 @@
                     <constraint firstAttribute="bottom" secondItem="H4D-Ww-Dg4" secondAttribute="bottom" constant="1" id="68M-xd-IEF"/>
                     <constraint firstItem="H4D-Ww-Dg4" firstAttribute="leading" secondItem="l1w-4s-s55" secondAttribute="leading" id="NOy-XJ-JUa"/>
                     <constraint firstItem="H4D-Ww-Dg4" firstAttribute="top" secondItem="l1w-4s-s55" secondAttribute="top" id="Ple-zI-bh5"/>
-                    <constraint firstAttribute="trailing" secondItem="CUU-WC-AbC" secondAttribute="trailing" id="TgM-2g-WhC"/>
+                    <constraint firstAttribute="trailing" secondItem="CUU-WC-AbC" secondAttribute="trailing" constant="12" id="TgM-2g-WhC"/>
                     <constraint firstAttribute="trailing" secondItem="Ijw-Y5-Dr6" secondAttribute="trailing" id="aSF-zO-UA2"/>
-                    <constraint firstItem="CUU-WC-AbC" firstAttribute="leading" secondItem="l1w-4s-s55" secondAttribute="leading" id="bgM-PQ-Ucv"/>
+                    <constraint firstItem="CUU-WC-AbC" firstAttribute="leading" secondItem="l1w-4s-s55" secondAttribute="leading" constant="12" id="bgM-PQ-Ucv"/>
                     <constraint firstItem="Ijw-Y5-Dr6" firstAttribute="trailing" secondItem="H4D-Ww-Dg4" secondAttribute="trailing" id="dP2-5j-NEG"/>
                     <constraint firstItem="CUU-WC-AbC" firstAttribute="top" secondItem="l1w-4s-s55" secondAttribute="top" constant="8" id="pgF-gV-eLn"/>
                     <constraint firstItem="Ijw-Y5-Dr6" firstAttribute="leading" secondItem="H4D-Ww-Dg4" secondAttribute="leading" id="qdc-S5-oSA"/>
@@ -64,7 +64,7 @@
                 <outlet property="contentLabel" destination="H4D-Ww-Dg4" id="QJR-Ov-q3b"/>
                 <outlet property="sepLineView" destination="Ijw-Y5-Dr6" id="kOK-Fr-dMH"/>
             </connections>
-            <point key="canvasLocation" x="-131" y="-19.5"/>
+            <point key="canvasLocation" x="-131.8840579710145" y="-20.089285714285712"/>
         </tableViewCell>
     </objects>
     <resources>

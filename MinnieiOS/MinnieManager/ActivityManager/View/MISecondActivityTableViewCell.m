@@ -54,10 +54,12 @@ NSString * const MISecondActivityTableViewCellId = @"MISecondActivityTableViewCe
         self.titleLabel.textColor = [UIColor mainColor];
         self.timeLabel.textColor = [UIColor mainColor];
         [self.endButton setBackgroundColor:[UIColor mainColor]];
+        self.backgroundColor = [UIColor colorWithHex:0xF2FAFF];
     } else {
         self.titleLabel.textColor = [UIColor detailColor];
         self.timeLabel.textColor = [UIColor detailColor];
         [self.endButton setBackgroundColor:[UIColor detailColor]];
+        self.backgroundColor = [UIColor whiteColor];
     }
 }
 
