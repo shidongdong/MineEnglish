@@ -237,7 +237,7 @@ UINavigationControllerDelegate
                 offsetY = [MIStuActDetailHeaderView heightWithActInfo:weakSelf.actInfo] + 40;
             }
             [weakSelf.tableview showEmptyViewWithImage:nil
-                                            title:@"列表为空"
+                                            title:@"暂无排行"
                                     centerYOffset:offsetY
                                         linkTitle:nil
                                 linkClickCallback:nil

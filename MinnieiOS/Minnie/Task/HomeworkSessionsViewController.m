@@ -313,11 +313,13 @@ MIActivityBannerViewDelegate
     }
     
     NSString *userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
+    WeakifySelf;
     [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success,  NSError * error) {
         if (!success) {
             return;
         }
-        [self loadConversations];
+//        [weakSelf loadConversations];
+        [weakSelf loadConversationsWithHomeworkSessions:self.homeworkSessions];
     }];
 }
 
@@ -347,7 +349,7 @@ MIActivityBannerViewDelegate
     // 每条作业 homeworkSessionId唯一 限制查询数量，减少耗时
     conversation.limit = homeworkSessions.count;
     [conversation findConversationsWithCallback:^(NSArray<AVIMConversation *> * _Nullable conversations, NSError * _Nullable error) {
-//        if (error) return ;
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             
             self.queriedConversations = conversations;
@@ -355,14 +357,6 @@ MIActivityBannerViewDelegate
         });
         NSLog(@" ======= 会话数:%@ 耗时%.fms", @(conversations.count), [[NSDate date] timeIntervalSinceDate:startTime]*1000);
     }];
-}
-- (void)reloadForDoubleTabClick
-{
-    if (self.homeworkSessions.count > 0) {
-        [self.homeworkSessionsTableView headerBeginRefreshing];
-    } else {
-        [self requestHomeworkSessions];
-    }
 }
 
 - (void)mergeAndReload {
@@ -412,6 +406,93 @@ MIActivityBannerViewDelegate
     [self updateUI];
 }
 
+
+- (void)loadConversationsWithHomeworkSessions:(NSArray *)sessions {
+    
+    if (!sessions) {
+        return;
+    }
+    NSDate *startTime = [NSDate date];
+    AVIMClient *client = [IMManager sharedManager].client;
+    NSMutableArray *queryArr = [NSMutableArray array];
+    NSArray *homeworkSessions = sessions;
+    for (HomeworkSession *homeworkSession in homeworkSessions) {
+        NSString *name = [NSString stringWithFormat:@"%ld",(long)homeworkSession.homeworkSessionId];
+        AVIMConversationQuery *query = [client conversationQuery];
+        [query whereKey:@"name" equalTo:name];
+        [queryArr addObject:query];
+    }
+    // 通过组合的方式，根据唯一homeworkSessionId，查询指定作业的消息会话内容，明确会话数量，减少耗时
+    AVIMConversationQuery *conversation = [AVIMConversationQuery orQueryWithSubqueries:queryArr];
+    // 缓存 先走网络查询，发生网络错误的时候，再从本地查询
+    conversation.cachePolicy = kAVCachePolicyCacheElseNetwork;
+    // 设置查询选项，指定返回对话的最后一条消息
+    conversation.option = AVIMConversationQueryOptionWithMessage;
+    // 每条作业 homeworkSessionId唯一 限制查询数量，减少耗时
+    conversation.limit = 20;
+    [conversation findConversationsWithCallback:^(NSArray<AVIMConversation *> * _Nullable conversations, NSError * _Nullable error) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+//            self.queriedConversations = conversations;
+            [self mergeAndReloadWithQueriedConversations:conversations homeworkSessions:homeworkSessions];
+        });
+        NSLog(@" ======= 会话数:%@ 耗时%.fms", @(conversations.count), [[NSDate date] timeIntervalSinceDate:startTime]*1000);
+    }];
+}
+
+- (void)mergeAndReloadWithQueriedConversations:(NSArray *)conversations homeworkSessions:(NSArray *)sessions{
+    
+    // 进行一个排序
+    NSArray *homeworkSessions = sessions;
+    NSArray *queriedConversations = conversations;
+    
+    for (HomeworkSession *homeworkSession in homeworkSessions) {
+        
+        for (AVIMConversation *conversation in queriedConversations) {
+            
+            if ([conversation.name integerValue] == homeworkSession.homeworkSessionId) {
+                homeworkSession.conversation = conversation;
+                homeworkSession.unreadMessageCount = conversation.unreadMessagesCount;
+                
+                AVIMMessage *message = conversation.lastMessage;
+                if ([message isKindOfClass:[AVIMTextMessage class]]) {
+                    homeworkSession.lastSessionContent = ((AVIMTextMessage *)message).text;
+                } else if ([message isKindOfClass:[AVIMAudioMessage class]]) {
+                    homeworkSession.lastSessionContent = @"[音频]";
+                } else if ([message isKindOfClass:[AVIMVideoMessage class]]) {
+                    homeworkSession.lastSessionContent = @"[视频]";
+                } else if ([message isKindOfClass:[AVIMImageMessage class]]) {
+                    homeworkSession.lastSessionContent = @"[图片]";
+                }
+#if TEACHERSIDE
+                homeworkSession.shouldColorLastSessionContent = message.ioType == AVIMMessageIOTypeOut;
+#else
+                homeworkSession.shouldColorLastSessionContent = message.ioType == AVIMMessageIOTypeIn;
+                
+                if (homeworkSession.updateTime == 0 && message != nil)
+                {
+                    [self updateHomeworkSessionModifiedTime:homeworkSession];
+                }
+#endif
+                break;
+            }
+        }
+        if (homeworkSession.conversation.lastMessageAt != nil) {
+            homeworkSession.sortTime = [homeworkSession.conversation.lastMessageAt timeIntervalSince1970] * 1000;
+            
+        } else {
+            homeworkSession.sortTime = homeworkSession.updateTime;
+        }
+    }
+    
+    [self.homeworkSessions addObjectsFromArray:homeworkSessions];
+    self.homeworkSessions = [self handleRepeat:self.homeworkSessions];
+    [self updateUI];
+}
+
+
+
 // 消息去重
 - (NSMutableArray *)handleRepeat:(NSArray *)homework{
     
@@ -439,6 +520,16 @@ MIActivityBannerViewDelegate
         [self requestHomeworkSessions];
     }
 }
+
+- (void)reloadForDoubleTabClick
+{
+    if (self.homeworkSessions.count > 0) {
+        [self.homeworkSessionsTableView headerBeginRefreshing];
+    } else {
+        [self requestHomeworkSessions];
+    }
+}
+
 
 - (void)reloadWhenAppeared:(NSNotification *)notification {
     self.shouldReloadWhenAppeard = YES;
@@ -531,7 +622,8 @@ MIActivityBannerViewDelegate
             if (homeworkSession.conversation == nil) {
                 homeworkSession.conversation = messageConversation;
             }
-            [self loadConversations];
+//            [self loadConversations];
+            [self loadConversationsWithHomeworkSessions:@[homeworkSession]];
             bExit = YES;
             break;
         }
@@ -541,13 +633,17 @@ MIActivityBannerViewDelegate
         
         if (attributes[@"score"] == nil  && self.bLoadConversion) {
             // 会话消息不存在
+            WeakifySelf;
             [HomeworkSessionService requestHomeworkSessionWithId:homeworkSessionId.integerValue callback:^(Result *result, NSError *error) {
                 if (error != nil) {
                     return;
                 }
                 HomeworkSession *session = (HomeworkSession *)(result.userInfo);
-                [self.homeworkSessions addObject:session];
-                [self loadConversations];
+               
+//                [weakSelf.homeworkSessions addObject:session];
+//                [weakSelf loadConversations];
+                
+                [weakSelf loadConversationsWithHomeworkSessions:@[session]];
             }];
         }
     }
@@ -674,8 +770,10 @@ MIActivityBannerViewDelegate
         
         if (homeworkSessions.count > 0) {
             [self.homeworkSessions addObjectsFromArray:homeworkSessions];
+//            [self loadConversations];
+            
+            [self loadConversationsWithHomeworkSessions:homeworkSessions];
         }
-        [self loadConversations];
         if (nextUrl.length == 0) {
             [self.homeworkSessionsTableView removeFooter];
         }
@@ -704,8 +802,11 @@ MIActivityBannerViewDelegate
         if (homeworkSessions.count > 0) {
             self.homeworkSessionsTableView.hidden = NO;
             
-            [self.homeworkSessions addObjectsFromArray:homeworkSessions];
-            [self loadConversations];
+//            [self.homeworkSessions addObjectsFromArray:homeworkSessions];
+//            [self loadConversations];
+            
+            [self loadConversationsWithHomeworkSessions:homeworkSessions];
+            
             [self.homeworkSessionsTableView addPullToRefreshWithTarget:self
                                                       refreshingAction:@selector(pullToRefresh)];
             

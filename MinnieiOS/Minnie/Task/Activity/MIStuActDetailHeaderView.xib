@@ -13,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="my_exchange_banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ly7-yh-5KY">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="activity_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Ly7-yh-5KY">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="150" id="Pat-Ea-a3R"/>
@@ -77,6 +77,6 @@
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
     </objects>
     <resources>
-        <image name="my_exchange_banner.png" width="375" height="110"/>
+        <image name="activity_placeholder" width="89.5" height="55"/>
     </resources>
 </document>
