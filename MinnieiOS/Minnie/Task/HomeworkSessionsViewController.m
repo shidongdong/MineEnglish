@@ -445,6 +445,7 @@ MIActivityBannerViewDelegate
 }
 
 - (void)reloadWhenHomeworkCorrected:(NSNotification *)notification {
+  
     if (!self.isUnfinished) {
         self.shouldReloadWhenAppeard = YES;
         

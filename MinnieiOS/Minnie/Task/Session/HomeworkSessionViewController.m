@@ -1332,8 +1332,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     // 通知类型作业自动通过
     if (studentMessages.count == 1) {
         [self.navigationController popViewControllerAnimated:YES];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCorrectHomework
-                                                            object:nil];// 更新作业列表
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCorrectHomework object:nil userInfo:@{@"HomeworkSession":self.homeworkSession}];// 更新作业列表
     }
 }
 

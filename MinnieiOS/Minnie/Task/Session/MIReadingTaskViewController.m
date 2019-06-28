@@ -237,7 +237,7 @@ VIResourceLoaderManagerDelegate
    
     if (self.isChecking) {
       
-        if (self.startRecordBtn.selected) {
+        if (self.startRecordBtn.selected) { // 查看录音
             
             if (self.isReadingWords) {
                 
@@ -253,12 +253,12 @@ VIResourceLoaderManagerDelegate
             self.startRecordLabel.text = @"点击查看录音";
         } else {
          
-            if (self.isReadingWords) {
+            if (self.isReadingWords) { // 播放单词录音
                 self.bgMusicPlayer = [self getPlayerWith:self.audioUrl isLocal:NO];
                 [self.bgMusicPlayer play];
                 [self.wordsView startPlayWords];
             } else {
-                // 播放视频，开始录音
+                // 播放视频，播放跟读录音
                 [self.playerVC.player seekToTime:CMTimeMake(0, 1)];
                 self.playerVC.player.volume = 0.0;
                 [self.playerVC.player play];
@@ -449,7 +449,7 @@ VIResourceLoaderManagerDelegate
         HomeworkItem *otherItem = self.homework.otherItem.firstObject;
         NSInteger playMode = [[Application sharedInstance] playMode];
         if (otherItem.videoUrl.length) {
-            
+
             if (playMode == 1)// 在线播放
             {
                 [VICacheManager cleanCacheForURL:[NSURL URLWithString:otherItem.videoUrl] error:nil];
@@ -583,12 +583,14 @@ VIResourceLoaderManagerDelegate
         HomeworkItem *wordsItem = self.homework.items.lastObject;
         if (wordsItem.bgmusicUrl.length) {
             self.bgMusicPlayer = [self getPlayerWith:wordsItem.bgmusicUrl isLocal:NO];
+            self.bgMusicPlayer.volume = 0.5;
             [self.bgMusicPlayer play];
         }
         [self.wordsView startPlayWords];
     } else {
         // 播放视频，开始录音
         [self.playerVC.player seekToTime:CMTimeMake(0, 1)];
+        self.playerVC.player.volume = 0.5;
         [self.playerVC.player play];
     }
     
@@ -631,20 +633,24 @@ VIResourceLoaderManagerDelegate
     [self.recordWaveView stopRecordAnimation];
     [self.startRecordBtn.layer removeAllAnimations];
     
-    // 停止录制
-    [self.audioRecorder stop];
-    self.audioRecorder = nil;
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
-    [[AVAudioSession sharedInstance] setActive:NO error:nil];
     if (self.isReadingWords) {
-        [self.bgMusicPlayer seekToTime:CMTimeMake(0, 1)];
         [self.bgMusicPlayer pause];
         [self.wordsView stopPlayWords];
+        [self.bgMusicPlayer seekToTime:CMTimeMake(0, 1)];
     } else {
-        [self.playerVC.player seekToTime:CMTimeMake(0, 1)];
         [self.playerVC.player pause];
+        [self.playerVC.player seekToTime:CMTimeMake(0, 1)];
     }
-    [[AudioPlayer sharedPlayer] stop];
+    WeakifySelf;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+       
+        // 停止录制
+        [[AudioPlayer sharedPlayer] stop];
+        [weakSelf.audioRecorder stop];
+        weakSelf.audioRecorder = nil;
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+        [[AVAudioSession sharedInstance] setActive:NO error:nil];
+    });
 }
 
 - (void)finishRecordFound{
