@@ -59,7 +59,11 @@ MIEqualSpaceFlowLayoutDelegate
                  collectionView:(CGFloat)collectionWidth{
    
     _collecttionViewWidth = collectionWidth;
-    self.titleLabel.text = @"添加单词";
+    if (dataArray.count) {
+        self.titleLabel.text = [NSString stringWithFormat:@"添加单词:(%lu)",dataArray.count];
+    } else {
+        self.titleLabel.text = @"添加单词:";
+    }
     self.createType = MIHomeworkCreateContentType_AddWords;
     [self.dataArray removeAllObjects];
     [self.dataArray addObjectsFromArray:dataArray];
@@ -80,7 +84,11 @@ MIEqualSpaceFlowLayoutDelegate
                         collectionView:(CGFloat)collectionWidth{
     
     _collecttionViewWidth = collectionWidth;
-    self.titleLabel.text = @"添加参与对象";
+    if (clazzArray.count + studentArray.count) {
+        self.titleLabel.text = [NSString stringWithFormat:@"添加参与对象:(%lu)",clazzArray.count + studentArray.count];
+    } else {
+        self.titleLabel.text = @"添加参与对象:";
+    }
     self.createType = MIHomeworkCreateContentType_ActivityParticipant;
     [self.dataArray removeAllObjects];
     [self.dataArray addObjectsFromArray:clazzArray];

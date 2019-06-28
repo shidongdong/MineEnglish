@@ -85,7 +85,7 @@ NSString * const MIWordTagCollectionViewCellId = @"MIWordTagCollectionViewCellId
         self.cancelImageV.hidden = YES;
     }
     CGSize sizeItem = [MIWordTagCollectionViewCell cellSizeWithTag:text];
-    self.leftImgContraint.constant = sizeItem.width - 15;
+    self.leftImgContraint.constant = sizeItem.width - 17;
 }
 
 + (CGSize)cellSizeWithTag:(id)tag {

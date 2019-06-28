@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -26,13 +25,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tPm-D1-CVT">
-                        <rect key="frame" x="15" y="42" width="301" height="57.5"/>
+                        <rect key="frame" x="12" y="42" width="309" height="57.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jUE-ht-c0z" userLabel="View1">
-                                <rect key="frame" x="0.0" y="0.0" width="60" height="57.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="62" height="57.5"/>
                                 <subviews>
-                                    <button opaque="NO" tag="8000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qxQ-PP-a6A" userLabel="Button1">
-                                        <rect key="frame" x="0.0" y="0.0" width="60" height="57.5"/>
+                                    <button opaque="NO" tag="8000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qxQ-PP-a6A" userLabel="Btn1">
+                                        <rect key="frame" x="2.5" y="0.0" width="57" height="57.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="Button">
                                             <color key="titleColor" red="0.66422420739999999" green="0.66424006219999998" blue="0.66423153879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -52,16 +51,16 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="qxQ-PP-a6A" firstAttribute="centerY" secondItem="jUE-ht-c0z" secondAttribute="centerY" id="5lW-eP-mDG"/>
-                                    <constraint firstItem="qxQ-PP-a6A" firstAttribute="width" secondItem="jUE-ht-c0z" secondAttribute="width" id="T7J-ov-ruI"/>
+                                    <constraint firstItem="qxQ-PP-a6A" firstAttribute="width" secondItem="jUE-ht-c0z" secondAttribute="width" constant="-5" id="T7J-ov-ruI"/>
                                     <constraint firstItem="qxQ-PP-a6A" firstAttribute="centerX" secondItem="jUE-ht-c0z" secondAttribute="centerX" id="XR6-1H-tkP"/>
                                     <constraint firstItem="qxQ-PP-a6A" firstAttribute="height" secondItem="jUE-ht-c0z" secondAttribute="height" id="pdT-3X-KoN"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8jG-jX-SBx" userLabel="View2">
-                                <rect key="frame" x="60" y="0.0" width="60.5" height="57.5"/>
+                                <rect key="frame" x="62" y="0.0" width="61.5" height="57.5"/>
                                 <subviews>
                                     <button opaque="NO" tag="8001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5f1-aE-1fR">
-                                        <rect key="frame" x="0.0" y="0.0" width="60.5" height="57.5"/>
+                                        <rect key="frame" x="2.5" y="0.0" width="56.5" height="57.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="Button">
                                             <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -80,17 +79,16 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="5f1-aE-1fR" firstAttribute="width" secondItem="8jG-jX-SBx" secondAttribute="width" id="1ps-bX-xhe"/>
                                     <constraint firstItem="5f1-aE-1fR" firstAttribute="centerX" secondItem="8jG-jX-SBx" secondAttribute="centerX" id="8u7-UE-Ejr"/>
                                     <constraint firstItem="5f1-aE-1fR" firstAttribute="centerY" secondItem="8jG-jX-SBx" secondAttribute="centerY" id="AKu-WO-waF"/>
                                     <constraint firstItem="5f1-aE-1fR" firstAttribute="height" secondItem="8jG-jX-SBx" secondAttribute="height" id="aMK-YW-N7c"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ygm-Ox-Dcc" userLabel="View3">
-                                <rect key="frame" x="120.5" y="0.0" width="60" height="57.5"/>
+                                <rect key="frame" x="123.5" y="0.0" width="62" height="57.5"/>
                                 <subviews>
                                     <button opaque="NO" tag="8002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rjQ-ek-Vk5">
-                                        <rect key="frame" x="0.0" y="0.0" width="60" height="57.5"/>
+                                        <rect key="frame" x="2.5" y="0.0" width="57" height="57.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="Button">
                                             <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -111,15 +109,14 @@
                                 <constraints>
                                     <constraint firstItem="rjQ-ek-Vk5" firstAttribute="centerY" secondItem="Ygm-Ox-Dcc" secondAttribute="centerY" id="6Gh-MF-wcL"/>
                                     <constraint firstItem="rjQ-ek-Vk5" firstAttribute="centerX" secondItem="Ygm-Ox-Dcc" secondAttribute="centerX" id="7rX-J3-0yV"/>
-                                    <constraint firstItem="rjQ-ek-Vk5" firstAttribute="width" secondItem="Ygm-Ox-Dcc" secondAttribute="width" id="fDE-Sy-WcV"/>
                                     <constraint firstItem="rjQ-ek-Vk5" firstAttribute="height" secondItem="Ygm-Ox-Dcc" secondAttribute="height" id="pyF-BN-ltU"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="biu-3g-e5r" userLabel="View4">
-                                <rect key="frame" x="180.5" y="0.0" width="60.5" height="57.5"/>
+                                <rect key="frame" x="185.5" y="0.0" width="61.5" height="57.5"/>
                                 <subviews>
                                     <button opaque="NO" tag="8003" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Imi-B5-bnM">
-                                        <rect key="frame" x="0.0" y="0.0" width="60.5" height="57.5"/>
+                                        <rect key="frame" x="2.5" y="0.0" width="56.5" height="57.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="Button">
                                             <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -139,16 +136,15 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="Imi-B5-bnM" firstAttribute="centerX" secondItem="biu-3g-e5r" secondAttribute="centerX" id="Oj4-HK-ypo"/>
-                                    <constraint firstItem="Imi-B5-bnM" firstAttribute="width" secondItem="biu-3g-e5r" secondAttribute="width" id="SZa-On-T2I"/>
                                     <constraint firstItem="Imi-B5-bnM" firstAttribute="centerY" secondItem="biu-3g-e5r" secondAttribute="centerY" id="ue4-lp-ho1"/>
                                     <constraint firstItem="Imi-B5-bnM" firstAttribute="height" secondItem="biu-3g-e5r" secondAttribute="height" id="yMm-tR-0Uk"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CKh-6i-orV" userLabel="View5">
-                                <rect key="frame" x="241" y="0.0" width="60" height="57.5"/>
+                                <rect key="frame" x="247" y="0.0" width="62" height="57.5"/>
                                 <subviews>
                                     <button opaque="NO" tag="8004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1MF-7p-TIC">
-                                        <rect key="frame" x="0.0" y="0.0" width="60" height="57.5"/>
+                                        <rect key="frame" x="2.5" y="0.0" width="57" height="57.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="Button">
                                             <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -168,7 +164,6 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="1MF-7p-TIC" firstAttribute="width" secondItem="CKh-6i-orV" secondAttribute="width" id="0DA-S3-ovL"/>
                                     <constraint firstItem="1MF-7p-TIC" firstAttribute="centerY" secondItem="CKh-6i-orV" secondAttribute="centerY" id="JBI-ac-7Fm"/>
                                     <constraint firstItem="1MF-7p-TIC" firstAttribute="height" secondItem="CKh-6i-orV" secondAttribute="height" id="juA-Ct-1rk"/>
                                     <constraint firstItem="1MF-7p-TIC" firstAttribute="centerX" secondItem="CKh-6i-orV" secondAttribute="centerX" id="nnl-u0-3x2"/>
@@ -181,14 +176,18 @@
                             <constraint firstAttribute="bottom" secondItem="CKh-6i-orV" secondAttribute="bottom" id="64O-9x-7Ro"/>
                             <constraint firstItem="biu-3g-e5r" firstAttribute="leading" secondItem="Ygm-Ox-Dcc" secondAttribute="trailing" id="76X-HJ-smM"/>
                             <constraint firstItem="Ygm-Ox-Dcc" firstAttribute="width" secondItem="8jG-jX-SBx" secondAttribute="width" id="7gG-IC-qB0"/>
+                            <constraint firstItem="Imi-B5-bnM" firstAttribute="width" secondItem="qxQ-PP-a6A" secondAttribute="width" id="7mR-Us-0lU"/>
                             <constraint firstItem="CKh-6i-orV" firstAttribute="top" secondItem="tPm-D1-CVT" secondAttribute="top" id="83d-gh-6gR"/>
+                            <constraint firstItem="rjQ-ek-Vk5" firstAttribute="width" secondItem="qxQ-PP-a6A" secondAttribute="width" id="IVE-Ou-dj5"/>
                             <constraint firstAttribute="trailing" secondItem="CKh-6i-orV" secondAttribute="trailing" id="KXY-KE-dy1"/>
                             <constraint firstItem="8jG-jX-SBx" firstAttribute="top" secondItem="tPm-D1-CVT" secondAttribute="top" id="L3h-3n-iQ2"/>
                             <constraint firstItem="jUE-ht-c0z" firstAttribute="top" secondItem="tPm-D1-CVT" secondAttribute="top" id="LRx-em-ZlA"/>
                             <constraint firstItem="CKh-6i-orV" firstAttribute="width" secondItem="biu-3g-e5r" secondAttribute="width" id="Pas-Jn-h6E"/>
                             <constraint firstItem="Ygm-Ox-Dcc" firstAttribute="top" secondItem="tPm-D1-CVT" secondAttribute="top" id="YX1-9o-2si"/>
                             <constraint firstAttribute="bottom" secondItem="8jG-jX-SBx" secondAttribute="bottom" id="ZFL-R1-w5f"/>
+                            <constraint firstItem="1MF-7p-TIC" firstAttribute="width" secondItem="qxQ-PP-a6A" secondAttribute="width" id="Zgv-Ns-OjJ"/>
                             <constraint firstItem="8jG-jX-SBx" firstAttribute="width" secondItem="jUE-ht-c0z" secondAttribute="width" id="aGJ-0C-dTj"/>
+                            <constraint firstItem="5f1-aE-1fR" firstAttribute="width" secondItem="qxQ-PP-a6A" secondAttribute="width" id="abs-Cg-azo"/>
                             <constraint firstItem="biu-3g-e5r" firstAttribute="width" secondItem="Ygm-Ox-Dcc" secondAttribute="width" id="eka-sO-ic4"/>
                             <constraint firstItem="CKh-6i-orV" firstAttribute="leading" secondItem="biu-3g-e5r" secondAttribute="trailing" id="j1U-9D-xLg"/>
                             <constraint firstItem="biu-3g-e5r" firstAttribute="top" secondItem="tPm-D1-CVT" secondAttribute="top" id="nrm-JA-emQ"/>
@@ -202,11 +201,11 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="Sic-8M-ZGL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="CpP-mH-dvd"/>
-                    <constraint firstItem="tPm-D1-CVT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="D6I-ta-9wt"/>
+                    <constraint firstItem="tPm-D1-CVT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="D6I-ta-9wt"/>
                     <constraint firstItem="Sic-8M-ZGL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="N6T-ad-Sfq"/>
                     <constraint firstItem="tPm-D1-CVT" firstAttribute="top" secondItem="Sic-8M-ZGL" secondAttribute="bottom" constant="15" id="YmN-mu-Arp"/>
                     <constraint firstAttribute="bottom" secondItem="tPm-D1-CVT" secondAttribute="bottom" constant="10" id="aaD-bQ-6dW"/>
-                    <constraint firstAttribute="trailing" secondItem="tPm-D1-CVT" secondAttribute="trailing" constant="15" id="cRW-Id-Fe9"/>
+                    <constraint firstAttribute="trailing" secondItem="tPm-D1-CVT" secondAttribute="trailing" constant="10" id="cRW-Id-Fe9"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
@@ -219,10 +218,6 @@
                 <outlet property="btn4" destination="Imi-B5-bnM" id="Vlv-pu-eMb"/>
                 <outlet property="btn5" destination="1MF-7p-TIC" id="poU-Y2-VMl"/>
                 <outlet property="constraint1" destination="T7J-ov-ruI" id="I6k-xM-c6t"/>
-                <outlet property="constraint2" destination="1ps-bX-xhe" id="THW-f8-uE8"/>
-                <outlet property="constraint3" destination="fDE-Sy-WcV" id="iVe-Jf-FDK"/>
-                <outlet property="constraint4" destination="SZa-On-T2I" id="3Lh-ST-TP6"/>
-                <outlet property="constraint5" destination="0DA-S3-ovL" id="uxL-J9-iqy"/>
                 <outlet property="titleLabel" destination="Sic-8M-ZGL" id="NCc-pp-ytk"/>
             </connections>
             <point key="canvasLocation" x="144.20289855072465" y="81.696428571428569"/>

@@ -53,7 +53,7 @@
                                         <constraint firstAttribute="width" constant="44" id="KVi-nv-wGE"/>
                                         <constraint firstAttribute="width" secondItem="htj-Hq-yW0" secondAttribute="height" multiplier="1:1" id="WzO-NN-F0x"/>
                                     </constraints>
-                                    <state key="normal" image="icon_mission_choice_disabled.png"/>
+                                    <state key="normal" image="label_ok_dis"/>
                                     <state key="selected" image="label_ok.png"/>
                                     <connections>
                                         <action selector="sendBtnAction:" destination="-1" eventType="touchUpInside" id="JLc-no-wVG"/>
@@ -151,8 +151,8 @@
         </view>
     </objects>
     <resources>
-        <image name="icon_mission_choice_disabled.png" width="24" height="24"/>
         <image name="label_close_gray.png" width="24" height="24"/>
         <image name="label_ok.png" width="24" height="24"/>
+        <image name="label_ok_dis" width="24" height="24"/>
     </resources>
 </document>

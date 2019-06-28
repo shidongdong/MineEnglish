@@ -65,7 +65,7 @@ CGFloat const MIExpandSelectTypeTableViewCellHeight = 90.f;
         
         // 播放时间间隔，服务器单位为毫秒
         CGFloat sec = leftText.floatValue / 1000;
-        self.titleLabel.text = @"播放时间间隔:";
+        self.titleLabel.text = @"播放间隔时间:";
         [self showOneSelectedText:[NSString stringWithFormat:@"%.1f秒",sec]];
     } else if (createType == MIHomeworkCreateContentType_Localtion) {
       

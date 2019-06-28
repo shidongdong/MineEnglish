@@ -30,10 +30,6 @@ NSString * const MISegmentTypeTableViewCellId = @"MISegmentTypeTableViewCellId";
 @property (weak, nonatomic) IBOutlet UIButton *btn5;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint1;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint2;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint3;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint4;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraint5;
 
 @property (weak, nonatomic) IBOutlet UIView *bgConstraint;
 
@@ -54,8 +50,6 @@ NSString * const MISegmentTypeTableViewCellId = @"MISegmentTypeTableViewCellId";
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-//    self.bgView.layer.cornerRadius = 12;
-//    self.bgView.layer.masksToBounds = YES;
     self.bgView.clipsToBounds = YES;
     self.btnArray = @[self.btn1,self.btn2,self.btn3,self.btn4,self.btn5];
 }
@@ -68,11 +62,6 @@ NSString * const MISegmentTypeTableViewCellId = @"MISegmentTypeTableViewCellId";
     }
     self.createType = createType;
     
-    self.constraint1.constant = self.constraint1.constant - 5;
-    self.constraint2.constant = self.constraint2.constant - 5;
-    self.constraint3.constant = self.constraint3.constant - 5;
-    self.constraint4.constant = self.constraint4.constant - 5;
-    self.constraint5.constant = self.constraint5.constant - 5;
     if (self.createType == MIHomeworkCreateContentType_CommitCount) {
         
         self.btnNum =4;

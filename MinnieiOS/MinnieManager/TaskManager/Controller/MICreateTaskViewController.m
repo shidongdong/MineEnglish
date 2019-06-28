@@ -115,11 +115,14 @@ ClassAndStudentSelectorControllerDelegate
         self.leftTableView.hidden = YES;
         self.rightTableView.hidden = YES;
         self.contentTableView.hidden = NO;
+        self.contentTableView.separatorColor = [UIColor clearColor];
     } else {
         self.collectionWidth = (ScreenWidth - kRootModularWidth)/2.0;
         self.leftTableView.hidden = NO;
         self.rightTableView.hidden = NO;
         self.contentTableView.hidden = YES;
+        self.leftTableView.separatorColor = [UIColor clearColor];
+        self.rightTableView.separatorColor = [UIColor clearColor];
     }
     [self registerTableViewCell:self.contentTableView];
     [self registerTableViewCell:self.leftTableView];
@@ -982,7 +985,7 @@ ClassAndStudentSelectorControllerDelegate
             break;
         case MIHomeworkTaskType_WordMemory:// 单词记忆
         {
-            // 位置、标题、批改备注、统计类型、选择提交时间、选择星级、添加单词、播放时间间隔、添加背景音乐、添加材料、任务类型(单选)、分类标签（多选）
+            // 位置、标题、批改备注、统计类型、选择提交时间、选择星级、添加单词、播放间隔时间、添加背景音乐、添加材料、任务类型(单选)、分类标签（多选）
             typeArray =
             [NSMutableArray arrayWithArray:@[@(MIHomeworkCreateContentType_Localtion),
                           @(MIHomeworkCreateContentType_Title),

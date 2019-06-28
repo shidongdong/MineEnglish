@@ -30,7 +30,7 @@ NSString * const MIInPutTypeTableViewCellId = @"MIInPutTypeTableViewCellId";
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.homeworkTextView.showsVerticalScrollIndicator = NO;
-    self.bgImageView.layer.borderWidth = 0.5f;
+    self.bgImageView.layer.borderWidth = 1.0f;
     self.bgImageView.layer.borderColor = [UIColor colorWithHex:0x0098FE].CGColor;
     self.bgImageView.layer.cornerRadius = 6.f;
     self.bgImageView.layer.masksToBounds = YES;

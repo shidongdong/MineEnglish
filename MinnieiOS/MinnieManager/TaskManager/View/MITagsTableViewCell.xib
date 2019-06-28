@@ -24,17 +24,17 @@
                             <constraint firstAttribute="height" constant="20" id="w6t-4j-z3q"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
-                        <color key="textColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="label_ic_into.png" translatesAutoresizingMaskIntoConstraints="NO" id="mvJ-T7-UYJ">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="label_ic_into_black" translatesAutoresizingMaskIntoConstraints="NO" id="mvJ-T7-UYJ">
                         <rect key="frame" x="478" y="14" width="16" height="16"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yCL-2h-lzS">
                         <rect key="frame" x="424" y="8" width="54" height="28"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <state key="normal" title="管理标签">
-                            <color key="titleColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         </state>
                         <connections>
                             <action selector="managerButtionAction:" destination="wlX-R8-jJM" eventType="touchUpInside" id="3I9-ah-LQT"/>
@@ -58,6 +58,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="label_ic_into.png" width="16" height="16"/>
+        <image name="label_ic_into_black" width="16" height="16"/>
     </resources>
 </document>
