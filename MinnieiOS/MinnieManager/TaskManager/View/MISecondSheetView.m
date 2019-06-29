@@ -80,7 +80,7 @@ UITableViewDataSource
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self addSubview:_tableView];
-    _tableView.separatorColor = [UIColor separatorLineColor];
+    _tableView.separatorColor = [UIColor clearColor];
 
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(kFolderModularWidth - 1, 0, 0.5, ScreenHeight)];
     lineView.backgroundColor = [UIColor separatorLineColor];
@@ -220,7 +220,7 @@ UITableViewDataSource
         // header位置
         CGRect rectInTableView = [self.tableView rectForHeaderInSection:indexPath.section];
         CGRect rect = [self.tableView convertRect:rectInTableView toView:[self.tableView superview]];
-        CGFloat editViewY = CGRectGetMidY(rect) - 65;
+        CGFloat editViewY = CGRectGetMidY(rect) - 45;
         
         if (editViewY >= ScreenHeight - 120) {
             editViewY = ScreenHeight - 120;
@@ -257,7 +257,7 @@ UITableViewDataSource
         // header位置
         CGRect rectInTableView = [self.tableView rectForRowAtIndexPath:indexPath];
         CGRect rect = [self.tableView convertRect:rectInTableView toView:self];
-        CGFloat editViewY = CGRectGetMidY(rect) - 65;
+        CGFloat editViewY = CGRectGetMidY(rect) - 45;
         
         if (editViewY >= ScreenHeight - 120) {
             editViewY = ScreenHeight - 120;

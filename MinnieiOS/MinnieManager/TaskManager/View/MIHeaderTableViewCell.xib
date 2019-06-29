@@ -30,10 +30,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dg9-SE-O4s">
-                        <rect key="frame" x="0.0" y="68.5" width="320" height="1"/>
+                        <rect key="frame" x="0.0" y="69" width="320" height="0.5"/>
                         <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="1" id="n10-4T-SCn"/>
+                            <constraint firstAttribute="height" constant="0.5" id="n10-4T-SCn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="p50-CN-jiu"/>
                     </view>
