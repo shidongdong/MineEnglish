@@ -175,5 +175,113 @@
     return dict;
 }
 
+
+- (Homework *)newHomework{
+    
+    Homework *tempHomework = [[Homework alloc] init];
+    tempHomework.homeworkId = self.homeworkId;
+//    tempHomework.createTeacher = self.createTeacher;
+    tempHomework.title = self.title;
+    tempHomework.items = [self newItemsWithArray:self.items];
+    tempHomework.otherItem = [self newItemsWithArray:self.otherItem];
+    tempHomework.answerItems = [self newAnswerItemsWithArray:self.answerItems];
+    tempHomework.createTime = self.createTime;
+    
+    NSMutableArray *tempTags = [NSMutableArray array];
+    for (NSString *tag in self.tags) {
+        NSString *tempTag = [NSString stringWithString:tag];
+        [tempTags addObject:tempTag];
+    }
+    tempHomework.tags = tempTags;
+    
+    tempHomework.style = self.style;
+    tempHomework.level = self.level;
+    tempHomework.category = self.category;
+    tempHomework.limitTimes = self.limitTimes;
+    tempHomework.formTag = self.formTag;
+    tempHomework.teremark = self.teremark;
+    tempHomework.fileInfos = [self newFileInfo:self.fileInfos];
+    tempHomework.typeName = self.typeName;
+    tempHomework.examType = self.examType;
+    tempHomework.cellHeight = self.cellHeight;
+    
+    return tempHomework;
+}
+
+- (HomeworkFileDto *)newFileInfo:(HomeworkFileDto *)fileInfo{
+    
+    HomeworkFileDto *tempFileInfo = [[HomeworkFileDto alloc] init];
+
+    FileInfo *tempSubFileInfo = [[FileInfo alloc] init];
+    tempSubFileInfo.fileId = fileInfo.subFile.fileId;
+    tempSubFileInfo.fileName = fileInfo.subFile.fileName;
+    tempSubFileInfo.parentId = fileInfo.subFile.parentId;
+    tempSubFileInfo.depth = fileInfo.subFile.depth;
+    tempSubFileInfo.isOpen = fileInfo.subFile.isOpen;
+    
+    FileInfo *tempParentInfo = [[FileInfo alloc] init];
+    tempParentInfo.fileId = fileInfo.parentFile.fileId;
+    tempParentInfo.fileName = fileInfo.parentFile.fileName;
+    tempParentInfo.parentId = fileInfo.parentFile.parentId;
+    tempParentInfo.depth = fileInfo.parentFile.depth;
+    tempParentInfo.isOpen = fileInfo.parentFile.isOpen;
+    
+    tempFileInfo.subFile = tempSubFileInfo;
+    tempFileInfo.parentFile = tempParentInfo;
+    return tempFileInfo;
+}
+
+- (NSArray *)newItemsWithArray:(NSArray *)items{
+    
+    NSMutableArray *tempItems = [NSMutableArray array];
+    for (HomeworkItem *item in items) {
+        
+        HomeworkItem *tempItem = [[HomeworkItem alloc] init];
+        tempItem.type = item.type;
+        tempItem.text = item.text;
+        tempItem.audioUrl = item.audioUrl;
+        tempItem.audioCoverUrl = item.audioCoverUrl;
+        tempItem.videoUrl = item.videoUrl;
+        tempItem.videoCoverUrl = item.videoCoverUrl;
+        tempItem.imageUrl = item.imageUrl;
+        tempItem.imageWidth = item.imageWidth;
+        tempItem.imageHeight = item.imageHeight;
+        tempItem.itemTime = item.itemTime;
+        
+        NSMutableArray *tempWords = [NSMutableArray array];
+        for (WordInfo *word in item.words) {
+            WordInfo *tempWord = [[WordInfo alloc] init];
+            tempWord.english = word.english;
+            tempWord.chinese = word.chinese;
+            [tempWords addObject:tempWord];
+        }
+        tempItem.words = (NSArray<WordInfo>*)tempWords;
+        
+        tempItem.bgmusicUrl = item.bgmusicUrl;
+        tempItem.playtime = item.playtime;
+        [tempItems addObject:tempItem];
+    }
+    return tempItems;
+}
+
+- (NSArray *)newAnswerItemsWithArray:(NSArray *)items{
+    
+    NSMutableArray *tempItems = [NSMutableArray array];
+    for (HomeworkAnswerItem *item in items) {
+        
+        HomeworkAnswerItem *tempItem = [[HomeworkAnswerItem alloc] init];
+        tempItem.type = item.type;
+        tempItem.audioUrl = item.audioUrl;
+        tempItem.audioCoverUrl = item.audioCoverUrl;
+        tempItem.videoUrl = item.videoUrl;
+        tempItem.videoCoverUrl = item.videoCoverUrl;
+        tempItem.imageUrl = item.imageUrl;
+        tempItem.imageWidth = item.imageWidth;
+        tempItem.imageHeight = item.imageHeight;
+        tempItem.itemTime = item.itemTime;
+        [tempItems addObject:tempItem];
+    }
+    return tempItems;
+}
 @end
 

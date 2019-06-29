@@ -159,7 +159,7 @@ ClassAndStudentSelectorControllerDelegate
     if (activity) {
        
         self.isCreateTask = NO;
-        self.activityInfo = activity;
+        self.activityInfo = [activity newActInfo];
         for (int i = 0; i < self.activityInfo.items.count; i++) {
            
             HomeworkItem *item = self.activityInfo.items[i];
@@ -251,7 +251,7 @@ ClassAndStudentSelectorControllerDelegate
         
         self.taskType = [self setTaskTypeWithHomeWork:homework];
         self.isCreateTask = NO;
-        self.homework = homework;
+        self.homework = [homework newHomework];
         [self updateHomeworkItemData];
         self.selectFormTag = self.homework.formTag;
         self.selectedTags = [NSMutableArray arrayWithArray:self.homework.tags];

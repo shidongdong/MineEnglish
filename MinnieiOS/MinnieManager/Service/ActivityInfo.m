@@ -96,6 +96,69 @@
     return dict;
 }
 
+- (ActivityInfo *)newActInfo{
+    
+    ActivityInfo *tempActInfo = [[ActivityInfo alloc] init];
+    tempActInfo.activityId = self.activityId;
+    tempActInfo.title = self.title;
+    tempActInfo.items = (NSArray<HomeworkItem*> *)[self newItemsWithArray:self.items];
+    tempActInfo.createTime = self.createTime;
+    tempActInfo.submitNum = self.submitNum;
+    tempActInfo.limitTimes = self.limitTimes;
+    tempActInfo.startTime = self.startTime;
+    tempActInfo.endTime = self.endTime;
+    tempActInfo.actCoverUrl = self.actCoverUrl;
+    tempActInfo.studentIds = [self newStrArray:self.studentIds];
+    tempActInfo.classIds = [self newStrArray:self.classIds];
+    tempActInfo.studentNames = [self newStrArray:self.studentNames];
+    tempActInfo.classNames = [self newStrArray:self.classNames];
+    tempActInfo.status = self.status;
+    tempActInfo.cellHeight = self.cellHeight;
+    return tempActInfo;
+}
+
+- (NSArray *)newStrArray:(NSArray *)array{
+    
+    NSMutableArray *tempStrs = [NSMutableArray array];
+    for (NSString * str in array) {
+        NSString *tempStr = [NSString stringWithString:str];
+        [tempStrs addObject:tempStr];
+    }
+    return tempStrs;
+}
+
+- (NSArray *)newItemsWithArray:(NSArray *)items{
+    
+    NSMutableArray *tempItems = [NSMutableArray array];
+    for (HomeworkItem *item in items) {
+        
+        HomeworkItem *tempItem = [[HomeworkItem alloc] init];
+        tempItem.type = item.type;
+        tempItem.text = item.text;
+        tempItem.audioUrl = item.audioUrl;
+        tempItem.audioCoverUrl = item.audioCoverUrl;
+        tempItem.videoUrl = item.videoUrl;
+        tempItem.videoCoverUrl = item.videoCoverUrl;
+        tempItem.imageUrl = item.imageUrl;
+        tempItem.imageWidth = item.imageWidth;
+        tempItem.imageHeight = item.imageHeight;
+        tempItem.itemTime = item.itemTime;
+        
+        NSMutableArray *tempWords = [NSMutableArray array];
+        for (WordInfo *word in item.words) {
+            WordInfo *tempWord = [[WordInfo alloc] init];
+            tempWord.english = word.english;
+            tempWord.chinese = word.chinese;
+            [tempWords addObject:tempWord];
+        }
+        tempItem.words = (NSArray<WordInfo>*)tempWords;
+        
+        tempItem.bgmusicUrl = item.bgmusicUrl;
+        tempItem.playtime = item.playtime;
+        [tempItems addObject:tempItem];
+    }
+    return tempItems;
+}
 @end
 
 @implementation ActivityRankInfo

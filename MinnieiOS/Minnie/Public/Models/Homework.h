@@ -53,5 +53,7 @@
 
 - (NSDictionary *)dictionaryForUpload;
 
+- (Homework *)newHomework;
+
 @end
 
