@@ -145,7 +145,6 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     [super viewWillLayoutSubviews];
     [self.mCollectionView setContentOffset:CGPointMake(self.selectIndex * kScreenWidth, 0)];
     
-    
      self.editorContent = (WBGImageEditorCollectionViewCell *)[self.mCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.selectIndex inSection:0]];
 }
 

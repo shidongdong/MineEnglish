@@ -27,7 +27,7 @@
 #import "WBGImageEditorViewController.h"
 
 #import "HomeworkSessionService.h"
-#import "SessionHomeworkTableViewCell.h"
+//#import "SessionHomeworkTableViewCell.h"
 #import "HomeworkPreviewViewController.h"
 
 

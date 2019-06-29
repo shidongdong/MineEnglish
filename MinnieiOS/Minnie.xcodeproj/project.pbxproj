@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12014CD522C7C0160039278A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97108E0B2079F54B00568785 /* LaunchScreen.storyboard */; };
 		1226E7D3229572C100BAB1C9 /* DrawImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1226E7D2229572C100BAB1C9 /* DrawImageView.m */; };
 		1226E7D42295786100BAB1C9 /* DrawImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1226E7D2229572C100BAB1C9 /* DrawImageView.m */; };
 		1226F2F12297F37A00BAB1C9 /* MinnieManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1226F2F02297F37A00BAB1C9 /* MinnieManagerTests.m */; };
@@ -6379,6 +6380,7 @@
 				12747C3222A7D134009C390E /* btn_send_video@3x.png in Resources */,
 				12747C7722A7D22E009C390E /* ic_stars_coupons_plat@2x.png in Resources */,
 				12FD85C322BB2B3F0026B7E2 /* label_key@3x.png in Resources */,
+				12014CD522C7C0160039278A /* LaunchScreen.storyboard in Resources */,
 				12ED3B5F229D96B300255F8B /* hud_ic_error@3x.png in Resources */,
 				12ED3B16229C444B00255F8B /* SettingsViewController.xib in Resources */,
 				12ED3B79229E2AE100255F8B /* icon_mission_choice_disabled@3x.png in Resources */,
