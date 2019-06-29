@@ -25,6 +25,7 @@
 #import "MICreateTaskViewController.h"
 #import "UIViewController+PrimaryCloumnScale.h"
 
+#import "NSDictionary+YYAdd.h"
 #import "MIAddWordTableViewCell.h"
 #import "ClassAndStudentSelectView.h"
 #import "MITaskListViewController.h"
@@ -1600,10 +1601,13 @@ ClassAndStudentSelectorControllerDelegate
     [clazzs addObjectsFromArray:classes];
     
     NSMutableArray *resultClassArrM = [NSMutableArray array];
+    NSMutableDictionary *keyClassDict = [NSMutableDictionary dictionary];
     for (Clazz *tempClass in clazzs) {// 去重
-        if (![resultClassArrM containsObject:tempClass]) {
-            [resultClassArrM addObject:tempClass];
+        if ([keyClassDict containsObjectForKey:@(tempClass.classId)]) {
+            continue;
         }
+        [resultClassArrM addObject:tempClass];
+        [keyClassDict setObject:tempClass forKey:@(tempClass.classId)];
     }
     self.clazzs = resultClassArrM;
     
@@ -1613,12 +1617,17 @@ ClassAndStudentSelectorControllerDelegate
     [tempStudents addObjectsFromArray:students];
     
     NSMutableArray *resultArrM = [NSMutableArray array];
+    NSMutableDictionary *keyUserDic = [NSMutableDictionary dictionary];
     for (User *tempStu in tempStudents) {// 去重
-        if (![resultArrM containsObject:tempStu]) {
-            [resultArrM addObject:tempStu];
+        
+        if ([keyUserDic containsObjectForKey:@(tempStu.userId)]) {
+            continue;
         }
+        [resultArrM addObject:tempStu];
+        [keyUserDic setObject:tempStu forKey:@(tempStu.userId)];
     }
     self.students = resultArrM;
+    
     
     if (self.teacherSider) {
         [self.contentTableView reloadData];
