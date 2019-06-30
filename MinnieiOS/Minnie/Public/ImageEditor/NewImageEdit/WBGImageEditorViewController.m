@@ -143,8 +143,8 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
-    [self.mCollectionView setContentOffset:CGPointMake(self.selectIndex * kScreenWidth, 0)];
     
+    [self.mCollectionView setContentOffset:CGPointMake(self.selectIndex * ScreenWidth, 0)];
      self.editorContent = (WBGImageEditorCollectionViewCell *)[self.mCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.selectIndex inSection:0]];
 }
 
@@ -232,6 +232,7 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+//    NSLog(@")
     int autualIndex = scrollView.contentOffset.x  / scrollView.bounds.size.width;
     self.selectIndex = autualIndex;
     
