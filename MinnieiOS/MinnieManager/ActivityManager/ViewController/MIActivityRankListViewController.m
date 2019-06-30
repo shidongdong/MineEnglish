@@ -39,7 +39,7 @@ UITableViewDataSource
     
     [super viewWillAppear:animated];
 #if MANAGERSIDE
-    [self updatePrimaryCloumnScale:kRootModularWidth + kActivitySheetWidth];
+    [self updatePrimaryCloumnScale:kRootModularWidth + kFolderModularWidth];
 #endif
 }
 

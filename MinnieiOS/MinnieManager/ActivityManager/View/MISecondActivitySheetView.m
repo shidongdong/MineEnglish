@@ -48,10 +48,10 @@ UITableViewDataSource
     [addActivitybtn setImage:[UIImage imageNamed:@"ic_add_black"] forState:UIControlStateNormal];
     [addActivitybtn addTarget:self action:@selector(addActivityBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:addActivitybtn];
-    addActivitybtn.frame = CGRectMake(10, kNaviBarHeight - 26, kActivitySheetWidth - 20, 16);
+    addActivitybtn.frame = CGRectMake(10, kNaviBarHeight - 26, kFolderModularWidth - 20, 16);
 
     
-    UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake( 0, kNaviBarHeight - 1, kActivitySheetWidth, 1.0)];
+    UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake( 0, kNaviBarHeight - 1, kFolderModularWidth, 1.0)];
     lineView1.backgroundColor = [UIColor separatorLineColor];
     [self addSubview:lineView1];
     
@@ -61,7 +61,7 @@ UITableViewDataSource
     [self addSubview:_tableView];
     _tableView.separatorColor = [UIColor separatorLineColor];
     
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(kActivitySheetWidth - 1.0, 0, 1.0, [UIScreen mainScreen].bounds.size.height)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(kFolderModularWidth - 1.0, 0, 1.0, [UIScreen mainScreen].bounds.size.height)];
     lineView.backgroundColor = [UIColor separatorLineColor];
     [self addSubview:lineView];
     

@@ -61,7 +61,7 @@ MISecondActivitySheetViewDelegate
     _secondSheetView.delegate = self;
     [self.view addSubview:_secondSheetView];
     
-    _secondActivitySheetView = [[MISecondActivitySheetView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kActivitySheetWidth, self.view.frame.size.height)];
+    _secondActivitySheetView = [[MISecondActivitySheetView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kFolderModularWidth, self.view.frame.size.height)];
     _secondActivitySheetView.delegate = self;
     [self.view addSubview:_secondActivitySheetView];
     
@@ -98,7 +98,7 @@ MISecondActivitySheetViewDelegate
         
         self.secondSheetView.hidden = YES;
         self.secondActivitySheetView.hidden = NO;
-        [self updatePrimaryCloumnScale:kRootModularWidth + kActivitySheetWidth];
+        [self updatePrimaryCloumnScale:kRootModularWidth + kFolderModularWidth];
 
         if ([detailVC isKindOfClass:[MIStockDetailViewController class]]) {
             [(MIStockDetailViewController *)detailVC addSubViewController:self.activityListVC];

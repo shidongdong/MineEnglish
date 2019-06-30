@@ -147,8 +147,10 @@
                                                         weakSelf.homeworkSession.reviewText = reviewText;
                                                         weakSelf.homeworkSession.score = weakSelf.currentScore;
                                                         weakSelf.homeworkSession.isRedo = 0;
+#if TEACHERSIDE
                                                         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCorrectHomework object:nil userInfo:@{@"HomeworkSession":weakSelf.homeworkSession}];
-                                                        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+#endif
+                                                                                                                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
                                                     }
 //                                                    {
 //
