@@ -13,7 +13,7 @@
 #import "MITaskListViewController.h"
 #import "MISecondActivitySheetView.h"
 #import "MIStockSplitViewController.h"
-#import "MIStockDetailViewController.h"
+#import "MIStockSecondViewController.h"
 #import "MIActivityRankListViewController.h"
 #import "HomeWorkSendHistoryViewController.h"
 #import "UIViewController+PrimaryCloumnScale.h"
@@ -80,8 +80,8 @@ MISecondActivitySheetViewDelegate
     if (index == 7) { // 设置
         SettingsViewController *settingsVC = [[SettingsViewController alloc] initWithNibName:NSStringFromClass([SettingsViewController class]) bundle:nil];
         settingsVC.hiddenBackBtn = YES;
-        if ([detailVC isKindOfClass:[MIStockDetailViewController class]]) {
-            [(MIStockDetailViewController *)detailVC addSubViewController:settingsVC];
+        if ([detailVC isKindOfClass:[MIStockSecondViewController class]]) {
+            [(MIStockSecondViewController *)detailVC addSubViewController:settingsVC];
         }
     } else if (index == 2){ // 任务管理 不展开文件夹，不显示内容
        
@@ -89,8 +89,8 @@ MISecondActivitySheetViewDelegate
         self.secondActivitySheetView.hidden = YES;
         [self updatePrimaryCloumnScale:kRootModularWidth + kFolderModularWidth];
         
-        if ([detailVC isKindOfClass:[MIStockDetailViewController class]]) {
-            [(MIStockDetailViewController *)detailVC addSubViewController:self.taskListVC];
+        if ([detailVC isKindOfClass:[MIStockSecondViewController class]]) {
+            [(MIStockSecondViewController *)detailVC addSubViewController:self.taskListVC];
         }
         [self.taskListVC showTaskListWithFoldInfo:nil folderIndex:-1];
         [_secondSheetView updateFileListInfo];
@@ -100,8 +100,8 @@ MISecondActivitySheetViewDelegate
         self.secondActivitySheetView.hidden = NO;
         [self updatePrimaryCloumnScale:kRootModularWidth + kFolderModularWidth];
 
-        if ([detailVC isKindOfClass:[MIStockDetailViewController class]]) {
-            [(MIStockDetailViewController *)detailVC addSubViewController:self.activityListVC];
+        if ([detailVC isKindOfClass:[MIStockSecondViewController class]]) {
+            [(MIStockSecondViewController *)detailVC addSubViewController:self.activityListVC];
             [self.activityListVC updateRankListWithActivityModel:nil index:-1];
         }
         [_secondActivitySheetView updateActivityListInfo];
@@ -120,8 +120,8 @@ MISecondActivitySheetViewDelegate
    
     HomeWorkSendHistoryViewController * historyHomeworkVC = [[HomeWorkSendHistoryViewController alloc] initWithNibName:@"HomeWorkSendHistoryViewController" bundle:nil];
     historyHomeworkVC.hiddenBackBtn = YES;
-    if ([detailVC isKindOfClass:[MIStockDetailViewController class]]) {
-        [(MIStockDetailViewController *)detailVC addSubViewController:historyHomeworkVC];
+    if ([detailVC isKindOfClass:[MIStockSecondViewController class]]) {
+        [(MIStockSecondViewController *)detailVC addSubViewController:historyHomeworkVC];
     }
 }
 #pragma mark - 任务管理 一级文件夹 && 二级文件夹
@@ -129,9 +129,9 @@ MISecondActivitySheetViewDelegate
 - (void)secondSheetViewFirstLevelData:(ParentFileInfo *_Nullable)data index:(NSInteger)index{
    
     UIViewController *detailVC = [self getRootViewController];
-    if ([detailVC isKindOfClass:[MIStockDetailViewController  class]]) {
+    if ([detailVC isKindOfClass:[MIStockSecondViewController  class]]) {
         
-        [(MIStockDetailViewController *)detailVC addSubViewController:self.taskListVC];
+        [(MIStockSecondViewController *)detailVC addSubViewController:self.taskListVC];
     }
     if (data.subFileList.count) { // 显示空内容
         
@@ -144,9 +144,9 @@ MISecondActivitySheetViewDelegate
 - (void)secondSheetViewSecondLevelData:(FileInfo *_Nullable)data index:(NSInteger)index{
     
     UIViewController *detailVC = [self getRootViewController];
-    if ([detailVC isKindOfClass:[MIStockDetailViewController  class]]) {
+    if ([detailVC isKindOfClass:[MIStockSecondViewController  class]]) {
         
-        [(MIStockDetailViewController *)detailVC addSubViewController:self.taskListVC];
+        [(MIStockSecondViewController *)detailVC addSubViewController:self.taskListVC];
     }
     [self.taskListVC showTaskListWithFoldInfo:data folderIndex:index];
 }
@@ -161,9 +161,9 @@ MISecondActivitySheetViewDelegate
 - (void)secondActivitySheetViewCreateActivity{
     
     UIViewController *detailVC = [self getRootViewController];
-    if ([detailVC isKindOfClass:[MIStockDetailViewController  class]]) {
+    if ([detailVC isKindOfClass:[MIStockSecondViewController  class]]) {
         
-        [(MIStockDetailViewController *)detailVC addSubViewController:self.activityListVC];
+        [(MIStockSecondViewController *)detailVC addSubViewController:self.activityListVC];
         [self.activityListVC createActivity];
     }
 }
@@ -171,9 +171,9 @@ MISecondActivitySheetViewDelegate
 - (void)secondActivitySheetViewDidClickedActivity:(ActivityInfo *_Nullable)data index:(NSInteger)index{
     
     UIViewController *detailVC = [self getRootViewController];
-    if ([detailVC isKindOfClass:[MIStockDetailViewController  class]]) {
+    if ([detailVC isKindOfClass:[MIStockSecondViewController  class]]) {
         
-        [(MIStockDetailViewController *)detailVC addSubViewController:self.activityListVC];
+        [(MIStockSecondViewController *)detailVC addSubViewController:self.activityListVC];
         [self.activityListVC updateRankListWithActivityModel:data index:index];
     }
 }

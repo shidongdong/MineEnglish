@@ -8,11 +8,11 @@
 
 #import "MIStockSplitViewController.h"
 #import "MIMasterViewController.h"
-#import "MIStockDetailViewController.h"
+#import "MIStockSecondViewController.h"
 
 @interface MIStockSplitViewController ()
 @property (nonatomic, strong) MIMasterViewController *stockMasterVC;
-@property (nonatomic, strong) MIStockDetailViewController *stockDetailVC;
+@property (nonatomic, strong) MIStockSecondViewController *stockDetailVC;
 
 @end
 
@@ -25,7 +25,7 @@
     _stockMasterVC = [[MIMasterViewController alloc] init];
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:_stockMasterVC];
     
-    _stockDetailVC = [[MIStockDetailViewController alloc] init];
+    _stockDetailVC = [[MIStockSecondViewController alloc] init];
     UINavigationController *detailNav = [[UINavigationController alloc] initWithRootViewController:_stockDetailVC];
 
     self.viewControllers = @[masterNav, detailNav];
