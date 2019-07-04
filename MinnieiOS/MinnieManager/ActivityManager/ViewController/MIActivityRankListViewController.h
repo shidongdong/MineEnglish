@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "ActivityInfo.h"
 
+typedef void(^ActivityPushNewVCCallBack) (UIViewController * _Nullable VC);
+
 typedef void(^ActivityRankListCallback)(NSInteger activityIndex);
 
 NS_ASSUME_NONNULL_BEGIN
@@ -16,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MIActivityRankListViewController : UIViewController
 
 @property (nonatomic,copy) ActivityRankListCallback callback;
+
+@property (nonatomic,copy) ActivityPushNewVCCallBack pushVCCallback;
 
 - (void)updateRankListWithActivityModel:(ActivityInfo *_Nullable)model index:(NSInteger)currentIndex;
 

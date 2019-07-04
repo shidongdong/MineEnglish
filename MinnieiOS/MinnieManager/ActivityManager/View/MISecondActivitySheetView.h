@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<MISecondActivitySheetViewDelegate> delegate;
 
+- (void)resetCurrentIndex;
 
 - (void)updateActivityListInfo;
 

@@ -57,8 +57,8 @@
 #pragma mark - setter
 - (void)setPrimaryCloumnScale:(CGFloat)primaryCloumnScale {
     _primaryCloumnScale = primaryCloumnScale;
-    if (primaryCloumnScale < kRootModularWidth || primaryCloumnScale > k_DefaultPrimaryCloumnScale) {
-        _primaryCloumnScale = k_DefaultPrimaryCloumnScale;
+    if (primaryCloumnScale < kRootModularWidth) {
+        _primaryCloumnScale = kRootModularWidth;
     }
 }
 - (void)setViewControllers:(NSArray<__kindof UIViewController *> *)viewControllers {
@@ -108,6 +108,7 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(customSplitViewController:willChangeToDisplayMode:)]) {
         [self.delegate customSplitViewController:self willChangeToDisplayMode:displayMode];
     }
+    NSLog(@"CSSplitDisplayMode  %lu %f",displayMode,self.primaryCloumnScale);
     
     CGFloat viewWidth = self.view.frame.size.width;
     CGFloat primaryWidth = self.primaryCloumnScale;

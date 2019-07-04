@@ -15,9 +15,11 @@ NSString * const MIHeaderTableViewCellId = @"MIHeaderTableViewCellId";
 CGFloat const MIHeaderTableViewCellHeight = 60.f;
 
 @interface MIHeaderTableViewCell ()
+
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *addBtn;
+@property (weak, nonatomic) IBOutlet UIView *rightLineView;
 
 
 @property (nonatomic , strong) NSIndexPath *indexPath;
@@ -98,6 +100,7 @@ CGFloat const MIHeaderTableViewCellHeight = 60.f;
 
 - (void)setupFilesWithFileInfo:(id)fileInfo indexPath:(NSIndexPath *)indexPath isParentFile:(NSInteger)isParentFile selected:(BOOL)selected{
     
+    self.rightLineView.hidden = YES;
     self.indexPath = indexPath;
     self.isParentFile = isParentFile;
     self.backgroundColor = [UIColor whiteColor];
@@ -127,6 +130,7 @@ CGFloat const MIHeaderTableViewCellHeight = 60.f;
         if (selected) {
             self.titleLabel.textColor = [UIColor mainColor];
             self.backgroundColor = [UIColor colorWithHex:0xF2FAFF];
+            self.rightLineView.hidden = NO;
         } else {
             self.titleLabel.textColor = [UIColor detailColor];
         }

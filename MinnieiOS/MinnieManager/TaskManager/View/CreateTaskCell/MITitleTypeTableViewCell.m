@@ -11,6 +11,7 @@
 #import "HomeworkVideoTableViewCell.h"
 #import "HomeworkImageTableViewCell.h"
 #import "HomeworkAudioTableViewCell.h"
+#import "MIStockSplitViewController.h"
 
 
 #import <objc/runtime.h>
@@ -309,9 +310,37 @@ UIDocumentPickerDelegate
         [alertVC addAction:imageAction];
         [alertVC addAction:cancelAction];
     }
-    [self.vc.navigationController presentViewController:alertVC
-                                            animated:YES
-                                          completion:nil];
+//    [self.vc.navigationController presentViewController:alertVC
+//                                            animated:YES
+//                                          completion:nil];
+    [self presentVC:alertVC];
+
+}
+
+- (void)presentVC:(UIViewController *)VC{
+    
+#if MANAGERSIDE
+    
+    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+    UIViewController *rootController = window.rootViewController;
+    if ([rootController isKindOfClass:[MIStockSplitViewController class]]) {
+        [rootController presentViewController:VC animated:YES completion:nil];
+    }
+#else
+    [self.vc presentViewController:VC
+                          animated:YES
+                        completion:nil];
+#endif
+}
+
+- (MIStockSplitViewController *)rootViewController
+{
+    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+    UIViewController *rootController = window.rootViewController;
+    if ([rootController isKindOfClass:[MIStockSplitViewController class]]) {
+        return (MIStockSplitViewController *)rootController;
+    }
+    return nil;
 }
 
 - (void)addFileItem:(NSArray *)allowedUTIs withHomeworkItem:(HomeworkItem *)item
@@ -320,7 +349,9 @@ UIDocumentPickerDelegate
     UIDocumentPickerViewController * picker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:allowedUTIs inMode:UIDocumentPickerModeImport];
     picker.delegate = self;
     objc_setAssociatedObject(picker , &keyOfPickerDocument, item, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    [self.vc.navigationController presentViewController:picker animated:YES completion:nil];
+//    [self.vc.navigationController presentViewController:picker animated:YES completion:nil];
+    [self presentVC:picker];
+    
 }
 
 - (void)addVideoItem {
@@ -330,7 +361,8 @@ UIDocumentPickerDelegate
     picker.delegate = self;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     picker.mediaTypes = @[(NSString *)kUTTypeMovie];
-    [self.vc.navigationController presentViewController:picker animated:YES completion:nil];
+//    [self.vc.navigationController presentViewController:picker animated:YES completion:nil];
+    [self presentVC:picker];
 }
 
 - (void)addImageItem {
@@ -340,7 +372,8 @@ UIDocumentPickerDelegate
     picker.delegate = self;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     picker.mediaTypes = @[(NSString *)kUTTypeImage];
-    [self.vc.navigationController presentViewController:picker animated:YES completion:nil];
+//    [self.vc.navigationController presentViewController:picker animated:YES completion:nil];
+    [self presentVC:picker];
 }
 
 - (void)deleteItem:(HomeworkItem *)item {
@@ -363,7 +396,8 @@ UIDocumentPickerDelegate
     
     [alertController addAction:cancelAction];
     [alertController addAction:confirmAction];
-    [self.vc presentViewController:alertController animated:YES completion:nil];
+//    [self.vc presentViewController:alertController animated:YES completion:nil];
+    [self presentVC:alertController];
 }
 
 - (void)deleteMp3ForItem:(HomeworkItem *)item
@@ -391,7 +425,8 @@ UIDocumentPickerDelegate
     
     [alertController addAction:cancelAction];
     [alertController addAction:confirmAction];
-    [self.vc presentViewController:alertController animated:YES completion:nil];
+//    [self.vc presentViewController:alertController animated:YES completion:nil];
+    [self presentVC:alertController];
 }
 - (void)deleteAnswerMp3ForItem:(HomeworkAnswerItem *)item
 {
@@ -418,7 +453,8 @@ UIDocumentPickerDelegate
     
     [alertController addAction:cancelAction];
     [alertController addAction:confirmAction];
-    [self.vc presentViewController:alertController animated:YES completion:nil];
+//    [self.vc presentViewController:alertController animated:YES completion:nil];
+    [self presentVC:alertController];
 }
 - (void)deleteAnswerItem:(HomeworkAnswerItem *)item {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确认删除?"
@@ -441,7 +477,8 @@ UIDocumentPickerDelegate
     [alertController addAction:cancelAction];
     [alertController addAction:confirmAction];
     
-    [self.vc presentViewController:alertController animated:YES completion:nil];
+//    [self.vc presentViewController:alertController animated:YES completion:nil];
+    [self presentVC:alertController];
 }
 
 - (void)handleAddAnswerItem {
@@ -484,9 +521,11 @@ UIDocumentPickerDelegate
     [alertVC addAction:imageAction];
     [alertVC addAction:cancelAction];
     
-    [self.vc.navigationController presentViewController:alertVC
-                                            animated:YES
-                                          completion:nil];
+//    [self.vc.navigationController presentViewController:alertVC
+//                                            animated:YES
+//                                          completion:nil];
+    
+    [self presentVC:alertVC];
 }
 
 - (void)addFileAnswerItem:(NSArray *)allowedUTIs withHomeworkItem:(HomeworkAnswerItem *)item
@@ -498,7 +537,8 @@ UIDocumentPickerDelegate
     
     objc_setAssociatedObject(picker , &keyOfPickerDocument, item, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
-    [self.vc.navigationController presentViewController:picker animated:YES completion:nil];
+//    [self.vc.navigationController presentViewController:picker animated:YES completion:nil];
+    [self presentVC:picker];
 }
 
 - (void)addVideoAnswerItem {
@@ -509,7 +549,8 @@ UIDocumentPickerDelegate
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     picker.mediaTypes = @[(NSString *)kUTTypeMovie];
     
-    [self.vc.navigationController presentViewController:picker animated:YES completion:nil];
+//    [self.vc.navigationController presentViewController:picker animated:YES completion:nil];
+    [self presentVC:picker];
 }
 
 - (void)addImageAnswerItem {
@@ -520,7 +561,8 @@ UIDocumentPickerDelegate
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     picker.mediaTypes = @[(NSString *)kUTTypeImage];
     
-    [self.vc.navigationController presentViewController:picker animated:YES completion:nil];
+//    [self.vc.navigationController presentViewController:picker animated:YES completion:nil];
+    [self presentVC:picker];
 }
 
 - (void)deleteHomework {
@@ -540,7 +582,8 @@ UIDocumentPickerDelegate
     
     [alertController addAction:cancelAction];
     [alertController addAction:confirmAction];
-    [self.vc presentViewController:alertController animated:YES completion:nil];
+//    [self.vc presentViewController:alertController animated:YES completion:nil];
+    [self presentVC:alertController];
 }
 
 #pragma mark - 上传 音频、视频、图片、文件

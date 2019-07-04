@@ -13,6 +13,7 @@
 #import "UIView+Load.h"
 #import "Application.h"
 #import "CreateTagView.h"
+
 #import "MITagsViewController.h"
 #import "TagCollectionViewCell.h"
 #import "HomeworkSessionService.h"
@@ -40,14 +41,6 @@ MIEqualSpaceFlowLayoutDelegate
 
 @implementation MITagsViewController
 
--(void)viewWillAppear:(BOOL)animated{
-
-    [super viewWillAppear:animated];
-#if MANAGERSIDE
-    [self updatePrimaryCloumnScale:kRootModularWidth];
-#endif
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -71,7 +64,15 @@ MIEqualSpaceFlowLayoutDelegate
 }
 - (IBAction)backAction:(id)sender {
     
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.teacherSider) {
+      
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        
+        if (self.tagsCallBack) {
+            self.tagsCallBack();
+        }
+    }
 }
 
 #pragma mark - IBActions
@@ -113,7 +114,7 @@ MIEqualSpaceFlowLayoutDelegate
                                       
                                       NSMutableArray *tags = [NSMutableArray arrayWithArray:weakSelf.tags];
                                       if (tags.count == 0) {
-                                          [weakSelf.tagsCollectionContainerView hideAllStateView];
+                                          [weakSelf.view hideAllStateView];
                                           weakSelf.tagsCollectionView.hidden = NO;
                                       }
                                       
@@ -140,7 +141,7 @@ MIEqualSpaceFlowLayoutDelegate
                                                    
                                                    NSMutableArray *tags = [NSMutableArray arrayWithArray:weakSelf.tags];
                                                    if (tags.count == 0) {
-                                                       [weakSelf.tagsCollectionContainerView hideAllStateView];
+                                                       [weakSelf.view hideAllStateView];
                                                        weakSelf.tagsCollectionView.hidden = NO;
                                                    }
                                                    
@@ -165,7 +166,7 @@ MIEqualSpaceFlowLayoutDelegate
                                       
                                       NSMutableArray *tags = [NSMutableArray arrayWithArray:weakSelf.tags];
                                       if (tags.count == 0) {
-                                          [weakSelf.tagsCollectionContainerView hideAllStateView];
+                                          [weakSelf.view hideAllStateView];
                                           weakSelf.tagsCollectionView.hidden = NO;
                                       }
                                       
@@ -229,7 +230,7 @@ MIEqualSpaceFlowLayoutDelegate
                                                                       [self.selectedTags removeAllObjects];
                                                                       
                                                                       if (tags.count == 0) {
-                                                                          [self.tagsCollectionContainerView showEmptyViewWithImage:nil title:@"暂无标签" linkTitle:nil linkClickCallback:nil];
+                                                                          [self.view showEmptyViewWithImage:nil title:@"暂无标签" linkTitle:nil linkClickCallback:nil];
                                                                           self.tagsCollectionView.hidden = YES;
                                                                       }
                                                                       
@@ -264,7 +265,7 @@ MIEqualSpaceFlowLayoutDelegate
                                                                       [self.selectedTags removeAllObjects];
                                                                       
                                                                       if (tags.count == 0) {
-                                                                          [self.tagsCollectionContainerView showEmptyViewWithImage:nil title:@"暂无标签" linkTitle:nil linkClickCallback:nil];
+                                                                          [self.view showEmptyViewWithImage:nil title:@"暂无标签" linkTitle:nil linkClickCallback:nil];
                                                                           self.tagsCollectionView.hidden = YES;
                                                                       }
                                                                       
@@ -299,7 +300,7 @@ MIEqualSpaceFlowLayoutDelegate
                                                                       [self.selectedTags removeAllObjects];
                                                                       
                                                                       if (tags.count == 0) {
-                                                                          [self.tagsCollectionContainerView showEmptyViewWithImage:nil title:@"暂无评语" linkTitle:nil linkClickCallback:nil];
+                                                                          [self.view showEmptyViewWithImage:nil title:@"暂无评语" linkTitle:nil linkClickCallback:nil];
                                                                           self.tagsCollectionView.hidden = YES;
                                                                       }
                                                                       
@@ -326,7 +327,7 @@ MIEqualSpaceFlowLayoutDelegate
     }
     
     self.tagsCollectionView.hidden = YES;
-    [self.tagsCollectionContainerView showLoadingView];
+    [self.view showLoadingView];
     
     WeakifySelf;
     
@@ -335,12 +336,12 @@ MIEqualSpaceFlowLayoutDelegate
         self.tagsRequest = [TagService requestFormTagsWithCallback:^(Result *result, NSError *error) {
             StrongifySelf;
             
-            strongSelf.tagsRequest = nil;
+//            strongSelf.tagsRequest = nil;
             
             // 显示失败页面
             if (error != nil) {
                 __weak typeof(strongSelf) wk = strongSelf;
-                [strongSelf.tagsCollectionContainerView showFailureViewWithRetryCallback:^{
+                [strongSelf.view showFailureViewWithRetryCallback:^{
                     [wk requestData];
                 }];
                 
@@ -349,13 +350,13 @@ MIEqualSpaceFlowLayoutDelegate
             
             NSArray *tags = (NSArray *)(result.userInfo);
             if (tags.count == 0) {
-                [strongSelf.tagsCollectionContainerView showEmptyViewWithImage:nil
+                [strongSelf.view showEmptyViewWithImage:nil
                                                                          title:@"暂无标签"
                                                                      linkTitle:nil
                                                              linkClickCallback:nil];
             } else {
                 strongSelf.tags = tags;
-                [strongSelf.tagsCollectionContainerView hideAllStateView];
+                [strongSelf.view hideAllStateView];
                 strongSelf.tagsCollectionView.hidden = NO;
                 [strongSelf.tagsCollectionView reloadData];
             }
@@ -366,12 +367,12 @@ MIEqualSpaceFlowLayoutDelegate
         self.tagsRequest = [TagService requestTagsWithCallback:^(Result *result, NSError *error) {
             StrongifySelf;
             
-            strongSelf.tagsRequest = nil;
+//            strongSelf.tagsRequest = nil;
             
             // 显示失败页面
             if (error != nil) {
                 __weak typeof(strongSelf) wk = strongSelf;
-                [strongSelf.tagsCollectionContainerView showFailureViewWithRetryCallback:^{
+                [strongSelf.view showFailureViewWithRetryCallback:^{
                     [wk requestData];
                 }];
                 
@@ -380,14 +381,14 @@ MIEqualSpaceFlowLayoutDelegate
             
             NSArray *tags = (NSArray *)(result.userInfo);
             if (tags.count == 0) {
-                [strongSelf.tagsCollectionContainerView showEmptyViewWithImage:nil
+                [strongSelf.view showEmptyViewWithImage:nil
                                                                          title:@"暂无标签"
                                                                      linkTitle:nil
                                                              linkClickCallback:nil];
             } else {
                 strongSelf.tags = tags;
                 
-                [strongSelf.tagsCollectionContainerView hideAllStateView];
+                [strongSelf.view hideAllStateView];
                 strongSelf.tagsCollectionView.hidden = NO;
                 [strongSelf.tagsCollectionView reloadData];
             }
@@ -398,12 +399,12 @@ MIEqualSpaceFlowLayoutDelegate
         self.tagsRequest = [HomeworkSessionService searchHomeworkSessionCommentWithCallback:^(Result *result, NSError *error) {
             StrongifySelf;
             
-            strongSelf.tagsRequest = nil;
+//            strongSelf.tagsRequest = nil;
             // 显示失败页面
             if (error != nil) {
                 
                 __weak typeof(strongSelf) wk = strongSelf;
-                [strongSelf.tagsCollectionContainerView showFailureViewWithRetryCallback:^{
+                [strongSelf.view showFailureViewWithRetryCallback:^{
                     [wk requestData];
                 }];
                 return;
@@ -411,14 +412,14 @@ MIEqualSpaceFlowLayoutDelegate
             
             NSArray *tags = (NSArray *)(result.userInfo);
             if (tags.count == 0) {
-                [strongSelf.tagsCollectionContainerView showEmptyViewWithImage:nil
+                [strongSelf.view showEmptyViewWithImage:nil
                                                                          title:@"暂无评语"
                                                                      linkTitle:nil
                                                              linkClickCallback:nil];
             } else {
                 strongSelf.tags = tags;
                 
-                [strongSelf.tagsCollectionContainerView hideAllStateView];
+                [strongSelf.view hideAllStateView];
                 strongSelf.tagsCollectionView.hidden = NO;
                 [strongSelf.tagsCollectionView reloadData];
             }

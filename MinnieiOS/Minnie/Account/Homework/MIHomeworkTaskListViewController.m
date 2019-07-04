@@ -11,7 +11,6 @@
 #import "HomeworkTableViewCell.h"
 #import "MIMoveHomeworkTaskView.h"
 #import "MIScoreListViewController.h"
-//#import "MICreateTaskViewController.h"
 #import "HomeworkPreviewViewController.h"
 #import "ClassAndStudentSelectorController.h"
 #import "HomeWorkSendHistoryViewController.h"
@@ -449,7 +448,8 @@ VIResourceLoaderManagerDelegate
         
         MIScoreListViewController *scoreListVC = [[MIScoreListViewController alloc] initWithNibName:NSStringFromClass([MIScoreListViewController class]) bundle:nil];
         WeakifySelf;
-        scoreListVC.callBack = ^{
+        scoreListVC.editTaskCallBack = ^{
+            
             [weakSelf requestHomeworks];
         };
         scoreListVC.homework = homework;
@@ -495,7 +495,7 @@ VIResourceLoaderManagerDelegate
     Homework *homework = self.homeworks[indexPath.row];
     MIScoreListViewController *scoreListVC = [[MIScoreListViewController alloc] initWithNibName:NSStringFromClass([MIScoreListViewController class]) bundle:nil];
     WeakifySelf;
-    scoreListVC.callBack = ^{
+    scoreListVC.editTaskCallBack = ^{
         [weakSelf requestHomeworks];
     };
     scoreListVC.homework = homework;

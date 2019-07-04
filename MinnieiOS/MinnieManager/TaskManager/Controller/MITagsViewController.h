@@ -10,9 +10,13 @@
 #import "TagsViewController.h"
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^TagsVCCancelCallBack)(void);
+
 @interface MITagsViewController : UIViewController
 
 @property (nonatomic, assign)TagsType type;
+
+@property (nonatomic, copy)TagsVCCancelCallBack tagsCallBack;
 
 @property (nonatomic, assign) BOOL teacherSider;
 

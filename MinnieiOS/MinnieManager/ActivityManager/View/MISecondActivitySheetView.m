@@ -61,7 +61,7 @@ UITableViewDataSource
     [self addSubview:_tableView];
     _tableView.separatorColor = [UIColor separatorLineColor];
     
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(kFolderModularWidth - 1.0, 0, 1.0, [UIScreen mainScreen].bounds.size.height)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(kFolderModularWidth - 0.5, 0, 0.5, [UIScreen mainScreen].bounds.size.height)];
     lineView.backgroundColor = [UIColor separatorLineColor];
     [self addSubview:lineView];
     
@@ -126,6 +126,12 @@ UITableViewDataSource
     
     _currentIndex = index;
     [self requestGetActivityList];
+}
+
+- (void)resetCurrentIndex{
+    
+    self.currentIndex = -1;
+    [self.tableView reloadData];
 }
 
 - (void)updateActivityListInfo{

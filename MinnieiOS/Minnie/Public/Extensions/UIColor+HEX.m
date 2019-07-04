@@ -52,6 +52,11 @@
     return [UIColor colorWithHex:0xF5F5F5];
 }
 
++ (UIColor*)emptyBgColor{
+    
+    return [UIColor colorWithHex:0xEEEEEE];
+}
+
 +(UIImage*) createImageWithColor:(UIColor*) color
 {
     CGRect rect=CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);

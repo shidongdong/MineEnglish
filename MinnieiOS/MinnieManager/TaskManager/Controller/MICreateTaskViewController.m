@@ -15,6 +15,7 @@
 #import "MICreateWordView.h"
 #import "MIExpandPickerView.h"
 #import "ChooseDatePickerView.h"
+#import "MITagsView.h"
 #import "MITagsViewController.h"
 #import "MITagsTableViewCell.h"
 #import "MIAddTypeTableViewCell.h"
@@ -92,20 +93,20 @@ ClassAndStudentSelectorControllerDelegate
 
 @implementation MICreateTaskViewController
 
--(void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-#if MANAGERSIDE
-    [self updatePrimaryCloumnScale:kRootModularWidth];
-#endif
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-#if MANAGERSIDE
-    [self updatePrimaryCloumnScale:kRootModularWidth+kFolderModularWidth];
-#endif
-}
+//-(void)viewWillAppear:(BOOL)animated{
+//
+//    [super viewWillAppear:animated];
+////#if MANAGERSIDE
+////    [self updatePrimaryCloumnScale:kRootModularWidth];
+////#endif
+//}
+//
+//- (void)viewWillDisappear:(BOOL)animated{
+//    [super viewWillDisappear:animated];
+////#if MANAGERSIDE
+////    [self updatePrimaryCloumnScale:kRootModularWidth+kFolderModularWidth];
+////#endif
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -139,7 +140,12 @@ ClassAndStudentSelectorControllerDelegate
 
 - (IBAction)closeBtnAction:(id)sender {
  
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.teacherSider) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    if (self.cancelCallBack) {
+        self.cancelCallBack();
+    }
 }
 - (IBAction)sendBtnAction:(id)sender {
     
@@ -846,10 +852,30 @@ ClassAndStudentSelectorControllerDelegate
             }];
             
             [tagsCell setManageCallback:^{
-                MITagsViewController *tagsVC = [[MITagsViewController alloc] initWithNibName:@"MITagsViewController" bundle:nil];
-                tagsVC.type = TagsHomeworkFormType;
-                tagsVC.teacherSider = weakSelf.teacherSider;
-                [weakSelf.navigationController pushViewController:tagsVC animated:YES];
+               
+                if (weakSelf.teacherSider) {
+                  
+                    MITagsViewController *tagsVC = [[MITagsViewController alloc] initWithNibName:@"MITagsViewController" bundle:nil];
+                    tagsVC.type = TagsHomeworkFormType;
+                    tagsVC.teacherSider = weakSelf.teacherSider;
+                    [weakSelf.navigationController pushViewController:tagsVC animated:YES];
+                } else {
+                 
+                    MITagsView *tagsView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MITagsView class]) owner:nil options:nil].lastObject;
+                    tagsView.type = TagsHomeworkFormType;
+                    
+                    __block UIView *tagsBgView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                    tagsBgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+                    [[UIApplication sharedApplication].keyWindow addSubview:tagsBgView];
+                    
+                    tagsView.frame = CGRectMake(ScreenWidth/2.0 - 375/2.0, 50, 375, ScreenHeight - 100);
+                    [tagsBgView addSubview:tagsView];
+                    tagsView.tagsCallBack = ^{
+                        if (tagsBgView.superview) {
+                            [tagsBgView removeFromSuperview];
+                        }
+                    };
+                }
             }];
             
             cell = tagsCell;
@@ -870,10 +896,30 @@ ClassAndStudentSelectorControllerDelegate
                 }
             }];
             [tagsCell setManageCallback:^{
-                MITagsViewController *tagsVC = [[MITagsViewController alloc] initWithNibName:@"MITagsViewController" bundle:nil];
-                tagsVC.type = TagsHomeworkTipsType;
-                tagsVC.teacherSider = weakSelf.teacherSider;
-                [weakSelf.navigationController pushViewController:tagsVC animated:YES];
+                
+                if (weakSelf.teacherSider) {
+                    
+                    MITagsViewController *tagsVC = [[MITagsViewController alloc] initWithNibName:@"MITagsViewController" bundle:nil];
+                    tagsVC.type = TagsHomeworkTipsType;
+                    tagsVC.teacherSider = weakSelf.teacherSider;
+                    [weakSelf.navigationController pushViewController:tagsVC animated:YES];
+                } else {
+                    
+                    MITagsView *tagsView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MITagsView class]) owner:nil options:nil].lastObject;
+                    tagsView.type = TagsHomeworkTipsType;
+                    
+                    __block UIView *tagsBgView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                    tagsBgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+                    [[UIApplication sharedApplication].keyWindow addSubview:tagsBgView];
+                    
+                    tagsView.frame = CGRectMake(ScreenWidth/2.0 - 375/2.0, 50, 375, ScreenHeight - 100);
+                    [tagsBgView addSubview:tagsView];
+                    tagsView.tagsCallBack = ^{
+                        if (tagsBgView.superview) {
+                            [tagsBgView removeFromSuperview];
+                        }
+                    };
+                }
             }];
             cell = tagsCell;
         }
@@ -1315,7 +1361,9 @@ ClassAndStudentSelectorControllerDelegate
             if (weakSelf.callBack) {
                 weakSelf.callBack(YES);
             }
-            [weakSelf.navigationController popViewControllerAnimated:YES];
+            if (weakSelf.teacherSider) {
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            }
         }];
     } else {
         WeakifySelf;
@@ -1517,6 +1565,9 @@ ClassAndStudentSelectorControllerDelegate
 #pragma mark - 创建作业任务
 - (void)createHomeworkTask{
     
+    if (self.homework.typeName.length == 0) {
+        self.homework.typeName = kHomeworkTaskGeneralTaskName;
+    }
     if (self.homework.title.length == 0) {
         [HUD showErrorWithMessage:@"作业标题不能为空"]; return;
     }
@@ -1575,7 +1626,9 @@ ClassAndStudentSelectorControllerDelegate
                                } else {
                                    [HUD showWithMessage:@"更新作业成功"];
                                }
-                               [weakSelf popToVCAfterDeleteOrEdit];
+                               if (weakSelf.teacherSider) {
+                                   [weakSelf popToVCAfterDeleteOrEdit];
+                               }
                                if (weakSelf.callBack) {
                                    weakSelf.callBack(NO);
                                }

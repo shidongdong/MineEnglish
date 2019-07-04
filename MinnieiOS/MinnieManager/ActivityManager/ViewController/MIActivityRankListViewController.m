@@ -9,6 +9,7 @@
 #import "Result.h"
 #import "UIView+Load.h"
 #import "ManagerServce.h"
+#import "MIStockSplitViewController.h"
 #import "MICreateTaskViewController.h"
 #import "MIActivityRankListTableViewCell.h"
 #import "MIActivityRankListViewController.h"
@@ -25,11 +26,14 @@ UITableViewDataSource
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *editBtn;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (weak, nonatomic) IBOutlet UIView *rightLineView;
 
 @property (strong, nonatomic) NSMutableArray *okRankArray;
 @property (strong, nonatomic) NSMutableArray *checkRankArray;
 
 @property (assign, nonatomic) NSInteger currentActivityIndex;
+
+@property (assign, nonatomic) NSInteger currentSelectedIndex;
 
 @end
 
@@ -38,19 +42,24 @@ UITableViewDataSource
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
-#if MANAGERSIDE
-    [self updatePrimaryCloumnScale:kRootModularWidth + kFolderModularWidth];
-#endif
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+//#if MANAGERSIDE
+//    [self updatePrimaryCloumnScale:kRootModularWidth + kFolderModularWidth];
+//#endif
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self configureUI];
+    
 }
 
 - (void)configureUI{
-    self.view.backgroundColor = [UIColor bgColor];
+    
+    self.currentSelectedIndex = -1;
+    self.view.backgroundColor = [UIColor unSelectedColor];
     self.okRankArray = [NSMutableArray array];
     self.checkRankArray = [NSMutableArray array];
   
@@ -102,46 +111,82 @@ UITableViewDataSource
 
 #pragma mark - 编辑活动
 - (IBAction)editActivityAction:(id)sender {
-    
-    WeakifySelf;
-    MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] init];
-    [createVC setupCreateActivity:self.curActInfo];
-    createVC.callBack = ^(BOOL isDelete) {
-        if (isDelete) {
-            self.currentActivityIndex = -1;
-        }
-        if (weakSelf.callback) {
-            
-            weakSelf.callback(self.currentActivityIndex);
-        }
-    };
-    [self.navigationController pushViewController:createVC animated:YES];
+ 
+    [self showCreateListVC:NO];
 }
 
 #pragma mark - 新建活动
 - (void)createActivity{
-    MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] init];
-    [createVC setupCreateActivity:nil];
-    WeakifySelf;
-    createVC.callBack = ^(BOOL isDelete) {
-        if (weakSelf.callback) {
-            
-            weakSelf.callback(-1);
-        }
-    };
-    [self.navigationController pushViewController:createVC animated:YES];
+    
+    [self showCreateListVC:YES];
 }
 
+- (void)showCreateListVC:(BOOL)isCreate{
+    
+    __block  UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] init];
+    
+    [createVC setupCreateActivity: (isCreate) ? nil : self.curActInfo];
+    WeakifySelf;
+    createVC.callBack = ^(BOOL isDelete) {
+        if (isCreate) {
+            
+            if (weakSelf.callback) {
+                weakSelf.callback(-1);
+            }
+        } else {
+            if (isDelete) {
+                self.currentActivityIndex = -1;
+            }
+            if (weakSelf.callback) {
+                weakSelf.callback(weakSelf.currentActivityIndex);
+            }
+        }
+        if (view.superview) {
+            [view removeFromSuperview];
+        }
+    };
+    createVC.cancelCallBack = ^{
+        
+        if (view.superview) {
+            [view removeFromSuperview];
+        }
+    };
+    view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    UIViewController *rootVC = [self rootViewController];
+    if (rootVC) {
+        [rootVC.view addSubview:view];
+    }
+    [view addSubview:createVC.view];
+    createVC.view.frame = CGRectMake(kRootModularWidth/2.0, 70, ScreenWidth - kRootModularWidth, ScreenHeight - 120);
+}
+
+- (MIStockSplitViewController *)rootViewController
+{
+    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+    UIViewController *rootController = window.rootViewController;
+    if ([rootController isKindOfClass:[MIStockSplitViewController class]]) {
+        return (MIStockSplitViewController *)rootController;
+    }
+    return nil;
+}
 
 - (void)updateRankListWithActivityModel:(ActivityInfo *_Nullable)model index:(NSInteger)currentIndex{
     
     self.curActInfo = model;
     self.currentActivityIndex =  currentIndex;
+    self.currentSelectedIndex = -1;
     if (model) {
         [self requestGetActivityRankList];
+        self.rightLineView.hidden = NO;
+        self.view.backgroundColor = [UIColor unSelectedColor];
+        self.tableView.backgroundColor = [UIColor unSelectedColor];
     } else {
+        [self.view hideAllStateView];
         self.tableView.hidden = YES;
         self.headerView.hidden = YES;
+        self.rightLineView.hidden = YES;
+        self.view.backgroundColor = [UIColor emptyBgColor];
     }
 }
 
@@ -162,6 +207,7 @@ UITableViewDataSource
     MIActivityRankListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MIActivityRankListTableViewCellId];
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIActivityRankListTableViewCell class]) owner:nil options:nil] lastObject];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     if (indexPath.row < self.okRankArray.count) {
         ActivityRankInfo *model = self.okRankArray[indexPath.row];
@@ -171,6 +217,7 @@ UITableViewDataSource
         ActivityRankInfo *model = self.checkRankArray[indexPath.row - self.okRankArray.count];
         [cell setupWithModel:model index:0];
     }
+    [cell setSelectedState:(self.currentSelectedIndex == indexPath.row) ? YES : NO];
     return cell;
 }
 
@@ -178,6 +225,12 @@ UITableViewDataSource
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (self.currentSelectedIndex == indexPath.row) {
+        return;
+    }
+    self.currentSelectedIndex = indexPath.row;
+    [tableView reloadData];
+    
     ActivityRankInfo *model;
     if (indexPath.row < self.okRankArray.count) {
         model = self.okRankArray[indexPath.row];
@@ -190,7 +243,13 @@ UITableViewDataSource
     detailVC.correctCallBack = ^{
         [weakSelf requestGetActivityRankList];
     };
-    [self.navigationController pushViewController:detailVC animated:YES];
+    detailVC.cancelCallBack = ^{
+        weakSelf.currentSelectedIndex = -1;
+        [weakSelf.tableView reloadData];
+    };
+    if (self.pushVCCallback) {
+        self.pushVCCallback(detailVC);
+    }
 }
 
 

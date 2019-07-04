@@ -18,6 +18,7 @@
                 <outlet property="footerView" destination="WCj-rv-B5Y" id="TmI-S8-gb3"/>
                 <outlet property="headerView" destination="reE-sz-sjS" id="tYc-Lu-7m3"/>
                 <outlet property="operatorBtn" destination="YPY-tv-4Bx" id="21j-iH-fvJ"/>
+                <outlet property="rightLineView" destination="opl-ES-3zb" id="qw4-Xr-nGG"/>
                 <outlet property="selectCountLabel" destination="QdF-S0-wfJ" id="DcP-eI-pAG"/>
                 <outlet property="sendBtn" destination="drd-y9-dbR" id="GM2-Uj-jsH"/>
                 <outlet property="tableView" destination="THK-qy-fml" id="7eQ-Wn-d7A"/>
@@ -97,6 +98,13 @@
                         <outlet property="delegate" destination="-1" id="rcR-BY-7U0"/>
                     </connections>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="opl-ES-3zb" userLabel="lineView">
+                    <rect key="frame" x="413" y="4" width="1" height="858"/>
+                    <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1" id="znR-wh-Rr0"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WCj-rv-B5Y" userLabel="FooterView">
                     <rect key="frame" x="0.0" y="812" width="414" height="50"/>
                     <subviews>
@@ -173,9 +181,12 @@
             <constraints>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="WCj-rv-B5Y" secondAttribute="trailing" id="F3p-7p-lBd"/>
                 <constraint firstItem="THK-qy-fml" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="J4s-qG-nYD"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="opl-ES-3zb" secondAttribute="trailing" id="K1U-JR-ZBO"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="reE-sz-sjS" secondAttribute="trailing" id="MOt-IO-czk"/>
                 <constraint firstItem="THK-qy-fml" firstAttribute="top" secondItem="reE-sz-sjS" secondAttribute="bottom" id="RFl-qt-C4G"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="opl-ES-3zb" secondAttribute="bottom" id="S32-0W-V3I"/>
                 <constraint firstItem="WCj-rv-B5Y" firstAttribute="top" secondItem="THK-qy-fml" secondAttribute="bottom" id="aeX-XD-qMR"/>
+                <constraint firstItem="opl-ES-3zb" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="-40" id="eBF-k8-iTQ"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="top" secondItem="reE-sz-sjS" secondAttribute="top" constant="20" id="fZH-kn-fv3"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="THK-qy-fml" secondAttribute="trailing" id="mIb-5P-vdQ"/>
                 <constraint firstItem="reE-sz-sjS" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="mZ9-ZY-vlX"/>

@@ -25,6 +25,7 @@
     [super awakeFromNib];
     self.addFolderBtn.layer.masksToBounds = YES;
     self.addFolderBtn.layer.cornerRadius = 22;
+    self.backgroundColor = [UIColor unSelectedColor];
 }
 
 - (IBAction)addFolderAction:(id)sender {

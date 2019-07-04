@@ -65,6 +65,9 @@
 #define kFolderModularWidth         234.f
 
 
+#define kColumnThreeWidth           (ScreenWidth - kRootModularWidth - kFolderModularWidth)/2.0
+
+
 
 /*
  *  环境配置

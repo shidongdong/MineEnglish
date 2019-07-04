@@ -53,6 +53,10 @@ VIResourceLoaderManagerDelegate
 - (IBAction)backAction:(id)sender {
     
     [self.navigationController popViewControllerAnimated:YES];
+    
+    if (self.cancelCallBack) {
+        self.cancelCallBack();
+    }
 }
 
 #pragma mark -

@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor bgColor];
+    self.view.backgroundColor = [UIColor emptyBgColor];
 }
 
 - (void)addSubViewController:(UIViewController *)vc{

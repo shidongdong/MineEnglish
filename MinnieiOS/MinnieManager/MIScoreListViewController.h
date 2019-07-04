@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^MIScoreEditTaskCallBack)(void);
+typedef void(^MIScoreListCancelCallBack)(void);
 
 @interface MIScoreListViewController : UIViewController
 
@@ -19,7 +20,8 @@ typedef void(^MIScoreEditTaskCallBack)(void);
 
 @property (nonatomic, assign) BOOL teacherSider;
 
-@property (nonatomic, copy) MIScoreEditTaskCallBack callBack;
+@property (nonatomic, copy) MIScoreEditTaskCallBack editTaskCallBack;
+@property (nonatomic, copy) MIScoreListCancelCallBack cancelCallBack;
 
 @end
 

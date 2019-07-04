@@ -36,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateFileListInfo;
 
+- (void)collapseAllFolders;
+
 // 新建二级文件夹
 - (void)addSecondLevelFolderIndex:(NSInteger)index;
 

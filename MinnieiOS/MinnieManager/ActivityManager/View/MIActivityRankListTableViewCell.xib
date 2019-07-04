@@ -19,6 +19,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="69.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y9u-GG-1gf">
+                        <rect key="frame" x="317" y="0.0" width="3" height="69.5"/>
+                        <color key="backgroundColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="3" id="luD-Xj-PFJ"/>
+                        </constraints>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nfn-Vb-yb2">
                         <rect key="frame" x="20" y="25" width="40" height="19.5"/>
                         <constraints>
@@ -63,10 +70,13 @@
                     <constraint firstItem="iv1-E5-L19" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="9J5-Xm-vI2"/>
                     <constraint firstItem="zBx-Dq-GXu" firstAttribute="trailing" secondItem="iv1-E5-L19" secondAttribute="trailing" id="HuI-yT-MOO"/>
                     <constraint firstItem="iv1-E5-L19" firstAttribute="leading" secondItem="E3Q-Iy-baY" secondAttribute="trailing" constant="20" id="Iaa-1R-0OA"/>
+                    <constraint firstItem="Y9u-GG-1gf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Nhj-YI-JM0"/>
                     <constraint firstItem="THq-0j-tsh" firstAttribute="leading" secondItem="iv1-E5-L19" secondAttribute="trailing" constant="15" id="be0-Td-Jim"/>
                     <constraint firstAttribute="bottom" secondItem="zBx-Dq-GXu" secondAttribute="bottom" constant="15" id="hB2-E9-BOa"/>
+                    <constraint firstAttribute="bottom" secondItem="Y9u-GG-1gf" secondAttribute="bottom" id="jpQ-TN-hOQ"/>
                     <constraint firstItem="E3Q-Iy-baY" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="wBZ-oQ-knU"/>
                     <constraint firstItem="THq-0j-tsh" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="wcA-2D-PcO"/>
+                    <constraint firstAttribute="trailing" secondItem="Y9u-GG-1gf" secondAttribute="trailing" id="wus-Vq-oXa"/>
                     <constraint firstItem="Nfn-Vb-yb2" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="xln-y4-Zj3"/>
                     <constraint firstItem="E3Q-Iy-baY" firstAttribute="leading" secondItem="Nfn-Vb-yb2" secondAttribute="trailing" constant="10" id="yeN-Qi-joI"/>
                 </constraints>
@@ -79,6 +89,7 @@
                 <outlet property="nameLabel" destination="iv1-E5-L19" id="Gwj-DV-R9z"/>
                 <outlet property="portraitImagV" destination="E3Q-Iy-baY" id="dka-eZ-ZPg"/>
                 <outlet property="rankLabel" destination="Nfn-Vb-yb2" id="Nuk-Rz-H3S"/>
+                <outlet property="rightLineView" destination="Y9u-GG-1gf" id="QuN-5a-rUh"/>
                 <outlet property="stateLabel" destination="THq-0j-tsh" id="xTb-Tq-aAA"/>
                 <outlet property="videoTimeLabel" destination="zBx-Dq-GXu" id="qLW-9P-SyJ"/>
             </connections>

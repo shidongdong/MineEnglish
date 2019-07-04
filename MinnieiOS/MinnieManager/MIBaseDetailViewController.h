@@ -1,8 +1,8 @@
 //
-//  MIStockThirdViewController.h
-//  Minnie
+//  MIBaseDetailViewController.h
+//  MinnieManager
 //
-//  Created by songzhen on 2019/6/30.
+//  Created by songzhen on 2019/7/1.
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MIStockThirdViewController : UIViewController
+@interface MIBaseDetailViewController : UIViewController
 
 - (void)addSubViewController:(UIViewController *)vc;
 

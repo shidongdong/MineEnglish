@@ -33,6 +33,9 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
 @property (nonatomic, weak) IBOutlet UICollectionView *homeworksCollectionView;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *homeworksCollectionViewHeightConstraint;
 
+@property (weak, nonatomic) IBOutlet UIView *rightViewLine;
+
+
 @property (nonatomic, assign) BOOL choice;
 
 @property (nonatomic, strong) Homework *homework;
@@ -45,10 +48,10 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
     [super awakeFromNib];
     [self layoutIfNeeded];
     self.containerView.layer.cornerRadius = 12.f;
-    self.containerView.layer.shadowOpacity = 0.4;// 阴影透明度
-    self.containerView.layer.shadowColor = [UIColor colorWithHex:0xEEEEEE].CGColor;
-    self.containerView.layer.shadowRadius = 3;
-    self.containerView.layer.shadowOffset = CGSizeMake(2, 4);
+//    self.containerView.layer.shadowOpacity = 0.4;// 阴影透明度
+//    self.containerView.layer.shadowColor = [UIColor colorWithHex:0xEEEEEE].CGColor;
+//    self.containerView.layer.shadowRadius = 3;
+//    self.containerView.layer.shadowOffset = CGSizeMake(2, 4);
 #if MANAGERSIDE
     self.homeworkTextLabel.preferredMaxLayoutWidth = ScreenWidth - kRootModularWidth - kFolderModularWidth - 36 - 44;
 #else
@@ -86,9 +89,22 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
     self.homeworksCollectionView.collectionViewLayout = layout;
 }
 
+- (void)selectedState:(BOOL)selected{
+    if (selected) {
+        self.backgroundColor = [UIColor colorWithHex:0xF2FAFF];
+        self.containerView.backgroundColor = [UIColor colorWithHex:0xF2FAFF];
+        self.homeworksCollectionView.backgroundColor = [UIColor colorWithHex:0xF2FAFF];
+    } else {
+        self.backgroundColor = [UIColor clearColor];
+        self.containerView.backgroundColor = [UIColor whiteColor];
+        self.homeworksCollectionView.backgroundColor = [UIColor clearColor];
+    }
+    self.rightViewLine.hidden = !selected;
+}
+
 - (void)setupWithHomework:(Homework *)homework {
     self.homework = homework;
-    
+    [self selectedState:NO];
     self.homeworkTitleLabel.text = self.homework.title?:@"[无标题]";
     
     NSString *text = nil;

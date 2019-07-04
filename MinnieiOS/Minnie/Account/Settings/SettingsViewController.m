@@ -31,12 +31,19 @@
 
 @implementation SettingsViewController
 
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
 #if MANAGERSIDE
     [self updatePrimaryCloumnScale:kRootModularWidth];
 #endif
 }
+
+//- (void)viewDidAppear:(BOOL)animated{
+//    [super viewDidAppear:animated];
+//#if MANAGERSIDE
+//    [self updatePrimaryCloumnScale:kRootModularWidth];
+//#endif
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

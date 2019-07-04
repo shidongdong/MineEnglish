@@ -82,7 +82,7 @@ UITableViewDataSource
     [self addSubview:_tableView];
     _tableView.separatorColor = [UIColor clearColor];
 
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(kFolderModularWidth - 1, 0, 0.5, ScreenHeight)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(kFolderModularWidth - 0.5, 0, 0.5, ScreenHeight)];
     lineView.backgroundColor = [UIColor separatorLineColor];
     [self addSubview:lineView];
 
@@ -383,6 +383,14 @@ UITableViewDataSource
     self.currentIndex = -1;
     self.currentParentFileId = -1;
     [self requestGetParentFilesInfo];
+}
+
+- (void)collapseAllFolders{
+    
+    self.currentIndex = -1;
+    self.currentParentFileId = -1;
+    [self collapseFolders];
+    [self.tableView reloadData];
 }
 
 #pragma mark - 获取文件夹列表

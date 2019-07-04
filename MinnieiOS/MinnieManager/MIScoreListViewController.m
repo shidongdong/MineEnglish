@@ -19,6 +19,7 @@
 #import "CSCustomSplitViewController.h"
 #import "MICreateTaskViewController.h"
 #import "HomeworkSessionViewController.h"
+#import "MIStockSplitViewController.h"
 
 @interface MIScoreListViewController ()<
 UITableViewDelegate,
@@ -58,6 +59,9 @@ UITableViewDataSource
 - (IBAction)backAction:(id)sender {
     
     [self.navigationController popViewControllerAnimated:YES];
+    if (self.cancelCallBack) {
+        self.cancelCallBack();
+    }
 }
 - (IBAction)moveTaskAction:(id)sender {
     
@@ -66,8 +70,8 @@ UITableViewDataSource
     view.isMultiple = YES;
     WeakifySelf;
     view.callback = ^{
-        if (weakSelf.callBack) {
-            weakSelf.callBack();
+        if (weakSelf.editTaskCallBack) {
+            weakSelf.editTaskCallBack();
         }
         [weakSelf.navigationController popViewControllerAnimated:YES];
     };
@@ -82,13 +86,49 @@ UITableViewDataSource
     createVC.teacherSider = self.teacherSider;
     [createVC setupCreateHomework:self.homework currentFileInfo:self.currentFileInfo taskType:-1];
     WeakifySelf;
-    createVC.callBack = ^(BOOL isDelete) {
-        if (weakSelf.callBack) {
-            weakSelf.callBack();
+    if (self.teacherSider) {
+        createVC.callBack = ^(BOOL isDelete) {
+            if (weakSelf.editTaskCallBack) {
+                weakSelf.editTaskCallBack();
+            }
+        };
+        [self.navigationController pushViewController:createVC animated:YES];
+    } else {
+       
+        __block  UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+        if ([self rootViewController]) {
+            [[self rootViewController].view addSubview:view];
         }
-    };
-    [self.navigationController pushViewController:createVC animated:YES];
+        [view addSubview:createVC.view];
+        createVC.view.frame = CGRectMake(kRootModularWidth/2.0, 70, ScreenWidth - kRootModularWidth, ScreenHeight - 120);
+        
+        createVC.callBack = ^(BOOL isDelete) {
+            if (weakSelf.editTaskCallBack) {
+                weakSelf.editTaskCallBack();
+            }
+            if (view.superview) {
+                [view removeFromSuperview];
+            }
+        };
+        createVC.cancelCallBack = ^{
+            if (view.superview) {
+                [view removeFromSuperview];
+            }
+        };
+    }
 }
+
+- (MIStockSplitViewController *)rootViewController
+{
+    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+    UIViewController *rootController = window.rootViewController;
+    if ([rootController isKindOfClass:[MIStockSplitViewController class]]) {
+        return (MIStockSplitViewController *)rootController;
+    }
+    return nil;
+}
+
 
 #pragma mark -
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

@@ -1,19 +1,19 @@
 //
-//  MIStockThirdViewController.m
-//  Minnie
+//  MIBaseDetailViewController.m
+//  MinnieManager
 //
-//  Created by songzhen on 2019/6/30.
+//  Created by songzhen on 2019/7/1.
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
-#import "MIStockThirdViewController.h"
-#import "MIStockSplitViewController.h"
+#import "MIBaseDetailViewController.h"
 
-@interface MIStockThirdViewController ()
+@interface MIBaseDetailViewController ()
 
 @end
 
-@implementation MIStockThirdViewController
+@implementation MIBaseDetailViewController
+
 
 - (void)viewWillAppear:(BOOL)animated{
     
@@ -22,9 +22,10 @@
 }
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor bgColor];
+    
+    self.view.backgroundColor = [UIColor emptyBgColor];
+    // Do any additional setup after loading the view.
 }
 
 - (void)addSubViewController:(UIViewController *)vc{
@@ -47,11 +48,5 @@
         make.width.equalTo(self.view.mas_width);
     }];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 @end

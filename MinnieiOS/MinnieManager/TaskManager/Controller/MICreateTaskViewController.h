@@ -12,6 +12,8 @@
 
 typedef void(^CreateTaskCallBack)(BOOL isDelete);
 
+typedef void(^CreateTaskCancelCallBack)(void);
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,7 +21,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) CreateTaskCallBack callBack;
 
+@property (nonatomic, copy) CreateTaskCancelCallBack cancelCallBack;
+
 @property (nonatomic, assign) BOOL teacherSider;
+
+
+@property (nonatomic, strong) UIViewController *parentVC;
 
 // 活动 activity 为空创建活动
 - (void)setupCreateActivity:(ActivityInfo *_Nullable)activity;

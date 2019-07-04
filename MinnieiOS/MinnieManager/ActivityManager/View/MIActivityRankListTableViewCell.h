@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setupWithModel:(ActivityRankInfo *)model index:(NSInteger)index;
 
+- (void)setSelectedState:(BOOL)selected;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -10,6 +10,7 @@
 #import "ActivityInfo.h"
 #import "BaseViewController.h"
 
+typedef void(^CorrectActivityCancelCallBack)(void);
 typedef void(^CorrectActivitySuccessCallBack)(void);
 
 NS_ASSUME_NONNULL_BEGIN
@@ -18,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong) ActivityRankInfo *rankInfo;
 
+@property (nonatomic,copy)CorrectActivityCancelCallBack cancelCallBack;
 @property (nonatomic,copy)CorrectActivitySuccessCallBack correctCallBack;
 
 @end

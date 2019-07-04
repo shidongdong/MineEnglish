@@ -89,9 +89,10 @@
     view.tagTextField.text = nil;
     
     [superView addSubview:view];
-    [view mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(superView);
-    }];
+    view.frame = [UIScreen mainScreen].bounds;
+//    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(superView);
+//    }];
     
     [view showWithAnimation];
 }

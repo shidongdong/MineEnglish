@@ -20,6 +20,7 @@ NSString * const MIActivityRankListTableViewCellId = @"MIActivityRankListTableVi
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *videoTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stateLabel;
+@property (weak, nonatomic) IBOutlet UIView *rightLineView;
 
 @end
 
@@ -29,6 +30,8 @@ NSString * const MIActivityRankListTableViewCellId = @"MIActivityRankListTableVi
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    self.rightLineView.hidden = YES;
     self.portraitImagV.layer.masksToBounds = YES;
     self.portraitImagV.layer.cornerRadius = 20.0;
 }
@@ -40,6 +43,18 @@ NSString * const MIActivityRankListTableViewCellId = @"MIActivityRankListTableVi
     
     self.rankLabel.text = [NSString stringWithFormat:@"%lu",index];
     self.videoTimeLabel.text = [NSString stringWithFormat:@"%.2ld分%.2ld秒",model.actTimes/60,model.actTimes%60];
+}
+
+- (void)setSelectedState:(BOOL)selected{
+    
+    if (selected) {
+        self.rightLineView.hidden = NO;
+        self.backgroundColor = [UIColor colorWithHex:0xF2FAFF];
+    } else {
+        
+        self.rightLineView.hidden = YES;
+        self.backgroundColor = [UIColor whiteColor];
+    }
 }
 
 @end

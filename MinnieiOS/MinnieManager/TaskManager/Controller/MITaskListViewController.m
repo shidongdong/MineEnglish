@@ -14,22 +14,21 @@
 #import "MIScoreListViewController.h"
 #import "MICreateTaskViewController.h"
 #import "HomeworkPreviewViewController.h"
-#import "HomeWorkSendHistoryViewController.h"
 #import "UIViewController+PrimaryCloumnScale.h"
 
-#import "TeacherService.h"
-#import "HomeworkService.h"
-#import "UIView+Load.h"
-#import "UIScrollView+Refresh.h"
 #import "TIP.h"
 #import <AVKit/AVKit.h>
+#import "TeacherService.h"
+#import "UIView+Load.h"
+#import "UIScrollView+Refresh.h"
 #import "VICacheManager.h"
 #import "NEPhotoBrowser.h"
 #import "AudioPlayerViewController.h"
 #import "VIResourceLoaderManager.h"
 #import "SelectTeacherView.h"
-#import "ClassAndStudentSelectView.h"
 #import "HomeworkConfirmView.h"
+#import "ClassAndStudentSelectView.h"
+#import "MIStockSplitViewController.h"
 
 @interface MITaskListViewController ()<
 UITableViewDelegate,
@@ -54,6 +53,7 @@ VIResourceLoaderManagerDelegate
 @property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *footerHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIView *rightLineView;
 
 @property (nonatomic, strong)  MITaskEmptyView *emptyView;
 
@@ -77,6 +77,10 @@ VIResourceLoaderManagerDelegate
 @property (nonatomic, assign) NSInteger currFileIndex;
 
 
+@property (nonatomic, assign) BOOL viewAnimated;
+
+
+@property (nonatomic, assign) NSInteger currentSelectedIndex;
 
 @end
 
@@ -85,15 +89,14 @@ VIResourceLoaderManagerDelegate
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
-#if MANAGERSIDE
-    [self updatePrimaryCloumnScale:kRootModularWidth + kFolderModularWidth];
-#endif
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    self.currentSelectedIndex = -1;
     _homeworks = [NSMutableArray array];
     _currentFileInfo = [[FileInfo alloc] init];
     _selectedHomeworkIds = [NSMutableArray array];
@@ -107,15 +110,11 @@ VIResourceLoaderManagerDelegate
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(homeworkDidSendSuccess) name:kNotificationKeyOfHomeworkSendSuccess object:nil];
 }
 
-- (void)setFolderTitle:(NSString *)folderTitle{
-    
-    _folderTitle = folderTitle;
-}
-
 - (void)configureUI{
     
-    self.view.backgroundColor = [UIColor bgColor];
-    self.tableView.backgroundColor = [UIColor bgColor];
+    self.view.backgroundColor = [UIColor unSelectedColor];
+    self.tableView.backgroundColor = [UIColor unSelectedColor];
+    self.tableView.separatorColor = [UIColor clearColor];
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 12.f)];
     self.tableView.tableFooterView = footerView;
     self.selectCountLabel.layer.masksToBounds = YES;
@@ -199,18 +198,6 @@ VIResourceLoaderManagerDelegate
                                   callback:^(Teacher *teacher, NSDate *date) {
                                       
                                       [SelectTeacherView hideAnimated:NO];
-                                      
-//                                      HomeworkConfirmViewController *vc = [[HomeworkConfirmViewController alloc] init];
-//                                      vc.classes = classes;
-//                                      vc.students = students;
-//                                      vc.teacher = teacher;
-//                                      vc.homeworks = homeworks;
-//                                      vc.cancelCallBack = ^{
-//                                          [weakSelf cancelEditMode];
-//                                      };
-//                                      [weakSelf.navigationController presentViewController:vc animated:YES completion:nil];
-                                      
-                                      
                                       
                                       UIView *confirmViewBg = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
                                       confirmViewBg.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
@@ -301,12 +288,14 @@ VIResourceLoaderManagerDelegate
     if (self.homeworksRequest != nil) {
         return;
     }
-    [self showTaskList:NO];
     WeakifySelf;
     if (self.emptyView.superview) {
         [self.emptyView removeFromSuperview];
     }
-    [self.view showLoadingView];
+    if (self.homeworks.count == 0) {
+        self.view.backgroundColor = [UIColor unSelectedColor];
+        [self.view showLoadingView];
+    }
     self.homeworksRequest = [ManagerServce requesthomeworksByFileWithFileId:self.currentFileInfo.fileId nextUrl:nil callback:^(Result *result, NSError *error) {
 
         StrongifySelf;
@@ -323,7 +312,7 @@ VIResourceLoaderManagerDelegate
     if (self.emptyView.superview) {
         [self.emptyView removeFromSuperview];
     }
-//    [self.view showLoadingView];
+    
     self.homeworksRequest = [ManagerServce requesthomeworksByFileWithFileId:self.currentFileInfo.fileId nextUrl:self.nextUrl callback:^(Result *result, NSError *error) {
 
         StrongifySelf;
@@ -368,23 +357,22 @@ VIResourceLoaderManagerDelegate
         self.tableView.hidden = homeworks.count==0;
         
         if (error != nil) {
-            if (homeworks.count > 0) {
-                [TIP showText:@"加载失败" inView:self.view];
-            } else {
-                WeakifySelf;
-                [self.view showFailureViewWithRetryCallback:^{
-                    [weakSelf requestHomeworks];
-                }];
-            }
+           
+            WeakifySelf;
+            [self.view showFailureViewWithRetryCallback:^{
+                [weakSelf requestHomeworks];
+            }];
+            [self.homeworks removeAllObjects];
+            [self.tableView reloadData];
             return;
         }
         
         if (homeworks.count > 0) {
             
+            [self showTaskList:YES];
             [self.view hideAllStateView];
             [self.homeworks removeAllObjects];
             [self.homeworks addObjectsFromArray:homeworks];
-            [self showTaskList:YES];
             [self.tableView reloadData];
             
             if (nextUrl.length > 0) {
@@ -410,7 +398,6 @@ VIResourceLoaderManagerDelegate
     self.photoBrowser.delegate = self;
     self.photoBrowser.dataSource = self;
     self.photoBrowser.clickedImageView = self.currentSelectedImageView;
-    
     [self.photoBrowser showInContext:self.navigationController];
 }
 - (void)showVideoWithUrl:(NSString *)videoUrl {
@@ -532,10 +519,15 @@ VIResourceLoaderManagerDelegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeworkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HomeworkTableViewCellId forIndexPath:indexPath];
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     Homework *homework = self.homeworks[indexPath.row];
     
     [cell setupWithHomework:homework];
+    if (self.inEditMode) {
+        [cell selectedState:NO];
+    } else {
+        [cell selectedState: (indexPath.row == self.currentSelectedIndex) ? YES : NO];
+    }
     [cell updateWithEditMode:self.inEditMode selected:[self.selectedHomeworkIds containsObject:@(homework.homeworkId)]];
     
     WeakifySelf;
@@ -555,19 +547,34 @@ VIResourceLoaderManagerDelegate
         
         HomeworkPreviewViewController *vc = [[HomeworkPreviewViewController alloc] init];
         vc.homework = homework;
-        [weakSelf.navigationController pushViewController:vc animated:YES];
+//        [weakSelf.navigationController pushViewController:vc animated:YES];
+        if (weakSelf.pushVCCallBack) {
+            weakSelf.pushVCCallBack(vc);
+        }
     }];
     
     // 点击空白处 -> 得分列表
     [cell setBlankCallback:^{
-        
+       
+        weakSelf.currentSelectedIndex = indexPath.row;
+        [tableView reloadData];
         MIScoreListViewController *scoreListVC = [[MIScoreListViewController alloc] initWithNibName:NSStringFromClass([MIScoreListViewController class]) bundle:nil];
-        scoreListVC.callBack = ^{
+        scoreListVC.editTaskCallBack = ^{
+         
             [weakSelf requestHomeworks];
+            if (weakSelf.createTaskCallBack) {
+                weakSelf.createTaskCallBack(nil, 1);
+            }
+        };
+        scoreListVC.cancelCallBack = ^{
+            weakSelf.currentSelectedIndex = -1;
+            [weakSelf.tableView reloadData];
         };
         scoreListVC.homework = homework;
-        scoreListVC.currentFileInfo = self.currentFileInfo;
-        [self.navigationController pushViewController:scoreListVC animated:YES];
+        scoreListVC.currentFileInfo = weakSelf.currentFileInfo;
+        if (weakSelf.pushVCCallBack) {
+            weakSelf.pushVCCallBack(scoreListVC);
+        }
     }];
     [cell setSendCallback:^{
 
@@ -608,17 +615,33 @@ VIResourceLoaderManagerDelegate
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+  
+//    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    if (self.currentSelectedIndex == indexPath.row) {
+        return;
+    }
+    self.currentSelectedIndex = indexPath.row;
+    [tableView reloadData];
     
     Homework *homework = self.homeworks[indexPath.row];
     MIScoreListViewController *scoreListVC = [[MIScoreListViewController alloc] initWithNibName:NSStringFromClass([MIScoreListViewController class]) bundle:nil];
     WeakifySelf;
-    scoreListVC.callBack = ^{
+    scoreListVC.editTaskCallBack = ^{
         [weakSelf requestHomeworks];
+        if (weakSelf.createTaskCallBack) {
+            weakSelf.createTaskCallBack(nil, 1);
+        }
+    };
+    scoreListVC.cancelCallBack = ^{
+        weakSelf.currentSelectedIndex = -1;
+        [weakSelf.tableView reloadData];
     };
     scoreListVC.homework = homework;
     scoreListVC.currentFileInfo = self.currentFileInfo;
-    [self.navigationController pushViewController:scoreListVC animated:YES];
+//    [self.navigationController pushViewController:scoreListVC animated:YES];
+    if (self.pushVCCallBack) {
+        self.pushVCCallBack(scoreListVC);
+    }
 }
 
 // 请求作业列表
@@ -629,16 +652,21 @@ VIResourceLoaderManagerDelegate
     self.folderLabel.text = self.currentFileInfo.fileName;
     if (fileInfo) {
         // 显示任务列表
+        self.viewAnimated = YES;
+        [self cancelEditMode];
         [self requestHomeworks];
     } else { // 显示为空
         [self showTaskList:NO];
     }
 }
 
+#pragma mark - 显示空白内容
 - (void)showTaskList:(BOOL)isShow{
     
+    self.currentSelectedIndex = -1;
     if (isShow) {
-        
+
+        self.rightLineView.hidden = NO;
         self.tableView.hidden = NO;
         self.headerView.hidden = NO;
         if (self.inEditMode) {
@@ -651,10 +679,17 @@ VIResourceLoaderManagerDelegate
         if (self.emptyView.superview) {
             [self.emptyView removeFromSuperview];
         }
+        self.view.backgroundColor = [UIColor unSelectedColor];
+        if (self.viewAnimated) {
+            
+            [self showAnimation];
+            self.viewAnimated = NO;
+        }
     } else {
         
         [self cancelEditMode];
-        
+        [self.view hideAllStateView];
+        self.rightLineView.hidden = YES;
         self.tableView.hidden = YES;
         self.headerView.hidden = YES;
         self.footerView.hidden = YES;
@@ -662,16 +697,30 @@ VIResourceLoaderManagerDelegate
         if (self.emptyView.superview) {
             [self.emptyView removeFromSuperview];
         }
+        self.view.backgroundColor = [UIColor emptyBgColor];
     }
 }
-            
+
+- (void)showAnimation{
+  
+    self.view.frame = CGRectMake(kColumnThreeWidth, 0, kColumnThreeWidth, ScreenHeight);
+    WeakifySelf;
+    [UIView animateWithDuration:0.2 animations:^{
+        
+        weakSelf.view.frame = CGRectMake(0, 0, kColumnThreeWidth, ScreenHeight);
+    }];
+}
+
+#pragma mark - 显示添加文件or文件夹 YES 添加文件夹 NO 添加文件
 - (void)showEmptyViewWithIsFolder:(BOOL)isAddFolder folderIndex:(NSInteger)index{
     
     if (self.emptyView == nil) {
         
         self.emptyView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MITaskEmptyView class]) owner:nil options:nil] lastObject];
     }
+    self.currentSelectedIndex = -1;
     self.tableView.hidden = YES;
+    self.rightLineView.hidden = NO;
     [self.view addSubview:self.emptyView];
     WeakifySelf;
     self.emptyView.callBack = ^(BOOL isAddFolder) {
@@ -687,11 +736,12 @@ VIResourceLoaderManagerDelegate
             [weakSelf showSelectedTask];
         }
     };
-    [self.emptyView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.right.top.bottom.equalTo(self.view);
-    }];
+    self.emptyView.frame = CGRectMake(0, 0, kColumnThreeWidth - 1, ScreenHeight);
     self.emptyView.isAddFolder = isAddFolder;
+
+    
+    self.view.backgroundColor = [UIColor unSelectedColor];
+    self.view.frame = CGRectMake(0, 0, kColumnThreeWidth, ScreenHeight);
 }
 
 - (void)showSelectedTask{
@@ -746,13 +796,45 @@ VIResourceLoaderManagerDelegate
 
 - (void)goToCreateTaskWithType:(MIHomeworkTaskType)type{
     
+    
+  __block  UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
     MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] init];
     [createVC setupCreateHomework:nil currentFileInfo:self.currentFileInfo taskType:type];
     WeakifySelf;
+    
     createVC.callBack = ^(BOOL isDelete) {
       [weakSelf requestHomeworks];
+        
+        if (view.superview) {
+            [view removeFromSuperview];
+        }
     };
-    [self.navigationController pushViewController:createVC animated:YES];
+    createVC.cancelCallBack = ^{
+      
+        if (view.superview) {
+            [view removeFromSuperview];
+        }
+    };
+    
+    view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    UIViewController *rootVC = [self rootViewController];
+    if (rootVC) {
+        [rootVC.view addSubview:view];
+    }
+    [view addSubview:createVC.view];
+    createVC.view.frame = CGRectMake(kRootModularWidth/2.0, 70, ScreenWidth - kRootModularWidth, ScreenHeight - 120);
+    
+}
+
+- (MIStockSplitViewController *)rootViewController
+{
+    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+    UIViewController *rootController = window.rootViewController;
+    if ([rootController isKindOfClass:[MIStockSplitViewController class]]) {
+        return (MIStockSplitViewController *)rootController;
+    }
+    return nil;
 }
 
 - (void)dealloc {
