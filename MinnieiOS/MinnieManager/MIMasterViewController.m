@@ -22,8 +22,7 @@
 @interface MIMasterViewController ()<
 RootSheetViewDelete,
 SecondSheetViewDelegate,
-MISecondActivitySheetViewDelegate,
-MISubStockSplitViewControllerDelegate
+MISecondActivitySheetViewDelegate
 >
 // 根菜单视图
 @property (nonatomic, strong)MIRootSheetView *firstSheetView;
@@ -199,19 +198,6 @@ MISubStockSplitViewControllerDelegate
     return nil;
 }
 
-#pragma mark - MISubStockSplitViewControllerDelegate
-- (void)subStockSplitViewControllerCreateTaskWithState:(NSInteger)state{
-    
-    if (state == 0) {
-        self.customSplitViewController.primaryCloumnScale = kRootModularWidth;
-    } else if (state == 1) {
-        self.customSplitViewController.primaryCloumnScale = kRootModularWidth + kFolderModularWidth;
-    } else {
-        self.customSplitViewController.primaryCloumnScale = kRootModularWidth + kFolderModularWidth;
-    }
-    [self.customSplitViewController setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
-}
-
 #pragma mark - setter && getter
 - (MISubStockSplitViewController *)subStockSplitVC{
    
@@ -221,7 +207,6 @@ MISubStockSplitViewControllerDelegate
         _subStockSplitVC.addFolderCallBack = ^(NSInteger folderIndex) {
             [weakSelf.secondSheetView addSecondLevelFolderIndex:folderIndex];
         };
-        _subStockSplitVC.subDelegate = self;
     }
     if (_subStockSplitVC.primaryCloumnScale != kColumnThreeWidth) {
          _subStockSplitVC.primaryCloumnScale = kColumnThreeWidth;

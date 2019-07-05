@@ -53,7 +53,7 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
 //    self.containerView.layer.shadowRadius = 3;
 //    self.containerView.layer.shadowOffset = CGSizeMake(2, 4);
 #if MANAGERSIDE
-    self.homeworkTextLabel.preferredMaxLayoutWidth = ScreenWidth - kRootModularWidth - kFolderModularWidth - 36 - 44;
+    self.homeworkTextLabel.preferredMaxLayoutWidth = kColumnThreeWidth - 36 - 44;
 #else
     self.homeworkTextLabel.preferredMaxLayoutWidth = ScreenWidth - 36 - 44;
 #endif
@@ -81,6 +81,7 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
 
 
 - (void)setupCollectionViewLayout {
+   
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     layout.itemSize = CGSizeMake(90, 110);
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -131,11 +132,11 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
     }
     self.homeworkTextLabel.text = text;
     self.dateLabel.text = [Utils formatedDateString:self.homework.createTime];
-    
     [self.homeworksCollectionView reloadData];
 }
 
 - (void)updateWithEditMode:(BOOL)editMode selected:(BOOL)selected {
+    
     if (editMode) {
         self.sendButton.hidden = YES;
         self.previewButton.hidden = YES;

@@ -469,7 +469,7 @@ EqualSpaceFlowLayoutDelegate
     // 标签长度大于屏幕
     CGFloat collectionWidth = ScreenWidth;
 #if MANAGERSIDE
-    collectionWidth = ScreenWidth - kRootModularWidth - kFolderModularWidth;
+    collectionWidth = kColumnThreeWidth;
 #endif
     if (itemSize.width > collectionWidth -30) {
         
@@ -482,7 +482,7 @@ EqualSpaceFlowLayoutDelegate
     
     CGFloat collectionWidth = ScreenWidth;
 #if MANAGERSIDE
-    collectionWidth = ScreenWidth - kRootModularWidth - kFolderModularWidth;
+    collectionWidth = kColumnThreeWidth;
 #endif
     EqualSpaceFlowLayout *flowLayout = [[EqualSpaceFlowLayout alloc] initWithCollectionViewWidth:collectionWidth];
     flowLayout.delegate = self;

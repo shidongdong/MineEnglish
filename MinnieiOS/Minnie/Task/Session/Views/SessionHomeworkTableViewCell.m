@@ -42,7 +42,7 @@ UICollectionViewDelegateFlowLayout>
     [super awakeFromNib];
     
 #if MANAGERSIDE
-    self.homeworkTextLabel.preferredMaxLayoutWidth = ScreenWidth - kRootModularWidth - kFolderModularWidth - 36 - 44;
+    self.homeworkTextLabel.preferredMaxLayoutWidth = kColumnThreeWidth - 36 - 44;
 #else
     self.homeworkTextLabel.preferredMaxLayoutWidth = ScreenWidth - 36 - 44;
 #endif
@@ -82,7 +82,7 @@ UICollectionViewDelegateFlowLayout>
     
     // 批改备注 (仅教师端显示)
     NSString *teremark = @"";
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
     if (homeworkSession.homework.teremark.length) {
         teremark = [NSString stringWithFormat:@"注：%@",homeworkSession.homework.teremark];
     }
@@ -171,7 +171,7 @@ UICollectionViewDelegateFlowLayout>
     
     // 批改备注
     NSString *teremark = @"";
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
     if (homeworkSession.homework.teremark.length) {
         teremark = [NSString stringWithFormat:@"注：%@",homeworkSession.homework.teremark];
     }

@@ -59,10 +59,6 @@
         WeakifySelf;
         _stockMasterVC.createTaskCallBack = ^(UIViewController * _Nullable VC, NSInteger createState) {
             
-            if (weakSelf.subDelegate && [weakSelf.subDelegate respondsToSelector:@selector(subStockSplitViewControllerCreateTaskWithState:)]) {
-                
-                [weakSelf.subDelegate subStockSplitViewControllerCreateTaskWithState:createState];
-            }
             if (createState == 0) {
                 
                 if (VC) {

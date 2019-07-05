@@ -33,7 +33,7 @@ NSString * const MISecondActivityTableViewCellId = @"MISecondActivityTableViewCe
     // Initialization code
     
     self.endButton.layer.masksToBounds = YES;
-    self.endButton.layer.cornerRadius = 20.0;
+    self.endButton.layer.cornerRadius = 4.0;
 }
 
 - (void)setupWithModel:(ActivityInfo *)model selected:(BOOL)selected{
@@ -53,16 +53,6 @@ NSString * const MISecondActivityTableViewCellId = @"MISecondActivityTableViewCe
         
         NSString * start = [[model.startTime substringWithRange:NSMakeRange(5, 5)] stringByReplacingOccurrencesOfString:@"-" withString:@"/"];
         NSString *end = [[model.endTime substringWithRange:NSMakeRange(5, 5)] stringByReplacingOccurrencesOfString:@"-" withString:@"/"];
-        
-        
-        if (startDate.year != [NSDate date].year) {
-            
-            start = [[model.startTime substringWithRange:NSMakeRange(0, 10)] stringByReplacingOccurrencesOfString:@"-" withString:@"/"];
-        }
-        if (endDate.year != [NSDate date].year) {
-            
-            end = [[model.endTime substringWithRange:NSMakeRange(0, 10)] stringByReplacingOccurrencesOfString:@"-" withString:@"/"];
-        }
         self.timeLabel.text = [NSString stringWithFormat:@"%@-%@",start ,end];
     }
     if (selected) {

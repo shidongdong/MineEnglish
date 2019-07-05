@@ -38,13 +38,6 @@
 #endif
 }
 
-//- (void)viewDidAppear:(BOOL)animated{
-//    [super viewDidAppear:animated];
-//#if MANAGERSIDE
-//    [self updatePrimaryCloumnScale:kRootModularWidth];
-//#endif
-//}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 

@@ -51,6 +51,7 @@ NSString * const MIParticipateDetailTableViewCellId = @"MIParticipateDetailTable
     
     self.qualityBtn.layer.borderColor = [UIColor clearColor].CGColor;
     self.unqualityBtn.layer.borderColor = [UIColor clearColor].CGColor;
+    
     // 0:待审核；1合格；2不合格
     if (model.isOk == 0) {
         
@@ -68,7 +69,7 @@ NSString * const MIParticipateDetailTableViewCellId = @"MIParticipateDetailTable
         
         self.qualityBtn.backgroundColor = [UIColor mainColor];
         self.unqualityBtn.backgroundColor = [UIColor whiteColor];
-        
+        [self.qualityBtn setTitle:@"合格" forState:UIControlStateNormal];
         
     } else if (model.isOk == 1) {
         
@@ -76,13 +77,14 @@ NSString * const MIParticipateDetailTableViewCellId = @"MIParticipateDetailTable
         self.unqualityBtn.hidden = YES;
         self.qualityBtn.enabled = NO;
         self.qualityBtn.backgroundColor = [UIColor colorWithHex:0x00CE00];
+        [self.qualityBtn setTitle:@"合格" forState:UIControlStateNormal];
     } else {
         
-        self.qualityBtn.hidden = YES;
-        self.unqualityBtn.hidden = NO;
-        self.unqualityBtn.enabled = NO;
-        self.unqualityBtn.backgroundColor = [UIColor colorWithHex:0x00CE00];
-        [self.unqualityBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        self.qualityBtn.hidden = NO;
+        self.qualityBtn.enabled = NO;
+        self.unqualityBtn.hidden = YES;
+        self.qualityBtn.backgroundColor = [UIColor detailColor];
+        [self.qualityBtn setTitle:@"不合格" forState:UIControlStateNormal];
     }
     [self.bgImageView sd_setImageWithURL:[model.actUrl videoCoverUrlWithWidth:90.f height:90.f] placeholderImage:[UIImage imageNamed:@"attachment_placeholder"]];
 }

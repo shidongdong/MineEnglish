@@ -40,9 +40,9 @@ NSString * const MIActivityRankListTableViewCellId = @"MIActivityRankListTableVi
     
     self.nameLabel.text = model.nickName;
     self.stateLabel.hidden = model.isOk;
-    
     self.rankLabel.text = [NSString stringWithFormat:@"%lu",index];
     self.videoTimeLabel.text = [NSString stringWithFormat:@"%.2ld分%.2ld秒",model.actTimes/60,model.actTimes%60];
+    [self.portraitImagV sd_setImageWithURL:[model.avatar imageURLWithWidth:32] placeholderImage:[UIImage imageNamed:@"attachment_placeholder"]];
 }
 
 - (void)setSelectedState:(BOOL)selected{

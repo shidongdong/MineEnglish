@@ -158,23 +158,7 @@ UITableViewDataSource
     
     WeakifySelf;
     ScoreInfo *scoreInfo = self.scoreListArray[indexPath.row];
- 
-//    AVIMClientStatus status = [IMManager sharedManager].client.status;
-//    if (status == AVIMClientStatusNone ||
-//        status == AVIMClientStatusClosed ||
-//        status == AVIMClientStatusPaused) {
-//        NSString *userId = [NSString stringWithFormat:@"%@", @(scoreInfo.userId)];
-//        [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success,  NSError * error) {
-//            if (!success) {
-//                [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
-//                return;
-//            }
-//            [weakSelf requestHomeworkSession:scoreInfo];
-//        }];
-//    } else {
-//        [self requestHomeworkSession:scoreInfo];
-//    }
-    
+
 #if MANAGERSIDE
     
     NSString *userId = [NSString stringWithFormat:@"%@", @(scoreInfo.userId)];
@@ -185,7 +169,6 @@ UITableViewDataSource
         }
         [weakSelf requestHomeworkSession:scoreInfo];
     }];
-
 #endif
 }
 

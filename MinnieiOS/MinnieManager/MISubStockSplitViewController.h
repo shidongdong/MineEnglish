@@ -12,11 +12,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol MISubStockSplitViewControllerDelegate <NSObject>
-
-- (void)subStockSplitViewControllerCreateTaskWithState:(NSInteger)state;
-
-@end
 
 @interface MISubStockSplitViewController : CSCustomSplitViewController
 
@@ -24,8 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MIBaseDetailViewController *stockDetailVC;
 
 @property (nonatomic, copy) ActionAddFolderCallBack addFolderCallBack;
-
-@property (nonatomic, weak) id<MISubStockSplitViewControllerDelegate> subDelegate;
 
 /*
  *  任务列表

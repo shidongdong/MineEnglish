@@ -24,7 +24,12 @@ NSString * const RightTextMessageTableViewCellId = @"RightTextMessageTableViewCe
     [super awakeFromNib];
     
     // 标签的最大宽度
-    self.messageTextLabel.preferredMaxLayoutWidth = [UIScreen mainScreen].bounds.size.width - 64 * 2 - 12 - 20;
+#if MANAGERSIDE
+        self.messageTextLabel.preferredMaxLayoutWidth = kColumnThreeWidth - 64 * 2 - 12 - 20;
+#else
+       self.messageTextLabel.preferredMaxLayoutWidth = [UIScreen mainScreen].bounds.size.width - 64 * 2 - 12 - 20;
+#endif
+
 }
 
 + (CGFloat)heightOfMessage:(AVIMTypedMessage *)message {
@@ -40,7 +45,7 @@ NSString * const RightTextMessageTableViewCellId = @"RightTextMessageTableViewCe
     
     CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     
-    return size.height;
+    return size.height + 5;
 }
 
 - (void)setupWithUser:(User *)user message:(AVIMTypedMessage *)message {

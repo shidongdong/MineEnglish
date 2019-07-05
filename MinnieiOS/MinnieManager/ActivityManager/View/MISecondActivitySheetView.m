@@ -44,18 +44,21 @@ UITableViewDataSource
     UIButton *addActivitybtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [addActivitybtn setTitle:@"创建" forState:UIControlStateNormal];
     addActivitybtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    [addActivitybtn setTitleColor:[UIColor detailColor] forState:UIControlStateNormal];
-    [addActivitybtn setImage:[UIImage imageNamed:@"ic_add_black"] forState:UIControlStateNormal];
+    [addActivitybtn setTitleColor:[UIColor mainColor] forState:UIControlStateNormal];
+
     [addActivitybtn addTarget:self action:@selector(addActivityBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:addActivitybtn];
-    addActivitybtn.frame = CGRectMake(10, kNaviBarHeight - 26, kFolderModularWidth - 20, 16);
-
+    addActivitybtn.frame = CGRectMake(10, 70 - 35, 80, 28);
+    addActivitybtn.layer.borderColor = [UIColor mainColor].CGColor;
+    addActivitybtn.layer.borderWidth = 0.5;
+    addActivitybtn.layer.cornerRadius = 4.0;
+    addActivitybtn.layer.masksToBounds = YES;
     
-    UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake( 0, kNaviBarHeight - 1, kFolderModularWidth, 1.0)];
-    lineView1.backgroundColor = [UIColor separatorLineColor];
-    [self addSubview:lineView1];
+//    UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake( 0, kNaviBarHeight - 1, kFolderModularWidth, 1.0)];
+//    lineView1.backgroundColor = [UIColor separatorLineColor];
+//    [self addSubview:lineView1];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNaviBarHeight, self.frame.size.width, self.frame.size.height - kNaviBarHeight)style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 70, self.frame.size.width, self.frame.size.height - kNaviBarHeight)style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self addSubview:_tableView];

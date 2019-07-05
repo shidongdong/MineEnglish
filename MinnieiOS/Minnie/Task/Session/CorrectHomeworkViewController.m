@@ -243,7 +243,7 @@
     {
         CGFloat collectionWidth = ScreenWidth;
 #if MANAGERSIDE
-        collectionWidth = ScreenWidth - kRootModularWidth - kFolderModularWidth;
+        collectionWidth = kColumnThreeWidth;
 #endif
         return [HomeworkTagsTableViewCell heightWithTags:self.commentTags typeTitle:@"常用评语:" collectionWidth:collectionWidth] + 40;
     }
@@ -288,7 +288,7 @@
         
         CGFloat collectionWidth = ScreenWidth;
 #if MANAGERSIDE
-        collectionWidth = ScreenWidth - kRootModularWidth - kFolderModularWidth;
+        collectionWidth = kColumnThreeWidth;
 #endif
         [addCommentCell setupWithTags:self.commentTags selectedTags:@[] typeTitle:@"常用评语:" collectionWidth:collectionWidth];
         

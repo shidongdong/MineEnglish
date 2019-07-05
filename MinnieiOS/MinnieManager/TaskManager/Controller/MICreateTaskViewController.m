@@ -93,21 +93,6 @@ ClassAndStudentSelectorControllerDelegate
 
 @implementation MICreateTaskViewController
 
-//-(void)viewWillAppear:(BOOL)animated{
-//
-//    [super viewWillAppear:animated];
-////#if MANAGERSIDE
-////    [self updatePrimaryCloumnScale:kRootModularWidth];
-////#endif
-//}
-//
-//- (void)viewWillDisappear:(BOOL)animated{
-//    [super viewWillDisappear:animated];
-////#if MANAGERSIDE
-////    [self updatePrimaryCloumnScale:kRootModularWidth+kFolderModularWidth];
-////#endif
-//}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -216,7 +201,7 @@ ClassAndStudentSelectorControllerDelegate
     if (self.teacherSider) {
         [self.contentTableView reloadData];
     } else {
-        self.leftRowCount = 7;
+        self.leftRowCount = 5;
         [self.leftTableView reloadData];
         [self.rightTableView reloadData];
     }

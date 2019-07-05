@@ -386,6 +386,9 @@
 		128F132F22CD115600C9F5B7 /* MIExpandPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12B7082222A4F8F500117537 /* MIExpandPickerView.m */; };
 		128F133022CD115C00C9F5B7 /* MIExpandPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12B7082422A4F90100117537 /* MIExpandPickerView.xib */; };
 		128F133122CD116000C9F5B7 /* MITaskEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12ED3B1F229D107600255F8B /* MITaskEmptyView.m */; };
+		128F133222CDD36300C9F5B7 /* message_send_error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109623207A006D00568785 /* message_send_error@2x.png */; };
+		128F133322CDD36600C9F5B7 /* message_send_error@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97102DDA20F3AC0E0048983E /* message_send_error@3x.png */; };
+		128F133422CDD6C500C9F5B7 /* EwenCopyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709C32921A53BD400970757 /* EwenCopyLabel.m */; };
 		12961C49229E5B130075B04A /* HomeworkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 973649A320AF2F8500511A95 /* HomeworkTableViewCell.m */; };
 		12961C4A229E5B260075B04A /* HomeworkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9736499C20AF2F8500511A95 /* HomeworkTableViewCell.xib */; };
 		12961C4B229E5B590075B04A /* icon_mission_choice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 971095F2207A006C00568785 /* icon_mission_choice@2x.png */; };
@@ -6439,6 +6442,7 @@
 				12ED3B13229C34BF00255F8B /* SettingTableViewCell.xib in Resources */,
 				1226F330229832F500BAB1C9 /* LoginViewController_Student.xib in Resources */,
 				12747BFD22A7CE53009C390E /* ModifyStarCountView.xib in Resources */,
+				128F133222CDD36300C9F5B7 /* message_send_error@2x.png in Resources */,
 				12747C6222A7D1B0009C390E /* right_chat_talk3@2x.png in Resources */,
 				12ED3B63229D96D200255F8B /* ProgressHUD.xib in Resources */,
 				12747BE122A7CCFC009C390E /* LeftVideoMessageTableViewCell.xib in Resources */,
@@ -6456,6 +6460,7 @@
 				12DCE76822A1653F00E2DAFE /* MIScoreListViewController.xib in Resources */,
 				12FD85CC22BB2F720026B7E2 /* label_phone@2x.png in Resources */,
 				12747BFE22A7CE5F009C390E /* AnswerPickerImageCell.xib in Resources */,
+				128F133322CDD36600C9F5B7 /* message_send_error@3x.png in Resources */,
 				12A2724722A75FF00020A3BA /* MITagsTableViewCell.xib in Resources */,
 				12CB73A922AB91A40064FB21 /* HomeworkTextTableViewCell.xib in Resources */,
 				12DCE76722A15C7C00E2DAFE /* MIScoreListTableViewCell.xib in Resources */,
@@ -7912,6 +7917,7 @@
 				12747BD422A7CC20009C390E /* StudentDetailViewController.m in Sources */,
 				12961C53229E5E510075B04A /* SelectTeacherView.m in Sources */,
 				12961C77229E677B0075B04A /* StudentsRequest.m in Sources */,
+				128F133422CDD6C500C9F5B7 /* EwenCopyLabel.m in Sources */,
 				12961C6D229E66D00075B04A /* HomeworkAudioCollectionViewCell.m in Sources */,
 				12747C0622A7CF2D009C390E /* AddAwardRequest.m in Sources */,
 				12961C7C229E67CF0075B04A /* ClassesRequest.m in Sources */,

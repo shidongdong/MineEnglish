@@ -43,9 +43,6 @@ UITableViewDataSource
     
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-//#if MANAGERSIDE
-//    [self updatePrimaryCloumnScale:kRootModularWidth + kFolderModularWidth];
-//#endif
 }
 
 
@@ -62,6 +59,12 @@ UITableViewDataSource
     self.view.backgroundColor = [UIColor unSelectedColor];
     self.okRankArray = [NSMutableArray array];
     self.checkRankArray = [NSMutableArray array];
+    
+    self.editBtn.layer.borderColor = [UIColor mainColor].CGColor;
+    self.editBtn.layer.borderWidth = 0.5;
+    self.editBtn.layer.cornerRadius = 4.0;
+    self.editBtn.layer.masksToBounds = YES;
+    
   
     UIView *footrView = [[UIView alloc] init];
     footrView.backgroundColor = [UIColor clearColor];
