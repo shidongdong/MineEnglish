@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
 @property (weak, nonatomic) IBOutlet UIButton *sureBtn;
 @property (weak, nonatomic) IBOutlet UIButton *knownBtn;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *centerYConstraint;
+
 
 @property (nonatomic, assign) BOOL isDelete;
 
@@ -49,7 +51,9 @@
     
     self.knownBtn.layer.masksToBounds = YES;
     self.knownBtn.layer.cornerRadius = 12;
+    [self  addObserverOfKeyBoardChanged];
 }
+
 - (void)setupCreateFile:(NSString *)title fileName:(NSString *_Nullable)fileName{
     
     self.isDelete = NO;
@@ -160,6 +164,41 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     
     [self.textField resignFirstResponder];
+}
+
+
+- (void)addObserverOfKeyBoardChanged {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)keyboardWillChangeFrame:(NSNotification *)notification{
+    
+    //取出键盘动画的时间
+    CGFloat duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+
+    WeakifySelf;
+    [UIView animateWithDuration:duration animations:^{
+        
+        weakSelf.centerYConstraint.constant -= keyboardFrame.size.height/3;
+    }];
+}
+#pragma mark --键盘收回
+- (void)keyboardDidHide:(NSNotification *)notification{
+    CGFloat duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    WeakifySelf;
+    [UIView animateWithDuration:duration animations:^{
+        
+        weakSelf.centerYConstraint.constant += keyboardFrame.size.height/3;
+    }];
+}
+
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

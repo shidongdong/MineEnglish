@@ -6,6 +6,8 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
+
+#import "NSDate+Extension.h"
 #import "MIExpandSelectTypeTableViewCell.h"
 
 NSString * const MIExpandSelectTypeTableViewCellId = @"MIExpandSelectTypeTableViewCellId";
@@ -81,15 +83,20 @@ CGFloat const MIExpandSelectTypeTableViewCellHeight = 90.f;
         [self showOneSelectedText:text];
     } else if (createType == MIHomeworkCreateContentType_ActivityEndTime) {
         
+        
         self.titleLabel.text = @"活动结束时间:";
-        if (leftText.length >= 10) {
-            [self showOneSelectedText:[leftText substringToIndex:10]];
+        if (leftText.length >= 16) {
+            [self showOneSelectedText:[leftText substringToIndex:16]];
+        } else {
+            [self showOneSelectedText:[[NSDate date] stringWithFormat:@"yyyy-MM-dd HH:mm"]];
         }
     } else if (createType == MIHomeworkCreateContentType_ActivityStartTime) {
         
         self.titleLabel.text = @"活动开始时间:";
-        if (leftText.length >= 10) {
-            [self showOneSelectedText:[leftText substringToIndex:10]];
+        if (leftText.length >= 16) {
+            [self showOneSelectedText:[leftText substringToIndex:16]];
+        } else {
+            [self showOneSelectedText:[[NSDate date] stringWithFormat:@"yyyy-MM-dd HH:mm"]];
         }
     }
 }

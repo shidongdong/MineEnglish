@@ -35,10 +35,6 @@
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="12.0"/>
-                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="englishAction:" destination="NQL-wA-COA" eventType="editingDidEnd" id="YLJ-UE-fXm"/>
                                 <action selector="textFieldChanged:" destination="NQL-wA-COA" eventType="valueChanged" id="Xwc-Er-9nJ"/>
@@ -52,16 +48,6 @@
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="12.0"/>
-                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="NO"/>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                    <integer key="value" value="1"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
-                                    <color key="value" red="0.75406885150000003" green="0.75408679249999999" blue="0.75407713649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="chineseAction:" destination="NQL-wA-COA" eventType="editingDidEnd" id="v9m-1m-hjb"/>
                                 <action selector="chineseTextFieldChanged:" destination="NQL-wA-COA" eventType="valueChanged" id="e6N-zA-Lgw"/>
@@ -141,6 +127,7 @@
                 <outlet property="English" destination="2i5-D7-o4j" id="wE3-wy-eC3"/>
                 <outlet property="bgView" destination="MQy-qL-oOG" id="bhS-XQ-r3a"/>
                 <outlet property="cancelBtn" destination="dQ5-Tz-ff7" id="Kyn-OB-X5O"/>
+                <outlet property="centerYConstraint" destination="yJc-vO-NqF" id="OEM-w8-Kom"/>
                 <outlet property="chinese" destination="HpZ-NL-CGg" id="1jh-RD-Ncd"/>
                 <outlet property="sureBtn" destination="vx6-kR-uea" id="o36-nf-o8v"/>
             </connections>

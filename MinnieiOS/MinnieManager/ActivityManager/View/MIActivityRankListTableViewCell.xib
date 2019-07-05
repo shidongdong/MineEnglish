@@ -27,7 +27,7 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nfn-Vb-yb2">
-                        <rect key="frame" x="20" y="25" width="40" height="19.5"/>
+                        <rect key="frame" x="12" y="25" width="40" height="19.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="Dam-sh-1hL"/>
                         </constraints>
@@ -36,20 +36,20 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="attachment_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="E3Q-Iy-baY">
-                        <rect key="frame" x="70" y="15" width="40" height="40"/>
+                        <rect key="frame" x="57" y="15" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="stW-M7-uay"/>
                             <constraint firstAttribute="width" secondItem="E3Q-Iy-baY" secondAttribute="height" multiplier="1:1" id="yuQ-rK-bls"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="名字" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iv1-E5-L19">
-                        <rect key="frame" x="130" y="15" width="105" height="17"/>
+                        <rect key="frame" x="117" y="15" width="118" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zBx-Dq-GXu">
-                        <rect key="frame" x="130" y="37.5" width="105" height="17"/>
+                        <rect key="frame" x="117" y="37.5" width="118" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -78,11 +78,11 @@
                     <constraint firstItem="THq-0j-tsh" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="wcA-2D-PcO"/>
                     <constraint firstAttribute="trailing" secondItem="Y9u-GG-1gf" secondAttribute="trailing" id="wus-Vq-oXa"/>
                     <constraint firstItem="Nfn-Vb-yb2" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="xln-y4-Zj3"/>
-                    <constraint firstItem="E3Q-Iy-baY" firstAttribute="leading" secondItem="Nfn-Vb-yb2" secondAttribute="trailing" constant="10" id="yeN-Qi-joI"/>
+                    <constraint firstItem="E3Q-Iy-baY" firstAttribute="leading" secondItem="Nfn-Vb-yb2" secondAttribute="trailing" constant="5" id="yeN-Qi-joI"/>
                 </constraints>
             </tableViewCellContentView>
             <constraints>
-                <constraint firstItem="Nfn-Vb-yb2" firstAttribute="leading" secondItem="aW0-zy-SZf" secondAttribute="leading" constant="20" id="bOH-gk-AfE"/>
+                <constraint firstItem="Nfn-Vb-yb2" firstAttribute="leading" secondItem="aW0-zy-SZf" secondAttribute="leading" constant="12" id="bOH-gk-AfE"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>

@@ -7,7 +7,6 @@
 //
 
 #import "Result.h"
-#import "NSDate+X5.h"
 #import "NSDate+Extension.h"
 #import "UIView+Load.h"
 #import "ManagerServce.h"
@@ -25,11 +24,6 @@
 #import "VIResourceLoaderManager.h"
 #import "AudioPlayerViewController.h"
 #import "WBGImageEditorViewController.h"
-
-#import "HomeworkSessionService.h"
-//#import "SessionHomeworkTableViewCell.h"
-#import "HomeworkPreviewViewController.h"
-
 
 #import <objc/runtime.h>
 #import <AVKit/AVKit.h>
@@ -105,7 +99,7 @@ UINavigationControllerDelegate
 - (void)setupActInfo{
     
     NSDate *endDate = [NSDate dateByDateString:self.actInfo.endTime format:@"yyyy-MM-dd HH:mm:ss"];
-    if ([[endDate dateAtStartOfDay] isEarlierThanDate:[[NSDate date] dateAtStartOfDay]]) {
+    if ([endDate isEarlierThanDate:[NSDate date]]) {
       
         if (self.actCallBack) {
             self.actCallBack();

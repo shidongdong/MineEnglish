@@ -6,7 +6,7 @@
 //  Copyright © 2017年 mfox. All rights reserved.
 //
 
-#import "NSDate+X5.h"
+//#import "NSDate+X5.h"
 #import "NSDate+Extension.h"
 #import "ActivityInfo.h"
 #import "ManagerServce.h"
@@ -862,11 +862,11 @@ MIActivityBannerViewDelegate
         for (ActivityInfo *actInfo in list) {
             
             NSDate *endDate = [NSDate dateByDateString:actInfo.endTime format:@"yyyy-MM-dd HH:mm:ss"];
-            if ([[endDate dateAtStartOfDay] isEarlierThanDate:[[NSDate date] dateAtStartOfDay]]) {
+            if ([endDate isEarlierThanDate:[NSDate date]]) {
                 continue; // 活动结束
             }
             NSDate *startDate = [NSDate dateByDateString:actInfo.startTime format:@"yyyy-MM-dd HH:mm:ss"];
-            if ([[startDate dateAtStartOfDay] isLaterThanDate:[[NSDate date] dateAtStartOfDay]]) {
+            if ([startDate isLaterThanDate:[NSDate date]]) {
                 continue; // 活动未开始
             }
             [tempList addObject:actInfo];

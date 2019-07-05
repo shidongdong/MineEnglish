@@ -192,8 +192,9 @@ ClassAndStudentSelectorControllerDelegate
         self.isCreateTask = YES;
         self.activityInfo.submitNum = 4;
         self.activityInfo.limitTimes = 300;
-        self.activityInfo.endTime = [[NSDate date] stringWithFormat:@"yyyy-MM-dd"];
-        self.activityInfo.startTime = [[NSDate date] stringWithFormat:@"yyyy-MM-dd"];
+        // 精确到分
+        self.activityInfo.startTime = [NSString stringWithFormat:@"%@:00",[[NSDate date] stringWithFormat:@"yyyy-MM-dd HH:mm"]];
+        self.activityInfo.endTime = [NSString stringWithFormat:@"%@:00",[[NSDate date] stringWithFormat:@"yyyy-MM-dd HH:mm"]];
     }
     [self.createTypeArray removeAllObjects];
     [self.createTypeArray addObjectsFromArray:[self getNumberOfRowsInSection]];
@@ -758,11 +759,12 @@ ClassAndStudentSelectorControllerDelegate
                 
                 NSDate *starDate = [NSDate dateWithString:weakSelf.activityInfo.startTime format:@"yyyy-MM-dd HH:mm:ss"];
                 [DatePickerView showInView:[UIApplication sharedApplication].keyWindow
-                                      date:[starDate dateAtStartOfDay]
+                                  dateTime:starDate
                                   callback:^(NSDate *date) {
-                                      NSString *startTime = [[date dateAtStartOfDay] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
+                                      NSString *startTime = [date stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
                                       weakSelf.activityInfo.startTime = startTime;
                                       [weakContentCell setupWithLeftText:startTime rightText:nil createType:createType];
+                                      
                                   }];
             };
             [contentCell setupWithLeftText:self.activityInfo.startTime rightText:nil createType:createType];
@@ -776,9 +778,9 @@ ClassAndStudentSelectorControllerDelegate
             contentCell.expandCallback = ^{
                 NSDate *endDate = [NSDate dateWithString:weakSelf.activityInfo.endTime format:@"yyyy-MM-dd HH:mm:ss"];
                 [DatePickerView showInView:[UIApplication sharedApplication].keyWindow
-                                      date:[endDate dateAtStartOfDay]
+                                  dateTime:endDate
                                   callback:^(NSDate *date) {
-                                      NSString *endTime = [[date dateAtStartOfDay] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
+                                      NSString *endTime = [date stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
                                       weakSelf.activityInfo.endTime = endTime;
                                       [weakContentCell setupWithLeftText:endTime rightText:nil createType:createType];
                                   }];
@@ -1098,8 +1100,8 @@ ClassAndStudentSelectorControllerDelegate
           
             NSDate *startDate = [NSDate dateWithString:self.activityInfo.startTime format:@"yyyy-MM-dd HH:mm:ss"];
             NSDate *endDate = [NSDate dateWithString:self.activityInfo.endTime format:@"yyyy-MM-dd HH:mm:ss"];
-            if ([startDate isLaterThanDate:[[NSDate date] dateAtStartOfDay]] ||
-                [endDate isEarlierThanDate:[[NSDate date] dateAtStartOfDay]]
+            if ([startDate isLaterThanDate:[NSDate date]] ||
+                [endDate isEarlierThanDate:[NSDate date]]
                 ) {
                 [typeArray addObject:@(MIHomeworkCreateContentType_Delete)];
             }

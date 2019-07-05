@@ -16,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aNt-Fl-7Iw">
-                    <rect key="frame" x="47" y="259.5" width="320" height="387"/>
+                    <rect key="frame" x="47" y="169" width="320" height="387"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="移动" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gg4-b0-076">
                             <rect key="frame" x="20" y="32" width="280" height="16"/>
@@ -204,7 +204,7 @@
             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="aNt-Fl-7Iw" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="Oly-VH-rpe"/>
-                <constraint firstItem="aNt-Fl-7Iw" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="cM9-wk-Rd4"/>
+                <constraint firstItem="aNt-Fl-7Iw" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" multiplier="0.8" id="cM9-wk-Rd4"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>

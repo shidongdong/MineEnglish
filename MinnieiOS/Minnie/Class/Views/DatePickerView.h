@@ -12,8 +12,18 @@ typedef void(^DatePickerViewCallback)(NSDate *date);
 
 @interface DatePickerView : UIView
 
+@property (nonatomic,assign) UIDatePickerMode pickerMode;
+
+// 年月日
 + (void)showInView:(UIView *)view
               date:(NSDate *)date
           callback:(DatePickerViewCallback)callback;
+
+// 年月日时分
++ (void)showInView:(UIView *)view
+              dateTime:(NSDate *)dateTime
+          callback:(DatePickerViewCallback)callback;
+
+- (void)setPickerStyle;
 
 @end

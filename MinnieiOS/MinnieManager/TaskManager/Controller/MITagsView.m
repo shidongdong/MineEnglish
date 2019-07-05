@@ -179,250 +179,111 @@ MIEqualSpaceFlowLayoutDelegate
 
 
 - (IBAction)deleteButtonPressed:(id)sender {
-//
-//    UIAlertController *alertController;
-//    if (self.type == TagsCommentType)
-//    {
-//        alertController = [UIAlertController alertControllerWithTitle:@"确认删除评语"
-//                                                              message:@"确认要删除这些评语么"
-//                                                       preferredStyle:UIAlertControllerStyleAlert];
-//    }
-//    else
-//    {
-//        alertController = [UIAlertController alertControllerWithTitle:@"确认删除标签"
-//                                                              message:@"确认要删除这些标签么"
-//                                                       preferredStyle:UIAlertControllerStyleAlert];
-//    }
-//
-//
-//    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
-//                                                           style:UIAlertActionStyleCancel
-//                                                         handler:^(UIAlertAction * _Nonnull action) {
-//                                                         }];
-//
-//    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"删除"
-//                                                            style:UIAlertActionStyleDefault
-//                                                          handler:^(UIAlertAction * _Nonnull action) {
-//
-//                                                              if (self.type == TagsHomeworkFormType)
-//                                                              {
-//                                                                  [HUD showProgressWithMessage:@"正在删除标签"];
-//                                                                  [TagService deleteFormTags:self.selectedTags callback:^(Result *result, NSError *error) {
-//                                                                      if (error != nil) {
-//                                                                          [HUD showErrorWithMessage:@"删除标签失败"];
-//                                                                          return;
-//                                                                      }
-//
-//                                                                      [HUD hideAnimated:NO];
-//
-//                                                                      NSMutableArray *tags = [NSMutableArray arrayWithArray:self.tags];
-//                                                                      NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
-//                                                                      for (NSString *tag in self.selectedTags) {
-//                                                                          NSInteger index = [self.tags indexOfObject:tag];
-//                                                                          [indexes addIndex:index];
-//                                                                      }
-//                                                                      [tags removeObjectsAtIndexes:indexes];
-//                                                                      self.tags = tags;
-//
-//                                                                      [self.selectedTags removeAllObjects];
-//
-//                                                                      if (tags.count == 0) {
-//                                                                          [self.tagsCollectionContainerView showEmptyViewWithImage:nil title:@"暂无标签" linkTitle:nil linkClickCallback:nil];
-//                                                                          self.tagsCollectionView.hidden = YES;
-//                                                                      }
-//
-//                                                                      [self.tagsCollectionView reloadData];
-//
-//                                                                      self.deleteCountLabel.text = [NSString stringWithFormat:@"%zd", self.selectedTags.count];
-//                                                                      self.deleteButton.enabled = NO;
-//
-//                                                                      [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfDeleteFormTags object:nil];
-//                                                                  }];
-//                                                              }
-//                                                              else if (self.type == TagsHomeworkTipsType)
-//                                                              {
-//                                                                  [HUD showProgressWithMessage:@"正在删除标签"];
-//                                                                  [TagService deleteTags:self.selectedTags callback:^(Result *result, NSError *error) {
-//                                                                      if (error != nil) {
-//                                                                          [HUD showErrorWithMessage:@"删除标签失败"];
-//                                                                          return;
-//                                                                      }
-//
-//                                                                      [HUD hideAnimated:NO];
-//
-//                                                                      NSMutableArray *tags = [NSMutableArray arrayWithArray:self.tags];
-//                                                                      NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
-//                                                                      for (NSString *tag in self.selectedTags) {
-//                                                                          NSInteger index = [self.tags indexOfObject:tag];
-//                                                                          [indexes addIndex:index];
-//                                                                      }
-//                                                                      [tags removeObjectsAtIndexes:indexes];
-//                                                                      self.tags = tags;
-//
-//                                                                      [self.selectedTags removeAllObjects];
-//
-//                                                                      if (tags.count == 0) {
-//                                                                          [self.tagsCollectionContainerView showEmptyViewWithImage:nil title:@"暂无标签" linkTitle:nil linkClickCallback:nil];
-//                                                                          self.tagsCollectionView.hidden = YES;
-//                                                                      }
-//
-//                                                                      [self.tagsCollectionView reloadData];
-//
-//                                                                      self.deleteCountLabel.text = [NSString stringWithFormat:@"%zd", self.selectedTags.count];
-//                                                                      self.deleteButton.enabled = NO;
-//
-//                                                                      [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfDeleteTags object:nil];
-//                                                                  }];
-//                                                              }
-//                                                              else
-//                                                              {
-//                                                                  [HUD showProgressWithMessage:@"正在删除评语"];
-//                                                                  [HomeworkSessionService  delHomeworkSessionComment:self.selectedTags callback:^(Result *result, NSError *error) {
-//                                                                      if (error != nil) {
-//                                                                          [HUD showErrorWithMessage:@"删除评语失败"];
-//                                                                          return;
-//                                                                      }
-//
-//                                                                      [HUD hideAnimated:NO];
-//
-//                                                                      NSMutableArray *tags = [NSMutableArray arrayWithArray:self.tags];
-//                                                                      NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
-//                                                                      for (NSString *tag in self.selectedTags) {
-//                                                                          NSInteger index = [self.tags indexOfObject:tag];
-//                                                                          [indexes addIndex:index];
-//                                                                      }
-//                                                                      [tags removeObjectsAtIndexes:indexes];
-//                                                                      self.tags = tags;
-//
-//                                                                      [self.selectedTags removeAllObjects];
-//
-//                                                                      if (tags.count == 0) {
-//                                                                          [self.tagsCollectionContainerView showEmptyViewWithImage:nil title:@"暂无评语" linkTitle:nil linkClickCallback:nil];
-//                                                                          self.tagsCollectionView.hidden = YES;
-//                                                                      }
-//
-//                                                                      [self.tagsCollectionView reloadData];
-//
-//                                                                      self.deleteCountLabel.text = [NSString stringWithFormat:@"%zd", self.selectedTags.count];
-//                                                                      self.deleteButton.enabled = NO;
-//
-//                                                                      [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfDeleteTags object:nil];
-//                                                                  }];
-//                                                              }
-//                                                          }];
-//
-//    [alertController addAction:cancelAction];
-//    [alertController addAction:confirmAction];
     
-//    [self presentViewController:alertController animated:YES completion:nil];
-    
+    if (self.type == TagsHomeworkFormType)
     {
-        
-        if (self.type == TagsHomeworkFormType)
-        {
-            [HUD showProgressWithMessage:@"正在删除标签"];
-            [TagService deleteFormTags:self.selectedTags callback:^(Result *result, NSError *error) {
-                if (error != nil) {
-                    [HUD showErrorWithMessage:@"删除标签失败"];
-                    return;
-                }
-                
-                [HUD hideAnimated:NO];
-                
-                NSMutableArray *tags = [NSMutableArray arrayWithArray:self.tags];
-                NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
-                for (NSString *tag in self.selectedTags) {
-                    NSInteger index = [self.tags indexOfObject:tag];
-                    [indexes addIndex:index];
-                }
-                [tags removeObjectsAtIndexes:indexes];
-                self.tags = tags;
-                
-                [self.selectedTags removeAllObjects];
-                
-                if (tags.count == 0) {
-                    [self showEmptyViewWithImage:nil title:@"暂无标签" linkTitle:nil linkClickCallback:nil];
-                    self.tagsCollectionView.hidden = YES;
-                }
-                
-                [self.tagsCollectionView reloadData];
-                
-                self.deleteCountLabel.text = [NSString stringWithFormat:@"%zd", self.selectedTags.count];
-                self.deleteButton.enabled = NO;
-                
-                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfDeleteFormTags object:nil];
-            }];
-        }
-        else if (self.type == TagsHomeworkTipsType)
-        {
-            [HUD showProgressWithMessage:@"正在删除标签"];
-            [TagService deleteTags:self.selectedTags callback:^(Result *result, NSError *error) {
-                if (error != nil) {
-                    [HUD showErrorWithMessage:@"删除标签失败"];
-                    return;
-                }
-                
-                [HUD hideAnimated:NO];
-                
-                NSMutableArray *tags = [NSMutableArray arrayWithArray:self.tags];
-                NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
-                for (NSString *tag in self.selectedTags) {
-                    NSInteger index = [self.tags indexOfObject:tag];
-                    [indexes addIndex:index];
-                }
-                [tags removeObjectsAtIndexes:indexes];
-                self.tags = tags;
-                
-                [self.selectedTags removeAllObjects];
-                
-                if (tags.count == 0) {
-                    [self showEmptyViewWithImage:nil title:@"暂无标签" linkTitle:nil linkClickCallback:nil];
-                    self.tagsCollectionView.hidden = YES;
-                }
-                
-                [self.tagsCollectionView reloadData];
-                
-                self.deleteCountLabel.text = [NSString stringWithFormat:@"%zd", self.selectedTags.count];
-                self.deleteButton.enabled = NO;
-                
-                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfDeleteTags object:nil];
-            }];
-        }
-        else
-        {
-            [HUD showProgressWithMessage:@"正在删除评语"];
-            [HomeworkSessionService  delHomeworkSessionComment:self.selectedTags callback:^(Result *result, NSError *error) {
-                if (error != nil) {
-                    [HUD showErrorWithMessage:@"删除评语失败"];
-                    return;
-                }
-                
-                [HUD hideAnimated:NO];
-                
-                NSMutableArray *tags = [NSMutableArray arrayWithArray:self.tags];
-                NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
-                for (NSString *tag in self.selectedTags) {
-                    NSInteger index = [self.tags indexOfObject:tag];
-                    [indexes addIndex:index];
-                }
-                [tags removeObjectsAtIndexes:indexes];
-                self.tags = tags;
-                
-                [self.selectedTags removeAllObjects];
-                
-                if (tags.count == 0) {
-                    [self showEmptyViewWithImage:nil title:@"暂无评语" linkTitle:nil linkClickCallback:nil];
-                    self.tagsCollectionView.hidden = YES;
-                }
-                
-                [self.tagsCollectionView reloadData];
-                
-                self.deleteCountLabel.text = [NSString stringWithFormat:@"%zd", self.selectedTags.count];
-                self.deleteButton.enabled = NO;
-                
-                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfDeleteTags object:nil];
-            }];
-        }
+        [HUD showProgressWithMessage:@"正在删除标签"];
+        [TagService deleteFormTags:self.selectedTags callback:^(Result *result, NSError *error) {
+            if (error != nil) {
+                [HUD showErrorWithMessage:@"删除标签失败"];
+                return;
+            }
+            
+            [HUD hideAnimated:NO];
+            
+            NSMutableArray *tags = [NSMutableArray arrayWithArray:self.tags];
+            NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
+            for (NSString *tag in self.selectedTags) {
+                NSInteger index = [self.tags indexOfObject:tag];
+                [indexes addIndex:index];
+            }
+            [tags removeObjectsAtIndexes:indexes];
+            self.tags = tags;
+            
+            [self.selectedTags removeAllObjects];
+            
+            if (tags.count == 0) {
+                [self showEmptyViewWithImage:nil title:@"暂无标签" linkTitle:nil linkClickCallback:nil];
+                self.tagsCollectionView.hidden = YES;
+            }
+            
+            [self.tagsCollectionView reloadData];
+            
+            self.deleteCountLabel.text = [NSString stringWithFormat:@"%zd", self.selectedTags.count];
+            self.deleteButton.enabled = NO;
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfDeleteFormTags object:nil];
+        }];
+    }
+    else if (self.type == TagsHomeworkTipsType)
+    {
+        [HUD showProgressWithMessage:@"正在删除标签"];
+        [TagService deleteTags:self.selectedTags callback:^(Result *result, NSError *error) {
+            if (error != nil) {
+                [HUD showErrorWithMessage:@"删除标签失败"];
+                return;
+            }
+            
+            [HUD hideAnimated:NO];
+            
+            NSMutableArray *tags = [NSMutableArray arrayWithArray:self.tags];
+            NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
+            for (NSString *tag in self.selectedTags) {
+                NSInteger index = [self.tags indexOfObject:tag];
+                [indexes addIndex:index];
+            }
+            [tags removeObjectsAtIndexes:indexes];
+            self.tags = tags;
+            
+            [self.selectedTags removeAllObjects];
+            
+            if (tags.count == 0) {
+                [self showEmptyViewWithImage:nil title:@"暂无标签" linkTitle:nil linkClickCallback:nil];
+                self.tagsCollectionView.hidden = YES;
+            }
+            
+            [self.tagsCollectionView reloadData];
+            
+            self.deleteCountLabel.text = [NSString stringWithFormat:@"%zd", self.selectedTags.count];
+            self.deleteButton.enabled = NO;
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfDeleteTags object:nil];
+        }];
+    }
+    else
+    {
+        [HUD showProgressWithMessage:@"正在删除评语"];
+        [HomeworkSessionService  delHomeworkSessionComment:self.selectedTags callback:^(Result *result, NSError *error) {
+            if (error != nil) {
+                [HUD showErrorWithMessage:@"删除评语失败"];
+                return;
+            }
+            
+            [HUD hideAnimated:NO];
+            
+            NSMutableArray *tags = [NSMutableArray arrayWithArray:self.tags];
+            NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
+            for (NSString *tag in self.selectedTags) {
+                NSInteger index = [self.tags indexOfObject:tag];
+                [indexes addIndex:index];
+            }
+            [tags removeObjectsAtIndexes:indexes];
+            self.tags = tags;
+            
+            [self.selectedTags removeAllObjects];
+            
+            if (tags.count == 0) {
+                [self showEmptyViewWithImage:nil title:@"暂无评语" linkTitle:nil linkClickCallback:nil];
+                self.tagsCollectionView.hidden = YES;
+            }
+            
+            [self.tagsCollectionView reloadData];
+            
+            self.deleteCountLabel.text = [NSString stringWithFormat:@"%zd", self.selectedTags.count];
+            self.deleteButton.enabled = NO;
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfDeleteTags object:nil];
+        }];
     }
 }
 

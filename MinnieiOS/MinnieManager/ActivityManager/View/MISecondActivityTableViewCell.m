@@ -39,17 +39,15 @@ NSString * const MISecondActivityTableViewCellId = @"MISecondActivityTableViewCe
 - (void)setupWithModel:(ActivityInfo *)model selected:(BOOL)selected{
     
     self.titleLabel.text = model.title;
-    NSDate *startDate = [NSDate dateByDateString:model.startTime format:@"yyyy-MM-dd HH:mm:ss"];
     // 活动是否结束
     NSDate *endDate = [NSDate dateByDateString:model.endTime format:@"yyyy-MM-dd HH:mm:ss"];
-    if ([[endDate dateAtStartOfDay] isEarlierThanDate:[[NSDate date] dateAtStartOfDay]]) {
+    if ([endDate isEarlierThanDate:[NSDate date]]) {
         self.endButton.hidden = NO;
     } else {
         self.endButton.hidden = YES;
     }
     // 活动时间
     if (model.startTime.length >= 10 && model.endTime.length >= 10) {
-        
         
         NSString * start = [[model.startTime substringWithRange:NSMakeRange(5, 5)] stringByReplacingOccurrencesOfString:@"-" withString:@"/"];
         NSString *end = [[model.endTime substringWithRange:NSMakeRange(5, 5)] stringByReplacingOccurrencesOfString:@"-" withString:@"/"];
@@ -74,13 +72,4 @@ NSString * const MISecondActivityTableViewCellId = @"MISecondActivityTableViewCe
     
     
 }
-
-
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
 @end
