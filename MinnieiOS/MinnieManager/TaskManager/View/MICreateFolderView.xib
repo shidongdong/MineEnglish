@@ -116,14 +116,14 @@
             </subviews>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="Chg-YN-8li" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" multiplier="0.8" id="Cgo-nb-7t5"/>
+                <constraint firstItem="Chg-YN-8li" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="218.5" id="8V4-Ho-MOl"/>
                 <constraint firstItem="Chg-YN-8li" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="F3C-ZC-gwI"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="bgTopConstraint" destination="8V4-Ho-MOl" id="BCz-Jy-kA4"/>
                 <outlet property="bgView" destination="Chg-YN-8li" id="PbU-zB-EZT"/>
                 <outlet property="cancelBtn" destination="ixA-lF-nHD" id="Yrf-FI-uA5"/>
-                <outlet property="centerYConstraint" destination="Cgo-nb-7t5" id="Ieb-1d-4Ni"/>
                 <outlet property="detailLabel" destination="F9p-b8-q3R" id="TPy-Og-3bv"/>
                 <outlet property="knownBtn" destination="MNQ-GW-0wt" id="sSt-t9-dgr"/>
                 <outlet property="sureBtn" destination="hRm-9H-Z89" id="cW7-kq-vuK"/>

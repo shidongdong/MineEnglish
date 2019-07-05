@@ -119,15 +119,15 @@
             </subviews>
             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="MQy-qL-oOG" firstAttribute="top" secondItem="P5a-YH-OL9" secondAttribute="top" constant="193.5" id="fNk-hs-dwg"/>
                 <constraint firstItem="MQy-qL-oOG" firstAttribute="centerX" secondItem="P5a-YH-OL9" secondAttribute="centerX" id="q6k-No-alx"/>
-                <constraint firstItem="MQy-qL-oOG" firstAttribute="centerY" secondItem="P5a-YH-OL9" secondAttribute="centerY" multiplier="0.8" id="yJc-vO-NqF"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="P5a-YH-OL9"/>
             <connections>
                 <outlet property="English" destination="2i5-D7-o4j" id="wE3-wy-eC3"/>
+                <outlet property="bgTopConstraint" destination="fNk-hs-dwg" id="yF8-qf-gjN"/>
                 <outlet property="bgView" destination="MQy-qL-oOG" id="bhS-XQ-r3a"/>
                 <outlet property="cancelBtn" destination="dQ5-Tz-ff7" id="Kyn-OB-X5O"/>
-                <outlet property="centerYConstraint" destination="yJc-vO-NqF" id="OEM-w8-Kom"/>
                 <outlet property="chinese" destination="HpZ-NL-CGg" id="1jh-RD-Ncd"/>
                 <outlet property="sureBtn" destination="vx6-kR-uea" id="o36-nf-o8v"/>
             </connections>

@@ -22,7 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
 @property (weak, nonatomic) IBOutlet UIButton *sureBtn;
 @property (weak, nonatomic) IBOutlet UIButton *knownBtn;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *centerYConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgTopConstraint;
 
 
 @property (nonatomic, assign) BOOL isDelete;
@@ -182,17 +182,16 @@
     WeakifySelf;
     [UIView animateWithDuration:duration animations:^{
         
-        weakSelf.centerYConstraint.constant -= keyboardFrame.size.height/3;
+        weakSelf.bgTopConstraint.constant = (ScreenHeight - 200)/2.0 - keyboardFrame.size.height/3.0;
     }];
 }
 #pragma mark --键盘收回
 - (void)keyboardDidHide:(NSNotification *)notification{
     CGFloat duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     WeakifySelf;
     [UIView animateWithDuration:duration animations:^{
         
-        weakSelf.centerYConstraint.constant += keyboardFrame.size.height/3;
+        weakSelf.bgTopConstraint.constant = (ScreenHeight - 200)/2.0 ;
     }];
 }
 

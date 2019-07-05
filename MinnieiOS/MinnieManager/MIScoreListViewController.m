@@ -32,11 +32,18 @@ UITableViewDataSource
 
 @property (nonatomic ,copy) NSString *nextUrl;
 
-@property (nonatomic ,assign) BOOL *isLoadMore;
+@property (nonatomic ,assign) BOOL isLoadMore;
 
+@property (nonatomic ,assign) NSInteger currentIndex;
 @end
 
 @implementation MIScoreListViewController
+
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    self.currentIndex = -1;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -160,6 +167,11 @@ UITableViewDataSource
     ScoreInfo *scoreInfo = self.scoreListArray[indexPath.row];
 
 #if MANAGERSIDE
+    
+    if (indexPath.row == self.currentIndex) {
+        return;
+    }
+    self.currentIndex = indexPath.row;
     
     NSString *userId = [NSString stringWithFormat:@"%@", @(scoreInfo.userId)];
     [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success,  NSError * error) {

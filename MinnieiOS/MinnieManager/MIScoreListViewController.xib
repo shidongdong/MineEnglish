@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="won-3V-XEJ">
-                    <rect key="frame" x="0.0" y="24" width="414" height="64"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0y5-n1-zBD">
                             <rect key="frame" x="0.0" y="30" width="44" height="24"/>
@@ -92,7 +91,7 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vuT-0w-Gnf">
-                    <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                    <rect key="frame" x="0.0" y="64" width="414" height="866"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="I0U-Kc-x6d"/>
@@ -103,14 +102,13 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="vuT-0w-Gnf" firstAttribute="leading" secondItem="won-3V-XEJ" secondAttribute="leading" id="3jJ-Gb-JMj"/>
-                <constraint firstItem="vuT-0w-Gnf" firstAttribute="bottom" secondItem="Q5M-cg-NOt" secondAttribute="bottom" constant="34" id="DyI-CN-236"/>
-                <constraint firstItem="won-3V-XEJ" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="Kwr-uB-SRz"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="won-3V-XEJ" secondAttribute="trailing" id="LFA-r8-prI"/>
-                <constraint firstItem="won-3V-XEJ" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="-20" id="ais-Ha-xFe"/>
+                <constraint firstItem="vuT-0w-Gnf" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" constant="34" id="DyI-CN-236"/>
+                <constraint firstItem="won-3V-XEJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Kwr-uB-SRz"/>
+                <constraint firstAttribute="trailing" secondItem="won-3V-XEJ" secondAttribute="trailing" id="LFA-r8-prI"/>
+                <constraint firstItem="won-3V-XEJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ais-Ha-xFe"/>
                 <constraint firstItem="vuT-0w-Gnf" firstAttribute="top" secondItem="won-3V-XEJ" secondAttribute="bottom" id="hZa-pk-TwH"/>
                 <constraint firstItem="vuT-0w-Gnf" firstAttribute="trailing" secondItem="won-3V-XEJ" secondAttribute="trailing" id="jbU-lg-Eg8"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <point key="canvasLocation" x="131.8840579710145" y="85.714285714285708"/>
         </view>
     </objects>
