@@ -16,10 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,copy) ActivityRankListCallback createCallback;
 
-@property (nonatomic, strong) MIActivityRankListViewController *stockMasterVC;
-@property (nonatomic, strong) MIStockSecondViewController *stockDetailVC;
-
-
 /*
  *  活动列表
  */

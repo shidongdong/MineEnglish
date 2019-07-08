@@ -19,7 +19,10 @@
 #import "CSCustomSplitViewController.h"
 #import "MICreateTaskViewController.h"
 #import "HomeworkSessionViewController.h"
+
+#if MANAGERSIDE
 #import "MIStockSplitViewController.h"
+#endif
 
 @interface MIScoreListViewController ()<
 UITableViewDelegate,
@@ -101,9 +104,11 @@ UITableViewDataSource
         };
         [self.navigationController pushViewController:createVC animated:YES];
     } else {
-       
+     
+#if MANAGERSIDE
         __block  UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+      
         if ([self rootViewController]) {
             [[self rootViewController].view addSubview:view];
         }
@@ -123,9 +128,11 @@ UITableViewDataSource
                 [view removeFromSuperview];
             }
         };
+#endif
     }
 }
 
+#if MANAGERSIDE
 - (MIStockSplitViewController *)rootViewController
 {
     UIWindow * window = [[UIApplication sharedApplication] keyWindow];
@@ -135,7 +142,7 @@ UITableViewDataSource
     }
     return nil;
 }
-
+#endif
 
 #pragma mark -
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -164,11 +171,10 @@ UITableViewDataSource
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    WeakifySelf;
     ScoreInfo *scoreInfo = self.scoreListArray[indexPath.row];
 
 #if MANAGERSIDE
-    
+    WeakifySelf;
     if (indexPath.row == self.currentIndex) {
         return;
     }
@@ -185,6 +191,8 @@ UITableViewDataSource
 #endif
 }
 
+#if MANAGERSIDE
+
 - (void)requestHomeworkSession:(ScoreInfo *)scoreInfo {
     
     WeakifySelf;
@@ -199,6 +207,9 @@ UITableViewDataSource
         [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
 }
+
+#endif
+
 
 #pragma mark - 获取列表
 - (void)requestScoreListIsLoadMore:(BOOL)isLoadMore{

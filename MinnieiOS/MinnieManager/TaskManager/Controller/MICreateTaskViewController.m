@@ -29,7 +29,6 @@
 #import "NSDictionary+YYAdd.h"
 #import "MIAddWordTableViewCell.h"
 #import "ClassAndStudentSelectView.h"
-#import "MITaskListViewController.h"
 #import "MIHomeworkTaskListViewController.h"
 #import "ClassAndStudentSelectorController.h"
 
@@ -1418,10 +1417,6 @@ ClassAndStudentSelectorControllerDelegate
       
         if (self.teacherSider) {
             if ([tempVC isKindOfClass:[MIHomeworkTaskListViewController class]]) {
-                [self.navigationController popToViewController:tempVC animated:YES];
-                break;
-            }
-            if ([tempVC isKindOfClass:[MITaskListViewController class]]) {
                 [self.navigationController popToViewController:tempVC animated:YES];
                 break;
             }

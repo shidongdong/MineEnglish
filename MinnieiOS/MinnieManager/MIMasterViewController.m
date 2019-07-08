@@ -16,6 +16,8 @@
 #import "HomeWorkSendHistoryViewController.h"
 #import "UIViewController+PrimaryCloumnScale.h"
 
+#import "MITeacherManagerViewController.h"
+#import "MIGifManStockSplitViewController.h"
 #import "MITaskStockSplitViewController.h"
 #import "MISetterStockSplitViewController.h"
 #import "MIActivityStockSplitViewController.h"
@@ -34,13 +36,16 @@ MISecondActivitySheetViewDelegate
 // 二级活动管理视图
 @property (nonatomic, strong) MISecondActivitySheetView *secondActivitySheetView;
 
-// 任务管理 - 任务列表
+// 任务管理
 @property (nonatomic, strong) MITaskStockSplitViewController *subStockSplitVC;
-// 活动管理 - 活动排行列表
+// 活动管理
 @property (nonatomic, strong) MIActivityStockSplitViewController *activityStockSplitVC;
-// 设置 -
+// 设置
 @property (nonatomic, strong) MISetterStockSplitViewController *setterStockSplitVC;
-
+// 礼物管理
+@property (nonatomic, strong) MIGifManStockSplitViewController *giftStockSplitVC;
+// 教师管理
+@property (nonatomic, strong) MITeacherManagerViewController *teacherStockSplitVC;
 
 @end
 
@@ -81,19 +86,20 @@ MISecondActivitySheetViewDelegate
     [nav popToRootViewControllerAnimated:YES];
  
     [_secondActivitySheetView resetCurrentIndex];
-    if (index == 7) { // 设置
-//        SettingsViewController *settingsVC = [[SettingsViewController alloc] initWithNibName:NSStringFromClass([SettingsViewController class]) bundle:nil];
-//        settingsVC.hiddenBackBtn = YES;
-
-        [self updatePrimaryCloumnScale:kRootModularWidth];
-        [self.secondDetailVC addSubViewController:self.setterStockSplitVC];
+    if (index == 0) { // 实时任务
+        
+    } else if (index == 1){ // 教师管理
+        
+        [self updatePrimaryCloumnScale:kRootModularWidth + kColumnSecondWidth];
+        [self.secondDetailVC addSubViewController:self.teacherStockSplitVC];
+        
     } else if (index == 2){ // 任务管理 不展开文件夹，不显示内容
        
         self.secondSheetView.hidden = NO;
         self.secondActivitySheetView.hidden = YES;
         [self updatePrimaryCloumnScale:kRootModularWidth + kColumnSecondWidth];
-        
         [self.secondDetailVC addSubViewController:self.subStockSplitVC];
+        
         [self.subStockSplitVC showTaskListWithFoldInfo:nil folderIndex:-1];
         [_secondSheetView collapseAllFolders];
         [_secondSheetView updateFileListInfo];
@@ -102,10 +108,21 @@ MISecondActivitySheetViewDelegate
         self.secondSheetView.hidden = YES;
         self.secondActivitySheetView.hidden = NO;
         [self updatePrimaryCloumnScale:kRootModularWidth + kColumnSecondWidth];
-
         [self.secondDetailVC addSubViewController:self.activityStockSplitVC];
-
+        
         [_secondActivitySheetView updateActivityListInfo];
+    } else if (index == 4) { // 教学统计
+        
+    } else if (index == 5) { // 校区管理
+        
+    } else if (index == 6) { // 礼物管理
+        
+        [self updatePrimaryCloumnScale:kRootModularWidth];
+        [self.secondDetailVC addSubViewController:self.giftStockSplitVC];
+        
+    } else if (index == 7) { // 设置
+        [self updatePrimaryCloumnScale:kRootModularWidth];
+        [self.secondDetailVC addSubViewController:self.setterStockSplitVC];
     }
 }
 
@@ -221,6 +238,31 @@ MISecondActivitySheetViewDelegate
         [_setterStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
     }
     return _setterStockSplitVC;
+}
+
+- (MITeacherManagerViewController *)teacherStockSplitVC{
+    if (!_teacherStockSplitVC) {
+        _teacherStockSplitVC = [[MITeacherManagerViewController alloc] init];
+    }
+    
+    if (_teacherStockSplitVC.primaryCloumnScale != kColumnThreeWidth) {
+        _teacherStockSplitVC.primaryCloumnScale = kColumnThreeWidth;
+        [_teacherStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
+    }
+    return _teacherStockSplitVC;
+}
+
+- (MIGifManStockSplitViewController *)giftStockSplitVC{
+    
+    if (!_giftStockSplitVC) {
+        _giftStockSplitVC = [[MIGifManStockSplitViewController alloc] init];
+    }
+    CGFloat setterWidth = (ScreenWidth - kRootModularWidth)/2.0;
+    if (_giftStockSplitVC.primaryCloumnScale != setterWidth) {
+        _giftStockSplitVC.primaryCloumnScale = setterWidth;
+        [_giftStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
+    }
+    return _giftStockSplitVC;
 }
 
 - (void)didReceiveMemoryWarning {

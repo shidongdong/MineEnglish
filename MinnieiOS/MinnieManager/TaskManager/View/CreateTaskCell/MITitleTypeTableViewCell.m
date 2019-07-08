@@ -335,6 +335,8 @@ UIDocumentPickerDelegate
 #endif
 }
 
+#if MANAGERSIDE
+
 - (MIStockSplitViewController *)rootViewController
 {
     UIWindow * window = [[UIApplication sharedApplication] keyWindow];
@@ -344,6 +346,9 @@ UIDocumentPickerDelegate
     }
     return nil;
 }
+
+#endif
+
 
 - (void)addFileItem:(NSArray *)allowedUTIs withHomeworkItem:(HomeworkItem *)item
 {

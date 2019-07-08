@@ -38,12 +38,12 @@
                             @"礼物管理",
                             @"设置"];
     NSArray *selectImage = @[@"menu_mission_def",
-                             @"menu_number_def",
+                             @"menu_number_sel",
                              @"menu_mission_manage_sel",
                              @"menu_activity_sel",
                              @"menu_Statistics_sel",
                              @"menu_school_def",
-                             @"menu_gift_def",
+                             @"menu_gift_sel",
                              @"navbar_setup_select"];
     NSArray *normalImage = @[@"menu_mission_def",
                              @"menu_number_def",
@@ -96,11 +96,10 @@
 - (void)btnClicked:(UIButton *)selectBtn{
     
     NSInteger selectIndex = selectBtn.tag - 1500;
-    if (selectIndex == 2 || selectIndex == 7 || selectIndex == 3) {
-        
-    } else {
-        return;
-    }
+//    if (selectIndex == 2 || selectIndex == 7 || selectIndex == 3) {
+//    } else {
+//        return;
+//    }
     for (UIButton *btn in self.btns) {
         btn.selected = NO;
     }

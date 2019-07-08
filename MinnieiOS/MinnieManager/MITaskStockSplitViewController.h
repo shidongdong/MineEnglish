@@ -15,8 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MITaskStockSplitViewController : CSCustomSplitViewController
 
-@property (nonatomic, strong) MITaskListViewController *stockMasterVC;
-@property (nonatomic, strong) MIStockSecondViewController *stockDetailVC;
 
 @property (nonatomic, copy) ActionAddFolderCallBack addFolderCallBack;
 

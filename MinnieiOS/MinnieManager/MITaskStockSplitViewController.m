@@ -10,6 +10,9 @@
 
 @interface MITaskStockSplitViewController ()
 
+@property (nonatomic, strong) MITaskListViewController *stockMasterVC;
+@property (nonatomic, strong) MIStockSecondViewController *stockDetailVC;
+
 @end
 
 @implementation MITaskStockSplitViewController

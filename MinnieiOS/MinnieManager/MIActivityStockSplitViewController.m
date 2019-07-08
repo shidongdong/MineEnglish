@@ -10,6 +10,10 @@
 
 @interface MIActivityStockSplitViewController ()
 
+@property (nonatomic, strong) MIActivityRankListViewController *stockMasterVC;
+@property (nonatomic, strong) MIStockSecondViewController *stockDetailVC;
+
+
 @end
 
 @implementation MIActivityStockSplitViewController

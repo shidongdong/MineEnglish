@@ -328,15 +328,9 @@
 		128F12F322CCA2DF00C9F5B7 /* MITagsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 128F12F222CCA2DF00C9F5B7 /* MITagsView.xib */; };
 		128F12F422CCA2DF00C9F5B7 /* MITagsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 128F12F222CCA2DF00C9F5B7 /* MITagsView.xib */; };
 		128F12F522CCA2DF00C9F5B7 /* MITagsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 128F12F222CCA2DF00C9F5B7 /* MITagsView.xib */; };
-		128F12FC22CD0FE800C9F5B7 /* MIActivityStockSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 128F12E922CC5A8C00C9F5B7 /* MIActivityStockSplitViewController.m */; };
-		128F12FE22CD0FEB00C9F5B7 /* MIMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12ED3B06229C2E5D00255F8B /* MIMasterViewController.m */; };
-		128F130022CD0FEF00C9F5B7 /* MIStockSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12ED3B08229C2E5E00255F8B /* MIStockSplitViewController.m */; };
-		128F130222CD0FF500C9F5B7 /* MIStockSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12014CDC22C90B930039278A /* MIStockSecondViewController.m */; };
-		128F130422CD0FF800C9F5B7 /* MITaskStockSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1253243D22C9F571005180D7 /* MITaskStockSplitViewController.m */; };
 		128F130622CD102000C9F5B7 /* MIRootSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12ED3AFC229C2E4C00255F8B /* MIRootSheetView.m */; };
 		128F130822CD109800C9F5B7 /* MISecondActivitySheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 123042D022A0CB6B00E111A4 /* MISecondActivitySheetView.m */; };
 		128F130922CD109900C9F5B7 /* MISecondActivitySheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 123042D022A0CB6B00E111A4 /* MISecondActivitySheetView.m */; };
-		128F130A22CD10AF00C9F5B7 /* MIActivityRankListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 123042DB22A0D63700E111A4 /* MIActivityRankListViewController.m */; };
 		128F130C22CD10B500C9F5B7 /* MIActivityRankListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 123042DC22A0D63700E111A4 /* MIActivityRankListViewController.xib */; };
 		128F130E22CD10B900C9F5B7 /* MIParticipateDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 123042EA22A1160F00E111A4 /* MIParticipateDetailViewController.m */; };
 		128F131022CD10BD00C9F5B7 /* MIParticipateDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 123042EB22A1160F00E111A4 /* MIParticipateDetailViewController.xib */; };
@@ -381,6 +375,18 @@
 		128F135022D3220400C9F5B7 /* MITeaStaStockSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 128F134F22D3220400C9F5B7 /* MITeaStaStockSplitViewController.m */; };
 		128F135322D3224000C9F5B7 /* MICamManStockSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 128F135222D3224000C9F5B7 /* MICamManStockSplitViewController.m */; };
 		128F135622D3226700C9F5B7 /* MIGifManStockSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 128F135522D3226700C9F5B7 /* MIGifManStockSplitViewController.m */; };
+		128F135722D3348E00C9F5B7 /* TeacherAwardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109E9A207A7C0A00568785 /* TeacherAwardsViewController.m */; };
+		128F135922D3349900C9F5B7 /* TeacherAwardsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109EAD207A7C0A00568785 /* TeacherAwardsViewController.xib */; };
+		128F135A22D334BA00C9F5B7 /* TeacherAwardService.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109E9C207A7C0A00568785 /* TeacherAwardService.m */; };
+		128F135B22D334C100C9F5B7 /* TeacherAwardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EAC207A7C0A00568785 /* TeacherAwardCollectionViewCell.m */; };
+		128F135C22D334C600C9F5B7 /* TeacherAwardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109EAB207A7C0A00568785 /* TeacherAwardCollectionViewCell.xib */; };
+		128F135D22D334DB00C9F5B7 /* CreateAwardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109E99207A7C0A00568785 /* CreateAwardViewController.m */; };
+		128F135E22D334E000C9F5B7 /* CreateAwardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109E95207A7C0A00568785 /* CreateAwardViewController.xib */; };
+		128F135F22D334F900C9F5B7 /* UnexchangedRequestCountRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97364A1D20B170FE00511A95 /* UnexchangedRequestCountRequest.m */; };
+		128F136022D3350E00C9F5B7 /* ExchangeRequestsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109E9E207A7C0A00568785 /* ExchangeRequestsRequest.m */; };
+		128F136122D3365B00C9F5B7 /* add_image_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109639207A006D00568785 /* add_image_bg@3x.png */; };
+		128F136222D3365E00C9F5B7 /* add_image_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109637207A006D00568785 /* add_image_bg@2x.png */; };
+		128F136322D33B2D00C9F5B7 /* MIScoreListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 123042F722A1334000E111A4 /* MIScoreListViewController.m */; };
 		12961C49229E5B130075B04A /* HomeworkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 973649A320AF2F8500511A95 /* HomeworkTableViewCell.m */; };
 		12961C4A229E5B260075B04A /* HomeworkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9736499C20AF2F8500511A95 /* HomeworkTableViewCell.xib */; };
 		12961C4B229E5B590075B04A /* icon_mission_choice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 971095F2207A006C00568785 /* icon_mission_choice@2x.png */; };
@@ -578,7 +584,6 @@
 		12CB739B22AB5BD50064FB21 /* MIHomeworkTaskListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12CB739822AB5BD50064FB21 /* MIHomeworkTaskListViewController.m */; };
 		12CB739C22AB5BD50064FB21 /* MIHomeworkTaskListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12CB739922AB5BD50064FB21 /* MIHomeworkTaskListViewController.xib */; };
 		12CB739D22AB5BD50064FB21 /* MIHomeworkTaskListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12CB739922AB5BD50064FB21 /* MIHomeworkTaskListViewController.xib */; };
-		12CB739E22AB70340064FB21 /* MIScoreListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 123042F722A1334000E111A4 /* MIScoreListViewController.m */; };
 		12CB739F22AB70360064FB21 /* MIScoreListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCE76422A15C7C00E2DAFE /* MIScoreListTableViewCell.m */; };
 		12CB73A022AB703C0064FB21 /* MIScoreListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12DCE76522A15C7C00E2DAFE /* MIScoreListTableViewCell.xib */; };
 		12CB73A122AB70400064FB21 /* MIScoreListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 123042F622A1334000E111A4 /* MIScoreListViewController.xib */; };
@@ -601,7 +606,6 @@
 		12CB73B222AB92180064FB21 /* HomeworkAddTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9736496020AF2F8500511A95 /* HomeworkAddTableViewCell.m */; };
 		12CB73B322AB921B0064FB21 /* HomeworkAddTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9736495220AF2F8500511A95 /* HomeworkAddTableViewCell.xib */; };
 		12CB73B422AB92240064FB21 /* UIView+AZGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 87FD07E021BE791C00664AF1 /* UIView+AZGradient.m */; };
-		12CB73B522ABA27A0064FB21 /* MITaskListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12ED3B1A229D0CD900255F8B /* MITaskListViewController.m */; };
 		12CB73B622ABA2860064FB21 /* MITaskListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12ED3B1B229D0CD900255F8B /* MITaskListViewController.xib */; };
 		12CB73B722ABA2AA0064FB21 /* MITaskEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12ED3B1F229D107600255F8B /* MITaskEmptyView.m */; };
 		12CB73B822ABA2AE0064FB21 /* MITaskEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12ED3B21229D108E00255F8B /* MITaskEmptyView.xib */; };
@@ -3525,6 +3529,8 @@
 				12014CDC22C90B930039278A /* MIStockSecondViewController.m */,
 				1253243C22C9F571005180D7 /* MITaskStockSplitViewController.h */,
 				1253243D22C9F571005180D7 /* MITaskStockSplitViewController.m */,
+				128F12E822CC5A8C00C9F5B7 /* MIActivityStockSplitViewController.h */,
+				128F12E922CC5A8C00C9F5B7 /* MIActivityStockSplitViewController.m */,
 				128F134822D3218700C9F5B7 /* MIReaTimTasStockSplitViewController.h */,
 				128F134922D3218700C9F5B7 /* MIReaTimTasStockSplitViewController.m */,
 				128F134B22D321B800C9F5B7 /* MITeacherManagerViewController.h */,
@@ -3535,8 +3541,6 @@
 				128F135222D3224000C9F5B7 /* MICamManStockSplitViewController.m */,
 				128F135422D3226700C9F5B7 /* MIGifManStockSplitViewController.h */,
 				128F135522D3226700C9F5B7 /* MIGifManStockSplitViewController.m */,
-				128F12E822CC5A8C00C9F5B7 /* MIActivityStockSplitViewController.h */,
-				128F12E922CC5A8C00C9F5B7 /* MIActivityStockSplitViewController.m */,
 				128F134522D2EC7F00C9F5B7 /* MISetterStockSplitViewController.h */,
 				128F134622D2EC7F00C9F5B7 /* MISetterStockSplitViewController.m */,
 				122A1EC622A232D6009358DE /* Service */,
@@ -6308,10 +6312,12 @@
 				12747BDE22A7CCE7009C390E /* LeftImageMessageTableViewCell.xib in Resources */,
 				12747C1E22A7D0DD009C390E /* default_save_image_pressed@3x.png in Resources */,
 				12CB739D22AB5BD50064FB21 /* MIHomeworkTaskListViewController.xib in Resources */,
+				128F135922D3349900C9F5B7 /* TeacherAwardsViewController.xib in Resources */,
 				12961C58229E65400075B04A /* TeacherCollectionViewCell.xib in Resources */,
 				12A1E94022A5786F001247D7 /* HomeworkVideoTableViewCell.xib in Resources */,
 				12747C6122A7D1B0009C390E /* right_chat_talk2@3x.png in Resources */,
 				12FD85C822BB2F630026B7E2 /* label_eye_display@3x.png in Resources */,
+				128F135E22D334E000C9F5B7 /* CreateAwardViewController.xib in Resources */,
 				12747C1522A7D092009C390E /* btn_send_photo@2x.png in Resources */,
 				12747C8122A7D28B009C390E /* icon_Voice@3x.png in Resources */,
 				12747BE322A7CD0E009C390E /* RightEmojiMessageTableViewCell.xib in Resources */,
@@ -6410,6 +6416,7 @@
 				12961C5A229E65580075B04A /* StudentSelectorViewController.xib in Resources */,
 				12747C3E22A7D161009C390E /* gray_corner_bg@3x.png in Resources */,
 				12747BE622A7CD2B009C390E /* AnswerPickerVideoCell.xib in Resources */,
+				128F135C22D334C600C9F5B7 /* TeacherAwardCollectionViewCell.xib in Resources */,
 				12961C8A229E710E0075B04A /* btn_play@3x.png in Resources */,
 				12747C2022A7D0E2009C390E /* default_save_image@3x.png in Resources */,
 				12961C6C229E66AF0075B04A /* StudentSelectorTableViewCell.xib in Resources */,
@@ -6456,6 +6463,7 @@
 				12747BFD22A7CE53009C390E /* ModifyStarCountView.xib in Resources */,
 				128F133222CDD36300C9F5B7 /* message_send_error@2x.png in Resources */,
 				12747C6222A7D1B0009C390E /* right_chat_talk3@2x.png in Resources */,
+				128F136222D3365E00C9F5B7 /* add_image_bg@2x.png in Resources */,
 				12ED3B63229D96D200255F8B /* ProgressHUD.xib in Resources */,
 				12747BE122A7CCFC009C390E /* LeftVideoMessageTableViewCell.xib in Resources */,
 				1226F34A229839CD00BAB1C9 /* login_img_logo@2x.png in Resources */,
@@ -6471,6 +6479,7 @@
 				12747C2322A7D0F5009C390E /* 卡片角标@2x.png in Resources */,
 				12DCE76822A1653F00E2DAFE /* MIScoreListViewController.xib in Resources */,
 				12FD85CC22BB2F720026B7E2 /* label_phone@2x.png in Resources */,
+				128F136122D3365B00C9F5B7 /* add_image_bg@3x.png in Resources */,
 				12747BFE22A7CE5F009C390E /* AnswerPickerImageCell.xib in Resources */,
 				128F133322CDD36600C9F5B7 /* message_send_error@3x.png in Resources */,
 				12A2724722A75FF00020A3BA /* MITagsTableViewCell.xib in Resources */,
@@ -7725,8 +7734,10 @@
 				12B7081C22A4F40600117537 /* ChooseDatePickerView.m in Sources */,
 				122A1ECE22A2332A009358DE /* ManagerRequest.m in Sources */,
 				1226F3212298322500BAB1C9 /* SMSCodeRequest.m in Sources */,
+				128F135722D3348E00C9F5B7 /* TeacherAwardsViewController.m in Sources */,
 				12961C69229E66810075B04A /* PinyinFormatter.m in Sources */,
 				12ED3B4A229D907500255F8B /* SendHomeworkHistoryRequest.m in Sources */,
+				128F135A22D334BA00C9F5B7 /* TeacherAwardService.m in Sources */,
 				12747BEE22A7CD91009C390E /* StudentDetailHeaderCell.m in Sources */,
 				12CB73AC22AB91E70064FB21 /* HomeworkLimitTimeCell.m in Sources */,
 				12961CD6229FD6DC0075B04A /* SearchHomeworkNameRequest.m in Sources */,
@@ -7796,6 +7807,7 @@
 				1226F3252298327600BAB1C9 /* RegisterViewController.m in Sources */,
 				12961CD8229FD6ED0075B04A /* UpdateTaskModifiedTimeRequest.m in Sources */,
 				12ED3B46229D8FE300255F8B /* SendHomeworkRequest.m in Sources */,
+				128F136022D3350E00C9F5B7 /* ExchangeRequestsRequest.m in Sources */,
 				12CB73C622AC0DD60064FB21 /* MISutdentActDetailViewController.m in Sources */,
 				1226F3082297F3C700BAB1C9 /* AppDelegate.m in Sources */,
 				12CB739422AB59000064FB21 /* MIHomeworkSubFileViewController.m in Sources */,
@@ -7819,6 +7831,7 @@
 				1226F3262298328A00BAB1C9 /* InputPhoneNumberViewController.m in Sources */,
 				12961C7E229E67E40075B04A /* DeleteClassRequest.m in Sources */,
 				12CB73BF22ABFAE20064FB21 /* MIActivityBannerView.m in Sources */,
+				128F135B22D334C100C9F5B7 /* TeacherAwardCollectionViewCell.m in Sources */,
 				12ED3B14229C34E700255F8B /* TIP.m in Sources */,
 				12ED3B47229D906800255F8B /* CreateHomeworkRequest.m in Sources */,
 				12961CC8229FD63A0075B04A /* TagService.m in Sources */,
@@ -7842,6 +7855,7 @@
 				12EAC63B22AD4BF400F1F3DB /* MIReadingTaskViewController.m in Sources */,
 				12747BFA22A7CE35009C390E /* CorrectHomeworkViewController.m in Sources */,
 				1226F3272298329300BAB1C9 /* FindPasswordViewController.m in Sources */,
+				128F135F22D334F900C9F5B7 /* UnexchangedRequestCountRequest.m in Sources */,
 				12ED3B68229D96F300255F8B /* SegmentControl.m in Sources */,
 				12CB739B22AB5BD50064FB21 /* MIHomeworkTaskListViewController.m in Sources */,
 				12961C67229E667B0075B04A /* HanyuPinyinOutputFormat.m in Sources */,
@@ -7935,6 +7949,7 @@
 				128F133422CDD6C500C9F5B7 /* EwenCopyLabel.m in Sources */,
 				12961C6D229E66D00075B04A /* HomeworkAudioCollectionViewCell.m in Sources */,
 				12747C0622A7CF2D009C390E /* AddAwardRequest.m in Sources */,
+				128F135D22D334DB00C9F5B7 /* CreateAwardViewController.m in Sources */,
 				12961C7C229E67CF0075B04A /* ClassesRequest.m in Sources */,
 				1226F33B2298335D00BAB1C9 /* HomeworkItem.m in Sources */,
 				12961C93229ECAAB0075B04A /* MIInPutTypeTableViewCell.m in Sources */,
@@ -8327,7 +8342,6 @@
 				123042E822A10E8400E111A4 /* MISecondActivityTableViewCell.xib in Sources */,
 				12A1E95122A65EAB001247D7 /* MIMoveHomeworkTaskView.m in Sources */,
 				12B9B64B228AEBC400D8F277 /* StudentRemarkTableViewCell.xib in Sources */,
-				12CB73B522ABA27A0064FB21 /* MITaskListViewController.m in Sources */,
 				12B9B643228AAF1600D8F277 /* ModifyStarCountView.m in Sources */,
 				973649BC20AF2F8600511A95 /* HomeworkManagerViewController.m in Sources */,
 				973649F620AF2F8600511A95 /* TagCollectionViewCell.m in Sources */,
@@ -8358,7 +8372,6 @@
 				97109A57207A158C00568785 /* EmojiMessageTableViewCell.m in Sources */,
 				97109D80207A2F0400568785 /* TeachersViewController.m in Sources */,
 				8770A2B4223CA9F8005733E4 /* ChineseToPinyinResource.m in Sources */,
-				128F12FE22CD0FEB00C9F5B7 /* MIMasterViewController.m in Sources */,
 				97109AEC207A1C0800568785 /* StudentsManageViewController.m in Sources */,
 				871806C921DF438C0023511C /* MUAuthorizationStatusController.m in Sources */,
 				8702866F2182EA8700559195 /* StudentStarListViewController.m in Sources */,
@@ -8395,7 +8408,6 @@
 				97109DA2207A2F0400568785 /* AvatarEditViewController.m in Sources */,
 				97109939207A0BF600568785 /* HUD.m in Sources */,
 				97109B0C207A1C0800568785 /* ScheduleEditHeaderView.m in Sources */,
-				128F130A22CD10AF00C9F5B7 /* MIActivityRankListViewController.m in Sources */,
 				97109BD7207A1D5000568785 /* CalendarViewController.m in Sources */,
 				97109C8F207A2EC900568785 /* InputPhoneNumberViewController.m in Sources */,
 				97567DDD20B86C6900AA0EB8 /* UpdateTaskModifiedTimeRequest.m in Sources */,
@@ -8511,7 +8523,6 @@
 				871806BB21DF438C0023511C /* MUAssetCell.m in Sources */,
 				872558A121D398010028BC2A /* CorrectHomeworkDelCommentRequest.m in Sources */,
 				122F799522AD3D5C00D2AA53 /* MISutActDetailTableViewCell.m in Sources */,
-				12CB739E22AB70340064FB21 /* MIScoreListViewController.m in Sources */,
 				97109A91207A179800568785 /* CorrectHomeworkViewController.m in Sources */,
 				9710995B207A0BF600568785 /* NSDate+X5.m in Sources */,
 				12CB738622AB52EA0064FB21 /* MITitleTypeTableViewCell.m in Sources */,
@@ -8598,9 +8609,7 @@
 				971098F9207A0BF500568785 /* NEPhotoBrowserView.m in Sources */,
 				97109C15207A2E3E00568785 /* CircleHomeworkViewController.m in Sources */,
 				973649DF20AF2F8600511A95 /* SendHomeworkRequest.m in Sources */,
-				128F130022CD0FEF00C9F5B7 /* MIStockSplitViewController.m in Sources */,
 				870ABA4E2229237200958ED2 /* FileUploaderService.m in Sources */,
-				128F12FC22CD0FE800C9F5B7 /* MIActivityStockSplitViewController.m in Sources */,
 				9736494120AF2A5400511A95 /* AccountManageTableViewCell.m in Sources */,
 				875C2620218A9BBB0047E32A /* HomeworkSendHisTableViewCell.m in Sources */,
 				971098F3207A0BF500568785 /* EmojiInputCollectionViewCell.m in Sources */,
@@ -8662,7 +8671,6 @@
 				97109A63207A158C00568785 /* AudioMessageTableViewCell.m in Sources */,
 				97109D4E207A2F0400568785 /* MessageService.m in Sources */,
 				97109A80207A171600568785 /* HomeworkVideoCollectionViewCell.m in Sources */,
-				128F130222CD0FF500C9F5B7 /* MIStockSecondViewController.m in Sources */,
 				8770A2852233B3F5005733E4 /* HomeworkAnswersPickerViewController.m in Sources */,
 				973649CC20AF2F8600511A95 /* HomeworkTextTableViewCell.m in Sources */,
 				973649DB20AF2F8600511A95 /* SearchHomeworkViewController.m in Sources */,
@@ -8683,7 +8691,6 @@
 				97109D60207A2F0400568785 /* NoticeMessageImageItemTableViewCell.m in Sources */,
 				97109949207A0BF600568785 /* Student.m in Sources */,
 				87C52FB72164AC5E004288F4 /* WBGImageEditorViewController.m in Sources */,
-				128F130422CD0FF800C9F5B7 /* MITaskStockSplitViewController.m in Sources */,
 				97109D66207A2F0400568785 /* NoticeMessageTextItemTableViewCell.m in Sources */,
 				128F131A22CD111900C9F5B7 /* MISecondSheetView.m in Sources */,
 				12CB73C522AC0DD60064FB21 /* MISutdentActDetailViewController.m in Sources */,
@@ -8700,6 +8707,7 @@
 				97109A2F207A158C00568785 /* HomeworkSessionService.m in Sources */,
 				9710994F207A0BF600568785 /* Clazz.m in Sources */,
 				971098FD207A0BF500568785 /* UITextView+Placeholder.m in Sources */,
+				128F136322D33B2D00C9F5B7 /* MIScoreListViewController.m in Sources */,
 				8709C32C21A53BD600970757 /* EwenCopyLabel.m in Sources */,
 				97109C4F207A2E3E00568785 /* CircleVideoTableViewCell.m in Sources */,
 				1226F3452298375E00BAB1C9 /* TeacherClassesViewController.m in Sources */,
