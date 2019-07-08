@@ -17,4 +17,12 @@ NSString * const SettingTableViewCellId = @"SettingTableViewCellId";
     [super awakeFromNib];
 }
 
+- (void)setupSelectedState:(BOOL)state{
+    
+    if (state) {
+        self.backgroundColor = [UIColor colorWithHex:0xF2FAFF];
+    } else {
+        self.backgroundColor = [UIColor whiteColor];
+    }
+}
 @end

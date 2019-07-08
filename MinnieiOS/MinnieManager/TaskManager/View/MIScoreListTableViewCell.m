@@ -23,7 +23,7 @@ CGFloat const MIScoreListTableViewCellHeight = 74.f;
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
+//    self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.portraitImageV.layer.masksToBounds = YES;
     self.portraitImageV.layer.cornerRadius = 22.0;
 }

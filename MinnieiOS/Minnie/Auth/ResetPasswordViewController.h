@@ -8,7 +8,12 @@
 
 #import "BaseViewController.h"
 
+typedef void(^ResetPasswordCancelCallBack) (void);
+
 // 设置密码
 @interface ResetPasswordViewController : BaseViewController
+
+@property (nonatomic,copy) ResetPasswordCancelCallBack cancelCallBack;
+
 
 @end

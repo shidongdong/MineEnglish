@@ -163,6 +163,7 @@ UITableViewDataSource
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     WeakifySelf;
     ScoreInfo *scoreInfo = self.scoreListArray[indexPath.row];
 

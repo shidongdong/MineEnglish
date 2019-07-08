@@ -6,7 +6,7 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
-#import "MIBaseDetailViewController.h"
+#import "MIStockSecondViewController.h"
 #import "CSCustomSplitViewController.h"
 #import "MIActivityRankListViewController.h"
 
@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) ActivityRankListCallback createCallback;
 
 @property (nonatomic, strong) MIActivityRankListViewController *stockMasterVC;
-@property (nonatomic, strong) MIBaseDetailViewController *stockDetailVC;
+@property (nonatomic, strong) MIStockSecondViewController *stockDetailVC;
 
 
 /*

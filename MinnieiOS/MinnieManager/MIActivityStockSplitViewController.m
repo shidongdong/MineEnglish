@@ -19,7 +19,7 @@
     // Do any additional setup after loading the view.
     
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:self.stockMasterVC];
-    _stockDetailVC = [[MIBaseDetailViewController alloc] init];
+    _stockDetailVC = [[MIStockSecondViewController alloc] init];
     UINavigationController *detailNav = [[UINavigationController alloc] initWithRootViewController:_stockDetailVC];
     
     self.viewControllers = @[masterNav, detailNav];

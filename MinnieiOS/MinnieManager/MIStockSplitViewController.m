@@ -27,7 +27,9 @@
     
     _stockDetailVC = [[MIStockSecondViewController alloc] init];
     UINavigationController *detailNav = [[UINavigationController alloc] initWithRootViewController:_stockDetailVC];
-
+    _stockMasterVC.secondDetailVC = _stockDetailVC;
+    
+    
     self.viewControllers = @[masterNav, detailNav];
     
 }

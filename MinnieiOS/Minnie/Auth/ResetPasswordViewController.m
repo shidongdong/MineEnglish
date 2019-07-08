@@ -56,6 +56,10 @@
 }
 
 - (IBAction)backButtonPressed:(id)sender {
+ 
+    if (self.cancelCallBack) {
+        self.cancelCallBack();
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 

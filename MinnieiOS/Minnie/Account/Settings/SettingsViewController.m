@@ -15,8 +15,8 @@
 #import "Application.h"
 #import "TIP.h"
 #import "Utils.h"
-#import "LoginViewController.h"
 #import "IMManager.h"
+#import "LoginViewController.h"
 #import "PortraitNavigationController.h"
 #import "AppDelegate.h"
 #import "UIViewController+PrimaryCloumnScale.h"
@@ -26,6 +26,9 @@
 @property (nonatomic, weak) IBOutlet UIButton *logoutButton;
 @property (nonatomic, weak) IBOutlet UITableView *settingsTableView;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UIView *rightLineView;
+
+@property (assign,nonatomic) NSInteger currentIndex;
 
 @end
 
@@ -34,18 +37,24 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 #if MANAGERSIDE
-    [self updatePrimaryCloumnScale:kRootModularWidth];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
 #endif
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     self.backButton.hidden = self.hiddenBackBtn;
     self.logoutButton.layer.cornerRadius = 12.f;
     self.logoutButton.layer.masksToBounds = YES;
     self.logoutButton.layer.borderWidth = 0.5;
     self.logoutButton.layer.borderColor = [UIColor colorWithHex:0xFF4858].CGColor;
+    
+#if MANAGERSIDE
+    self.currentIndex = -1;
+    self.rightLineView.hidden = NO;
+#else
+    self.rightLineView.hidden = YES;
+#endif
 }
 
 - (void)dealloc {
@@ -115,12 +124,18 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SettingTableViewCell class]) owner:nil options:nil] lastObject];
     }
     
+    [cell setupSelectedState:NO];
     if (indexPath.row == 0) {
         cell.itemLabel.text = @"修改密码";
         cell.detailLabel.hidden = YES;
         cell.actionLabel.hidden = YES;
         cell.iconImageView.hidden = NO;
         cell.iconImageView.image = [UIImage imageNamed:@"label_ic_into"];
+#if MANAGERSIDE
+        if (self.currentIndex == 0) {
+            [cell setupSelectedState:YES];
+        }
+#endif
     } else if (indexPath.row == 1) {
         
         cell.itemLabel.text = @"视频播放选项";
@@ -168,9 +183,25 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
+#if MANAGERSIDE
+    self.currentIndex = indexPath.row;
+    [tableView reloadData];
+#endif
     if (indexPath.row == 0) {
+        
         ResetPasswordViewController *resetPasswordVC = [[ResetPasswordViewController alloc] initWithNibName:[[ResetPasswordViewController class] description] bundle:nil];
-        [self.navigationController pushViewController:resetPasswordVC animated:YES];
+#if MANAGERSIDE
+        if (self.pushCallBack) {
+            self.pushCallBack(resetPasswordVC);
+        }
+        WeakifySelf;
+        resetPasswordVC.cancelCallBack = ^{
+            weakSelf.currentIndex = -1;
+            [tableView reloadData];
+        };
+#else
+    [self.navigationController pushViewController:resetPasswordVC animated:YES];
+#endif
     }
     else if (indexPath.row == 1)
     {

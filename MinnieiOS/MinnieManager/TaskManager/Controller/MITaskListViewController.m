@@ -796,7 +796,6 @@ VIResourceLoaderManagerDelegate
 
 - (void)goToCreateTaskWithType:(MIHomeworkTaskType)type{
     
-    
   __block  UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] init];
@@ -806,9 +805,13 @@ VIResourceLoaderManagerDelegate
     createVC.callBack = ^(BOOL isDelete) {
       [weakSelf requestHomeworks];
         
+        if (weakSelf.createTaskCallBack) {
+            weakSelf.createTaskCallBack(nil, 1);
+        }
         if (view.superview) {
             [view removeFromSuperview];
         }
+        
     };
     createVC.cancelCallBack = ^{
       

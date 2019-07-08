@@ -8,8 +8,13 @@
 
 #import "BaseViewController.h"
 
+typedef void(^SettingsPushNewVCCallBack) (UIViewController * _Nullable VC);
+
+
 @interface SettingsViewController : BaseViewController
 
 @property (assign, nonatomic) BOOL hiddenBackBtn;
+
+@property (copy, nonatomic) SettingsPushNewVCCallBack _Nullable pushCallBack;
 
 @end

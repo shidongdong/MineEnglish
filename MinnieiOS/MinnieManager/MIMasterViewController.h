@@ -7,7 +7,10 @@
 //  任务管理 - 文件夹
 
 #import <UIKit/UIKit.h>
+#import "MIStockSecondViewController.h"
 
 @interface MIMasterViewController : UIViewController
+
+@property (nonatomic,strong) MIStockSecondViewController *secondDetailVC;
 
 @end
