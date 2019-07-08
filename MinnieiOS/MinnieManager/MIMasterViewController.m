@@ -58,11 +58,11 @@ MISecondActivitySheetViewDelegate
     _firstSheetView.delegate = self;
     [self.view addSubview:_firstSheetView];
     
-    _secondSheetView = [[MISecondSheetView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kFolderModularWidth, ScreenHeight)];
+    _secondSheetView = [[MISecondSheetView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, ScreenHeight)];
     _secondSheetView.delegate = self;
     [self.view addSubview:_secondSheetView];
     
-    _secondActivitySheetView = [[MISecondActivitySheetView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kFolderModularWidth, self.view.frame.size.height)];
+    _secondActivitySheetView = [[MISecondActivitySheetView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, self.view.frame.size.height)];
     _secondActivitySheetView.delegate = self;
     [self.view addSubview:_secondActivitySheetView];
     
@@ -89,7 +89,7 @@ MISecondActivitySheetViewDelegate
        
         self.secondSheetView.hidden = NO;
         self.secondActivitySheetView.hidden = YES;
-        [self updatePrimaryCloumnScale:kRootModularWidth + kFolderModularWidth];
+        [self updatePrimaryCloumnScale:kRootModularWidth + kColumnSecondWidth];
         
         if ([detailVC isKindOfClass:[MIStockSecondViewController class]]) {
             [(MIStockSecondViewController *)detailVC addSubViewController:self.subStockSplitVC];
@@ -101,7 +101,7 @@ MISecondActivitySheetViewDelegate
     } else if (index == 3) { // 活动管理
         self.secondSheetView.hidden = YES;
         self.secondActivitySheetView.hidden = NO;
-        [self updatePrimaryCloumnScale:kRootModularWidth + kFolderModularWidth];
+        [self updatePrimaryCloumnScale:kRootModularWidth + kColumnSecondWidth];
 
         if ([detailVC isKindOfClass:[MIStockSecondViewController class]]) {
             [(MIStockSecondViewController *)detailVC addSubViewController:self.activityStockSplitVC];
@@ -125,7 +125,7 @@ MISecondActivitySheetViewDelegate
     [self.subStockSplitVC showTaskListWithFoldInfo:nil folderIndex:-1];
     
     UIViewController *detailVC = nav.topViewController;
-    self.customSplitViewController.primaryCloumnScale = kRootModularWidth + kFolderModularWidth;
+    self.customSplitViewController.primaryCloumnScale = kRootModularWidth + kColumnSecondWidth;
     [self.customSplitViewController setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
    
     HomeWorkSendHistoryViewController * historyHomeworkVC = [[HomeWorkSendHistoryViewController alloc] initWithNibName:@"HomeWorkSendHistoryViewController" bundle:nil];

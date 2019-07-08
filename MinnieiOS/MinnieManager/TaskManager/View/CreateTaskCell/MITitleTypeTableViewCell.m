@@ -23,7 +23,7 @@
 static const char keyOfPickerDocument;
 
 
-CGFloat const MITitleTypeTableViewCellHeight = 45.f + 60.f;
+CGFloat const MITitleTypeTableViewCellHeight = 45.f + 40.f;
 
 NSString * const MITitleTypeTableViewCellId = @"MITitleTypeTableViewCellId";
 
@@ -291,7 +291,8 @@ UIDocumentPickerDelegate
                                                          }];
     
    
-    if (self.contentType == MIHomeworkCreateContentType_AddCovers) {
+    if (self.contentType == MIHomeworkCreateContentType_AddCovers ||
+        self.contentType == MIHomeworkCreateContentType_AddActPic) {
       
         [alertVC addAction:imageAction];
         [alertVC addAction:cancelAction];

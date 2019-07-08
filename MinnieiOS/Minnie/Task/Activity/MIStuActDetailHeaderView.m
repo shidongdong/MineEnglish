@@ -72,7 +72,11 @@ UICollectionViewDelegateFlowLayout>
     [mAttribute addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, text.length)];
     [mAttribute addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, text.length)];
     self.contentLabel.attributedText = mAttribute;
-    [self.headerImagV sd_setImageWithURL:[self.actInfo.actCoverUrl imageURLWithWidth:ScreenWidth] placeholderImage:[UIImage imageNamed:@"activity_placeholder"] completed:nil];
+    NSString *urlStr = self.actInfo.actPicUrl;
+    if (urlStr.length == 0) {
+        urlStr = self.actInfo.actCoverUrl;
+    }
+    [self.headerImagV sd_setImageWithURL:[urlStr imageURLWithWidth:ScreenWidth] placeholderImage:[UIImage imageNamed:@"activity_placeholder"] completed:nil];
 }
 
 

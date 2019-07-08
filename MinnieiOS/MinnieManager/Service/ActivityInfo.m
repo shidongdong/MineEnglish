@@ -21,6 +21,7 @@
              @"startTime":@"startTime",
              @"endTime":@"endTime",
              @"actCoverUrl":@"actCoverUrl",
+             @"actPicUrl":@"actPicUrl",
              @"studentIds":@"studentIds",
              @"classIds":@"classIds",
              @"studentNames":@"studentNames",
@@ -88,6 +89,7 @@
     dict[@"startTime"] = self.startTime;
     dict[@"endTime"] = self.endTime;
     dict[@"actCoverUrl"] = self.actCoverUrl;
+    dict[@"actPicUrl"] = self.actPicUrl;
     dict[@"studentIds"] = self.studentIds;
     dict[@"classIds"] = self.classIds;
     dict[@"studentNames"] = self.studentNames;
@@ -108,6 +110,7 @@
     tempActInfo.startTime = self.startTime;
     tempActInfo.endTime = self.endTime;
     tempActInfo.actCoverUrl = self.actCoverUrl;
+    tempActInfo.actPicUrl = self.actPicUrl;
     tempActInfo.studentIds = [self newStrArray:self.studentIds];
     tempActInfo.classIds = [self newStrArray:self.classIds];
     tempActInfo.studentNames = [self newStrArray:self.studentNames];

@@ -54,7 +54,7 @@ UITableViewDataSource
     addActivitybtn.layer.cornerRadius = 4.0;
     addActivitybtn.layer.masksToBounds = YES;
     
-//    UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake( 0, kNaviBarHeight - 1, kFolderModularWidth, 1.0)];
+//    UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake( 0, kNaviBarHeight - 1, kColumnSecondWidth, 1.0)];
 //    lineView1.backgroundColor = [UIColor separatorLineColor];
 //    [self addSubview:lineView1];
     
@@ -64,7 +64,7 @@ UITableViewDataSource
     [self addSubview:_tableView];
     _tableView.separatorColor = [UIColor separatorLineColor];
     
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(kFolderModularWidth - 0.5, 0, 0.5, [UIScreen mainScreen].bounds.size.height)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(kColumnSecondWidth - 0.5, 0, 0.5, [UIScreen mainScreen].bounds.size.height)];
     lineView.backgroundColor = [UIColor separatorLineColor];
     [self addSubview:lineView];
     

@@ -448,19 +448,25 @@ VIResourceLoaderManagerDelegate
         AVPlayer *player;
         HomeworkItem *otherItem = self.homework.otherItem.firstObject;
         NSInteger playMode = [[Application sharedInstance] playMode];
-        if (otherItem.videoUrl.length) {
+        NSString *playUrl = otherItem.videoUrl;
+        if ([otherItem.type isEqualToString:@"video"]) {
+           playUrl = otherItem.videoUrl;
+        } else {
+            playUrl = otherItem.audioUrl;
+        }
+        if (playUrl.length) {
 
             if (playMode == 1)// 在线播放
             {
-                [VICacheManager cleanCacheForURL:[NSURL URLWithString:otherItem.videoUrl] error:nil];
-                player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:otherItem.videoUrl]];
+                [VICacheManager cleanCacheForURL:[NSURL URLWithString:playUrl] error:nil];
+                player = [[AVPlayer alloc]initWithURL:[NSURL URLWithString:playUrl]];
             }
             else
             {
                 VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
                 resourceLoaderManager.delegate = self;
                 self.resourceLoaderManager = resourceLoaderManager;
-                AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:otherItem.videoUrl]];
+                AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:playUrl]];
                 player = [AVPlayer playerWithPlayerItem:playerItem];
             }
         }

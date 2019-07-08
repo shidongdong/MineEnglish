@@ -672,6 +672,39 @@ ClassAndStudentSelectorControllerDelegate
             cell = contentCell;
         }
             break;
+        case MIHomeworkCreateContentType_AddActPic:
+        {
+            MITitleTypeTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MITitleTypeTableViewCellId forIndexPath:indexPath];
+            contentCell.title = @"添加活动图:";
+            __weak MITitleTypeTableViewCell *weakContentCell = contentCell;
+            __weak UITableView *weakTableView = tableView;
+            contentCell.addItemCallback = ^(NSArray * _Nullable items) {
+                
+                HomeworkItem *coverItem = items.lastObject;
+                weakSelf.activityInfo.actPicUrl = coverItem.imageUrl;
+                if (coverItem == nil) {
+                    
+                    [weakContentCell setupWithItems:@[] vc:weakSelf contentType:createType];
+                } else {
+                    
+                    [weakContentCell setupWithItems:@[coverItem] vc:weakSelf contentType:createType];
+                }
+                [weakTableView beginUpdates];
+                [weakTableView endUpdates];
+            };
+            if (self.activityInfo.actPicUrl.length) {
+                
+                HomeworkItem *coverItem = [[HomeworkItem alloc] init];
+                coverItem.imageUrl = self.activityInfo.actPicUrl;
+                coverItem.type = @"image";
+                [contentCell setupWithItems:@[coverItem] vc:self contentType:createType];
+            } else {
+                [contentCell setupWithItems:@[] vc:self contentType:createType];
+            }
+            cell = contentCell;
+        }
+            break;
+
         case MIHomeworkCreateContentType_AddBgMusic:
         {
             MITitleTypeTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MITitleTypeTableViewCellId forIndexPath:indexPath];
@@ -1063,6 +1096,7 @@ ClassAndStudentSelectorControllerDelegate
             typeArray =
             [NSMutableArray arrayWithArray:@[@(MIHomeworkCreateContentType_Title),
                           @(MIHomeworkCreateContentType_AddCovers),
+                          @(MIHomeworkCreateContentType_AddActPic),
                           @(MIHomeworkCreateContentType_Content),
                           @(MIHomeworkCreateContentType_Materials),
                           @(MIHomeworkCreateContentType_CommitCount),
@@ -1165,6 +1199,13 @@ ClassAndStudentSelectorControllerDelegate
             break;
         case MIHomeworkCreateContentType_AddCovers:
             if (self.activityInfo.actCoverUrl.length) {
+                rowHeight = 112 + MITitleTypeTableViewCellHeight;
+            } else {
+                rowHeight = MITitleTypeTableViewCellHeight;
+            }
+            break;
+        case MIHomeworkCreateContentType_AddActPic:
+            if (self.activityInfo.actPicUrl.length) {
                 rowHeight = 112 + MITitleTypeTableViewCellHeight;
             } else {
                 rowHeight = MITitleTypeTableViewCellHeight;
@@ -1486,6 +1527,10 @@ ClassAndStudentSelectorControllerDelegate
     }
     if (self.activityInfo.actCoverUrl.length == 0) {
         [HUD showErrorWithMessage:@"请添加活动封面"];
+        return;
+    }
+    if (self.activityInfo.actPicUrl.length == 0) {
+        [HUD showErrorWithMessage:@"请添加活动图"];
         return;
     }
     if ([[NSDate dateWithString:self.activityInfo.startTime format:@"yyyy-MM-dd HH:mm:ss"] isLaterThanDate:[NSDate dateWithString:self.activityInfo.endTime format:@"yyyy-MM-dd HH:mm:ss"]]) {

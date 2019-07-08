@@ -61,11 +61,9 @@
 
 
 #define kRootModularWidth           90.f
-#define kActivitySheetWidth         234.f
+#define kColumnSecondWidth          234.f
 #define kFolderModularWidth         234.f
-
-
-#define kColumnThreeWidth           (ScreenWidth - kRootModularWidth - kFolderModularWidth)/2.0
+#define kColumnThreeWidth           (ScreenWidth - kRootModularWidth - kColumnSecondWidth)/2.0
 
 
 
@@ -113,6 +111,7 @@ typedef NS_ENUM(NSInteger, MIHomeworkCreateContentType) {
     MIHomeworkCreateContentType_ExaminationType,    // 考试类型
     MIHomeworkCreateContentType_TimeLimit,          // 选择时限
     MIHomeworkCreateContentType_AddCovers,          // 添加封面
+    MIHomeworkCreateContentType_AddActPic,          // 添加活动图
     MIHomeworkCreateContentType_ActivityReq,        // 活动要求
     MIHomeworkCreateContentType_CommitCount,        // 可提交次数
     MIHomeworkCreateContentType_Add,                // 添加按钮

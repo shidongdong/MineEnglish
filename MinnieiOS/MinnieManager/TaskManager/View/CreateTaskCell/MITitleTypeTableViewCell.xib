@@ -25,7 +25,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dJM-uT-wRz">
-                        <rect key="frame" x="0.0" y="37" width="354" height="133.5"/>
+                        <rect key="frame" x="0.0" y="27" width="354" height="158.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <connections>
                             <outlet property="dataSource" destination="-1" id="NGR-rq-KrA"/>
@@ -37,9 +37,9 @@
                     <constraint firstItem="E52-om-6Zq" firstAttribute="leading" secondItem="pmO-qz-FtI" secondAttribute="leading" constant="12" id="FYE-rQ-V7Q"/>
                     <constraint firstAttribute="trailing" secondItem="dJM-uT-wRz" secondAttribute="trailing" id="IJ6-Xa-to2"/>
                     <constraint firstItem="E52-om-6Zq" firstAttribute="top" secondItem="pmO-qz-FtI" secondAttribute="top" constant="10" id="OLw-f0-Hlm"/>
-                    <constraint firstItem="dJM-uT-wRz" firstAttribute="top" secondItem="E52-om-6Zq" secondAttribute="bottom" constant="10" id="Z3B-r3-y2g"/>
+                    <constraint firstItem="dJM-uT-wRz" firstAttribute="top" secondItem="E52-om-6Zq" secondAttribute="bottom" id="Z3B-r3-y2g"/>
                     <constraint firstAttribute="trailing" secondItem="E52-om-6Zq" secondAttribute="trailing" constant="12" id="jiE-7e-78W"/>
-                    <constraint firstAttribute="bottom" secondItem="dJM-uT-wRz" secondAttribute="bottom" constant="15" id="kdk-n5-cB1"/>
+                    <constraint firstAttribute="bottom" secondItem="dJM-uT-wRz" secondAttribute="bottom" id="kdk-n5-cB1"/>
                     <constraint firstItem="dJM-uT-wRz" firstAttribute="leading" secondItem="pmO-qz-FtI" secondAttribute="leading" id="p4L-av-nlH"/>
                 </constraints>
             </tableViewCellContentView>

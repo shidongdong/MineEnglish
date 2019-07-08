@@ -40,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic ,copy) NSString *endTime;
 // 活动封面链接
 @property (nonatomic ,copy) NSString *actCoverUrl;
+// 活动图链接
+@property (nonatomic ,copy) NSString *actPicUrl;
 // 学生id列表
 @property (nonatomic ,strong) NSArray *studentIds;
 // 班级id列表

@@ -72,7 +72,7 @@ UITableViewDataSource
     addFolderbtn.frame = CGRectMake(12, kNaviBarHeight, 90, kNaviBarHeight);
     
     
-    UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake( 0, kNaviBarHeight*2 - 1, kFolderModularWidth, 1.0)];
+    UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake( 0, kNaviBarHeight*2 - 1, kColumnSecondWidth, 1.0)];
     lineView1.backgroundColor = [UIColor separatorLineColor];
     [self addSubview:lineView1];
     
@@ -82,7 +82,7 @@ UITableViewDataSource
     [self addSubview:_tableView];
     _tableView.separatorColor = [UIColor clearColor];
 
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(kFolderModularWidth - 0.5, 0, 0.5, ScreenHeight)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(kColumnSecondWidth - 0.5, 0, 0.5, ScreenHeight)];
     lineView.backgroundColor = [UIColor separatorLineColor];
     [self addSubview:lineView];
 
@@ -226,7 +226,7 @@ UITableViewDataSource
             editViewY = ScreenHeight - 120;
         }
         editFileView.topConstraint.constant = editViewY;
-        editFileView.leftContraint.constant = kFolderModularWidth + kRootModularWidth;
+        editFileView.leftContraint.constant = kColumnSecondWidth + kRootModularWidth;
         [[UIApplication sharedApplication].keyWindow addSubview:editFileView];
     } else {
         
@@ -263,7 +263,7 @@ UITableViewDataSource
             editViewY = ScreenHeight - 120;
         }
         editFileView.topConstraint.constant = editViewY;
-        editFileView.leftContraint.constant = kFolderModularWidth + kRootModularWidth;
+        editFileView.leftContraint.constant = kColumnSecondWidth + kRootModularWidth;
         [[UIApplication sharedApplication].keyWindow addSubview:editFileView];
     }
 }
