@@ -1,18 +1,18 @@
 //
-//  MISubStockSplitViewController.m
+//  MITaskStockSplitViewController.m
 //  Minnie
 //
 //  Created by songzhen on 2019/7/1.
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
-#import "MISubStockSplitViewController.h"
+#import "MITaskStockSplitViewController.h"
 
-@interface MISubStockSplitViewController ()
+@interface MITaskStockSplitViewController ()
 
 @end
 
-@implementation MISubStockSplitViewController
+@implementation MITaskStockSplitViewController
 
 
 - (void)viewDidLoad {

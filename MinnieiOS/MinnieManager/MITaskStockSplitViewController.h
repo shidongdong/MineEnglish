@@ -1,5 +1,5 @@
 //
-//  MISubStockSplitViewController.h
+//  MITaskStockSplitViewController.h
 //  Minnie
 //
 //  Created by songzhen on 2019/7/1.
@@ -13,7 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-@interface MISubStockSplitViewController : CSCustomSplitViewController
+@interface MITaskStockSplitViewController : CSCustomSplitViewController
 
 @property (nonatomic, strong) MITaskListViewController *stockMasterVC;
 @property (nonatomic, strong) MIStockSecondViewController *stockDetailVC;

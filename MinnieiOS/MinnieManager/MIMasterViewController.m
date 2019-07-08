@@ -16,7 +16,7 @@
 #import "HomeWorkSendHistoryViewController.h"
 #import "UIViewController+PrimaryCloumnScale.h"
 
-#import "MISubStockSplitViewController.h"
+#import "MITaskStockSplitViewController.h"
 #import "MISetterStockSplitViewController.h"
 #import "MIActivityStockSplitViewController.h"
 
@@ -35,7 +35,7 @@ MISecondActivitySheetViewDelegate
 @property (nonatomic, strong) MISecondActivitySheetView *secondActivitySheetView;
 
 // 任务管理 - 任务列表
-@property (nonatomic, strong) MISubStockSplitViewController *subStockSplitVC;
+@property (nonatomic, strong) MITaskStockSplitViewController *subStockSplitVC;
 // 活动管理 - 活动排行列表
 @property (nonatomic, strong) MIActivityStockSplitViewController *activityStockSplitVC;
 // 设置 -
@@ -176,11 +176,11 @@ MISecondActivitySheetViewDelegate
 }
 
 #pragma mark - setter && getter
-- (MISubStockSplitViewController *)subStockSplitVC{
+- (MITaskStockSplitViewController *)subStockSplitVC{
    
     if (!_subStockSplitVC) {
         WeakifySelf;
-        _subStockSplitVC = [[MISubStockSplitViewController alloc] init];
+        _subStockSplitVC = [[MITaskStockSplitViewController alloc] init];
         _subStockSplitVC.addFolderCallBack = ^(NSInteger folderIndex) {
             [weakSelf.secondSheetView addSecondLevelFolderIndex:folderIndex];
         };
