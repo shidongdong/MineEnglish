@@ -218,16 +218,16 @@ MISecondActivitySheetViewDelegate
 - (MIActivityStockSplitViewController *)activityStockSplitVC{
     
     if (!_activityStockSplitVC) {
-        _activityStockSplitVC = [[MIActivityStockSplitViewController alloc] init];
         WeakifySelf;
+        _activityStockSplitVC = [[MIActivityStockSplitViewController alloc] init];
         _activityStockSplitVC.createCallback = ^(NSInteger activityIndex) {
           
             [weakSelf.secondActivitySheetView activitySheetDidEditIndex:activityIndex];
         };
     }
-    if (_subStockSplitVC.primaryCloumnScale != kColumnThreeWidth) {
-        _subStockSplitVC.primaryCloumnScale = kColumnThreeWidth;
-        [_subStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
+    if (_activityStockSplitVC.primaryCloumnScale != kColumnThreeWidth) {
+        _activityStockSplitVC.primaryCloumnScale = kColumnThreeWidth;
+        [_activityStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
     }
     return _activityStockSplitVC;
 }

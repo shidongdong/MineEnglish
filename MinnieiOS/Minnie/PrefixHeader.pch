@@ -61,7 +61,7 @@
 
 
 #define kRootModularWidth           90.f
-#define kColumnSecondWidth          234.f
+#define kColumnSecondWidth          184.f
 #define kFolderModularWidth         234.f
 #define kColumnThreeWidth           (ScreenWidth - kRootModularWidth - kColumnSecondWidth)/2.0
 
