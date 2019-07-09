@@ -14,7 +14,7 @@
 #import "TIP.h"
 #import "UIScrollView+Refresh.h"
 #import "TeacherAwardsViewController.h"
-#import "CreateAwardViewController.h"
+//#import "CreateAwardViewController.h"
 #import "UIColor+HEX.h"
 
 @interface ExchangeRequestsViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -23,6 +23,7 @@
 @property (nonatomic, weak) IBOutlet UITableView *requestsTableView;
 @property (nonatomic, weak) IBOutlet UIButton *manageButton;
 @property (weak, nonatomic) IBOutlet UIButton *recordHistoryBtn;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
 
 @property (nonatomic, strong) BaseRequest *listRequest;
 
@@ -33,10 +34,29 @@
 
 @implementation ExchangeRequestsViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+#if MANAGERSIDE
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+#endif
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     _requests = [NSMutableArray array];
+    
+#if MANAGERSIDE
+   
+    self.customTitleLabel.text = @"";
+    self.manageButton.hidden = YES;
+    self.recordHistoryBtn.hidden = YES;
+    self.backButton.enabled = NO;
+    [self.backButton setTitle:@"兑换列表" forState:UIControlStateNormal];
+    [self.backButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+#else
+    
+    [self.backButton setTitle:@"" forState:UIControlStateNormal];
+    [self.backButton setImage:[UIImage imageNamed:@"navbar_back"] forState:UIControlStateNormal];
     
     if (self.exchanged) {
         [self.customTitleLabel setText:@"兑换历史"];
@@ -49,19 +69,10 @@
         self.manageButton.hidden = NO;
         
         self.recordHistoryBtn.hidden = NO;
-        
-//        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [button setBackgroundColor:[UIColor clearColor]];
-//        [button setFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 69.f)];
-//        [button setTitle:@"兑换历史" forState:UIControlStateNormal];
-//        [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
-//        [button setTitleColor:[UIColor colorWithHex:0x999999] forState:UIControlStateNormal];
-//        [button addTarget:self action:@selector(recordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-//        [self.requestsTableView setTableFooterView:button];
     }
+#endif
     
     [self registerCellNibs];
-    
     [self requestData];
 }
 
@@ -108,10 +119,6 @@
                                                                  [strongSelf handleRequestResult:result error:error];
                                                              }];
 }
-
-//- (void)recordButtonPressed:(id)sender {
-//    
-//}
 
 - (void)loadMore {
     if (self.listRequest != nil) {

@@ -7,8 +7,6 @@
 //
 
 #import "MIStockSecondViewController.h"
-#import "MIStockSplitViewController.h"
-#import "Masonry.h"
 @interface MIStockSecondViewController ()
 
 @end

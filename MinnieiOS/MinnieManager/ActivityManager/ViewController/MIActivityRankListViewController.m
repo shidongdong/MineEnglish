@@ -9,7 +9,6 @@
 #import "Result.h"
 #import "UIView+Load.h"
 #import "ManagerServce.h"
-#import "MIStockSplitViewController.h"
 #import "MICreateTaskViewController.h"
 #import "MIActivityRankListTableViewCell.h"
 #import "MIActivityRankListViewController.h"
@@ -56,9 +55,12 @@ UITableViewDataSource
 - (void)configureUI{
     
     self.currentSelectedIndex = -1;
-    self.view.backgroundColor = [UIColor unSelectedColor];
     self.okRankArray = [NSMutableArray array];
     self.checkRankArray = [NSMutableArray array];
+    
+    self.headerView.hidden = YES;
+    self.tableView.hidden = YES;
+    self.view.backgroundColor = [UIColor unSelectedColor];
     
     self.editBtn.layer.borderColor = [UIColor mainColor].CGColor;
     self.editBtn.layer.borderWidth = 0.5;
@@ -126,7 +128,7 @@ UITableViewDataSource
 
 - (void)showCreateListVC:(BOOL)isCreate{
     
-    __block  UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    __block  UIView *bgView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] init];
     
     [createVC setupCreateActivity: (isCreate) ? nil : self.curActInfo];
@@ -145,33 +147,23 @@ UITableViewDataSource
                 weakSelf.callback(weakSelf.currentActivityIndex);
             }
         }
-        if (view.superview) {
-            [view removeFromSuperview];
+        if (bgView.superview) {
+            [bgView removeFromSuperview];
         }
     };
     createVC.cancelCallBack = ^{
         
-        if (view.superview) {
-            [view removeFromSuperview];
+        if (bgView.superview) {
+            [bgView removeFromSuperview];
         }
     };
-    view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-    UIViewController *rootVC = [self rootViewController];
+    bgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    UIViewController *rootVC = self.view.window.rootViewController;
     if (rootVC) {
-        [rootVC.view addSubview:view];
+        [rootVC.view addSubview:bgView];
     }
-    [view addSubview:createVC.view];
+    [bgView addSubview:createVC.view];
     createVC.view.frame = CGRectMake(kRootModularWidth/2.0, 70, ScreenWidth - kRootModularWidth, ScreenHeight - 120);
-}
-
-- (MIStockSplitViewController *)rootViewController
-{
-    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
-    UIViewController *rootController = window.rootViewController;
-    if ([rootController isKindOfClass:[MIStockSplitViewController class]]) {
-        return (MIStockSplitViewController *)rootController;
-    }
-    return nil;
 }
 
 - (void)updateRankListWithActivityModel:(ActivityInfo *_Nullable)model index:(NSInteger)currentIndex{
@@ -183,7 +175,6 @@ UITableViewDataSource
         [self requestGetActivityRankList];
         self.rightLineView.hidden = NO;
         self.view.backgroundColor = [UIColor unSelectedColor];
-        self.tableView.backgroundColor = [UIColor unSelectedColor];
     } else {
         [self.view hideAllStateView];
         self.tableView.hidden = YES;

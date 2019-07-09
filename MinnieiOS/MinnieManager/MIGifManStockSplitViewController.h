@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MIGifManStockSplitViewController : CSCustomSplitViewController
 
+- (void)updateAwards;
+
+- (void)updateExchangeAwardsList;
 @end
 
 NS_ASSUME_NONNULL_END

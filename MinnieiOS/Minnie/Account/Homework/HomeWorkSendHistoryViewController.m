@@ -35,7 +35,11 @@
     
     [super viewDidLoad];
     self.homeworks = [NSMutableArray array];
-    self.backButton.hidden = self.hiddenBackBtn;
+#if MANAGERSIDE
+    [self.backButton setImage: [UIImage imageNamed:@"navbar_close"] forState:UIControlStateNormal];
+#else
+    [self.backButton setImage: [UIImage imageNamed:@"navbar_back"]]forState:UIControlStateNormal];
+#endif
     [self registerNibCell];
     [self requestHistoryList];
     // Do any additional setup after loading the view from its nib.

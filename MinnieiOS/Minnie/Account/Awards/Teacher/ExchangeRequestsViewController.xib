@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ExchangeRequestsViewController">
             <connections>
+                <outlet property="backButton" destination="hDM-o1-1og" id="AvL-mA-Hc1"/>
                 <outlet property="containerView" destination="9tv-gi-UmE" id="pni-Zf-RFQ"/>
                 <outlet property="customTitleLabel" destination="eUq-Fb-1hJ" id="7u8-i1-1j0"/>
                 <outlet property="manageButton" destination="4Fd-3n-8OY" id="C9p-o6-SaS"/>
@@ -29,21 +29,11 @@
                     <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="兑换记录" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUq-Fb-1hJ">
-                            <rect key="frame" x="150" y="11.5" width="74" height="22"/>
+                            <rect key="frame" x="150.5" y="11" width="74" height="22"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                             <color key="textColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDM-o1-1og">
-                            <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="44" id="x8P-hj-7f7"/>
-                            </constraints>
-                            <state key="normal" image="navbar_back.png"/>
-                            <connections>
-                                <action selector="backButtonPressed:" destination="-1" eventType="touchUpInside" id="fii-mV-hiD"/>
-                            </connections>
-                        </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Fd-3n-8OY">
                             <rect key="frame" x="325" y="0.0" width="50" height="43.5"/>
                             <constraints>
@@ -77,6 +67,16 @@
                                 <action selector="recordHistoryClick:" destination="-1" eventType="touchUpInside" id="mGD-G1-cnL"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDM-o1-1og">
+                            <rect key="frame" x="12" y="0.0" width="24" height="44"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                            <state key="normal" image="navbar_back.png">
+                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </state>
+                            <connections>
+                                <action selector="backButtonPressed:" destination="-1" eventType="touchUpInside" id="fii-mV-hiD"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -89,7 +89,7 @@
                         <constraint firstAttribute="bottom" secondItem="EtS-py-nap" secondAttribute="bottom" id="N0u-0G-FwU"/>
                         <constraint firstItem="4Fd-3n-8OY" firstAttribute="top" secondItem="blJ-pw-Tzh" secondAttribute="top" id="Q1r-xz-J5n"/>
                         <constraint firstItem="blJ-pw-Tzh" firstAttribute="trailing" secondItem="4Fd-3n-8OY" secondAttribute="trailing" id="VTl-PO-wnf"/>
-                        <constraint firstItem="hDM-o1-1og" firstAttribute="leading" secondItem="9c0-GP-KLv" secondAttribute="leading" id="Y47-dq-yC8"/>
+                        <constraint firstItem="hDM-o1-1og" firstAttribute="leading" secondItem="9c0-GP-KLv" secondAttribute="leading" constant="12" id="Y47-dq-yC8"/>
                         <constraint firstItem="eUq-Fb-1hJ" firstAttribute="centerY" secondItem="9c0-GP-KLv" secondAttribute="centerY" id="c0c-2l-PaZ"/>
                         <constraint firstAttribute="trailing" secondItem="EtS-py-nap" secondAttribute="trailing" id="cUr-bQ-iYu"/>
                         <constraint firstItem="4Fd-3n-8OY" firstAttribute="leading" secondItem="F36-Bo-eXK" secondAttribute="trailing" id="eIH-QZ-YLb"/>

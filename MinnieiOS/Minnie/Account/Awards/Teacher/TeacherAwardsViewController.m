@@ -21,6 +21,9 @@
 @property (nonatomic, weak) IBOutlet UIView *awardsCollectionContainerView;
 @property (nonatomic, weak) IBOutlet UICollectionView *awardsCollectionView;
 @property (nonatomic, weak) IBOutlet UIButton *createButton;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIView *rightLineView;
 
 @property (nonatomic, strong) NSMutableArray<Award *> *awards;
 @property (nonatomic, strong) BaseRequest *awardsRequest;
@@ -45,6 +48,24 @@
                                              selector:@selector(shouldReloadWhenAppeared:)
                                                  name:kNotificationKeyOfAddAward
                                                object:nil];
+#if MANAGERSIDE
+
+    self.titleLabel.text = @"";
+    self.createButton.hidden = YES;
+    [self.backButton setTitle:@"新建" forState:UIControlStateNormal];
+    [self.backButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    self.rightLineView.hidden = NO;
+#else
+    self.rightLineView.hidden = YES;
+    self.titleLabel.text = @"星奖励";
+    self.createButton.hidden = !APP.currentUser.canCreateRewards;
+    [self.backButton setTitle:@"" forState:UIControlStateNormal];
+    [self.backButton setImage:[UIImage imageNamed:@"navbar_back"] forState:UIControlStateNormal];
+#endif
+}
+
+- (void)updateAwards{
+    [self requestData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -70,13 +91,48 @@
     NSLog(@"%s", __func__);
 }
 
+
+- (void)backButtonPressed:(id)sender{
+    
+#if MANAGERSIDE
+// 新建奖励
+    [self showCreateAwardWithAward:nil];
+    
+#endif
+}
+
+- (void)showCreateAwardWithAward:(Award *_Nullable)award{
+    
+    UIView *bgAwardView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    bgAwardView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    
+//    CreateAwardViewController *vc = [[CreateAwardViewController alloc] initWithNibName:NSStringFromClass([CreateAwardViewController class]) bundle:nil];
+    CreateAwardViewController *vc = [[CreateAwardViewController alloc] init];
+    vc.award = award;
+    vc.cancelCallBack = ^{
+        
+        if (bgAwardView.superview) {
+            [bgAwardView removeFromSuperview];
+        }
+    };
+    UIViewController *rootVC = self.view.window.rootViewController;
+    [rootVC.view addSubview:bgAwardView];
+    [bgAwardView addSubview:vc.view];
+    [rootVC addChildViewController:vc];
+    [vc didMoveToParentViewController:rootVC];
+    vc.view.layer.cornerRadius = 10.f;
+    vc.view.layer.masksToBounds = YES;
+    vc.view.frame = CGRectMake((ScreenWidth - 375)/2.0, 50, 375, ScreenHeight - 100);
+}
+
+
 - (IBAction)createButtonPressed:(id)sender {
+    
     CreateAwardViewController *vc = [[CreateAwardViewController alloc] initWithNibName:NSStringFromClass([CreateAwardViewController class]) bundle:nil];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Private Methods
-
 - (void)shouldReloadWhenAppeared:(NSNotification *)notification {
     self.shouldReloadWhenAppeared = YES;
 }
@@ -179,13 +235,18 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     
     Award *award = self.awards[indexPath.row];
-    
+#if MANAGERSIDE
+    // 编辑
+    [self showCreateAwardWithAward:award];
+#else
     CreateAwardViewController *vc = [[CreateAwardViewController alloc] initWithNibName:NSStringFromClass([CreateAwardViewController class]) bundle:nil];
     vc.award = award;
     [self.navigationController pushViewController:vc animated:YES];
+#endif
 }
 
 @end

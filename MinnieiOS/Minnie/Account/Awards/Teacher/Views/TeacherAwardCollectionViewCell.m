@@ -32,8 +32,21 @@ NSString * const TeacherAwardCollectionViewCellId = @"TeacherAwardCollectionView
 }
 
 + (CGSize)size {
-    NSInteger width = floor((ScreenWidth - 3 * 12.f)/2.f);
-    NSInteger height = (width - 24) + 12 + 54;
+   
+    NSInteger width;
+    NSInteger height;
+#if MANAGERSIDE
+
+    width = floor(((ScreenWidth - kRootModularWidth)/2.0 + 80 - 4 * 12.f)/3.f);
+    height = (width - 24) + 12 + 54;
+    
+#else
+    
+    width = floor((ScreenWidth - 3 * 12.f)/2.f);
+    height = (width - 24) + 12 + 54;
+    
+#endif
+    
     
     return CGSizeMake(width, height);
 }

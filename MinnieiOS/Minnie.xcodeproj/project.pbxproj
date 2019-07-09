@@ -387,6 +387,12 @@
 		128F136122D3365B00C9F5B7 /* add_image_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109639207A006D00568785 /* add_image_bg@3x.png */; };
 		128F136222D3365E00C9F5B7 /* add_image_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109637207A006D00568785 /* add_image_bg@2x.png */; };
 		128F136322D33B2D00C9F5B7 /* MIScoreListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 123042F722A1334000E111A4 /* MIScoreListViewController.m */; };
+		128F136422D375D900C9F5B7 /* Award.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109E54207A7BDC00568785 /* Award.m */; };
+		128F136522D37D8700C9F5B7 /* ExchangeRequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109E97207A7C0A00568785 /* ExchangeRequestsViewController.m */; };
+		128F136622D37D9000C9F5B7 /* ExchangeRequestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109E98207A7C0A00568785 /* ExchangeRequestsViewController.xib */; };
+		128F136722D37D9700C9F5B7 /* ExchangeRequestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EAA207A7C0A00568785 /* ExchangeRequestTableViewCell.m */; };
+		128F136822D37DA300C9F5B7 /* ExchangeRequestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109EA9207A7C0A00568785 /* ExchangeRequestTableViewCell.xib */; };
+		128F136922D37EB500C9F5B7 /* ExchangeRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109E56207A7BDC00568785 /* ExchangeRecord.m */; };
 		12961C49229E5B130075B04A /* HomeworkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 973649A320AF2F8500511A95 /* HomeworkTableViewCell.m */; };
 		12961C4A229E5B260075B04A /* HomeworkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9736499C20AF2F8500511A95 /* HomeworkTableViewCell.xib */; };
 		12961C4B229E5B590075B04A /* icon_mission_choice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 971095F2207A006C00568785 /* icon_mission_choice@2x.png */; };
@@ -6257,6 +6263,7 @@
 				12B7082722A5207B00117537 /* DatePickerView.xib in Resources */,
 				12FD85EB22C0B2620026B7E2 /* 对话框_白色@3x.png in Resources */,
 				12CB73AF22AB91F60064FB21 /* HomeworkDiffTableViewCell.xib in Resources */,
+				128F136622D37D9000C9F5B7 /* ExchangeRequestsViewController.xib in Resources */,
 				12EAC63E22AD4BF400F1F3DB /* MIReadingTaskViewController.xib in Resources */,
 				12ED3B38229D6D3000255F8B /* MICreateFolderView.xib in Resources */,
 				12747C1922A7D0B1009C390E /* icon_stars@2x.png in Resources */,
@@ -6315,6 +6322,7 @@
 				128F135922D3349900C9F5B7 /* TeacherAwardsViewController.xib in Resources */,
 				12961C58229E65400075B04A /* TeacherCollectionViewCell.xib in Resources */,
 				12A1E94022A5786F001247D7 /* HomeworkVideoTableViewCell.xib in Resources */,
+				128F136822D37DA300C9F5B7 /* ExchangeRequestTableViewCell.xib in Resources */,
 				12747C6122A7D1B0009C390E /* right_chat_talk2@3x.png in Resources */,
 				12FD85C822BB2F630026B7E2 /* label_eye_display@3x.png in Resources */,
 				128F135E22D334E000C9F5B7 /* CreateAwardViewController.xib in Resources */,
@@ -7736,6 +7744,7 @@
 				1226F3212298322500BAB1C9 /* SMSCodeRequest.m in Sources */,
 				128F135722D3348E00C9F5B7 /* TeacherAwardsViewController.m in Sources */,
 				12961C69229E66810075B04A /* PinyinFormatter.m in Sources */,
+				128F136422D375D900C9F5B7 /* Award.m in Sources */,
 				12ED3B4A229D907500255F8B /* SendHomeworkHistoryRequest.m in Sources */,
 				128F135A22D334BA00C9F5B7 /* TeacherAwardService.m in Sources */,
 				12747BEE22A7CD91009C390E /* StudentDetailHeaderCell.m in Sources */,
@@ -7903,6 +7912,7 @@
 				12747BDA22A7CCC4009C390E /* MessageTimeTableViewCell.m in Sources */,
 				12961CC1229FD4EC0075B04A /* TagsViewController.m in Sources */,
 				1226F3432298366B00BAB1C9 /* UpdateProfileRequest.m in Sources */,
+				128F136722D37D9700C9F5B7 /* ExchangeRequestTableViewCell.m in Sources */,
 				12ED3B3E229D8F0000255F8B /* HomeWorkSendHistoryViewController.m in Sources */,
 				12FD85E322C05C900026B7E2 /* ParentFileInfo.m in Sources */,
 				12CB73B122AB91FE0064FB21 /* HomeworkSegmentTableViewCell.m in Sources */,
@@ -7928,10 +7938,12 @@
 				12ED3B10229C2E5E00255F8B /* CSCustomSplitViewController.m in Sources */,
 				12ED3B02229C2E4D00255F8B /* MIRootSheetView.m in Sources */,
 				1226F331229832FE00BAB1C9 /* RegisterRequest.m in Sources */,
+				128F136922D37EB500C9F5B7 /* ExchangeRecord.m in Sources */,
 				12EAC63522AD40A000F1F3DB /* MIStuActDetailHeaderView.m in Sources */,
 				12747C1122A7D02E009C390E /* AwardsRequest.m in Sources */,
 				1226F3112297FA7700BAB1C9 /* Teacher.m in Sources */,
 				128F134D22D321B800C9F5B7 /* MITeacherManagerViewController.m in Sources */,
+				128F136522D37D8700C9F5B7 /* ExchangeRequestsViewController.m in Sources */,
 				12961C98229ECB060075B04A /* MISegmentTypeTableViewCell.m in Sources */,
 				1226F33C2298336700BAB1C9 /* HomeworkAnswerItem.m in Sources */,
 				12747C8822A7D2DC009C390E /* RecordButton.m in Sources */,

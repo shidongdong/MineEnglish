@@ -24,6 +24,7 @@
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *imageViewHeightConstraint;
 @property (nonatomic, weak) IBOutlet UIView *addImageView;
+@property (weak, nonatomic) IBOutlet UIButton *closeButton;
 
 @property (nonatomic, assign) BOOL imageChanged;
 
@@ -34,28 +35,49 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.imageView.userInteractionEnabled = YES;
+    self.addImageView.userInteractionEnabled = YES;
     if (self.award != nil) {
         self.customTitleLabel.text = @"编辑礼品";
         self.nameTextField.text = self.award.name;
         self.countTextField.text = [NSString stringWithFormat:@"%@", @(self.award.count)];
         self.priceTextField.text = [NSString stringWithFormat:@"%@", @(self.award.price)];
 
-        self.imageViewHeightConstraint.constant = ScreenWidth;
-        [self.imageView sd_setImageWithURL:[self.award.imageUrl imageURLWithWidth:ScreenWidth]];
+        CGFloat scrWidth = ScreenWidth;
+#if MANAGERSIDE
+        scrWidth = 375.0;
+#endif
+        self.imageViewHeightConstraint.constant = scrWidth;
+        [self.imageView sd_setImageWithURL:[self.award.imageUrl imageURLWithWidth:scrWidth]];
     } else {
         self.customTitleLabel.text = @"新建礼品";
         self.imageViewHeightConstraint.constant = 0.f;
     }
+#if MANAGERSIDE
+    [self.closeButton setImage:[UIImage imageNamed:@"navbar_close"] forState:UIControlStateNormal];
+#else
+    [self.closeButton setImage:[UIImage imageNamed:@"navbar_back"] forState:UIControlStateNormal];
+#endif
 }
 
 - (void)dealloc {
+  
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     NSLog(@"%s", __func__);
 }
 
 #pragma mark - IBAction
+- (void)backButtonPressed:(id)sender{
 
+#if MANAGERSIDE
+    if (self.cancelCallBack) {
+        self.cancelCallBack();
+    }
+#else
+    [self.navigationController popViewControllerAnimated:YES];
+#endif
+}
 - (IBAction)addImageButtonPressed:(id)sender {
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.delegate = self;
@@ -116,29 +138,6 @@
             
             [self addAwardWithInfo:info];
         }];
-        
-//        [[FileUploader shareInstance] uploadData:imageData
-//                            type:UploadFileTypeImage
-//                   progressBlock:^(NSInteger number) {
-//                       [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];
-//                   }
-//                 completionBlock:^(NSString * _Nullable imageUrl, NSError * _Nullable error) {
-//                     if (imageUrl.length == 0) {
-//                         [HUD showErrorWithMessage:@"图片上传失败"];
-//                         return;
-//                     }
-//                     
-//                     NSMutableDictionary *info = [NSMutableDictionary dictionary];
-//                     if (self.award != nil) {
-//                         info[@"id"] = @(self.award.awardId);
-//                     }
-//                     info[@"imageUrl"] = imageUrl;
-//                     info[@"name"] = name;
-//                     info[@"count"] = @([count integerValue]);
-//                     info[@"price"] = @([price integerValue]);
-//
-//                     [self addAwardWithInfo:info];
-//                 }];
     } else {
         NSMutableDictionary *info = [NSMutableDictionary dictionary];
         if (self.award != nil) {
@@ -178,8 +177,13 @@
     self.imageView.image = image;
     
     CGFloat height = 0;
+    CGFloat scrWidth = ScreenWidth;
+#if MANAGERSIDE
+    scrWidth = 375.0;
+#endif
+    
     if (image.size.width > 0) {
-      height = ScreenWidth * image.size.height / image.size.width;
+      height = scrWidth * image.size.height / image.size.width;
     }
     self.imageViewHeightConstraint.constant = height;
     

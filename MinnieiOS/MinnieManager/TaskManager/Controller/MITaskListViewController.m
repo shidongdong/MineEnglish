@@ -28,7 +28,6 @@
 #import "SelectTeacherView.h"
 #import "HomeworkConfirmView.h"
 #import "ClassAndStudentSelectView.h"
-#import "MIStockSplitViewController.h"
 
 @interface MITaskListViewController ()<
 UITableViewDelegate,
@@ -821,23 +820,12 @@ VIResourceLoaderManagerDelegate
     };
     
     view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-    UIViewController *rootVC = [self rootViewController];
-    if (rootVC) {
-        [rootVC.view addSubview:view];
-    }
+    UIViewController *rootVC = self.view.window.rootViewController;
+    [rootVC.view addSubview:view];
+    
     [view addSubview:createVC.view];
     createVC.view.frame = CGRectMake(kRootModularWidth/2.0, 70, ScreenWidth - kRootModularWidth, ScreenHeight - 120);
     
-}
-
-- (MIStockSplitViewController *)rootViewController
-{
-    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
-    UIViewController *rootController = window.rootViewController;
-    if ([rootController isKindOfClass:[MIStockSplitViewController class]]) {
-        return (MIStockSplitViewController *)rootController;
-    }
-    return nil;
 }
 
 - (void)dealloc {

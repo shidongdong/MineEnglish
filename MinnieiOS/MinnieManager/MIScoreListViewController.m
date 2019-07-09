@@ -20,9 +20,6 @@
 #import "MICreateTaskViewController.h"
 #import "HomeworkSessionViewController.h"
 
-#if MANAGERSIDE
-#import "MIStockSplitViewController.h"
-#endif
 
 @interface MIScoreListViewController ()<
 UITableViewDelegate,
@@ -108,10 +105,8 @@ UITableViewDataSource
 #if MANAGERSIDE
         __block  UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-      
-        if ([self rootViewController]) {
-            [[self rootViewController].view addSubview:view];
-        }
+        [self.view.window.rootViewController.view addSubview:view];
+        
         [view addSubview:createVC.view];
         createVC.view.frame = CGRectMake(kRootModularWidth/2.0, 70, ScreenWidth - kRootModularWidth, ScreenHeight - 120);
         
@@ -131,18 +126,6 @@ UITableViewDataSource
 #endif
     }
 }
-
-#if MANAGERSIDE
-- (MIStockSplitViewController *)rootViewController
-{
-    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
-    UIViewController *rootController = window.rootViewController;
-    if ([rootController isKindOfClass:[MIStockSplitViewController class]]) {
-        return (MIStockSplitViewController *)rootController;
-    }
-    return nil;
-}
-#endif
 
 #pragma mark -
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

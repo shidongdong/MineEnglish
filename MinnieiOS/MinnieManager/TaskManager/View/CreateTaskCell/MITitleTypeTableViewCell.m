@@ -11,7 +11,6 @@
 #import "HomeworkVideoTableViewCell.h"
 #import "HomeworkImageTableViewCell.h"
 #import "HomeworkAudioTableViewCell.h"
-#import "MIStockSplitViewController.h"
 
 
 #import <objc/runtime.h>
@@ -323,32 +322,14 @@ UIDocumentPickerDelegate
     
 #if MANAGERSIDE
     
-    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
-    UIViewController *rootController = window.rootViewController;
-    if ([rootController isKindOfClass:[MIStockSplitViewController class]]) {
-        [rootController presentViewController:VC animated:YES completion:nil];
-    }
+    UIViewController *rootController = self.window.rootViewController;
+    [rootController presentViewController:VC animated:YES completion:nil];
 #else
     [self.vc presentViewController:VC
                           animated:YES
                         completion:nil];
 #endif
 }
-
-#if MANAGERSIDE
-
-- (MIStockSplitViewController *)rootViewController
-{
-    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
-    UIViewController *rootController = window.rootViewController;
-    if ([rootController isKindOfClass:[MIStockSplitViewController class]]) {
-        return (MIStockSplitViewController *)rootController;
-    }
-    return nil;
-}
-
-#endif
-
 
 - (void)addFileItem:(NSArray *)allowedUTIs withHomeworkItem:(HomeworkItem *)item
 {

@@ -11,7 +11,6 @@
 #import "SettingsViewController.h"
 #import "MIMasterViewController.h"
 #import "MISecondActivitySheetView.h"
-#import "MIStockSplitViewController.h"
 #import "MIStockSecondViewController.h"
 #import "HomeWorkSendHistoryViewController.h"
 #import "UIViewController+PrimaryCloumnScale.h"
@@ -119,6 +118,8 @@ MISecondActivitySheetViewDelegate
         
         [self updatePrimaryCloumnScale:kRootModularWidth];
         [self.secondDetailVC addSubViewController:self.giftStockSplitVC];
+//        [self.giftStockSplitVC updateAwards];
+//        [self.giftStockSplitVC updateExchangeAwardsList];
         
     } else if (index == 7) { // 设置
         [self updatePrimaryCloumnScale:kRootModularWidth];
@@ -130,10 +131,10 @@ MISecondActivitySheetViewDelegate
 - (void)toSendRecord{
     
     UINavigationController *nav = ((UINavigationController *)self.customSplitViewController.viewControllers[1]);
-    [nav popToRootViewControllerAnimated:YES];
     if ([nav.viewControllers.lastObject isKindOfClass:[HomeWorkSendHistoryViewController class]]) {
         return;
     }
+    [nav popToRootViewControllerAnimated:YES];
     
     [_secondSheetView collapseAllFolders];
     [self.subStockSplitVC showTaskListWithFoldInfo:nil folderIndex:-1];
@@ -142,7 +143,6 @@ MISecondActivitySheetViewDelegate
     [self.customSplitViewController setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
    
     HomeWorkSendHistoryViewController * historyHomeworkVC = [[HomeWorkSendHistoryViewController alloc] initWithNibName:@"HomeWorkSendHistoryViewController" bundle:nil];
-    historyHomeworkVC.hiddenBackBtn = YES;
     [self.secondDetailVC.navigationController pushViewController:historyHomeworkVC animated:YES];
 }
 #pragma mark - 任务管理 一级文件夹 && 二级文件夹
@@ -257,7 +257,7 @@ MISecondActivitySheetViewDelegate
     if (!_giftStockSplitVC) {
         _giftStockSplitVC = [[MIGifManStockSplitViewController alloc] init];
     }
-    CGFloat setterWidth = (ScreenWidth - kRootModularWidth)/2.0;
+    CGFloat setterWidth = (ScreenWidth - kRootModularWidth)/2.0 + 80;
     if (_giftStockSplitVC.primaryCloumnScale != setterWidth) {
         _giftStockSplitVC.primaryCloumnScale = setterWidth;
         [_giftStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
