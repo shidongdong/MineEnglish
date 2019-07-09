@@ -1501,15 +1501,6 @@ HomeworkAnswersPickerViewControllerDelegate>
     [self presentViewController:playerViewController animated:YES completion:nil];
     playerViewController.view.frame = self.view.frame;
     [playerViewController.player play];
-//    VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
-//    resourceLoaderManager.delegate = self;
-//    self.resourceLoaderManager = resourceLoaderManager;
-//    AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
-//    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
-//    playerViewController.player = player;
-//    [self presentViewController:playerViewController animated:YES completion:nil];
-//    playerViewController.view.frame = self.view.frame;
-//    [playerViewController.player play];
     [playerViewController setOverlyViewCoverUrl:coverUrl];
     
     self.dontScrollWhenAppeard = YES;
@@ -1666,10 +1657,7 @@ HomeworkAnswersPickerViewControllerDelegate>
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.messagesTableView reloadData];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self scrollMessagesTableViewToBottom:YES];
-        });
+        [self scrollMessagesTableViewToBottom:YES];
     });
 }
 

@@ -127,66 +127,21 @@ MIActivityBannerViewDelegate
 }
 
 #pragma mark - Public Methods
-
 - (void)requestSearchForName:(NSString *)name
 {
     self.searchFilterName = name;
-
     [self requestHomeworkSessions];
 }
 
 - (void)requestSearchForSorceAtIndex:(NSInteger)index
 {
-
     self.searchFliter = index;
-    
     [self requestHomeworkSessions];
 }
 
-#pragma mark - Private Methods
-
-- (void)reloadUnReadMessage:(NSNotification *)notication
-{
-    //开启子线程做数据处理，避免数据交叉
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSInteger unReadCount = [[notication.userInfo objectForKey:@"unReadCount"] integerValue];
-        NSInteger homeworkSessionId = [[notication.userInfo objectForKey:@"homeworkSessionId"] integerValue];
-        AVIMMessage * message = [notication.userInfo objectForKey:@"lastMessage"];
-        BOOL bExist = NO;  //有可能有些作业需要下拉加载才能请求出来
-        //遍历请求下来的数组
-        for (HomeworkSession * session in self.homeworkSessions)
-        {
-            if (session.homeworkSessionId == homeworkSessionId)
-            {
-                bExist = YES;
-                session.unreadMessageCount = unReadCount;
-                if (unReadCount == 0)
-                {
-                    //一般由点击事件产生,需要在重新进入页面的时候
-                    [self.unReadHomeworkSessions removeObject:session];
-                    self.shouldReloadTableWhenAppeard = YES;
-                }
-                else
-                {
-                    if (![self.unReadHomeworkSessions containsObject:session])
-                    {
-                        [self.unReadHomeworkSessions addObject:session];
-                    }
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self reloadTableViewForNewMessage:message];
-                    });
-                }
-                break;
-            }
-        }
-    });
-}
-
 - (void)setupRequestState
-{   // 学生端：未完成、已完成
-    // 老师端：待批改、已完成、未提交
-    if (self.isUnfinished)// 进行中
+{   // 学生端：未完成、已完成  老师端：待批改、已完成、未提交
+    if (self.isUnfinished)
     {
         if (self.bLoadConversion)
         {//   作业状态 0：待批改；1已完成；2未提交
@@ -207,85 +162,11 @@ MIActivityBannerViewDelegate
     [self.homeworkSessionsTableView registerNib:[UINib nibWithNibName:@"FinishedHomeworkSessionTableViewCell" bundle:nil] forCellReuseIdentifier:FinishedHomeworkSessionTableViewCellId];
     [self.homeworkSessionsTableView registerNib:[UINib nibWithNibName:@"UnfinishedStudentHomeworkSessionTableViewCell" bundle:nil] forCellReuseIdentifier:UnfinishedStudentHomeworkSessionTableViewCellId];
 }
-#pragma mark -
-#pragma mark - 添加观察者 && 处理事件
-- (void)addNotificationObservers {
-    
-    // 编辑标注后刷新列表
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadForDoubleTabClick) name:kNotificationKeyOfStudentMarkChange object:nil];
-    // 双击tab刷新作业列表
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadForDoubleTabClick)
-                                                 name:kNotificationKeyOfTabBarDoubleClick
-                                               object:nil];
-    // 后台唤起重新刷新任务列表
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadWhenAppeared:)
-                                                 name:kNotificationKeyOfRefreshHomeworkSession
-                                               object:nil];
-    // 未读消息个数通知
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadUnReadMessage:)
-                                                 name:kIMManagerClientUnReadMessageCountNotification
-                                               object:nil];
-    // 下线通知
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(imOffline:)
-                                                 name:kIMManagerClientOfflineNotification
-                                               object:nil];
-    // 上线通知
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(imOnline:)
-                                                 name:kIMManagerClientOnlineNotification
-                                               object:nil];
-    // 接收到会话消息通知
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(lastMessageDidChange:)
-                                                 name:kIMManagerContentMessageDidReceiveNotification
-                                               object:nil];
-    // 发送消息成功通知
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(lastMessageDidChange:)
-                                                 name:kIMManagerContentMessageDidSendNotification
-                                               object:nil];
-    // 教师删除一个班级
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadWhenAppeared:)
-                                                 name:kNotificationKeyOfDeleteClass
-                                               object:nil];
-    // 教师端发送一个作业
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadWhenAppeared:)
-                                                 name:kNotificationKeyOfSendHomework
-                                               object:nil];
-     // 教师端删除学生
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadWhenAppeared:)
-                                                 name:kNotificationKeyOfDeleteClassStudents
-                                               object:nil];
-    // 教师批改作业
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadWhenHomeworkCorrected:)
-                                                 name:kNotificationKeyOfCorrectHomework
-                                               object:nil];
-    // 学生重做作业
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadWhenAppeared:)
-                                                 name:kNotificationKeyOfRedoHomework
-                                               object:nil];
-    // 教师端添加一个作业
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadWhenAppeared:)
-                                                 name:kNotificationKeyOfAddHomework
-                                               object:nil];
-    // 推送唤起程序刷新作业新任务列表
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(apnsRefreshHomeworkSession:)
-                                                 name:kNotificationKeyOfApnsNewHomeworkSession
-                                               object:nil];
-}
 
+
+#pragma mark -
+
+#pragma mark - 会话初始化
 - (void)setupAndLoadConversations {
     if (!self.isUnfinished)
     {
@@ -488,6 +369,7 @@ MIActivityBannerViewDelegate
     return resultArrM;
 }
 
+#pragma mark - 更新作业任务时间
 - (void)updateHomeworkSessionModifiedTime:(HomeworkSession *)homeworkSession
 {
     [HomeworkSessionService updateHomeworkSessionModifiedTimeWithId:homeworkSession.homeworkSessionId
@@ -495,6 +377,84 @@ MIActivityBannerViewDelegate
                                                            }];
 }
 
+#pragma mark - 添加观察者 && 处理事件
+- (void)addNotificationObservers {
+    
+    // 编辑标注后刷新列表
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadForDoubleTabClick) name:kNotificationKeyOfStudentMarkChange object:nil];
+    // 双击tab刷新作业列表
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadForDoubleTabClick)
+                                                 name:kNotificationKeyOfTabBarDoubleClick
+                                               object:nil];
+    // 后台唤起重新刷新任务列表
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadWhenAppeared:)
+                                                 name:kNotificationKeyOfRefreshHomeworkSession
+                                               object:nil];
+    // 未读消息个数通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadUnReadMessage:)
+                                                 name:kIMManagerClientUnReadMessageCountNotification
+                                               object:nil];
+    // 下线通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(imOffline:)
+                                                 name:kIMManagerClientOfflineNotification
+                                               object:nil];
+    // 上线通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(imOnline:)
+                                                 name:kIMManagerClientOnlineNotification
+                                               object:nil];
+    // 接收到会话消息通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(lastMessageDidChange:)
+                                                 name:kIMManagerContentMessageDidReceiveNotification
+                                               object:nil];
+    // 发送消息成功通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(lastMessageDidChange:)
+                                                 name:kIMManagerContentMessageDidSendNotification
+                                               object:nil];
+    // 教师删除一个班级
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadWhenAppeared:)
+                                                 name:kNotificationKeyOfDeleteClass
+                                               object:nil];
+    // 教师端发送一个作业
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadWhenAppeared:)
+                                                 name:kNotificationKeyOfSendHomework
+                                               object:nil];
+    // 教师端删除学生
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadWhenAppeared:)
+                                                 name:kNotificationKeyOfDeleteClassStudents
+                                               object:nil];
+    // 教师批改作业
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadWhenHomeworkCorrected:)
+                                                 name:kNotificationKeyOfCorrectHomework
+                                               object:nil];
+    // 学生重做作业
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadWhenAppeared:)
+                                                 name:kNotificationKeyOfRedoHomework
+                                               object:nil];
+    // 教师端添加一个作业
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadWhenAppeared:)
+                                                 name:kNotificationKeyOfAddHomework
+                                               object:nil];
+    // 推送唤起程序刷新作业新任务列表
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(apnsRefreshHomeworkSession:)
+                                                 name:kNotificationKeyOfApnsNewHomeworkSession
+                                               object:nil];
+}
+#pragma mark - 处理通知响应事件
 - (void)apnsRefreshHomeworkSession:(NSNotification *)notification
 {
     if (self.homeworkSessions.count > 0) {
@@ -620,7 +580,6 @@ MIActivityBannerViewDelegate
                     return;
                 }
                 HomeworkSession *session = (HomeworkSession *)(result.userInfo);
-               
 //                [weakSelf.homeworkSessions addObject:session];
 //                [weakSelf loadConversations];
                 
@@ -630,6 +589,43 @@ MIActivityBannerViewDelegate
     }
 }
 
+- (void)reloadUnReadMessage:(NSNotification *)notication
+{
+    //开启子线程做数据处理，避免数据交叉
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSInteger unReadCount = [[notication.userInfo objectForKey:@"unReadCount"] integerValue];
+        NSInteger homeworkSessionId = [[notication.userInfo objectForKey:@"homeworkSessionId"] integerValue];
+        AVIMMessage * message = [notication.userInfo objectForKey:@"lastMessage"];
+        BOOL bExist = NO;  //有可能有些作业需要下拉加载才能请求出来
+        //遍历请求下来的数组
+        for (HomeworkSession * session in self.homeworkSessions)
+        {
+            if (session.homeworkSessionId == homeworkSessionId)
+            {
+                bExist = YES;
+                session.unreadMessageCount = unReadCount;
+                if (unReadCount == 0)
+                {
+                    //一般由点击事件产生,需要在重新进入页面的时候
+                    [self.unReadHomeworkSessions removeObject:session];
+                    self.shouldReloadTableWhenAppeard = YES;
+                }
+                else
+                {
+                    if (![self.unReadHomeworkSessions containsObject:session])
+                    {
+                        [self.unReadHomeworkSessions addObject:session];
+                    }
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self reloadTableViewForNewMessage:message];
+                    });
+                }
+                break;
+            }
+        }
+    });
+}
 #pragma mark -
 #pragma mark - 获取作业列表  加载更多  处理请求作业列表结果
 - (void)requestHomeworkSessions {
@@ -728,7 +724,6 @@ MIActivityBannerViewDelegate
 #endif
     }
 }
-
 - (void)handleRequestResult:(Result *)result
                  isLoadMore:(BOOL)isLoadMore
                       error:(NSError *)error {
@@ -821,6 +816,7 @@ MIActivityBannerViewDelegate
     }
     self.nextUrl = nextUrl;
 }
+
 - (void)pullToRefresh{
     
     [self requestHomeworkSessions];
@@ -866,7 +862,7 @@ MIActivityBannerViewDelegate
     }];
 }
 
-#pragma mark - MIActivityBannerViewDelegate
+#pragma mark - 活动 MIActivityBannerViewDelegate
 - (void)bannerView:(MIActivityBannerView *)bannerView didSelectItemAtIndex:(NSInteger)index{
     
 #if TEACHERSIDE || MANAGERSIDE
@@ -884,9 +880,7 @@ MIActivityBannerViewDelegate
 #endif
 }
 
-#pragma mark -
-#pragma mark - UITableViewDataSource
-
+#pragma mark - UITableViewDataSource &&  UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.homeworkSessions.count;
 }
@@ -909,8 +903,6 @@ MIActivityBannerViewDelegate
     
     return cell;
 }
-
-#pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row >= self.homeworkSessions.count) {
