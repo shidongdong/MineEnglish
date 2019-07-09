@@ -28,9 +28,11 @@
     _stockMasterVC.hiddenBackBtn = YES;
 
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:_stockMasterVC];
+    [masterNav setNavigationBarHidden:YES animated:NO];
     
     _stockDetailVC = [[MIStockSecondViewController alloc] init];
     UINavigationController *detailNav = [[UINavigationController alloc] initWithRootViewController:_stockDetailVC];
+    [detailNav setNavigationBarHidden:YES animated:NO];
     
     self.viewControllers = @[masterNav, detailNav];
     self.view.backgroundColor = [UIColor emptyBgColor];

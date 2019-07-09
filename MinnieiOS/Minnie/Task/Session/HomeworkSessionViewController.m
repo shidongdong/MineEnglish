@@ -51,7 +51,16 @@ static NSString * const kKeyOfCreateTimestamp = @"createTimestamp";
 static NSString * const kKeyOfAudioDuration = @"audioDuration";
 static NSString * const kKeyOfVideoDuration = @"videoDuration";
 
-@interface HomeworkSessionViewController()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, EmojiInputViewDelegate,UINavigationControllerDelegate,VIResourceLoaderManagerDelegate,HomeworkAnswersPickerViewControllerDelegate>
+@interface HomeworkSessionViewController()<
+UITableViewDataSource,
+UITableViewDelegate,
+UINavigationControllerDelegate,
+UIImagePickerControllerDelegate,
+UITextViewDelegate,
+EmojiInputViewDelegate,
+UINavigationControllerDelegate,
+VIResourceLoaderManagerDelegate,
+HomeworkAnswersPickerViewControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *messagesTableView;
 @property (nonatomic, weak) IBOutlet UIButton *audioButton;
@@ -985,8 +994,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             }];
         });
     });
-    
-    
 }
 
 
@@ -1168,8 +1175,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                                     }];
                 
             }
-            
-            
         }
         else
         {
@@ -1426,31 +1431,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                 [HUD showErrorWithMessage:@"视频上传失败"];
                             }
                         }];
-                        
-//                      [[FileUploader shareInstance] uploadDataWithLocalFilePath:path
-//                                                    progressBlock:^(NSInteger number) {
-//                                                        [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传视频%@%%...", @(number)] cancelCallback:^{
-//                                                            [[FileUploader shareInstance] cancleUploading];
-//                                                        }];
-//                                                    }
-//                                                  completionBlock:^(NSString * _Nullable videoUrl, NSError * _Nullable error) {
-//                                                      if (videoUrl.length > 0) {
-//                                                          [HUD hideAnimated:YES];
-//
-//                                                          [self sendVideoMessage:[NSURL URLWithString:videoUrl] duration:durationInSeconds];
-//
-//                                                          [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
-//                                                      } else {
-//                                                          [HUD showErrorWithMessage:@"视频上传失败"];
-//                                                      }
-//                                                  }];
-//
-//                        [HUD showProgressWithMessage:@"正在上传视频..." cancelCallback:^{
-//                            [[FileUploader shareInstance] cancleUploading];
-//                        }];
-                        
-//                        [self sendVideoMessageForPath:path];
-                        
                     } else{
                         NSLog(@"当前压缩进度:%f",exportSession.progress);
                     }
@@ -1817,24 +1797,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     }
     return YES;
 }
-
-
-
-#pragma mark - UIImagePickerControllerDelegate
-//- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-//    if ([UIDevice currentDevice].systemVersion.floatValue < 11) {
-//        return;
-//    }
-//    if ([viewController isKindOfClass:NSClassFromString(@"PUPhotoPickerHostViewController")]) {
-//        [viewController.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//            if (obj.frame.size.width < 42) {
-//                [viewController.view sendSubviewToBack:obj];
-//                *stop = YES;
-//            }
-//        }];
-//    }
-//}
-
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     NSString* mediaType = [info objectForKey:UIImagePickerControllerMediaType];

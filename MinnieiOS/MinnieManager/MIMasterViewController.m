@@ -7,7 +7,9 @@
 //
 
 #import "MIRootSheetView.h"
+#import "MISecondTeaManView.h"
 #import "MISecondSheetView.h"
+#import "MISecondReaTimTaskView.h"
 #import "SettingsViewController.h"
 #import "MIMasterViewController.h"
 #import "MISecondActivitySheetView.h"
@@ -20,6 +22,9 @@
 #import "MITaskStockSplitViewController.h"
 #import "MISetterStockSplitViewController.h"
 #import "MIActivityStockSplitViewController.h"
+#import "MIReaTimTasStockSplitViewController.h"
+#import "MITeaStaStockSplitViewController.h"
+#import "MICamManStockSplitViewController.h"
 
 @interface MIMasterViewController ()<
 RootSheetViewDelete,
@@ -29,22 +34,32 @@ MISecondActivitySheetViewDelegate
 // 根菜单视图
 @property (nonatomic, strong)MIRootSheetView *firstSheetView;
 
-// 二级任务管理文件夹视图
+// 实时任务 教师列表
+@property (nonatomic, strong) MISecondReaTimTaskView *reaTimTasSheetView;
+// 教师管理 教师列表
+@property (nonatomic, strong) MISecondTeaManView *teacherManagerSheetView;
+// 任务管理 文件夹列表
 @property (nonatomic, strong) MISecondSheetView *secondSheetView;
-
-// 二级活动管理视图
+// 活动管理 活动列表
 @property (nonatomic, strong) MISecondActivitySheetView *secondActivitySheetView;
 
+
+// 实时任务
+@property (nonatomic, strong) MIReaTimTasStockSplitViewController *reaTimTasStockSplitVC;
+// 教师管理
+@property (nonatomic, strong) MITeacherManagerViewController *teacherStockSplitVC;
 // 任务管理
 @property (nonatomic, strong) MITaskStockSplitViewController *subStockSplitVC;
 // 活动管理
 @property (nonatomic, strong) MIActivityStockSplitViewController *activityStockSplitVC;
-// 设置
-@property (nonatomic, strong) MISetterStockSplitViewController *setterStockSplitVC;
+// 教学统计
+@property (nonatomic, strong) MITeaStaStockSplitViewController *teaStaStockSplitVC;
+// 校区管理
+@property (nonatomic, strong) MICamManStockSplitViewController *camManStockSplitVC;
 // 礼物管理
 @property (nonatomic, strong) MIGifManStockSplitViewController *giftStockSplitVC;
-// 教师管理
-@property (nonatomic, strong) MITeacherManagerViewController *teacherStockSplitVC;
+// 设置
+@property (nonatomic, strong) MISetterStockSplitViewController *setterStockSplitVC;
 
 @end
 
@@ -65,6 +80,12 @@ MISecondActivitySheetViewDelegate
     _firstSheetView.delegate = self;
     [self.view addSubview:_firstSheetView];
     
+    _reaTimTasSheetView = [[MISecondReaTimTaskView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, self.view.frame.size.height)];
+    [self.view addSubview:_reaTimTasSheetView];
+    
+    _teacherManagerSheetView = [[MISecondTeaManView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, self.view.frame.size.height)];
+    [self.view addSubview:_teacherManagerSheetView];
+    
     _secondSheetView = [[MISecondSheetView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, ScreenHeight)];
     _secondSheetView.delegate = self;
     [self.view addSubview:_secondSheetView];
@@ -72,9 +93,11 @@ MISecondActivitySheetViewDelegate
     _secondActivitySheetView = [[MISecondActivitySheetView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, self.view.frame.size.height)];
     _secondActivitySheetView.delegate = self;
     [self.view addSubview:_secondActivitySheetView];
+
     
     // 默认选中 任务管理
     _firstSheetView.selectIndex = 2;
+    self.reaTimTasSheetView.hidden = YES;
     self.secondActivitySheetView.hidden = YES;
 }
 
@@ -85,17 +108,26 @@ MISecondActivitySheetViewDelegate
     [nav popToRootViewControllerAnimated:YES];
  
     [_secondActivitySheetView resetCurrentIndex];
+    self.secondSheetView.hidden = YES;
+    self.reaTimTasSheetView.hidden = YES;
+    self.secondActivitySheetView.hidden = YES;
+    self.teacherManagerSheetView.hidden = YES;
+    
     if (index == 0) { // 实时任务
+        
+        self.reaTimTasSheetView.hidden = NO;
+        [self updatePrimaryCloumnScale:kRootModularWidth + kColumnSecondWidth];
+        [self.secondDetailVC addSubViewController:self.reaTimTasStockSplitVC];
         
     } else if (index == 1){ // 教师管理
         
+        self.teacherManagerSheetView.hidden = NO;
         [self updatePrimaryCloumnScale:kRootModularWidth + kColumnSecondWidth];
         [self.secondDetailVC addSubViewController:self.teacherStockSplitVC];
         
     } else if (index == 2){ // 任务管理 不展开文件夹，不显示内容
        
         self.secondSheetView.hidden = NO;
-        self.secondActivitySheetView.hidden = YES;
         [self updatePrimaryCloumnScale:kRootModularWidth + kColumnSecondWidth];
         [self.secondDetailVC addSubViewController:self.subStockSplitVC];
         
@@ -104,7 +136,7 @@ MISecondActivitySheetViewDelegate
         [_secondSheetView updateFileListInfo];
         
     } else if (index == 3) { // 活动管理
-        self.secondSheetView.hidden = YES;
+        
         self.secondActivitySheetView.hidden = NO;
         [self updatePrimaryCloumnScale:kRootModularWidth + kColumnSecondWidth];
         [self.secondDetailVC addSubViewController:self.activityStockSplitVC];
@@ -112,15 +144,16 @@ MISecondActivitySheetViewDelegate
         [_secondActivitySheetView updateActivityListInfo];
     } else if (index == 4) { // 教学统计
         
+        [self updatePrimaryCloumnScale:kRootModularWidth + kColumnSecondWidth];
+        [self.secondDetailVC addSubViewController:self.teaStaStockSplitVC];
     } else if (index == 5) { // 校区管理
         
+        [self updatePrimaryCloumnScale:kRootModularWidth];
+        [self.secondDetailVC addSubViewController:self.camManStockSplitVC];
     } else if (index == 6) { // 礼物管理
         
         [self updatePrimaryCloumnScale:kRootModularWidth];
         [self.secondDetailVC addSubViewController:self.giftStockSplitVC];
-//        [self.giftStockSplitVC updateAwards];
-//        [self.giftStockSplitVC updateExchangeAwardsList];
-        
     } else if (index == 7) { // 设置
         [self updatePrimaryCloumnScale:kRootModularWidth];
         [self.secondDetailVC addSubViewController:self.setterStockSplitVC];
@@ -193,6 +226,31 @@ MISecondActivitySheetViewDelegate
 }
 
 #pragma mark - setter && getter
+- (MIReaTimTasStockSplitViewController *)reaTimTasStockSplitVC{
+    
+    if (!_reaTimTasStockSplitVC) {
+        _reaTimTasStockSplitVC = [[MIReaTimTasStockSplitViewController alloc] init];
+    }
+    
+    if (_reaTimTasStockSplitVC.primaryCloumnScale != kColumnThreeWidth) {
+        _reaTimTasStockSplitVC.primaryCloumnScale = kColumnThreeWidth;
+        [_reaTimTasStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
+    }
+    return _reaTimTasStockSplitVC;
+}
+
+- (MITeacherManagerViewController *)teacherStockSplitVC{
+    if (!_teacherStockSplitVC) {
+        _teacherStockSplitVC = [[MITeacherManagerViewController alloc] init];
+    }
+    
+    if (_teacherStockSplitVC.primaryCloumnScale != kColumnThreeWidth) {
+        _teacherStockSplitVC.primaryCloumnScale = kColumnThreeWidth;
+        [_teacherStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
+    }
+    return _teacherStockSplitVC;
+}
+
 - (MITaskStockSplitViewController *)subStockSplitVC{
    
     if (!_subStockSplitVC) {
@@ -226,30 +284,28 @@ MISecondActivitySheetViewDelegate
     return _activityStockSplitVC;
 }
 
-
-- (MISetterStockSplitViewController *)setterStockSplitVC{
+- (MITeaStaStockSplitViewController *)teaStaStockSplitVC{
     
-    if (!_setterStockSplitVC) {
-        _setterStockSplitVC = [[MISetterStockSplitViewController alloc] init];
+    if (!_teaStaStockSplitVC) {
+        _teaStaStockSplitVC = [[MITeaStaStockSplitViewController alloc] init];
     }
-    CGFloat setterWidth = (ScreenWidth - kRootModularWidth)/2.0;
-    if (_setterStockSplitVC.primaryCloumnScale != setterWidth) {
-        _setterStockSplitVC.primaryCloumnScale = setterWidth;
-        [_setterStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
+    if (_teaStaStockSplitVC.primaryCloumnScale != kColumnThreeWidth) {
+        _teaStaStockSplitVC.primaryCloumnScale = kColumnThreeWidth;
+        [_teaStaStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
     }
-    return _setterStockSplitVC;
+    return _teaStaStockSplitVC;
 }
 
-- (MITeacherManagerViewController *)teacherStockSplitVC{
-    if (!_teacherStockSplitVC) {
-        _teacherStockSplitVC = [[MITeacherManagerViewController alloc] init];
+- (MICamManStockSplitViewController *)camManStockSplitVC{
+    if (!_camManStockSplitVC) {
+        _camManStockSplitVC = [[MICamManStockSplitViewController alloc] init];
     }
-    
-    if (_teacherStockSplitVC.primaryCloumnScale != kColumnThreeWidth) {
-        _teacherStockSplitVC.primaryCloumnScale = kColumnThreeWidth;
-        [_teacherStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
+    CGFloat setterWidth = (ScreenWidth - kRootModularWidth)/2.0;
+    if (_camManStockSplitVC.primaryCloumnScale != setterWidth) {
+        _camManStockSplitVC.primaryCloumnScale = setterWidth;
+        [_camManStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
     }
-    return _teacherStockSplitVC;
+    return _camManStockSplitVC;
 }
 
 - (MIGifManStockSplitViewController *)giftStockSplitVC{
@@ -264,6 +320,21 @@ MISecondActivitySheetViewDelegate
     }
     return _giftStockSplitVC;
 }
+
+- (MISetterStockSplitViewController *)setterStockSplitVC{
+    
+    if (!_setterStockSplitVC) {
+        _setterStockSplitVC = [[MISetterStockSplitViewController alloc] init];
+    }
+    CGFloat setterWidth = (ScreenWidth - kRootModularWidth)/2.0;
+    if (_setterStockSplitVC.primaryCloumnScale != setterWidth) {
+        _setterStockSplitVC.primaryCloumnScale = setterWidth;
+        [_setterStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
+    }
+    return _setterStockSplitVC;
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

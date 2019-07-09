@@ -37,12 +37,12 @@
                             @"校区管理",
                             @"礼物管理",
                             @"设置"];
-    NSArray *selectImage = @[@"menu_mission_def",
+    NSArray *selectImage = @[@"menu_mission_sel",
                              @"menu_number_sel",
                              @"menu_mission_manage_sel",
                              @"menu_activity_sel",
                              @"menu_Statistics_sel",
-                             @"menu_school_def",
+                             @"menu_school_sel",
                              @"menu_gift_sel",
                              @"navbar_setup_select"];
     NSArray *normalImage = @[@"menu_mission_def",

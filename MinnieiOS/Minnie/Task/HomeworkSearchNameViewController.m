@@ -59,6 +59,10 @@
 - (void)addContraintsWithX:(CGFloat)offsetX view:(UIView *)view superView:(UIView *)superView {
     view.translatesAutoresizingMaskIntoConstraints = NO;
     
+    CGFloat screenWidth = ScreenWidth;
+#if MANAGERSIDE
+    screenWidth = kColumnThreeWidth;
+#endif
     NSLayoutConstraint *leadingConstraint = [NSLayoutConstraint constraintWithItem:view
                                                                          attribute:NSLayoutAttributeLeading
                                                                          relatedBy:NSLayoutRelationEqual
@@ -73,7 +77,7 @@
                                                                           toItem:nil
                                                                        attribute:NSLayoutAttributeNotAnAttribute
                                                                       multiplier:1
-                                                                        constant:ScreenWidth];
+                                                                        constant:screenWidth];
     
     NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:view
                                                                      attribute:NSLayoutAttributeTop
@@ -110,15 +114,5 @@
     
     return NO;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

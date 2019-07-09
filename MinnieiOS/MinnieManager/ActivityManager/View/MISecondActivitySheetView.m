@@ -167,13 +167,4 @@ UITableViewDataSource
     }];
 }
 
-#pragma mark - 新建活动
-- (void)requestCreateActivity:(ActivityInfo *)actInfo{
-    
-    [ManagerServce requestCreateActivity:actInfo callback:^(Result *result, NSError *error) {
-        
-        
-    }];
-}
-
 @end

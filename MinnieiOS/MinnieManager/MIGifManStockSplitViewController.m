@@ -22,12 +22,6 @@
 
 @implementation MIGifManStockSplitViewController
 
--(void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-}
-
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -35,14 +29,12 @@
    
     _stockMasterVC = [[TeacherAwardsViewController alloc] initWithNibName:@"TeacherAwardsViewController" bundle:nil];
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:_stockMasterVC];
-    
-//    _stockDetailVC = [[MIStockSecondViewController alloc] init];
-
+    [masterNav setNavigationBarHidden:YES animated:NO];
     
     _stockDetailVC = [[ExchangeRequestsViewController alloc] initWithNibName:@"ExchangeRequestsViewController" bundle:nil];
     [_stockDetailVC setExchanged:NO];
     UINavigationController *detailNav = [[UINavigationController alloc] initWithRootViewController:_stockDetailVC];
-    
+    [detailNav setNavigationBarHidden:YES animated:NO];
     
     self.viewControllers = @[masterNav, detailNav];
     self.view.backgroundColor = [UIColor emptyBgColor];

@@ -34,13 +34,6 @@
 
 @implementation SettingsViewController
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-#if MANAGERSIDE
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-#endif
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.backButton.hidden = self.hiddenBackBtn;

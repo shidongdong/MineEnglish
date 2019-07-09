@@ -76,9 +76,6 @@
         
         [self requestData];
     }
-#if MANAGERSIDE
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-#endif
 }
 
 - (void)dealloc {

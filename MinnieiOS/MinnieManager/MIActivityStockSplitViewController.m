@@ -24,7 +24,10 @@
     
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:self.stockMasterVC];
     _stockDetailVC = [[MIStockSecondViewController alloc] init];
+    [masterNav setNavigationBarHidden:YES animated:NO];
+    
     UINavigationController *detailNav = [[UINavigationController alloc] initWithRootViewController:_stockDetailVC];
+    [detailNav setNavigationBarHidden:YES animated:NO];
     
     self.viewControllers = @[masterNav, detailNav];
     self.view.backgroundColor = [UIColor emptyBgColor];

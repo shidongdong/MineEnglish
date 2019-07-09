@@ -85,7 +85,7 @@ MIActivityBannerViewDelegate
     
     
     [self setupRequestState];
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
 #else
     [self requestGetActivityList];
 #endif
@@ -382,7 +382,7 @@ MIActivityBannerViewDelegate
                 } else if ([message isKindOfClass:[AVIMImageMessage class]]) {
                     homeworkSession.lastSessionContent = @"[图片]";
                 }
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
                 homeworkSession.shouldColorLastSessionContent = message.ioType == AVIMMessageIOTypeOut;
 #else
                 homeworkSession.shouldColorLastSessionContent = message.ioType == AVIMMessageIOTypeIn;
@@ -465,7 +465,7 @@ MIActivityBannerViewDelegate
                 } else if ([message isKindOfClass:[AVIMImageMessage class]]) {
                     homeworkSession.lastSessionContent = @"[图片]";
                 }
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
                 homeworkSession.shouldColorLastSessionContent = message.ioType == AVIMMessageIOTypeOut;
 #else
                 homeworkSession.shouldColorLastSessionContent = message.ioType == AVIMMessageIOTypeIn;
@@ -600,7 +600,7 @@ MIActivityBannerViewDelegate
 - (void)reloadTableViewForNewMessage:(AVIMMessage *)message
 {
     NSDictionary *attributes = ((AVIMTypedMessage *)message).attributes;
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
 #else
     if (attributes[@"score"] != nil && [attributes[@"score"] integerValue]>=0) {
         if (self.homeworkSessions.count > 0) {
@@ -688,7 +688,7 @@ MIActivityBannerViewDelegate
         // searchFliter  1 按作业 2 按人
         // mState        0：待批改；1已完成；2未提交
        WeakifySelf;
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
         self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithType:self.searchFliter forState:self.mState callback:^(Result *result, NSError *error) {
             
             StrongifySelf;
@@ -732,7 +732,7 @@ MIActivityBannerViewDelegate
         
         // searchFliter  1 按作业 2 按人
         // mState        0：待批改；1已完成；2未提交
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
         self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithTypeWithNextUrl:self.nextUrl callback:^(Result *result, NSError *error) {
             StrongifySelf;
             [strongSelf handleRequestResult:result isLoadMore:YES error:error];
@@ -822,7 +822,7 @@ MIActivityBannerViewDelegate
             UIImage *image = self.isUnfinished?[UIImage imageNamed:@"缺省插画_无作业"]:nil;
             NSString *text = nil;
             
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
             text = self.isUnfinished?@"好棒！所有作业都批改完了！":@"还没有批改过的作业~";
 #else
             text = self.isUnfinished?@"好棒！所有作业都完成了！\n去同学圈看看大家做得怎么样":@"还没有完成过作业";
@@ -919,11 +919,7 @@ MIActivityBannerViewDelegate
     HomeworkSessionTableViewCell *cell = nil;
     
     if (self.isUnfinished) {
-//#if TEACHERSIDE
-//        cell = [tableView dequeueReusableCellWithIdentifier:UnfinishedHomeworkSessionTableViewCellId forIndexPath:indexPath];
-//#else
         cell = [tableView dequeueReusableCellWithIdentifier:UnfinishedStudentHomeworkSessionTableViewCellId forIndexPath:indexPath];
-//#endif
     } else {
         cell = [tableView dequeueReusableCellWithIdentifier:FinishedHomeworkSessionTableViewCellId forIndexPath:indexPath];
     }
@@ -971,10 +967,6 @@ MIActivityBannerViewDelegate
     }
     
     HomeworkSession *session = self.homeworkSessions[indexPath.row];
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self.homeworkSessionsTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-//    });
-    
     HomeworkSessionViewController *vc = [[HomeworkSessionViewController alloc] initWithNibName:@"HomeworkSessionViewController" bundle:nil];
     vc.homeworkSession = session;
     [vc setHidesBottomBarWhenPushed:YES];
@@ -988,7 +980,7 @@ MIActivityBannerViewDelegate
         UIImage *image = self.isUnfinished?[UIImage imageNamed:@"缺省插画_无作业"]:nil;
         NSString *text = nil;
         
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
         if (self.isUnfinished)
         {
             text = self.bLoadConversion? @"好棒！所有作业都批改完了！":@"还有没作业的提交~";
