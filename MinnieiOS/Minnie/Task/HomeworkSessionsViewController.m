@@ -165,23 +165,15 @@ MIActivityBannerViewDelegate
 
 #pragma mark - 会话初始化
 - (void)setupAndLoadConversations {
-    if (!self.isUnfinished)
-    {
-        return;
-    }
+    
+    if (!self.isUnfinished)return;
     //不需要加载
-    if (!self.bLoadConversion)
-    {
-        return;
-    }
+    if (!self.bLoadConversion)  return;
     
     NSString *userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
     WeakifySelf;
     [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success,  NSError * error) {
-        if (!success) {
-            return;
-        }
-//        [weakSelf loadConversations];
+        if (!success)  return;
         [weakSelf loadConversationsWithHomeworkSessions:self.homeworkSessions];
     }];
 }
@@ -215,7 +207,6 @@ MIActivityBannerViewDelegate
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-//            self.queriedConversations = conversations;
             [self mergeAndReloadWithQueriedConversations:conversations homeworkSessions:homeworkSessions];
         });
         NSLog(@" ======= 会话数:%@ 耗时%.fms", @(conversations.count), [[NSDate date] timeIntervalSinceDate:startTime]*1000);
@@ -400,9 +391,7 @@ MIActivityBannerViewDelegate
         return;
     }
     HomeworkSession *session = notification.userInfo[@"HomeworkSession"];
-    if (session == nil) {
-        return;
-    }
+    if (session == nil)  return;
     BOOL found = NO;
     for (HomeworkSession *s in self.homeworkSessions) {
         if (s.homeworkSessionId == session.homeworkSessionId) {
@@ -421,13 +410,11 @@ MIActivityBannerViewDelegate
 }
 
 - (void)imOffline:(NSNotification *)notification {
-    if (self.homeworkSessionsTableView.tableHeaderView != nil) {
-        return;
-    }
-    
+  
+    if (self.homeworkSessionsTableView.tableHeaderView != nil)  return;
     if ([AFNetworkReachabilityManager sharedManager].networkReachabilityStatus != AFNetworkReachabilityStatusNotReachable) {
+       
         [self.homeworkSessionsTableView setTableHeaderView:nil];
-        
         return ;
     }
     NetworkStateErrorView *errorView = [[[NSBundle mainBundle] loadNibNamed:@"NetworkStateErrorView" owner:nil options:0] lastObject];
@@ -450,7 +437,7 @@ MIActivityBannerViewDelegate
     NSDictionary *attributes = ((AVIMTypedMessage *)message).attributes;
 #if TEACHERSIDE || MANAGERSIDE
 #else
-    if (attributes[@"score"] != nil && [attributes[@"score"] integerValue]>=0) {
+    if (attributes[@"score"] != nil && [attributes[@"score"] integerValue] >= 0) {
         if (self.homeworkSessions.count > 0) {
             [self.homeworkSessionsTableView headerBeginRefreshing];
         } else {
@@ -483,13 +470,9 @@ MIActivityBannerViewDelegate
             // 会话消息不存在
             WeakifySelf;
             [HomeworkSessionService requestHomeworkSessionWithId:homeworkSessionId.integerValue callback:^(Result *result, NSError *error) {
-                if (error != nil) {
-                    return;
-                }
+               
+                if (error != nil) return;
                 HomeworkSession *session = (HomeworkSession *)(result.userInfo);
-//                [weakSelf.homeworkSessions addObject:session];
-//                [weakSelf loadConversations];
-                
                 [weakSelf loadConversationsWithHomeworkSessions:@[session]];
             }];
         }
@@ -621,7 +604,6 @@ MIActivityBannerViewDelegate
             
             StrongifySelf;
             [strongSelf handleRequestResult:result isLoadMore:YES error:error];
-            
         }];
 #endif
     }
@@ -639,12 +621,11 @@ MIActivityBannerViewDelegate
     NSArray *homeworkSessions = dictionary[@"list"];
     
     if (isLoadMore) {
+        
         [self.homeworkSessionsTableView footerEndRefreshing];
         self.homeworkSessionsTableView.hidden = NO;
         
-        if (error != nil) {
-            return;
-        }
+        if (error != nil)  return;
         
         if (homeworkSessions.count > 0) {
             [self.homeworkSessions addObjectsFromArray:homeworkSessions];
@@ -655,7 +636,6 @@ MIActivityBannerViewDelegate
         if (nextUrl.length == 0) {
             [self.homeworkSessionsTableView removeFooter];
         }
-        
     } else {
         // 停止加载
         [self.homeworkSessionsTableView headerEndRefreshing];
@@ -818,24 +798,21 @@ MIActivityBannerViewDelegate
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    if (indexPath.row >= self.homeworkSessions.count) {
-        return ;
-    }
+    if (indexPath.row >= self.homeworkSessions.count) return ;
+    
     AVIMClientStatus status = [IMManager sharedManager].client.status;
-    if (status == AVIMClientStatusNone ||
-        status == AVIMClientStatusClosed ||
-        status == AVIMClientStatusPaused) {
+    if (status == AVIMClientStatusNone || status == AVIMClientStatusClosed || status == AVIMClientStatusPaused) {
+       
         NSString *userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
         [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success,  NSError * error) {
-            if (!success) {
-                return;
-            }
+            if (!success) return;
         }];
     }
     if (status != AVIMClientStatusOpened) {
-        [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
         
+        [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
         return ;
     }
     
