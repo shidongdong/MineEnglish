@@ -163,9 +163,6 @@ MIActivityBannerViewDelegate
     [self.homeworkSessionsTableView registerNib:[UINib nibWithNibName:@"UnfinishedStudentHomeworkSessionTableViewCell" bundle:nil] forCellReuseIdentifier:UnfinishedStudentHomeworkSessionTableViewCellId];
 }
 
-
-#pragma mark -
-
 #pragma mark - 会话初始化
 - (void)setupAndLoadConversations {
     if (!self.isUnfinished)
@@ -191,88 +188,6 @@ MIActivityBannerViewDelegate
 
 #pragma mark -
 #pragma mark - 查询消息会话，并最后一条消息内容
-- (void)loadConversations {
-   
-    if (!self.homeworkSessions) {
-        return;
-    }
-    NSDate *startTime = [NSDate date];
-    AVIMClient *client = [IMManager sharedManager].client;
-    NSMutableArray *queryArr = [NSMutableArray array];
-    NSArray *homeworkSessions = self.homeworkSessions;
-    for (HomeworkSession *homeworkSession in homeworkSessions) {
-        NSString *name = [NSString stringWithFormat:@"%ld",(long)homeworkSession.homeworkSessionId];
-        AVIMConversationQuery *query = [client conversationQuery];
-        [query whereKey:@"name" equalTo:name];
-        [queryArr addObject:query];
-    }
-    // 通过组合的方式，根据唯一homeworkSessionId，查询指定作业的消息会话内容，明确会话数量，减少耗时
-    AVIMConversationQuery *conversation = [AVIMConversationQuery orQueryWithSubqueries:queryArr];
-    // 缓存 先走网络查询，发生网络错误的时候，再从本地查询
-    conversation.cachePolicy = kAVIMCachePolicyCacheElseNetwork;
-    // 设置查询选项，指定返回对话的最后一条消息
-    conversation.option = AVIMConversationQueryOptionWithMessage;
-    // 每条作业 homeworkSessionId唯一 限制查询数量，减少耗时
-    conversation.limit = homeworkSessions.count;
-    [conversation findConversationsWithCallback:^(NSArray<AVIMConversation *> * _Nullable conversations, NSError * _Nullable error) {
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            self.queriedConversations = conversations;
-            [self mergeAndReload];
-        });
-        NSLog(@" ======= 会话数:%@ 耗时%.fms", @(conversations.count), [[NSDate date] timeIntervalSinceDate:startTime]*1000);
-    }];
-}
-
-- (void)mergeAndReload {
-    // 进行一个排序
-    if (self.homeworkSessions.count == 0) {
-        return;
-    }
-    for (HomeworkSession *homeworkSession in self.homeworkSessions) {
-       
-        for (AVIMConversation *conversation in self.queriedConversations) {
-            
-            if ([conversation.name integerValue] == homeworkSession.homeworkSessionId) {
-                homeworkSession.conversation = conversation;
-                homeworkSession.unreadMessageCount = conversation.unreadMessagesCount;
-                
-                AVIMMessage *message = conversation.lastMessage;
-                if ([message isKindOfClass:[AVIMTextMessage class]]) {
-                    homeworkSession.lastSessionContent = ((AVIMTextMessage *)message).text;
-                } else if ([message isKindOfClass:[AVIMAudioMessage class]]) {
-                    homeworkSession.lastSessionContent = @"[音频]";
-                } else if ([message isKindOfClass:[AVIMVideoMessage class]]) {
-                    homeworkSession.lastSessionContent = @"[视频]";
-                } else if ([message isKindOfClass:[AVIMImageMessage class]]) {
-                    homeworkSession.lastSessionContent = @"[图片]";
-                }
-#if TEACHERSIDE || MANAGERSIDE
-                homeworkSession.shouldColorLastSessionContent = message.ioType == AVIMMessageIOTypeOut;
-#else
-                homeworkSession.shouldColorLastSessionContent = message.ioType == AVIMMessageIOTypeIn;
-                
-                if (homeworkSession.updateTime == 0 && message != nil)
-                {
-                    [self updateHomeworkSessionModifiedTime:homeworkSession];
-                }
-#endif
-                break;
-            }
-        }
-        if (homeworkSession.conversation.lastMessageAt != nil) {
-            homeworkSession.sortTime = [homeworkSession.conversation.lastMessageAt timeIntervalSince1970] * 1000;
-            
-        } else {
-            homeworkSession.sortTime = homeworkSession.updateTime;
-        }
-    }
-    self.homeworkSessions = [self handleRepeat:self.homeworkSessions];
-    [self updateUI];
-}
-
-
 - (void)loadConversationsWithHomeworkSessions:(NSArray *)sessions {
     
     if (!sessions) {
@@ -353,20 +268,15 @@ MIActivityBannerViewDelegate
     }
     
     [self.homeworkSessions addObjectsFromArray:homeworkSessions];
-    self.homeworkSessions = [self handleRepeat:self.homeworkSessions];
-    [self updateUI];
-}
 
-// 消息去重
-- (NSMutableArray *)handleRepeat:(NSArray *)homework{
-    
     NSMutableArray *resultArrM = [NSMutableArray array];
-    for (HomeworkSession *session in homework) {
+    for (HomeworkSession *session in self.homeworkSessions) {// 去重
         if (![resultArrM containsObject:session]) {
             [resultArrM addObject:session];
         }
     }
-    return resultArrM;
+    self.homeworkSessions = resultArrM;
+    [self updateUI];
 }
 
 #pragma mark - 更新作业任务时间
@@ -484,13 +394,11 @@ MIActivityBannerViewDelegate
         
         return;
     }
-    
     if (!self.bLoadConversion) {
         self.shouldReloadWhenAppeard = YES;
         
         return;
     }
-    
     HomeworkSession *session = notification.userInfo[@"HomeworkSession"];
     if (session == nil) {
         return;
@@ -503,7 +411,6 @@ MIActivityBannerViewDelegate
             break;
         }
     }
-    
     if (found) {
         self.shouldReloadTableWhenAppeard = YES;
     }
@@ -640,16 +547,11 @@ MIActivityBannerViewDelegate
     WeakifySelf;
     if (self.searchFliter == -1) //-1 表示是按名字搜索
     {
-        if ([self.searchFilterName length] == 0)
-        {
-            return;
-        }
         WeakifySelf;
         self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithName:self.searchFilterName forState:self.mState callback:^(Result *result, NSError *error) {
             StrongifySelf;
             [strongSelf handleRequestResult:result isLoadMore:NO error:error];
         }];
-        
     }
     else if (self.searchFliter == 0) // 0 按时间
     {
@@ -692,7 +594,8 @@ MIActivityBannerViewDelegate
         self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithNameWithNextUrl:self.nextUrl callback:^(Result *result, NSError *error) {
             StrongifySelf;
             [strongSelf handleRequestResult:result
-                                 isLoadMore:YES                    error:error];
+                                 isLoadMore:YES
+                                      error:error];
         }];
     }
     else if (self.searchFliter == 0) // 0 按时间
@@ -706,7 +609,6 @@ MIActivityBannerViewDelegate
     }
     else
     {
-        
         // searchFliter  1 按作业 2 按人
         // mState        0：待批改；1已完成；2未提交
 #if TEACHERSIDE || MANAGERSIDE
@@ -727,9 +629,9 @@ MIActivityBannerViewDelegate
 - (void)handleRequestResult:(Result *)result
                  isLoadMore:(BOOL)isLoadMore
                       error:(NSError *)error {
+   
     [self.homeworkSessionsRequest clearCompletionBlock];
     self.homeworkSessionsRequest = nil;
-    
     [self.view hideAllStateView];
     
     NSDictionary *dictionary = (NSDictionary *)(result.userInfo);
@@ -886,10 +788,10 @@ MIActivityBannerViewDelegate
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+  
     if (indexPath.row >= self.homeworkSessions.count) {
         return [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Empty"];
     }
-    
     HomeworkSessionTableViewCell *cell = nil;
     
     if (self.isUnfinished) {
@@ -905,14 +807,13 @@ MIActivityBannerViewDelegate
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+   
     if (indexPath.row >= self.homeworkSessions.count) {
         return 0.f;
     }
-    
     HomeworkSession *session = self.homeworkSessions[indexPath.row];
     CGFloat height = [HomeworkSessionTableViewCell cellHeightWithHomeworkSession:session
                                                                         finished:!self.isUnfinished];
-    
     return height;
 }
 
@@ -978,7 +879,6 @@ MIActivityBannerViewDelegate
         [self.view hideAllStateView];
         self.homeworkSessionsTableView.hidden = NO;
     }
-    
     [self.homeworkSessionsTableView reloadData];
 }
 
