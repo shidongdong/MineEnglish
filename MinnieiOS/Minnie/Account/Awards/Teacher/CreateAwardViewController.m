@@ -83,8 +83,13 @@
     imagePickerController.delegate = self;
     imagePickerController.allowsEditing = YES;
     imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+ 
+#if MANAGERSIDE
+    [self.view.window.rootViewController presentViewController:imagePickerController animated:YES completion:nil];
+#else
     
     [self.navigationController presentViewController:imagePickerController animated:YES completion:nil];
+#endif
 }
 
 - (IBAction)saveButtonPressed:(id)sender {
@@ -186,9 +191,7 @@
       height = scrWidth * image.size.height / image.size.width;
     }
     self.imageViewHeightConstraint.constant = height;
-    
-    [picker dismissViewControllerAnimated:YES completion:^{
-    }];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {

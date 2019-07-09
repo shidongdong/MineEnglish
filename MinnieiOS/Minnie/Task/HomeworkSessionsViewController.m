@@ -31,8 +31,6 @@ UITableViewDataSource,
 UITableViewDelegate,
 MIActivityBannerViewDelegate
 >
-{
-}
 //   作业状态 0：待批改；1已完成；2未提交
 @property (nonatomic, assign) NSInteger mState;
 
@@ -167,11 +165,9 @@ MIActivityBannerViewDelegate
                     //一般由点击事件产生,需要在重新进入页面的时候
                     [self.unReadHomeworkSessions removeObject:session];
                     self.shouldReloadTableWhenAppeard = YES;
-                    
                 }
                 else
                 {
-                    
                     if (![self.unReadHomeworkSessions containsObject:session])
                     {
                         [self.unReadHomeworkSessions addObject:session];
@@ -184,12 +180,6 @@ MIActivityBannerViewDelegate
                 break;
             }
         }
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            NSInteger tabbarCount = self.unReadHomeworkSessions.count + self.noHandleNotications.count;
-//            AppDelegate * appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-          //  [appDel showTabBarBadgeNum:tabbarCount atIndex:0];
-//        });
-
     });
 }
 
@@ -294,11 +284,6 @@ MIActivityBannerViewDelegate
                                              selector:@selector(apnsRefreshHomeworkSession:)
                                                  name:kNotificationKeyOfApnsNewHomeworkSession
                                                object:nil];
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(apnsRefreshHomeworkSession:)
-//                                                 name:kNotificationKeyOfApnsFinishHomeworkSession
-//                                               object:nil];
 }
 
 - (void)setupAndLoadConversations {
@@ -491,8 +476,6 @@ MIActivityBannerViewDelegate
     [self updateUI];
 }
 
-
-
 // 消息去重
 - (NSMutableArray *)handleRepeat:(NSArray *)homework{
     
@@ -529,7 +512,6 @@ MIActivityBannerViewDelegate
         [self requestHomeworkSessions];
     }
 }
-
 
 - (void)reloadWhenAppeared:(NSNotification *)notification {
     self.shouldReloadWhenAppeard = YES;
@@ -581,7 +563,6 @@ MIActivityBannerViewDelegate
         
         return ;
     }
-    
     NetworkStateErrorView *errorView = [[[NSBundle mainBundle] loadNibNamed:@"NetworkStateErrorView" owner:nil options:0] lastObject];
     
     self.homeworkSessionsTableView.tableHeaderView = errorView;
@@ -792,7 +773,6 @@ MIActivityBannerViewDelegate
                     [weakSelf requestHomeworkSessions];
                 }];
             }
-            
             return;
         }
         

@@ -1430,11 +1430,6 @@ ClassAndStudentSelectorControllerDelegate
     }
 }
 
-- (void)dealloc{
-    
-    NSLog(@"%s",__func__);
-}
-
 #pragma mark - 请求标签 && 类型标签
 - (void)requestTags {
   

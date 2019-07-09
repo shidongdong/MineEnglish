@@ -457,7 +457,6 @@
 }
 
 #pragma mark - UIScrollViewDelegate
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (self.ignoreScrollCallback) {
         return;
@@ -507,7 +506,6 @@
         [scrollView setContentOffset:CGPointMake(self.screenWidth *2, 0) animated:YES];
         [self updateSegmentControlWhenScrollEnded];
     }
-#else
 #endif
 }
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
@@ -516,7 +514,6 @@
         [scrollView setContentOffset:CGPointMake(self.screenWidth *2, 0) animated:YES];
         [self updateSegmentControlWhenScrollEnded];
     }
-#else
 #endif
 }
 
