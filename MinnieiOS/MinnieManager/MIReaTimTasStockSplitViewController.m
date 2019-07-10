@@ -25,15 +25,20 @@
     _stockMasterVC = [[HomeworkSessionsContainerViewController alloc] initWithNibName:NSStringFromClass([HomeworkSessionsContainerViewController class]) bundle:nil];
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:_stockMasterVC];
     [masterNav setNavigationBarHidden:YES animated:NO];
-    _stockDetailVC.navigationController.navigationBar.hidden = YES;
-    
+
     _stockDetailVC = [[MIStockSecondViewController alloc] init];
     UINavigationController *detailNav = [[UINavigationController alloc] initWithRootViewController:_stockDetailVC];
     [detailNav setNavigationBarHidden:YES animated:NO];
+
+    
+    WeakifySelf;
+    _stockMasterVC.pushVCCallBack = ^(UIViewController *vc) {
+        [weakSelf.stockDetailVC.navigationController popViewControllerAnimated:YES];
+        [weakSelf.stockDetailVC.navigationController pushViewController:vc animated:YES];
+    };
     
     self.viewControllers = @[masterNav, detailNav];
     self.view.backgroundColor = [UIColor emptyBgColor];
-    
 }
 
 

@@ -6,7 +6,9 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
+#import "UIView+Load.h"
 #import "Result.h"
+#import "TeacherService.h"
 #import "MISecondReaTimTaskView.h"
 #import "MISecondReaTimeTaskTableViewCell.h"
 
@@ -33,6 +35,7 @@ UITableViewDataSource
         _currentIndex = -1;
         _teachersArray = [NSMutableArray array];
         [self configureUI];
+        [self requestTeachers];
     }
     return self;
 }
@@ -58,7 +61,6 @@ UITableViewDataSource
 #pragma mark -
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 4;
     return self.teachersArray.count;
 }
 
@@ -75,12 +77,11 @@ UITableViewDataSource
         cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MISecondReaTimeTaskTableViewCell class]) owner:nil options:nil] lastObject];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    Teacher *teacher = self.teachersArray[indexPath.row];
     if (_currentIndex == indexPath.row) {
-        
-        [cell setupTitle:@"教师名字" icon:@"" selectState:YES];
+        [cell setupTitle:teacher.nickname icon:teacher.avatarUrl selectState:YES];
     } else {
-        
-        [cell setupTitle:@"教师名字" icon:@"" selectState:NO];
+        [cell setupTitle:teacher.nickname icon:teacher.avatarUrl selectState:NO];
     }
     return cell;
 }
@@ -92,5 +93,42 @@ UITableViewDataSource
     [tableView reloadData];
 }
 
+- (void)requestTeachers{
+   
+    WeakifySelf;
+    if (self.teachersArray.count == 0) {
+        self.tableView.hidden = YES;
+        [self showLoadingView];
+    }
+    [TeacherService requestTeachersWithCallback:^(Result *result, NSError *error) {
+        StrongifySelf;
+        if (error != nil) {
+            [strongSelf showFailureViewWithRetryCallback:^{
+                [weakSelf requestTeachers];
+            }];
+            return;
+        }
+        
+        NSDictionary *dict = (NSDictionary *)(result.userInfo);
+        NSArray *teachers = (NSArray *)(dict[@"list"]);
+        if (teachers.count == 0) {
+            [strongSelf showEmptyViewWithImage:nil
+                                         title:@"暂无教师"
+                                     linkTitle:nil
+                             linkClickCallback:nil];
+        } else {
+            [strongSelf hideAllStateView];
+            
+            if (strongSelf.teachersArray == nil) {
+                strongSelf.teachersArray = [NSMutableArray array];
+            }
+            
+            [strongSelf.teachersArray addObjectsFromArray:teachers];
+            
+            strongSelf.tableView.hidden = NO;
+            [strongSelf.tableView reloadData];
+        }
+    }];
+}
 
 @end

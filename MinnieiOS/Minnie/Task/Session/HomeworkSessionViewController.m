@@ -126,8 +126,8 @@ HomeworkAnswersPickerViewControllerDelegate>
     [super viewDidLoad];
     
 #if TEACHERSIDE || MANAGERSIDE
+  
     [self studentName];
-//    self.correctButton.hidden = self.homeworkSession.score>0;
     self.correctButton.hidden = NO;
     self.answerViewWidthConstraint.constant = ScreenWidth/4;
     self.warnViewWidthConstraint.constant = ScreenWidth/4;
@@ -151,7 +151,6 @@ HomeworkAnswersPickerViewControllerDelegate>
             [self.homeworkImages addObject:items.imageUrl];
         }
     }
-    
     
     self.recordButton.hidden = YES;
     self.recordButton.layer.borderWidth = 0.5f;
@@ -230,10 +229,9 @@ HomeworkAnswersPickerViewControllerDelegate>
     
     [self setupConversation];
     
-    // -1表示为批改过
+    // -1表示未批改过
     if (self.homeworkSession.score >= 0) {
         [self setupResultView];
-        
         self.resultView.hidden = NO;
         self.inputView.hidden = YES;
     } else {
@@ -826,7 +824,6 @@ HomeworkAnswersPickerViewControllerDelegate>
 #if TEACHERSIDE || MANAGERSIDE
     self.retryButton.hidden = YES;
 #else
-    
     if (self.homeworkSession.isRedo)
     {
         self.retryButton.backgroundColor = bgColor;
@@ -836,7 +833,6 @@ HomeworkAnswersPickerViewControllerDelegate>
         self.retryButton.layer.borderWidth = 1;
         self.retryButton.hidden = NO;
     }
-    
 #endif
 }
 
@@ -1363,6 +1359,7 @@ HomeworkAnswersPickerViewControllerDelegate>
 
 - (void)handleVideoPickerResult:(UIImagePickerController *)picker
   didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+   
     [picker dismissViewControllerAnimated:YES completion:^{
         NSURL *videoUrl = [info objectForKey:UIImagePickerControllerMediaURL];
         AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:videoUrl options:nil];
@@ -1375,8 +1372,8 @@ HomeworkAnswersPickerViewControllerDelegate>
 #if TEACHERSIDE || MANAGERSIDE
 #else
         if (durationInSeconds > 5*60) {
+         
             [HUD showErrorWithMessage:@"视频时长不能超过5分钟"];
-            
             return;
         }
 #endif
@@ -1417,7 +1414,6 @@ HomeworkAnswersPickerViewControllerDelegate>
                         } params:nil checkCrc:NO cancellationSignal:^BOOL{
                             return flag;
                         }];
-                        
                         
                         [[FileUploader shareInstance] qn_uploadFile:path type:UploadFileTypeVideo option:option completionBlock:^(NSString * _Nullable videoUrl, NSError * _Nullable error) {
                             weakSelf.mHud = nil;
@@ -2203,11 +2199,9 @@ HomeworkAnswersPickerViewControllerDelegate>
 }
 
 #pragma mark - EmojiInputViewDelegate
-
 - (void)emojiDidSelect:(NSString *)emojiText {
     
     NSString * text = [self.inputTextView.text stringByAppendingString:emojiText];
-    
     self.inputTextView.text = text;
    // [self sendEmojiMessage:emojiText];
 }

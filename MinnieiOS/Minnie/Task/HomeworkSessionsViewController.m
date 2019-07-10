@@ -819,8 +819,14 @@ MIActivityBannerViewDelegate
     HomeworkSession *session = self.homeworkSessions[indexPath.row];
     HomeworkSessionViewController *vc = [[HomeworkSessionViewController alloc] initWithNibName:@"HomeworkSessionViewController" bundle:nil];
     vc.homeworkSession = session;
+#if MANAGERSIDE
+    if (self.pushVCCallBack) {
+        self.pushVCCallBack(vc);
+    }
+#else
     [vc setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:vc animated:YES];
+#endif
 }
 
 #pragma mark - 更新UI

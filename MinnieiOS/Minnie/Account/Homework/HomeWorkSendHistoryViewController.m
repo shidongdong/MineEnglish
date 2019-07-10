@@ -36,9 +36,9 @@
     [super viewDidLoad];
     self.homeworks = [NSMutableArray array];
 #if MANAGERSIDE
-    [self.backButton setImage: [UIImage imageNamed:@"navbar_close"] forState:UIControlStateNormal];
+    [self.backButton setImage:[UIImage imageNamed:@"navbar_close"] forState:UIControlStateNormal];
 #else
-    [self.backButton setImage: [UIImage imageNamed:@"navbar_back"]]forState:UIControlStateNormal];
+    [self.backButton setImage:[UIImage imageNamed:@"navbar_back"] forState:UIControlStateNormal];
 #endif
     [self registerNibCell];
     [self requestHistoryList];

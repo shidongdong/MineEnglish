@@ -36,5 +36,4 @@ typedef NS_ENUM(NSInteger, TeacherType) {
 @property (nonatomic, readonly) NSString *typeDescription;
 @property (nonatomic, readonly) NSString *authorityDescription;
 
-
 @end

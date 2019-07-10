@@ -7,10 +7,8 @@
 //
 
 #import "HomeworkSessionsContainerViewController.h"
-#import "HomeworkSessionsViewController.h"
 #import "CalendarViewController.h"
 #import "SegmentControl.h"
-#import <Masonry/Masonry.h>
 #import "IMManager.h"
 #import "AlertView.h"
 #import "Clazz.h"
@@ -342,6 +340,7 @@
             existed = NO;
         }
         
+        self.unfinishedClassesChildController.pushVCCallBack = self.pushVCCallBack;
         childPageViewController = self.unfinishedClassesChildController;
     } else if (index == 1) {
         if (self.finishedClassesChildController == nil) {
@@ -352,6 +351,7 @@
             existed = NO;
         }
         
+        self.finishedClassesChildController.pushVCCallBack = self.pushVCCallBack;
         childPageViewController = self.finishedClassesChildController;
     }
     else
@@ -365,6 +365,7 @@
             existed = NO;
         }
         
+        self.uncommitClassesChildController.pushVCCallBack = self.pushVCCallBack;
         childPageViewController = self.uncommitClassesChildController;
 #else
 #endif

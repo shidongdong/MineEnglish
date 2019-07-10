@@ -7,10 +7,11 @@
 //
 
 #import "BaseViewController.h"
+#import "HomeworkSessionsViewController.h"
 
 // 消息，任务
 @interface HomeworkSessionsContainerViewController : BaseViewController
 
-
+@property (nonatomic, copy) HomeworkSessionsPushVCCallback pushVCCallBack;
 
 @end
