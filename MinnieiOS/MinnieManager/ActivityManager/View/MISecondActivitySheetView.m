@@ -58,7 +58,7 @@ UITableViewDataSource
 //    lineView1.backgroundColor = [UIColor separatorLineColor];
 //    [self addSubview:lineView1];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 70, self.frame.size.width, self.frame.size.height - kNaviBarHeight)style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 70, self.frame.size.width, self.frame.size.height - 70)style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self addSubview:_tableView];

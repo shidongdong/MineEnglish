@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MITeacherManagerViewController : CSCustomSplitViewController
 
+- (void)updateTeacher:(Teacher * _Nullable)teacher;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -88,13 +88,13 @@
     NSLog(@"%s", __func__);
 }
 
-
 - (void)backButtonPressed:(id)sender{
     
 #if MANAGERSIDE
 // 新建奖励
     [self showCreateAwardWithAward:nil];
-    
+#else
+    [self.navigationController popViewControllerAnimated:YES];
 #endif
 }
 

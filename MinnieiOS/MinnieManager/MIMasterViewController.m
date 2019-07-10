@@ -7,9 +7,8 @@
 //
 
 #import "MIRootSheetView.h"
-#import "MISecondTeaManView.h"
+#import "MISecondTeachersView.h"
 #import "MISecondSheetView.h"
-#import "MISecondReaTimTaskView.h"
 #import "SettingsViewController.h"
 #import "MIMasterViewController.h"
 #import "MISecondActivitySheetView.h"
@@ -29,15 +28,16 @@
 @interface MIMasterViewController ()<
 RootSheetViewDelete,
 SecondSheetViewDelegate,
+MISecondTeachersViewDelegate,
 MISecondActivitySheetViewDelegate
 >
 // 根菜单视图
 @property (nonatomic, strong)MIRootSheetView *firstSheetView;
 
 // 实时任务 教师列表
-@property (nonatomic, strong) MISecondReaTimTaskView *reaTimTasSheetView;
+@property (nonatomic, strong) MISecondTeachersView *reaTimTasSheetView;
 // 教师管理 教师列表
-@property (nonatomic, strong) MISecondTeaManView *teacherManagerSheetView;
+@property (nonatomic, strong) MISecondTeachersView *teacherManagerSheetView;
 // 任务管理 文件夹列表
 @property (nonatomic, strong) MISecondSheetView *secondSheetView;
 // 活动管理 活动列表
@@ -80,10 +80,12 @@ MISecondActivitySheetViewDelegate
     _firstSheetView.delegate = self;
     [self.view addSubview:_firstSheetView];
     
-    _reaTimTasSheetView = [[MISecondReaTimTaskView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, self.view.frame.size.height)];
+    _reaTimTasSheetView = [[MISecondTeachersView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, self.view.frame.size.height)];
+    _reaTimTasSheetView.delegate = self;
     [self.view addSubview:_reaTimTasSheetView];
     
-    _teacherManagerSheetView = [[MISecondTeaManView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, self.view.frame.size.height)];
+    _teacherManagerSheetView = [[MISecondTeachersView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, self.view.frame.size.height)];
+    _teacherManagerSheetView.delegate = self;
     [self.view addSubview:_teacherManagerSheetView];
     
     _secondSheetView = [[MISecondSheetView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, ScreenHeight)];
@@ -119,11 +121,17 @@ MISecondActivitySheetViewDelegate
         [self updatePrimaryCloumnScale:kRootModularWidth + kColumnSecondWidth];
         [self.secondDetailVC addSubViewController:self.reaTimTasStockSplitVC];
         
+        [self.reaTimTasSheetView updateTeacherListWithListType:0];
+        
     } else if (index == 1){ // 教师管理
         
         self.teacherManagerSheetView.hidden = NO;
         [self updatePrimaryCloumnScale:kRootModularWidth + kColumnSecondWidth];
         [self.secondDetailVC addSubViewController:self.teacherStockSplitVC];
+        
+        [self.teacherManagerSheetView updateTeacherListWithListType:1];
+        [self.teacherStockSplitVC updateTeacher:nil];
+        
         
     } else if (index == 2){ // 任务管理 不展开文件夹，不显示内容
        
@@ -157,6 +165,16 @@ MISecondActivitySheetViewDelegate
     } else if (index == 7) { // 设置
         [self updatePrimaryCloumnScale:kRootModularWidth];
         [self.secondDetailVC addSubViewController:self.setterStockSplitVC];
+    }
+}
+
+#pragma mark - 实时任务 && 教师管理
+- (void)secondTeaManViewDidClicledWithTeacher:(Teacher *)teacher listType:(NSInteger)type{
+    
+    if (type == 0) {
+    
+    } else {
+        [self.teacherStockSplitVC updateTeacher:teacher];
     }
 }
 
@@ -334,12 +352,6 @@ MISecondActivitySheetViewDelegate
     return _setterStockSplitVC;
 }
 
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 
 @end
