@@ -6,6 +6,7 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
+#import "MIZeroMessagesViewController.h"
 #import "MIStudentRecordViewController.h"
 #import "MIStudentDetailViewController.h"
 #import "MITeaStaStockSplitViewController.h"
@@ -14,6 +15,9 @@
 
 @property (nonatomic, strong) MIStudentDetailViewController *stockMasterVC;
 @property (nonatomic, strong) MIStudentRecordViewController *stockDetailVC;
+
+// 零分动态
+@property (nonatomic, strong) MIZeroMessagesViewController * zeroMessagesVC;
 
 @end
 
@@ -33,11 +37,31 @@
     
     self.viewControllers = @[masterNav, detailNav];
     self.view.backgroundColor = [UIColor emptyBgColor];
+    
 }
 
 - (void)updateStudent:(User * _Nullable)student{
+   
+    if (student != nil) {
+        
+        [self.navigationController popToRootViewControllerAnimated:NO];
+        [self.stockMasterVC updateStudent:student];
+    } else {
+     
+        NSLog(@"%@",self.navigationController.viewControllers);
+        if ([self.navigationController.viewControllers.lastObject isKindOfClass:[MIZeroMessagesViewController class]]) {
+            return;
+        }
+        [self.navigationController pushViewController:self.zeroMessagesVC animated:NO];
+    }
+}
+
+- (MIZeroMessagesViewController *)zeroMessagesVC{
     
-    [self.stockMasterVC updateStudent:student];
+    if (!_zeroMessagesVC) {
+        _zeroMessagesVC = [[MIZeroMessagesViewController alloc] initWithNibName:NSStringFromClass([MIZeroMessagesViewController class]) bundle:nil];
+    }
+    return _zeroMessagesVC;
 }
 
 @end

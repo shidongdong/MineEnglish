@@ -60,7 +60,6 @@ NSString * const HomeworkSendHisTableViewCellId = @"HomeworkSendHisTableViewCell
     NSStringDrawingOptions options =  NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading;
     CGRect rect = [textStr boundingRectWithSize:CGSizeMake((ScreenWidth - 24 - 20) / 3,MAXFLOAT) options:options attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0]} context:nil];
     
-    
     return KContainerViewTopSpace + KContainerViewBottomSpace + KTimeLabelSpace + rect.size.height;
 }
 

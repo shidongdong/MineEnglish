@@ -26,8 +26,11 @@
     if ([vc isKindOfClass:[CSCustomSplitViewController  class]]) {
         
         CSCustomSplitViewController *detailVC = (CSCustomSplitViewController *)vc;
-        detailVC.primaryCloumnScale = offset;
-        [detailVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
+        if (detailVC.primaryCloumnScale != offset) {
+           
+            detailVC.primaryCloumnScale = offset;
+            [detailVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
+        }
     }
     
 #endif

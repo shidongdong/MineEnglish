@@ -162,8 +162,10 @@ MISecondTeachStatisticsViewDelegate
         
         self.secondTeaStaSheetView.hidden = NO;
         [self updatePrimaryCloumnScale:kRootModularWidth + kColumnSecondWidth];
-        [self.secondDetailVC addSubViewController:self.teaStaStockSplitVC];
-        
+      
+        if (![self.secondDetailVC.childViewControllers.lastObject isKindOfClass:[MITeaStaStockSplitViewController class]]) {
+            [self.secondDetailVC addSubViewController:self.teaStaStockSplitVC];
+        }
         [self.secondTeaStaSheetView updateStudentListWithListType:0];
         [self.teaStaStockSplitVC updateStudent:nil];
     } else if (index == 5) { // 校区管理
@@ -192,7 +194,7 @@ MISecondTeachStatisticsViewDelegate
 
 #pragma mark - 教学统计 MISecondTeachStatisticsViewDelegate
 -(void)secondTeachStatisticsViewDidClicledWithStudent:(User *)student{
-     
+    
     [self.teaStaStockSplitVC updateStudent:student];
 }
 

@@ -56,6 +56,7 @@
 }
 #pragma mark - setter
 - (void)setPrimaryCloumnScale:(CGFloat)primaryCloumnScale {
+    
     _primaryCloumnScale = primaryCloumnScale;
     if (primaryCloumnScale < kRootModularWidth) {
         _primaryCloumnScale = kRootModularWidth;
