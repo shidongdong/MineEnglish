@@ -79,9 +79,7 @@ UITableViewDataSource
     lineView.backgroundColor = [UIColor separatorLineColor];
     [self addSubview:lineView];
     
-    UIView *footrView = [[UIView alloc] init];
-    footrView.backgroundColor = [UIColor clearColor];
-    _tableView.tableFooterView = footrView;
+    _tableView.tableFooterView = [UIView new];
     _tableView.cellLayoutMarginsFollowReadableWidth = NO;
 }
 

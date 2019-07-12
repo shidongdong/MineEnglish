@@ -45,9 +45,7 @@ UITableViewDataSource
     self.setButton.layer.borderColor = [UIColor mainColor].CGColor;
     self.titleArray = @[@"在线时长",@"任务批改总览",@"上课班级",@"任务评分统计"];
     
-    UIView *footerView = [[UIView alloc] init];
-    footerView.backgroundColor = [UIColor clearColor];
-    self.tableView.tableFooterView = footerView;
+    self.tableView.tableFooterView = [UIView new];
 }
 
 - (void)updateTeacher:(Teacher *_Nullable)teacher{

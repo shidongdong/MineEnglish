@@ -12,6 +12,7 @@
 #import "SettingsViewController.h"
 #import "MIMasterViewController.h"
 #import "MISecondActivitySheetView.h"
+#import "MISecondTeachStatisticsView.h"
 #import "MIStockSecondViewController.h"
 #import "HomeWorkSendHistoryViewController.h"
 #import "UIViewController+PrimaryCloumnScale.h"
@@ -29,7 +30,8 @@
 RootSheetViewDelete,
 SecondSheetViewDelegate,
 MISecondTeachersViewDelegate,
-MISecondActivitySheetViewDelegate
+MISecondActivitySheetViewDelegate,
+MISecondTeachStatisticsViewDelegate
 >
 // 根菜单视图
 @property (nonatomic, strong)MIRootSheetView *firstSheetView;
@@ -42,6 +44,8 @@ MISecondActivitySheetViewDelegate
 @property (nonatomic, strong) MISecondSheetView *secondSheetView;
 // 活动管理 活动列表
 @property (nonatomic, strong) MISecondActivitySheetView *secondActivitySheetView;
+// 教学统计 学生列表
+@property (nonatomic, strong) MISecondTeachStatisticsView *secondTeaStaSheetView;
 
 
 // 实时任务
@@ -95,7 +99,11 @@ MISecondActivitySheetViewDelegate
     _secondActivitySheetView = [[MISecondActivitySheetView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, self.view.frame.size.height)];
     _secondActivitySheetView.delegate = self;
     [self.view addSubview:_secondActivitySheetView];
-
+    
+    _secondTeaStaSheetView = [[MISecondTeachStatisticsView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, self.view.frame.size.height)];
+    _secondTeaStaSheetView.delegate = self;
+    [self.view addSubview:_secondTeaStaSheetView];
+    
     
     // 默认选中 任务管理
     _firstSheetView.selectIndex = 2;
@@ -114,6 +122,7 @@ MISecondActivitySheetViewDelegate
     self.reaTimTasSheetView.hidden = YES;
     self.secondActivitySheetView.hidden = YES;
     self.teacherManagerSheetView.hidden = YES;
+    self.secondTeaStaSheetView.hidden = YES;
     
     if (index == 0) { // 实时任务
         
@@ -131,7 +140,6 @@ MISecondActivitySheetViewDelegate
         
         [self.teacherManagerSheetView updateTeacherListWithListType:1];
         [self.teacherStockSplitVC updateTeacher:nil];
-        
         
     } else if (index == 2){ // 任务管理 不展开文件夹，不显示内容
        
@@ -152,8 +160,12 @@ MISecondActivitySheetViewDelegate
         [_secondActivitySheetView updateActivityListInfo];
     } else if (index == 4) { // 教学统计
         
+        self.secondTeaStaSheetView.hidden = NO;
         [self updatePrimaryCloumnScale:kRootModularWidth + kColumnSecondWidth];
         [self.secondDetailVC addSubViewController:self.teaStaStockSplitVC];
+        
+        [self.secondTeaStaSheetView updateStudentListWithListType:0];
+        [self.teaStaStockSplitVC updateStudent:nil];
     } else if (index == 5) { // 校区管理
         
         [self updatePrimaryCloumnScale:kRootModularWidth];
@@ -176,6 +188,12 @@ MISecondActivitySheetViewDelegate
     } else {
         [self.teacherStockSplitVC updateTeacher:teacher];
     }
+}
+
+#pragma mark - 教学统计 MISecondTeachStatisticsViewDelegate
+-(void)secondTeachStatisticsViewDidClicledWithStudent:(User *)student{
+     
+    [self.teaStaStockSplitVC updateStudent:student];
 }
 
 #pragma mark - 发送记录

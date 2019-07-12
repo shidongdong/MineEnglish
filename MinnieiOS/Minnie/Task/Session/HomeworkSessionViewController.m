@@ -1315,10 +1315,9 @@ HomeworkAnswersPickerViewControllerDelegate>
     
     if (![self.homeworkSession.homework.typeName isEqualToString:kHomeworkTaskNotifyName]) {
         return;
-    } // -1表示未批改过
-    if (self.homeworkSession.score != -1) {
-        return;
     }
+    // -1表示未批改过
+    if (self.homeworkSession.score != -1)  return;
     NSMutableArray *studentMessages = [NSMutableArray array];
     for (NSString *key in self.sortedKeys) {
         
@@ -1824,15 +1823,17 @@ HomeworkAnswersPickerViewControllerDelegate>
         
         WeakifySelf;
         [cell setStartTaskCallback:^(void) {
+            
+            if (weakSelf.homeworkSession.score != -1)  return;
             MIReadingTaskViewController *taskVC = [[MIReadingTaskViewController alloc] initWithNibName:NSStringFromClass([MIReadingTaskViewController class]) bundle:nil];
             taskVC.isChecking = NO;
             taskVC.conversation = weakSelf.conversation;
             taskVC.homework = weakSelf.homeworkSession.homework;
             taskVC.finishCallBack = ^(AVIMAudioMessage *message){
               
-                [self.messages addObject:message];
-                [self sortMessages];
-                [self reloadDataAndScrollToBottom];
+                [weakSelf.messages addObject:message];
+                [weakSelf sortMessages];
+                [weakSelf reloadDataAndScrollToBottom];
             };
             [weakSelf.navigationController pushViewController:taskVC animated:YES];
         }];

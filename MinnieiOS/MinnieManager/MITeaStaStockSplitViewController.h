@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MITeaStaStockSplitViewController : CSCustomSplitViewController
 
+- (void)updateStudent:(User * _Nullable)student;
+
 @end
 
 NS_ASSUME_NONNULL_END
