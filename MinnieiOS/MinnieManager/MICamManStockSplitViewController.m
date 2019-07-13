@@ -6,11 +6,14 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
+#import "ClassManagerViewController.h"
 #import "MIStockSecondViewController.h"
 #import "MICampusManagerViewController.h"
 #import "MICamManStockSplitViewController.h"
 
-@interface MICamManStockSplitViewController ()
+@interface MICamManStockSplitViewController ()<
+MICampusManagerViewControllerDelegate
+>
 
 @property (nonatomic, strong) MICampusManagerViewController *stockMasterVC;
 @property (nonatomic, strong) MIStockSecondViewController *stockDetailVC;
@@ -25,6 +28,7 @@
     // Do any additional setup after loading the view.
     
     _stockMasterVC = [[MICampusManagerViewController alloc] initWithNibName:@"MICampusManagerViewController" bundle:nil];
+    _stockMasterVC.delegate = self;
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:_stockMasterVC];
     [masterNav setNavigationBarHidden:YES animated:NO];
     
@@ -34,6 +38,15 @@
     
     self.viewControllers = @[masterNav, detailNav];
     self.view.backgroundColor = [UIColor emptyBgColor];
+    
+}
+#pragma mark - MICampusManagerViewControllerDelegate
+- (void)campusManagerViewControllerEditClazz:(Clazz *)clazz{
+    
+    [self.stockDetailVC.navigationController popViewControllerAnimated:YES];
+    ClassManagerViewController *vc = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
+    vc.classId = clazz.classId;
+    [self.stockDetailVC.navigationController pushViewController:vc animated:YES];
 }
 
 @end

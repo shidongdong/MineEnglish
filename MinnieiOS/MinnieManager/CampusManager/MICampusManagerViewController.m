@@ -6,9 +6,26 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
+#import "WMPageController.h"
+#import "MIClassDetailViewController.h"
 #import "MICampusManagerViewController.h"
 
-@interface MICampusManagerViewController ()
+@interface MICampusManagerViewController ()<
+WMPageControllerDelegate,
+WMPageControllerDataSource,
+MIClassDetailViewControllerDelegate
+>
+
+@property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
+
+
+@property (nonatomic, strong) NSArray *subPageTitleArray;
+@property (nonatomic, strong) NSMutableArray *subPageVCArray;
+
+
+@property (nonatomic, strong) WMPageController *pageController;
+
 
 @end
 
@@ -18,6 +35,68 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor emptyBgColor];
+    
+    self.subPageVCArray = [NSMutableArray array];
+    for (int i = 0; i < 3; i++) {
+      
+        MIClassDetailViewController *classVC = [[MIClassDetailViewController alloc] init];
+        classVC.delegate = self;
+        [self.subPageVCArray addObject:classVC];
+    }
+    self.subPageTitleArray = @[@"武义校区", @"金华校区",@"杭州校区"];
+    self.pageController = [[WMPageController alloc] initWithViewControllerClasses:self.subPageVCArray andTheirTitles:self.subPageTitleArray];
+    self.pageController.delegate = self;
+    self.pageController.dataSource = self;
+    self.pageController.menuViewStyle = WMMenuViewStyleLine;
+    self.pageController.titleSizeNormal = 14.0;
+    self.pageController.titleSizeSelected = 14.0;
+    self.pageController.progressWidth = 25.0;
+    self.pageController.progressHeight = 4.0;
+    self.pageController.progressViewCornerRadius = 2.0;
+    self.pageController.menuItemWidth = 70;
+    self.pageController.titleColorSelected = [UIColor mainColor];
+    self.pageController.titleColorNormal = [UIColor detailColor];
+    self.pageController.progressViewIsNaughty = YES;
+    
+    self.pageController.view.frame = CGRectMake(0, 0, (ScreenWidth - kRootModularWidth)/2.0, ScreenHeight);
+    [self.contentView addSubview:self.pageController.view];
+    [self addChildViewController:self.pageController];
+    [self.pageController didMoveToParentViewController:self];
 }
+
+
+#pragma mark - WMPageControllerDelegate, WMPageControllerDataSource
+-(NSInteger)numbersOfTitlesInMenuView:(WMMenuView *)menu{
+    return self.subPageVCArray.count;
+}
+
+- (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index{
+    return self.subPageVCArray[index];
+}
+
+- (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index{
+    return self.subPageTitleArray[index];
+}
+
+- (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info{
+    
+    NSLog(@"%@",viewController);
+}
+
+#pragma mark - MIClassDetailViewControllerDelegate 
+- (void)classDetailViewControllerClickedIndex:(NSInteger)index clazz:(Clazz *)clazz{
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(campusManagerViewControllerEditClazz:)]) {
+        [self.delegate campusManagerViewControllerEditClazz:clazz];
+    }
+}
+
+- (IBAction)createClassAction:(id)sender {
+ 
+    if (self.delegate && [self.delegate respondsToSelector:@selector(campusManagerViewControllerEditClazz:)]) {
+        [self.delegate campusManagerViewControllerEditClazz:nil];
+    }
+}
+
 
 @end

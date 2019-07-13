@@ -17,6 +17,9 @@ UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerHeightConstraint;
+
 @property (nonatomic, strong) BaseRequest * rankRequest;
 
 @property (nonatomic, strong) NSMutableArray *recordArray;
@@ -33,9 +36,7 @@ UITableViewDataSource>
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.recordArray = [[NSMutableArray alloc] init];
-    UIView *footerView = [[UIView alloc] init];
-    footerView.backgroundColor = [UIColor clearColor];
-    self.tableView.tableFooterView = footerView;
+    self.tableView.tableFooterView = [UIView new];
     _pageNum = 20;
     _currentIndex = 1;
     // 下拉刷新
@@ -44,7 +45,17 @@ UITableViewDataSource>
     // 上拉加载
     [self.tableView addInfiniteScrollingWithTarget:self refreshingAction:@selector(loadMore)];
     [self.tableView headerBeginRefreshing];
+
+#if MANAGERSIDE
+    self.headerView.hidden = YES;
+    self.headerHeightConstraint.constant = 0;
+#else
+    self.headerView.hidden = NO;
+    self.headerHeightConstraint.constant = 44;
+#endif
 }
+
+
 
 - (void)refresh{
     
@@ -130,8 +141,8 @@ UITableViewDataSource>
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellId"];
-        cell.textLabel.font = [UIFont systemFontOfSize:16];
-        cell.detailTextLabel.font = [UIFont systemFontOfSize:16];
+        cell.textLabel.font = [UIFont systemFontOfSize:14];
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:14];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.textColor = [UIColor colorWithHex:0x666666];
         cell.detailTextLabel.textColor = [UIColor colorWithHex:0x666666];
@@ -145,11 +156,11 @@ UITableViewDataSource>
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
    
     UIView *headerView =  [[UIView alloc] init];
-    headerView.backgroundColor = [UIColor colorWithHex:0XF5F5F5];
+    headerView.backgroundColor = [UIColor unSelectedColor];
     UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, ScreenWidth - 120, 16)];
     timeLabel.textAlignment = NSTextAlignmentLeft;
     timeLabel.font = [UIFont boldSystemFontOfSize:16];
-    timeLabel.textColor = [UIColor colorWithHex:0x999999];
+    timeLabel.textColor = [UIColor detailColor];
     [headerView addSubview:timeLabel];
     
     CGFloat rightWidth = 20;
@@ -159,7 +170,7 @@ UITableViewDataSource>
     UILabel *startCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth - 60 - rightWidth, 5, 60, 16)];
     startCountLabel.textAlignment = NSTextAlignmentRight;
     startCountLabel.font = [UIFont boldSystemFontOfSize:14];
-    startCountLabel.textColor = [UIColor colorWithHex:0x999999];
+    startCountLabel.textColor = [UIColor detailColor];
     [headerView addSubview:startCountLabel];
     DayStarLogDetail *dayLogDetail = self.recordArray[section];
     timeLabel.text = dayLogDetail.starLogDate;

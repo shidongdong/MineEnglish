@@ -8,7 +8,7 @@
 
 #import "MISecondReaTimeTaskTableViewCell.h"
 
-CGFloat const MISecondReaTimeTaskTableViewCellHeight = 64;
+CGFloat const MISecondReaTimeTaskTableViewCellHeight = 50;
 NSString * const MISecondReaTimeTaskTableViewCellId = @"MISecondReaTimeTaskTableViewCellId";
 
 

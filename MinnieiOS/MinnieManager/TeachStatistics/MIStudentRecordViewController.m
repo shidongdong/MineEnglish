@@ -5,21 +5,25 @@
 //  Created by songzhen on 2019/7/11.
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
-#import "SegmentControl.h"
+#import "WMPageController.h"
 #import "MIStudentRecordViewController.h"
+#import "StudentStarRecordViewController.h"
 
 @interface MIStudentRecordViewController ()<
+WMPageControllerDelegate,
+WMPageControllerDataSource,
 UIScrollViewDelegate
 >
 
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 
-@property (nonatomic, strong) SegmentControl *segmentControl;
+@property (nonatomic, strong) UIView *containerView;
 
-@property (nonatomic, assign) BOOL ignoreScrollCallback;
+@property (nonatomic, strong) NSMutableArray *subPageVCArray;
 
-@property (nonatomic, strong) UIScrollView *containerScrollView;
+@property (nonatomic, strong) NSArray *subPageTitleArray;
 
+@property (nonatomic, strong) WMPageController *pageController;
 
 @end
 
@@ -30,109 +34,54 @@ UIScrollViewDelegate
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor emptyBgColor];
     
-    
-    self.segmentControl = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SegmentControl class]) owner:nil options:nil] lastObject];
-    self.segmentControl.titles = @[@"星星获取", @"礼物兑换",@"任务得分",@"考试统计"];
-    self.segmentControl.selectedIndex = 0;
-    __weak typeof(self) weakSelf = self;
-    self.segmentControl.indexChangeHandler = ^(NSUInteger selectedIndex) {
-        [weakSelf showChildPageViewWithIndex:selectedIndex animated:YES shouldLocate:YES];
-    };
-    [self.view addSubview:self.segmentControl];
- 
-    [self.segmentControl mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(kNaviBarHeight);
-        make.height.equalTo(@30);
-        make.centerX.equalTo(self.view.mas_centerX);
-        make.width.mas_equalTo(kColumnThreeWidth);
-    }];
-    
-    _containerScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kNaviBarHeight + 30, kColumnThreeWidth, ScreenHeight - (kNaviBarHeight + 30))];
-    _containerScrollView.pagingEnabled = YES;
-    _containerScrollView.showsHorizontalScrollIndicator = NO;
-    _containerScrollView.contentSize = CGSizeMake(kColumnThreeWidth * 4, 200);
-    _containerScrollView.delegate = self;
-    [self.view addSubview:_containerScrollView];
-}
-
-- (void)showChildPageViewWithIndex:(NSUInteger)index animated:(BOOL)animated shouldLocate:(BOOL)shouldLocate {
-    
-    if (shouldLocate) {
-        
-        CGPoint offset = CGPointMake(index*kColumnThreeWidth, 0);
-        if (animated) {
-            self.ignoreScrollCallback = YES;
-            [UIView animateWithDuration:0.3
-                             animations:^{
-                                 [self.containerScrollView setContentOffset:offset];
-                             } completion:^(BOOL finished) {
-                                 self.ignoreScrollCallback = NO;
-                             }];
-        } else {
-            // 说明：不使用dispatch_async的话viewDidLoad中直接调用[self.containerScrollView setContentOffset:offset];
-            // 会导致contentoffset并未设置的问题
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.ignoreScrollCallback = YES;
-                [self.containerScrollView setContentOffset:offset];
-                self.ignoreScrollCallback = NO;
-            });
-        }
+    self.subPageVCArray = [NSMutableArray array];
+    for (int i = 0; i < 4; i++) {
+      
+        StudentStarRecordViewController * statRecordVC = [[StudentStarRecordViewController alloc] initWithNibName:NSStringFromClass([StudentStarRecordViewController class]) bundle:nil];
+        [self.subPageVCArray addObject:statRecordVC];
     }
+    self.subPageTitleArray = @[@"星星获取", @"礼物兑换",@"任务得分",@"考试统计"];
+    self.pageController = [[WMPageController alloc] initWithViewControllerClasses:self.subPageVCArray andTheirTitles:self.subPageTitleArray];
+    self.pageController.delegate = self;
+    self.pageController.dataSource = self;
+    self.pageController.menuViewStyle = WMMenuViewStyleLine;
+    self.pageController.titleSizeNormal = 14.0;
+    self.pageController.titleSizeSelected = 14.0;
+    self.pageController.progressWidth = 25.0;
+    self.pageController.progressHeight = 4.0;
+    self.pageController.progressViewCornerRadius = 2.0;
+    self.pageController.menuItemWidth = 80;
+    self.pageController.titleColorSelected = [UIColor mainColor];
+    self.pageController.titleColorNormal = [UIColor detailColor];
+    self.pageController.progressViewIsNaughty = YES;
+    
+    _containerView = [[UIView alloc] initWithFrame:CGRectMake(0, kNaviBarHeight, kColumnThreeWidth, ScreenHeight - kNaviBarHeight)];
+    self.pageController.view.frame = CGRectMake(0, 0, kColumnThreeWidth, ScreenHeight - kNaviBarHeight);
+    [self.view addSubview:_containerView];
+    
+    [_containerView addSubview:self.pageController.view];
+    [self addChildViewController:self.pageController];
+    [self.pageController didMoveToParentViewController:self];
+
 }
 
 
-#pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    if (self.ignoreScrollCallback) {
-        return;
-    }
-    
-    CGFloat offsetX = scrollView.contentOffset.x;
-    NSUInteger leftIndex = (NSInteger)MAX(0, offsetX)/(NSInteger)(kColumnThreeWidth);
-    NSUInteger rightIndex = (NSInteger)MAX(0, offsetX+kColumnThreeWidth)/(NSInteger)(kColumnThreeWidth);
-    
-    [self showChildPageViewWithIndex:leftIndex animated:NO shouldLocate:NO];
-    if (leftIndex != rightIndex) {
-        [self showChildPageViewWithIndex:rightIndex animated:NO shouldLocate:NO];
-    }
-    
-    [self updateSegmentControlWithOffsetX:offsetX];
+#pragma mark - WMPageControllerDelegate, WMPageControllerDataSource
+-(NSInteger)numbersOfTitlesInMenuView:(WMMenuView *)menu{
+    return self.subPageVCArray.count;
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if (self.ignoreScrollCallback) {
-        return;
-    }
+- (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index{
+    return self.subPageVCArray[index];
+}
+
+- (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index{
+    return self.subPageTitleArray[index];
+}
+
+- (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info{
     
-    if (!decelerate) {
-        [self updateSegmentControlWhenScrollEnded];
-    }
+    NSLog(@"%@",viewController);
 }
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    if (self.ignoreScrollCallback) {
-        return;
-    }
-    
-    [self updateSegmentControlWhenScrollEnded];
-}
-
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-    
-    if (self.ignoreScrollCallback) {
-        return;
-    }
-    [self updateSegmentControlWhenScrollEnded];
-}
-
-- (void)updateSegmentControlWhenScrollEnded {
-    [self.segmentControl setPersent:self.containerScrollView.contentOffset.x / kColumnThreeWidth];
-}
-
-- (void)updateSegmentControlWithOffsetX:(CGFloat)x {
-    [self.segmentControl setPersent:x / kColumnThreeWidth];
-}
-
 
 @end

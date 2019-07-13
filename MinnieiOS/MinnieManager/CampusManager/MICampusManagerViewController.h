@@ -10,7 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol MICampusManagerViewControllerDelegate <NSObject>
+
+- (void)campusManagerViewControllerEditClazz:(Clazz *_Nullable)clazz;
+
+@end
+
 @interface MICampusManagerViewController : UIViewController
+
+@property (nonatomic, weak) id<MICampusManagerViewControllerDelegate> delegate;
 
 @end
 

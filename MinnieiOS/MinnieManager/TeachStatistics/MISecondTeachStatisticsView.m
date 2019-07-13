@@ -346,8 +346,8 @@ UITableViewDataSource
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pinyinName" ascending:YES];
     NSArray *array = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
     [self.students sortUsingDescriptors:array];
-    
-    
+   
+    [self.studentDict removeAllObjects];
     for (User *student in self.students) {
         NSString *strFirstLetter = [student.pinyinName substringToIndex:1];
         if (self.studentDict[strFirstLetter] != nil) {
