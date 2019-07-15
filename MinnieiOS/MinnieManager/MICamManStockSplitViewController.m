@@ -18,6 +18,7 @@ MICampusManagerViewControllerDelegate
 @property (nonatomic, strong) MICampusManagerViewController *stockMasterVC;
 @property (nonatomic, strong) MIStockSecondViewController *stockDetailVC;
 
+@property (nonatomic, strong) ClassManagerViewController *classManagerVC;
 
 @end
 
@@ -44,22 +45,37 @@ MICampusManagerViewControllerDelegate
 - (void)campusManagerViewControllerEditClazz:(Clazz *)clazz{
     
     [self.stockDetailVC.navigationController popViewControllerAnimated:YES];
-    ClassManagerViewController *vc = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
-    vc.classId = clazz.classId;
-    WeakifySelf;
-    vc.cancelCallBack = ^{
-        [weakSelf.stockMasterVC resetSelectIndex];
-    };
     
-    vc.successCallBack = ^{
-        [weakSelf.stockMasterVC updateClassInfo];
-    };
-    [self.stockDetailVC.navigationController pushViewController:vc animated:YES];
+    self.classManagerVC.classId = clazz.classId;
+    
+    [self performSelector:@selector(pushClass)];
+}
+
+-(void)pushClass{
+    
+    [self.stockDetailVC.navigationController pushViewController:self.classManagerVC animated:YES];
 }
 
 - (void)campusManagerViewControllerPopEditClassState{
     
     [self.stockDetailVC.navigationController popViewControllerAnimated:YES];
+}
+
+- (ClassManagerViewController *)classManagerVC{
+    
+    if (!_classManagerVC) {
+        
+        _classManagerVC = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
+    }
+    WeakifySelf;
+    _classManagerVC.cancelCallBack = ^{
+        [weakSelf.stockMasterVC resetSelectIndex];
+    };
+    
+    _classManagerVC.successCallBack = ^{
+        [weakSelf.stockMasterVC updateClassInfo];
+    };
+    return _classManagerVC;
 }
 
 @end
