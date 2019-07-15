@@ -11,6 +11,8 @@
 #import "ClassTableViewCell.h"
 #import "UIScrollView+Refresh.h"
 #import "MIClassDetailViewController.h"
+#import "PinyinHelper.h"
+#import "HanyuPinyinOutputFormat.h"
 
 @interface MIClassDetailViewController ()<
 UITableViewDataSource,
@@ -116,7 +118,7 @@ UITableViewDelegate
         }
         
         if (classes.count > 0) {
-            [self.classes addObjectsFromArray:classes];
+            [self.classes addObjectsFromArray:[self sortClasses:classes]];
         }
         
         if (nextUrl.length == 0) {
@@ -148,7 +150,7 @@ UITableViewDelegate
         if (classes.count > 0) {
             self.tableView.hidden = NO;
             
-            [self.classes addObjectsFromArray:classes];
+            [self.classes addObjectsFromArray:[self sortClasses:classes]];
             [self.tableView reloadData];
             
             [self.tableView addPullToRefreshWithTarget:self
@@ -179,6 +181,24 @@ UITableViewDelegate
     self.nextUrl = nextUrl;
 }
 
+- (NSArray *)sortClasses:(NSArray *)classes {
+    
+    NSMutableArray *tempClasses = [NSMutableArray arrayWithArray:classes];
+    HanyuPinyinOutputFormat *outputFormat=[[HanyuPinyinOutputFormat alloc] init];
+    [outputFormat setToneType:ToneTypeWithoutTone];
+    [outputFormat setVCharType:VCharTypeWithV];
+    [outputFormat setCaseType:CaseTypeUppercase];
+    [tempClasses enumerateObjectsUsingBlock:^(Clazz * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *pinyin = [[PinyinHelper toHanyuPinyinStringWithNSString:obj.name withHanyuPinyinOutputFormat:outputFormat withNSString:@" "] uppercaseString];
+        obj.pinyinName = pinyin;
+        
+    }];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pinyinName" ascending:YES];
+    NSArray *array = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    [tempClasses sortUsingDescriptors:array];
+    return tempClasses;
+}
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

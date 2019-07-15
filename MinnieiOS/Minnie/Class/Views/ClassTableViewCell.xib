@@ -152,10 +152,20 @@
                             <constraint firstAttribute="trailing" secondItem="AFQ-dA-TOb" secondAttribute="trailing" id="vCz-5j-G0v"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="seG-qy-Yyt">
+                        <rect key="frame" x="317" y="0.0" width="3" height="99.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="3" id="8wW-8S-pH7"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="seG-qy-Yyt" secondAttribute="trailing" id="4vf-b5-LT5"/>
+                    <constraint firstItem="seG-qy-Yyt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="IMJ-R3-dwE"/>
                     <constraint firstItem="1Gu-p6-IdM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="Nhx-c1-gWC"/>
+                    <constraint firstAttribute="bottom" secondItem="seG-qy-Yyt" secondAttribute="bottom" id="XnE-Bc-KzV"/>
                     <constraint firstItem="1Gu-p6-IdM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="eSa-AZ-1sa"/>
                     <constraint firstAttribute="trailing" secondItem="1Gu-p6-IdM" secondAttribute="trailing" constant="12" id="rZC-nU-F1P"/>
                     <constraint firstAttribute="bottom" secondItem="1Gu-p6-IdM" secondAttribute="bottom" constant="6" id="xfB-uv-dMa"/>
@@ -171,6 +181,7 @@
                 <outlet property="locationLabel" destination="fSv-CB-Rjt" id="xGt-Uv-Shv"/>
                 <outlet property="nextTimeLabel" destination="KWX-Qj-BPb" id="2Kh-Zm-rWD"/>
                 <outlet property="postedHomeworksCountLabel" destination="mIZ-z3-6Tp" id="Trz-RF-Nkh"/>
+                <outlet property="rightLineView" destination="seG-qy-Yyt" id="EGx-o9-Rtn"/>
             </connections>
             <point key="canvasLocation" x="-326.39999999999998" y="-111.54422788605699"/>
         </tableViewCell>

@@ -1,5 +1,5 @@
 //
-//  HomeworkSessionsRequest.h
+//  HomeworkSessionRequest.h
 //  X5Teacher
 //
 //  Created by yebw on 2018/2/10.

@@ -23,6 +23,7 @@ CGFloat const ClassTableViewCellHeight = 100.f;
 @property (nonatomic, weak) IBOutlet UILabel *circleCountLabel;
 @property (nonatomic, weak) IBOutlet UILabel *postedHomeworksCountLabel;
 
+@property (weak, nonatomic) IBOutlet UIView *rightLineView;
 
 @end
 
@@ -59,10 +60,13 @@ CGFloat const ClassTableViewCellHeight = 100.f;
     
     if (selected) {
         
+        self.rightLineView.hidden = NO;
+        self.rightLineView.backgroundColor = [UIColor mainColor];
         self.backgroundColor = [UIColor selectedColor];
         self.containerView.backgroundColor =[UIColor selectedColor];
     } else {
         
+        self.rightLineView.hidden = YES;
         self.backgroundColor = [UIColor unSelectedColor];
         self.containerView.backgroundColor =[UIColor whiteColor];
     }
