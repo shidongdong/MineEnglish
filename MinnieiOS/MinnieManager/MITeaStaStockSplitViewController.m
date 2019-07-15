@@ -43,12 +43,14 @@
 - (void)updateStudent:(User * _Nullable)student{
    
     if (student != nil) {
-        
+        self.stockMasterVC.view.hidden = NO;
+        self.stockDetailVC.view.hidden = NO;
         [self.navigationController popToRootViewControllerAnimated:NO];
         [self.stockMasterVC updateStudent:student];
     } else {
      
-        NSLog(@"%@",self.navigationController.viewControllers);
+        self.stockMasterVC.view.hidden = YES;
+        self.stockDetailVC.view.hidden = YES;
         if ([self.navigationController.viewControllers.lastObject isKindOfClass:[MIZeroMessagesViewController class]]) {
             return;
         }

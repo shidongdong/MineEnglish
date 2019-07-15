@@ -8,7 +8,7 @@
 
 #import "MIScoreListViewController.h"
 #import "TeacherEditViewController.h"
-#import "MISecondReaTimeTaskTableViewCell.h"
+#import "MITeacherOnlineTableViewCell.h"
 #import "MITeacherDetailViewController.h"
 
 @interface MITeacherDetailViewController ()<
@@ -23,6 +23,8 @@ UITableViewDataSource
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) IBOutlet UIView *rightLineView;
+
+@property (weak, nonatomic) IBOutlet UIButton *onlineButton;
 
 @property (nonatomic,strong) Teacher *teacher;
 
@@ -43,9 +45,13 @@ UITableViewDataSource
     self.setButton.layer.cornerRadius = 4.0;
     self.setButton.layer.borderWidth = 1.0;
     self.setButton.layer.borderColor = [UIColor mainColor].CGColor;
+    
+    self.onlineButton.layer.cornerRadius = 4.0;
+    
     self.titleArray = @[@"在线时长",@"任务批改总览",@"上课班级",@"任务评分统计"];
     
     self.tableView.tableFooterView = [UIView new];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 - (void)updateTeacher:(Teacher *_Nullable)teacher{
@@ -61,8 +67,8 @@ UITableViewDataSource
         self.headerView.hidden = NO;
         self.tableView.hidden = NO;
         self.rightLineView.hidden = NO;
-        self.view.backgroundColor = [UIColor unSelectedColor];
-        self.tableView.backgroundColor = [UIColor unSelectedColor];
+        self.view.backgroundColor = [UIColor whiteColor];
+        self.tableView.backgroundColor = [UIColor whiteColor];
         
         self.nameLabel.text = self.teacher.nickname;
         [self.iconImageV sd_setImageWithURL:[self.teacher.avatarUrl imageURLWithWidth:24] placeholderImage:[UIImage imageNamed: @"attachment_placeholder"]];
@@ -70,6 +76,8 @@ UITableViewDataSource
         // 请求用户信息
     }
 }
+
+
 - (IBAction)setAction:(id)sender {
     
     UIViewController *rootVC = self.view.window.rootViewController;
@@ -101,28 +109,112 @@ UITableViewDataSource
     return 4;
 }
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return 2;
+    if (section == 0) {
+        return 1;
+    } else if (section == 1) {
+        return 3;
+    } else if (section == 2) {
+        return 2;
+    } else {
+        return 5;
+    }
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    return self.titleArray[section];
-}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50;
+    if (indexPath.section == 0) {
+        return MITeacherOnlineTableViewCellHeight;
+    } else if (indexPath.section == 1) {
+        return 30;
+    } else if (indexPath.section == 2) {
+        return 44;
+    } else {
+        return 44;
+    }
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    MISecondReaTimeTaskTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MISecondReaTimeTaskTableViewCellId];
-    if (cell == nil) {
-        cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MISecondReaTimeTaskTableViewCell class]) owner:nil options:nil] lastObject];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (indexPath.section == 0) {
+        
+        MITeacherOnlineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MITeacherOnlineTableViewCellId];
+        if (cell == nil) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MITeacherOnlineTableViewCell class]) owner:nil options:nil] lastObject];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        return cell;
+    } else if (indexPath.section == 1) {
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"teacherDetailCellId"];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"studentDetailCellId"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        if (indexPath.row == 0) {
+            cell.textLabel.attributedText = [self setupContentTitle:@"待批改数：" text:@"122"];
+        } else if (indexPath.row == 1) {
+            cell.textLabel.attributedText = [self setupContentTitle:@"未提交数：" text:@"345"];
+        } else {
+            cell.textLabel.attributedText = [self setupContentTitle:@"已批次数：" text:@"今日222/本周44/本月9867"];
+        }
+        return cell;
+    } else {
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellId"];
+            cell.textLabel.font = [UIFont systemFontOfSize:14];
+            cell.detailTextLabel.font = [UIFont systemFontOfSize:14];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.textColor = [UIColor normalColor];
+            cell.detailTextLabel.textColor = [UIColor colorWithHex:0x666666];
+        }
+        if (indexPath.section == 2) {
+            
+            cell.textLabel.text = @"3年A班";
+            cell.detailTextLabel.text = @"20人";
+        } else {
+            
+            cell.textLabel.text = @"第三周第五个任务";
+            cell.detailTextLabel.text = @"2.5/3星";
+        }
+        return cell;
     }
-    return cell;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    UIView *headerView =  [[UIView alloc] init];
+    headerView.backgroundColor = [UIColor whiteColor];
+    UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, kColumnThreeWidth - 40, 40)];
+    timeLabel.textAlignment = NSTextAlignmentLeft;
+    timeLabel.font = [UIFont boldSystemFontOfSize:14];
+    timeLabel.textColor = [UIColor normalColor];
+    [headerView addSubview:timeLabel];
+
+    timeLabel.text = self.titleArray[section];
+    
+    return headerView;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    return 40;
+}
+
+
+- (NSAttributedString *)setupContentTitle:(NSString *)title text:(NSString *)text{
+    if (text.length == 0) {
+        text = @"";
+    }
+    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@",title,text]];
+    [attStr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} range:NSMakeRange(0, attStr.length)];
+    [attStr setAttributes:@{NSForegroundColorAttributeName: [UIColor detailColor],
+                            NSFontAttributeName:[UIFont systemFontOfSize:14]}
+                    range:NSMakeRange(title.length, attStr.length - title.length)];
+    return attStr;
+    
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     

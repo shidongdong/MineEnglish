@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIView *rightLineView;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImagV;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *onlineButton;
 
 @property (strong, nonatomic) User *student;
 
@@ -29,6 +30,8 @@
     
     self.iconImagV.layer.masksToBounds = YES;
     self.iconImagV.layer.cornerRadius = 12.0;
+    
+    self.onlineButton.layer.cornerRadius = 4.0;
     
     self.tableView.tableFooterView = [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

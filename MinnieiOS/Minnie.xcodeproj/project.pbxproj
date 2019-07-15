@@ -612,6 +612,8 @@
 		12B7B97122D88C940057C798 /* StudentsManageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109AA9207A1C0800568785 /* StudentsManageViewController.xib */; };
 		12B7B97222D88DAB0057C798 /* StudentsWithoutClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97364A0C20B1447600511A95 /* StudentsWithoutClassViewController.m */; };
 		12B7B97322D88DB10057C798 /* StudentsWithoutClassViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97364A0E20B1447600511A95 /* StudentsWithoutClassViewController.xib */; };
+		12B7BE6A22DCADFD0057C798 /* MITeacherOnlineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12B7BE6822DCADFC0057C798 /* MITeacherOnlineTableViewCell.m */; };
+		12B7BE6B22DCADFD0057C798 /* MITeacherOnlineTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12B7BE6922DCADFC0057C798 /* MITeacherOnlineTableViewCell.xib */; };
 		12B9B63322891C6F00D8F277 /* my_star_rank@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B9B63122891C6F00D8F277 /* my_star_rank@3x.png */; };
 		12B9B63422891C6F00D8F277 /* my_star_rank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B9B63222891C6F00D8F277 /* my_star_rank@2x.png */; };
 		12B9B6372289341400D8F277 /* btn_mission_preview@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B9B6352289341300D8F277 /* btn_mission_preview@3x.png */; };
@@ -2354,6 +2356,9 @@
 		12B7B94B22D863BE0057C798 /* WMPageController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WMPageController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		12B7B95122D883AA0057C798 /* MIClassDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIClassDetailViewController.h; sourceTree = "<group>"; };
 		12B7B95222D883AA0057C798 /* MIClassDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MIClassDetailViewController.m; sourceTree = "<group>"; };
+		12B7BE6722DCADFC0057C798 /* MITeacherOnlineTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MITeacherOnlineTableViewCell.h; sourceTree = "<group>"; };
+		12B7BE6822DCADFC0057C798 /* MITeacherOnlineTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MITeacherOnlineTableViewCell.m; sourceTree = "<group>"; };
+		12B7BE6922DCADFC0057C798 /* MITeacherOnlineTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MITeacherOnlineTableViewCell.xib; sourceTree = "<group>"; };
 		12B9B63122891C6F00D8F277 /* my_star_rank@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_star_rank@3x.png"; sourceTree = "<group>"; };
 		12B9B63222891C6F00D8F277 /* my_star_rank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_star_rank@2x.png"; sourceTree = "<group>"; };
 		12B9B6352289341300D8F277 /* btn_mission_preview@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_mission_preview@3x.png"; sourceTree = "<group>"; };
@@ -3757,6 +3762,9 @@
 			children = (
 				128F138B22D5EF5400C9F5B7 /* MISecondTeachersView.h */,
 				128F138C22D5EF5400C9F5B7 /* MISecondTeachersView.m */,
+				12B7BE6722DCADFC0057C798 /* MITeacherOnlineTableViewCell.h */,
+				12B7BE6822DCADFC0057C798 /* MITeacherOnlineTableViewCell.m */,
+				12B7BE6922DCADFC0057C798 /* MITeacherOnlineTableViewCell.xib */,
 				128F138622D5CA8800C9F5B7 /* MITeacherDetailViewController.h */,
 				128F138722D5CA8800C9F5B7 /* MITeacherDetailViewController.m */,
 				128F138822D5CA8800C9F5B7 /* MITeacherDetailViewController.xib */,
@@ -6703,6 +6711,7 @@
 				12ED3B60229D96B600255F8B /* hud_ic_loading@2x.png in Resources */,
 				12747C5B22A7D1B0009C390E /* pop_loading@3x.png in Resources */,
 				12747C6722A7D1D2009C390E /* navbar_close@3x.png in Resources */,
+				12B7BE6B22DCADFD0057C798 /* MITeacherOnlineTableViewCell.xib in Resources */,
 				123042E322A0FF6900E111A4 /* MIActivityRankListTableViewCell.xib in Resources */,
 				12961C6E229E66D40075B04A /* HomeworkAudioCollectionViewCell.xib in Resources */,
 			);
@@ -8082,6 +8091,7 @@
 				12ED3B68229D96F300255F8B /* SegmentControl.m in Sources */,
 				12CB739B22AB5BD50064FB21 /* MIHomeworkTaskListViewController.m in Sources */,
 				12961C67229E667B0075B04A /* HanyuPinyinOutputFormat.m in Sources */,
+				12B7BE6A22DCADFD0057C798 /* MITeacherOnlineTableViewCell.m in Sources */,
 				1226F30E2297F73E00BAB1C9 /* LoginViewController.m in Sources */,
 				128F137B22D4697500C9F5B7 /* HomeworkSearchNameViewController.m in Sources */,
 				12961C78229E67A50075B04A /* DeleteClassStudentRequest.m in Sources */,

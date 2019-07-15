@@ -14,6 +14,7 @@
                 <outlet property="headerView" destination="h5M-yp-rEa" id="8le-dQ-xeP"/>
                 <outlet property="iconImagV" destination="vAr-DH-A8F" id="mGO-in-Oo3"/>
                 <outlet property="nameLabel" destination="b9y-b5-ZDA" id="9vC-Ys-BxO"/>
+                <outlet property="onlineButton" destination="Du6-13-DbM" id="evQ-r1-Jr3"/>
                 <outlet property="rightLineView" destination="Qvw-1c-QPl" id="hQ6-Dg-a5K"/>
                 <outlet property="tableView" destination="eoW-0E-aji" id="hbB-XN-Htl"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -35,8 +36,8 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="名字" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b9y-b5-ZDA">
-                            <rect key="frame" x="52" y="32.5" width="29" height="17"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <rect key="frame" x="52" y="34" width="25" height="14.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -47,13 +48,30 @@
                                 <constraint firstAttribute="height" constant="1" id="TYz-df-He9"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Du6-13-DbM">
+                            <rect key="frame" x="98" y="30" width="46" height="22"/>
+                            <color key="backgroundColor" red="0.086152713850000007" green="0.76320165920000005" blue="0.16707553250000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="46" id="8y9-98-D8a"/>
+                                <constraint firstAttribute="height" constant="22" id="tRc-5g-47F"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="在线">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <state key="selected" title="退出">
+                                <color key="titleColor" red="1" green="0.071534000340000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="vAr-DH-A8F" firstAttribute="leading" secondItem="h5M-yp-rEa" secondAttribute="leading" constant="20" id="An5-YU-3M9"/>
                         <constraint firstItem="b9y-b5-ZDA" firstAttribute="centerY" secondItem="vAr-DH-A8F" secondAttribute="centerY" id="EIT-u7-uOh"/>
                         <constraint firstItem="BG7-eH-i9b" firstAttribute="top" secondItem="vAr-DH-A8F" secondAttribute="bottom" constant="10" id="IiI-X0-G1T"/>
+                        <constraint firstItem="Du6-13-DbM" firstAttribute="centerY" secondItem="b9y-b5-ZDA" secondAttribute="centerY" id="MZq-bu-rei"/>
                         <constraint firstItem="b9y-b5-ZDA" firstAttribute="leading" secondItem="vAr-DH-A8F" secondAttribute="trailing" constant="8" id="VAo-Ja-u0i"/>
+                        <constraint firstItem="Du6-13-DbM" firstAttribute="leading" secondItem="b9y-b5-ZDA" secondAttribute="trailing" constant="21" id="XEk-TR-zLD"/>
                         <constraint firstAttribute="height" constant="64" id="Yj1-bo-6nT"/>
                         <constraint firstAttribute="bottom" secondItem="BG7-eH-i9b" secondAttribute="bottom" id="aTc-u3-5Lg"/>
                         <constraint firstItem="BG7-eH-i9b" firstAttribute="leading" secondItem="h5M-yp-rEa" secondAttribute="leading" id="e8e-JL-EFK"/>
