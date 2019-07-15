@@ -21,6 +21,7 @@ UITableViewDelegate
 @property (nonatomic, strong) NSMutableArray <Clazz *> *classes;
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, assign) NSInteger currentIndex;
 
 
 @end
@@ -28,9 +29,10 @@ UITableViewDelegate
 @implementation MIClassDetailViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.currentIndex = -1;
     self.tableView= [[UITableView alloc] initWithFrame:CGRectMake(0, 0, (ScreenWidth - kRootModularWidth)/2.0, ScreenHeight) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -44,6 +46,18 @@ UITableViewDelegate
     [self.tableView registerNib:[UINib nibWithNibName:@"ClassTableViewCell" bundle:nil] forCellReuseIdentifier:ClassTableViewCellId];
     
     [self requestClasses];
+}
+
+- (void)updateClassInfo {
+   
+    [self resetSelectIndex];
+    [self.tableView headerBeginRefreshing];
+}
+
+- (void)resetSelectIndex{
+    
+    self.currentIndex = -1;
+    [self.tableView reloadData];
 }
 
 - (void)requestClasses {
@@ -80,6 +94,12 @@ UITableViewDelegate
 - (void)handleRequestResult:(Result *)result
                  isLoadMore:(BOOL)isLoadMore
                       error:(NSError *)error {
+    
+    self.currentIndex = -1;
+    if (self.delegate && [self.delegate respondsToSelector:@selector(classDetailViewControllerClickedIndex:clazz:)]) {
+        
+        [self.delegate classDetailViewControllerClickedIndex:self.currentIndex clazz:nil];
+    }
     
     [self.view hideAllStateView];
     
@@ -170,6 +190,7 @@ UITableViewDelegate
     
     Clazz *clazz = self.classes[indexPath.row];
     [cell setupWithClass:clazz];
+    [cell updateSelectState:(self.currentIndex == indexPath.row) ? YES : NO];
     
     return cell;
 }
@@ -183,6 +204,9 @@ UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    self.currentIndex = indexPath.row;
+    [tableView reloadData];
     
     Clazz *clazz = self.classes[indexPath.row];
     if (self.delegate && [self.delegate respondsToSelector:@selector(classDetailViewControllerClickedIndex:clazz:)]) {

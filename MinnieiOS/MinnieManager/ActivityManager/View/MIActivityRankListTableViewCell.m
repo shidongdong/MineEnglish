@@ -49,7 +49,7 @@ NSString * const MIActivityRankListTableViewCellId = @"MIActivityRankListTableVi
     
     if (selected) {
         self.rightLineView.hidden = NO;
-        self.backgroundColor = [UIColor colorWithHex:0xF2FAFF];
+        self.backgroundColor = [UIColor selectedColor];
     } else {
         
         self.rightLineView.hidden = YES;

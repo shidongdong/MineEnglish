@@ -27,5 +27,7 @@
 
 + (UIColor*)emptyBgColor;
 
++ (UIColor*)selectedColor;
+
 +(UIImage*) createImageWithColor:(UIColor*) color;
 @end

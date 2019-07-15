@@ -92,9 +92,9 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
 
 - (void)selectedState:(BOOL)selected{
     if (selected) {
-        self.backgroundColor = [UIColor colorWithHex:0xF2FAFF];
-        self.containerView.backgroundColor = [UIColor colorWithHex:0xF2FAFF];
-        self.homeworksCollectionView.backgroundColor = [UIColor colorWithHex:0xF2FAFF];
+        self.backgroundColor = [UIColor selectedColor];
+        self.containerView.backgroundColor = [UIColor selectedColor];
+        self.homeworksCollectionView.backgroundColor = [UIColor selectedColor];
     } else {
         self.backgroundColor = [UIColor clearColor];
         self.containerView.backgroundColor = [UIColor whiteColor];

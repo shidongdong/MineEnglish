@@ -46,7 +46,20 @@ MICampusManagerViewControllerDelegate
     [self.stockDetailVC.navigationController popViewControllerAnimated:YES];
     ClassManagerViewController *vc = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
     vc.classId = clazz.classId;
+    WeakifySelf;
+    vc.cancelCallBack = ^{
+        [weakSelf.stockMasterVC resetSelectIndex];
+    };
+    
+    vc.successCallBack = ^{
+        [weakSelf.stockMasterVC updateClassInfo];
+    };
     [self.stockDetailVC.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)campusManagerViewControllerPopEditClassState{
+    
+    [self.stockDetailVC.navigationController popViewControllerAnimated:YES];
 }
 
 @end

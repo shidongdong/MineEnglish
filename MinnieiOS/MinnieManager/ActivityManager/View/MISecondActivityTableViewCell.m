@@ -57,7 +57,7 @@ NSString * const MISecondActivityTableViewCellId = @"MISecondActivityTableViewCe
         self.titleLabel.textColor = [UIColor mainColor];
         self.timeLabel.textColor = [UIColor mainColor];
         [self.endButton setBackgroundColor:[UIColor mainColor]];
-        self.backgroundColor = [UIColor colorWithHex:0xF2FAFF];
+        self.backgroundColor = [UIColor selectedColor];
         self.rightLineView.hidden = NO;
     } else {
         self.titleLabel.textColor = [UIColor detailColor];

@@ -12,13 +12,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol MIClassDetailViewControllerDelegate <NSObject>
 
-- (void)classDetailViewControllerClickedIndex:(NSInteger)index clazz:(Clazz *)clazz;
+- (void)classDetailViewControllerClickedIndex:(NSInteger)index clazz:(Clazz *_Nullable)clazz;
 
 @end
 
 @interface MIClassDetailViewController : UIViewController
 
 @property (nonatomic, weak) id<MIClassDetailViewControllerDelegate> delegate;
+
+- (void)updateClassInfo;
+
+- (void)resetSelectIndex;
 
 @end
 

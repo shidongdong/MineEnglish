@@ -217,6 +217,7 @@
     } while(NO);
     
     if (valid) {
+        WeakifySelf;
         NSDictionary *dict = [self.clazz dictionaryForUpload];
         if (dict != nil) {
             [HUD showProgressWithMessage:@"正在保存..."];
@@ -233,7 +234,10 @@
                                          [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfAddClass
                                                                                              object:nil];
                                          
-                                         [self.navigationController popViewControllerAnimated:YES];
+                                         [weakSelf.navigationController popViewControllerAnimated:YES];
+                                         if (weakSelf.successCallBack) {
+                                             weakSelf.successCallBack();
+                                         }
                                      }];
         }
     }
@@ -272,7 +276,7 @@
 
 - (void)doDelete
 {
-
+    WeakifySelf;
     [HUD showProgressWithMessage:@"正在删除..."];
     [ClassService deleteClassWithId:self.clazz.classId
                            callback:^(Result *result, NSError *error) {
@@ -284,6 +288,9 @@
                                [HUD showWithMessage:@"删除成功"];
                                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfDeleteClass object:nil];
                                [self.navigationController popViewControllerAnimated:YES];
+                               if (weakSelf.successCallBack) {
+                                   weakSelf.successCallBack();
+                               }
                            }];
 
 }
@@ -326,6 +333,13 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+- (void)backButtonPressed:(id)sender{
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    if (self.cancelCallBack) {
+        self.cancelCallBack();
+    }
+}
 
 #pragma mark - UITableViewDataSource
 

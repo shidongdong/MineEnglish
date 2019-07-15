@@ -21,9 +21,9 @@ MIClassDetailViewControllerDelegate
 @property (nonatomic, strong) NSArray *subPageTitleArray;
 @property (nonatomic, strong) NSMutableArray *subPageVCArray;
 
-
 @property (nonatomic, strong) WMPageController *pageController;
 
+@property (nonatomic, assign) NSInteger preIndex;
 
 @end
 
@@ -35,25 +35,29 @@ MIClassDetailViewControllerDelegate
     self.view.backgroundColor = [UIColor whiteColor];
 
     self.subPageVCArray = [NSMutableArray array];
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 3; i++) {
       
         MIClassDetailViewController *classVC = [[MIClassDetailViewController alloc] init];
         classVC.delegate = self;
         [self.subPageVCArray addObject:classVC];
     }
-    self.subPageTitleArray = @[@"武义校区", @"金华校区",@"杭州校区",@"武义校区", @"金华校区",@"杭州校区",@"武义校区", @"金华校区",@"杭州校区",@"杭州校区"];
+    self.subPageTitleArray = @[@"武义校区", @"金华校区",@"杭州校区"];
     self.pageController = [[WMPageController alloc] initWithViewControllerClasses:self.subPageVCArray andTheirTitles:self.subPageTitleArray];
     self.pageController.delegate = self;
     self.pageController.dataSource = self;
     self.pageController.menuViewStyle = WMMenuViewStyleLine;
-    self.pageController.titleSizeNormal = 14.0;
-    self.pageController.titleSizeSelected = 14.0;
+    self.pageController.titleSizeNormal = 16.0;
+    self.pageController.titleSizeSelected = 16.0;
+    
+    self.pageController.titleFontName = @"Helvetica-Bold";
     self.pageController.progressWidth = 25.0;
     self.pageController.progressHeight = 4.0;
     self.pageController.progressViewCornerRadius = 2.0;
-    self.pageController.menuItemWidth = 70;
+    self.pageController.menuItemWidth = 80;
+    self.pageController.itemMargin = 10;
     self.pageController.titleColorSelected = [UIColor mainColor];
     self.pageController.titleColorNormal = [UIColor detailColor];
+    self.preIndex = self.pageController.selectIndex;
     
     self.view.frame = CGRectMake(0, 0, (ScreenWidth - kRootModularWidth)/2.0, ScreenHeight);
     self.pageController.view.frame = CGRectMake(0, 20, (ScreenWidth - kRootModularWidth)/2.0, ScreenHeight - 20);
@@ -94,29 +98,48 @@ MIClassDetailViewControllerDelegate
 }
 
 - (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info{
-    
-    NSLog(@"%@",viewController);
+   
+    NSNumber *currIndex = info[@"index"];
+    if (self.preIndex != currIndex.integerValue) {
+        [(MIClassDetailViewController *)viewController resetSelectIndex];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(campusManagerViewControllerPopEditClassState)]) {
+            [self.delegate campusManagerViewControllerPopEditClassState];
+        }
+    }
+    self.preIndex = currIndex.integerValue;
 }
 
 #pragma mark - MIClassDetailViewControllerDelegate 
 - (void)classDetailViewControllerClickedIndex:(NSInteger)index clazz:(Clazz *)clazz{
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(campusManagerViewControllerEditClazz:)]) {
-        [self.delegate campusManagerViewControllerEditClazz:clazz];
-    }
-}
-
-- (IBAction)createClassAction:(id)sender {
- 
-    if (self.delegate && [self.delegate respondsToSelector:@selector(campusManagerViewControllerEditClazz:)]) {
-        [self.delegate campusManagerViewControllerEditClazz:nil];
+    if (index == -1) {
+        // 退出编辑班级页面
+        if (self.delegate && [self.delegate respondsToSelector:@selector(campusManagerViewControllerPopEditClassState)]) {
+            [self.delegate campusManagerViewControllerPopEditClassState];
+        }
+    } else {
+      
+        if (self.delegate && [self.delegate respondsToSelector:@selector(campusManagerViewControllerEditClazz:)]) {
+            [self.delegate campusManagerViewControllerEditClazz:clazz];
+        }
     }
 }
 
 - (void)createAction{
    
+    [self resetSelectIndex];
     if (self.delegate && [self.delegate respondsToSelector:@selector(campusManagerViewControllerEditClazz:)]) {
         [self.delegate campusManagerViewControllerEditClazz:nil];
     }
+}
+
+- (void)updateClassInfo{// 更新对应校区
+    
+    [(MIClassDetailViewController *)self.pageController.currentViewController updateClassInfo];
+}
+
+- (void)resetSelectIndex{
+    
+    [(MIClassDetailViewController *)self.pageController.currentViewController resetSelectIndex];
 }
 @end

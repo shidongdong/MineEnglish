@@ -9,8 +9,15 @@
 #import "BaseViewController.h"
 #import "Clazz.h"
 
+typedef void (^ClassManagerCancelCallBack) (void);
+typedef void (^ClassManagerSuccessCallBack) (void);
+
+
 @interface ClassManagerViewController : BaseViewController
 
 @property (nonatomic, assign) NSInteger classId;
+
+@property (nonatomic, copy) ClassManagerCancelCallBack cancelCallBack;
+@property (nonatomic, copy) ClassManagerSuccessCallBack successCallBack;
 
 @end

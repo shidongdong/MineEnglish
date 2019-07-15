@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Gu-p6-IdM">
-                        <rect key="frame" x="12" y="12" width="296" height="87.5"/>
+                        <rect key="frame" x="12" y="6" width="296" height="87.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NBz-Ea-eBL">
                                 <rect key="frame" x="0.0" y="0.0" width="296" height="52"/>
@@ -94,7 +93,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="SIJ-RZ-yXd" firstAttribute="top" secondItem="pmZ-vt-xGB" secondAttribute="top" id="LaA-Ks-J50"/>
                                             <constraint firstItem="1Hz-e8-qud" firstAttribute="leading" secondItem="pmZ-vt-xGB" secondAttribute="leading" id="NEK-Fq-7lT"/>
@@ -121,7 +120,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="mIZ-z3-6Tp" firstAttribute="leading" secondItem="2j0-z1-WeD" secondAttribute="trailing" constant="5" id="7WN-Tf-o31"/>
                                             <constraint firstItem="mIZ-z3-6Tp" firstAttribute="top" secondItem="d5k-hc-nKE" secondAttribute="top" id="Fic-9s-4R5"/>
@@ -156,10 +155,10 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="1Gu-p6-IdM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="Nhx-c1-gWC"/>
+                    <constraint firstItem="1Gu-p6-IdM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="Nhx-c1-gWC"/>
                     <constraint firstItem="1Gu-p6-IdM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="eSa-AZ-1sa"/>
                     <constraint firstAttribute="trailing" secondItem="1Gu-p6-IdM" secondAttribute="trailing" constant="12" id="rZC-nU-F1P"/>
-                    <constraint firstAttribute="bottom" secondItem="1Gu-p6-IdM" secondAttribute="bottom" id="xfB-uv-dMa"/>
+                    <constraint firstAttribute="bottom" secondItem="1Gu-p6-IdM" secondAttribute="bottom" constant="6" id="xfB-uv-dMa"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -173,7 +172,7 @@
                 <outlet property="nextTimeLabel" destination="KWX-Qj-BPb" id="2Kh-Zm-rWD"/>
                 <outlet property="postedHomeworksCountLabel" destination="mIZ-z3-6Tp" id="Trz-RF-Nkh"/>
             </connections>
-            <point key="canvasLocation" x="-325" y="-111"/>
+            <point key="canvasLocation" x="-326.39999999999998" y="-111.54422788605699"/>
         </tableViewCell>
     </objects>
     <resources>
