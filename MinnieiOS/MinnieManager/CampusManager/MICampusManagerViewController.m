@@ -16,9 +16,7 @@ WMPageControllerDataSource,
 MIClassDetailViewControllerDelegate
 >
 
-@property (weak, nonatomic) IBOutlet UIView *headerView;
-@property (weak, nonatomic) IBOutlet UIView *contentView;
-
+@property (nonatomic, strong) UIView *rightLineView;
 
 @property (nonatomic, strong) NSArray *subPageTitleArray;
 @property (nonatomic, strong) NSMutableArray *subPageVCArray;
@@ -34,16 +32,16 @@ MIClassDetailViewControllerDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.view.backgroundColor = [UIColor emptyBgColor];
-    
+    self.view.backgroundColor = [UIColor whiteColor];
+
     self.subPageVCArray = [NSMutableArray array];
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 10; i++) {
       
         MIClassDetailViewController *classVC = [[MIClassDetailViewController alloc] init];
         classVC.delegate = self;
         [self.subPageVCArray addObject:classVC];
     }
-    self.subPageTitleArray = @[@"武义校区", @"金华校区",@"杭州校区"];
+    self.subPageTitleArray = @[@"武义校区", @"金华校区",@"杭州校区",@"武义校区", @"金华校区",@"杭州校区",@"武义校区", @"金华校区",@"杭州校区",@"杭州校区"];
     self.pageController = [[WMPageController alloc] initWithViewControllerClasses:self.subPageVCArray andTheirTitles:self.subPageTitleArray];
     self.pageController.delegate = self;
     self.pageController.dataSource = self;
@@ -56,12 +54,25 @@ MIClassDetailViewControllerDelegate
     self.pageController.menuItemWidth = 70;
     self.pageController.titleColorSelected = [UIColor mainColor];
     self.pageController.titleColorNormal = [UIColor detailColor];
-    self.pageController.progressViewIsNaughty = YES;
     
-    self.pageController.view.frame = CGRectMake(0, 0, (ScreenWidth - kRootModularWidth)/2.0, ScreenHeight);
-    [self.contentView addSubview:self.pageController.view];
+    self.view.frame = CGRectMake(0, 0, (ScreenWidth - kRootModularWidth)/2.0, ScreenHeight);
+    self.pageController.view.frame = CGRectMake(0, 20, (ScreenWidth - kRootModularWidth)/2.0, ScreenHeight - 20);
+    [self.view addSubview:self.pageController.view];
     [self addChildViewController:self.pageController];
     [self.pageController didMoveToParentViewController:self];
+    
+    self.pageController.menuView.layoutMode = WMMenuViewLayoutModeCenter;
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [btn setTitleColor:[UIColor mainColor] forState:UIControlStateNormal];
+    [btn setTitle:@"新建" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(createAction) forControlEvents:UIControlEventTouchUpInside];
+    btn.frame = CGRectMake(0, 0, 40, 44);
+    [self.pageController.menuView setRightView:btn];
+    
+    self.rightLineView = [[UIView alloc] initWithFrame:CGRectMake((ScreenWidth - kRootModularWidth)/2.0 - 0.5, 0, 0.5, ScreenHeight)];
+    self.rightLineView.backgroundColor = [UIColor separatorLineColor];
+    [self.view addSubview:self.rightLineView];
 }
 
 
@@ -76,6 +87,10 @@ MIClassDetailViewControllerDelegate
 
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index{
     return self.subPageTitleArray[index];
+}
+- (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView{
+    
+    return CGRectMake(0, 0, (ScreenWidth - kRootModularWidth)/2.0, 44);
 }
 
 - (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info{
@@ -98,5 +113,10 @@ MIClassDetailViewControllerDelegate
     }
 }
 
-
+- (void)createAction{
+   
+    if (self.delegate && [self.delegate respondsToSelector:@selector(campusManagerViewControllerEditClazz:)]) {
+        [self.delegate campusManagerViewControllerEditClazz:nil];
+    }
+}
 @end

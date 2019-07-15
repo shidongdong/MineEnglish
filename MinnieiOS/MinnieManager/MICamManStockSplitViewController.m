@@ -27,7 +27,7 @@ MICampusManagerViewControllerDelegate
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    _stockMasterVC = [[MICampusManagerViewController alloc] initWithNibName:@"MICampusManagerViewController" bundle:nil];
+    _stockMasterVC = [[MICampusManagerViewController alloc] init];
     _stockMasterVC.delegate = self;
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:_stockMasterVC];
     [masterNav setNavigationBarHidden:YES animated:NO];
