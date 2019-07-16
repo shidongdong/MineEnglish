@@ -84,6 +84,14 @@ NS_ASSUME_NONNULL_BEGIN
                                     actId:(NSInteger)actId
                                  callback:(RequestCallback)callback;
 
+// 校区列表（ipad管理端）
++ (BaseRequest *)requestCampusWithCampusId:(NSInteger)campusId
+                                campusName:(NSString *)campusName
+                                  callback:(RequestCallback)callback;
+
+// 删除校区（ipad管理端）
++ (BaseRequest *)requestDeleteCampusWithCampusId:(NSInteger)campusId
+                                  callback:(RequestCallback)callback;
 @end
 
 

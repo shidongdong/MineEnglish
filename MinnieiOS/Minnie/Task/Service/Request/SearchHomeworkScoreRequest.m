@@ -12,16 +12,19 @@
 
 @property(nonatomic,assign)NSInteger score;
 @property (nonatomic, copy) NSString *nextUrl;
+@property(nonatomic,assign)NSInteger teacherId;
 
 @end
 
 @implementation SearchHomeworkScoreRequest
 
 - (instancetype)initWithHomeworkSessionForScore:(NSInteger)homeworkScore
+                                      teacherId:(NSInteger)teacherId
 {
     self = [super init];
     if (self != nil) {
         _score = homeworkScore;
+        _teacherId = teacherId;
     }
     return self;
 }
@@ -52,8 +55,13 @@
     if (self.nextUrl.length > 0) {
         return nil;
     }
-    
-    return @{@"score":@(self.score)};
+    if (self.teacherId == 0) {
+       
+        return @{@"score":@(self.score)};
+    } else {
+        return @{@"score":@(self.score),
+                 @"teacherId":@(self.teacherId)};
+    }
 }
 
 @end

@@ -37,3 +37,41 @@ typedef NS_ENUM(NSInteger, TeacherType) {
 @property (nonatomic, readonly) NSString *authorityDescription;
 
 @end
+
+
+
+@interface OnClass : MTLModel<MTLJSONSerializing>
+//班级id
+@property (nonatomic, assign) NSInteger classId;
+//班级名称
+@property (nonatomic, assign) NSInteger name;
+
+@end
+
+@interface OnHomework : MTLModel<MTLJSONSerializing>
+//作业id
+@property (nonatomic, assign) NSInteger homeworkId;
+//作业标题
+@property (nonatomic, assign) NSInteger title;
+
+@end
+
+
+@interface TeacherDetail : MTLModel<MTLJSONSerializing>
+
+//是否在线：1在线；0不在线
+@property (nonatomic, assign) NSInteger isOnline;
+//在线时长：今天、本周、本月
+@property (nonatomic, strong) NSArray *onlineDetail;
+//未提交的作业数量
+@property (nonatomic, assign) NSInteger uncommitedHomeworksCount;
+//待批改的作业数量
+@property (nonatomic, assign) NSInteger uncorrectedHomeworksCount;
+//已批改作业：今日、本周、本月
+@property (nonatomic, strong) NSArray *correctedHomeworksDetail;
+//上课班级信息
+@property (nonatomic, strong) NSArray<OnClass*> *onClassList;
+//任务评分统计
+@property (nonatomic, strong) NSArray<OnHomework*> *onHomeworkList;
+
+@end

@@ -140,6 +140,7 @@
     self.classesRequest = [ClassService requestClassesWithFinishState:self.isUnfinished?0:1
                                                               listAll:self.isManageMode||teacher.authority==TeacherAuthoritySuperManager
                                                                simple:NO
+                                                           campusName:nil
                                                              callback:^(Result *result, NSError *error) {
                                                                  StrongifySelf;
                                                                  [strongSelf handleRequestResult:result

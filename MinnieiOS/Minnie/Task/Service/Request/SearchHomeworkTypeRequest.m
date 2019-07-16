@@ -13,16 +13,20 @@
 @property(nonatomic,assign)NSInteger type;      //1:任务；2人
 @property(nonatomic,assign)NSInteger finished;  //0：待批改；1已完成；2未提交
 @property (nonatomic, copy) NSString *nextUrl;
+@property(nonatomic,assign)NSInteger teacherId;
 @end
 
 @implementation SearchHomeworkTypeRequest
 
-- (instancetype)initWithHomeworkSessionForType:(NSInteger)type withFinishState:(NSInteger)state
+- (instancetype)initWithHomeworkSessionForType:(NSInteger)type
+                               withFinishState:(NSInteger)state
+                                     teacherId:(NSInteger)teacherId
 {
     self = [super init];
     if (self != nil) {
         _type = type;
         _finished = state;
+        _teacherId = teacherId;
     }
     return self;
 }
@@ -53,8 +57,15 @@
     if (self.nextUrl.length > 0) {
         return nil;
     }
-    
-    return @{@"type":@(self.type),@"finished":@(self.finished)};
+    if (self.teacherId == 0) {
+      
+        return @{@"type":@(self.type),@"finished":@(self.finished)};
+    } else {
+        
+        return @{@"type":@(self.type),
+                 @"finished":@(self.finished),
+                 @"teacherId":@(self.teacherId)};
+    }
 }
 
 @end

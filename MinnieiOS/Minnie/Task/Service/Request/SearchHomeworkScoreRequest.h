@@ -10,7 +10,8 @@
 
 @interface SearchHomeworkScoreRequest : BaseRequest
 
-- (instancetype)initWithHomeworkSessionForScore:(NSInteger)homeworkScore;
+- (instancetype)initWithHomeworkSessionForScore:(NSInteger)homeworkScore
+                                      teacherId:(NSInteger)teacherId;
 
 - (instancetype)initWithNextUrl:(NSString *)nextUrl;
 

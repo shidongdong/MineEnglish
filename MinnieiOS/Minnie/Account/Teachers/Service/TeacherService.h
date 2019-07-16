@@ -24,4 +24,8 @@
 + (BaseRequest *)deleteTeacherWithId:(NSInteger)teacherId
                             callback:(RequestCallback)callback;
 
+// 教师管理详情（ipad） 老师详情
++ (BaseRequest *)getTeacherDetailWithId:(NSInteger)teacherId
+                            callback:(RequestCallback)callback;
+
 @end

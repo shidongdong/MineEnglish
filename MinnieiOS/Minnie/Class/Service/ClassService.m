@@ -33,13 +33,14 @@
 + (BaseRequest *)requestClassesWithFinishState:(BOOL)finished
                                        listAll:(BOOL)listAll
                                         simple:(BOOL)simple
+                                    campusName:(NSString *)campusName
                                       callback:(RequestCallback)callback {
     NSInteger teacherId = 0;
     if (!listAll) {
         teacherId = APP.currentUser.userId;
     }
     
-    ClassesRequest *request = [[ClassesRequest alloc] initWithFinishState:finished teacherId:teacherId simple:simple];
+    ClassesRequest *request = [[ClassesRequest alloc] initWithFinishState:finished teacherId:teacherId simple:simple campusName:campusName];
     
     request.objectKey = @"list";
     request.objectClassName = @"Clazz";

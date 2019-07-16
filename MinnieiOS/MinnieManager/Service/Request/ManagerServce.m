@@ -185,4 +185,29 @@
     return request;
     
 }
+
+// 校区列表（ipad管理端）
++ (BaseRequest *)requestCampusWithCampusId:(NSInteger)campusId
+                                campusName:(NSString *)campusName
+                                  callback:(RequestCallback)callback{
+    
+    CampusInfoRequest *request = [[CampusInfoRequest alloc] initWithCampusId:campusId campusName:campusName];
+    request.objectKey = @"list";
+    request.objectClassName = @"CampusInfo";
+    [request setCallback:callback];
+    [request start];
+    return request;
+    
+}
+
+// 删除校区（ipad管理端）
++ (BaseRequest *)requestDeleteCampusWithCampusId:(NSInteger)campusId
+                                        callback:(RequestCallback)callback{
+    DeleteCampusRequest *request = [[DeleteCampusRequest alloc] initWithCampusId:campusId];
+    [request setCallback:callback];
+    [request start];
+    return request;
+}
+
+
 @end

@@ -10,7 +10,9 @@
 
 @interface SearchHomeworkTypeRequest : BaseRequest
 
-- (instancetype)initWithHomeworkSessionForType:(NSInteger)type withFinishState:(NSInteger)state;
+- (instancetype)initWithHomeworkSessionForType:(NSInteger)type
+                               withFinishState:(NSInteger)state
+                                     teacherId:(NSInteger)teacherId;
 
 - (instancetype)initWithNextUrl:(NSString *)nextUrl;
 

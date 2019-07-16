@@ -78,3 +78,70 @@
 
 @end
 
+
+@implementation StudentsByClassRequest
+
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+
+- (NSString *)requestUrl {
+    
+    return [NSString stringWithFormat:@"%@/teaching/studentsByClass", ServerProjectName];
+}
+
+@end
+
+
+@implementation StudentZeroTaskRequest
+
+
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+
+- (NSString *)requestUrl {
+    
+    return [NSString stringWithFormat:@"%@/teaching/zerotasks", ServerProjectName];
+}
+
+
+@end
+
+
+
+
+@interface StudentDetailTaskRequest ()
+
+@property (nonatomic,assign) NSInteger studentId;
+
+@end
+
+
+@implementation StudentDetailTaskRequest
+
+- (instancetype)initWithStudentId:(NSInteger)studentId{
+    
+    self = [super init];
+    if (self != nil) {
+        _studentId = studentId;
+    }
+    return self;
+}
+
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+
+- (NSString *)requestUrl {
+    
+    return [NSString stringWithFormat:@"%@/teaching/studentDetail", ServerProjectName];
+}
+
+- (id)requestArgument{
+    
+    return @{@"studentId":@(self.studentId)};
+}
+
+
+@end

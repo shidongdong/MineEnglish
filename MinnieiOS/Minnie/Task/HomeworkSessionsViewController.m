@@ -531,7 +531,7 @@ MIActivityBannerViewDelegate
     if (self.searchFliter == -1) //-1 表示是按名字搜索
     {
         WeakifySelf;
-        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithName:self.searchFilterName forState:self.mState callback:^(Result *result, NSError *error) {
+        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithName:self.searchFilterName forState:self.mState teacherId:0 callback:^(Result *result, NSError *error) {
             StrongifySelf;
             [strongSelf handleRequestResult:result isLoadMore:NO error:error];
         }];
@@ -539,6 +539,7 @@ MIActivityBannerViewDelegate
     else if (self.searchFliter == 0) // 0 按时间
     {
         self.homeworkSessionsRequest = [HomeworkSessionService requestHomeworkSessionsWithFinishState:self.mState
+                                                                                            teacherId:0
                                                                                              callback:^(Result *result, NSError *error) {
                                                                                                  StrongifySelf;
                                                                                                  [strongSelf handleRequestResult:result
@@ -551,13 +552,16 @@ MIActivityBannerViewDelegate
         // mState        0：待批改；1已完成；2未提交
        WeakifySelf;
 #if TEACHERSIDE || MANAGERSIDE
-        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithType:self.searchFliter forState:self.mState callback:^(Result *result, NSError *error) {
+        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithType:self.searchFliter
+                                                                                   teacherId:0
+                                                                                    forState:self.mState
+                                                                                    callback:^(Result *result, NSError *error) {
             
             StrongifySelf;
             [strongSelf handleRequestResult:result isLoadMore:NO error:error];
         }];
 #else
-        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithScore:self.searchFliter - 1 callback:^(Result *result, NSError *error) {
+        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithScore:self.searchFliter - 1 teacherId:0 callback:^(Result *result, NSError *error) {
             
             StrongifySelf;
             [strongSelf handleRequestResult:result isLoadMore:NO error:error];

@@ -144,4 +144,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
+#pragma mark - 校区列表（ipad管理端）
+@interface CampusInfoRequest : BaseRequest
+
+- (instancetype)initWithCampusId:(NSInteger)campusId campusName:(NSString *)campusName;
+
+@end
+
+#pragma mark - 删除校区（ipad管理端
+@interface DeleteCampusRequest : BaseRequest
+
+- (instancetype)initWithCampusId:(NSInteger)campusId;
+
+
+@end
+
 NS_ASSUME_NONNULL_END

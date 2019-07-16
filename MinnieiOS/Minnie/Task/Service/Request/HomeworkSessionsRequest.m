@@ -12,15 +12,17 @@
 
 @property (nonatomic, assign) NSInteger finished;  //0表示未完成，1表示已完成  2未提交
 @property (nonatomic, copy) NSString *nextUrl;
+@property (nonatomic, assign) NSInteger teacherId;
 
 @end
 
 @implementation HomeworkSessionsRequest
 
-- (instancetype)initWithFinishState:(NSInteger)finished {
+- (instancetype)initWithFinishState:(NSInteger)finished teacherId:(NSInteger)teacherId{
     self = [super init];
     if (self != nil) {
         _finished = finished;
+        _teacherId = teacherId;
     }
     
     return self;
@@ -51,8 +53,13 @@
     if (self.nextUrl.length > 0) {
         return nil;
     }
-    
-    return @{@"finished":@(self.finished)};
+    if (self.teacherId == 0) {
+        
+        return @{@"finished":@(self.finished)};
+    } else {
+        return @{@"finished":@(self.finished),
+                 @"teacherId":@(self.teacherId)};
+    }
 }
 
 @end

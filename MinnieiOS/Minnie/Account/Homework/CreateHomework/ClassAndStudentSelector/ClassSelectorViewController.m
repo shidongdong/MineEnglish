@@ -71,6 +71,7 @@
     self.classesRequest = [ClassService requestClassesWithFinishState:0
                                                               listAll:YES
                                                                simple:YES
+                                                           campusName:nil
                                                              callback:^(Result *result, NSError *error) {
                                                                  StrongifySelf;
                                                                  [strongSelf handleRequestResult:result error:error];

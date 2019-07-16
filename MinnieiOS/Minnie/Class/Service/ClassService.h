@@ -15,9 +15,11 @@
 + (BaseRequest *)requestClassWithId:(NSUInteger)classId
                            callback:(RequestCallback)callback;
 
+// 获取班级列表（学生端，教师端，ipad端）
 + (BaseRequest *)requestClassesWithFinishState:(BOOL)finished
                                        listAll:(BOOL)listAll
                                         simple:(BOOL)simple
+                                    campusName:(NSString *)campusName
                                       callback:(RequestCallback)callback;
 
 + (BaseRequest *)requestClassesWithNextUrl:(NSString *)nextUrl

@@ -19,3 +19,36 @@
 }
 
 @end
+
+
+@interface TeacherDetailRequest ()
+
+@property (nonatomic,assign) NSInteger teacherId;
+
+@end
+
+@implementation TeacherDetailRequest
+
+- (instancetype)initWithTeacherId:(NSInteger)teacherId
+{
+    self = [super init];
+    if (self) {
+        
+        _teacherId = teacherId;
+    }
+    return self;
+}
+
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+
+- (NSString *)requestUrl {
+    return [NSString stringWithFormat:@"%@/teacher/teacherDetail", ServerProjectName];
+}
+
+- (id)requestArgument {
+    return @{@"teacherId":@(self.teacherId)};
+}
+
+@end

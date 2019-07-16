@@ -38,4 +38,64 @@
 @end
 
 
+@implementation StudentZeroTask
 
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    
+    return @{@"avatar":@"avatar",
+             @"userId":@"userId",
+             @"nickName":@"nickName",
+             @"hometaskId":@"hometaskId",
+             @"title":@"title",
+             @"createTeacher":@"createTeacher",
+             @"content":@"content",
+             };
+}
+
++ (NSValueTransformer *)createTeacherJSONTransformer {
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[Clazz class]];
+}
+
+@end
+
+
+
+@implementation StudentsByClass
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{@"classId":@"classId",
+             @"className":@"className",
+             @"students":@"students",
+             };
+}
+
++ (NSValueTransformer *)studentsJSONTransformer {
+    
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[Student class]];
+}
+
+
+@end
+
+
+@implementation StudentDetail
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{@"isOnline":@"isOnline",
+             @"uncorrectHomeworksCount":@"uncorrectHomeworksCount",
+             @"testAvgScore":@"testAvgScore",
+             @"medalCount":@"medalCount",
+             @"likeCount":@"likeCount",
+             @"starCount":@"starCount",
+             @"giftCount":@"giftCount",
+             @"allHomeworksCount":@"allHomeworksCount",
+             @"commitHomeworksCount":@"commitHomeworksCount",
+             @"avgScore":@"avgScore",
+             @"excellentHomeworksCount":@"excellentHomeworksCount",
+             @"overdueHomeworksCount":@"overdueHomeworksCount",
+             @"shareCount":@"shareCount",
+             @"starList":@"starList"
+             };
+}
+
+@end

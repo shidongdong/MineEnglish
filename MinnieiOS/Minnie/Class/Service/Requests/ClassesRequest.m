@@ -14,17 +14,23 @@
 @property(nonatomic, assign) BOOL simple;
 @property(nonatomic, assign) NSInteger teacherId;
 @property(nonatomic, copy) NSString *nextUrl;
+@property(nonatomic, copy) NSString *campusName; // Ipad端：校区名称
 
 @end
 
 @implementation ClassesRequest
 
-- (instancetype)initWithFinishState:(BOOL)finished teacherId:(NSInteger)teacherId simple:(BOOL)simple {
+- (instancetype)initWithFinishState:(BOOL)finished
+                          teacherId:(NSInteger)teacherId
+                             simple:(BOOL)simple
+                         campusName:(NSString *)campusName
+{
     self = [super init];
     if (self != nil) {
         _finished = finished;
         _simple = simple;
         _teacherId = teacherId;
+        _campusName = campusName;
     }
     
     return self;
@@ -63,7 +69,9 @@
     if (self.teacherId > 0) {
         dict[@"teacherId"] = @(self.teacherId);
     }
-    
+    if (self.campusName.length > 0) {
+        dict[@"campusName"] = self.campusName;
+    }
     return dict;
 }
 

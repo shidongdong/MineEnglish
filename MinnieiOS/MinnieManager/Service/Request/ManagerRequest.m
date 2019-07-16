@@ -534,6 +534,7 @@
     }
     return self;
 }
+
 - (YTKRequestMethod)requestMethod {
     return YTKRequestMethodPOST;
 }
@@ -549,3 +550,69 @@
 
 @end
 
+#pragma mark - 校区列表（ipad管理端）
+@interface CampusInfoRequest ()
+
+@property (nonatomic,assign) NSInteger campusId;
+@property (nonatomic,copy) NSString *campusName;
+
+@end
+
+@implementation CampusInfoRequest
+
+- (instancetype)initWithCampusId:(NSInteger)campusId campusName:(NSString *)campusName{
+   
+    self = [super init];
+    if (self != nil) {
+        self.campusId = campusId;
+        self.campusName = campusName;
+    }
+    return self;
+}
+
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+
+- (NSString *)requestUrl {
+    return [NSString stringWithFormat:@"%@/campus/getCampus", ServerProjectName];
+}
+
+- (id)requestArgument {
+    return @{@"id":@(self.campusId),
+             @"campusName":self.campusName};
+}
+
+@end
+
+
+#pragma mark - 删除校区（ipad管理端
+@interface DeleteCampusRequest ()
+
+@property (nonatomic,assign) NSInteger campusId;
+
+@end
+
+@implementation DeleteCampusRequest
+
+- (instancetype)initWithCampusId:(NSInteger)campusId{
+   
+    self = [super init];
+    if (self != nil) {
+        self.campusId = campusId;
+    }
+    return self;
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodPOST;
+}
+
+- (NSString *)requestUrl {
+    return [NSString stringWithFormat:@"%@/campus/delCampus", ServerProjectName];
+}
+
+- (id)requestArgument {
+    return @{@"campusId":@(self.campusId)};
+}
+
+@end

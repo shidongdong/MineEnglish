@@ -12,6 +12,7 @@
 
 @interface StudentService : NSObject
 
+// 获取学生列表
 + (BaseRequest *)requestStudentsWithFinishState:(BOOL)finished
                                        callback:(RequestCallback)callback;
 
@@ -24,6 +25,16 @@
 + (BaseRequest *)requestStudentWithPhoneNumber:(NSString *)phoneNumber
                                       callback:(RequestCallback)callback;
 
+// 按班级返回学生列表（ipad管理端）
++ (BaseRequest *)requestStudentLisByClasstWithCallback:(RequestCallback)callback;
+
+
+// 分动态（ipad管理端）
++ (BaseRequest *)requestStudentZeroTaskCallback:(RequestCallback)callback;
+
+//学生详情（ipad管理端）
++ (BaseRequest *)requestStudentDetailTaskWithStuId:(NSInteger)stuId
+                                          callback:(RequestCallback)callback;
 
 @end
 

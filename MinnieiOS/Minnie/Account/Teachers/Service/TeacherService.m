@@ -62,5 +62,16 @@
     return request;
 }
 
++ (BaseRequest *)getTeacherDetailWithId:(NSInteger)teacherId
+                               callback:(RequestCallback)callback{
+    
+    TeacherDetailRequest *request = [[TeacherDetailRequest alloc] initWithTeacherId:teacherId];
+    
+    request.objectClassName = @"TeacherDetail";
+    request.callback = callback;
+    [request start];
+    return request;
+    
+}
 @end
 

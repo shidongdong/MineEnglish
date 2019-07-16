@@ -14,23 +14,32 @@
 
 // 根据完成状态获取作业列表
 + (BaseRequest *)requestHomeworkSessionsWithFinishState:(NSInteger)state
+                                              teacherId:(NSInteger)teacherId
                                                callback:(RequestCallback)callback;
 + (BaseRequest *)requestHomeworkSessionsWithNextUrl:(NSString *)nextUrl
                                            callback:(RequestCallback)callback;
 
 //教师端根据类型搜索作业列表
-+ (BaseRequest *)searchHomeworkSessionWithType:(NSInteger)type forState:(NSInteger)state callback:(RequestCallback)callback;
++ (BaseRequest *)searchHomeworkSessionWithType:(NSInteger)type
+                                     teacherId:(NSInteger)teacherId
+                                      forState:(NSInteger)state
+                                      callback:(RequestCallback)callback;
 + (BaseRequest *)searchHomeworkSessionWithTypeWithNextUrl:(NSString *)nextUrl
                                                  callback:(RequestCallback)callback;
 
 //教师端按照名字搜索作业列表
-+ (BaseRequest *)searchHomeworkSessionWithName:(NSString *)name forState:(NSInteger)state callback:(RequestCallback)callback;
++ (BaseRequest *)searchHomeworkSessionWithName:(NSString *)name
+                                      forState:(NSInteger)state
+                                     teacherId:(NSInteger)teacherId
+                                      callback:(RequestCallback)callback;
 + (BaseRequest *)searchHomeworkSessionWithNameWithNextUrl:(NSString *)nextUrl
                                                  callback:(RequestCallback)callback;
 
 
 //根据评分搜索作业列表
-+ (BaseRequest *)searchHomeworkSessionWithScore:(NSInteger)score callback:(RequestCallback)callback;
++ (BaseRequest *)searchHomeworkSessionWithScore:(NSInteger)score
+                                      teacherId:(NSInteger)teacherId
+                                       callback:(RequestCallback)callback;
 + (BaseRequest *)searchHomeworkSessionWithScoreWithNextUrl:(NSString *)nextUrl
                                                   callback:(RequestCallback)callback;
 

@@ -55,3 +55,43 @@
 
 @end
 
+
+@implementation OnClass
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+   
+    return @{@"classId":@"id",
+             @"name":@"name",
+             };
+}
+
+@end
+
+
+@implementation OnHomework
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+  
+    return @{@"homeworkId":@"id",
+             @"title":@"title",};
+}
+
+@end
+
+
+@implementation TeacherDetail
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    
+    return @{@"isOnline":@"isOnline",
+             @"onlineDetail":@"onlineDetail",
+             @"uncommitedHomeworksCount":@"uncommitedHomeworksCount",
+             @"uncorrectedHomeworksCount":@"uncorrectedHomeworksCount",
+             @"correctedHomeworksDetail":@"correctedHomeworksDetail",
+             @"onClassList":@"onClassList",
+             @"onHomeworkList":@"onHomeworkList"
+             };
+}
+
+
+@end
