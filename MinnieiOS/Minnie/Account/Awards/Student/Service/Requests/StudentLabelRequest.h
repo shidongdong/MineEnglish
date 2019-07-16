@@ -32,7 +32,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 学生星星增减记录（学生端）
 @interface StudentStarLogsRequest: BaseRequest
 
-- (instancetype)initWithPageNo:(NSUInteger)pageNo pageNum:(NSUInteger)pageNum;
+// logType 0：所有 1：礼物 2：任务得分 3：考试统计
+- (instancetype)initWithPageNo:(NSUInteger)pageNo
+                       pageNum:(NSUInteger)pageNum
+                       logType:(NSString *)logType;
 
 @end
 

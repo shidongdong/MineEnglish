@@ -35,8 +35,9 @@
                                          stuRemark:(NSString *)stuRemark
                                           callback:(RequestCallback)callback;
 
-//学生星星增减记录（学生端）可用
+//学生星星增减记录（学生端,ipad端）
 + (BaseRequest *)requestStarLogsWithPageNo:(NSUInteger)pageNo
                                    pageNum:(NSUInteger)pageNum
+                                   logType:(NSString *)logType
                                   callback:(RequestCallback)callback;
 @end

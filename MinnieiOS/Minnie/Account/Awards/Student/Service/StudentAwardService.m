@@ -87,9 +87,10 @@
 //学生星星增减记录（学生端）
 + (BaseRequest *)requestStarLogsWithPageNo:(NSUInteger)pageNo
                                    pageNum:(NSUInteger)pageNum
+                                   logType:(NSString *)logType
                                   callback:(RequestCallback)callback{
     
-    StudentStarLogsRequest *request = [[StudentStarLogsRequest alloc] initWithPageNo:pageNo pageNum:pageNum];
+    StudentStarLogsRequest *request = [[StudentStarLogsRequest alloc] initWithPageNo:pageNo pageNum:pageNum logType:logType];
     request.objectKey = @"list";
     request.objectClassName = @"StarLogs";
     [request setCallback:callback];

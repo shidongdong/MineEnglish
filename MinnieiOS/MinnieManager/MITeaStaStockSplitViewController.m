@@ -45,6 +45,7 @@
     if (student != nil) {
         self.stockMasterVC.view.hidden = NO;
         self.stockDetailVC.view.hidden = NO;
+        [self.stockDetailVC updateStudentRecord];
         [self.navigationController popToRootViewControllerAnimated:NO];
         [self.stockMasterVC updateStudent:student];
     } else {

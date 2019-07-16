@@ -38,6 +38,7 @@ UIScrollViewDelegate
     for (int i = 0; i < 4; i++) {
       
         StudentStarRecordViewController * statRecordVC = [[StudentStarRecordViewController alloc] initWithNibName:NSStringFromClass([StudentStarRecordViewController class]) bundle:nil];
+        statRecordVC.recordType = i;
         [self.subPageVCArray addObject:statRecordVC];
     }
     self.subPageTitleArray = @[@"星星获取", @"礼物兑换",@"任务得分",@"考试统计"];
@@ -65,6 +66,10 @@ UIScrollViewDelegate
 
 }
 
+-(void)updateStudentRecord{
+    
+    [(StudentStarRecordViewController *)self.pageController.currentViewController updateStarRecord];
+}
 
 #pragma mark - WMPageControllerDelegate, WMPageControllerDataSource
 -(NSInteger)numbersOfTitlesInMenuView:(WMMenuView *)menu{

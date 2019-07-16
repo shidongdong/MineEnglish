@@ -55,10 +55,13 @@ UITableViewDataSource>
 #endif
 }
 
-
+- (void)updateStarRecord{
+   
+    [self refresh];
+}
 
 - (void)refresh{
-    
+
     _currentIndex = 1;
     [self requestStarRecordList:YES];
 }
@@ -73,13 +76,16 @@ UITableViewDataSource>
 {
 
     self.tableView.hidden = YES;
-    self.rankRequest = [StudentAwardService requestStarLogsWithPageNo:_currentIndex pageNum:_pageNum callback:^(Result *result, NSError *error) {
+    NSString *logType = [NSString stringWithFormat:@"%lu",self.recordType];
+    self.rankRequest = [StudentAwardService requestStarLogsWithPageNo:_currentIndex
+                                                              pageNum:_pageNum
+                                                              logType:logType
+                                                             callback:^(Result *result, NSError *error) {
         
         [self.tableView headerEndRefreshing];
         [self.tableView footerEndRefreshing];
         [self handleStarRankResult:result error:error isRefresh:isRefresh];
     }];
-    
 }
 - (void)handleStarRankResult:(Result *)result error:(NSError *)error isRefresh:(BOOL)isRefresh
 {
@@ -102,6 +108,11 @@ UITableViewDataSource>
     [self.recordArray addObjectsFromArray:resultLogs.list];
     if (!resultLogs.list.count) {
         [self.tableView footerNoticeNoMoreData];
+    }
+    if (self.recordArray.count == 0) {
+        [self.view showEmptyViewWithImage:nil title:@"暂无记录"
+                                linkTitle:nil
+                        linkClickCallback:nil];
     }
     self.tableView.hidden = NO;
     [self.tableView reloadData];
