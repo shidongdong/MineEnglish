@@ -6,6 +6,7 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
+#import "StudentService.h"
 #import "MIStudentDetailViewController.h"
 
 @interface MIStudentDetailViewController ()
@@ -53,6 +54,8 @@
         
         self.nameLabel.text = self.student.nickname;
         [self.iconImagV sd_setImageWithURL:[self.student.avatarUrl imageURLWithWidth:24] placeholderImage:[UIImage imageNamed: @"attachment_placeholder"]];
+        
+        [self requestStudentDetailTask];
     }
 }
 
@@ -137,6 +140,14 @@
                     range:NSMakeRange(title.length, attStr.length - title.length)];
     return attStr;
     
+}
+
+- (void)requestStudentDetailTask{
+    
+    [StudentService requestStudentDetailTaskWithStuId:self.student.userId callback:^(Result *result, NSError *error) {
+        
+        NSLog(@"%@",result);
+    }];
 }
 
 @end

@@ -71,7 +71,7 @@ UITableViewDelegate
     [ClassService requestClassesWithFinishState:0
                                        listAll:YES
                                          simple:NO
-                                     campusName:nil
+                                     campusName:self.campusInfo.campusName
                                        callback:^(Result *result, NSError *error) {
                                            StrongifySelf;
                                            [strongSelf handleRequestResult:result

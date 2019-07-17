@@ -63,6 +63,7 @@
 + (BaseRequest *)requestStudentLisByClasstWithCallback:(RequestCallback)callback{
     
     StudentsByClassRequest *request = [[StudentsByClassRequest alloc] init];
+    request.objectKey = @"list";
     request.objectClassName = @"StudentsByClass";
     request.callback = callback;
     [request start];
@@ -86,7 +87,7 @@
 + (BaseRequest *)requestStudentDetailTaskWithStuId:(NSInteger)stuId
                                           callback:(RequestCallback)callback{
     
-    StudentDetailTaskRequest *request = [[StudentDetailTaskRequest alloc] init];
+    StudentDetailTaskRequest *request = [[StudentDetailTaskRequest alloc] initWithStudentId:stuId];
     request.objectClassName = @"StudentDetail";
     request.callback = callback;
     [request start];

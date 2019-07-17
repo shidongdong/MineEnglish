@@ -167,7 +167,7 @@ MISecondTeachStatisticsViewDelegate
         if (![self.secondDetailVC.childViewControllers.lastObject isKindOfClass:[MITeaStaStockSplitViewController class]]) {
             [self.secondDetailVC addSubViewController:self.teaStaStockSplitVC];
         }
-        [self.secondTeaStaSheetView updateStudentListWithListType:0];
+        [self.secondTeaStaSheetView updateStudentList];
         [self.teaStaStockSplitVC updateStudent:nil];
     } else if (index == 5) { // 校区管理
         

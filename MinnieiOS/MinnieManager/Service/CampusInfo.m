@@ -10,4 +10,12 @@
 
 @implementation CampusInfo
 
+
++(NSDictionary *)JSONKeyPathsByPropertyKey {
+    
+    return @{@"campusId":@"id",
+             @"campusName":@"campusName"
+             };
+}
+
 @end

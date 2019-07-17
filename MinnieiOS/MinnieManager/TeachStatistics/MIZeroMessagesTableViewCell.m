@@ -43,10 +43,10 @@ NSString * const MIZeroMessagesTableViewCellId = @"MIZeroMessagesTableViewCellId
         self.imageV.hidden = YES;
         self.imageWidthConstraint.constant = 0;
         self.contentView.backgroundColor = [UIColor unSelectedColor];
-        self.nameLabel.font = [UIFont boldSystemFontOfSize:14];
-        self.taskNameLabel.font = [UIFont boldSystemFontOfSize:14];
-        self.commentLabel.font = [UIFont boldSystemFontOfSize:14];
-        self.teacherNameLabel.font = [UIFont boldSystemFontOfSize:14];
+        self.nameLabel.font = [UIFont boldSystemFontOfSize:12];
+        self.taskNameLabel.font = [UIFont boldSystemFontOfSize:12];
+        self.commentLabel.font = [UIFont boldSystemFontOfSize:12];
+        self.teacherNameLabel.font = [UIFont boldSystemFontOfSize:12];
         
         self.nameLabel.textColor = [UIColor normalColor];
         self.taskNameLabel.textColor = [UIColor normalColor];
@@ -56,10 +56,10 @@ NSString * const MIZeroMessagesTableViewCellId = @"MIZeroMessagesTableViewCellId
         self.imageV.hidden = NO;
         self.imageWidthConstraint.constant = 36;
         self.contentView.backgroundColor = [UIColor whiteColor];
-        self.nameLabel.font = [UIFont systemFontOfSize:14];
-        self.taskNameLabel.font = [UIFont systemFontOfSize:14];
-        self.commentLabel.font = [UIFont systemFontOfSize:14];
-        self.teacherNameLabel.font = [UIFont systemFontOfSize:14];
+        self.nameLabel.font = [UIFont systemFontOfSize:12];
+        self.taskNameLabel.font = [UIFont systemFontOfSize:12];
+        self.commentLabel.font = [UIFont systemFontOfSize:12];
+        self.teacherNameLabel.font = [UIFont systemFontOfSize:12];
         
         self.nameLabel.textColor = [UIColor detailColor];
         self.taskNameLabel.textColor = [UIColor detailColor];
@@ -73,4 +73,32 @@ NSString * const MIZeroMessagesTableViewCellId = @"MIZeroMessagesTableViewCellId
     self.teacherNameLabel.text = teacher;
     [self.imageV sd_setImageWithURL:[image imageURLWithWidth:36] placeholderImage:[UIImage imageNamed:@"attachment_placeholder"]];
 }
+
++ (CGFloat)cellHeightWithZeroMessage:(StudentZeroTask *)zeroData{
+  
+    CGFloat height = 0.f;
+    static MIZeroMessagesTableViewCell *zeroCell = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        zeroCell = [[[NSBundle mainBundle] loadNibNamed:@"MIZeroMessagesTableViewCell"
+                                                      owner:nil
+                                                    options:nil] lastObject];
+        
+    });
+    
+    [zeroCell setupImage:zeroData.avatar
+                    name:zeroData.nickName
+               taskTitle:zeroData.title
+                 comment:zeroData.content
+                 teacher:zeroData.createTeacher
+                   index:1];
+    CGSize size = [zeroCell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    height = size.height;
+    if (height < 56) {
+        height = 56;
+    }
+    return height;
+}
+
 @end

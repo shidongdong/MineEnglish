@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,weak) id<MISecondTeachStatisticsViewDelegate> delegate;
 
-- (void)updateStudentListWithListType:(NSInteger)listType;
+- (void)updateStudentList;
 
 @end
 

@@ -12,6 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CampusInfo : MTLModel<MTLJSONSerializing>
 
+// 校区id
+@property(nonatomic, assign) NSInteger campusId;
+// 校区名称
+@property(nonatomic, copy) NSString * campusName;
+
 @end
 
 NS_ASSUME_NONNULL_END

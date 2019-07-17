@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CampusInfo.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,6 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MIClassDetailViewController : UIViewController
 
 @property (nonatomic, weak) id<MIClassDetailViewControllerDelegate> delegate;
+
+// 管理端  校区信息
+@property (nonatomic, strong) CampusInfo *campusInfo;
+
 
 - (void)updateClassInfo;
 

@@ -34,11 +34,18 @@
 @end
 
 
+@interface StudentByClass : User<MTLJSONSerializing>
+
+@end
+
 @interface StudentsByClass : MTLModel<MTLJSONSerializing>
 
 @property (nonatomic, assign) NSInteger classId;
 @property (nonatomic, copy) NSString *className;
-@property (nonatomic, strong) NSArray<Student *> *students;
+@property (nonatomic, strong) NSArray<StudentByClass *> *students;
+
+@property (nonatomic, copy) NSString *pinyinName;
+
 
 @end
 

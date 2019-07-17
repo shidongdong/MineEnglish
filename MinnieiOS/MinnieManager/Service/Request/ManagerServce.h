@@ -7,6 +7,7 @@
 //
 
 #import "BaseRequest.h"
+#import "CampusInfo.h"
 #import "ActivityInfo.h"
 #import "ParentFileInfo.h"
 #import <Foundation/Foundation.h>
@@ -85,9 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
                                  callback:(RequestCallback)callback;
 
 // 校区列表（ipad管理端）
-+ (BaseRequest *)requestCampusWithCampusId:(NSInteger)campusId
-                                campusName:(NSString *)campusName
-                                  callback:(RequestCallback)callback;
++ (BaseRequest *)requestCampusCallback:(RequestCallback)callback;
 
 // 删除校区（ipad管理端）
 + (BaseRequest *)requestDeleteCampusWithCampusId:(NSInteger)campusId

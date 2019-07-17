@@ -187,11 +187,9 @@
 }
 
 // 校区列表（ipad管理端）
-+ (BaseRequest *)requestCampusWithCampusId:(NSInteger)campusId
-                                campusName:(NSString *)campusName
-                                  callback:(RequestCallback)callback{
++ (BaseRequest *)requestCampusCallback:(RequestCallback)callback{
     
-    CampusInfoRequest *request = [[CampusInfoRequest alloc] initWithCampusId:campusId campusName:campusName];
+    CampusInfoRequest *request = [[CampusInfoRequest alloc] init];
     request.objectKey = @"list";
     request.objectClassName = @"CampusInfo";
     [request setCallback:callback];

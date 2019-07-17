@@ -21,6 +21,8 @@ extern NSString * const MIZeroMessagesTableViewCellId;
            teacher:(NSString *)teacher
              index:(NSInteger)index;
 
++ (CGFloat)cellHeightWithZeroMessage:(StudentZeroTask *)zeroData;
+
 
 @end
 

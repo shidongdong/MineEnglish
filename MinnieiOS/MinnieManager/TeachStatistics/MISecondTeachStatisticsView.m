@@ -28,6 +28,8 @@ UITableViewDataSource
 @property (nonatomic,strong) NSMutableArray *students;
 @property (nonatomic,strong) NSMutableDictionary *studentDict;
 
+@property (nonatomic,strong) NSMutableArray *classes;
+@property (nonatomic,strong) NSMutableArray *classNames;
 
 
 @property (nonatomic,strong) UIButton *addActivitybtn;
@@ -54,6 +56,8 @@ UITableViewDataSource
     if (self = [super initWithFrame:frame]) {
        
         self.students = [NSMutableArray array];
+        self.classes = [NSMutableArray array];
+        self.classNames = [NSMutableArray array];
         [self configureUI];
     }
     return self;
@@ -61,6 +65,7 @@ UITableViewDataSource
 
 - (void)configureUI{
     
+    self.backgroundColor = [UIColor whiteColor];
     self.segmentControl = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SegmentControl class]) owner:nil options:nil] lastObject];
     self.segmentControl.titles = @[@"按名字", @"按班级"];
     self.segmentControl.selectedIndex = 0;
@@ -109,6 +114,12 @@ UITableViewDataSource
 
 - (void)showChildPageViewWithIndex:(NSUInteger)index animated:(BOOL)animated shouldLocate:(BOOL)shouldLocate {
 
+    static NSInteger tempIndex = -1;
+    if (tempIndex == index) {
+        return;
+    }
+    self.currentIndexPath = nil;
+    
     if (shouldLocate) {
         
         CGPoint offset = CGPointMake(index*kColumnSecondWidth, 0);
@@ -130,11 +141,18 @@ UITableViewDataSource
             });
         }
     }
+    tempIndex = index;
+    
+    if (index == 0 && self.students.count == 0) {
+        [self requestStudents];
+    }
+    if (index == 1 && self.classes.count == 0) {
+        [self requestStudentLisByClasst];
+    }
 }
 
 
 #pragma mark - UIScrollViewDelegate
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
   
     if (self.ignoreScrollCallback) {
@@ -187,11 +205,15 @@ UITableViewDataSource
     [self.segmentControl setPersent:x / kColumnSecondWidth];
 }
 
-- (void)updateStudentListWithListType:(NSInteger)listType{
+- (void)updateStudentList{
     
-    self.studentListType = listType;
     self.currentIndexPath = nil;
-    [self requestStudents];
+    
+    if (self.segmentControl.selectedIndex == 0) {
+        [self requestStudents];
+    } else {
+        [self requestStudentLisByClasst];
+    }
 }
 
 #pragma mark -
@@ -200,8 +222,9 @@ UITableViewDataSource
     if (tableView == self.leftTableView) {
         
         return self.sortedKeys.count;
+    } else {
+        return self.classes.count;
     }
-    return 0;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -210,18 +233,15 @@ UITableViewDataSource
         
         NSArray *studentsGroup = self.studentDict[self.sortedKeys[section]];
         return studentsGroup.count;
+    } else {
+        StudentsByClass * clazz= self.classes[section];
+        return clazz.students.count;
     }
-    return 0;
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
   
-    if (tableView == self.leftTableView) {
-        
-        return MISecondReaTimeTaskTableViewCellHeight;
-    }
-    return 0;
+    return MISecondReaTimeTaskTableViewCellHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -239,6 +259,8 @@ UITableViewDataSource
         student = studentsGroup[indexPath.row];
     } else {
         
+        StudentsByClass * clazz= self.classes[indexPath.section];
+        student = clazz.students[indexPath.row];
     }
     if (self.currentIndexPath == nil) {
         [cell setupTitle:student.nickname icon:student.avatarUrl selectState:NO];
@@ -260,13 +282,30 @@ UITableViewDataSource
     }
     return nil;
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 30.0;
+}
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+ 
+    UIView *headerView =  [[UIView alloc] init];
+    headerView.backgroundColor = [UIColor unSelectedColor];
+    UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, kColumnSecondWidth - 40,30)];
+    timeLabel.textAlignment = NSTextAlignmentLeft;
+    timeLabel.font = [UIFont boldSystemFontOfSize:14];
+    timeLabel.textColor = [UIColor normalColor];
+    [headerView addSubview:timeLabel];
+   
     if (tableView == self.leftTableView) {
+       
+        timeLabel.text = self.sortedKeys[section];
+    } else {
         
-        return self.sortedKeys[section];
+        if (section < self.classNames.count) {
+            timeLabel.text = self.classNames[section];
+        }
     }
-    return nil;
+    return headerView;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -282,11 +321,14 @@ UITableViewDataSource
     }
 }
 
+#pragma mark - 请求学生列表 按名字
 - (void)requestStudents {
 
-    [self showLoadingView];
-    self.leftTableView.hidden = YES;
-    
+    if (self.students.count == 0) {
+       
+        [self showLoadingView];
+        self.leftTableView.hidden = YES;
+    }
     WeakifySelf;
     [StudentService requestStudentsWithFinishState:0
                                           callback:^(Result *result, NSError *error) {
@@ -361,4 +403,58 @@ UITableViewDataSource
     self.sortedKeys = keys;
 }
 
+#pragma mark - 请求学生列表 按班级
+- (void)requestStudentLisByClasst{
+   
+    if (self.classes.count == 0) {
+        [self showLoadingView];
+        self.rightTableView.hidden = YES;
+    }
+    WeakifySelf;
+    [StudentService requestStudentLisByClasstWithCallback:^(Result *result, NSError *error) {
+      
+        [weakSelf hideAllStateView];
+        if (error != nil) {
+            WeakifySelf;
+            [weakSelf showFailureViewWithRetryCallback:^{
+                [weakSelf requestStudentLisByClasst];
+            }];
+            return;
+        }
+        NSDictionary *dict = (NSDictionary *)result.userInfo;
+        NSArray *classes = dict[@"list"];
+        if (classes.count > 0) {
+            
+            weakSelf.rightTableView.hidden = NO;
+            [weakSelf.classes removeAllObjects];
+            [weakSelf.classes addObjectsFromArray:classes];
+            [weakSelf sortStudentsByClass];
+        } else {
+            [weakSelf showEmptyViewWithImage:nil
+                                   title:@"暂无学生"
+                           centerYOffset:0
+                               linkTitle:nil
+                       linkClickCallback:nil];
+        }
+    }];
+}
+- (void)sortStudentsByClass {
+ 
+    HanyuPinyinOutputFormat *outputFormat=[[HanyuPinyinOutputFormat alloc] init];
+    [outputFormat setToneType:ToneTypeWithoutTone];
+    [outputFormat setVCharType:VCharTypeWithV];
+    [outputFormat setCaseType:CaseTypeUppercase];
+    [self.classNames removeAllObjects];
+    WeakifySelf;
+    [self.classes enumerateObjectsUsingBlock:^(StudentsByClass * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *pinyin = [[PinyinHelper toHanyuPinyinStringWithNSString:obj.className withHanyuPinyinOutputFormat:outputFormat withNSString:@" "] uppercaseString];
+        obj.pinyinName = pinyin;
+        [weakSelf.classNames addObject:obj.className];
+    }];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pinyinName" ascending:YES];
+    NSArray *array = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    [self.classes sortUsingDescriptors:array];
+    [self.rightTableView reloadData];
+}
 @end

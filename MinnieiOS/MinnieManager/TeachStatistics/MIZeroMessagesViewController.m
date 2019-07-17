@@ -45,8 +45,9 @@ UITableViewDataSource
     
         return 30;
     } else {
-       
-        return 56;
+    
+        StudentZeroTask * zeroTaskData = self.zeroMessagesArray[indexPath.row - 1];
+        return [MIZeroMessagesTableViewCell cellHeightWithZeroMessage:zeroTaskData];
     }
 }
 

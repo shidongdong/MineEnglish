@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3gz-QU-1Lm">
-                        <rect key="frame" x="0.0" y="0.0" width="140" height="76.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="150" height="76.5"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="attachment_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="jAA-Ts-veE">
                                 <rect key="frame" x="20" y="20.5" width="36" height="36"/>
@@ -30,7 +30,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="名字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jGa-JE-rJI">
-                                <rect key="frame" x="68" y="30" width="64" height="17"/>
+                                <rect key="frame" x="68" y="6" width="64" height="64.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="64" id="rE0-1S-0Ao"/>
                                 </constraints>
@@ -44,15 +44,16 @@
                             <constraint firstItem="jGa-JE-rJI" firstAttribute="leading" secondItem="jAA-Ts-veE" secondAttribute="trailing" constant="12" id="7J9-OE-mzY"/>
                             <constraint firstItem="jAA-Ts-veE" firstAttribute="leading" secondItem="3gz-QU-1Lm" secondAttribute="leading" constant="20" id="IZ2-T3-SV3"/>
                             <constraint firstItem="jAA-Ts-veE" firstAttribute="centerY" secondItem="3gz-QU-1Lm" secondAttribute="centerY" id="PMT-hE-aQl"/>
-                            <constraint firstAttribute="width" constant="140" id="Vt8-qr-PZO"/>
-                            <constraint firstItem="jGa-JE-rJI" firstAttribute="centerY" secondItem="3gz-QU-1Lm" secondAttribute="centerY" id="etG-sa-GIi"/>
+                            <constraint firstAttribute="width" constant="150" id="Vt8-qr-PZO"/>
+                            <constraint firstItem="jGa-JE-rJI" firstAttribute="top" secondItem="3gz-QU-1Lm" secondAttribute="top" constant="6" id="bIK-UI-kRp"/>
+                            <constraint firstAttribute="bottom" secondItem="jGa-JE-rJI" secondAttribute="bottom" constant="6" id="pTT-J2-7y3"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WsF-Jb-hSy">
-                        <rect key="frame" x="140" y="0.0" width="170" height="76.5"/>
+                        <rect key="frame" x="150" y="0.0" width="170" height="76.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="任务" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JpO-wu-wV0">
-                                <rect key="frame" x="10" y="30" width="150" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="任务" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JpO-wu-wV0">
+                                <rect key="frame" x="12" y="6" width="150" height="64.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="sO6-Zf-0DI"/>
                                 </constraints>
@@ -63,16 +64,17 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="JpO-wu-wV0" firstAttribute="centerY" secondItem="WsF-Jb-hSy" secondAttribute="centerY" id="JET-cW-Ads"/>
+                            <constraint firstItem="JpO-wu-wV0" firstAttribute="top" secondItem="WsF-Jb-hSy" secondAttribute="top" constant="6" id="FcM-Rz-pWW"/>
+                            <constraint firstAttribute="bottom" secondItem="JpO-wu-wV0" secondAttribute="bottom" constant="6" id="KC6-bv-z3R"/>
                             <constraint firstAttribute="width" constant="170" id="cXe-Ud-RY3"/>
-                            <constraint firstItem="JpO-wu-wV0" firstAttribute="leading" secondItem="WsF-Jb-hSy" secondAttribute="leading" constant="10" id="pgx-jx-r0l"/>
+                            <constraint firstItem="JpO-wu-wV0" firstAttribute="leading" secondItem="WsF-Jb-hSy" secondAttribute="leading" constant="12" id="pgx-jx-r0l"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YWM-oc-lYq">
-                        <rect key="frame" x="310" y="0.0" width="112" height="76.5"/>
+                        <rect key="frame" x="320" y="0.0" width="102" height="76.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="评语" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uer-cx-EVL">
-                                <rect key="frame" x="12" y="30" width="282" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="评语" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uer-cx-EVL">
+                                <rect key="frame" x="12" y="6" width="282" height="64.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="282" id="Oa7-2o-yAU"/>
                                 </constraints>
@@ -84,14 +86,15 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="uer-cx-EVL" firstAttribute="leading" secondItem="YWM-oc-lYq" secondAttribute="leading" constant="12" id="VqB-MN-IlC"/>
-                            <constraint firstItem="uer-cx-EVL" firstAttribute="centerY" secondItem="YWM-oc-lYq" secondAttribute="centerY" id="ZfV-gK-aPh"/>
+                            <constraint firstAttribute="bottom" secondItem="uer-cx-EVL" secondAttribute="bottom" constant="6" id="YVa-ti-HKE"/>
+                            <constraint firstItem="uer-cx-EVL" firstAttribute="top" secondItem="YWM-oc-lYq" secondAttribute="top" constant="6" id="bSa-u5-1Ev"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IUB-jY-2xj">
-                        <rect key="frame" x="422" y="0.0" width="90" height="77"/>
+                        <rect key="frame" x="422" y="0.0" width="90" height="76.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="对象" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eh9-j1-B8M">
-                                <rect key="frame" x="6" y="30" width="64" height="17"/>
+                                <rect key="frame" x="6" y="6" width="64" height="64.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="64" id="ROL-rb-D32"/>
                                 </constraints>
@@ -103,7 +106,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="eh9-j1-B8M" secondAttribute="trailing" constant="20" id="GCw-QJ-wpf"/>
-                            <constraint firstItem="eh9-j1-B8M" firstAttribute="centerY" secondItem="IUB-jY-2xj" secondAttribute="centerY" id="N8v-3I-Ehq"/>
+                            <constraint firstItem="eh9-j1-B8M" firstAttribute="top" secondItem="IUB-jY-2xj" secondAttribute="top" constant="6" id="QYh-YK-PiM"/>
+                            <constraint firstAttribute="bottom" secondItem="eh9-j1-B8M" secondAttribute="bottom" constant="6" id="ZIc-VT-k5D"/>
                             <constraint firstAttribute="width" constant="90" id="hWJ-GH-dcz"/>
                         </constraints>
                     </view>
@@ -121,7 +125,7 @@
                     <constraint firstAttribute="bottom" secondItem="3gz-QU-1Lm" secondAttribute="bottom" id="aYb-14-flW"/>
                     <constraint firstAttribute="bottom" secondItem="YWM-oc-lYq" secondAttribute="bottom" id="kko-7f-xJn"/>
                     <constraint firstItem="WsF-Jb-hSy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="m5h-US-lLf"/>
-                    <constraint firstAttribute="bottom" secondItem="IUB-jY-2xj" secondAttribute="bottom" constant="-0.5" id="z1q-nL-iZ0"/>
+                    <constraint firstAttribute="bottom" secondItem="IUB-jY-2xj" secondAttribute="bottom" id="z1q-nL-iZ0"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>

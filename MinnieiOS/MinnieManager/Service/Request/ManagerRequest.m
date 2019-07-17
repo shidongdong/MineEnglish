@@ -551,24 +551,7 @@
 @end
 
 #pragma mark - 校区列表（ipad管理端）
-@interface CampusInfoRequest ()
-
-@property (nonatomic,assign) NSInteger campusId;
-@property (nonatomic,copy) NSString *campusName;
-
-@end
-
 @implementation CampusInfoRequest
-
-- (instancetype)initWithCampusId:(NSInteger)campusId campusName:(NSString *)campusName{
-   
-    self = [super init];
-    if (self != nil) {
-        self.campusId = campusId;
-        self.campusName = campusName;
-    }
-    return self;
-}
 
 - (YTKRequestMethod)requestMethod {
     return YTKRequestMethodGET;
@@ -576,11 +559,6 @@
 
 - (NSString *)requestUrl {
     return [NSString stringWithFormat:@"%@/campus/getCampus", ServerProjectName];
-}
-
-- (id)requestArgument {
-    return @{@"id":@(self.campusId),
-             @"campusName":self.campusName};
 }
 
 @end
