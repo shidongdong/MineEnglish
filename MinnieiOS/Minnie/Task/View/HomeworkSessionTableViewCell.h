@@ -19,5 +19,7 @@ extern NSString * const UnfinishedStudentHomeworkSessionTableViewCellId;
 + (CGFloat)cellHeightWithHomeworkSession:(HomeworkSession *)homeworkSession
                                 finished:(BOOL)finished;
 
+- (void)setupSelectState:(BOOL)select;
+
 @end
 

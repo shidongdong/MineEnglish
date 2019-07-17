@@ -61,10 +61,21 @@
 
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *heightLayoutConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerContentY;
+@property (weak, nonatomic) IBOutlet UIView *rightLineView;
 
 @property (nonatomic, assign) BOOL everAppeared;
 
 @property (nonatomic, assign) CGFloat screenWidth;
+
+@property (nonatomic, strong) Teacher *teacher;
+
+#if MANAGERSIDE
+
+@property (nonatomic, assign) BOOL unfinishedNeedUpdate;
+@property (nonatomic, assign) BOOL finishedNeedUpdate;
+@property (nonatomic, assign) BOOL uncommitNeedUpdate;
+
+#endif
 
 @end
 
@@ -76,6 +87,9 @@
     self.screenWidth = ScreenWidth;
 #if MANAGERSIDE
     self.screenWidth = kColumnThreeWidth;
+    self.rightLineView.hidden = NO;
+#else
+    self.rightLineView.hidden = YES;
 #endif
     [self checkAppVersion];
 
@@ -328,9 +342,15 @@
 #pragma mark - Private Method
 
 - (void)showChildPageViewControllerWithIndex:(NSUInteger)index animated:(BOOL)animated shouldLocate:(BOOL)shouldLocate {
+    
     HomeworkSessionsViewController *childPageViewController = nil;
     BOOL existed = YES;
-    
+#if MANAGERSIDE
+    BOOL exchangedSession = NO;
+    if (index != self.currentIndex) {
+        exchangedSession = YES;
+    }
+#endif
     if (index == 0) {
         if (self.unfinishedClassesChildController == nil) {
             self.unfinishedClassesChildController = [[HomeworkSessionsViewController alloc] initWithNibName:NSStringFromClass([HomeworkSessionsViewController class]) bundle:nil];
@@ -339,7 +359,7 @@
             self.unfinishedClassesChildController.searchFliter = self.currentFliterType;
             existed = NO;
         }
-        
+        self.unfinishedClassesChildController.teacher = self.teacher;
         self.unfinishedClassesChildController.pushVCCallBack = self.pushVCCallBack;
         childPageViewController = self.unfinishedClassesChildController;
     } else if (index == 1) {
@@ -350,7 +370,7 @@
             self.finishedClassesChildController.searchFliter = self.currentFliterType;
             existed = NO;
         }
-        
+        self.finishedClassesChildController.teacher = self.teacher;
         self.finishedClassesChildController.pushVCCallBack = self.pushVCCallBack;
         childPageViewController = self.finishedClassesChildController;
     }
@@ -365,6 +385,7 @@
             existed = NO;
         }
         
+        self.uncommitClassesChildController.teacher = self.teacher;
         self.uncommitClassesChildController.pushVCCallBack = self.pushVCCallBack;
         childPageViewController = self.uncommitClassesChildController;
 #else
@@ -403,6 +424,17 @@
             });
         }
     }
+    
+#if MANAGERSIDE
+    if (exchangedSession) {
+     
+        if (self.exchangeCallBack) {
+            self.exchangeCallBack();
+        }
+        [childPageViewController resetCurrentSelectIndex];
+    }
+    [self updateChildPageViewControllerDataWithIndex:_currentIndex];
+#endif
 }
 
 - (void)addContraintsWithX:(CGFloat)offsetX view:(UIView *)view superView:(UIView *)superView {
@@ -518,6 +550,47 @@
 #endif
 }
 
+#pragma mark - 管理端切换教师更新作业
+- (void)updateHomeworkSessionWithTeacher:(Teacher *)teacher{
+
+#if MANAGERSIDE
+    
+    _unfinishedNeedUpdate = YES;
+    _finishedNeedUpdate = YES;
+    _uncommitNeedUpdate = YES;
+    
+    self.teacher = teacher;
+    [self showChildPageViewControllerWithIndex:_currentIndex animated:YES shouldLocate:YES];
+#endif
+}
+
+- (void)updateChildPageViewControllerDataWithIndex:(NSInteger)index{
+
+#if MANAGERSIDE
+    if (index == 0) {
+        if (_unfinishedNeedUpdate) {
+            
+            [self.unfinishedClassesChildController updateSessionList];
+            _unfinishedNeedUpdate = NO;
+        }
+    } else if (index == 1) {
+        
+        if (_finishedNeedUpdate) {
+            
+            [self.finishedClassesChildController updateSessionList];
+            _finishedNeedUpdate = NO;
+        }
+    }
+    else
+    {
+        if (_uncommitNeedUpdate) {
+            
+            [self.uncommitClassesChildController updateSessionList];
+            _uncommitNeedUpdate = NO;
+        }
+    }
+#endif
+}
 @end
 
 

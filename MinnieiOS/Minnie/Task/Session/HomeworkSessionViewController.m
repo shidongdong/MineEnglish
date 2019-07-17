@@ -118,6 +118,7 @@ HomeworkAnswersPickerViewControllerDelegate>
 @property (nonatomic, strong) VIResourceLoaderManager *resourceLoaderManager;
 @property (nonatomic, strong) MBProgressHUD * mHud;
 
+
 @end
 
 @implementation HomeworkSessionViewController
@@ -126,7 +127,6 @@ HomeworkAnswersPickerViewControllerDelegate>
     [super viewDidLoad];
     
 #if TEACHERSIDE || MANAGERSIDE
-  
     [self studentName];
     self.correctButton.hidden = NO;
     self.answerViewWidthConstraint.constant = ScreenWidth/4;
@@ -237,6 +237,15 @@ HomeworkAnswersPickerViewControllerDelegate>
     } else {
         self.resultView.hidden = YES;
         self.inputView.hidden = NO;
+
+#if MANAGERSIDE
+        // 管理端非当前账号会话页不允许输入
+        if (self.teacher.userId != APP.currentUser.userId) {
+            self.inputViewBottomConstraint.constant = -180;
+        }  else {
+            self.inputViewBottomConstraint.constant = 0;
+        }
+#endif
     }
     
     APP.currentIMHomeworkSessionId = self.homeworkSession.homeworkSessionId;
@@ -263,10 +272,15 @@ HomeworkAnswersPickerViewControllerDelegate>
     [super viewWillDisappear:animated];
     
     [[AudioPlayer sharedPlayer] stop];
+
 }
 
 - (IBAction)backButtonPressed:(id)sender {
-    
+#if MANAGERSIDE
+    if (self.dissCallBack) {
+        self.dissCallBack();
+    }
+#endif
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -836,7 +850,9 @@ HomeworkAnswersPickerViewControllerDelegate>
 #endif
 }
 
+#pragma mark - 设置会话
 - (void)setupConversation {
+  
     NSString *teacherId = [NSString stringWithFormat:@"%@", @(self.homeworkSession.correctTeacher.userId)];
     NSString *studentId = [NSString stringWithFormat:@"%@", @(self.homeworkSession.student.userId)];
     
@@ -844,6 +860,7 @@ HomeworkAnswersPickerViewControllerDelegate>
     
     NSString *name = [NSString stringWithFormat:@"%@", @(self.homeworkSession.homeworkSessionId)];
     //WeakifySelf;
+    
     if (self.conversation == nil) {
        
         AVIMConversationQuery *query = [self.client conversationQuery];
@@ -1080,28 +1097,30 @@ HomeworkAnswersPickerViewControllerDelegate>
     [self sendMessage:message];
 }
 
+- (void)send{
+
+}
+
 - (void)sendVideoMessageForPath:(NSString *)path
 {
-    
+    NSString *userId;
+    NSString *clientId = [IMManager sharedManager].client.clientId;
     AVIMClientStatus status = [IMManager sharedManager].client.status;
-    if (status == AVIMClientStatusNone ||
-        status == AVIMClientStatusClosed ||
-        status == AVIMClientStatusPaused) {
-        NSString *userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
-        [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success, NSError * _Nullable error)
-         {
-             if (!success)
-             {
-                 return;
-             }
-         }];
+#if MANAGERSIDE
+    userId = [NSString stringWithFormat:@"%@", @(self.teacher.userId)];
+#else
+    userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
+#endif
+    if ([userId isEqualToString:clientId] && status == AVIMClientStatusOpened) {
+    } else {
+        [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success,  NSError * error) {
+            if (!success) return ;
+        }];
     }
-    
     if (status != AVIMClientStatusOpened) {
         [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
         return;
     }
-   
     
     AVFile *file = [AVFile fileWithLocalPath:path error:nil];
     int64_t timestamp = (int64_t)([[NSDate date] timeIntervalSince1970] * 1000);
@@ -1230,24 +1249,25 @@ HomeworkAnswersPickerViewControllerDelegate>
 - (void)sendMessage:(AVIMMessage *)message {
     
     //发送消息之前进行IM服务判断
+    NSString *userId;
+    NSString *clientId = [IMManager sharedManager].client.clientId;
     AVIMClientStatus status = [IMManager sharedManager].client.status;
-    if (status == AVIMClientStatusNone ||
-        status == AVIMClientStatusClosed ||
-        status == AVIMClientStatusPaused) {
-        NSString *userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
-        [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success, NSError * _Nullable error)
-         {
-             if (!success)
-             {
-                 return;
-             }
-         }];
+#if MANAGERSIDE
+    userId = [NSString stringWithFormat:@"%@", @(self.teacher.userId)];
+#else
+    userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
+#endif
+    if ([userId isEqualToString:clientId] && status == AVIMClientStatusOpened) {
+    } else {
+        [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success,  NSError * error) {
+            if (!success) return ;
+        }];
     }
-    
     if (status != AVIMClientStatusOpened) {
         [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
         return;
     }
+    
     [[SendAudioManager manager] play];
     BOOL isResend = message.status == AVIMMessageStatusFailed;
     
@@ -1331,6 +1351,11 @@ HomeworkAnswersPickerViewControllerDelegate>
     }
     // 通知类型作业自动通过
     if (studentMessages.count == 1) {
+#if MANAGERSIDE
+        if (self.dissCallBack) {
+            self.dissCallBack();
+        }
+#endif
         [self.navigationController popViewControllerAnimated:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCorrectHomework object:nil userInfo:@{@"HomeworkSession":self.homeworkSession}];// 更新作业列表
     }
@@ -1514,7 +1539,10 @@ HomeworkAnswersPickerViewControllerDelegate>
     [self.inputView layoutIfNeeded];
 }
 
+#pragma mark - 加载历史消息
 - (void)loadMessagesHistory {
+    
+    NSLog(@"loadMessagesHistory %@  %@",[IMManager sharedManager].client.clientId,self.conversation.description);
     WeakifySelf;
     [self.conversation queryMessagesFromServerWithLimit:1000 callback:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         StrongifySelf;
@@ -1827,6 +1855,7 @@ HomeworkAnswersPickerViewControllerDelegate>
             if (weakSelf.homeworkSession.score != -1)  return;
             MIReadingTaskViewController *taskVC = [[MIReadingTaskViewController alloc] initWithNibName:NSStringFromClass([MIReadingTaskViewController class]) bundle:nil];
             taskVC.isChecking = NO;
+            taskVC.teacher = weakSelf.teacher;
             taskVC.conversation = weakSelf.conversation;
             taskVC.homework = weakSelf.homeworkSession.homework;
             taskVC.finishCallBack = ^(AVIMAudioMessage *message){
@@ -2050,9 +2079,9 @@ HomeworkAnswersPickerViewControllerDelegate>
                 NSString *fileUrl = message.file.url;
                 taskVC.audioUrl = fileUrl;
                 taskVC.isChecking = YES;
+                taskVC.teacher = weakSelf.teacher;
                 taskVC.homework = weakSelf.homeworkSession.homework;
                 [weakSelf.navigationController pushViewController:taskVC animated:YES];
-//                [[AudioPlayer sharedPlayer] playURL:[NSURL URLWithString:fileUrl]];
             }];
             cell = textCell;
             
@@ -2225,6 +2254,7 @@ HomeworkAnswersPickerViewControllerDelegate>
     }
     self.customTitleLabel.attributedText = attrStr;
 }
+
 @end
 
 

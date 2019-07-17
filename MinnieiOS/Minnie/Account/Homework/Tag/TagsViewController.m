@@ -65,8 +65,8 @@ EqualSpaceFlowLayoutDelegate
 #pragma mark - IBActions
 
 - (IBAction)addButtonPressed:(id)sender {
+
     //判断相同标签不能创建
-    
     
     WeakifySelf;
     [CreateTagView showInSuperView:self.view

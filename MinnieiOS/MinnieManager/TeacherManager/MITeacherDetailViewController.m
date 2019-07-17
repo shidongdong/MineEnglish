@@ -6,6 +6,7 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
+#import "TeacherService.h"
 #import "MIScoreListViewController.h"
 #import "TeacherEditViewController.h"
 #import "MITeacherOnlineTableViewCell.h"
@@ -28,7 +29,11 @@ UITableViewDataSource
 
 @property (nonatomic,strong) Teacher *teacher;
 
+@property (nonatomic,strong) TeacherDetail *teacherDetail;
+
 @property (nonatomic,strong) NSArray *titleArray;
+
+
 
 @end
 
@@ -74,6 +79,7 @@ UITableViewDataSource
         [self.iconImageV sd_setImageWithURL:[self.teacher.avatarUrl imageURLWithWidth:24] placeholderImage:[UIImage imageNamed: @"attachment_placeholder"]];
         
         // 请求用户信息
+        [self requestDetail];
     }
 }
 
@@ -231,6 +237,14 @@ UITableViewDataSource
             self.pushCallBack(scoreListVC);
         }
     }
+}
+
+- (void)requestDetail{
+    // 1496
+    [TeacherService getTeacherDetailWithId:self.teacher.userId callback:^(Result *result, NSError *error) {
+        
+        NSLog(@"%@",result);
+    }];
 }
 
 @end

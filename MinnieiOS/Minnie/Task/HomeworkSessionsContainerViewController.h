@@ -9,9 +9,15 @@
 #import "BaseViewController.h"
 #import "HomeworkSessionsViewController.h"
 
+typedef void(^ExchangeSessionTypeCallBack)(void);
+
 // 消息，任务
 @interface HomeworkSessionsContainerViewController : BaseViewController
 
+@property (nonatomic, copy) ExchangeSessionTypeCallBack exchangeCallBack;
 @property (nonatomic, copy) HomeworkSessionsPushVCCallback pushVCCallBack;
+
+// ipad管理端根据老师获取任务列表
+- (void)updateHomeworkSessionWithTeacher:(Teacher *)teacher;
 
 @end

@@ -368,20 +368,20 @@ VIResourceLoaderManagerDelegate
 - (void)sendMessage:(AVIMMessage *)message {
     
     //发送消息之前进行IM服务判断
+    NSString *userId;
+    NSString *clientId = [IMManager sharedManager].client.clientId;
     AVIMClientStatus status = [IMManager sharedManager].client.status;
-    if (status == AVIMClientStatusNone ||
-        status == AVIMClientStatusClosed ||
-        status == AVIMClientStatusPaused) {
-        NSString *userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
-        [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success, NSError * _Nullable error)
-         {
-             if (!success)
-             {
-                 return;
-             }
-         }];
+#if MANAGERSIDE
+    userId = [NSString stringWithFormat:@"%@", @(self.teacher.userId)];
+#else
+    userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
+#endif
+    if ([userId isEqualToString:clientId] && status == AVIMClientStatusOpened) {
+    } else {
+        [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success,  NSError * error) {
+            if (!success) return ;
+        }];
     }
-    
     if (status != AVIMClientStatusOpened) {
         [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
         return;

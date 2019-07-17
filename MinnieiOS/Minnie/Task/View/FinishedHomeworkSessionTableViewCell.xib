@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R2C-IF-Ta4">
-                        <rect key="frame" x="12" y="12" width="354" height="98.5"/>
+                        <rect key="frame" x="12" y="6" width="354" height="98.5"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="92U-fB-Z9A">
                                 <rect key="frame" x="12" y="12" width="44" height="44"/>
@@ -78,13 +78,23 @@
                             <constraint firstAttribute="trailing" secondItem="sz0-Yu-eWM" secondAttribute="trailing" constant="12" id="zzR-D4-qqq"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kKk-WP-Azx">
+                        <rect key="frame" x="375" y="0.0" width="3" height="110.5"/>
+                        <color key="backgroundColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="3" id="0gd-nu-jfn"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="R2C-IF-Ta4" secondAttribute="trailing" constant="12" id="Ebr-by-cHm"/>
-                    <constraint firstItem="R2C-IF-Ta4" firstAttribute="top" secondItem="aN5-Mu-lbs" secondAttribute="top" constant="12" id="Sat-2I-kT0"/>
+                    <constraint firstAttribute="bottom" secondItem="kKk-WP-Azx" secondAttribute="bottom" id="Ohm-DA-fEf"/>
+                    <constraint firstItem="R2C-IF-Ta4" firstAttribute="top" secondItem="aN5-Mu-lbs" secondAttribute="top" constant="6" id="Sat-2I-kT0"/>
                     <constraint firstItem="R2C-IF-Ta4" firstAttribute="leading" secondItem="aN5-Mu-lbs" secondAttribute="leading" constant="12" id="XoH-UR-dX0"/>
-                    <constraint firstAttribute="bottom" secondItem="R2C-IF-Ta4" secondAttribute="bottom" id="oBe-te-k0s"/>
+                    <constraint firstItem="kKk-WP-Azx" firstAttribute="top" secondItem="aN5-Mu-lbs" secondAttribute="top" id="lax-A1-KGw"/>
+                    <constraint firstAttribute="bottom" secondItem="R2C-IF-Ta4" secondAttribute="bottom" constant="6" id="oBe-te-k0s"/>
+                    <constraint firstAttribute="trailing" secondItem="kKk-WP-Azx" secondAttribute="trailing" id="zYg-kN-Fgj"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -93,6 +103,7 @@
                 <outlet property="containerView" destination="R2C-IF-Ta4" id="yhg-9R-UYv"/>
                 <outlet property="homeworkTitleLabel" destination="jrY-g0-1qj" id="1kp-tS-0IF"/>
                 <outlet property="nameLabel" destination="0Vk-sj-xVG" id="Xh6-0g-FNM"/>
+                <outlet property="rightLineView" destination="kKk-WP-Azx" id="Nk4-Xj-qmj"/>
                 <outlet property="scoreView" destination="FgH-Ou-033" id="zMG-Dv-fJC"/>
                 <outlet property="timeLabel" destination="sz0-Yu-eWM" id="2R0-2B-TUS"/>
             </connections>

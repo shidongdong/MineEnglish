@@ -37,6 +37,7 @@ MIActivityBannerViewDelegate
 @property (nonatomic, weak) IBOutlet UITableView *homeworkSessionsTableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 
+
 // 作业会话请求
 @property (nonatomic, strong) BaseRequest *homeworkSessionsRequest;
 // 作业会话列表
@@ -56,6 +57,8 @@ MIActivityBannerViewDelegate
 // banner 只显示在学生端，未完成
 @property (nonatomic, strong) NSArray *bannerArray;
 @property (nonatomic, strong) MIActivityBannerView *bannerView;
+// 管理端
+@property (nonatomic, assign) NSInteger currentSelectIndex;
 
 @end
 
@@ -72,6 +75,7 @@ MIActivityBannerViewDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor unSelectedColor];
     self.unReadHomeworkSessions = [[NSMutableArray alloc] init];
     self.noHandleNotications = [[NSMutableArray alloc] init];
     //先读出缓存中的数据
@@ -83,7 +87,10 @@ MIActivityBannerViewDelegate
     
     
     [self setupRequestState];
-#if TEACHERSIDE || MANAGERSIDE
+#if MANAGERSIDE
+    self.currentSelectIndex = -1;
+    
+#elif TEACHERSIDE
 #else
     [self requestGetActivityList];
 #endif
@@ -169,13 +176,28 @@ MIActivityBannerViewDelegate
     if (!self.isUnfinished)return;
     //不需要加载
     if (!self.bLoadConversion)  return;
+ 
+    NSString *userId;
+    NSString *clientId = [IMManager sharedManager].client.clientId;
+    AVIMClientStatus status = [IMManager sharedManager].client.status;
+#if MANAGERSIDE
+    userId = [NSString stringWithFormat:@"%@", @(self.teacher.userId)];
+#else
+    userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
+#endif
     
-    NSString *userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
     WeakifySelf;
-    [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success,  NSError * error) {
-        if (!success)  return;
-        [weakSelf loadConversationsWithHomeworkSessions:self.homeworkSessions];
-    }];
+    if ([userId isEqualToString:clientId] && status == AVIMClientStatusOpened) {
+        [self loadConversationsWithHomeworkSessions:self.homeworkSessions];
+    } else {
+        [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success,  NSError * error) {
+            if (!success) {
+                [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
+                return ;
+            };
+            [weakSelf loadConversationsWithHomeworkSessions:self.homeworkSessions];
+        }];
+    }
 }
 
 #pragma mark -
@@ -516,6 +538,20 @@ MIActivityBannerViewDelegate
         }
     });
 }
+
+#pragma mark - ipad管理端更新作业
+- (void)updateSessionList {
+    
+    [self resetCurrentSelectIndex];
+    [self requestHomeworkSessions];
+}
+
+- (void)resetCurrentSelectIndex{
+    
+    self.currentSelectIndex = -1;
+    [self.homeworkSessionsTableView reloadData];
+}
+
 #pragma mark -
 #pragma mark - 获取作业列表  加载更多  处理请求作业列表结果
 - (void)requestHomeworkSessions {
@@ -531,20 +567,27 @@ MIActivityBannerViewDelegate
     if (self.searchFliter == -1) //-1 表示是按名字搜索
     {
         WeakifySelf;
-        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithName:self.searchFilterName forState:self.mState teacherId:0 callback:^(Result *result, NSError *error) {
+        self.homeworkSessionsRequest =
+        [HomeworkSessionService searchHomeworkSessionWithName:self.searchFilterName
+                                                     forState:self.mState
+                                                    teacherId:self.teacher.userId
+                                                     callback:^(Result *result, NSError *error) {
             StrongifySelf;
             [strongSelf handleRequestResult:result isLoadMore:NO error:error];
         }];
     }
     else if (self.searchFliter == 0) // 0 按时间
     {
-        self.homeworkSessionsRequest = [HomeworkSessionService requestHomeworkSessionsWithFinishState:self.mState
-                                                                                            teacherId:0
-                                                                                             callback:^(Result *result, NSError *error) {
-                                                                                                 StrongifySelf;
-                                                                                                 [strongSelf handleRequestResult:result
-                                                                                                                      isLoadMore:NO error:error];
-                                                                                             }];
+        self.homeworkSessionsRequest =
+        [HomeworkSessionService requestHomeworkSessionsWithFinishState:self.mState
+                                                             teacherId:self.teacher.userId
+                                                              callback:^(Result *result, NSError *error) {
+                                                                  
+            StrongifySelf;
+            [strongSelf handleRequestResult:result
+                                 isLoadMore:NO
+                                      error:error];
+        }];
     }
     else
     {
@@ -552,16 +595,20 @@ MIActivityBannerViewDelegate
         // mState        0：待批改；1已完成；2未提交
        WeakifySelf;
 #if TEACHERSIDE || MANAGERSIDE
-        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithType:self.searchFliter
-                                                                                   teacherId:0
-                                                                                    forState:self.mState
-                                                                                    callback:^(Result *result, NSError *error) {
+        self.homeworkSessionsRequest =
+        [HomeworkSessionService searchHomeworkSessionWithType:self.searchFliter
+                                                    teacherId:self.teacher.userId
+                                                     forState:self.mState
+                                                     callback:^(Result *result, NSError *error) {
             
             StrongifySelf;
             [strongSelf handleRequestResult:result isLoadMore:NO error:error];
         }];
 #else
-        self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithScore:self.searchFliter - 1 teacherId:0 callback:^(Result *result, NSError *error) {
+        self.homeworkSessionsRequest =
+        [HomeworkSessionService searchHomeworkSessionWithScore:self.searchFliter - 1
+                                                     teacherId:self.teacher.userId
+                                                      callback:^(Result *result, NSError *error) {
             
             StrongifySelf;
             [strongSelf handleRequestResult:result isLoadMore:NO error:error];
@@ -783,9 +830,12 @@ MIActivityBannerViewDelegate
     } else {
         cell = [tableView dequeueReusableCellWithIdentifier:FinishedHomeworkSessionTableViewCellId forIndexPath:indexPath];
     }
-    
     HomeworkSession *homeworkSession = self.homeworkSessions[indexPath.row];
     [cell setupWithHomeworkSession:homeworkSession];
+    
+#if MANAGERSIDE
+    [cell setupSelectState:(indexPath.row == self.currentSelectIndex) ? YES : NO];
+#endif
     
     return cell;
 }
@@ -806,27 +856,47 @@ MIActivityBannerViewDelegate
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (indexPath.row >= self.homeworkSessions.count) return ;
     
+    NSString *userId;
+    NSString *clientId = [IMManager sharedManager].client.clientId;
     AVIMClientStatus status = [IMManager sharedManager].client.status;
-    if (status == AVIMClientStatusNone || status == AVIMClientStatusClosed || status == AVIMClientStatusPaused) {
-       
-        NSString *userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
+#if MANAGERSIDE
+    userId = [NSString stringWithFormat:@"%@", @(self.teacher.userId)];
+#else
+    userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
+#endif
+    
+    WeakifySelf;
+    if ([userId isEqualToString:clientId] && status == AVIMClientStatusOpened) {
+        [self toHomeworkSessionViewController:indexPath];
+    } else {
         [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success,  NSError * error) {
-            if (!success) return;
+            if (!success) {
+                [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
+                return ;
+            };
+            [weakSelf toHomeworkSessionViewController:indexPath];
         }];
     }
-    if (status != AVIMClientStatusOpened) {
-        
-        [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
-        return ;
-    }
+}
+
+- (void)toHomeworkSessionViewController:(NSIndexPath *)indexPath{
     
     HomeworkSession *session = self.homeworkSessions[indexPath.row];
     HomeworkSessionViewController *vc = [[HomeworkSessionViewController alloc] initWithNibName:@"HomeworkSessionViewController" bundle:nil];
     vc.homeworkSession = session;
 #if MANAGERSIDE
+   
+    vc.homeworkSession.conversation = nil;
+    vc.teacher = self.teacher;
     if (self.pushVCCallBack) {
         self.pushVCCallBack(vc);
     }
+    WeakifySelf;
+    vc.dissCallBack = ^{
+        [weakSelf resetCurrentSelectIndex];
+    };
+    self.currentSelectIndex = indexPath.row;
+    [self.homeworkSessionsTableView reloadData];
 #else
     [vc setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:vc animated:YES];

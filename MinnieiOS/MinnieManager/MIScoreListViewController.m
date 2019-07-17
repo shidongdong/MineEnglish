@@ -164,13 +164,21 @@ UITableViewDataSource
     self.currentIndex = indexPath.row;
     
     NSString *userId = [NSString stringWithFormat:@"%@", @(scoreInfo.userId)];
-    [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success,  NSError * error) {
-        if (!success) {
-            [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
-            return;
-        }
+    NSString *clientId = [IMManager sharedManager].client.clientId;
+    AVIMClientStatus status = [IMManager sharedManager].client.status;
+    if ([userId isEqualToString:clientId] && status == AVIMClientStatusOpened) {
+        
         [weakSelf requestHomeworkSession:scoreInfo];
-    }];
+    } else {
+        
+        [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success,  NSError * error) {
+            if (!success) {
+                [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
+                return ;
+            };
+            [weakSelf requestHomeworkSession:scoreInfo];
+        }];
+    }
 #endif
 }
 

@@ -20,8 +20,16 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vuT-0w-Gnf">
+                    <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="I0U-Kc-x6d"/>
+                        <outlet property="delegate" destination="-1" id="jbR-Rw-7En"/>
+                    </connections>
+                </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="won-3V-XEJ">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
+                    <rect key="frame" x="0.0" y="24" width="414" height="64"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0y5-n1-zBD">
                             <rect key="frame" x="0.0" y="30" width="44" height="24"/>
@@ -91,22 +99,14 @@
                         <constraint firstAttribute="bottom" secondItem="cBO-Ma-aLm" secondAttribute="bottom" id="xBC-qb-gpe"/>
                     </constraints>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vuT-0w-Gnf">
-                    <rect key="frame" x="0.0" y="64" width="414" height="866"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="I0U-Kc-x6d"/>
-                        <outlet property="delegate" destination="-1" id="jbR-Rw-7En"/>
-                    </connections>
-                </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="vuT-0w-Gnf" firstAttribute="leading" secondItem="won-3V-XEJ" secondAttribute="leading" id="3jJ-Gb-JMj"/>
-                <constraint firstItem="vuT-0w-Gnf" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" constant="34" id="DyI-CN-236"/>
+                <constraint firstItem="vuT-0w-Gnf" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="DyI-CN-236"/>
                 <constraint firstItem="won-3V-XEJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Kwr-uB-SRz"/>
                 <constraint firstAttribute="trailing" secondItem="won-3V-XEJ" secondAttribute="trailing" id="LFA-r8-prI"/>
-                <constraint firstItem="won-3V-XEJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ais-Ha-xFe"/>
+                <constraint firstItem="UKA-7G-1q7" firstAttribute="top" secondItem="won-3V-XEJ" secondAttribute="bottom" constant="-44" id="bOi-WV-p8D"/>
                 <constraint firstItem="vuT-0w-Gnf" firstAttribute="top" secondItem="won-3V-XEJ" secondAttribute="bottom" id="hZa-pk-TwH"/>
                 <constraint firstItem="vuT-0w-Gnf" firstAttribute="trailing" secondItem="won-3V-XEJ" secondAttribute="trailing" id="jbU-lg-Eg8"/>
             </constraints>

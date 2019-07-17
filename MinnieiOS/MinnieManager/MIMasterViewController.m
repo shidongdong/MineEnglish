@@ -131,6 +131,7 @@ MISecondTeachStatisticsViewDelegate
         [self.secondDetailVC addSubViewController:self.reaTimTasStockSplitVC];
         
         [self.reaTimTasSheetView updateTeacherListWithListType:0];
+        [self.reaTimTasStockSplitVC updateHomeworkSessionWithTeacher:nil];
         
     } else if (index == 1){ // 教师管理
         
@@ -185,8 +186,8 @@ MISecondTeachStatisticsViewDelegate
 #pragma mark - 实时任务 && 教师管理
 - (void)secondTeaManViewDidClicledWithTeacher:(Teacher *)teacher listType:(NSInteger)type{
     
-    if (type == 0) {
-    
+    if (type == 0) {// 实时任务
+        [self.reaTimTasStockSplitVC updateHomeworkSessionWithTeacher:teacher];
     } else {
         [self.teacherStockSplitVC updateTeacher:teacher];
     }

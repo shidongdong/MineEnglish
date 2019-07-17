@@ -18,7 +18,7 @@
 #import "CircleHomeworksViewController.h"
 #import "TeachersViewController.h"
 #import "ExchangeRequestsViewController.h"
-#import "HomeworkManagerViewController.h"
+//#import "HomeworkManagerViewController.h"
 #import "ClassesContainerController.h"
 #import "StudentsViewController.h"
 #import "MessageService.h"

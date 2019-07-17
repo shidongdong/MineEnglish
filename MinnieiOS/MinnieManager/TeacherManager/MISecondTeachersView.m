@@ -63,13 +63,13 @@ UITableViewDataSource
     
     [_addActivitybtn addTarget:self action:@selector(addTeacherBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_addActivitybtn];
-    _addActivitybtn.frame = CGRectMake(10, 70 - 35, 80, 28);
+    _addActivitybtn.frame = CGRectMake(10, kNaviBarHeight - 35, 80, 28);
     _addActivitybtn.layer.borderColor = [UIColor mainColor].CGColor;
     _addActivitybtn.layer.borderWidth = 0.5;
     _addActivitybtn.layer.cornerRadius = 4.0;
     _addActivitybtn.layer.masksToBounds = YES;
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 70, self.frame.size.width, self.frame.size.height - 70)style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNaviBarHeight, self.frame.size.width, self.frame.size.height - kNaviBarHeight)style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self addSubview:_tableView];
@@ -111,9 +111,10 @@ UITableViewDataSource
 - (void)updateTeacherListWithListType:(NSInteger)listType{
     
     self.teacherListType = listType;
-    self.addActivitybtn.hidden = (self.teacherListType == 0) ? YES : NO;
     self.currentIndexPath = nil;
     [self requestTeachers];
+    
+    self.addActivitybtn.hidden = (self.teacherListType == 0) ? YES : NO;
 }
 
 #pragma mark -

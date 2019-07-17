@@ -24,7 +24,6 @@
         _finished = finished;
         _teacherId = teacherId;
     }
-    
     return self;
 }
 

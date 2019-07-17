@@ -20,8 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) BOOL isChecking;
 @property (nonatomic,copy) NSString *audioUrl;
 
-
 @property (nonatomic,strong) Homework *homework;
+
+@property (nonatomic, strong) Teacher *teacher; // （管理端）
 
 @property (nonatomic, strong) AVIMConversation *conversation;
 

@@ -35,8 +35,10 @@ NSString * const MISecondReaTimeTaskTableViewCellId = @"MISecondReaTimeTaskTable
     [self.IcomImagV sd_setImageWithURL:[icon imageURLWithWidth:32] placeholderImage:[UIImage imageNamed:@"attachment_placeholder"]];
     if (state) {
         self.backgroundColor = [UIColor mainColor];
+        self.titleLabel.textColor = [UIColor whiteColor];
     } else {
         self.backgroundColor = [UIColor whiteColor];
+        self.titleLabel.textColor = [UIColor detailColor];
     }
 }
 @end

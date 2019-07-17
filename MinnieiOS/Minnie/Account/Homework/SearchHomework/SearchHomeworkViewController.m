@@ -15,7 +15,7 @@
 #import "HomeworkTableViewCell.h"
 #import "TIP.h"
 #import "ClassAndStudentSelectorController.h"
-#import "CreateHomeworkViewController.h"
+//#import "CreateHomeworkViewController.h"
 #import "HomeworkPreviewViewController.h"
 #import "EqualSpaceFlowLayout.h"
 
@@ -337,9 +337,9 @@
     }];
     [cell setBlankCallback:^{
        
-        CreateHomeworkViewController *createHomeworkVC = [[CreateHomeworkViewController alloc] initWithNibName:@"CreateHomeworkViewController" bundle:nil];
-        createHomeworkVC.homework = homework;
-        [self.navigationController pushViewController:createHomeworkVC animated:YES];
+//        CreateHomeworkViewController *createHomeworkVC = [[CreateHomeworkViewController alloc] initWithNibName:@"CreateHomeworkViewController" bundle:nil];
+//        createHomeworkVC.homework = homework;
+//        [self.navigationController pushViewController:createHomeworkVC animated:YES];
     }];
     
     return cell;
@@ -357,11 +357,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     
-    Homework *homework = self.homeworks[indexPath.row];
-    
-    CreateHomeworkViewController *createHomeworkVC = [[CreateHomeworkViewController alloc] initWithNibName:@"CreateHomeworkViewController" bundle:nil];
-    createHomeworkVC.homework = homework;
-    [self.navigationController pushViewController:createHomeworkVC animated:YES];
+//    Homework *homework = self.homeworks[indexPath.row];
+//    CreateHomeworkViewController *createHomeworkVC = [[CreateHomeworkViewController alloc] initWithNibName:@"CreateHomeworkViewController" bundle:nil];
+//    createHomeworkVC.homework = homework;
+//    [self.navigationController pushViewController:createHomeworkVC animated:YES];
     
 }
 

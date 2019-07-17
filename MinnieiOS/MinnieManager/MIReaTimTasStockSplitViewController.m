@@ -33,12 +33,28 @@
     
     WeakifySelf;
     _stockMasterVC.pushVCCallBack = ^(UIViewController *vc) {
-        [weakSelf.stockDetailVC.navigationController popViewControllerAnimated:YES];
+        [weakSelf.stockDetailVC.navigationController popToRootViewControllerAnimated:YES];
         [weakSelf.stockDetailVC.navigationController pushViewController:vc animated:YES];
+    };
+    _stockMasterVC.exchangeCallBack = ^{
+        [weakSelf.stockDetailVC.navigationController popToRootViewControllerAnimated:YES];
     };
     
     self.viewControllers = @[masterNav, detailNav];
     self.view.backgroundColor = [UIColor emptyBgColor];
+}
+
+- (void)updateHomeworkSessionWithTeacher:(Teacher *_Nullable)teacher{
+    
+    if (teacher == nil) {
+       
+        self.stockMasterVC.view.hidden = YES;
+    } else {
+     
+        self.stockMasterVC.view.hidden = NO;
+        [self.stockMasterVC updateHomeworkSessionWithTeacher:teacher];
+    }
+    [self.stockDetailVC.navigationController popToRootViewControllerAnimated:YES];
 }
 
 

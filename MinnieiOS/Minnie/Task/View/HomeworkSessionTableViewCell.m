@@ -36,6 +36,7 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
 @property (weak, nonatomic) IBOutlet UILabel *diffcultLabel;       //难度
 @property (weak, nonatomic) IBOutlet UIImageView *cornerBgView;    //角标
 @property (weak, nonatomic) IBOutlet UILabel *unfinishTipLabel;    //距离提交或者距离过期
+@property (weak, nonatomic) IBOutlet UIView *rightLineView;
 
 @end
 
@@ -58,6 +59,20 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
     
     self.homeworkTitleLabel.preferredMaxLayoutWidth = ScreenWidth - 4 * 12.f - 56.f;
     self.lastSessionLabel.preferredMaxLayoutWidth = ScreenWidth - 4 * 12.f - 56.f;
+}
+
+
+- (void)setupSelectState:(BOOL)select{
+    
+    if (select) {
+        self.rightLineView.hidden = NO;
+        self.backgroundColor = [UIColor selectedColor];
+        self.containerView.backgroundColor = [UIColor selectedColor];
+    } else {
+        self.rightLineView.hidden = YES;
+        self.backgroundColor = [UIColor unSelectedColor];
+        self.containerView.backgroundColor = [UIColor whiteColor];
+    }
 }
 
 - (void)setLeftCommitHomeworkUI:(HomeworkSession *)homeworkSession
@@ -180,7 +195,8 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
     
     HomeworkItem *item = homeworkSession.homework.items[0];
     
-#if TEACHERSIDE
+    [self setupSelectState:NO];
+#if TEACHERSIDE | MAMAGERSIDE
     self.nameLabel.text = homeworkSession.student.nickname;
     
     if ([self.reuseIdentifier isEqualToString:@"UnfinishedStudentHomeworkSessionTableViewCellId"])
