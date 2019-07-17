@@ -7,7 +7,6 @@
 //
 
 #import "Result.h"
-#import "UIView+Load.h"
 #import "PinyinHelper.h"
 #import "TeacherService.h"
 #import "MISecondTeachersView.h"

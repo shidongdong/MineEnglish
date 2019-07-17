@@ -52,10 +52,6 @@
              };
 }
 
-+ (NSValueTransformer *)createTeacherJSONTransformer {
-    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[Clazz class]];
-}
-
 @end
 
 

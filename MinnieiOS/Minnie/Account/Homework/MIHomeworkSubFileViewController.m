@@ -6,7 +6,7 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
-#import "UIView+Load.h"
+
 #import "MIAddTypeTableViewCell.h"
 #import "MIHomeworkTaskListViewController.h"
 #import "MIHomeworkSubFileViewController.h"

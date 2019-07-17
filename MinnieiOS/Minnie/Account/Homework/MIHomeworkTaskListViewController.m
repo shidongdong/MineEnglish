@@ -17,7 +17,6 @@
 
 #import "TIP.h"
 #import <AVKit/AVKit.h>
-#import "UIView+Load.h"
 #import "VICacheManager.h"
 #import "NEPhotoBrowser.h"
 #import "UIScrollView+Refresh.h"

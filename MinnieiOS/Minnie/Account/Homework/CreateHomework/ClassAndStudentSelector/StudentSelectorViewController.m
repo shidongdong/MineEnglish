@@ -9,7 +9,6 @@
 #import "StudentSelectorViewController.h"
 #import "StudentSelectorTableViewCell.h"
 #import "StudentService.h"
-#import "UIView+Load.h"
 #import "PinYin4Objc.h"
 @interface StudentSelectorViewController ()<UITableViewDataSource, UITableViewDelegate>
 

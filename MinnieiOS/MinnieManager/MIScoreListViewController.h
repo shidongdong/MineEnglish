@@ -20,6 +20,8 @@ typedef void(^MIScoreListCancelCallBack)(void);
 
 @property (nonatomic, assign) BOOL teacherSider;
 
+@property (nonatomic, assign) BOOL hiddenEditTask;
+
 @property (nonatomic, copy) MIScoreEditTaskCallBack editTaskCallBack;
 @property (nonatomic, copy) MIScoreListCancelCallBack cancelCallBack;
 

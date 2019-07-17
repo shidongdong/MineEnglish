@@ -10,7 +10,6 @@
 #import "StudentCollectionViewCell.h"
 #import "ClassService.h"
 #import "StudentService.h"
-#import "UIView+Load.h"
 #import "Clazz.h"
 #import "AddStudentView.h"
 #import <SDWebImage/UIImageView+WebCache.h>

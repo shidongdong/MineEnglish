@@ -12,7 +12,6 @@
 #import "Award.h"
 #import "ExchangeAwardView.h"
 #import "StudentAwardService.h"
-#import "UIView+Load.h"
 #import "UIScrollView+Refresh.h"
 #import "PushManager.h"
 #import "StudentStarListViewController.h"

@@ -10,7 +10,6 @@
 #import "TagCollectionViewCell.h"
 #import "TagService.h"
 #import "HomeworkSessionService.h"
-#import "UIView+Load.h"
 #import "Utils.h"
 #import "Constants.h"
 #import "Application.h"

@@ -8,7 +8,6 @@
 #import "Result.h"
 #import "IMManager.h"
 #import "ScoreInfo.h"
-#import "UIView+Load.h"
 #import "ManagerServce.h"
 #import "HomeworkSessionService.h"
 #import "HomeworkSessionService.h"
@@ -27,6 +26,8 @@ UITableViewDataSource
 >
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *moveButton;
+@property (weak, nonatomic) IBOutlet UIButton *editButton;
 
 @property (strong, nonatomic) NSMutableArray *scoreListArray;
 
@@ -61,6 +62,11 @@ UITableViewDataSource
     footrView.backgroundColor = [UIColor clearColor];
     _tableView.tableFooterView = footrView;
     _tableView.cellLayoutMarginsFollowReadableWidth = NO;
+    
+    if (self.hiddenEditTask) {
+        self.moveButton.hidden = YES;
+        self.editButton.hidden = YES;
+    }
 }
 
 - (IBAction)backAction:(id)sender {
@@ -154,6 +160,7 @@ UITableViewDataSource
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     ScoreInfo *scoreInfo = self.scoreListArray[indexPath.row];
 
 #if MANAGERSIDE

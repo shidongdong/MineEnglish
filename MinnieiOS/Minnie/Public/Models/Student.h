@@ -55,7 +55,7 @@
 //作业标题
 @property (nonatomic, copy) NSString *title;
 //创建教师
-@property (nonatomic, strong) User *createTeacher;
+@property (nonatomic, copy) NSString *createTeacher;
 //教师评语
 @property (nonatomic, copy) NSString *content;
 

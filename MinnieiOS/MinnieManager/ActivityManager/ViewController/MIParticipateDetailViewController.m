@@ -10,7 +10,6 @@
 #import "Result.h"
 #import "TIP.h"
 #import <AVKit/AVKit.h>
-#import "UIView+Load.h"
 #import "NEPhotoBrowser.h"
 #import "VICacheManager.h"
 #import "UIScrollView+Refresh.h"

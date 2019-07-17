@@ -6,7 +6,6 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
-#import "UIView+Load.h"
 #import "StudentAwardService.h"
 #import "UIScrollView+Refresh.h"
 #import "StudentStarRecordViewController.h"

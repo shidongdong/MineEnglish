@@ -9,7 +9,6 @@
 #import "CommentMessagesViewController.h"
 #import "CommentMessageTableViewCell.h"
 #import "MessageService.h"
-#import "UIView+Load.h"
 #import "UIColor+HEX.h"
 #import "UIScrollView+Refresh.h"
 #import "CircleHomeworkViewController.h"

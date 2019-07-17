@@ -8,7 +8,6 @@
 
 #import "StudentDetailViewController.h"
 #import "Utils.h"
-#import "UIView+Load.h"
 #import "Student.h"
 #import "PublicService.h"
 #import "StudentDetailCell.h"

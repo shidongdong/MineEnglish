@@ -7,7 +7,6 @@
 //
 
 #import "StarRank.h"
-#import "UIView+Load.h"
 #import "StudentAwardService.h"
 #import "StudentStarListViewController.h"
 #import "StudentStarListTableViewCell.h"

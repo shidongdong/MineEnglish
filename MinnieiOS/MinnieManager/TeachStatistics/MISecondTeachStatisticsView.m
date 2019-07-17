@@ -9,7 +9,6 @@
 #import "MISecondTeachStatisticsView.h"
 
 #import "Result.h"
-#import "UIView+Load.h"
 #import "PinyinHelper.h"
 #import "StudentService.h"
 #import "SegmentControl.h"

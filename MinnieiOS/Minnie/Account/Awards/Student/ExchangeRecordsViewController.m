@@ -9,7 +9,6 @@
 #import "ExchangeRecordsViewController.h"
 #import "ExchangeRecordTableViewCell.h"
 #import "StudentAwardService.h"
-#import "UIView+Load.h"
 #import "Constants.h"
 
 @interface ExchangeRecordsViewController ()<UITableViewDataSource, UITableViewDelegate>

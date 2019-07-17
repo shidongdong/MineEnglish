@@ -12,7 +12,6 @@
 #import "Award.h"
 #import "ExchangeAwardView.h"
 #import "TeacherAwardService.h"
-#import "UIView+Load.h"
 #import "UIScrollView+Refresh.h"
 #import "ProgressHUD.h"
 

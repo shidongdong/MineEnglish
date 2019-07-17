@@ -9,7 +9,6 @@
 #import "TeachersViewController.h"
 #import "TeacherService.h"
 #import "TeacherTableViewCell.h"
-#import "UIView+Load.h"
 #import "TeachersTableHeaderView.h"
 #import "TeacherEditViewController.h"
 

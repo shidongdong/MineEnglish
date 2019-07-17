@@ -7,7 +7,6 @@
 //
 
 #import "Result.h"
-#import "UIView+Load.h"
 #import "ManagerServce.h"
 
 #import "MISutActDetailTableViewCell.h"

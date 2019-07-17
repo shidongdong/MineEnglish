@@ -14,7 +14,6 @@
 #import "Utils.h"
 #import "Constants.h"
 #import "ClassService.h"
-#import "UIView+Load.h"
 
 @interface CalendarViewController ()<UITableViewDataSource, UITableViewDelegate>
 

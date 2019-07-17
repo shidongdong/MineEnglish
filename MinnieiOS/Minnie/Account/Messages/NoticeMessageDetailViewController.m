@@ -11,7 +11,6 @@
 #import "NoticeMessageTextItemTableViewCell.h"
 #import "NoticeMessageImageItemTableViewCell.h"
 #import "MessageService.h"
-#import "UIView+Load.h"
 
 @interface NoticeMessageDetailViewController ()<UITableViewDataSource, UITableViewDelegate>
 

@@ -55,6 +55,7 @@
         if ([self.navigationController.viewControllers.lastObject isKindOfClass:[MIZeroMessagesViewController class]]) {
             return;
         }
+        [self.zeroMessagesVC updateZeroMessages];
         [self.navigationController pushViewController:self.zeroMessagesVC animated:NO];
     }
 }

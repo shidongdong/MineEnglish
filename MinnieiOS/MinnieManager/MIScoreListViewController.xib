@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MIScoreListViewController">
             <connections>
+                <outlet property="editButton" destination="sSj-O2-A3C" id="6gh-p7-0zR"/>
+                <outlet property="moveButton" destination="Mc5-3d-jKQ" id="neO-9C-C8y"/>
                 <outlet property="tableView" destination="vuT-0w-Gnf" id="Qrj-pw-P0f"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

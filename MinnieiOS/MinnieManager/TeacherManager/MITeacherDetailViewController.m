@@ -229,10 +229,7 @@ UITableViewDataSource
     if (indexPath.section == 3) {
        
         MIScoreListViewController *scoreListVC = [[MIScoreListViewController alloc] initWithNibName:NSStringFromClass([MIScoreListViewController class]) bundle:nil];
-        scoreListVC.editTaskCallBack = ^{
-        };
-        scoreListVC.cancelCallBack = ^{
-        };
+        scoreListVC.hiddenEditTask = YES;
         if (self.pushCallBack) {
             self.pushCallBack(scoreListVC);
         }

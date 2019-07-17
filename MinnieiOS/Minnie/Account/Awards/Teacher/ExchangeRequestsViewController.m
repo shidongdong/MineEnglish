@@ -9,7 +9,6 @@
 #import "ExchangeRequestsViewController.h"
 #import "ExchangeRequestTableViewCell.h"
 #import "TeacherAwardService.h"
-#import "UIView+Load.h"
 #import "Constants.h"
 #import "TIP.h"
 #import "UIScrollView+Refresh.h"

@@ -6,6 +6,8 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
+
+#import "StudentService.h"
 #import "MIZeroMessagesTableViewCell.h"
 #import "MIZeroMessagesViewController.h"
 
@@ -16,6 +18,7 @@ UITableViewDataSource
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property (strong, nonatomic) NSMutableArray *zeroMessagesArray;
 @end
 
 @implementation MIZeroMessagesViewController
@@ -24,16 +27,16 @@ UITableViewDataSource
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.tableView.tableFooterView = [UIView new];
+    self.zeroMessagesArray = [NSMutableArray array];
+    [self requestStudentZeroTask];
 }
 
 
 #pragma mark -   UITableViewDelegate,UITableViewDataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
+
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 10;
+    return self.zeroMessagesArray.count + 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -63,14 +66,59 @@ UITableViewDataSource
                  teacher:@"对象"
                    index:0];
     } else {
-        [cell setupImage:@""
-                    name:@"名字名字"
-               taskTitle:@"任务任务任务任务任务任务任务任务任务"
-                 comment:@"评语评语评语评语评语评语评语评语评语评语评语评语评语评语评语评语评语评语"
-                 teacher:@"对象对象"
+        
+        StudentZeroTask * zeroTaskData = self.zeroMessagesArray[indexPath.row - 1];
+        [cell setupImage:zeroTaskData.avatar
+                    name:zeroTaskData.nickName
+               taskTitle:zeroTaskData.title
+                 comment:zeroTaskData.content
+                 teacher:zeroTaskData.createTeacher
                    index:indexPath.row];
     }
     return cell;
+}
+
+- (void)updateZeroMessages{
+    
+    [self requestStudentZeroTask];
+}
+- (void)requestStudentZeroTask{
+    
+    if (self.zeroMessagesArray.count == 0) {
+        self.tableView.hidden = YES;
+        [self.view showLoadingView];
+    }
+    WeakifySelf;
+    [StudentService requestStudentZeroTaskCallback:^(Result *result, NSError *error) {
+        [weakSelf.view hideAllStateView];
+        if (error) {
+            if (weakSelf.zeroMessagesArray.count == 0) {
+              
+                [weakSelf.view showFailureViewWithRetryCallback:^{
+                    [weakSelf requestStudentZeroTask];
+                }];
+            }
+            return ;
+        } ;
+        
+        NSDictionary *dictionary = (NSDictionary *)(result.userInfo);
+        [self.zeroMessagesArray removeAllObjects];
+        [self.zeroMessagesArray addObjectsFromArray:dictionary[@"list"]];
+        if (weakSelf.zeroMessagesArray.count == 0) {
+            
+            [weakSelf.view showEmptyViewWithImage:nil
+                                            title:@"暂无零分动态"
+                                    centerYOffset:0 linkTitle:nil
+                                linkClickCallback:nil
+                                    retryCallback:^{
+                
+                                        [weakSelf requestStudentZeroTask];
+                                    }];
+        } else {
+            weakSelf.tableView.hidden = NO;
+            [weakSelf.tableView reloadData];
+        }
+    }];
 }
 
 @end

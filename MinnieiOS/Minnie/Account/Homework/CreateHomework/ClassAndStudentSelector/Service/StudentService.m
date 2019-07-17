@@ -74,6 +74,7 @@
 + (BaseRequest *)requestStudentZeroTaskCallback:(RequestCallback)callback{
    
     StudentZeroTaskRequest *request = [[StudentZeroTaskRequest alloc] init];
+    request.objectKey = @"list";
     request.objectClassName = @"StudentZeroTask";
     request.callback = callback;
     [request start];

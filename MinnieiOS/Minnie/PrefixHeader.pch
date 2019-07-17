@@ -55,6 +55,7 @@
 #import "Application.h"
 #import "Constants.h"
 #import "UIColor+HEX.h"
+#import "UIView+Load.h"
 #import "NSString+Qiniu.h"
 #import <Masonry/Masonry.h>
 #import <SDWebImage/UIImageView+WebCache.h>

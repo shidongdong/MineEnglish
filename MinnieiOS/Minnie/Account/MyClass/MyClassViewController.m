@@ -9,7 +9,6 @@
 #import "MyClassViewController.h"
 #import "StudentCollectionViewCell.h"
 #import "MyClassService.h"
-#import "UIView+Load.h"
 #import "Clazz.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "CircleHomeworksViewController.h"

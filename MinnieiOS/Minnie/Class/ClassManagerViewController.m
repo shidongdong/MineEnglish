@@ -18,7 +18,6 @@
 #import "DeleteClassTableViewCell.h"
 #import "FinishClassTableViewCell.h"
 #import "ClassService.h"
-#import "UIView+Load.h"
 #import "DeleteTeacherAlertView.h"
 #import "AuthService.h"
 @interface ClassManagerViewController ()<UITableViewDataSource, UITableViewDelegate> {

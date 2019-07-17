@@ -8,7 +8,6 @@
 
 #import "ClassSelectorViewController.h"
 #import "ClassService.h"
-#import "UIView+Load.h"
 #import "ClassSelectorTableViewCell.h"
 #import "UIScrollView+Refresh.h"
 #import "TIP.h"

@@ -23,7 +23,6 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <AVKit/AVKit.h>
 #import <Bugly/Bugly.h>
-#import "UIView+Load.h"
 #import "HomeworkSessionService.h"
 #import "NSDate+X5.h"
 #import "IMManager.h"

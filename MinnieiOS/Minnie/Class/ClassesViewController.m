@@ -13,7 +13,6 @@
 #import "Constants.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "ClassService.h"
-#import "UIView+Load.h"
 #import "UIScrollView+Refresh.h"
 #import "CircleHomeworksViewController.h"
 #import "TIP.h"

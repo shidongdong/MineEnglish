@@ -11,7 +11,6 @@
 #import "CircleCommentTableViewCell.h"
 #import "CircleMoreCommentsTableViewCell.h"
 #import "CircleBottomTableViewCell.h"
-#import "UIView+Load.h"
 #import "TIP.h"
 #import "Constants.h"
 #import "CircleHomework.h"

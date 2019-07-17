@@ -11,7 +11,6 @@
 #import "CircleVideoTableViewCell.h"
 #import "HomeworkDetailLikeUsersTableViewCell.h"
 #import "HomeworkDetailCommentTableViewCell.h"
-#import "UIView+Load.h"
 #import "WebViewController.h"
 #import "Constants.h"
 #import "CircleService.h"

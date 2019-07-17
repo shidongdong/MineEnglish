@@ -8,7 +8,6 @@
 
 #import "Result.h"
 #import "NSDate+Extension.h"
-#import "UIView+Load.h"
 #import "ManagerServce.h"
 #import "UIScrollView+Refresh.h"
 #import "MIStuActDetailHeaderView.h"
