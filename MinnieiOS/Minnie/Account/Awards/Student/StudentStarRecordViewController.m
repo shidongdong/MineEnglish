@@ -71,6 +71,8 @@ UITableViewDataSource>
     [self requestStarRecordList:NO];
 
 }
+
+#pragma mark - 礼物兑换
 - (void)requestStarRecordList:(BOOL)isRefresh
 {
 

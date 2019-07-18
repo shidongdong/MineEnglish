@@ -28,8 +28,11 @@ UITableViewDataSource
 @property (nonatomic,strong) NSMutableArray *students;
 @property (nonatomic,strong) NSMutableDictionary *studentDict;
 
+
+// 班级列表
 @property (nonatomic,strong) NSMutableArray *classes;
 @property (nonatomic,strong) NSMutableArray *classNames;
+//@property (nonatomic,strong) NSArray *sortedClassKeys;
 
 
 @property (nonatomic,strong) UIButton *addActivitybtn;
@@ -205,6 +208,7 @@ UITableViewDataSource
     [self.segmentControl setPersent:x / kColumnSecondWidth];
 }
 
+#pragma mark - 更新
 - (void)updateStudentList{
     
     self.currentIndexPath = nil;
@@ -279,8 +283,9 @@ UITableViewDataSource
     if (tableView == self.leftTableView) {
         
         return self.sortedKeys;
+    } else {
+        return nil;
     }
-    return nil;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 30.0;
@@ -445,16 +450,20 @@ UITableViewDataSource
     [outputFormat setVCharType:VCharTypeWithV];
     [outputFormat setCaseType:CaseTypeUppercase];
     [self.classNames removeAllObjects];
+    
     WeakifySelf;
+    NSMutableDictionary *keyDict = [NSMutableDictionary dictionary];
     [self.classes enumerateObjectsUsingBlock:^(StudentsByClass * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString *pinyin = [[PinyinHelper toHanyuPinyinStringWithNSString:obj.className withHanyuPinyinOutputFormat:outputFormat withNSString:@" "] uppercaseString];
         obj.pinyinName = pinyin;
         [weakSelf.classNames addObject:obj.className];
+        [keyDict setValue:obj.className forKey:[pinyin substringToIndex:1]];
     }];
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pinyinName" ascending:YES];
     NSArray *array = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
     [self.classes sortUsingDescriptors:array];
+    
     [self.rightTableView reloadData];
 }
 @end

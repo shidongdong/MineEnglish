@@ -56,3 +56,39 @@
 }
 
 @end
+
+
+
+
+@interface ExchangeAwardListRequest()
+
+@property (nonatomic, assign) NSUInteger state;
+
+@end
+
+@implementation ExchangeAwardListRequest
+
+- (instancetype)initWithState:(NSUInteger)state{
+    
+    self = [super init];
+    if (self != nil) {
+        self.state = state;
+    }
+    
+    return self;
+    
+}
+- (id)requestArgument {
+    return @{@"state":@(self.state)};
+}
+
+- (YTKRequestMethod)requestMethod{
+    
+    return YTKRequestMethodGET;
+}
+
+- (NSString *)requestUrl {
+    return [NSString stringWithFormat:@"%@/award/exchangeAwardList", ServerProjectName];
+}
+
+@end

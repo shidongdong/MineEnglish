@@ -40,4 +40,5 @@
                                    pageNum:(NSUInteger)pageNum
                                    logType:(NSString *)logType
                                   callback:(RequestCallback)callback;
+
 @end

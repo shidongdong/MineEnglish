@@ -82,5 +82,16 @@
     return request;
 }
 
+
++ (BaseRequest *)requestexchangeAwardByClassWithState:(NSInteger)state
+                                             callback:(RequestCallback)callback{
+    ExchangeAwardListRequest *request = [[ExchangeAwardListRequest alloc] initWithState:state];
+    request.objectKey = @"list";
+    request.objectClassName = @"ExchangeAwardListRecord";
+    [request setCallback:callback];
+    [request start];
+    return request;
+}
+
 @end
 

@@ -85,12 +85,18 @@ NS_ASSUME_NONNULL_BEGIN
                                     actId:(NSInteger)actId
                                  callback:(RequestCallback)callback;
 
+#pragma mark - 校区管理
 // 校区列表（ipad管理端）
 + (BaseRequest *)requestCampusCallback:(RequestCallback)callback;
 
 // 删除校区（ipad管理端）
 + (BaseRequest *)requestDeleteCampusWithCampusId:(NSInteger)campusId
                                   callback:(RequestCallback)callback;
+
+#pragma mark - 上下线管理
+// 上下线管理
++ (BaseRequest *)requestUpdateOnlineState:(BOOL)online
+                           callback:(RequestCallback)callback;
 @end
 
 

@@ -16,3 +16,12 @@
 - (instancetype)initWithNextUrl:(NSString *)nextUrl;
 
 @end
+
+
+
+@interface ExchangeAwardListRequest : BaseRequest
+
+- (instancetype)initWithState:(NSUInteger)state;
+
+@end
+

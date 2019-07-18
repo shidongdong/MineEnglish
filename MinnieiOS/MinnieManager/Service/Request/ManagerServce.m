@@ -207,5 +207,15 @@
     return request;
 }
 
+// 上下线管理 1：上线 0：下线
+
++ (BaseRequest *)requestUpdateOnlineState:(BOOL)online
+                                 callback:(RequestCallback)callback{
+    
+    OnlineStateRequest *request = [[OnlineStateRequest alloc] initWithOnline:online];
+    [request setCallback:callback];
+    [request start];
+    return request;
+}
 
 @end

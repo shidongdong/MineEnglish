@@ -594,3 +594,36 @@
 }
 
 @end
+
+
+#pragma mark - 上下线管理（ipad管理端）
+@interface OnlineStateRequest ()
+
+@property (nonatomic,assign) BOOL online;
+
+
+@end
+
+@implementation OnlineStateRequest
+
+- (instancetype)initWithOnline:(BOOL)online{
+    
+    self = [super init];
+    if (self != nil) {
+        self.online = online;
+    }
+    return self;
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+
+- (NSString *)requestUrl {
+    return [NSString stringWithFormat:@"%@/user/onoffline", ServerProjectName];
+}
+
+- (id)requestArgument {
+    return @{@"campusId":@(self.online)};
+}
+
+@end

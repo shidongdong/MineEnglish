@@ -13,5 +13,8 @@
 
 @property (nonatomic, assign) BOOL exchanged; // 是否已经兑换
 
+// 礼物管理 礼物列表（按班级）
+@property (nonatomic, assign) BOOL isAwardListByClass;
+
 @end
 

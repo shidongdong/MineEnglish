@@ -150,12 +150,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#pragma mark - 删除校区（ipad管理端
+#pragma mark - 删除校区（ipad管理端)
 @interface DeleteCampusRequest : BaseRequest
 
 - (instancetype)initWithCampusId:(NSInteger)campusId;
 
-
 @end
 
+#pragma mark - 上下线管理（ipad管理端）
+@interface OnlineStateRequest : BaseRequest
+
+- (instancetype)initWithOnline:(BOOL)online;
+
+@end
 NS_ASSUME_NONNULL_END

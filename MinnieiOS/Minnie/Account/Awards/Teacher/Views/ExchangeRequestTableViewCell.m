@@ -49,6 +49,7 @@ CGFloat const ExchangeRequestTableViewCellHeight = 144.f;
 }
 
 - (void)setupWithExchangeRequest:(ExchangeRecord *)record {
+    
     [self.avatarImageView sd_setImageWithURL:[record.user.avatarUrl imageURLWithWidth:36.f]];
     self.nicknameLabel.text = record.user.nickname;
     
@@ -61,6 +62,18 @@ CGFloat const ExchangeRequestTableViewCellHeight = 144.f;
     } else {
         self.exchangeButton.hidden = YES;
     }
+}
+
+- (void)setupWithExchangeByClassRequest:(ExchangeAwardInfo *)record {
+    
+    [self.avatarImageView sd_setImageWithURL:[record.avatar imageURLWithWidth:36.f]];
+    self.nicknameLabel.text = record.nickName;
+    
+    [self.awardImageView sd_setImageWithURL:[record.awardImageUrl imageURLWithWidth:56.f]];
+    self.awardNameLabel.text = record.awardName;
+    self.priceLabel.text = [NSString stringWithFormat:@"%@星", @(record.awardPrice)];
+    self.dateLabel.text = [Utils formatedDateString:record.exchangeTime];
+    self.exchangeButton.hidden = NO;
 }
 
 - (IBAction)exchangeButtonPressed:(id)sender {

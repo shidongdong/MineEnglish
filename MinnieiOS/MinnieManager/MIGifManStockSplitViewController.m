@@ -14,7 +14,6 @@
 @interface MIGifManStockSplitViewController ()
 
 @property (nonatomic, strong) TeacherAwardsViewController *stockMasterVC;
-//@property (nonatomic, strong) MIStockSecondViewController *stockDetailVC;
 @property (nonatomic, strong) ExchangeRequestsViewController *stockDetailVC;
 
 
@@ -32,7 +31,7 @@
     [masterNav setNavigationBarHidden:YES animated:NO];
     
     _stockDetailVC = [[ExchangeRequestsViewController alloc] initWithNibName:@"ExchangeRequestsViewController" bundle:nil];
-    [_stockDetailVC setExchanged:NO];
+    _stockDetailVC.isAwardListByClass = YES;
     UINavigationController *detailNav = [[UINavigationController alloc] initWithRootViewController:_stockDetailVC];
     [detailNav setNavigationBarHidden:YES animated:NO];
     

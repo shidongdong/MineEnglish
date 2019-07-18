@@ -27,3 +27,33 @@
 }
 
 @end
+
+@implementation ExchangeAwardInfo
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{@"awardId":@"awardId",
+             @"awardName":@"awardName",
+             @"awardImageUrl":@"awardImageUrl",
+             @"awardPrice":@"awardPrice",
+             @"exchangeTime":@"exchangeTime",
+             @"avatar":@"avatar",
+             @"userId":@"userId",
+             @"nickName":@"nickName",
+             };
+}
+
+@end
+
+@implementation ExchangeAwardListRecord
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{@"classId":@"classId",
+             @"className":@"className",
+             @"awardList":@"awardList",
+             };
+}
++ (NSValueTransformer *)awardListJSONTransformer {
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[ExchangeAwardInfo class]];
+}
+
+@end
