@@ -45,7 +45,6 @@ MICampusManagerViewControllerDelegate
 - (void)campusManagerViewControllerEditClazz:(Clazz *)clazz{
     
     [self.stockDetailVC.navigationController popViewControllerAnimated:YES];
-    
     self.classManagerVC.classId = clazz.classId;
     
     [self performSelector:@selector(pushClass)];

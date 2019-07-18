@@ -59,20 +59,5 @@
     NSLog(@"%s", __func__);
 }
 
-//- (IBAction)classManagerButtonPressed:(id)sender {
-//#if TEACHERSIDE
-//    if (!APP.currentUser.canManageClasses) {
-//        [HUD showErrorWithMessage:@"无操作权限"];
-//
-//        return;
-//    }
-//
-//    ClassManagerViewController *vc = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
-//    vc.classId = self.clazz.classId;
-//    [self.navigationController pushViewController:vc animated:YES];
-//
-//#endif
-//}
-
 @end
 

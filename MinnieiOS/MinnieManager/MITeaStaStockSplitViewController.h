@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateStudent:(User * _Nullable)student;
 
+- (void)hiddenZeroMessages;
 @end
 
 NS_ASSUME_NONNULL_END

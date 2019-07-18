@@ -46,20 +46,21 @@
         self.stockMasterVC.view.hidden = NO;
         self.stockDetailVC.view.hidden = NO;
         [self.stockDetailVC updateStudentRecord];
-        [self.navigationController popToRootViewControllerAnimated:NO];
         [self.stockMasterVC updateStudent:student];
+        [self hiddenZeroMessages];
     } else {
      
         self.stockMasterVC.view.hidden = YES;
         self.stockDetailVC.view.hidden = YES;
-        if ([self.navigationController.viewControllers.lastObject isKindOfClass:[MIZeroMessagesViewController class]]) {
-            return;
-        }
+        self.zeroMessagesVC.view.hidden = NO;
         [self.zeroMessagesVC updateZeroMessages];
-        [self.navigationController pushViewController:self.zeroMessagesVC animated:NO];
+        [self.navigationController pushViewController:self.zeroMessagesVC animated:YES];
     }
 }
 
+- (void)hiddenZeroMessages{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 - (MIZeroMessagesViewController *)zeroMessagesVC{
     
     if (!_zeroMessagesVC) {

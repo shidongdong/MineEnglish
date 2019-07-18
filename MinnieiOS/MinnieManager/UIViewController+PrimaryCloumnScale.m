@@ -29,7 +29,13 @@
         if (detailVC.primaryCloumnScale != offset) {
            
             detailVC.primaryCloumnScale = offset;
-            [detailVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
+            if (offset == kRootModularWidth) {
+                
+                [detailVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:NO];
+            } else {
+                
+                [detailVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
+            }
         }
     }
     

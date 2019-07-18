@@ -842,6 +842,7 @@
 		12FEA39622E040C2008503B2 /* AppDelegate+ConfigureUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FEA39522E040C2008503B2 /* AppDelegate+ConfigureUI.m */; };
 		12FEA39722E040C2008503B2 /* AppDelegate+ConfigureUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FEA39522E040C2008503B2 /* AppDelegate+ConfigureUI.m */; };
 		12FEA39822E040C2008503B2 /* AppDelegate+ConfigureUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FEA39522E040C2008503B2 /* AppDelegate+ConfigureUI.m */; };
+		12FEA39922E05E5A008503B2 /* DateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109BC2207A1D5000568785 /* DateButton.m */; };
 		1923CB12228117E20056B2AD /* EditStudentMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1923CB11228117E20056B2AD /* EditStudentMarkView.m */; };
 		1923CB14228118030056B2AD /* EditStudentMarkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1923CB13228118030056B2AD /* EditStudentMarkView.xib */; };
 		1923CB1522812CF00056B2AD /* EditStudentMarkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1923CB13228118030056B2AD /* EditStudentMarkView.xib */; };
@@ -8231,6 +8232,7 @@
 				12ED3B20229D107600255F8B /* MITaskEmptyView.m in Sources */,
 				123042EC22A1160F00E111A4 /* MIParticipateDetailViewController.m in Sources */,
 				122F799622AD3D5D00D2AA53 /* MISutActDetailTableViewCell.m in Sources */,
+				12FEA39922E05E5A008503B2 /* DateButton.m in Sources */,
 				12961CD5229FD6D40075B04A /* SearchHomeworkTypeRequest.m in Sources */,
 				12A2723C22A74DF10020A3BA /* MITagsViewController.m in Sources */,
 				12B7B96A22D88C0A0057C798 /* StudentsTableViewCell.m in Sources */,

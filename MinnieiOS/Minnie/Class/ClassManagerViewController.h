@@ -20,4 +20,5 @@ typedef void (^ClassManagerSuccessCallBack) (void);
 @property (nonatomic, copy) ClassManagerCancelCallBack cancelCallBack;
 @property (nonatomic, copy) ClassManagerSuccessCallBack successCallBack;
 
+
 @end

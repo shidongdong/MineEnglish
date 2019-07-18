@@ -78,6 +78,7 @@
     
     ClassManagerViewController *vc = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController"
                                                                                 bundle:nil];
+    vc.classId = 0;
     [vc setHidesBottomBarWhenPushed:YES];
     
     [self.navigationController pushViewController:vc animated:YES];

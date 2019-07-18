@@ -44,8 +44,6 @@
     
     [self registerCellNibs];
     
-    [self requestTeachers];
-    
     if (self.classId > 0) {
         self.rightButton.hidden = YES;
         [self.rightButton setTitle:@"保存" forState:UIControlStateNormal];
@@ -85,20 +83,25 @@
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    if (self.classId > 0 && !self.detailRequested) {
-        [self requestClassDetail];
-    }
-}
-
 - (Clazz *)clazz {
     if (_clazz == nil) {
         _clazz = [[Clazz alloc] init];
     }
     
     return _clazz;
+}
+
+- (void)setClassId:(NSInteger)classId {
+    
+    _classId  = classId;
+    if (self.classId > 0) {
+        [self requestClassDetail];
+        [self requestTeachers];
+    } else {
+        self.teachers = nil;
+        self.clazz = nil;
+        [self.classTableView reloadData];
+    }
 }
 
 - (void)registerCellNibs {
@@ -113,6 +116,7 @@
     [self.classTableView registerNib:[UINib nibWithNibName:@"FinishClassTableViewCell" bundle:nil] forCellReuseIdentifier:FinishClassTableViewCellId];
 }
 
+#pragma mark - 获取班级详情
 - (void)requestClassDetail {
     self.classTableView.hidden = YES;
     [self.classTableView.superview showLoadingView];
@@ -143,6 +147,7 @@
     }];
 }
 
+// 获取老师详情
 - (void)requestTeachers {
     [TeacherService requestTeachersWithCallback:^(Result *result, NSError *error) {
         if (error != nil) {
