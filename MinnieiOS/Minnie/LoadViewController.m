@@ -13,6 +13,7 @@
 #import "PublicService.h"
 #import "LoadViewController.h"
 #import "LoginViewController.h"
+#import "AppDelegate+ConfigureUI.h"
 #import "PortraitNavigationController.h"
 #import <UserNotifications/UserNotifications.h>
 

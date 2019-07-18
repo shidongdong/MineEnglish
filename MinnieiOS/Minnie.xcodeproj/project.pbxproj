@@ -839,6 +839,9 @@
 		12FD85EB22C0B2620026B7E2 /* 对话框_白色@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710964C207A006D00568785 /* 对话框_白色@3x.png */; };
 		12FD85EC22C0B26C0026B7E2 /* 对话框_蓝色@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109594207A006C00568785 /* 对话框_蓝色@2x.png */; };
 		12FD85ED22C0B26F0026B7E2 /* 对话框_蓝色@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109569207A006C00568785 /* 对话框_蓝色@3x.png */; };
+		12FEA39622E040C2008503B2 /* AppDelegate+ConfigureUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FEA39522E040C2008503B2 /* AppDelegate+ConfigureUI.m */; };
+		12FEA39722E040C2008503B2 /* AppDelegate+ConfigureUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FEA39522E040C2008503B2 /* AppDelegate+ConfigureUI.m */; };
+		12FEA39822E040C2008503B2 /* AppDelegate+ConfigureUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FEA39522E040C2008503B2 /* AppDelegate+ConfigureUI.m */; };
 		1923CB12228117E20056B2AD /* EditStudentMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1923CB11228117E20056B2AD /* EditStudentMarkView.m */; };
 		1923CB14228118030056B2AD /* EditStudentMarkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1923CB13228118030056B2AD /* EditStudentMarkView.xib */; };
 		1923CB1522812CF00056B2AD /* EditStudentMarkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1923CB13228118030056B2AD /* EditStudentMarkView.xib */; };
@@ -2441,6 +2444,8 @@
 		12FD85D722C05C900026B7E2 /* WordInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WordInfo.h; path = MinnieManager/Service/WordInfo.h; sourceTree = SOURCE_ROOT; };
 		12FD85E422C070010026B7E2 /* UIViewController+PrimaryCloumnScale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+PrimaryCloumnScale.h"; sourceTree = "<group>"; };
 		12FD85E522C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+PrimaryCloumnScale.m"; sourceTree = "<group>"; };
+		12FEA39422E040C2008503B2 /* AppDelegate+ConfigureUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+ConfigureUI.h"; sourceTree = "<group>"; };
+		12FEA39522E040C2008503B2 /* AppDelegate+ConfigureUI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+ConfigureUI.m"; sourceTree = "<group>"; };
 		1923CB10228117E20056B2AD /* EditStudentMarkView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditStudentMarkView.h; sourceTree = "<group>"; };
 		1923CB11228117E20056B2AD /* EditStudentMarkView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditStudentMarkView.m; sourceTree = "<group>"; };
 		1923CB13228118030056B2AD /* EditStudentMarkView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditStudentMarkView.xib; sourceTree = "<group>"; };
@@ -4248,6 +4253,8 @@
 				97109A74207A15CC00568785 /* PrefixHeader.pch */,
 				97108E002079F54900568785 /* AppDelegate.h */,
 				97108E012079F54900568785 /* AppDelegate.m */,
+				12FEA39422E040C2008503B2 /* AppDelegate+ConfigureUI.h */,
+				12FEA39522E040C2008503B2 /* AppDelegate+ConfigureUI.m */,
 				97109DD6207A305900568785 /* LoadViewController.h */,
 				97109DD5207A305900568785 /* LoadViewController.m */,
 				872C742A21BE91A10027F47C /* GuideViewController.h */,
@@ -7965,6 +7972,7 @@
 				12961CD6229FD6DC0075B04A /* SearchHomeworkNameRequest.m in Sources */,
 				12ED3B0F229C2E5E00255F8B /* MIStockSplitViewController.m in Sources */,
 				12961CB1229ECCB50075B04A /* MIExpandSelectTypeTableViewCell.m in Sources */,
+				12FEA39822E040C2008503B2 /* AppDelegate+ConfigureUI.m in Sources */,
 				12B7B95A22D88B5E0057C798 /* FinishClassTableViewCell.m in Sources */,
 				12B7B95E22D88B950057C798 /* ClassScheduleAndStudentsTableViewCell.m in Sources */,
 				12ED3B12229C34B000255F8B /* SettingTableViewCell.m in Sources */,
@@ -8332,6 +8340,7 @@
 				97364A1320B16BFD00511A95 /* NetworkStateErrorView.m in Sources */,
 				1229814322C5B3E800C09750 /* ClassSelectorTableViewCell.m in Sources */,
 				12FD85E622C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m in Sources */,
+				12FEA39622E040C2008503B2 /* AppDelegate+ConfigureUI.m in Sources */,
 				97109A5E207A158C00568785 /* TextMessageTableViewCell.m in Sources */,
 				871806BE21DF438C0023511C /* MUAssetsViewController.m in Sources */,
 				1229814F22C5B51B00C09750 /* DeleteHomeworksRequest.m in Sources */,
@@ -8588,6 +8597,7 @@
 				122C16A522A97AEF00084AC7 /* MICreateWordView.m in Sources */,
 				122C16A622A97AEF00084AC7 /* MICreateWordView.xib in Sources */,
 				12FD85D922C05C900026B7E2 /* ActivityInfo.m in Sources */,
+				12FEA39722E040C2008503B2 /* AppDelegate+ConfigureUI.m in Sources */,
 				12A2724822A761230020A3BA /* MITagsTableViewCell.m in Sources */,
 				12A2724922A761230020A3BA /* MITagsTableViewCell.xib in Sources */,
 				12A2723E22A754840020A3BA /* MITagsViewController.m in Sources */,

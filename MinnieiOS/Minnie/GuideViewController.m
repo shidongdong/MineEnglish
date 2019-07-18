@@ -8,7 +8,7 @@
 
 #import "GuideViewController.h"
 #import "Masonry.h"
-#import "AppDelegate.h"
+#import "AppDelegate+ConfigureUI.h"
 #import "LoginViewController.h"
 #import "PortraitNavigationController.h"
 #import "PublicService.h"

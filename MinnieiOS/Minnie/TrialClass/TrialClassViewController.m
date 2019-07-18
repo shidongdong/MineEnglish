@@ -11,7 +11,7 @@
 #import "TrialClassService.h"
 #import "AlertView.h"
 #import "PushManager.h"
-#import "LoadViewController.h"
+//#import "LoadViewController.h"
 #import "AuthService.h"
 #import "LoginViewController.h"
 #import "IMManager.h"
