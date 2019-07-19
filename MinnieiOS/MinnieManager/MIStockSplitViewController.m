@@ -7,12 +7,12 @@
 //
 
 #import "MIStockSplitViewController.h"
-#import "MIMasterViewController.h"
-#import "MIStockSecondViewController.h"
+#import "MIStockMasterViewController.h"
+#import "MIStockDetailViewController.h"
 
 @interface MIStockSplitViewController ()
-@property (nonatomic, strong) MIMasterViewController *stockMasterVC;
-@property (nonatomic, strong) MIStockSecondViewController *stockDetailVC;
+@property (nonatomic, strong) MIStockMasterViewController *stockMasterVC;
+@property (nonatomic, strong) MIStockDetailViewController *stockDetailVC;
 
 @end
 
@@ -22,10 +22,10 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    _stockMasterVC = [[MIMasterViewController alloc] init];
+    _stockMasterVC = [[MIStockMasterViewController alloc] init];
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:_stockMasterVC];
     
-    _stockDetailVC = [[MIStockSecondViewController alloc] init];
+    _stockDetailVC = [[MIStockDetailViewController alloc] init];
     UINavigationController *detailNav = [[UINavigationController alloc] initWithRootViewController:_stockDetailVC];
     _stockMasterVC.secondDetailVC = _stockDetailVC;
     

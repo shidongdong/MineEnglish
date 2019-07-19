@@ -1,19 +1,20 @@
 //
-//  CSStockDetailViewController.m
-//  CSCustomSplitViewController_Demo
+//  MIStockDetailViewController.m
+//  MinnieManager
 //
-//  Created by Huang Chusheng on 16/11/22.
-//  Copyright © 2016年 Aaron. All rights reserved.
+//  Created by songzhen on 2019/7/19.
+//  Copyright © 2019 minnieedu. All rights reserved.
 //
 
-#import "MIStockSecondViewController.h"
-@interface MIStockSecondViewController ()
+#import "MIStockDetailViewController.h"
+
+@interface MIStockDetailViewController ()
 
 @end
 
-@implementation MIStockSecondViewController
+@implementation MIStockDetailViewController
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
@@ -32,7 +33,7 @@
         [vc willMoveToParentViewController:nil];
         [vc removeFromParentViewController];
     }
-        
+    
     [vc removeFromParentViewController];
     [self addChildViewController:vc];
     [self.view addSubview:vc.view];

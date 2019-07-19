@@ -59,11 +59,10 @@ UITableViewDataSource
     self.editBtn.layer.cornerRadius = 4.0;
     self.editBtn.layer.masksToBounds = YES;
     
-  
-    UIView *footrView = [[UIView alloc] init];
-    footrView.backgroundColor = [UIColor clearColor];
-    _tableView.tableFooterView = footrView;
+    _tableView.tableFooterView = [UIView new];
     _tableView.cellLayoutMarginsFollowReadableWidth = NO;
+    self.rightLineView.hidden = YES;
+    self.view.backgroundColor = [UIColor emptyBgColor];
 }
 
 #pragma mark -

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MIStockSecondViewController : UIViewController
+@interface MIStockDetailViewController : UIViewController
 
 - (void)addSubViewController:(UIViewController *)vc;
 

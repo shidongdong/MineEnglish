@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		12014CD522C7C0160039278A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97108E0B2079F54B00568785 /* LaunchScreen.storyboard */; };
-		12014CDF22C90B930039278A /* MIStockSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12014CDC22C90B930039278A /* MIStockSecondViewController.m */; };
 		1226E7D3229572C100BAB1C9 /* DrawImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1226E7D2229572C100BAB1C9 /* DrawImageView.m */; };
 		1226E7D42295786100BAB1C9 /* DrawImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1226E7D2229572C100BAB1C9 /* DrawImageView.m */; };
 		1226F2F12297F37A00BAB1C9 /* MinnieManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1226F2F02297F37A00BAB1C9 /* MinnieManagerTests.m */; };
@@ -722,7 +721,7 @@
 		12ED3B02229C2E4D00255F8B /* MIRootSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12ED3AFC229C2E4C00255F8B /* MIRootSheetView.m */; };
 		12ED3B03229C2E4D00255F8B /* MISecondSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12ED3AFD229C2E4C00255F8B /* MISecondSheetView.m */; };
 		12ED3B04229C2E4D00255F8B /* MIHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12ED3B00229C2E4D00255F8B /* MIHeaderTableViewCell.xib */; };
-		12ED3B0E229C2E5E00255F8B /* MIMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12ED3B06229C2E5D00255F8B /* MIMasterViewController.m */; };
+		12ED3B0E229C2E5E00255F8B /* MIStockMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12ED3B06229C2E5D00255F8B /* MIStockMasterViewController.m */; };
 		12ED3B0F229C2E5E00255F8B /* MIStockSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12ED3B08229C2E5E00255F8B /* MIStockSplitViewController.m */; };
 		12ED3B10229C2E5E00255F8B /* CSCustomSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12ED3B0B229C2E5E00255F8B /* CSCustomSplitViewController.m */; };
 		12ED3B11229C332A00255F8B /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C9A207A2F0400568785 /* SettingsViewController.m */; };
@@ -836,6 +835,7 @@
 		12FEA39822E040C2008503B2 /* AppDelegate+ConfigureUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FEA39522E040C2008503B2 /* AppDelegate+ConfigureUI.m */; };
 		12FEA39922E05E5A008503B2 /* DateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109BC2207A1D5000568785 /* DateButton.m */; };
 		12FEA39F22E19D2F008503B2 /* MISecondStockSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FEA39E22E19D2F008503B2 /* MISecondStockSplitViewController.m */; };
+		12FEA3A322E1BA61008503B2 /* MIStockDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FEA3A122E1BA61008503B2 /* MIStockDetailViewController.m */; };
 		1923CB12228117E20056B2AD /* EditStudentMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1923CB11228117E20056B2AD /* EditStudentMarkView.m */; };
 		1923CB14228118030056B2AD /* EditStudentMarkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1923CB13228118030056B2AD /* EditStudentMarkView.xib */; };
 		1923CB1522812CF00056B2AD /* EditStudentMarkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1923CB13228118030056B2AD /* EditStudentMarkView.xib */; };
@@ -2212,8 +2212,7 @@
 
 /* Begin PBXFileReference section */
 		076775FF9B01C30860548086 /* Pods-Minnie-MinnieManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minnie-MinnieManager.release.xcconfig"; path = "Pods/Target Support Files/Pods-Minnie-MinnieManager/Pods-Minnie-MinnieManager.release.xcconfig"; sourceTree = "<group>"; };
-		12014CDB22C90B930039278A /* MIStockSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIStockSecondViewController.h; sourceTree = "<group>"; };
-		12014CDC22C90B930039278A /* MIStockSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIStockSecondViewController.m; sourceTree = "<group>"; };
+		12014CDB22C90B930039278A /* MIStockDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIStockDetailViewController.h; sourceTree = "<group>"; };
 		1226E7D1229572C100BAB1C9 /* DrawImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrawImageView.h; sourceTree = "<group>"; };
 		1226E7D2229572C100BAB1C9 /* DrawImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrawImageView.m; sourceTree = "<group>"; };
 		1226F2D52297F37900BAB1C9 /* MinnieManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MinnieManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2394,9 +2393,9 @@
 		12ED3AFE229C2E4D00255F8B /* MIRootSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIRootSheetView.h; sourceTree = "<group>"; };
 		12ED3AFF229C2E4D00255F8B /* MIHeaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIHeaderTableViewCell.h; sourceTree = "<group>"; };
 		12ED3B00229C2E4D00255F8B /* MIHeaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MIHeaderTableViewCell.xib; sourceTree = "<group>"; };
-		12ED3B06229C2E5D00255F8B /* MIMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIMasterViewController.m; sourceTree = "<group>"; };
+		12ED3B06229C2E5D00255F8B /* MIStockMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIStockMasterViewController.m; sourceTree = "<group>"; };
 		12ED3B08229C2E5E00255F8B /* MIStockSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIStockSplitViewController.m; sourceTree = "<group>"; };
-		12ED3B09229C2E5E00255F8B /* MIMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIMasterViewController.h; sourceTree = "<group>"; };
+		12ED3B09229C2E5E00255F8B /* MIStockMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIStockMasterViewController.h; sourceTree = "<group>"; };
 		12ED3B0A229C2E5E00255F8B /* MIStockSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIStockSplitViewController.h; sourceTree = "<group>"; };
 		12ED3B0B229C2E5E00255F8B /* CSCustomSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSCustomSplitViewController.m; sourceTree = "<group>"; };
 		12ED3B0C229C2E5E00255F8B /* CSCustomSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSCustomSplitViewController.h; sourceTree = "<group>"; };
@@ -2426,6 +2425,7 @@
 		12FEA39522E040C2008503B2 /* AppDelegate+ConfigureUI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+ConfigureUI.m"; sourceTree = "<group>"; };
 		12FEA39D22E19D2E008503B2 /* MISecondStockSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MISecondStockSplitViewController.h; sourceTree = "<group>"; };
 		12FEA39E22E19D2F008503B2 /* MISecondStockSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MISecondStockSplitViewController.m; sourceTree = "<group>"; };
+		12FEA3A122E1BA61008503B2 /* MIStockDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MIStockDetailViewController.m; sourceTree = "<group>"; };
 		1923CB10228117E20056B2AD /* EditStudentMarkView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditStudentMarkView.h; sourceTree = "<group>"; };
 		1923CB11228117E20056B2AD /* EditStudentMarkView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditStudentMarkView.m; sourceTree = "<group>"; };
 		1923CB13228118030056B2AD /* EditStudentMarkView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditStudentMarkView.xib; sourceTree = "<group>"; };
@@ -3620,10 +3620,10 @@
 				12ED3B08229C2E5E00255F8B /* MIStockSplitViewController.m */,
 				12FEA39D22E19D2E008503B2 /* MISecondStockSplitViewController.h */,
 				12FEA39E22E19D2F008503B2 /* MISecondStockSplitViewController.m */,
-				12ED3B09229C2E5E00255F8B /* MIMasterViewController.h */,
-				12ED3B06229C2E5D00255F8B /* MIMasterViewController.m */,
-				12014CDB22C90B930039278A /* MIStockSecondViewController.h */,
-				12014CDC22C90B930039278A /* MIStockSecondViewController.m */,
+				12ED3B09229C2E5E00255F8B /* MIStockMasterViewController.h */,
+				12ED3B06229C2E5D00255F8B /* MIStockMasterViewController.m */,
+				12014CDB22C90B930039278A /* MIStockDetailViewController.h */,
+				12FEA3A122E1BA61008503B2 /* MIStockDetailViewController.m */,
 				128F138F22D6C78500C9F5B7 /* TeachStatistics */,
 				128F138E22D6C6DE00C9F5B7 /* CampusManager */,
 				122A1EC622A232D6009358DE /* Service */,
@@ -8112,7 +8112,7 @@
 				1226F3242298326600BAB1C9 /* BaseViewController.m in Sources */,
 				1226F31F2298321D00BAB1C9 /* LoginRequest.m in Sources */,
 				12961C5B229E656B0075B04A /* HomeworkSession.m in Sources */,
-				12ED3B0E229C2E5E00255F8B /* MIMasterViewController.m in Sources */,
+				12ED3B0E229C2E5E00255F8B /* MIStockMasterViewController.m in Sources */,
 				12747BFF22A7CE78009C390E /* EditStudentMarkView.m in Sources */,
 				12747BDA22A7CCC4009C390E /* MessageTimeTableViewCell.m in Sources */,
 				12961CC1229FD4EC0075B04A /* TagsViewController.m in Sources */,
@@ -8139,7 +8139,6 @@
 				1226F3322298333F00BAB1C9 /* NSDate+X5.m in Sources */,
 				12961CCE229FD6920075B04A /* FormTagsRequest.m in Sources */,
 				1226F30C2297F67000BAB1C9 /* Utils.m in Sources */,
-				12014CDF22C90B930039278A /* MIStockSecondViewController.m in Sources */,
 				12961C55229E5ECB0075B04A /* AudioPlayerViewController.m in Sources */,
 				12961C5F229E65C30075B04A /* NEPhotoBrowser.m in Sources */,
 				12ED3B10229C2E5E00255F8B /* CSCustomSplitViewController.m in Sources */,
@@ -8150,6 +8149,7 @@
 				12EAC63522AD40A000F1F3DB /* MIStuActDetailHeaderView.m in Sources */,
 				12747C1122A7D02E009C390E /* AwardsRequest.m in Sources */,
 				1226F3112297FA7700BAB1C9 /* Teacher.m in Sources */,
+				12FEA3A322E1BA61008503B2 /* MIStockDetailViewController.m in Sources */,
 				128F136522D37D8700C9F5B7 /* ExchangeRequestsViewController.m in Sources */,
 				128F138422D5C19800C9F5B7 /* DeleteTeacherAlertView.m in Sources */,
 				12961C98229ECB060075B04A /* MISegmentTypeTableViewCell.m in Sources */,

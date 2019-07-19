@@ -7,7 +7,7 @@
 //
 
 #import "SettingsViewController.h"
-#import "MIStockSecondViewController.h"
+#import "MIStockDetailViewController.h"
 #import "MITeacherDetailViewController.h"
 #import "MISecondStockSplitViewController.h"
 #import "HomeworkSessionsContainerViewController.h"
@@ -16,7 +16,6 @@
 #import "MIZeroMessagesViewController.h"
 #import "ClassManagerViewController.h"
 #import "MICampusManagerViewController.h"
-#import "MICamManStockSplitViewController.h"
 #import "TeacherAwardsViewController.h"
 #import "ExchangeRequestsViewController.h"
 
@@ -26,19 +25,19 @@ MICampusManagerViewControllerDelegate
 >
 
 @property (nonatomic, strong) HomeworkSessionsContainerViewController *reaTimTaskMasterVC;
-@property (nonatomic, strong) MIStockSecondViewController *reaTimTaskDetailVC;
+@property (nonatomic, strong) MIStockDetailViewController *reaTimTaskDetailVC;
 
 
 @property (nonatomic, strong) MITeacherDetailViewController *teacherManagerMasterVC;
-@property (nonatomic, strong) MIStockSecondViewController *teacherManagerDetailVC;
+@property (nonatomic, strong) MIStockDetailViewController *teacherManagerDetailVC;
 
 
 @property (nonatomic, strong) MITaskListViewController *taskManagerMasterVC;
-@property (nonatomic, strong) MIStockSecondViewController *taskManagerDetailVC;
+@property (nonatomic, strong) MIStockDetailViewController *taskManagerDetailVC;
 
 
 @property (nonatomic, strong) MIActivityRankListViewController *activityMasterVC;
-@property (nonatomic, strong) MIStockSecondViewController *activityDetailVC;
+@property (nonatomic, strong) MIStockDetailViewController *activityDetailVC;
 
 
 @property (nonatomic, strong) MIZeroMessagesViewController * zeroMessagesVC;// 零分动态
@@ -47,7 +46,7 @@ MICampusManagerViewControllerDelegate
 
 
 @property (nonatomic, strong) MICampusManagerViewController *campusMasterVC;
-@property (nonatomic, strong) MIStockSecondViewController *campusDetailVC;
+@property (nonatomic, strong) MIStockDetailViewController *campusDetailVC;
 
 
 @property (nonatomic, strong) TeacherAwardsViewController *giftMasterVC;
@@ -55,7 +54,7 @@ MICampusManagerViewControllerDelegate
 
 
 @property (nonatomic, strong) SettingsViewController *setterMasterVC;
-@property (nonatomic, strong) MIStockSecondViewController *setterDetailVC;
+@property (nonatomic, strong) MIStockDetailViewController *setterDetailVC;
 
 @end
 
@@ -101,7 +100,7 @@ MICampusManagerViewControllerDelegate
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:self.reaTimTaskMasterVC];
     [masterNav setNavigationBarHidden:YES animated:NO];
     
-    self.reaTimTaskDetailVC = [[MIStockSecondViewController alloc] init];
+    self.reaTimTaskDetailVC = [[MIStockDetailViewController alloc] init];
     UINavigationController *detailNav = [[UINavigationController alloc] initWithRootViewController:self.reaTimTaskDetailVC];
     [detailNav setNavigationBarHidden:YES animated:NO];
     
@@ -144,7 +143,7 @@ MICampusManagerViewControllerDelegate
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:self.teacherManagerMasterVC];
     [masterNav setNavigationBarHidden:YES animated:NO];
     
-    self.teacherManagerDetailVC = [[MIStockSecondViewController alloc] init];
+    self.teacherManagerDetailVC = [[MIStockDetailViewController alloc] init];
     UINavigationController *detailNav = [[UINavigationController alloc] initWithRootViewController:self.teacherManagerDetailVC];
     [detailNav setNavigationBarHidden:YES animated:NO];
     self.viewControllers = @[masterNav, detailNav];
@@ -165,7 +164,7 @@ MICampusManagerViewControllerDelegate
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:self.taskManagerMasterVC];
     [masterNav setNavigationBarHidden:YES animated:NO];
     
-    self.taskManagerDetailVC = [[MIStockSecondViewController alloc] init];
+    self.taskManagerDetailVC = [[MIStockDetailViewController alloc] init];
     UINavigationController *detailNav = [[UINavigationController alloc] initWithRootViewController:self.taskManagerDetailVC];
     [detailNav setNavigationBarHidden:YES animated:NO];
     self.viewControllers = @[masterNav, detailNav];
@@ -234,7 +233,7 @@ MICampusManagerViewControllerDelegate
     };
     
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:self.activityMasterVC];
-    self.activityDetailVC = [[MIStockSecondViewController alloc] init];
+    self.activityDetailVC = [[MIStockDetailViewController alloc] init];
     [masterNav setNavigationBarHidden:YES animated:NO];
     
     UINavigationController *detailNav = [[UINavigationController alloc] initWithRootViewController:self.activityDetailVC];
@@ -308,7 +307,7 @@ MICampusManagerViewControllerDelegate
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:self.campusMasterVC];
     [masterNav setNavigationBarHidden:YES animated:NO];
     
-    self.campusDetailVC = [[MIStockSecondViewController alloc] init];
+    self.campusDetailVC = [[MIStockDetailViewController alloc] init];
     UINavigationController *detailNav = [[UINavigationController alloc] initWithRootViewController:self.campusDetailVC];
     [detailNav setNavigationBarHidden:YES animated:NO];
     
@@ -378,7 +377,7 @@ MICampusManagerViewControllerDelegate
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:self.setterMasterVC];
     [masterNav setNavigationBarHidden:YES animated:NO];
     
-    self.setterDetailVC = [[MIStockSecondViewController alloc] init];
+    self.setterDetailVC = [[MIStockDetailViewController alloc] init];
     UINavigationController *detailNav = [[UINavigationController alloc] initWithRootViewController:self.setterDetailVC];
     [detailNav setNavigationBarHidden:YES animated:NO];
     

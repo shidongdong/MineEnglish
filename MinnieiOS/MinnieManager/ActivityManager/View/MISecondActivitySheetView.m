@@ -141,13 +141,35 @@ UITableViewDataSource
 #pragma mark - 请求活动列表
 - (void)requestGetActivityList{
     WeakifySelf;
+    if (self.activityArray.count == 0) {
+        self.tableView.hidden = YES;
+        [self showLoadingView];
+    }
     [ManagerServce requestGetActivityListWithCallback:^(Result *result, NSError *error) {
         
-        if (error) return ;
+        [self hideAllStateView];
+        if (error) {
+            [weakSelf showFailureViewWithRetryCallback:^{
+                
+                [weakSelf requestGetActivityList];
+            }];
+            return ;
+        } ;
         NSDictionary *dictionary = (NSDictionary *)(result.userInfo);
         NSArray *list = dictionary[@"list"];
-        [self.activityArray removeAllObjects];
-        [self.activityArray addObjectsFromArray:list];
+        [weakSelf.activityArray removeAllObjects];
+        [weakSelf.activityArray addObjectsFromArray:list];
+        if (weakSelf.activityArray.count == 0) {
+            [weakSelf showEmptyViewWithImage:nil title:@"活动列表为空"
+                               centerYOffset:0
+                                   linkTitle:nil
+                           linkClickCallback:nil
+                               retryCallback:^{
+                                   [weakSelf requestGetActivityList];
+                           }];
+        } else {
+            weakSelf.tableView.hidden = NO;
+        }
         
         ActivityInfo *model;
         if (weakSelf.currentIndex>= 0 && weakSelf.currentIndex < weakSelf.activityArray.count) {
@@ -155,11 +177,11 @@ UITableViewDataSource
         } else {
             weakSelf.currentIndex = -1;
         }
-        if (self.delegate && [self.delegate respondsToSelector:@selector(secondActivitySheetViewDidClickedActivity:index:)]) {
+        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(secondActivitySheetViewDidClickedActivity:index:)]) {
             
-            [self.delegate secondActivitySheetViewDidClickedActivity:model index:weakSelf.currentIndex];
+            [weakSelf.delegate secondActivitySheetViewDidClickedActivity:model index:weakSelf.currentIndex];
         }
-        [self.tableView reloadData];
+        [weakSelf.tableView reloadData];
     }];
 }
 

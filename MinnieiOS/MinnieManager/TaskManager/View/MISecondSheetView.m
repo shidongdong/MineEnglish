@@ -396,14 +396,36 @@ UITableViewDataSource
 #pragma mark - 获取文件夹列表
 - (void)requestGetParentFilesInfo{
     // 获取一级文件夹列表
+    if (self.parentFileList.count == 0) {
+        self.tableView.hidden = YES;
+        [self showLoadingView];
+    }
     WeakifySelf;
     [ManagerServce requestGetFilesWithFileId:0 callback:^(Result *result, NSError *error) {
-    
-        if (error) return ;
+        [weakSelf showLoadingView];
+        if (error) {
+            [weakSelf showFailureViewWithRetryCallback:^{
+                
+                [weakSelf requestGetParentFilesInfo];
+            }];
+            return ;
+        } ;
         NSDictionary *dict = (NSDictionary *)(result.userInfo);
         NSArray *fileInfoList = (NSArray *)(dict[@"list"]);
         [weakSelf.parentFileList removeAllObjects];
         [weakSelf.parentFileList addObjectsFromArray:fileInfoList];
+        if (weakSelf.parentFileList.count == 0) {
+            [weakSelf showEmptyViewWithImage:nil title:@"文件夹列表为空"
+                               centerYOffset:0
+                                   linkTitle:nil
+                           linkClickCallback:nil
+                               retryCallback:^{
+                                   [weakSelf requestGetParentFilesInfo];
+                               }];
+
+        } else {
+            weakSelf.tableView.hidden = NO;
+        }
         [weakSelf collapseFolders];
         [weakSelf.tableView reloadData];
     }];

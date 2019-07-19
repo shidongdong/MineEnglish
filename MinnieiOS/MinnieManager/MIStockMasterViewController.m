@@ -10,13 +10,13 @@
 #import "MISecondTeachersView.h"
 #import "MISecondSheetView.h"
 #import "SettingsViewController.h"
-#import "MIMasterViewController.h"
 #import "MISecondActivitySheetView.h"
 #import "MISecondTeachStatisticsView.h"
-#import "MIStockSecondViewController.h"
+#import "MIStockDetailViewController.h"
+#import "MIStockMasterViewController.h"
+#import "MISecondStockSplitViewController.h"
 #import "HomeWorkSendHistoryViewController.h"
 #import "UIViewController+PrimaryCloumnScale.h"
-#import "MISecondStockSplitViewController.h"
 
 //#import "MITeacherManagerViewController.h"
 //#import "MIGifManStockSplitViewController.h"
@@ -28,7 +28,7 @@
 //#import "MICamManStockSplitViewController.h"
 
 
-@interface MIMasterViewController ()<
+@interface MIStockMasterViewController ()<
 RootSheetViewDelete,
 SecondSheetViewDelegate,
 MISecondTeachersViewDelegate,
@@ -68,7 +68,7 @@ MISecondTeachStatisticsViewDelegate
 
 @end
 
-@implementation MIMasterViewController
+@implementation MIStockMasterViewController
 
 
 - (void)viewWillAppear:(BOOL)animated{
