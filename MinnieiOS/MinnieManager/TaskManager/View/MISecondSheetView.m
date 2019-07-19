@@ -56,7 +56,7 @@ UITableViewDataSource
     [recordbtn setTitleColor:[UIColor mainColor] forState:UIControlStateNormal];
     [recordbtn addTarget:self action:@selector(recordbtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:recordbtn];
-    recordbtn.frame = CGRectMake(12, kNaviBarHeight - 32, 80, 32);
+    recordbtn.frame = CGRectMake(12, kNaviBarHeight - 35, 80, 28);
     recordbtn.layer.masksToBounds = YES;
     recordbtn.layer.cornerRadius = 5.f;
     recordbtn.layer.borderWidth = 0.5;
@@ -69,14 +69,14 @@ UITableViewDataSource
     [addFolderbtn setImage:[UIImage imageNamed:@"ic_add_black"] forState:UIControlStateNormal];
     [addFolderbtn addTarget:self action:@selector(addFolderBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:addFolderbtn];
-    addFolderbtn.frame = CGRectMake(12, kNaviBarHeight, 90, kNaviBarHeight);
+    addFolderbtn.frame = CGRectMake(12, kNaviBarHeight, 90, 44);
     
     
-    UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake( 0, kNaviBarHeight*2 - 1, kColumnSecondWidth, 1.0)];
+    UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake( 0, kNaviBarHeight + 44 - 1, kColumnSecondWidth, 0.5)];
     lineView1.backgroundColor = [UIColor separatorLineColor];
     [self addSubview:lineView1];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNaviBarHeight * 2, _viewWidth, ScreenHeight - kNaviBarHeight *2)style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNaviBarHeight + 44, _viewWidth, ScreenHeight - kNaviBarHeight - 44)style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self addSubview:_tableView];

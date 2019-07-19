@@ -28,6 +28,7 @@ UITableViewDataSource
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *moveButton;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headViewConstraintHeight;
 
 @property (strong, nonatomic) NSMutableArray *scoreListArray;
 
@@ -51,6 +52,7 @@ UITableViewDataSource
     // Do any additional setup after loading the view from its nib.
     [self configureUI];
     [self requestScoreListIsLoadMore:NO];
+    self.headViewConstraintHeight.constant = kNaviBarHeight;
 }
 
 -(void)configureUI{

@@ -400,7 +400,11 @@ MIActivityBannerViewDelegate
 }
 
 - (void)reloadWhenHomeworkCorrected:(NSNotification *)notification {
-  
+    
+#if MANAGERSIDE
+    [self resetCurrentSelectIndex];
+#endif
+    
     if (!self.isUnfinished) {
         self.shouldReloadWhenAppeard = YES;
         
@@ -544,7 +548,7 @@ MIActivityBannerViewDelegate
     [self resetCurrentSelectIndex];
     [self requestHomeworkSessions];
 }
-
+#pragma mark - ipad重置选中任务状态
 - (void)resetCurrentSelectIndex{
     
     self.currentSelectIndex = -1;

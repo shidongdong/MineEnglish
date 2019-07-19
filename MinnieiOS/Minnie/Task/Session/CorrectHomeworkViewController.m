@@ -147,7 +147,7 @@
                                                         weakSelf.homeworkSession.reviewText = reviewText;
                                                         weakSelf.homeworkSession.score = weakSelf.currentScore;
                                                         weakSelf.homeworkSession.isRedo = 0;
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
                                                         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCorrectHomework object:nil userInfo:@{@"HomeworkSession":weakSelf.homeworkSession}];
 #endif
                                                                                                                 [weakSelf.navigationController popToRootViewControllerAnimated:YES];
@@ -231,6 +231,9 @@
 {
     
     CGFloat firstCellHeight = (ScreenWidth - 24 - 4 * 10) / 5 + 20 + 10 + 39;
+#if MANAGERSIDE
+    firstCellHeight = (kColumnThreeWidth - 24 - 4 * 10) / 5 + 20 + 10 + 39;
+#endif
     if (indexPath.section == 0)
     {
         return firstCellHeight;

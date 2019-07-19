@@ -268,6 +268,14 @@
 
 - (IBAction)leftFuncClick:(id)sender {
     
+#if MANAGERSIDE
+    // 重置选中任务状态
+    if (self.exchangeCallBack) {
+        self.exchangeCallBack();
+    }
+    [self.currentViewController resetCurrentSelectIndex];
+#endif
+    
 #if TEACHERSIDE || MANAGERSIDE
     HomeworkSearchNameViewController * searchVc = [[HomeworkSearchNameViewController alloc] initWithNibName:NSStringFromClass([HomeworkSearchNameViewController class]) bundle:nil];
     searchVc.finished = self.currentIndex;
@@ -298,6 +306,12 @@
         strongSelf.currentFliterType = index;
         [strongSelf.currentViewController requestSearchForSorceAtIndex:index];
     }];
+    
+    // 重置选中任务状态
+    if (self.exchangeCallBack) {
+        self.exchangeCallBack();
+    }
+    [self.currentViewController resetCurrentSelectIndex];
 #elif TEACHERSIDE
     //显示搜索
     WeakifySelf;
@@ -552,7 +566,6 @@
 
 #pragma mark - 管理端切换教师更新作业
 - (void)updateHomeworkSessionWithTeacher:(Teacher *)teacher{
-
 #if MANAGERSIDE
     
     _unfinishedNeedUpdate = YES;
