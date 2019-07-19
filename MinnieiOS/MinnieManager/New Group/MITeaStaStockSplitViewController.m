@@ -15,9 +15,7 @@
 
 @property (nonatomic, strong) MIStudentDetailViewController *stockMasterVC;
 @property (nonatomic, strong) MIStudentRecordViewController *stockDetailVC;
-
-// 零分动态
-@property (nonatomic, strong) MIZeroMessagesViewController * zeroMessagesVC;
+@property (nonatomic, strong) MIZeroMessagesViewController * zeroMessagesVC;// 零分动态
 
 @end
 
@@ -61,6 +59,7 @@
 - (void)hiddenZeroMessages{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 - (MIZeroMessagesViewController *)zeroMessagesVC{
     
     if (!_zeroMessagesVC) {
