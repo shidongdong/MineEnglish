@@ -116,11 +116,8 @@ UITableViewDataSource
 }
 
 - (void)showChildPageViewWithIndex:(NSUInteger)index animated:(BOOL)animated shouldLocate:(BOOL)shouldLocate {
-
-    static NSInteger tempIndex = -1;
-    if (tempIndex == index) {
-        return;
-    }
+    
+    NSLog(@"showChildPageViewWithIndex %lu",index);
     self.currentIndexPath = nil;
     
     if (shouldLocate) {
@@ -144,8 +141,6 @@ UITableViewDataSource
             });
         }
     }
-    tempIndex = index;
-    
     if (index == 0 && self.students.count == 0) {
         [self requestStudents];
     }
@@ -161,10 +156,16 @@ UITableViewDataSource
     if (self.ignoreScrollCallback) {
         return;
     }
+    if ([scrollView isKindOfClass:[UITableView class]]) {
+        return;
+    }
     
     CGFloat offsetX = scrollView.contentOffset.x;
     NSUInteger leftIndex = (NSInteger)MAX(0, offsetX)/(NSInteger)(kColumnSecondWidth);
     NSUInteger rightIndex = (NSInteger)MAX(0, offsetX+kColumnSecondWidth)/(NSInteger)(kColumnSecondWidth);
+    if (rightIndex >= 2) {
+        rightIndex = 1;
+    }
     
     [self showChildPageViewWithIndex:leftIndex animated:NO shouldLocate:NO];
     if (leftIndex != rightIndex) {
@@ -318,10 +319,18 @@ UITableViewDataSource
     self.currentIndexPath = indexPath;
     [tableView reloadData];
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(secondTeachStatisticsViewDidClicledWithStudent:)]) {
+    User *student ;
+    if (tableView == self.leftTableView) {
         
         NSArray *studentsGroup = self.studentDict[self.sortedKeys[indexPath.section]];
-        User *student = studentsGroup[indexPath.row];
+        student = studentsGroup[indexPath.row];
+    } else {
+        
+        StudentsByClass * clazz= self.classes[indexPath.section];
+        student = clazz.students[indexPath.row];
+    }
+    if (self.delegate && [self.delegate respondsToSelector:@selector(secondTeachStatisticsViewDidClicledWithStudent:)]) {
+        
         [self.delegate secondTeachStatisticsViewDidClicledWithStudent:student];
     }
 }
