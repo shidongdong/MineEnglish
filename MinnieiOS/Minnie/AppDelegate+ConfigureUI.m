@@ -297,9 +297,11 @@
 }
 
 #pragma mark - 上下线
-- (void)refreshOnlineState:(BOOL)online{
+- (void)refreshOnlineState:(BOOL)online times:(NSInteger)times{
     
-    [ManagerServce requestUpdateOnlineState:online callback:^(Result *result, NSError *error) {
+    [ManagerServce requestUpdateOnlineState:online
+                                      times:times
+                                   callback:^(Result *result, NSError *error) {
         if (error) return ;
         NSLog(@"更新在线状态成功");
     }];

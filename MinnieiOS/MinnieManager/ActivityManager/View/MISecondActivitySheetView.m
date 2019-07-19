@@ -149,10 +149,13 @@ UITableViewDataSource
         
         [self hideAllStateView];
         if (error) {
-            [weakSelf showFailureViewWithRetryCallback:^{
+            if (weakSelf.activityArray.count == 0) {
                 
-                [weakSelf requestGetActivityList];
-            }];
+                [weakSelf showFailureViewWithRetryCallback:^{
+                    
+                    [weakSelf requestGetActivityList];
+                }];
+            }
             return ;
         } ;
         NSDictionary *dictionary = (NSDictionary *)(result.userInfo);

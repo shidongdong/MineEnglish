@@ -19,7 +19,9 @@ typedef void(^MIScoreListCancelCallBack)(void);
 @property (nonatomic, strong) FileInfo *currentFileInfo;
 
 @property (nonatomic, assign) BOOL teacherSider;
+@property (nonatomic, assign) NSInteger teacherId;
 
+// 是否隐藏编辑任务
 @property (nonatomic, assign) BOOL hiddenEditTask;
 
 @property (nonatomic, copy) MIScoreEditTaskCallBack editTaskCallBack;

@@ -76,10 +76,11 @@
 
 // 任务得分列表
 + (BaseRequest *)requestScoreListByHomeworkId:(NSInteger)homeworkId
+                                    teacherId:(NSInteger)teacherId
                                       nextUrl:(NSString *_Nullable)nextUrl
                                      callback:(RequestCallback)callback{
     
-    ScoreListByHomeworkRequest * request = [[ScoreListByHomeworkRequest alloc] initWithHomeworkId:homeworkId nextUrl:nextUrl];
+    ScoreListByHomeworkRequest * request = [[ScoreListByHomeworkRequest alloc] initWithHomeworkId:homeworkId teacherId:teacherId nextUrl:nextUrl];
     [request setCallback:callback];
     request.objectKey = @"list";
     request.objectClassName = @"ScoreInfo";
@@ -208,11 +209,11 @@
 }
 
 // 上下线管理 1：上线 0：下线
-
 + (BaseRequest *)requestUpdateOnlineState:(BOOL)online
+                                    times:(NSInteger)times
                                  callback:(RequestCallback)callback{
     
-    OnlineStateRequest *request = [[OnlineStateRequest alloc] initWithOnline:online];
+    OnlineStateRequest *request = [[OnlineStateRequest alloc] initWithOnline:online times:times];
     [request setCallback:callback];
     [request start];
     return request;

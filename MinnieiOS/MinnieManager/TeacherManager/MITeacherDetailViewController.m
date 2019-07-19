@@ -230,6 +230,7 @@ UITableViewDataSource
        
         MIScoreListViewController *scoreListVC = [[MIScoreListViewController alloc] initWithNibName:NSStringFromClass([MIScoreListViewController class]) bundle:nil];
         scoreListVC.hiddenEditTask = YES;
+        scoreListVC.teacherId = self.teacher.userId;
         if (self.pushCallBack) {
             self.pushCallBack(scoreListVC);
         }

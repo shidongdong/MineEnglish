@@ -224,6 +224,8 @@
 
 @property (nonatomic,assign) NSInteger homeworkId;
 
+@property (nonatomic,assign) NSInteger teacherId;
+
 @property (nonatomic,copy) NSString *nextUrl;
 
 @end
@@ -231,12 +233,15 @@
 
 @implementation ScoreListByHomeworkRequest
 
-- (instancetype)initWithHomeworkId:(NSInteger)homeworkId nextUrl:(NSString *_Nullable)nextUrl{
+- (instancetype)initWithHomeworkId:(NSInteger)homeworkId
+                         teacherId:(NSInteger)teacherId
+                           nextUrl:(NSString *_Nullable)nextUrl{
     
     self = [super init];
     if (self != nil) {
         self.nextUrl = nextUrl;
         self.homeworkId = homeworkId;
+        self.teacherId = teacherId;
     }
     return self;
 }
@@ -255,7 +260,12 @@
 }
 
 - (id)requestArgument {
-    return @{@"homeworkId":@(self.homeworkId)};
+    if (self.teacherId > 0) {
+        
+        return @{@"homeworkId":@(self.homeworkId)};
+    } else {
+        return @{@"homeworkId":@(self.homeworkId),@"teacherId":@(self.teacherId)};
+    }
 }
 
 @end
@@ -600,17 +610,20 @@
 @interface OnlineStateRequest ()
 
 @property (nonatomic,assign) BOOL online;
+@property (nonatomic,assign) NSInteger times;
 
 
 @end
 
 @implementation OnlineStateRequest
 
-- (instancetype)initWithOnline:(BOOL)online{
+- (instancetype)initWithOnline:(BOOL)online
+                         times:(NSInteger)times{
     
     self = [super init];
     if (self != nil) {
         self.online = online;
+        self.times = times;
     }
     return self;
 }
@@ -623,7 +636,8 @@
 }
 
 - (id)requestArgument {
-    return @{@"campusId":@(self.online)};
+    return @{@"campusId":@(self.online),
+             @"times":@(self.times)};
 }
 
 @end

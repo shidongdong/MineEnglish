@@ -43,7 +43,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (BaseRequest *)requestGetWorkTypesWithCallback:(RequestCallback)callback;
 
 // 任务得分列表
-+ (BaseRequest *)requestScoreListByHomeworkId:(NSInteger)homeworkId nextUrl:(NSString *_Nullable)nextUrl callback:(RequestCallback)callback;
++ (BaseRequest *)requestScoreListByHomeworkId:(NSInteger)homeworkId
+                                    teacherId:(NSInteger)teacherId
+                                      nextUrl:(NSString *_Nullable)nextUrl
+                                     callback:(RequestCallback)callback;
 
 #pragma mark - 活动管理
 
@@ -94,8 +97,9 @@ NS_ASSUME_NONNULL_BEGIN
                                   callback:(RequestCallback)callback;
 
 #pragma mark - 上下线管理
-// 上下线管理
+// 上下线管理 times:在线时长 （分钟）
 + (BaseRequest *)requestUpdateOnlineState:(BOOL)online
+                                    times:(NSInteger)times
                            callback:(RequestCallback)callback;
 @end
 

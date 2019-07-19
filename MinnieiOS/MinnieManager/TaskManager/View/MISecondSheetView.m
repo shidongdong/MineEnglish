@@ -402,7 +402,8 @@ UITableViewDataSource
     }
     WeakifySelf;
     [ManagerServce requestGetFilesWithFileId:0 callback:^(Result *result, NSError *error) {
-        [weakSelf showLoadingView];
+       
+        [weakSelf hideAllStateView];
         if (error) {
             [weakSelf showFailureViewWithRetryCallback:^{
                 

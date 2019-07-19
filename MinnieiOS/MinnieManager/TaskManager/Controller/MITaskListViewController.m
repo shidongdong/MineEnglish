@@ -350,13 +350,13 @@ VIResourceLoaderManagerDelegate
         self.tableView.hidden = homeworks.count==0;
         
         if (error != nil) {
-           
-            WeakifySelf;
-            [self.view showFailureViewWithRetryCallback:^{
-                [weakSelf requestHomeworks];
-            }];
-            [self.homeworks removeAllObjects];
-            [self.tableView reloadData];
+            
+            if (self.homeworks == 0) {
+                WeakifySelf;
+                [self.view showFailureViewWithRetryCallback:^{
+                    [weakSelf requestHomeworks];
+                }];
+            }
             return;
         }
         
@@ -552,6 +552,7 @@ VIResourceLoaderManagerDelegate
         weakSelf.currentSelectedIndex = indexPath.row;
         [tableView reloadData];
         MIScoreListViewController *scoreListVC = [[MIScoreListViewController alloc] initWithNibName:NSStringFromClass([MIScoreListViewController class]) bundle:nil];
+        scoreListVC.teacherId = 0;
         scoreListVC.editTaskCallBack = ^{
          
             [weakSelf requestHomeworks];
@@ -618,6 +619,7 @@ VIResourceLoaderManagerDelegate
     
     Homework *homework = self.homeworks[indexPath.row];
     MIScoreListViewController *scoreListVC = [[MIScoreListViewController alloc] initWithNibName:NSStringFromClass([MIScoreListViewController class]) bundle:nil];
+    scoreListVC.teacherId = 0;
     WeakifySelf;
     scoreListVC.editTaskCallBack = ^{
         [weakSelf requestHomeworks];

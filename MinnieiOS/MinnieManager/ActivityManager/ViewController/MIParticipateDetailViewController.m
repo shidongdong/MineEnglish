@@ -166,19 +166,23 @@ VIResourceLoaderManagerDelegate
 - (void)requestactLogs{
     
     WeakifySelf;
-    self.tableView.hidden = YES;
-    [self.view showLoadingView];
+    if (self.uploadArray.count == 0) {
+        
+        self.tableView.hidden = YES;
+        [self.view showLoadingView];
+    }
     [ManagerServce requestactLogsActivityId:self.rankInfo.actId stuId:self.rankInfo.userId callback:^(Result *result, NSError *error) {
         
         [weakSelf.view hideAllStateView];
         if (error) {
-            
-            [weakSelf.view showFailureViewWithRetryCallback:^{
-                [weakSelf requestactLogs];
-            }];
+            if (weakSelf.uploadArray.count == 0) {
+             
+                [weakSelf.view showFailureViewWithRetryCallback:^{
+                    [weakSelf requestactLogs];
+                }];
+            }
             return;
         }
-        [weakSelf.view hideAllStateView];
         NSDictionary *dict = (NSDictionary *)(result.userInfo);
         NSArray *folderList = (NSArray *)(dict[@"list"]);
         weakSelf.uploadArray = folderList;

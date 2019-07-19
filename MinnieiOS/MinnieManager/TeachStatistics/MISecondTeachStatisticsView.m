@@ -348,9 +348,12 @@ UITableViewDataSource
     [self hideAllStateView];
     if (error != nil) {
         WeakifySelf;
-        [self showFailureViewWithRetryCallback:^{
-            [weakSelf requestStudents];
-        }];
+        if (self.students.count == 0) {
+         
+            [self showFailureViewWithRetryCallback:^{
+                [weakSelf requestStudents];
+            }];
+        }
         return;
     }
     
@@ -420,10 +423,11 @@ UITableViewDataSource
       
         [weakSelf hideAllStateView];
         if (error != nil) {
-            WeakifySelf;
-            [weakSelf showFailureViewWithRetryCallback:^{
-                [weakSelf requestStudentLisByClasst];
-            }];
+            if (weakSelf.classes.count == 0) {
+                [weakSelf showFailureViewWithRetryCallback:^{
+                    [weakSelf requestStudentLisByClasst];
+                }];
+            }
             return;
         }
         NSDictionary *dict = (NSDictionary *)result.userInfo;

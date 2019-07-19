@@ -69,7 +69,9 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 任务得分列表
 @interface ScoreListByHomeworkRequest : BaseRequest
 
-- (instancetype)initWithHomeworkId:(NSInteger)homeworkId nextUrl:(NSString *_Nullable)nextUrl;
+- (instancetype)initWithHomeworkId:(NSInteger)homeworkId
+                         teacherId:(NSInteger)teacherId
+                           nextUrl:(NSString *_Nullable)nextUrl;
 
 @end
 
@@ -160,7 +162,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 上下线管理（ipad管理端）
 @interface OnlineStateRequest : BaseRequest
 
-- (instancetype)initWithOnline:(BOOL)online;
+- (instancetype)initWithOnline:(BOOL)online
+                         times:(NSInteger)times;
 
 @end
 NS_ASSUME_NONNULL_END

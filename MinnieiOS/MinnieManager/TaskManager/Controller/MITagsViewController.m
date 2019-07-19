@@ -366,8 +366,6 @@ MIEqualSpaceFlowLayoutDelegate
         self.tagsRequest = [TagService requestTagsWithCallback:^(Result *result, NSError *error) {
             StrongifySelf;
             
-//            strongSelf.tagsRequest = nil;
-            
             // 显示失败页面
             if (error != nil) {
                 __weak typeof(strongSelf) wk = strongSelf;

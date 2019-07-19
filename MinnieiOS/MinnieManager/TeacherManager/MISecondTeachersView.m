@@ -184,9 +184,12 @@ UITableViewDataSource
     [TeacherService requestTeachersWithCallback:^(Result *result, NSError *error) {
         StrongifySelf;
         if (error != nil) {
-            [strongSelf showFailureViewWithRetryCallback:^{
-                [weakSelf requestTeachers];
-            }];
+            if (strongSelf.teachersArray.count == 0) {
+               
+                [strongSelf showFailureViewWithRetryCallback:^{
+                    [strongSelf requestTeachers];
+                }];
+            }
             return;
         }
         

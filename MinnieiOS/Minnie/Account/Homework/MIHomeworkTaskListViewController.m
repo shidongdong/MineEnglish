@@ -446,6 +446,7 @@ VIResourceLoaderManagerDelegate
     [cell setBlankCallback:^{
         
         MIScoreListViewController *scoreListVC = [[MIScoreListViewController alloc] initWithNibName:NSStringFromClass([MIScoreListViewController class]) bundle:nil];
+        scoreListVC.teacherId = 0;
         WeakifySelf;
         scoreListVC.editTaskCallBack = ^{
             
@@ -493,6 +494,7 @@ VIResourceLoaderManagerDelegate
     
     Homework *homework = self.homeworks[indexPath.row];
     MIScoreListViewController *scoreListVC = [[MIScoreListViewController alloc] initWithNibName:NSStringFromClass([MIScoreListViewController class]) bundle:nil];
+    scoreListVC.teacherId = 0;
     WeakifySelf;
     scoreListVC.editTaskCallBack = ^{
         [weakSelf requestHomeworks];

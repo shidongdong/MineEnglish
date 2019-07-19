@@ -217,7 +217,10 @@ UITableViewDataSource
     WeakifySelf;
     if (isLoadMore) {
         
-        [ManagerServce requestScoreListByHomeworkId:self.homework.homeworkId nextUrl:nil callback:^(Result *result, NSError *error) {
+        [ManagerServce requestScoreListByHomeworkId:self.homework.homeworkId
+                                          teacherId:self.teacherId
+                                            nextUrl:self.nextUrl
+                                           callback:^(Result *result, NSError *error) {
             [weakSelf.view hideAllStateView];
             [weakSelf.tableView footerEndRefreshing];
             if (error) {
@@ -229,7 +232,10 @@ UITableViewDataSource
         
         self.tableView.hidden = YES;
         [self.view showLoadingView];
-        [ManagerServce requestScoreListByHomeworkId:self.homework.homeworkId nextUrl:self.nextUrl callback:^(Result *result, NSError *error) {
+        [ManagerServce requestScoreListByHomeworkId:self.homework.homeworkId
+                                          teacherId:self.teacherId
+                                            nextUrl:nil
+                                           callback:^(Result *result, NSError *error) {
             
             [weakSelf.view hideAllStateView];
             [weakSelf.tableView footerEndRefreshing];

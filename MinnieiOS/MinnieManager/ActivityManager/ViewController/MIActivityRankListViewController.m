@@ -68,19 +68,23 @@ UITableViewDataSource
 #pragma mark -
 - (void)requestGetActivityRankList{
     WeakifySelf;
-    self.tableView.hidden = YES;
-    [self.view showLoadingView];
+    if (self.okRankArray.count + self.checkRankArray.count == 0) {
+        
+        self.tableView.hidden = YES;
+        [self.view showLoadingView];
+    }
     [ManagerServce requestGetActivityRankListWithActId:self.curActInfo.activityId callback:^(Result *result, NSError *error) {
         
         [weakSelf.view hideAllStateView];
         if (error) {
-            WeakifySelf;
-            
-            weakSelf.tableView.hidden = YES;
-            weakSelf.headerView.hidden = YES;
-            [weakSelf.view showFailureViewWithRetryCallback:^{
-                [weakSelf requestGetActivityRankList];
-            }];
+          
+            if (weakSelf.okRankArray.count + weakSelf.checkRankArray.count == 0) {
+             
+                weakSelf.headerView.hidden = YES;
+                [weakSelf.view showFailureViewWithRetryCallback:^{
+                    [weakSelf requestGetActivityRankList];
+                }];
+            }
             return ;
         }
         
@@ -101,7 +105,7 @@ UITableViewDataSource
             weakSelf.tableView.hidden = NO;
             weakSelf.headerView.hidden = NO;
         }
-        [self.tableView reloadData];
+        [weakSelf.tableView reloadData];
     }];
 }
 
