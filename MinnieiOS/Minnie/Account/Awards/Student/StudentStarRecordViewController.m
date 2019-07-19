@@ -28,6 +28,8 @@ UITableViewDataSource>
 
 @property (nonatomic, assign) NSInteger currentIndex;
 
+@property (nonatomic, assign) NSInteger studentId;
+
 @end
 
 @implementation StudentStarRecordViewController
@@ -38,6 +40,7 @@ UITableViewDataSource>
     self.tableView.tableFooterView = [UIView new];
     _pageNum = 20;
     _currentIndex = 1;
+    _studentId = APP.currentUser.userId;
     // 下拉刷新
     [self.tableView addPullToRefreshWithTarget:self refreshingAction:@selector(refresh)];
     
@@ -54,8 +57,8 @@ UITableViewDataSource>
 #endif
 }
 
-- (void)updateStarRecord{
-   
+- (void)updateStarRecordWithSutdentId:(NSInteger)studentId{
+    self.studentId = studentId;
     [self refresh];
 }
 
@@ -81,6 +84,7 @@ UITableViewDataSource>
     self.rankRequest = [StudentAwardService requestStarLogsWithPageNo:_currentIndex
                                                               pageNum:_pageNum
                                                               logType:logType
+                                                            studentId:_studentId
                                                              callback:^(Result *result, NSError *error) {
         
         [self.tableView headerEndRefreshing];

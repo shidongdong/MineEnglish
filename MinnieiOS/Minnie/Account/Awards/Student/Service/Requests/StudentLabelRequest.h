@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 // logType 0：所有 1：礼物 2：任务得分 3：考试统计
 - (instancetype)initWithPageNo:(NSUInteger)pageNo
                        pageNum:(NSUInteger)pageNum
+                     studentId:(NSUInteger)studentId
                        logType:(NSString *)logType;
 
 @end

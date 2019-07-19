@@ -66,9 +66,9 @@ UIScrollViewDelegate
 
 }
 
--(void)updateStudentRecord{
+-(void)updateStudentRecordWithStudentId:(NSInteger)studentId{
     
-    [(StudentStarRecordViewController *)self.pageController.currentViewController updateStarRecord];
+    [(StudentStarRecordViewController *)self.pageController.currentViewController updateStarRecordWithSutdentId:studentId];
 }
 
 #pragma mark - WMPageControllerDelegate, WMPageControllerDataSource

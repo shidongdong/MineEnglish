@@ -68,7 +68,7 @@ EqualSpaceFlowLayoutDelegate
     //判断相同标签不能创建
     
     WeakifySelf;
-    [CreateTagView showInSuperView:self.view
+    [CreateTagView showInSuperView:[UIApplication sharedApplication].keyWindow
                           callback:^(NSString *tag) {
                               [CreateTagView hideAnimated:YES];
                               

@@ -88,9 +88,10 @@
 + (BaseRequest *)requestStarLogsWithPageNo:(NSUInteger)pageNo
                                    pageNum:(NSUInteger)pageNum
                                    logType:(NSString *)logType
+                                 studentId:(NSInteger)studentId
                                   callback:(RequestCallback)callback{
     
-    StudentStarLogsRequest *request = [[StudentStarLogsRequest alloc] initWithPageNo:pageNo pageNum:pageNum logType:logType];
+    StudentStarLogsRequest *request = [[StudentStarLogsRequest alloc] initWithPageNo:pageNo pageNum:pageNum studentId:studentId logType:logType];
     request.objectKey = @"list";
     request.objectClassName = @"StarLogs";
     [request setCallback:callback];

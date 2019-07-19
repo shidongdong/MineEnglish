@@ -45,7 +45,7 @@
     if (student != nil) {
         self.stockMasterVC.view.hidden = NO;
         self.stockDetailVC.view.hidden = NO;
-        [self.stockDetailVC updateStudentRecord];
+        [self.stockDetailVC updateStudentRecordWithStudentId:student.userId];
         [self.stockMasterVC updateStudent:student];
         [self hiddenZeroMessages];
     } else {

@@ -103,6 +103,7 @@
 @property (nonatomic, assign) NSUInteger pageNo;
 //每页数目
 @property (nonatomic, assign) NSUInteger pageNum;
+@property (nonatomic, assign) NSUInteger studentId;
 
 //星星增减类别 0：所有 1：礼物 2：任务得分 3：考试统计
 @property (nonatomic, copy) NSString *logType;
@@ -115,6 +116,7 @@
 
 - (instancetype)initWithPageNo:(NSUInteger)pageNo
                        pageNum:(NSUInteger)pageNum
+                       studentId:(NSUInteger)studentId
                        logType:(NSString *)logType{
     self = [super init];
     if (self != nil) {
@@ -122,6 +124,7 @@
         self.pageNo = pageNo;
         self.pageNum = pageNum;
         self.logType = logType;
+        self.studentId = studentId;
     }
     return self;
 }
@@ -134,6 +137,7 @@
     
     return @{@"pageNo":@(self.pageNo),
              @"pageNum":@(self.pageNum),
+             @"studentId":@(self.studentId),
              @"logType":self.logType };
 }
 

@@ -39,6 +39,7 @@
 + (BaseRequest *)requestStarLogsWithPageNo:(NSUInteger)pageNo
                                    pageNum:(NSUInteger)pageNum
                                    logType:(NSString *)logType
+                                 studentId:(NSInteger)studentId
                                   callback:(RequestCallback)callback;
 
 @end

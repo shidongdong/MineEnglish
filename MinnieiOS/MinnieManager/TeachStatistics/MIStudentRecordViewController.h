@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MIStudentRecordViewController : UIViewController
 
--(void)updateStudentRecord;
+-(void)updateStudentRecordWithStudentId:(NSInteger)studentId;
 
 @end
 
