@@ -822,9 +822,6 @@
 		12FD85E122C05C900026B7E2 /* ParentFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85D322C05C8F0026B7E2 /* ParentFileInfo.m */; };
 		12FD85E222C05C900026B7E2 /* ParentFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85D322C05C8F0026B7E2 /* ParentFileInfo.m */; };
 		12FD85E322C05C900026B7E2 /* ParentFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85D322C05C8F0026B7E2 /* ParentFileInfo.m */; };
-		12FD85E622C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85E522C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m */; };
-		12FD85E722C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85E522C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m */; };
-		12FD85E822C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 12FD85E522C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m */; };
 		12FD85E922C0B1D40026B7E2 /* sendMessage.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1950D7E822775641004F7291 /* sendMessage.mp3 */; };
 		12FD85EA22C0B25F0026B7E2 /* 对话框_白色@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109622207A006D00568785 /* 对话框_白色@2x.png */; };
 		12FD85EB22C0B2620026B7E2 /* 对话框_白色@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9710964C207A006D00568785 /* 对话框_白色@3x.png */; };
@@ -2419,8 +2416,6 @@
 		12FD85D522C05C900026B7E2 /* ParentFileInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParentFileInfo.h; path = MinnieManager/Service/ParentFileInfo.h; sourceTree = SOURCE_ROOT; };
 		12FD85D622C05C900026B7E2 /* ScoreInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScoreInfo.h; path = MinnieManager/Service/ScoreInfo.h; sourceTree = SOURCE_ROOT; };
 		12FD85D722C05C900026B7E2 /* WordInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WordInfo.h; path = MinnieManager/Service/WordInfo.h; sourceTree = SOURCE_ROOT; };
-		12FD85E422C070010026B7E2 /* UIViewController+PrimaryCloumnScale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+PrimaryCloumnScale.h"; sourceTree = "<group>"; };
-		12FD85E522C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+PrimaryCloumnScale.m"; sourceTree = "<group>"; };
 		12FEA39422E040C2008503B2 /* AppDelegate+ConfigureUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+ConfigureUI.h"; sourceTree = "<group>"; };
 		12FEA39522E040C2008503B2 /* AppDelegate+ConfigureUI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+ConfigureUI.m"; sourceTree = "<group>"; };
 		12FEA39D22E19D2E008503B2 /* MISecondStockSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MISecondStockSplitViewController.h; sourceTree = "<group>"; };
@@ -3614,8 +3609,6 @@
 				12ED3AFC229C2E4C00255F8B /* MIRootSheetView.m */,
 				12ED3B0C229C2E5E00255F8B /* CSCustomSplitViewController.h */,
 				12ED3B0B229C2E5E00255F8B /* CSCustomSplitViewController.m */,
-				12FD85E422C070010026B7E2 /* UIViewController+PrimaryCloumnScale.h */,
-				12FD85E522C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m */,
 				12ED3B0A229C2E5E00255F8B /* MIStockSplitViewController.h */,
 				12ED3B08229C2E5E00255F8B /* MIStockSplitViewController.m */,
 				12FEA39D22E19D2E008503B2 /* MISecondStockSplitViewController.h */,
@@ -3625,12 +3618,12 @@
 				12014CDB22C90B930039278A /* MIStockDetailViewController.h */,
 				12FEA3A122E1BA61008503B2 /* MIStockDetailViewController.m */,
 				122A1EC622A232D6009358DE /* Service */,
+				128F136A22D453BC00C9F5B7 /* RealTimeTask */,
+				128F137322D45D4F00C9F5B7 /* TeacherManager */,
+				12ED3AF3229C2DD100255F8B /* TaskManager */,
+				123042CB22A0C5CD00E111A4 /* ActivityManager */,
 				128F138F22D6C78500C9F5B7 /* TeachStatistics */,
 				128F138E22D6C6DE00C9F5B7 /* CampusManager */,
-				128F137322D45D4F00C9F5B7 /* TeacherManager */,
-				128F136A22D453BC00C9F5B7 /* RealTimeTask */,
-				123042CB22A0C5CD00E111A4 /* ActivityManager */,
-				12ED3AF3229C2DD100255F8B /* TaskManager */,
 				1226F2E52297F37A00BAB1C9 /* Info_manager.plist */,
 			);
 			path = MinnieManager;
@@ -8123,7 +8116,6 @@
 				12FD85E322C05C900026B7E2 /* ParentFileInfo.m in Sources */,
 				12CB73B122AB91FE0064FB21 /* HomeworkSegmentTableViewCell.m in Sources */,
 				12747BE022A7CCF8009C390E /* VideoMessageTableViewCell.m in Sources */,
-				12FD85E822C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m in Sources */,
 				122F799C22AD3D7A00D2AA53 /* MIStuUploadVideoViewController.m in Sources */,
 				12747C0E22A7CFBF009C390E /* StudentStarRankRequest.m in Sources */,
 				12961C51229E5E430075B04A /* ClassAndStudentSelectorController.m in Sources */,
@@ -8299,7 +8291,6 @@
 				97109C42207A2E3E00568785 /* HomeworkDetailLikeUsersTableViewCell.m in Sources */,
 				97364A1320B16BFD00511A95 /* NetworkStateErrorView.m in Sources */,
 				1229814322C5B3E800C09750 /* ClassSelectorTableViewCell.m in Sources */,
-				12FD85E622C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m in Sources */,
 				12FEA39622E040C2008503B2 /* AppDelegate+ConfigureUI.m in Sources */,
 				97109A5E207A158C00568785 /* TextMessageTableViewCell.m in Sources */,
 				871806BE21DF438C0023511C /* MUAssetsViewController.m in Sources */,
@@ -8887,7 +8878,6 @@
 				9710993B207A0BF600568785 /* AudioPlayer.m in Sources */,
 				12CB739322AB59000064FB21 /* MIHomeworkSubFileViewController.m in Sources */,
 				875C2626218AAB0B0047E32A /* SegementLabelsView.m in Sources */,
-				12FD85E722C070010026B7E2 /* UIViewController+PrimaryCloumnScale.m in Sources */,
 				97109D9A207A2F0400568785 /* UpdateProfileRequest.m in Sources */,
 				97109A4B207A158C00568785 /* ImageMessageTableViewCell.m in Sources */,
 				87915A3721B933BC006C1BFD /* AudioPlayerViewController.m in Sources */,

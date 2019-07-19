@@ -14,7 +14,6 @@
 #import "MIScoreListViewController.h"
 #import "MICreateTaskViewController.h"
 #import "HomeworkPreviewViewController.h"
-#import "UIViewController+PrimaryCloumnScale.h"
 
 #import "TIP.h"
 #import <AVKit/AVKit.h>

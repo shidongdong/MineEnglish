@@ -12,7 +12,6 @@
 #import "MIActivityRankListTableViewCell.h"
 #import "MIActivityRankListViewController.h"
 #import "MIParticipateDetailViewController.h"
-#import "UIViewController+PrimaryCloumnScale.h"
 
 @interface MIActivityRankListViewController ()<
 UITableViewDelegate,

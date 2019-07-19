@@ -16,7 +16,6 @@
 #import "MIStockMasterViewController.h"
 #import "MISecondStockSplitViewController.h"
 #import "HomeWorkSendHistoryViewController.h"
-#import "UIViewController+PrimaryCloumnScale.h"
 
 //#import "MITeacherManagerViewController.h"
 //#import "MIGifManStockSplitViewController.h"
@@ -283,6 +282,34 @@ MISecondTeachStatisticsViewDelegate
     
     UINavigationController *nav = ((UINavigationController *)self.customSplitViewController.viewControllers[1]);
     [nav popToRootViewControllerAnimated:YES];
+}
+
+#pragma mark - 更新布局
+- (void)updatePrimaryCloumnScale:(NSInteger)offset{
+    
+    UIViewController *vc = self.parentViewController;
+    while (1) {
+        if ([vc isKindOfClass:[CSCustomSplitViewController  class]]) {
+            break;
+        } else {
+            vc = vc.parentViewController;
+        }
+    }
+    if ([vc isKindOfClass:[CSCustomSplitViewController  class]]) {
+        
+        CSCustomSplitViewController *detailVC = (CSCustomSplitViewController *)vc;
+        if (detailVC.primaryCloumnScale != offset) {
+            
+            detailVC.primaryCloumnScale = offset;
+            if (offset == kRootModularWidth) {
+                
+                [detailVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:NO];
+            } else {
+                
+                [detailVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
+            }
+        }
+    }
 }
 
 #pragma mark - setter && getter

@@ -19,7 +19,6 @@
 #import "LoginViewController.h"
 #import "PortraitNavigationController.h"
 #import "AppDelegate.h"
-#import "UIViewController+PrimaryCloumnScale.h"
 
 @interface SettingsViewController ()<UITableViewDataSource, UITableViewDelegate>
 

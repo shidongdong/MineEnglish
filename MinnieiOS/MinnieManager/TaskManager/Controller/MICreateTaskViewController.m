@@ -24,7 +24,6 @@
 #import "MISegmentTypeTableViewCell.h"
 #import "MIExpandSelectTypeTableViewCell.h"
 #import "MICreateTaskViewController.h"
-#import "UIViewController+PrimaryCloumnScale.h"
 
 #import "NSDictionary+YYAdd.h"
 #import "MIAddWordTableViewCell.h"

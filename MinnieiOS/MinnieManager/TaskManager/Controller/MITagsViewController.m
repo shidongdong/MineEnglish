@@ -18,7 +18,6 @@
 #import "HomeworkSessionService.h"
 #import "MIEqualSpaceFlowLayout.h"
 #import "CSCustomSplitViewController.h"
-#import "UIViewController+PrimaryCloumnScale.h"
 
 @interface MITagsViewController () <
 UICollectionViewDataSource,
