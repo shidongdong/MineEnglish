@@ -98,6 +98,7 @@
 //被分享的次数
 @property (nonatomic, assign) NSInteger shareCount;
 //任务星级数 0-5
-@property (nonatomic, strong) NSArray *starList;
+//[0, 1, 2, 3, 4, 5, 6]其中索引6表示未完成的个数
+@property (nonatomic, strong) NSArray *homeworks;
 
 @end

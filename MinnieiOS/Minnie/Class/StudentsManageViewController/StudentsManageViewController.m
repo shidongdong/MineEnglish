@@ -72,13 +72,17 @@
     
     studentsVC.delegate = self;
     
+#if MANAGERSIDE
+    [self.navigationController pushViewController:studentsVC animated:YES];
+#else
+    
     PortraitNavigationController *nc = [[PortraitNavigationController alloc] initWithRootViewController:studentsVC];
     [nc setNavigationBarHidden:YES];
-    
     [self.navigationController presentViewController:nc
                                             animated:YES
                                           completion:^{
                                           }];
+#endif
 }
 
 - (IBAction)closeButtonPressed:(id)sender {

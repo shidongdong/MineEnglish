@@ -17,6 +17,7 @@
 #import "IMManager.h"
 #import "PortraitNavigationController.h"
 #import "AppDelegate.h"
+#import "AppDelegate+ConfigureUI.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 @interface TrialClassViewController ()
 
@@ -119,6 +120,7 @@
         [app removeRemoteNotification];
         Application.sharedInstance.currentUser = nil;
         [[IMManager sharedManager] logout];
+        [app refreshOnlineState:NO];
         
         [APP clearData];
         NSString *nibName = nil;

@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *onlineButton;
 
 @property (strong, nonatomic) User *student;
+@property (strong, nonatomic) StudentDetail *studentDetail;
 
 @end
 
@@ -33,6 +34,8 @@
     self.iconImagV.layer.cornerRadius = 12.0;
     
     self.onlineButton.layer.cornerRadius = 4.0;
+    self.onlineButton.selected = NO;
+    self.onlineButton.backgroundColor = [UIColor detailColor];
     
     self.tableView.tableFooterView = [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -93,38 +96,42 @@
     }
     if (indexPath.section == 0) {
 
-        cell.textLabel.attributedText = [self setupContentTitle:@"综合评价:A" text:nil];
+        cell.textLabel.attributedText = [self setupContentTitle:@"综合评价:" text:nil];
     } else if (indexPath.section == 1) {
         
         if (indexPath.row == 0) {
-            cell.textLabel.attributedText = [self setupContentTitle:@"待批改数：" text:nil];
+            cell.textLabel.attributedText = [self setupContentTitle:@"待批改数：" text:[NSString stringWithFormat:@"%lu",self.studentDetail.uncorrectHomeworksCount]];
         } else if (indexPath.row == 1) {
-            cell.textLabel.attributedText = [self setupContentTitle:@"考试统计：" text:nil];
+            cell.textLabel.attributedText = [self setupContentTitle:@"考试统计：" text:[NSString stringWithFormat:@"%lu",self.studentDetail.testAvgScore]];
         } else if (indexPath.row == 2) {
-            cell.textLabel.attributedText = [self setupContentTitle:@"获得勋章数：" text:nil];
+            cell.textLabel.attributedText = [self setupContentTitle:@"获得勋章数：" text:[NSString stringWithFormat:@"%lu",self.studentDetail.medalCount]];
         } else if (indexPath.row == 3) {
-            cell.textLabel.attributedText = [self setupContentTitle:@"获得点赞数：" text:nil];
+            cell.textLabel.attributedText = [self setupContentTitle:@"获得点赞数：" text:[NSString stringWithFormat:@"%lu",self.studentDetail.likeCount]];
         } else if (indexPath.row == 4) {
-            cell.textLabel.attributedText = [self setupContentTitle:@"星星数：" text:nil];
+            cell.textLabel.attributedText = [self setupContentTitle:@"星星数：" text:[NSString stringWithFormat:@"%lu",self.studentDetail.starCount]];
         } else {
-            cell.textLabel.attributedText = [self setupContentTitle:@"兑换礼品数：" text:@"12/234星星"];
+            cell.textLabel.attributedText = [self setupContentTitle:@"兑换礼品数：" text:[NSString stringWithFormat:@"%lu/%lu星星",self.studentDetail.giftCount,self.studentDetail.starCount]];
         }
     } else if (indexPath.section == 2) {
         
         if (indexPath.row == 0) {
-            cell.textLabel.attributedText = [self setupContentTitle:@"本学期任务完成率：" text:nil];
+            cell.textLabel.attributedText = [self setupContentTitle:@"本学期任务完成率：" text:[NSString stringWithFormat:@"%lu/%lu",self.studentDetail.commitHomeworksCount,self.studentDetail.allHomeworksCount]];
         } else if (indexPath.row == 1) {
-            cell.textLabel.attributedText = [self setupContentTitle:@"任务评价得分：" text:nil];
+            cell.textLabel.attributedText = [self setupContentTitle:@"任务平均得分：" text:[NSString stringWithFormat:@"%lu",self.studentDetail.avgScore]];
         } else if (indexPath.row == 2) {
-            cell.textLabel.attributedText = [self setupContentTitle:@"优秀任务数：" text:nil];
+            cell.textLabel.attributedText = [self setupContentTitle:@"优秀任务数：" text:[NSString stringWithFormat:@"%lu",self.studentDetail.excellentHomeworksCount]];
         } else if (indexPath.row == 3) {
-            cell.textLabel.attributedText = [self setupContentTitle:@"过期任务数：" text:nil];
+            cell.textLabel.attributedText = [self setupContentTitle:@"过期任务数：" text:[NSString stringWithFormat:@"%lu",self.studentDetail.overdueHomeworksCount]];
         } else {
-            cell.textLabel.attributedText = [self setupContentTitle:@"被分享次数：" text:nil];
+            cell.textLabel.attributedText = [self setupContentTitle:@"被分享次数：" text:[NSString stringWithFormat:@"%lu",self.studentDetail.shareCount]];
         }
     } else {
+        NSString *starCount;
+        if (5 - indexPath.row < self.studentDetail.homeworks.count) {
+            starCount = self.studentDetail.homeworks[5 - indexPath.row];
+        }
         NSString *titleStr = [NSString stringWithFormat:@"%lu星任务数：",5 - indexPath.row];
-        cell.textLabel.attributedText = [self setupContentTitle:titleStr text:@"122颗"];
+        cell.textLabel.attributedText = [self setupContentTitle:titleStr text:[NSString stringWithFormat:@"%@颗",starCount]];
     }
     return cell;
 }
@@ -144,9 +151,17 @@
 
 - (void)requestStudentDetailTask{
     
+    WeakifySelf;
     [StudentService requestStudentDetailTaskWithStuId:self.student.userId callback:^(Result *result, NSError *error) {
         
-        NSLog(@"%@",result);
+        weakSelf.studentDetail = (StudentDetail *)result.userInfo;
+        [weakSelf.tableView reloadData];
+        if (weakSelf.studentDetail.isOnline) {
+            self.onlineButton.backgroundColor = [UIColor mainColor];
+        } else {
+            self.onlineButton.backgroundColor = [UIColor detailColor];
+        }
+        self.onlineButton.selected = weakSelf.studentDetail.isOnline;
     }];
 }
 

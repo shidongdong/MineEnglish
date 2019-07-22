@@ -628,7 +628,7 @@
     return self;
 }
 - (YTKRequestMethod)requestMethod {
-    return YTKRequestMethodGET;
+    return YTKRequestMethodPOST;
 }
 
 - (NSString *)requestUrl {
@@ -636,7 +636,7 @@
 }
 
 - (id)requestArgument {
-    return @{@"campusId":@(self.online),
+    return @{@"isOnline":@(self.online),
              @"times":@(self.times)};
 }
 

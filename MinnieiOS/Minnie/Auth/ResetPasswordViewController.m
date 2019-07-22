@@ -13,6 +13,7 @@
 #import "IMManager.h"
 #import "PortraitNavigationController.h"
 #import "AppDelegate.h"
+#import "AppDelegate+ConfigureUI.h"
 @interface ResetPasswordViewController ()
 
 @property (nonatomic, weak) IBOutlet UITextField *passwordTextField;
@@ -128,7 +129,7 @@
                                               [app removeRemoteNotification];
                                               Application.sharedInstance.currentUser = nil;
                                               [[IMManager sharedManager] logout];
-                                              
+                                              [app refreshOnlineState:NO];
                                               
                                               [APP clearData];
                                               NSString *nibName = nil;

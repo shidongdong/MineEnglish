@@ -101,7 +101,7 @@
              @"excellentHomeworksCount":@"excellentHomeworksCount",
              @"overdueHomeworksCount":@"overdueHomeworksCount",
              @"shareCount":@"shareCount",
-             @"starList":@"starList"
+             @"homeworks":@"homeworks"
              };
 }
 

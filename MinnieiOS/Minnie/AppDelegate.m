@@ -39,8 +39,6 @@
     }
     
     self.onlineStartTime = CFAbsoluteTimeGetCurrent();
-    [self refreshOnlineState:YES times:0];
-    NSLog(@"************启动 %f",self.onlineStartTime);
     //设置屏幕常亮不自动锁屏
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     
@@ -106,26 +104,21 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
    
     self.enterBackgroundDate = [NSDate date];
-   
-    CGFloat duration = CFAbsoluteTimeGetCurrent() - self.onlineStartTime;
-    [self refreshOnlineState:NO times:duration/60];
-    NSLog(@"************进入后台  %f",CFAbsoluteTimeGetCurrent() - self.onlineStartTime);
-    self.onlineStartTime = CFAbsoluteTimeGetCurrent();
+    [self beginBackgroundTask];
+    [self refreshOnlineState:NO];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application{
    
-    [self refreshOnlineState:YES times:0];
-    self.onlineStartTime = CFAbsoluteTimeGetCurrent();
-    NSLog(@"************进入前台  %f",self.onlineStartTime);
+    [self refreshOnlineState:YES];
+    NSLog(@"applicationWillEnterForeground");
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application{
     
-    CGFloat duration = CFAbsoluteTimeGetCurrent() - self.onlineStartTime;
-    [self refreshOnlineState:NO times:duration/60];
-    NSLog(@"************退出  %f",CFAbsoluteTimeGetCurrent() - self.onlineStartTime);
-    self.onlineStartTime = CFAbsoluteTimeGetCurrent();
+    [self beginBackgroundTask];
+    [self refreshOnlineState:NO];
+    NSLog(@"applicationWillTerminate");
 }
 
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {

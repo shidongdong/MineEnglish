@@ -43,6 +43,7 @@
 
 - (void)toHome {
     
+    [self refreshOnlineState:YES];
     UIColor *normalTitleColor = [UIColor colorWithHex:0x999999];
     UIColor *selectedTitleColor = [UIColor colorWithHex:0x0098FE];
     UIFont *font = [UIFont systemFontOfSize:10.f];
@@ -103,6 +104,7 @@
 #elif MANAGERSIDE
 - (void)toHome {
     
+    [self refreshOnlineState:YES];
     MIStockSplitViewController *splitView = [[MIStockSplitViewController alloc] init];
     [UIApplication sharedApplication].keyWindow.rootViewController = splitView;
 }
@@ -117,6 +119,7 @@
         [self.window setRootViewController:guideVc];
         return;
     }
+    [self refreshOnlineState:YES];
     
     UIColor *normalTitleColor = [UIColor colorWithHex:0x999999];
     UIColor *selectedTitleColor = [UIColor colorWithHex:0x0098FE];
@@ -297,13 +300,31 @@
 }
 
 #pragma mark - 上下线
-- (void)refreshOnlineState:(BOOL)online times:(NSInteger)times{
+- (void)refreshOnlineState:(BOOL)online{
     
+    NSInteger times = 0;
+    if (!online) {// 在线时长
+        times = (CFAbsoluteTimeGetCurrent() - self.onlineStartTime)/60;
+    }
+    WeakifySelf;
     [ManagerServce requestUpdateOnlineState:online
                                       times:times
                                    callback:^(Result *result, NSError *error) {
-        if (error) return ;
-        NSLog(@"更新在线状态成功");
+        if (error) {
+            NSLog(@"更新在线状态失败 %d %lu",online,times);
+        } else {
+            NSLog(@"更新在线状态成功 %d %lu",online,times);
+        }
+        weakSelf.onlineStartTime = CFAbsoluteTimeGetCurrent();
+    }];
+}
+
+- (void)beginBackgroundTask{
+    
+    __block NSInteger taskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        
+        [[UIApplication sharedApplication] endBackgroundTask:taskId];
+        NSLog(@"beginBackgroundTask");
     }];
 }
 
