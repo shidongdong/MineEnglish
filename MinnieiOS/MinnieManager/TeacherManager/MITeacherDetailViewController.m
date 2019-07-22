@@ -28,7 +28,6 @@ UITableViewDataSource
 @property (weak, nonatomic) IBOutlet UIButton *onlineButton;
 
 @property (nonatomic,strong) Teacher *teacher;
-
 @property (nonatomic,strong) TeacherDetail *teacherDetail;
 
 @property (nonatomic,strong) NSArray *titleArray;
@@ -79,7 +78,7 @@ UITableViewDataSource
         [self.iconImageV sd_setImageWithURL:[self.teacher.avatarUrl imageURLWithWidth:24] placeholderImage:[UIImage imageNamed: @"attachment_placeholder"]];
         
         // 请求用户信息
-        [self requestDetail];
+        [self requestTeacherDetail];
     }
 }
 
@@ -120,9 +119,9 @@ UITableViewDataSource
     } else if (section == 1) {
         return 3;
     } else if (section == 2) {
-        return 2;
+        return self.teacherDetail.onClassList.count;
     } else {
-        return 5;
+        return self.teacherDetail.onHomeworkList.count;
     }
 }
 
@@ -149,6 +148,7 @@ UITableViewDataSource
             cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MITeacherOnlineTableViewCell class]) owner:nil options:nil] lastObject];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        [cell setupTimeWithTeacher:self.teacherDetail];
         return cell;
     } else if (indexPath.section == 1) {
         
@@ -158,11 +158,16 @@ UITableViewDataSource
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         if (indexPath.row == 0) {
-            cell.textLabel.attributedText = [self setupContentTitle:@"待批改数：" text:@"122"];
+            cell.textLabel.attributedText = [self setupContentTitle:@"待批改数：" text:[NSString stringWithFormat:@"%lu",self.teacherDetail.uncorrectedHomeworksCount]];
         } else if (indexPath.row == 1) {
-            cell.textLabel.attributedText = [self setupContentTitle:@"未提交数：" text:@"345"];
+            cell.textLabel.attributedText = [self setupContentTitle:@"未提交数：" text:[NSString stringWithFormat:@"%lu",self.teacherDetail.uncommitedHomeworksCount]];
         } else {
-            cell.textLabel.attributedText = [self setupContentTitle:@"已批次数：" text:@"今日222/本周44/本月9867"];
+            if (self.teacherDetail.correctedHomeworksDetail.count >= 3) {
+                
+                cell.textLabel.attributedText = [self setupContentTitle:@"已批次数：" text:[NSString stringWithFormat:@"今日%@/本周%@/本月%@",self.teacherDetail.correctedHomeworksDetail[0],self.teacherDetail.correctedHomeworksDetail[1],self.teacherDetail.correctedHomeworksDetail[2]]];
+            } else {
+                 cell.textLabel.attributedText = [self setupContentTitle:@"已批次数：" text:@""];
+            }
         }
         return cell;
     } else {
@@ -176,14 +181,17 @@ UITableViewDataSource
             cell.textLabel.textColor = [UIColor normalColor];
             cell.detailTextLabel.textColor = [UIColor colorWithHex:0x666666];
         }
-        if (indexPath.section == 2) {
+        if (indexPath.section == 2) { // 上课班级
             
-            cell.textLabel.text = @"3年A班";
-            cell.detailTextLabel.text = @"20人";
-        } else {
+            OnClass *classDetail = self.teacherDetail.onClassList[indexPath.row];
+            cell.textLabel.text = classDetail.name;
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu人",classDetail.studentCount];
             
-            cell.textLabel.text = @"第三周第五个任务";
-            cell.detailTextLabel.text = @"2.5/3星";
+        } else {// 任务评分统计
+            
+            OnHomework *taskDetail = self.teacherDetail.onHomeworkList[indexPath.row];
+            cell.textLabel.text = taskDetail.title;
+            [NSString stringWithFormat:@"%lu/%lu星",taskDetail.avgScore,taskDetail.level];
         }
         return cell;
     }
@@ -200,7 +208,6 @@ UITableViewDataSource
     [headerView addSubview:timeLabel];
 
     timeLabel.text = self.titleArray[section];
-    
     return headerView;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -237,11 +244,20 @@ UITableViewDataSource
     }
 }
 
-- (void)requestDetail{
+- (void)requestTeacherDetail{
     // 1496
+    WeakifySelf;
     [TeacherService getTeacherDetailWithId:self.teacher.userId callback:^(Result *result, NSError *error) {
         
         NSLog(@"%@",result);
+        weakSelf.teacherDetail = (TeacherDetail *)result.userInfo;
+        if (weakSelf.teacherDetail.isOnline) {
+            weakSelf.onlineButton.backgroundColor = [UIColor selectedColor];
+        } else {
+            weakSelf.onlineButton.backgroundColor = [UIColor detailColor];
+        }
+        weakSelf.onlineButton.selected = weakSelf.teacherDetail.isOnline;
+        [weakSelf.tableView reloadData];
     }];
 }
 

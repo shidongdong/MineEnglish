@@ -157,11 +157,11 @@
         weakSelf.studentDetail = (StudentDetail *)result.userInfo;
         [weakSelf.tableView reloadData];
         if (weakSelf.studentDetail.isOnline) {
-            self.onlineButton.backgroundColor = [UIColor mainColor];
+            weakSelf.onlineButton.backgroundColor = [UIColor selectedColor];
         } else {
-            self.onlineButton.backgroundColor = [UIColor detailColor];
+            weakSelf.onlineButton.backgroundColor = [UIColor detailColor];
         }
-        self.onlineButton.selected = weakSelf.studentDetail.isOnline;
+        weakSelf.onlineButton.selected = weakSelf.studentDetail.isOnline;
     }];
 }
 

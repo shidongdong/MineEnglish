@@ -44,7 +44,9 @@ typedef NS_ENUM(NSInteger, TeacherType) {
 //班级id
 @property (nonatomic, assign) NSInteger classId;
 //班级名称
-@property (nonatomic, assign) NSInteger name;
+@property (nonatomic, copy) NSString *name;
+//学生数
+@property (nonatomic, assign) NSInteger studentCount;
 
 @end
 
@@ -52,7 +54,11 @@ typedef NS_ENUM(NSInteger, TeacherType) {
 //作业id
 @property (nonatomic, assign) NSInteger homeworkId;
 //作业标题
-@property (nonatomic, assign) NSInteger title;
+@property (nonatomic, copy) NSString *title;
+//平均得分
+@property (nonatomic, assign) NSInteger avgScore;
+//作业难度1-5星
+@property (nonatomic, assign) NSInteger level;
 
 @end
 

@@ -16,6 +16,8 @@ extern CGFloat const MITeacherOnlineTableViewCellHeight;
 
 @interface MITeacherOnlineTableViewCell : UITableViewCell
 
+- (void)setupTimeWithTeacher:(TeacherDetail *)teacher;
+
 @end
 
 NS_ASSUME_NONNULL_END

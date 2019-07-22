@@ -62,6 +62,7 @@
    
     return @{@"classId":@"id",
              @"name":@"name",
+             @"studentCount":@"studentCount"
              };
 }
 
@@ -73,7 +74,10 @@
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
   
     return @{@"homeworkId":@"id",
-             @"title":@"title",};
+             @"title":@"title",
+             @"avgScore":@"avgScore",
+             @"level":@"level"
+             };
 }
 
 @end
