@@ -62,6 +62,11 @@
     return [UIColor colorWithHex:0xF2FAFF];
 }
 
++ (UIColor*)greenBgColor{
+    
+    return [UIColor colorWithHex:0x00CE00];
+}
+
 +(UIImage*) createImageWithColor:(UIColor*) color
 {
     CGRect rect=CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);

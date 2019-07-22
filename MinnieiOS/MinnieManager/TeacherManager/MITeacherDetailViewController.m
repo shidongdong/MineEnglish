@@ -172,28 +172,41 @@ UITableViewDataSource
         return cell;
     } else {
         
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellId"];
-            cell.textLabel.font = [UIFont systemFontOfSize:14];
-            cell.detailTextLabel.font = [UIFont systemFontOfSize:14];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.textColor = [UIColor normalColor];
-            cell.detailTextLabel.textColor = [UIColor colorWithHex:0x666666];
-        }
         if (indexPath.section == 2) { // 上课班级
             
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"onClassCellId"];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellId"];
+                cell.textLabel.font = [UIFont systemFontOfSize:14];
+                cell.detailTextLabel.font = [UIFont systemFontOfSize:14];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.textLabel.textColor = [UIColor normalColor];
+                cell.detailTextLabel.textColor = [UIColor detailColor];
+            }
             OnClass *classDetail = self.teacherDetail.onClassList[indexPath.row];
             cell.textLabel.text = classDetail.name;
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu人",classDetail.studentCount];
             
+            return cell;
         } else {// 任务评分统计
             
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"onHomeworkCellId"];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellId"];
+                cell.textLabel.font = [UIFont systemFontOfSize:14];
+                cell.detailTextLabel.font = [UIFont systemFontOfSize:14];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.textLabel.textColor = [UIColor normalColor];
+                cell.detailTextLabel.textColor = [UIColor detailColor];
+                UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 43.5, kColumnThreeWidth, 0.5)];
+                lineView.backgroundColor = [UIColor separatorLineColor];
+                [cell addSubview:lineView];
+            }
             OnHomework *taskDetail = self.teacherDetail.onHomeworkList[indexPath.row];
             cell.textLabel.text = taskDetail.title;
-            [NSString stringWithFormat:@"%lu/%lu星",taskDetail.avgScore,taskDetail.level];
+            cell.detailTextLabel.text =[NSString stringWithFormat:@"%lu/%lu星",taskDetail.avgScore,taskDetail.level];
+            return cell;
         }
-        return cell;
     }
 }
 
@@ -203,7 +216,7 @@ UITableViewDataSource
     headerView.backgroundColor = [UIColor whiteColor];
     UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, kColumnThreeWidth - 40, 40)];
     timeLabel.textAlignment = NSTextAlignmentLeft;
-    timeLabel.font = [UIFont boldSystemFontOfSize:14];
+    timeLabel.font = [UIFont boldSystemFontOfSize:16];
     timeLabel.textColor = [UIColor normalColor];
     [headerView addSubview:timeLabel];
 
@@ -221,9 +234,12 @@ UITableViewDataSource
         text = @"";
     }
     NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@",title,text]];
-    [attStr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} range:NSMakeRange(0, attStr.length)];
-    [attStr setAttributes:@{NSForegroundColorAttributeName: [UIColor detailColor],
-                            NSFontAttributeName:[UIFont systemFontOfSize:14]}
+    [attStr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14],
+                            NSForegroundColorAttributeName: [UIColor normalColor]}
+                    range:NSMakeRange(0, title.length)];
+    [attStr setAttributes:@{
+                            NSFontAttributeName:[UIFont systemFontOfSize:14],
+                            NSForegroundColorAttributeName: [UIColor detailColor]}
                     range:NSMakeRange(title.length, attStr.length - title.length)];
     return attStr;
     
@@ -235,9 +251,13 @@ UITableViewDataSource
     
     if (indexPath.section == 3) {
        
+        OnHomework *taskDetail = self.teacherDetail.onHomeworkList[indexPath.row];
         MIScoreListViewController *scoreListVC = [[MIScoreListViewController alloc] initWithNibName:NSStringFromClass([MIScoreListViewController class]) bundle:nil];
         scoreListVC.hiddenEditTask = YES;
         scoreListVC.teacherId = self.teacher.userId;
+        Homework *homework = [[Homework alloc] init];
+        homework.homeworkId = taskDetail.homeworkId;
+        scoreListVC.homework = homework;
         if (self.pushCallBack) {
             self.pushCallBack(scoreListVC);
         }
@@ -252,7 +272,7 @@ UITableViewDataSource
         NSLog(@"%@",result);
         weakSelf.teacherDetail = (TeacherDetail *)result.userInfo;
         if (weakSelf.teacherDetail.isOnline) {
-            weakSelf.onlineButton.backgroundColor = [UIColor selectedColor];
+            weakSelf.onlineButton.backgroundColor = [UIColor greenBgColor];
         } else {
             weakSelf.onlineButton.backgroundColor = [UIColor detailColor];
         }

@@ -29,5 +29,7 @@
 
 + (UIColor*)selectedColor;
 
++ (UIColor*)greenBgColor;
+
 +(UIImage*) createImageWithColor:(UIColor*) color;
 @end

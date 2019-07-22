@@ -47,7 +47,7 @@
     return [NSString stringWithFormat:@"%@/teacher/teacherDetail", ServerProjectName];
 }
 
-- (id)requestArgument {
+- (id)requestArgument {//1478
     return @{@"teacherId":@(self.teacherId)};
 }
 

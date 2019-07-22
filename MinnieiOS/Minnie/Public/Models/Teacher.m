@@ -97,5 +97,11 @@
              };
 }
 
++ (NSValueTransformer *)onClassListJSONTransformer {
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[OnClass class]];
+}
 
++ (NSValueTransformer *)onHomeworkListJSONTransformer {
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[OnHomework class]];
+}
 @end

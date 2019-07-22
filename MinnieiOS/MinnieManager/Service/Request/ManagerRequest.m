@@ -262,9 +262,9 @@
 - (id)requestArgument {
     if (self.teacherId > 0) {
         
-        return @{@"homeworkId":@(self.homeworkId)};
-    } else {
         return @{@"homeworkId":@(self.homeworkId),@"teacherId":@(self.teacherId)};
+    } else {
+        return @{@"homeworkId":@(self.homeworkId)};
     }
 }
 

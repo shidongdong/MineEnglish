@@ -79,10 +79,6 @@
     }
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    return @" ";
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 30;
 }
@@ -136,6 +132,17 @@
     return cell;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    UIView *headerView =  [[UIView alloc] init];
+    headerView.backgroundColor = [UIColor whiteColor];
+    return headerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 20.0;
+}
+
 - (NSAttributedString *)setupContentTitle:(NSString *)title text:(NSString *)text{
     if (text.length == 0) {
         text = @"";
@@ -157,7 +164,7 @@
         weakSelf.studentDetail = (StudentDetail *)result.userInfo;
         [weakSelf.tableView reloadData];
         if (weakSelf.studentDetail.isOnline) {
-            weakSelf.onlineButton.backgroundColor = [UIColor selectedColor];
+            weakSelf.onlineButton.backgroundColor = [UIColor greenBgColor];
         } else {
             weakSelf.onlineButton.backgroundColor = [UIColor detailColor];
         }

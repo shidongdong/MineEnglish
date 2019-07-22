@@ -222,7 +222,7 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
 //按日期第几次作业有bug恢复到还是取老师名字
     self.nameLabel.text = homeworkSession.correctTeacher.nickname;
     
-    [self.avatarImageView sd_setImageWithURL:[homeworkSession.correctTeacher.avatarUrl imageURLWithWidth:44.f]];
+    [self.avatarImageView sd_setImageWithURL:[homeworkSession.correctTeacher.avatarUrl imageURLWithWidth:44.f] placeholderImage:[UIImage imageNamed:@"attachment_placeholder"]];
     if ([self.reuseIdentifier isEqualToString:@"UnfinishedStudentHomeworkSessionTableViewCellId"])
     {
         [self setLeftCommitHomeworkUI:homeworkSession];
