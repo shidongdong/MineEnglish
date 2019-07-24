@@ -25,8 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)refreshUserInfo:(NSNotification *)notification;
 // 更新上下线状态  times:在线时长
 - (void)refreshOnlineState:(BOOL)online;
-
-- (void)beginBackgroundTask;
+// 更新上下线状态  times:在线时长
+- (void)refreshOnlineState:(BOOL)online
+                  needWait:(BOOL)needWait;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -104,41 +104,17 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
    
     self.enterBackgroundDate = [NSDate date];
-    [self beginBackgroundTask];
-    [self refreshOnlineState:NO];
+    [self refreshOnlineState:NO needWait:YES];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application{
    
-    [self refreshOnlineState:YES];
-    NSLog(@"applicationWillEnterForeground");
+    [self refreshOnlineState:YES needWait:NO];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application{
     
-    [self beginBackgroundTask];
-    [self refreshOnlineState:NO];
-    NSLog(@"applicationWillTerminate");
-    
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://api.minniedu.com:9999/user/onoffline"]];
-    request.timeoutInterval = 10;
-    request.HTTPMethod = @"POST";
-    
-    NSDictionary *bodyDic = @{@"isOnline":@"1",@"times":@"10"};
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:bodyDic options:NSJSONWritingPrettyPrinted error:nil];
-    [request setHTTPBody:jsonData];
-    
-    
-    NSString *authStr = @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE1NjMyNjk1ODYsImlzcyI6Imh0dHA6Ly9teWRvbWFpbi5jb20iLCJleHAiOjE1NjU4NjE1ODYsInVzZXJJZCI6InB0b2tlbmlkXzE0NzgifQ.KAFRlv9ONrsBLQywMgXgQBgC8OqDLqbjDQzkPSSkr8I";
-    [request setValue:authStr forHTTPHeaderField:@"Authorization"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSLog(@"NSURLSessionDataTask %@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-    }];
-    [task resume];
+    [self refreshOnlineState:NO needWait:YES];
 }
 
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {

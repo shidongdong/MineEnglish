@@ -43,7 +43,7 @@
 
 - (void)toHome {
     
-    [self refreshOnlineState:YES];
+    [self refreshOnlineState:YES needWait:NO];
     UIColor *normalTitleColor = [UIColor colorWithHex:0x999999];
     UIColor *selectedTitleColor = [UIColor colorWithHex:0x0098FE];
     UIFont *font = [UIFont systemFontOfSize:10.f];
@@ -104,7 +104,7 @@
 #elif MANAGERSIDE
 - (void)toHome {
     
-    [self refreshOnlineState:YES];
+    [self refreshOnlineState:YES needWait:NO];
     MIStockSplitViewController *splitView = [[MIStockSplitViewController alloc] init];
     [UIApplication sharedApplication].keyWindow.rootViewController = splitView;
 }
@@ -119,7 +119,7 @@
         [self.window setRootViewController:guideVc];
         return;
     }
-    [self refreshOnlineState:YES];
+    [self refreshOnlineState:YES needWait:NO];
     
     UIColor *normalTitleColor = [UIColor colorWithHex:0x999999];
     UIColor *selectedTitleColor = [UIColor colorWithHex:0x0098FE];
@@ -299,33 +299,53 @@
                                 }];
 }
 
-#pragma mark - 上下线
-- (void)refreshOnlineState:(BOOL)online{
+#pragma mark - 上下线同步
+- (void)refreshOnlineState:(BOOL)online
+                  needWait:(BOOL)needWait{
     
     NSInteger times = 0;
     if (!online) {// 在线时长
         times = (CFAbsoluteTimeGetCurrent() - self.onlineStartTime)/60;
     }
     WeakifySelf;
-    [ManagerServce requestUpdateOnlineState:online
-                                      times:times
-                                   callback:^(Result *result, NSError *error) {
-        if (error) {
-            NSLog(@"更新在线状态失败 %d %lu",online,times);
-        } else {
-            NSLog(@"更新在线状态成功 %d %lu",online,times);
-        }
-        weakSelf.onlineStartTime = CFAbsoluteTimeGetCurrent();
-    }];
-}
-
-- (void)beginBackgroundTask{
-    
-    __block NSInteger taskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+    if (needWait) {
+        // 进入后台、退出APP，异步请求失败，结果无法返回，无法完成，使用信号量解决请求失败问题
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://api.minniedu.com:9999/user/onoffline"]];
+        request.timeoutInterval = 10;
+        request.HTTPMethod = @"POST";
+        // 请求体
+        NSDictionary *bodyDic = @{@"isOnline":@(online),@"times":@(times)};
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:bodyDic options:NSJSONWritingPrettyPrinted error:nil];
+        [request setHTTPBody:jsonData];
+        // 请求头
+        NSString *tokenStr = APP.currentUser.token;
+        [request setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
-        [[UIApplication sharedApplication] endBackgroundTask:taskId];
-        NSLog(@"beginBackgroundTask");
-    }];
+        NSLog(@"refreshOnlineState 0");
+        NSURLSession *session = [NSURLSession sharedSession];
+        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+        NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            
+            weakSelf.onlineStartTime = CFAbsoluteTimeGetCurrent();
+            NSLog(@"refreshOnlineState 2 %@ %f",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding],weakSelf.onlineStartTime);
+            dispatch_semaphore_signal(semaphore);
+        }];
+        [task resume];
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        NSLog(@"refreshOnlineState 1");
+    } else {
+       
+        [ManagerServce requestUpdateOnlineState:online
+                                          times:times
+                                       callback:^(Result *result, NSError *error) {
+                                           if (error) {
+                                               NSLog(@"更新在线状态失败 %d %lu",online,times);
+                                           } else {
+                                               NSLog(@"更新在线状态成功 %d %lu",online,times);
+                                           }
+                                           weakSelf.onlineStartTime = CFAbsoluteTimeGetCurrent();
+                                       }];
+    }
 }
-
 @end

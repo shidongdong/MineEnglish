@@ -91,7 +91,7 @@
         [app removeRemoteNotification];
         Application.sharedInstance.currentUser = nil;
         [[IMManager sharedManager] logout];
-        [app refreshOnlineState:NO];
+        [app refreshOnlineState:NO needWait:NO];
         [APP clearData];
         NSString *nibName = nil;
 #if TEACHERSIDE | MANAGERSIDE
