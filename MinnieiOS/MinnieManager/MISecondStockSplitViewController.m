@@ -288,7 +288,7 @@ MICampusManagerViewControllerDelegate
 }
 
 - (void)hiddenZeroMessages{
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (MIZeroMessagesViewController *)zeroMessagesVC{

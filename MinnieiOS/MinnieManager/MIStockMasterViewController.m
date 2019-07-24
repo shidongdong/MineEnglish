@@ -17,16 +17,6 @@
 #import "MISecondStockSplitViewController.h"
 #import "HomeWorkSendHistoryViewController.h"
 
-//#import "MITeacherManagerViewController.h"
-//#import "MIGifManStockSplitViewController.h"
-//#import "MITaskStockSplitViewController.h"
-//#import "MISetterStockSplitViewController.h"
-//#import "MIActivityStockSplitViewController.h"
-//#import "MIReaTimTasStockSplitViewController.h"
-//#import "MITeaStaStockSplitViewController.h"
-//#import "MICamManStockSplitViewController.h"
-
-
 @interface MIStockMasterViewController ()<
 RootSheetViewDelete,
 SecondSheetViewDelegate,
@@ -284,7 +274,7 @@ MISecondTeachStatisticsViewDelegate
     [nav popToRootViewControllerAnimated:YES];
 }
 
-#pragma mark - 更新布局
+#pragma mark - 更新布局比例
 - (void)updatePrimaryCloumnScale:(NSInteger)offset{
     
     UIViewController *vc = self.parentViewController;
@@ -301,13 +291,7 @@ MISecondTeachStatisticsViewDelegate
         if (detailVC.primaryCloumnScale != offset) {
             
             detailVC.primaryCloumnScale = offset;
-            if (offset == kRootModularWidth) {
-                
-                [detailVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:NO];
-            } else {
-                
-                [detailVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
-            }
+            [detailVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:NO];
         }
     }
 }
@@ -380,7 +364,7 @@ MISecondTeachStatisticsViewDelegate
     }
     if (_teaStaStockSplitVC.primaryCloumnScale != kColumnThreeWidth) {
         _teaStaStockSplitVC.primaryCloumnScale = kColumnThreeWidth;
-        [_teaStaStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
+        [_teaStaStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:NO];
     }
     _teaStaStockSplitVC.rootModularType = MIRootModularType_TeachingStatistic;
     return _teaStaStockSplitVC;
