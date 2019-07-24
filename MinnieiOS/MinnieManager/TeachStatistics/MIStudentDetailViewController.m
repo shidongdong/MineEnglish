@@ -111,7 +111,13 @@
     } else if (indexPath.section == 2) {
         
         if (indexPath.row == 0) {
-            cell.textLabel.attributedText = [self setupContentTitle:@"本学期任务完成率：" text:[NSString stringWithFormat:@"%lu/%lu",self.studentDetail.commitHomeworksCount,self.studentDetail.allHomeworksCount]];
+            
+            NSInteger finish = 0;
+            if (self.studentDetail.homeworks.count >= 7) {
+               
+                finish = self.studentDetail.allHomeworksCount - ((NSNumber *)self.studentDetail.homeworks[0]).intValue - ((NSNumber *)self.studentDetail.homeworks[6]).intValue;
+            }
+            cell.textLabel.attributedText = [self setupContentTitle:@"本学期任务完成率：" text:[NSString stringWithFormat:@"%lu/%lu",finish,self.studentDetail.allHomeworksCount]];
         } else if (indexPath.row == 1) {
             cell.textLabel.attributedText = [self setupContentTitle:@"任务平均得分：" text:[NSString stringWithFormat:@"%lu",self.studentDetail.avgScore]];
         } else if (indexPath.row == 2) {

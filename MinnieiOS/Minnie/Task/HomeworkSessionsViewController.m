@@ -97,7 +97,10 @@ MIActivityBannerViewDelegate
     if (self.searchFliter != -1)
     {
         [self setupAndLoadConversations];
+#if MANAGERSIDE
+#else
         [self requestHomeworkSessions];
+#endif
     }
     [self addNotificationObservers];
 }

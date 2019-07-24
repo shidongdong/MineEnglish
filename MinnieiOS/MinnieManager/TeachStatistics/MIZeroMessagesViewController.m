@@ -26,6 +26,7 @@ UITableViewDataSource
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.view.backgroundColor = [UIColor emptyBgColor];
     self.tableView.tableFooterView = [UIView new];
     self.zeroMessagesArray = [NSMutableArray array];
     [self requestStudentZeroTask];
