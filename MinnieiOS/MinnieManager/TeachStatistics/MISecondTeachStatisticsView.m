@@ -117,7 +117,6 @@ UITableViewDataSource
 
 - (void)showChildPageViewWithIndex:(NSUInteger)index animated:(BOOL)animated shouldLocate:(BOOL)shouldLocate {
     
-    NSLog(@"showChildPageViewWithIndex %lu",index);
     self.currentIndexPath = nil;
     
     if (shouldLocate) {
@@ -215,9 +214,11 @@ UITableViewDataSource
     self.currentIndexPath = nil;
     
     if (self.segmentControl.selectedIndex == 0) {
+        [self.rightTableView reloadData];
         [self requestStudents];
     } else {
         [self requestStudentLisByClasst];
+        [self.leftTableView reloadData];
     }
 }
 
