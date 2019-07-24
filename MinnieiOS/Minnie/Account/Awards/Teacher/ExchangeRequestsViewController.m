@@ -47,6 +47,11 @@
     [self configureUI];
     [self registerCellNibs];
     if (self.isAwardListByClass) {
+
+        WeakifySelf;
+        [self.requestsTableView addPullToRefreshWithRefreshingBlock:^{
+            [weakSelf requestAwardListByClass];
+        }];
         [self requestAwardListByClass];
     } else {
         [self requestData];
@@ -225,15 +230,11 @@
 #pragma mark - 获取兑换列表（管理端）
 - (void)requestAwardListByClass {
     
-    if (self.awardListByClass.count == 0) {
-        
-        self.requestsTableView.hidden = YES;
-        [self.containerView showLoadingView];
-    }
     WeakifySelf;
     [TeacherAwardService requestexchangeAwardByClassWithState:0
                                                      callback:^(Result *result, NSError *error) {
                                                          
+                                                         [weakSelf.requestsTableView headerEndRefreshing];
                                                          StrongifySelf;
                                                          [strongSelf handleRequestByClassResult:result error:error];
                                                      }];

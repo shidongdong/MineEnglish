@@ -122,7 +122,7 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="9kV-27-XgE" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="Chb-um-2ly"/>
+                <constraint firstItem="9kV-27-XgE" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Chb-um-2ly"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="lUS-OD-86g" secondAttribute="trailing" id="I9U-41-2nO"/>
                 <constraint firstItem="9kV-27-XgE" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" priority="750" id="IEn-rT-MC6"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="WAk-bC-lsp" secondAttribute="bottom" id="IUD-Xf-fTr"/>

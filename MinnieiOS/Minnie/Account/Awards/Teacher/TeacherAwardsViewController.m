@@ -36,12 +36,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.awardsCollectionView.backgroundColor = [UIColor unSelectedColor];
+    self.awardsCollectionContainerView.backgroundColor = [UIColor unSelectedColor];
     self.createButton.hidden = !APP.currentUser.canCreateRewards;
     
     [self registerCellNibs];
-    
-    [self requestData];
+
+    WeakifySelf;
+    [self.awardsCollectionView addPullToRefreshWithRefreshingBlock:^{
+        [weakSelf requestData];
+    }];
+     [self requestData];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(shouldReloadWhenAppeared:)
@@ -54,6 +59,7 @@
     [self.backButton setTitle:@"新建" forState:UIControlStateNormal];
     [self.backButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
     self.rightLineView.hidden = NO;
+    
 #else
     self.rightLineView.hidden = YES;
     self.titleLabel.text = @"星奖励";
@@ -138,19 +144,19 @@
 }
 
 - (void)requestData {
+   
     if (self.awardsRequest != nil) {
         return;
     }
     
     self.awards = nil;
-
-    self.awardsCollectionView.hidden = YES;
-    [self.awardsCollectionContainerView showLoadingView];
+//    self.awardsCollectionView.hidden = YES;
+//    [self.awardsCollectionContainerView showLoadingView];
     
     WeakifySelf;
     self.awardsRequest = [TeacherAwardService requestAwardsWithCallback:^(Result *result, NSError *error) {
         StrongifySelf;
-        
+        [weakSelf.awardsCollectionView headerEndRefreshing];
         strongSelf.awardsRequest = nil;
         
         // 显示失败页面
