@@ -39,10 +39,6 @@ MIClassDetailViewControllerDelegate
     self.subPageVCArray = [NSMutableArray array];
     self.campusInfoArray = [NSMutableArray array];
     
-    self.rightLineView = [[UIView alloc] initWithFrame:CGRectMake((ScreenWidth - kRootModularWidth)/2.0 - 1.0, 0, 0.5, ScreenHeight)];
-    self.rightLineView.backgroundColor = [UIColor separatorLineColor];
-    [self.view addSubview:self.rightLineView];
-    
     [self requestCampus];
 }
 
@@ -171,5 +167,11 @@ MIClassDetailViewControllerDelegate
     btn.frame = CGRectMake(0, 0, 50, 44);
     [self.pageController.menuView setRightView:btn];
     
+    if (!self.rightLineView) {
+        
+        self.rightLineView = [[UIView alloc] initWithFrame:CGRectMake((ScreenWidth - kRootModularWidth)/2.0 - 1.0, 0, 0.5, ScreenHeight)];
+        self.rightLineView.backgroundColor = [UIColor separatorLineColor];
+    }
+    [self.view addSubview:self.rightLineView];
 }
 @end
