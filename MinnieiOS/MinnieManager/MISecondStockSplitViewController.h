@@ -88,6 +88,10 @@ typedef NS_ENUM(NSInteger,MIRootModularType) {
 /*
  *  设置
  */
+
+
+- (void)updatePrimaryCloumnScale:(NSInteger)offset;
+
 @end
 
 NS_ASSUME_NONNULL_END

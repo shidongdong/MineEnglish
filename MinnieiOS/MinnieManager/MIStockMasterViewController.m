@@ -111,6 +111,7 @@ MISecondTeachStatisticsViewDelegate
     [_secondActivitySheetView resetCurrentIndex];
     [self.teaStaStockSplitVC hiddenZeroMessages];
     
+    NSInteger cloumnScale = 0;
     if (index == 0) { // 实时任务
         
         self.secondSheetView.hidden = YES;
@@ -119,7 +120,7 @@ MISecondTeachStatisticsViewDelegate
         self.secondTeaStaSheetView.hidden = YES;
         
         self.reaTimTasSheetView.hidden = NO;
-        [self updatePrimaryCloumnScale:kRootModularWidth + kColumnSecondWidth];
+        cloumnScale = kRootModularWidth + kColumnSecondWidth;
         [self.secondDetailVC addSubViewController:self.reaTimTasStockSplitVC];
         
         [self.reaTimTasSheetView updateTeacherListWithListType:0];
@@ -133,7 +134,7 @@ MISecondTeachStatisticsViewDelegate
         self.secondTeaStaSheetView.hidden = YES;
         
         self.teacherManagerSheetView.hidden = NO;
-        [self updatePrimaryCloumnScale:kRootModularWidth + kColumnSecondWidth];
+        cloumnScale = kRootModularWidth + kColumnSecondWidth;
         [self.secondDetailVC addSubViewController:self.teacherStockSplitVC];
         
         [self.teacherManagerSheetView updateTeacherListWithListType:1];
@@ -147,7 +148,7 @@ MISecondTeachStatisticsViewDelegate
         self.secondTeaStaSheetView.hidden = YES;
         
         self.secondSheetView.hidden = NO;
-        [self updatePrimaryCloumnScale:kRootModularWidth + kColumnSecondWidth];
+        cloumnScale = kRootModularWidth + kColumnSecondWidth;
         [self.secondDetailVC addSubViewController:self.taskManagerStockSplitVC];
         
         [self.taskManagerStockSplitVC showTaskListWithFoldInfo:nil folderIndex:-1];
@@ -162,7 +163,7 @@ MISecondTeachStatisticsViewDelegate
         self.secondTeaStaSheetView.hidden = YES;
         
         self.secondActivitySheetView.hidden = NO;
-        [self updatePrimaryCloumnScale:kRootModularWidth + kColumnSecondWidth];
+        cloumnScale = kRootModularWidth + kColumnSecondWidth;
         [self.secondDetailVC addSubViewController:self.activityStockSplitVC];
         
         [_secondActivitySheetView updateActivityListInfo];
@@ -174,22 +175,23 @@ MISecondTeachStatisticsViewDelegate
         self.teacherManagerSheetView.hidden = YES;
         
         self.secondTeaStaSheetView.hidden = NO;
-        [self updatePrimaryCloumnScale:kRootModularWidth + kColumnSecondWidth];
+        cloumnScale = kRootModularWidth + kColumnSecondWidth;
         [self.secondDetailVC addSubViewController:self.teaStaStockSplitVC];
         
         [self.secondTeaStaSheetView updateStudentList];
         [self.teaStaStockSplitVC updateStudent:nil];
     } else if (index == 5) { // 校区管理
-        
-        [self updatePrimaryCloumnScale:kRootModularWidth];
+        cloumnScale = kRootModularWidth;
         [self.secondDetailVC addSubViewController:self.camManStockSplitVC];
     } else if (index == 6) { // 礼物管理
-        
-        [self updatePrimaryCloumnScale:kRootModularWidth];
+        cloumnScale = kRootModularWidth;
         [self.secondDetailVC addSubViewController:self.giftStockSplitVC];
     } else if (index == 7) { // 设置
-        [self updatePrimaryCloumnScale:kRootModularWidth];
+        cloumnScale = kRootModularWidth;
         [self.secondDetailVC addSubViewController:self.setterStockSplitVC];
+    }
+    if (self.cloumnSacleCallBack) {
+        self.cloumnSacleCallBack(cloumnScale);
     }
 }
 
@@ -274,28 +276,6 @@ MISecondTeachStatisticsViewDelegate
     [nav popToRootViewControllerAnimated:YES];
 }
 
-#pragma mark - 更新布局比例
-- (void)updatePrimaryCloumnScale:(NSInteger)offset{
-    
-    UIViewController *vc = self.parentViewController;
-    while (1) {
-        if ([vc isKindOfClass:[CSCustomSplitViewController  class]]) {
-            break;
-        } else {
-            vc = vc.parentViewController;
-        }
-    }
-    if ([vc isKindOfClass:[CSCustomSplitViewController  class]]) {
-        
-        CSCustomSplitViewController *detailVC = (CSCustomSplitViewController *)vc;
-        if (detailVC.primaryCloumnScale != offset) {
-            
-            detailVC.primaryCloumnScale = offset;
-            [detailVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:NO];
-        }
-    }
-}
-
 #pragma mark - setter && getter
 - (MISecondStockSplitViewController *)reaTimTasStockSplitVC{
     
@@ -303,10 +283,7 @@ MISecondTeachStatisticsViewDelegate
         _reaTimTasStockSplitVC = [[MISecondStockSplitViewController alloc] init];
     }
     _reaTimTasStockSplitVC.rootModularType = MIRootModularType_RealTimeTask;
-    if (_reaTimTasStockSplitVC.primaryCloumnScale != kColumnThreeWidth) {
-        _reaTimTasStockSplitVC.primaryCloumnScale = kColumnThreeWidth;
-        [_reaTimTasStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
-    }
+    [_reaTimTasStockSplitVC updatePrimaryCloumnScale:kColumnThreeWidth];
     return _reaTimTasStockSplitVC;
 }
 
@@ -315,10 +292,7 @@ MISecondTeachStatisticsViewDelegate
         _teacherStockSplitVC = [[MISecondStockSplitViewController alloc] init];
     }
     _teacherStockSplitVC.rootModularType = MIRootModularType_TeacherManager;
-    if (_teacherStockSplitVC.primaryCloumnScale != kColumnThreeWidth) {
-        _teacherStockSplitVC.primaryCloumnScale = kColumnThreeWidth;
-        [_teacherStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
-    }
+    [_teacherStockSplitVC updatePrimaryCloumnScale:kColumnThreeWidth];
     return _teacherStockSplitVC;
 }
 
@@ -332,10 +306,7 @@ MISecondTeachStatisticsViewDelegate
         };
     }
     _taskManagerStockSplitVC.rootModularType = MIRootModularType_TaskManager;
-    if (_taskManagerStockSplitVC.primaryCloumnScale != kColumnThreeWidth) {
-         _taskManagerStockSplitVC.primaryCloumnScale = kColumnThreeWidth;
-        [_taskManagerStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
-    }
+    [_taskManagerStockSplitVC updatePrimaryCloumnScale:kColumnThreeWidth];
     return _taskManagerStockSplitVC;
 }
 
@@ -350,10 +321,7 @@ MISecondTeachStatisticsViewDelegate
         };
     }
     _activityStockSplitVC.rootModularType = MIRootModularType_ActivityManager;
-    if (_activityStockSplitVC.primaryCloumnScale != kColumnThreeWidth) {
-        _activityStockSplitVC.primaryCloumnScale = kColumnThreeWidth;
-        [_activityStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
-    }
+    [_activityStockSplitVC updatePrimaryCloumnScale:kColumnThreeWidth];
     return _activityStockSplitVC;
 }
 
@@ -362,10 +330,7 @@ MISecondTeachStatisticsViewDelegate
     if (!_teaStaStockSplitVC) {
         _teaStaStockSplitVC = [[MISecondStockSplitViewController alloc] init];
     }
-    if (_teaStaStockSplitVC.primaryCloumnScale != kColumnThreeWidth) {
-        _teaStaStockSplitVC.primaryCloumnScale = kColumnThreeWidth;
-        [_teaStaStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:NO];
-    }
+    [_teaStaStockSplitVC updatePrimaryCloumnScale:kColumnThreeWidth];
     _teaStaStockSplitVC.rootModularType = MIRootModularType_TeachingStatistic;
     return _teaStaStockSplitVC;
 }
@@ -375,11 +340,8 @@ MISecondTeachStatisticsViewDelegate
         _camManStockSplitVC = [[MISecondStockSplitViewController alloc] init];
     }
     _camManStockSplitVC.rootModularType = MIRootModularType_CampusManager;
-    CGFloat setterWidth = (ScreenWidth - kRootModularWidth)/2.0;
-    if (_camManStockSplitVC.primaryCloumnScale != setterWidth) {
-        _camManStockSplitVC.primaryCloumnScale = setterWidth;
-        [_camManStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
-    }
+    CGFloat columnThreeWidth = (ScreenWidth - kRootModularWidth)/2.0;
+    [_camManStockSplitVC updatePrimaryCloumnScale:columnThreeWidth];
     return _camManStockSplitVC;
 }
 
@@ -389,11 +351,8 @@ MISecondTeachStatisticsViewDelegate
         _giftStockSplitVC = [[MISecondStockSplitViewController alloc] init];
     }
     _giftStockSplitVC.rootModularType = MIRootModularType_GiftManager;
-    CGFloat setterWidth = (ScreenWidth - kRootModularWidth)/2.0 + 80;
-    if (_giftStockSplitVC.primaryCloumnScale != setterWidth) {
-        _giftStockSplitVC.primaryCloumnScale = setterWidth;
-        [_giftStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
-    }
+    CGFloat columnThreeWidth = (ScreenWidth - kRootModularWidth)/2.0 + 80;
+    [_giftStockSplitVC updatePrimaryCloumnScale:columnThreeWidth];
     return _giftStockSplitVC;
 }
 
@@ -403,11 +362,8 @@ MISecondTeachStatisticsViewDelegate
         _setterStockSplitVC = [[MISecondStockSplitViewController alloc] init];
     }
     _setterStockSplitVC.rootModularType = MIRootModularType_SetterManager;
-    CGFloat setterWidth = (ScreenWidth - kRootModularWidth)/2.0;
-    if (_setterStockSplitVC.primaryCloumnScale != setterWidth) {
-        _setterStockSplitVC.primaryCloumnScale = setterWidth;
-        [_setterStockSplitVC setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
-    }
+    CGFloat columnThreeWidth = (ScreenWidth - kRootModularWidth)/2.0;
+    [_setterStockSplitVC updatePrimaryCloumnScale:columnThreeWidth];
     return _setterStockSplitVC;
 }
 

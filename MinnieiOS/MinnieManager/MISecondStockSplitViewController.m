@@ -394,4 +394,12 @@ MICampusManagerViewControllerDelegate
     };
 }
 
+
+- (void)updatePrimaryCloumnScale:(NSInteger)offset{
+   
+    if (self.primaryCloumnScale != offset) {
+        self.primaryCloumnScale = offset;
+        [self setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
+    }
+}
 @end

@@ -9,8 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "MIStockDetailViewController.h"
 
+typedef void(^UpdatePrimaryCloumnScaleCallBack)(NSInteger primaryCloumnScale);
+
 @interface MIStockMasterViewController : UIViewController
 
 @property (nonatomic,strong) MIStockDetailViewController *secondDetailVC;
+
+@property (nonatomic,copy) UpdatePrimaryCloumnScaleCallBack cloumnSacleCallBack;
 
 @end
