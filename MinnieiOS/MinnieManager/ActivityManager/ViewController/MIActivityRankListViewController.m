@@ -158,6 +158,8 @@ UITableViewDataSource
     }
     [bgView addSubview:createVC.view];
     createVC.view.frame = CGRectMake(kRootModularWidth/2.0, 70, ScreenWidth - kRootModularWidth, ScreenHeight - 120);
+    createVC.view.layer.cornerRadius = 10.f;
+    createVC.view.layer.masksToBounds = YES;
 }
 
 - (void)updateRankListWithActivityModel:(ActivityInfo *_Nullable)model index:(NSInteger)currentIndex{

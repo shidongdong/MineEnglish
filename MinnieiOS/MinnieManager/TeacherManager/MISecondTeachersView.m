@@ -94,6 +94,7 @@ UITableViewDataSource
     [rootVC addChildViewController:editVC];
     [editVC didMoveToParentViewController:rootVC];
     editVC.view.frame = CGRectMake((ScreenWidth - 375.0)/2.0, 50, 375, ScreenHeight - 100);
+    editVC.view.layer.cornerRadius = 10.f;
     
     editVC.cancelCallBack = ^{
         if (bgView.superview) {

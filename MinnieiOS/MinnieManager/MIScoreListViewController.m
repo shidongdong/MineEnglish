@@ -117,6 +117,8 @@ UITableViewDataSource
         
         [view addSubview:createVC.view];
         createVC.view.frame = CGRectMake(kRootModularWidth/2.0, 70, ScreenWidth - kRootModularWidth, ScreenHeight - 120);
+        createVC.view.layer.cornerRadius = 10.f;
+        createVC.view.layer.masksToBounds = YES;
         
         createVC.callBack = ^(BOOL isDelete) {
             if (weakSelf.editTaskCallBack) {
