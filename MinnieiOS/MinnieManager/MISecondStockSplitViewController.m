@@ -277,18 +277,22 @@ MICampusManagerViewControllerDelegate
         [self.teachStatistickDetailVC updateStudentRecordWithStudentId:student.userId];
         [self.teachStatistickMasterVC updateStudent:student];
         [self hiddenZeroMessages];
+        if (self.displayMode != CSSplitDisplayModeDisplayPrimaryAndSecondary) {
+            [self setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:NO];
+        }
     } else {
         
         self.teachStatistickMasterVC.view.hidden = YES;
-        self.teachStatistickDetailVC.view.hidden = YES;
-        self.zeroMessagesVC.view.hidden = NO;
         [self.zeroMessagesVC updateZeroMessages];
-        [self.navigationController pushViewController:self.zeroMessagesVC animated:YES];
+        [self.teachStatistickMasterVC.navigationController pushViewController:self.zeroMessagesVC animated:NO];
+        if (self.displayMode != CSSplitDisplayModeOnlyDisplayPrimary) {
+            [self setDisplayMode:CSSplitDisplayModeOnlyDisplayPrimary withAnimated:NO];
+        }
     }
 }
 
 - (void)hiddenZeroMessages{
-    [self.navigationController popViewControllerAnimated:NO];
+    [self.teachStatistickMasterVC.navigationController popToRootViewControllerAnimated:NO];
 }
 
 - (MIZeroMessagesViewController *)zeroMessagesVC{
