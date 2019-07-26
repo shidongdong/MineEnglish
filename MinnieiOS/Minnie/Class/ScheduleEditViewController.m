@@ -15,6 +15,7 @@
 #import "ScheduleEditHeaderView.h"
 #import "DatePickerView.h"
 #import "NSDate+X5.h"
+#import "NSDate+Extension.h"
 
 @interface ScheduleEditViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -114,8 +115,10 @@
         return;
     }
     
-    if ([endDate timeIntervalSinceDate:startDate]<0 ||
-        [endDate timeIntervalSinceDate:startDate]>365*24*60*60) {
+    if ([endDate timeIntervalSinceDate:startDate]<0
+//        ||
+//        [endDate timeIntervalSinceDate:startDate]>365*24*60*60
+        ) {
         [HUD showErrorWithMessage:@"日期设置错误"];
         
         return;
@@ -163,8 +166,10 @@
         return;
     }
     
-    if ([endDate timeIntervalSinceDate:startDate]<0 ||
-        [endDate timeIntervalSinceDate:startDate]>365*24*60*60) {
+    if ([endDate timeIntervalSinceDate:startDate]<0
+//        ||
+//        [endDate timeIntervalSinceDate:startDate]>365*24*60*60
+        ) {
         [HUD showErrorWithMessage:@"日期设置错误"];
         
         return;
@@ -210,8 +215,10 @@
         return;
     }
     
-    if ([endDate timeIntervalSinceDate:startDate]<0 ||
-        [endDate timeIntervalSinceDate:startDate]>365*24*60*60) {
+    if ([endDate timeIntervalSinceDate:startDate]<0
+//        ||
+//        [endDate timeIntervalSinceDate:startDate]>365*24*60*60
+        ) {
         [HUD showErrorWithMessage:@"日期设置错误"];
         
         return;
@@ -261,8 +268,10 @@
         [DatePickerView showInView:weakSelf.navigationController.view
                               date:weakHeaderView.startDate
                           callback:^(NSDate *date) {
-                              if ([weakHeaderView.endDate timeIntervalSinceDate:date]<0 ||
-                                  [weakHeaderView.endDate timeIntervalSinceDate:date]>365*24*60*60) {
+                              if ([weakHeaderView.endDate timeIntervalSinceDate:date]<0
+//                                  ||
+//                                  [weakHeaderView.endDate timeIntervalSinceDate:date]>365*24*60*60
+                                  ) {
                                   [HUD showErrorWithMessage:@"日期设置错误"];
                                   
                                   return;
@@ -277,8 +286,10 @@
         [DatePickerView showInView:weakSelf.navigationController.view
                               date:weakHeaderView.endDate
                           callback:^(NSDate *date) {
-                              if ([date timeIntervalSinceDate:weakHeaderView.startDate]<0 ||
-                                  [date timeIntervalSinceDate:weakHeaderView.startDate]>365*24*60*60) {
+                              if ([date timeIntervalSinceDate:weakHeaderView.startDate]<0
+//                                  ||
+//                                  [date timeIntervalSinceDate:weakHeaderView.startDate]>365*24*60*60
+                                  ) {
                                   [HUD showErrorWithMessage:@"日期设置错误"];
                                   
                                   return;
@@ -587,12 +598,23 @@
         }
     }
     // 课程月份排序
-    [self.months sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+    [self.months sortUsingComparator:^NSComparisonResult(NSString * _Nonnull obj1, NSString *   _Nonnull obj2) {
         
-        if ([obj1 compare: obj2] == NSOrderedAscending) {
-            return NSOrderedAscending;
-        } else {
+        MonthItem *monthItem1 = self.monthItems[obj1];
+        MonthItem *monthItem2 = self.monthItems[obj2];
+        if (monthItem1.year > monthItem2.year) {
+            
             return NSOrderedDescending;
+        } else if (monthItem1.year == monthItem2.year) {
+            
+            if (monthItem1.month >= monthItem2.month) {
+                return NSOrderedDescending;
+            } else {
+                return NSOrderedAscending;
+            }
+        } else {
+            
+            return NSOrderedAscending;
         }
     }];
 }
