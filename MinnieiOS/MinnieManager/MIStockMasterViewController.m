@@ -60,45 +60,15 @@ MISecondTeachStatisticsViewDelegate
 @implementation MIStockMasterViewController
 
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-}
-
 - (void)viewDidLoad {
   
     [super viewDidLoad];
    
-    _firstSheetView = [[MIRootSheetView alloc] initWithFrame:CGRectMake(0, 0, kRootModularWidth, self.view.frame.size.height)];
-    _firstSheetView.delegate = self;
-    [self.view addSubview:_firstSheetView];
+    [self.view addSubview:self.firstSheetView];
+    [self.view addSubview:self.reaTimTasSheetView];
     
-    _reaTimTasSheetView = [[MISecondTeachersView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, self.view.frame.size.height)];
-    _reaTimTasSheetView.delegate = self;
-    [self.view addSubview:_reaTimTasSheetView];
-    
-    _teacherManagerSheetView = [[MISecondTeachersView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, self.view.frame.size.height)];
-    _teacherManagerSheetView.delegate = self;
-    [self.view addSubview:_teacherManagerSheetView];
-    
-    _secondSheetView = [[MISecondSheetView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, ScreenHeight)];
-    _secondSheetView.delegate = self;
-    [self.view addSubview:_secondSheetView];
-    
-    _secondActivitySheetView = [[MISecondActivitySheetView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, self.view.frame.size.height)];
-    _secondActivitySheetView.delegate = self;
-    [self.view addSubview:_secondActivitySheetView];
-    
-    _secondTeaStaSheetView = [[MISecondTeachStatisticsView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, self.view.frame.size.height)];
-    _secondTeaStaSheetView.delegate = self;
-    [self.view addSubview:_secondTeaStaSheetView];
-    
-    
-    // 默认选中 任务管理
-    _firstSheetView.selectIndex = 2;
-    self.reaTimTasSheetView.hidden = YES;
-    self.secondActivitySheetView.hidden = YES;
+    // 默认选中 实时任务
+    self.firstSheetView.selectIndex = 0;
 }
 
 #pragma mark - RootSheetViewDelete
@@ -114,10 +84,11 @@ MISecondTeachStatisticsViewDelegate
     NSInteger cloumnScale = 0;
     if (index == 0) { // 实时任务
         
-        self.secondSheetView.hidden = YES;
-        self.secondActivitySheetView.hidden = YES;
-        self.teacherManagerSheetView.hidden = YES;
-        self.secondTeaStaSheetView.hidden = YES;
+        [self.view addSubview:self.reaTimTasSheetView];
+        _secondSheetView.hidden = YES;
+        _secondActivitySheetView.hidden = YES;
+        _teacherManagerSheetView.hidden = YES;
+        _secondTeaStaSheetView.hidden = YES;
         
         self.reaTimTasSheetView.hidden = NO;
         cloumnScale = kRootModularWidth + kColumnSecondWidth;
@@ -128,10 +99,11 @@ MISecondTeachStatisticsViewDelegate
         
     } else if (index == 1){ // 教师管理
         
-        self.secondSheetView.hidden = YES;
-        self.reaTimTasSheetView.hidden = YES;
-        self.secondActivitySheetView.hidden = YES;
-        self.secondTeaStaSheetView.hidden = YES;
+        [self.view addSubview:self.teacherManagerSheetView];
+        _secondSheetView.hidden = YES;
+        _reaTimTasSheetView.hidden = YES;
+        _secondActivitySheetView.hidden = YES;
+        _secondTeaStaSheetView.hidden = YES;
         
         self.teacherManagerSheetView.hidden = NO;
         cloumnScale = kRootModularWidth + kColumnSecondWidth;
@@ -142,10 +114,11 @@ MISecondTeachStatisticsViewDelegate
         
     } else if (index == 2){ // 任务管理 不展开文件夹，不显示内容
        
-        self.reaTimTasSheetView.hidden = YES;
-        self.secondActivitySheetView.hidden = YES;
-        self.teacherManagerSheetView.hidden = YES;
-        self.secondTeaStaSheetView.hidden = YES;
+        [self.view addSubview:self.secondSheetView];
+        _reaTimTasSheetView.hidden = YES;
+        _secondActivitySheetView.hidden = YES;
+        _teacherManagerSheetView.hidden = YES;
+        _secondTeaStaSheetView.hidden = YES;
         
         self.secondSheetView.hidden = NO;
         cloumnScale = kRootModularWidth + kColumnSecondWidth;
@@ -157,10 +130,11 @@ MISecondTeachStatisticsViewDelegate
         
     } else if (index == 3) { // 活动管理
         
-        self.secondSheetView.hidden = YES;
-        self.reaTimTasSheetView.hidden = YES;
-        self.teacherManagerSheetView.hidden = YES;
-        self.secondTeaStaSheetView.hidden = YES;
+        [self.view addSubview:self.secondActivitySheetView];
+        _secondSheetView.hidden = YES;
+        _reaTimTasSheetView.hidden = YES;
+        _teacherManagerSheetView.hidden = YES;
+        _secondTeaStaSheetView.hidden = YES;
         
         self.secondActivitySheetView.hidden = NO;
         cloumnScale = kRootModularWidth + kColumnSecondWidth;
@@ -169,10 +143,11 @@ MISecondTeachStatisticsViewDelegate
         [_secondActivitySheetView updateActivityListInfo];
     } else if (index == 4) { // 教学统计
         
-        self.secondSheetView.hidden = YES;
-        self.reaTimTasSheetView.hidden = YES;
-        self.secondActivitySheetView.hidden = YES;
-        self.teacherManagerSheetView.hidden = YES;
+        [self.view addSubview:self.secondTeaStaSheetView];
+        _secondSheetView.hidden = YES;
+        _reaTimTasSheetView.hidden = YES;
+        _secondActivitySheetView.hidden = YES;
+        _teacherManagerSheetView.hidden = YES;
         
         self.secondTeaStaSheetView.hidden = NO;
         cloumnScale = kRootModularWidth + kColumnSecondWidth;
@@ -365,6 +340,62 @@ MISecondTeachStatisticsViewDelegate
     CGFloat columnThreeWidth = (ScreenWidth - kRootModularWidth)/2.0;
     [_setterStockSplitVC updatePrimaryCloumnScale:columnThreeWidth];
     return _setterStockSplitVC;
+}
+
+- (MIRootSheetView *)firstSheetView{
+    
+    if (!_firstSheetView) {
+        
+        _firstSheetView = [[MIRootSheetView alloc] initWithFrame:CGRectMake(0, 0, kRootModularWidth, ScreenHeight)];
+        _firstSheetView.delegate = self;
+    }
+    return _firstSheetView;
+}
+
+- (MISecondTeachersView *)reaTimTasSheetView{
+    if (!_reaTimTasSheetView) {
+        
+        _reaTimTasSheetView = [[MISecondTeachersView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, ScreenHeight)];
+        _reaTimTasSheetView.delegate = self;
+    }
+    return _reaTimTasSheetView;
+}
+- (MISecondTeachersView *)teacherManagerSheetView{
+    
+    if (!_teacherManagerSheetView) {
+        
+        _teacherManagerSheetView = [[MISecondTeachersView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, ScreenHeight)];
+        _teacherManagerSheetView.delegate = self;
+    }
+    return _teacherManagerSheetView;
+}
+
+- (MISecondSheetView *)secondSheetView{
+    
+    if (!_secondSheetView) {
+        
+        _secondSheetView = [[MISecondSheetView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, ScreenHeight)];
+        _secondSheetView.delegate = self;
+    }
+    return _secondSheetView;
+}
+
+- (MISecondActivitySheetView *)secondActivitySheetView{
+    if (!_secondActivitySheetView) {
+        
+        _secondActivitySheetView = [[MISecondActivitySheetView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, ScreenHeight)];
+        _secondActivitySheetView.delegate = self;
+    }
+    return _secondActivitySheetView;
+}
+
+- (MISecondTeachStatisticsView *)secondTeaStaSheetView{
+    if (!_secondTeaStaSheetView) {
+        
+        _secondTeaStaSheetView = [[MISecondTeachStatisticsView alloc] initWithFrame:CGRectMake(kRootModularWidth, 0, kColumnSecondWidth, self.view.frame.size.height)];
+        _secondTeaStaSheetView.delegate = self;
+    }
+    return _secondTeaStaSheetView;
 }
 
 @end

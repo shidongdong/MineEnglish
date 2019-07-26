@@ -24,12 +24,13 @@
     
     _stockMasterVC = [[MIStockMasterViewController alloc] init];
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:_stockMasterVC];
+    [masterNav setNavigationBarHidden:YES animated:NO];
     
     _stockDetailVC = [[MIStockDetailViewController alloc] init];
     UINavigationController *detailNav = [[UINavigationController alloc] initWithRootViewController:_stockDetailVC];
+    [detailNav setNavigationBarHidden:YES animated:NO];
+    
     _stockMasterVC.secondDetailVC = _stockDetailVC;
-    
-    
     self.viewControllers = @[masterNav, detailNav];
     
     WeakifySelf;
