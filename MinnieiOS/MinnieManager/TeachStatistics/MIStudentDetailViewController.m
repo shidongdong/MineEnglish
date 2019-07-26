@@ -98,7 +98,7 @@
         if (indexPath.row == 0) {
             cell.textLabel.attributedText = [self setupContentTitle:@"待批改数：" text:[NSString stringWithFormat:@"%lu",self.studentDetail.uncorrectHomeworksCount]];
         } else if (indexPath.row == 1) {
-            cell.textLabel.attributedText = [self setupContentTitle:@"考试统计：" text:[NSString stringWithFormat:@"%lu",self.studentDetail.testAvgScore]];
+            cell.textLabel.attributedText = [self setupContentTitle:@"考试统计：" text:[NSString stringWithFormat:@"%.1f",self.studentDetail.testAvgScore]];
         } else if (indexPath.row == 2) {
             cell.textLabel.attributedText = [self setupContentTitle:@"获得勋章数：" text:[NSString stringWithFormat:@"%lu",self.studentDetail.medalCount]];
         } else if (indexPath.row == 3) {
@@ -119,7 +119,7 @@
             }
             cell.textLabel.attributedText = [self setupContentTitle:@"本学期任务完成率：" text:[NSString stringWithFormat:@"%lu/%lu",finish,self.studentDetail.allHomeworksCount]];
         } else if (indexPath.row == 1) {
-            cell.textLabel.attributedText = [self setupContentTitle:@"任务平均得分：" text:[NSString stringWithFormat:@"%lu",self.studentDetail.avgScore]];
+            cell.textLabel.attributedText = [self setupContentTitle:@"任务平均得分：" text:[NSString stringWithFormat:@"%.1f",self.studentDetail.avgScore]];
         } else if (indexPath.row == 2) {
             cell.textLabel.attributedText = [self setupContentTitle:@"优秀任务数：" text:[NSString stringWithFormat:@"%lu",self.studentDetail.excellentHomeworksCount]];
         } else if (indexPath.row == 3) {

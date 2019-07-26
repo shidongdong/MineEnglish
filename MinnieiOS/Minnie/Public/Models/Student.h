@@ -76,7 +76,7 @@
 //待批改作业数量
 @property (nonatomic, assign) NSInteger uncorrectHomeworksCount;
 //考试统计
-@property (nonatomic, assign) NSInteger testAvgScore;
+@property (nonatomic, assign) CGFloat testAvgScore;
 //勋章数量
 @property (nonatomic, assign) NSInteger medalCount;
 //点赞数量
@@ -90,7 +90,7 @@
 //本学期完成的作业总数
 @property (nonatomic, assign) NSInteger commitHomeworksCount;
 //任务平均得分
-@property (nonatomic, assign) NSInteger avgScore;
+@property (nonatomic, assign) CGFloat avgScore;
 //优秀作业数量
 @property (nonatomic, assign) NSInteger excellentHomeworksCount;
 //过期作业数量

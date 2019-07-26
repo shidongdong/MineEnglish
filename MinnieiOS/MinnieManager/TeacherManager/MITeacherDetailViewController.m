@@ -218,7 +218,7 @@ UITableViewDataSource
             }
             OnHomework *taskDetail = self.teacherDetail.onHomeworkList[indexPath.row];
             cell.textLabel.text = taskDetail.title;
-            cell.detailTextLabel.text =[NSString stringWithFormat:@"%lu/%lu星",taskDetail.avgScore,taskDetail.level];
+            cell.detailTextLabel.text =[NSString stringWithFormat:@"%.1f/%lu星",taskDetail.avgScore,(long)taskDetail.level];
             if (self.currentIndex == indexPath.row) {
                 
                 cell.accessoryView.hidden  = NO;

@@ -56,7 +56,7 @@ typedef NS_ENUM(NSInteger, TeacherType) {
 //作业标题
 @property (nonatomic, copy) NSString *title;
 //平均得分
-@property (nonatomic, assign) NSInteger avgScore;
+@property (nonatomic, assign) CGFloat avgScore;
 //作业难度1-5星
 @property (nonatomic, assign) NSInteger level;
 
