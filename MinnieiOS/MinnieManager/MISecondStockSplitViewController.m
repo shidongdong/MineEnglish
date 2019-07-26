@@ -45,6 +45,7 @@ MICampusManagerViewControllerDelegate
 @property (nonatomic, strong) MIStudentRecordViewController *teachStatistickDetailVC;
 
 
+@property (nonatomic, strong) ClassManagerViewController *classManagerVC;
 @property (nonatomic, strong) MICampusManagerViewController *campusMasterVC;
 @property (nonatomic, strong) MIStockDetailViewController *campusDetailVC;
 
@@ -152,10 +153,7 @@ MICampusManagerViewControllerDelegate
 - (void)updateTeacher:(Teacher * _Nullable)teacher{
     
     [self.teacherManagerMasterVC updateTeacher:teacher];
-    if (teacher == nil) {
-        
-        [self.teacherManagerDetailVC.navigationController popToRootViewControllerAnimated:YES];
-    }
+    [self.teacherManagerDetailVC.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark - 任务管理
@@ -324,21 +322,26 @@ MICampusManagerViewControllerDelegate
     
     [self.campusDetailVC.navigationController popViewControllerAnimated:YES];
     
-    ClassManagerViewController *classManagerVC = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
+    if (!_classManagerVC) {
+        _classManagerVC = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
+    }
     WeakifySelf;
-    classManagerVC.cancelCallBack = ^{
+    _classManagerVC.cancelCallBack = ^{
         [weakSelf.campusMasterVC resetSelectIndex];
     };
-    classManagerVC.successCallBack = ^{
+    _classManagerVC.successCallBack = ^{
         [weakSelf.campusMasterVC updateClassInfo];
     };
-    classManagerVC.classId = clazz.classId;
-    [self.campusDetailVC.navigationController pushViewController:classManagerVC animated:YES];
+    _classManagerVC.classId = clazz.classId;
+    [self.campusDetailVC.navigationController pushViewController:_classManagerVC animated:YES];
 }
 
 - (void)campusManagerViewControllerPopEditClassState{
-    
-    [self.campusDetailVC.navigationController popViewControllerAnimated:YES];
+  
+    if (_classManagerVC.classId != 0) {
+       
+        [self.campusDetailVC.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - 礼物管理

@@ -14,9 +14,12 @@ typedef void(^TeacherDetailPushCallBack)(UIViewController *vc);
 
 @interface MITeacherDetailViewController : UIViewController
 
+@property (nonatomic, copy) TeacherDetailPushCallBack pushCallBack;
+
 - (void)updateTeacher:(Teacher * _Nullable)teacher;
 
-@property (nonatomic, copy) TeacherDetailPushCallBack pushCallBack;
+- (void)resetCurrentSelectIndex;
+
 
 @end
 

@@ -32,7 +32,7 @@ UITableViewDataSource
 
 @property (nonatomic,strong) NSArray *titleArray;
 
-
+@property (nonatomic,assign) NSInteger currentIndex;
 
 @end
 
@@ -42,6 +42,7 @@ UITableViewDataSource
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    self.currentIndex = -1;
     self.iconImageV.layer.masksToBounds = YES;
     self.iconImageV.layer.cornerRadius = 12.0;
     
@@ -68,6 +69,7 @@ UITableViewDataSource
         self.tableView.hidden = YES;
         self.view.backgroundColor = [UIColor emptyBgColor];
     } else {
+        
         self.headerView.hidden = NO;
         self.tableView.hidden = NO;
         self.rightLineView.hidden = NO;
@@ -76,12 +78,16 @@ UITableViewDataSource
         
         self.nameLabel.text = self.teacher.nickname;
         [self.iconImageV sd_setImageWithURL:[self.teacher.avatarUrl imageURLWithWidth:24] placeholderImage:[UIImage imageNamed: @"attachment_placeholder"]];
-        
+        [self resetCurrentSelectIndex];
         // 请求用户信息
         [self requestTeacherDetail];
     }
 }
 
+- (void)resetCurrentSelectIndex{
+    self.currentIndex = -1;
+    [self.tableView reloadData];
+}
 
 - (IBAction)setAction:(id)sender {
     
@@ -184,6 +190,7 @@ UITableViewDataSource
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.textLabel.textColor = [UIColor normalColor];
                 cell.detailTextLabel.textColor = [UIColor detailColor];
+                cell.accessoryView = [UIView new];
             }
             OnClass *classDetail = self.teacherDetail.onClassList[indexPath.row];
             cell.textLabel.text = classDetail.name;
@@ -193,6 +200,7 @@ UITableViewDataSource
         } else {// 任务评分统计
             
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"onHomeworkCellId"];
+            
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellId"];
                 cell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -203,10 +211,22 @@ UITableViewDataSource
                 UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 43.5, kColumnThreeWidth, 0.5)];
                 lineView.backgroundColor = [UIColor separatorLineColor];
                 [cell addSubview:lineView];
+                
+                UIView *rightLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 3.0, 44)];
+                rightLineView.backgroundColor = [UIColor mainColor];
+                cell.accessoryView = rightLineView;
             }
             OnHomework *taskDetail = self.teacherDetail.onHomeworkList[indexPath.row];
             cell.textLabel.text = taskDetail.title;
             cell.detailTextLabel.text =[NSString stringWithFormat:@"%lu/%lu星",taskDetail.avgScore,taskDetail.level];
+            if (self.currentIndex == indexPath.row) {
+                
+                cell.accessoryView.hidden  = NO;
+                cell.backgroundColor = [UIColor selectedColor];
+            } else {
+                cell.accessoryView.hidden  = YES;
+                cell.backgroundColor = [UIColor whiteColor];
+            }
             return cell;
         }
     }
@@ -252,7 +272,11 @@ UITableViewDataSource
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     if (indexPath.section == 3) {
-       
+        if (self.currentIndex != indexPath.row) {
+            
+            self.currentIndex = indexPath.row;
+            [tableView reloadData];
+        }
         OnHomework *taskDetail = self.teacherDetail.onHomeworkList[indexPath.row];
         MIScoreListViewController *scoreListVC = [[MIScoreListViewController alloc] initWithNibName:NSStringFromClass([MIScoreListViewController class]) bundle:nil];
         scoreListVC.hiddenEditTask = YES;
@@ -263,6 +287,13 @@ UITableViewDataSource
         if (self.pushCallBack) {
             self.pushCallBack(scoreListVC);
         }
+        WeakifySelf;
+        scoreListVC.cancelCallBack = ^{
+            [weakSelf resetCurrentSelectIndex];
+        };
+        scoreListVC.editTaskCallBack = ^{
+            [weakSelf resetCurrentSelectIndex];
+        };
     }
 }
 
