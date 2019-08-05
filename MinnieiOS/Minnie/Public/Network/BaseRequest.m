@@ -37,6 +37,7 @@ static NSString *accessToken = nil;
 }
 
 + (void)setToken:(NSString *)token {
+    NSLog(@"token:::: \n%@",token);
     accessToken = token;
 }
 

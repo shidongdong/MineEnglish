@@ -397,17 +397,31 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    UIView *headerView =  [[UIView alloc] init];
-    headerView.backgroundColor = [UIColor unSelectedColor];
-    UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, kColumnSecondWidth - 40,30)];
-    timeLabel.textAlignment = NSTextAlignmentLeft;
-    timeLabel.font = [UIFont boldSystemFontOfSize:14];
-    timeLabel.textColor = [UIColor normalColor];
-    [headerView addSubview:timeLabel];
-    
     if (self.isAwardListByClass) {
+        
+        UIView *headerView =  [[UIView alloc] init];
+        headerView.backgroundColor = [UIColor unSelectedColor];
+        
+        // 列表宽度
+        CGFloat width = (ScreenWidth - kRootModularWidth)/2.0 - 80;
+        
+        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, width - 30 - 50 ,30)];
+        timeLabel.textAlignment = NSTextAlignmentLeft;
+        timeLabel.font = [UIFont boldSystemFontOfSize:14];
+        timeLabel.textColor = [UIColor normalColor];
+        [headerView addSubview:timeLabel];
+        
+        
+        UILabel *campusLabel = [[UILabel alloc] initWithFrame:CGRectMake(width - 15 - 50 , 0, 50,30)];
+        campusLabel.textAlignment = NSTextAlignmentRight;
+        campusLabel.font = [UIFont boldSystemFontOfSize:14];
+        campusLabel.textColor = [UIColor normalColor];
+        [headerView addSubview:campusLabel];
+        
         ExchangeAwardListRecord *exchangeRequest = self.awardListByClass[section];
         timeLabel.text = exchangeRequest.className;
+        campusLabel.text = exchangeRequest.campus;
+        
         return headerView;
     } else {
         return nil;

@@ -40,6 +40,8 @@
 
 @property (nonatomic, assign) NSInteger classId;
 @property (nonatomic, copy) NSString *className;
+@property (nonatomic, copy) NSString *campus;
+
 @property (nonatomic, strong) NSArray<ExchangeAwardInfo*> *awardList;
 
 @property (nonatomic, copy) NSString *pinyinName;

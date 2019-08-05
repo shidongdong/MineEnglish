@@ -49,6 +49,7 @@
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{@"classId":@"classId",
              @"className":@"className",
+             @"campus":@"campus",
              @"awardList":@"awardList",
              };
 }
