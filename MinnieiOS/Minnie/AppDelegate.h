@@ -17,6 +17,8 @@
 
 @property(nonatomic,assign) CFAbsoluteTime onlineStartTime;
 
+@property(nonatomic,assign)BOOL allowRotation;//是否允许转向
+
 //订阅推送
 - (void)openRemoteNotification;
 

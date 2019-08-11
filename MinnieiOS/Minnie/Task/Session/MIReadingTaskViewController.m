@@ -433,6 +433,16 @@ VIResourceLoaderManagerDelegate
             }
             
         };
+        _wordsView.readingWordsSeekCallBack = ^(CGFloat rate) {
+          
+            if (weakSelf.isChecking) {
+                
+                CGFloat time = CMTimeGetSeconds(weakSelf.bgMusicPlayer.currentItem.duration) * rate;
+                NSLog(@"readingWordsSeekCallBack %f",time);
+                
+            }
+            
+        };
     }
     return _wordsView;
 }

@@ -45,6 +45,9 @@ NSString * const RightTextMessageTableViewCellId = @"RightTextMessageTableViewCe
     
     CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     
+    if (![message isKindOfClass:[AVIMTextMessage class]]) {
+        size.height = 70;
+    }
     return size.height + 5;
 }
 
@@ -75,6 +78,7 @@ NSString * const RightTextMessageTableViewCellId = @"RightTextMessageTableViewCe
             [attr appendAttributedString:[NSAttributedString attributedStringWithAttachment:attach]];
             [attr appendAttributedString:[[NSAttributedString alloc] initWithString:message.text]];
         }
+        [attr addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:NSMakeRange(0, attr.length)];
         self.messageTextLabel.attributedText = attr;
     }
 }

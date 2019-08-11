@@ -42,6 +42,7 @@
 #import "HomeworkAnswersPickerViewController.h"
 #import "SendAudioManager.h"
 #import "MIReadingTaskViewController.h"
+#import "MIStudentWordsViewController.h"
 
 #if TEACHERSIDE || MANAGERSIDE
 #import "HomeworkService.h"
@@ -1038,6 +1039,11 @@ HomeworkAnswersPickerViewControllerDelegate>
     });
 }
 
+- (void)playSendAudio{
+    
+    [[AudioPlayer sharedPlayer] playURL:[NSURL URLWithString:@"sendMessage.mp3"]];
+}
+
 - (void)sendImageMessageWithURL:(NSURL *)imageURL {
     
     //重置底部状态
@@ -1058,7 +1064,9 @@ HomeworkAnswersPickerViewControllerDelegate>
                                                 if (error == nil) {
                                                     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCommitHomework object:nil];
                                                     
-                                                    [[SendAudioManager manager] play];
+                                                    [self playSendAudio];
+                                                    
+                                                    
                                                     [HUD showWithMessage:@"作业提交成功"];
                                                     
                                                     [PushManager pushText:@"[图片]"
@@ -1177,7 +1185,7 @@ HomeworkAnswersPickerViewControllerDelegate>
                                                         
                                                         if (error == nil) {
                                                             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCommitHomework object:nil];
-                                                            [[SendAudioManager manager] play];
+                                                            [self playSendAudio];
                                                             [HUD showWithMessage:@"作业提交成功"];
                                                             [PushManager pushText:@"[视频]"
                                                                           toUsers:@[@(self.homeworkSession.correctTeacher.userId)] withPushType:PushManagerMessage];
@@ -1216,7 +1224,7 @@ HomeworkAnswersPickerViewControllerDelegate>
                                                 if (error == nil) {
                                                     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCommitHomework object:nil];
                                                     
-                                                    [[SendAudioManager manager] play];
+                                                    [self playSendAudio];
                                                     [HUD showWithMessage:@"作业提交成功"];
                                                     [PushManager pushText:@"[视频]"
                                                                   toUsers:@[@(self.homeworkSession.correctTeacher.userId)] withPushType:PushManagerMessage];
@@ -1267,7 +1275,7 @@ HomeworkAnswersPickerViewControllerDelegate>
         return;
     }
     
-    [[SendAudioManager manager] play];
+    [self playSendAudio];
     BOOL isResend = message.status == AVIMMessageStatusFailed;
     
     //发送消息，区分学生端和客户端
@@ -1849,21 +1857,34 @@ HomeworkAnswersPickerViewControllerDelegate>
         [cell setupWithHomeworkSession:self.homeworkSession];
         
         WeakifySelf;
-        [cell setStartTaskCallback:^(void) {
+        [cell setStartTaskCallback:^(void) { // 开始任务
+//
+//            if (weakSelf.homeworkSession.score != -1)  return;
+//            MIReadingTaskViewController *taskVC = [[MIReadingTaskViewController alloc] initWithNibName:NSStringFromClass([MIReadingTaskViewController class]) bundle:nil];
+//            taskVC.isChecking = NO;
+//            taskVC.teacher = weakSelf.teacher;
+//            taskVC.conversation = weakSelf.conversation;
+//            taskVC.homework = weakSelf.homeworkSession.homework;
+//            taskVC.finishCallBack = ^(AVIMAudioMessage *message){
+//
+//                [weakSelf.messages addObject:message];
+//                [weakSelf sortMessages];
+//                [weakSelf reloadDataAndScrollToBottom];
+//            };
+//            [weakSelf.navigationController pushViewController:taskVC animated:YES];
             
             if (weakSelf.homeworkSession.score != -1)  return;
-            MIReadingTaskViewController *taskVC = [[MIReadingTaskViewController alloc] initWithNibName:NSStringFromClass([MIReadingTaskViewController class]) bundle:nil];
-            taskVC.isChecking = NO;
-            taskVC.teacher = weakSelf.teacher;
-            taskVC.conversation = weakSelf.conversation;
-            taskVC.homework = weakSelf.homeworkSession.homework;
-            taskVC.finishCallBack = ^(AVIMAudioMessage *message){
-              
+            MIStudentWordsViewController * words = [[MIStudentWordsViewController alloc] init];
+            words.teacher = weakSelf.teacher;
+            words.conversation = weakSelf.conversation;
+            words.homework =  weakSelf.homeworkSession.homework;
+            words.finishCallBack = ^(AVIMAudioMessage *message){
+
                 [weakSelf.messages addObject:message];
                 [weakSelf sortMessages];
                 [weakSelf reloadDataAndScrollToBottom];
             };
-            [weakSelf.navigationController pushViewController:taskVC animated:YES];
+            [weakSelf.navigationController pushViewController:words animated:YES];
         }];
         
         [cell setVideoCallback:^(NSString *videoUrl) {
@@ -2072,7 +2093,7 @@ HomeworkAnswersPickerViewControllerDelegate>
             [textCell setResendCallback:^{
                 [weakSelf sendMessage:message];
             }];
-            [textCell setClickCallback:^{
+            [textCell setClickCallback:^{// 查看作业
 
                 MIReadingTaskViewController *taskVC = [[MIReadingTaskViewController alloc] initWithNibName:NSStringFromClass([MIReadingTaskViewController class]) bundle:nil];
                 NSString *fileUrl = message.file.url;
@@ -2253,7 +2274,6 @@ HomeworkAnswersPickerViewControllerDelegate>
     }
     self.customTitleLabel.attributedText = attrStr;
 }
-
 @end
 
 

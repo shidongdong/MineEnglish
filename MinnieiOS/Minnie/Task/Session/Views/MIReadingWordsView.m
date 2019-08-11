@@ -8,6 +8,23 @@
 #import "MIReadingWordsView.h"
 #import <AVFoundation/AVFoundation.h>
 
+@interface WordSlider : UISlider
+
+@end
+
+@implementation WordSlider
+
+
+- (CGRect)trackRectForBounds:(CGRect)bounds{
+    
+    CGRect newBounds = bounds;
+    newBounds.origin.y = 5;
+    newBounds.size.height = 15;
+    return newBounds;
+}
+
+@end
+
 
 @interface MIReadingWordsView ()
 
@@ -17,6 +34,12 @@
 @property (strong,nonatomic) NSTimer *wordsTimer;
 
 @property (assign,nonatomic) NSInteger currentWordIndex;
+@property (weak, nonatomic) IBOutlet UIView *bgProgressView;
+
+@property (strong, nonatomic) WordSlider *sliderView;
+
+@property (strong,nonatomic) NSMutableArray *progressViews;
+
 
 @end
 
@@ -25,6 +48,26 @@
 
 -(void)awakeFromNib{
     [super awakeFromNib];
+    self.progressViews = [NSMutableArray array];
+    
+    self.sliderView = [[WordSlider alloc] init];
+    [self.bgProgressView addSubview:self.sliderView];
+    self.sliderView.value = 0.0;
+    self.sliderView.layer.cornerRadius = 0.0;
+    self.sliderView.layer.masksToBounds = YES;
+    
+    [self.sliderView mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.edges.equalTo(self.bgProgressView);
+    }];
+    
+    [self.sliderView setMinimumTrackTintColor:[UIColor mainColor]];
+    [self.sliderView setMaximumTrackTintColor:[UIColor unSelectedColor]];
+    
+    [self.sliderView addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    [self.sliderView setThumbImage:[UIImage imageNamed:@"thum"] forState:UIControlStateNormal];
+    [self.sliderView setThumbImage:[UIImage imageNamed:@"thum"] forState:UIControlStateHighlighted];
 }
 
 - (void)setWordsItem:(HomeworkItem *)wordsItem{
@@ -32,6 +75,17 @@
     _wordsItem = wordsItem;
     WordInfo *tempWord = _wordsItem.words.firstObject;
     self.englishLabel.text = tempWord.english;
+}
+
+- (void)sliderValueChanged:(id)sender {
+    
+    NSInteger tempIndex = self.sliderView.value * self.wordsItem.words.count;
+    _currentWordIndex = tempIndex;
+    [self playWords];
+    
+    if (self.readingWordsSeekCallBack) {
+        self.readingWordsSeekCallBack(self.sliderView.value);
+    }
 }
 
 - (void)startPlayWords{
@@ -42,6 +96,7 @@
     
     _currentWordIndex = 0;
     [self.wordsTimer fireDate];
+    self.sliderView.value = 0.0;
 }
 - (void)stopPlayWords{
     
@@ -73,13 +128,16 @@
     if (_currentWordIndex < self.wordsItem.words.count) {
         WordInfo *tempWord = self.wordsItem.words[_currentWordIndex];
         self.englishLabel.text = tempWord.english;
+        self.sliderView.value = (CGFloat)_currentWordIndex/self.wordsItem.words.count;
     } else {
         
+        self.sliderView.value = (CGFloat)_currentWordIndex/self.wordsItem.words.count;
         [self stopPlayWords];
         if (self.readingWordsCallBack) {
             self.readingWordsCallBack();
         }
     }
+    
     _currentWordIndex ++;
 }
 

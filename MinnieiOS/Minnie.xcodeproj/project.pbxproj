@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		12014CD522C7C0160039278A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97108E0B2079F54B00568785 /* LaunchScreen.storyboard */; };
+		1204263D22FD5633008B90C9 /* MIToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1204263C22FD5633008B90C9 /* MIToastView.m */; };
+		1204263E22FD5633008B90C9 /* MIToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1204263C22FD5633008B90C9 /* MIToastView.m */; };
+		1204263F22FD5633008B90C9 /* MIToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1204263C22FD5633008B90C9 /* MIToastView.m */; };
+		1204264122FD565B008B90C9 /* MIToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1204264022FD565B008B90C9 /* MIToastView.xib */; };
+		1204264222FD565B008B90C9 /* MIToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1204264022FD565B008B90C9 /* MIToastView.xib */; };
+		1204264322FD565B008B90C9 /* MIToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1204264022FD565B008B90C9 /* MIToastView.xib */; };
 		1226E7D3229572C100BAB1C9 /* DrawImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1226E7D2229572C100BAB1C9 /* DrawImageView.m */; };
 		1226E7D42295786100BAB1C9 /* DrawImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1226E7D2229572C100BAB1C9 /* DrawImageView.m */; };
 		1226F2F12297F37A00BAB1C9 /* MinnieManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1226F2F02297F37A00BAB1C9 /* MinnieManagerTests.m */; };
@@ -307,6 +313,8 @@
 		12747C9222A9108F009C390E /* MIWordTagCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12747C9022A9108F009C390E /* MIWordTagCollectionViewCell.xib */; };
 		12747C9522A96E8E009C390E /* MICreateWordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12747C9422A96E8E009C390E /* MICreateWordView.m */; };
 		12747C9722A96EA1009C390E /* MICreateWordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12747C9622A96EA1009C390E /* MICreateWordView.xib */; };
+		127A403522FBCA2500CBB085 /* MIStudentWordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 127A403322FBCA2500CBB085 /* MIStudentWordsViewController.m */; };
+		127A403622FBCA2500CBB085 /* MIStudentWordsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 127A403422FBCA2500CBB085 /* MIStudentWordsViewController.xib */; };
 		128CF0BE22C35C39004FBC91 /* ClassAndStudentSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 128CF0BD22C35C39004FBC91 /* ClassAndStudentSelectView.m */; };
 		128CF0BF22C35C39004FBC91 /* ClassAndStudentSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 128CF0BD22C35C39004FBC91 /* ClassAndStudentSelectView.m */; };
 		128CF0C022C35C39004FBC91 /* ClassAndStudentSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 128CF0BD22C35C39004FBC91 /* ClassAndStudentSelectView.m */; };
@@ -2210,6 +2218,9 @@
 /* Begin PBXFileReference section */
 		076775FF9B01C30860548086 /* Pods-Minnie-MinnieManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minnie-MinnieManager.release.xcconfig"; path = "Pods/Target Support Files/Pods-Minnie-MinnieManager/Pods-Minnie-MinnieManager.release.xcconfig"; sourceTree = "<group>"; };
 		12014CDB22C90B930039278A /* MIStockDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIStockDetailViewController.h; sourceTree = "<group>"; };
+		1204263B22FD5633008B90C9 /* MIToastView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MIToastView.h; path = ../../../MinnieManager/TaskManager/View/MIToastView.h; sourceTree = "<group>"; };
+		1204263C22FD5633008B90C9 /* MIToastView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MIToastView.m; path = ../../../MinnieManager/TaskManager/View/MIToastView.m; sourceTree = "<group>"; };
+		1204264022FD565B008B90C9 /* MIToastView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MIToastView.xib; path = ../../../MinnieManager/TaskManager/View/MIToastView.xib; sourceTree = "<group>"; };
 		1226E7D1229572C100BAB1C9 /* DrawImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrawImageView.h; sourceTree = "<group>"; };
 		1226E7D2229572C100BAB1C9 /* DrawImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrawImageView.m; sourceTree = "<group>"; };
 		1226F2D52297F37900BAB1C9 /* MinnieManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MinnieManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2264,6 +2275,9 @@
 		12747C9322A96E8E009C390E /* MICreateWordView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MICreateWordView.h; sourceTree = "<group>"; };
 		12747C9422A96E8E009C390E /* MICreateWordView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MICreateWordView.m; sourceTree = "<group>"; };
 		12747C9622A96EA1009C390E /* MICreateWordView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MICreateWordView.xib; sourceTree = "<group>"; };
+		127A403222FBCA2500CBB085 /* MIStudentWordsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIStudentWordsViewController.h; sourceTree = "<group>"; };
+		127A403322FBCA2500CBB085 /* MIStudentWordsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MIStudentWordsViewController.m; sourceTree = "<group>"; };
+		127A403422FBCA2500CBB085 /* MIStudentWordsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MIStudentWordsViewController.xib; sourceTree = "<group>"; };
 		128CF0BC22C35C39004FBC91 /* ClassAndStudentSelectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ClassAndStudentSelectView.h; path = ../ClassAndStudentSelectView.h; sourceTree = "<group>"; };
 		128CF0BD22C35C39004FBC91 /* ClassAndStudentSelectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ClassAndStudentSelectView.m; path = ../ClassAndStudentSelectView.m; sourceTree = "<group>"; };
 		128CF0C122C35C63004FBC91 /* ClassAndStudentSelectView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ClassAndStudentSelectView.xib; path = ../ClassAndStudentSelectView.xib; sourceTree = "<group>"; };
@@ -4976,6 +4990,12 @@
 				12EAC63622AD4BF300F1F3DB /* MIReadingTaskViewController.h */,
 				12EAC63722AD4BF300F1F3DB /* MIReadingTaskViewController.m */,
 				12EAC63822AD4BF400F1F3DB /* MIReadingTaskViewController.xib */,
+				127A403222FBCA2500CBB085 /* MIStudentWordsViewController.h */,
+				127A403322FBCA2500CBB085 /* MIStudentWordsViewController.m */,
+				127A403422FBCA2500CBB085 /* MIStudentWordsViewController.xib */,
+				1204263B22FD5633008B90C9 /* MIToastView.h */,
+				1204263C22FD5633008B90C9 /* MIToastView.m */,
+				1204264022FD565B008B90C9 /* MIToastView.xib */,
 				12EAC64C22B0D73000F1F3DB /* AVIMWordsMessage.h */,
 				12EAC64D22B0D73000F1F3DB /* AVIMWordsMessage.m */,
 				971099FF207A158C00568785 /* Views */,
@@ -6514,6 +6534,7 @@
 				12961C8C229E71C10075B04A /* HomeworkConfirmViewController.xib in Resources */,
 				12747C4522A7D1A9009C390E /* teacher@2x.png in Resources */,
 				12747C8D22A90B6C009C390E /* MIAddWordTableViewCell.xib in Resources */,
+				1204264322FD565B008B90C9 /* MIToastView.xib in Resources */,
 				128F13B022D816CE00C9F5B7 /* MIZeroMessagesTableViewCell.xib in Resources */,
 				12B7B97122D88C940057C798 /* StudentsManageViewController.xib in Resources */,
 				1226F3472298399A00BAB1C9 /* splash_img_logo@3x.png in Resources */,
@@ -6736,6 +6757,7 @@
 				971097A3207A006D00568785 /* 缺省插画_无作业@2x.png in Resources */,
 				8764C99821F88AFF00FD7AAF /* 警告图片@2x.png in Resources */,
 				97109D37207A2F0400568785 /* SettingsViewController.xib in Resources */,
+				127A403622FBCA2500CBB085 /* MIStudentWordsViewController.xib in Resources */,
 				97109815207A006D00568785 /* icon_stars@3x.png in Resources */,
 				971096B5207A006D00568785 /* label_security@3x.png in Resources */,
 				9710982B207A006D00568785 /* buttonbar_class_manager_active@2x.png in Resources */,
@@ -7037,6 +7059,7 @@
 				128CF0C222C35C63004FBC91 /* ClassAndStudentSelectView.xib in Resources */,
 				97109789207A006D00568785 /* white_top_corner_bg@3x.png in Resources */,
 				971097BF207A006D00568785 /* chat_talk2@2x.png in Resources */,
+				1204264122FD565B008B90C9 /* MIToastView.xib in Resources */,
 				9710981D207A006D00568785 /* icon_talk@3x.png in Resources */,
 				97109809207A006D00568785 /* gray_top_corner_bg@3x.png in Resources */,
 				97109715207A006D00568785 /* my_reward_stars@2x.png in Resources */,
@@ -7239,6 +7262,7 @@
 				9710972A207A006D00568785 /* ic_add_small@3x.png in Resources */,
 				97109B06207A1C0800568785 /* StudentsTableViewCell.xib in Resources */,
 				87FD07D821BE443800664AF1 /* icon_Enclosure_noedit@3x.png in Resources */,
+				1204264222FD565B008B90C9 /* MIToastView.xib in Resources */,
 				1950D7F22277E856004F7291 /* HomeworkConfirmViewController.xib in Resources */,
 				9710973A207A006D00568785 /* ic_stars_coupons_plat@2x.png in Resources */,
 				97109BD3207A1D5000568785 /* CalendarTableViewCell.xib in Resources */,
@@ -7993,6 +8017,7 @@
 				12747BD222A7CC0F009C390E /* WBGImageEditorViewController.m in Sources */,
 				12747BE722A7CD42009C390E /* WBGImageToolBase.m in Sources */,
 				12FD85E022C05C900026B7E2 /* WordInfo.m in Sources */,
+				1204263F22FD5633008B90C9 /* MIToastView.m in Sources */,
 				1226F3232298324A00BAB1C9 /* UserRequest.m in Sources */,
 				1226F3402298363C00BAB1C9 /* ModifyStarRequest.m in Sources */,
 				1226F31E229831F800BAB1C9 /* FindPasswordRequest.m in Sources */,
@@ -8465,6 +8490,7 @@
 				1950D7E422774EE5004F7291 /* SendAudioManager.m in Sources */,
 				97109C14207A2E3E00568785 /* CircleHomeworkViewController.m in Sources */,
 				128F132122CD112A00C9F5B7 /* MIEidtFileView.m in Sources */,
+				127A403522FBCA2500CBB085 /* MIStudentWordsViewController.m in Sources */,
 				12FD85D822C05C900026B7E2 /* ActivityInfo.m in Sources */,
 				871806C221DF438C0023511C /* MUImagePickerManager.m in Sources */,
 				9710994C207A0BF600568785 /* HomeworkItem.m in Sources */,
@@ -8503,6 +8529,7 @@
 				87C52FA92164AC3E004288F4 /* WBGDrawTool.m in Sources */,
 				97109D99207A2F0400568785 /* UpdateProfileRequest.m in Sources */,
 				871806DD21DF51540023511C /* MUPhotoPreviewController.m in Sources */,
+				1204263D22FD5633008B90C9 /* MIToastView.m in Sources */,
 				97109C2A207A2E3E00568785 /* HomeworkRequest.m in Sources */,
 				97109D65207A2F0400568785 /* NoticeMessageTextItemTableViewCell.m in Sources */,
 				97109C38207A2E3E00568785 /* CircleCommentTableViewCell.m in Sources */,
@@ -8837,6 +8864,7 @@
 				128F130622CD102000C9F5B7 /* MIRootSheetView.m in Sources */,
 				12EAC63A22AD4BF400F1F3DB /* MIReadingTaskViewController.m in Sources */,
 				12FD85E222C05C900026B7E2 /* ParentFileInfo.m in Sources */,
+				1204263E22FD5633008B90C9 /* MIToastView.m in Sources */,
 				12A1E94D22A65E80001247D7 /* ManagerRequest.m in Sources */,
 				97109957207A0BF600568785 /* UIColor+HEX.m in Sources */,
 				879CE54121917A9A00BBE4B7 /* MedalFlag.m in Sources */,

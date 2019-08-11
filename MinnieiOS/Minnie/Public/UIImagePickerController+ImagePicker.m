@@ -21,9 +21,6 @@
     return UIInterfaceOrientationMaskLandscape;
 }
 
-//- (NSUInteger)supportedInterfaceOrientations{
-//    return UIInterfaceOrientationMaskLandscape;
-//}
-
 #endif
+
 @end
