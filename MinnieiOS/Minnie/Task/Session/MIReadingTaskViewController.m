@@ -21,6 +21,7 @@
 #import "MIRecordWaveView.h"
 #import "EditAudioVideo.h"
 #import <AFNetworking/AFNetworking.h>
+#import "AudioPlayerManager.h"
 
 
 static NSString * const kKeyOfCreateTimestamp = @"createTimestamp";
@@ -38,7 +39,6 @@ VIResourceLoaderManagerDelegate
 
 @property (weak, nonatomic) IBOutlet UIView *vedioBgView;
 
-//@property (weak, nonatomic) IBOutlet UIButton *rerecordBtn;
 @property (weak, nonatomic) IBOutlet UIButton *startRecordBtn;
 @property (weak, nonatomic) IBOutlet UILabel *startRecordLabel;
 
@@ -64,6 +64,9 @@ VIResourceLoaderManagerDelegate
 @property (nonatomic, assign) NSInteger duration;
 @property (nonatomic, strong) AVAudioRecorder *audioRecorder;
 
+
+@property (nonatomic, strong) AudioPlayerManager *audioPlayer;
+
 // 我的录音
 @property (nonatomic, strong) AVPlayer *myRecordPlayer;
 
@@ -81,11 +84,13 @@ VIResourceLoaderManagerDelegate
     if (self.isChecking) { // 查看作业
         
         [self.bgMusicPlayer pause];
-        [self.wordsView stopPlayWords];
-        self.startRecordBtn.selected = NO;
-        self.startRecordLabel.text = @"点击查看录音";
+        [self.wordsView invalidateTimer];
         [self.playerVC.player seekToTime:CMTimeMake(0, 1)];
         [self.playerVC.player pause];
+        if (self.isReadingWords) {
+            
+            [self.audioPlayer resetCurrentPlayer];
+        }
     } else {
         
         [self removeRecordSound];
@@ -241,7 +246,7 @@ VIResourceLoaderManagerDelegate
             
             if (self.isReadingWords) {
                 
-                [self.bgMusicPlayer pause];
+                [self.audioPlayer play:NO];
                 [self.wordsView stopPlayWords];
             } else {
                 
@@ -254,8 +259,8 @@ VIResourceLoaderManagerDelegate
         } else {
          
             if (self.isReadingWords) { // 播放单词录音
-                self.bgMusicPlayer = [self getPlayerWith:self.audioUrl isLocal:NO];
-                [self.bgMusicPlayer play];
+                
+                [self.audioPlayer play:YES];
                 [self.wordsView startPlayWords];
             } else {
                 // 播放视频，播放跟读录音
@@ -437,15 +442,55 @@ VIResourceLoaderManagerDelegate
           
             if (weakSelf.isChecking) {
                 
-                CGFloat time = CMTimeGetSeconds(weakSelf.bgMusicPlayer.currentItem.duration) * rate;
-                NSLog(@"readingWordsSeekCallBack %f",time);
-                
+                CGFloat time = weakSelf.audioPlayer.duration * rate;
+                [weakSelf.audioPlayer seekToTime:time];
+                weakSelf.startRecordBtn.selected = YES;
+                weakSelf.startRecordLabel.text = @"点击停止录音";
+                [weakSelf.wordsView startPlayWords];
             }
             
         };
     }
     return _wordsView;
 }
+
+- (AudioPlayerManager *)audioPlayer{
+    
+    if (!_audioPlayer) {
+        
+        _audioPlayer = [[AudioPlayerManager alloc] initWithUrl:self.audioUrl];
+        
+        WeakifySelf;
+        _audioPlayer.statusBlock = ^(AVPlayerItemStatus status) {
+            
+            NSLog(@"status:%lu",status);
+            if (status == AVPlayerItemStatusFailed) {
+                
+                if (weakSelf.isChecking) {
+                    
+                    weakSelf.startRecordBtn.selected = NO;
+                    weakSelf.startRecordLabel.text = @"点击查看录音";
+                    [weakSelf.wordsView stopPlayWords];
+                }
+            }
+        };
+        
+        _audioPlayer.progressBlock = ^(CGFloat time, CGFloat duration) {
+          
+        };
+        
+        _audioPlayer.finishedBlock = ^{
+            
+            if (weakSelf.isChecking) {
+                
+                weakSelf.startRecordBtn.selected = NO;
+                weakSelf.startRecordLabel.text = @"点击查看录音";
+            }
+        };
+    }
+    return _audioPlayer;
+}
+
 
 - (AVPlayerViewController *)playerVC{
     
@@ -488,6 +533,7 @@ VIResourceLoaderManagerDelegate
     }
     return _playerVC;
 }
+
 
 - (MIRecordWaveView *)recordWaveView{
     
@@ -599,7 +645,7 @@ VIResourceLoaderManagerDelegate
         HomeworkItem *wordsItem = self.homework.items.lastObject;
         if (wordsItem.bgmusicUrl.length) {
             self.bgMusicPlayer = [self getPlayerWith:wordsItem.bgmusicUrl isLocal:NO];
-            self.bgMusicPlayer.volume = 0.5;
+            self.bgMusicPlayer.volume = 0.3;
             [self.bgMusicPlayer play];
         }
         [self.wordsView startPlayWords];

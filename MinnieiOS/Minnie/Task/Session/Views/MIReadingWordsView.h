@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)startPlayWords;
 - (void)stopPlayWords;
 
+- (void)invalidateTimer;
+
 @end
 
 NS_ASSUME_NONNULL_END

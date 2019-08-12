@@ -14,6 +14,31 @@
 		1204264122FD565B008B90C9 /* MIToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1204264022FD565B008B90C9 /* MIToastView.xib */; };
 		1204264222FD565B008B90C9 /* MIToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1204264022FD565B008B90C9 /* MIToastView.xib */; };
 		1204264322FD565B008B90C9 /* MIToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1204264022FD565B008B90C9 /* MIToastView.xib */; };
+		1204264623000EA5008B90C9 /* AudioPlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1204264423000EA4008B90C9 /* AudioPlayerManager.m */; };
+		1204264723000EA5008B90C9 /* AudioPlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1204264423000EA4008B90C9 /* AudioPlayerManager.m */; };
+		1204264823000EA5008B90C9 /* AudioPlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1204264423000EA4008B90C9 /* AudioPlayerManager.m */; };
+		1204264F23001025008B90C9 /* go.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1204264923001025008B90C9 /* go.mp3 */; };
+		1204265023001025008B90C9 /* go.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1204264923001025008B90C9 /* go.mp3 */; };
+		1204265123001025008B90C9 /* go.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1204264923001025008B90C9 /* go.mp3 */; };
+		1204265223001025008B90C9 /* ready.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1204264A23001025008B90C9 /* ready.mp3 */; };
+		1204265323001025008B90C9 /* ready.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1204264A23001025008B90C9 /* ready.mp3 */; };
+		1204265423001025008B90C9 /* ready.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1204264A23001025008B90C9 /* ready.mp3 */; };
+		1204266423001133008B90C9 /* count_3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1204266123001132008B90C9 /* count_3.mp3 */; };
+		1204266523001133008B90C9 /* count_3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1204266123001132008B90C9 /* count_3.mp3 */; };
+		1204266623001133008B90C9 /* count_3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1204266123001132008B90C9 /* count_3.mp3 */; };
+		1204266723001133008B90C9 /* count_1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1204266223001132008B90C9 /* count_1.mp3 */; };
+		1204266823001133008B90C9 /* count_1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1204266223001132008B90C9 /* count_1.mp3 */; };
+		1204266923001133008B90C9 /* count_1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1204266223001132008B90C9 /* count_1.mp3 */; };
+		1204266A23001133008B90C9 /* count_2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1204266323001132008B90C9 /* count_2.mp3 */; };
+		1204266B23001133008B90C9 /* count_2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1204266323001132008B90C9 /* count_2.mp3 */; };
+		1204266C23001133008B90C9 /* count_2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1204266323001132008B90C9 /* count_2.mp3 */; };
+		1204266E2300F30A008B90C9 /* goodjob.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1204266D2300F30A008B90C9 /* goodjob.mp3 */; };
+		1204266F2300F30A008B90C9 /* goodjob.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1204266D2300F30A008B90C9 /* goodjob.mp3 */; };
+		120426702300F30A008B90C9 /* goodjob.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1204266D2300F30A008B90C9 /* goodjob.mp3 */; };
+		120426712300FA55008B90C9 /* MIStudentWordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 127A403322FBCA2500CBB085 /* MIStudentWordsViewController.m */; };
+		120426722300FA56008B90C9 /* MIStudentWordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 127A403322FBCA2500CBB085 /* MIStudentWordsViewController.m */; };
+		120426732300FA5C008B90C9 /* MIStudentWordsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 127A403422FBCA2500CBB085 /* MIStudentWordsViewController.xib */; };
+		120426742300FA5D008B90C9 /* MIStudentWordsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 127A403422FBCA2500CBB085 /* MIStudentWordsViewController.xib */; };
 		1226E7D3229572C100BAB1C9 /* DrawImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1226E7D2229572C100BAB1C9 /* DrawImageView.m */; };
 		1226E7D42295786100BAB1C9 /* DrawImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1226E7D2229572C100BAB1C9 /* DrawImageView.m */; };
 		1226F2F12297F37A00BAB1C9 /* MinnieManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1226F2F02297F37A00BAB1C9 /* MinnieManagerTests.m */; };
@@ -181,7 +206,6 @@
 		12747BED22A7CD84009C390E /* ModifyStarCountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8770A27822310224005733E4 /* ModifyStarCountViewController.xib */; };
 		12747BEE22A7CD91009C390E /* StudentDetailHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AF73052193D17F003E87F0 /* StudentDetailHeaderCell.m */; };
 		12747BEF22A7CD94009C390E /* StudentDetailHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87AF73062193D17F003E87F0 /* StudentDetailHeaderCell.xib */; };
-		12747BF022A7CDBC009C390E /* SendAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1950D7E322774EE5004F7291 /* SendAudioManager.m */; };
 		12747BF122A7CDC6009C390E /* RecordStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109875207A0BF500568785 /* RecordStateView.m */; };
 		12747BF222A7CDC9009C390E /* RecordStateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109876207A0BF500568785 /* RecordStateView.xib */; };
 		12747BF322A7CDD9009C390E /* RightAudioMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109A04207A158C00568785 /* RightAudioMessageTableViewCell.xib */; };
@@ -857,10 +881,8 @@
 		1923CB332286B35A0056B2AD /* HomeworkPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1923CB2F2286A7230056B2AD /* HomeworkPreviewViewController.m */; };
 		1923CB352286B36E0056B2AD /* HomeworkPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1923CB2F2286A7230056B2AD /* HomeworkPreviewViewController.m */; };
 		1923CB362286B71D0056B2AD /* HomeworkPreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1923CB302286A7230056B2AD /* HomeworkPreviewViewController.xib */; };
-		1950D7E422774EE5004F7291 /* SendAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1950D7E322774EE5004F7291 /* SendAudioManager.m */; };
 		1950D7E922775641004F7291 /* sendMessage.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1950D7E822775641004F7291 /* sendMessage.mp3 */; };
 		1950D7EA22775641004F7291 /* sendMessage.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1950D7E822775641004F7291 /* sendMessage.mp3 */; };
-		1950D7EB2277568E004F7291 /* SendAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1950D7E322774EE5004F7291 /* SendAudioManager.m */; };
 		1950D7EC2277DE02004F7291 /* StudentStarRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19577736227731590025573D /* StudentStarRecordViewController.xib */; };
 		1950D7ED2277DE3C004F7291 /* StudentStarRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19577735227731590025573D /* StudentStarRecordViewController.m */; };
 		1950D7F12277E856004F7291 /* HomeworkConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1950D7EF2277E856004F7291 /* HomeworkConfirmViewController.m */; };
@@ -2221,6 +2243,14 @@
 		1204263B22FD5633008B90C9 /* MIToastView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MIToastView.h; path = ../../../MinnieManager/TaskManager/View/MIToastView.h; sourceTree = "<group>"; };
 		1204263C22FD5633008B90C9 /* MIToastView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MIToastView.m; path = ../../../MinnieManager/TaskManager/View/MIToastView.m; sourceTree = "<group>"; };
 		1204264022FD565B008B90C9 /* MIToastView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MIToastView.xib; path = ../../../MinnieManager/TaskManager/View/MIToastView.xib; sourceTree = "<group>"; };
+		1204264423000EA4008B90C9 /* AudioPlayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioPlayerManager.m; sourceTree = "<group>"; };
+		1204264523000EA5008B90C9 /* AudioPlayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioPlayerManager.h; sourceTree = "<group>"; };
+		1204264923001025008B90C9 /* go.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = go.mp3; sourceTree = "<group>"; };
+		1204264A23001025008B90C9 /* ready.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ready.mp3; sourceTree = "<group>"; };
+		1204266123001132008B90C9 /* count_3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = count_3.mp3; sourceTree = "<group>"; };
+		1204266223001132008B90C9 /* count_1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = count_1.mp3; sourceTree = "<group>"; };
+		1204266323001132008B90C9 /* count_2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = count_2.mp3; sourceTree = "<group>"; };
+		1204266D2300F30A008B90C9 /* goodjob.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = goodjob.mp3; sourceTree = "<group>"; };
 		1226E7D1229572C100BAB1C9 /* DrawImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrawImageView.h; sourceTree = "<group>"; };
 		1226E7D2229572C100BAB1C9 /* DrawImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrawImageView.m; sourceTree = "<group>"; };
 		1226F2D52297F37900BAB1C9 /* MinnieManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MinnieManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2448,8 +2478,6 @@
 		1923CB2E2286A7230056B2AD /* HomeworkPreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeworkPreviewViewController.h; sourceTree = "<group>"; };
 		1923CB2F2286A7230056B2AD /* HomeworkPreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeworkPreviewViewController.m; sourceTree = "<group>"; };
 		1923CB302286A7230056B2AD /* HomeworkPreviewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeworkPreviewViewController.xib; sourceTree = "<group>"; };
-		1950D7E222774EE5004F7291 /* SendAudioManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendAudioManager.h; sourceTree = "<group>"; };
-		1950D7E322774EE5004F7291 /* SendAudioManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SendAudioManager.m; sourceTree = "<group>"; };
 		1950D7E822775641004F7291 /* sendMessage.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sendMessage.mp3; sourceTree = "<group>"; };
 		1950D7EE2277E856004F7291 /* HomeworkConfirmViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeworkConfirmViewController.h; sourceTree = "<group>"; };
 		1950D7EF2277E856004F7291 /* HomeworkConfirmViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeworkConfirmViewController.m; sourceTree = "<group>"; };
@@ -3925,9 +3953,15 @@
 		195777392277432A0025573D /* PlayAudio */ = {
 			isa = PBXGroup;
 			children = (
+				1204266223001132008B90C9 /* count_1.mp3 */,
+				1204266323001132008B90C9 /* count_2.mp3 */,
+				1204266123001132008B90C9 /* count_3.mp3 */,
+				1204264923001025008B90C9 /* go.mp3 */,
+				1204266D2300F30A008B90C9 /* goodjob.mp3 */,
+				1204264A23001025008B90C9 /* ready.mp3 */,
 				1950D7E822775641004F7291 /* sendMessage.mp3 */,
-				1950D7E222774EE5004F7291 /* SendAudioManager.h */,
-				1950D7E322774EE5004F7291 /* SendAudioManager.m */,
+				1204264523000EA5008B90C9 /* AudioPlayerManager.h */,
+				1204264423000EA4008B90C9 /* AudioPlayerManager.m */,
 			);
 			path = PlayAudio;
 			sourceTree = "<group>";
@@ -6406,6 +6440,7 @@
 				12ED3B15229C34F000255F8B /* TIP.xib in Resources */,
 				12747C7F22A7D238009C390E /* ic_search@2x.png in Resources */,
 				12747C5A22A7D1B0009C390E /* pop_loading@2x.png in Resources */,
+				1204265123001025008B90C9 /* go.mp3 in Resources */,
 				128F138122D46A5A00C9F5B7 /* navbar_search@2x.png in Resources */,
 				12747C7E22A7D238009C390E /* ic_message_plat@3x.png in Resources */,
 				12961C4B229E5B590075B04A /* icon_mission_choice@2x.png in Resources */,
@@ -6417,6 +6452,7 @@
 				12B7B94E22D864200057C798 /* StudentStarRecordViewController.xib in Resources */,
 				12961C50229E5E150075B04A /* SessionHomeworkTableViewCell.xib in Resources */,
 				12B7082722A5207B00117537 /* DatePickerView.xib in Resources */,
+				1204266623001133008B90C9 /* count_3.mp3 in Resources */,
 				12FD85EB22C0B2620026B7E2 /* 对话框_白色@3x.png in Resources */,
 				128F138322D5C17700C9F5B7 /* TeacherEditViewController.xib in Resources */,
 				12CB73AF22AB91F60064FB21 /* HomeworkDiffTableViewCell.xib in Resources */,
@@ -6499,6 +6535,7 @@
 				12ED3B54229D960F00255F8B /* 加载动画04@2x.png in Resources */,
 				12747BF422A7CDDB009C390E /* LeftAudioMessageTableViewCell.xib in Resources */,
 				12747C3622A7D14A009C390E /* chat_talk1@3x.png in Resources */,
+				120426702300F30A008B90C9 /* goodjob.mp3 in Resources */,
 				12747C5222A7D1B0009C390E /* pop_img_return@2x.png in Resources */,
 				12747C2A22A7D10D009C390E /* navbar_medal@3x.png in Resources */,
 				12B7B96D22D88C390057C798 /* StudentCollectionViewCell.xib in Resources */,
@@ -6513,6 +6550,7 @@
 				12747C4322A7D1A9009C390E /* send_homework@2x.png in Resources */,
 				12961CB2229ECCB50075B04A /* MIExpandSelectTypeTableViewCell.xib in Resources */,
 				12747C4A22A7D1A9009C390E /* white_bottom_corner_bg@3x.png in Resources */,
+				1204266C23001133008B90C9 /* count_2.mp3 in Resources */,
 				12747BE222A7CCFE009C390E /* RightVideoMessageTableViewCell.xib in Resources */,
 				12961C9E229ECB490075B04A /* MIAddTypeTableViewCell.xib in Resources */,
 				1226F32D229832D900BAB1C9 /* FindPasswordViewController.xib in Resources */,
@@ -6573,6 +6611,7 @@
 				12747C1722A7D0A4009C390E /* btn_send_warning@2x.png in Resources */,
 				128CF0C422C35C63004FBC91 /* ClassAndStudentSelectView.xib in Resources */,
 				12ED3B41229D8F2A00255F8B /* HomeworkSendHistoryHeaderView.xib in Resources */,
+				1204265423001025008B90C9 /* ready.mp3 in Resources */,
 				12FD85ED22C0B26F0026B7E2 /* 对话框_蓝色@3x.png in Resources */,
 				12747C5322A7D1B0009C390E /* pop_img_return@3x.png in Resources */,
 				12A1E93B22A55ADD001247D7 /* MICreateTaskViewController.xib in Resources */,
@@ -6617,6 +6656,7 @@
 				12FD85C422BB2F4C0026B7E2 /* label_user@2x.png in Resources */,
 				12747C5922A7D1B0009C390E /* pop_img_welcome@3x.png in Resources */,
 				12961C52229E5E460075B04A /* ClassAndStudentSelectorController.xib in Resources */,
+				120426742300FA5D008B90C9 /* MIStudentWordsViewController.xib in Resources */,
 				12ED3B56229D961500255F8B /* 加载动画05@2x.png in Resources */,
 				12FD85C522BB2F4F0026B7E2 /* label_user@3x.png in Resources */,
 				12747C2822A7D107009C390E /* navbar_screen@3x.png in Resources */,
@@ -6631,6 +6671,7 @@
 				12747BD722A7CC30009C390E /* HomeworkAnswersPickerViewController.xib in Resources */,
 				12747C7922A7D22E009C390E /* ic_Subtract_small@2x.png in Resources */,
 				12747C6822A7D1D6009C390E /* navbar_close@2x.png in Resources */,
+				1204266923001133008B90C9 /* count_1.mp3 in Resources */,
 				12961C54229E5E540075B04A /* SelectTeacherView.xib in Resources */,
 				12747BD122A7C876009C390E /* HomeworkSessionViewController.xib in Resources */,
 				12747C4F22A7D1B0009C390E /* pop_finish@3x.png in Resources */,
@@ -6729,6 +6770,7 @@
 			files = (
 				12EAC63C22AD4BF400F1F3DB /* MIReadingTaskViewController.xib in Resources */,
 				1950D7E922775641004F7291 /* sendMessage.mp3 in Resources */,
+				1204266723001133008B90C9 /* count_1.mp3 in Resources */,
 				971096BF207A006D00568785 /* login_img_logo@3x.png in Resources */,
 				97109767207A006D00568785 /* gray_corner_bg@2x.png in Resources */,
 				879CE52921913DD000BBE4B7 /* AchieverListHeaderView.xib in Resources */,
@@ -6906,9 +6948,11 @@
 				8709C2FD21A24C7400970757 /* 第1名@2x.png in Resources */,
 				1923CB2B22869B970056B2AD /* EditStudentRemarkViewController.xib in Resources */,
 				971097F1207A006D00568785 /* send_homework@2x.png in Resources */,
+				1204266E2300F30A008B90C9 /* goodjob.mp3 in Resources */,
 				971096D1207A006D00568785 /* label_ic_eye_hide@2x.png in Resources */,
 				971097A5207A006D00568785 /* icon_like_disabled@3x.png in Resources */,
 				875C2621218A9BBB0047E32A /* HomeworkSendHisTableViewCell.xib in Resources */,
+				1204264F23001025008B90C9 /* go.mp3 in Resources */,
 				8770A27B22310224005733E4 /* ModifyStarCountViewController.xib in Resources */,
 				128F131722CD10E500C9F5B7 /* MIActivityRankListTableViewCell.xib in Resources */,
 				9710972F207A006D00568785 /* navbar_close@3x.png in Resources */,
@@ -6954,6 +6998,7 @@
 				9710974B207A006D00568785 /* icon_Emoji@2x.png in Resources */,
 				872C742521BE8FD40027F47C /* load3@2x.png in Resources */,
 				97109805207A006D00568785 /* navbar_setup@3x.png in Resources */,
+				1204265223001025008B90C9 /* ready.mp3 in Resources */,
 				9710966F207A006D00568785 /* icon_drop_small@3x.png in Resources */,
 				97109C4C207A2E3E00568785 /* HomeworkDetailCommentTableViewCell.xib in Resources */,
 				8709C2F921A24C7400970757 /* 第2名@2x.png in Resources */,
@@ -6965,6 +7010,7 @@
 				128F131F22CD112500C9F5B7 /* MIHeaderTableViewCell.xib in Resources */,
 				971096C5207A006D00568785 /* ic_cancel_white@2x.png in Resources */,
 				97109920207A0BF600568785 /* AlertView.xib in Resources */,
+				1204266423001133008B90C9 /* count_3.mp3 in Resources */,
 				8709C2F521A24C7400970757 /* 第1名@3x.png in Resources */,
 				97364A1620B16C0B00511A95 /* NetworkStateErrorView.xib in Resources */,
 				9710979D207A006D00568785 /* icon_choice@3x.png in Resources */,
@@ -7046,6 +7092,7 @@
 				87FD07CB21BE429500664AF1 /* icon_btn_talk_small@3x.png in Resources */,
 				97109683207A006D00568785 /* bottom_ic_pencil@2x.png in Resources */,
 				9710966B207A006D00568785 /* label_key@3x.png in Resources */,
+				1204266A23001133008B90C9 /* count_2.mp3 in Resources */,
 				97109926207A0BF600568785 /* SegmentControl.xib in Resources */,
 				12961CB8229EF2350075B04A /* Assets.xcassets in Resources */,
 				97109DEE207A5D9700568785 /* FullfillProfileViewController_Student.xib in Resources */,
@@ -7151,6 +7198,7 @@
 				97109776207A006D00568785 /* white_top_corner_bg@2x.png in Resources */,
 				8709C2FC21A24C7400970757 /* 第3名@3x.png in Resources */,
 				97109700207A006D00568785 /* chat_talk3@2x.png in Resources */,
+				1204266B23001133008B90C9 /* count_2.mp3 in Resources */,
 				97109A82207A171600568785 /* HomeworkVideoCollectionViewCell.xib in Resources */,
 				97109A49207A158C00568785 /* RightEmojiMessageTableViewCell.xib in Resources */,
 				97109D5E207A2F0400568785 /* NoticeMessageTextItemTableViewCell.xib in Resources */,
@@ -7180,6 +7228,7 @@
 				870286862184100200559195 /* navbar_medal@3x.png in Resources */,
 				97109A47207A158C00568785 /* HomeworkSessionViewController.xib in Resources */,
 				8770A2872233B3F5005733E4 /* HomeworkAnswersPickerViewController.xib in Resources */,
+				120426732300FA5C008B90C9 /* MIStudentWordsViewController.xib in Resources */,
 				97109822207A006D00568785 /* 对话框_白色@3x.png in Resources */,
 				8725588F21D1D2A70028BC2A /* CorrectHomeworkAddCommentViewController.xib in Resources */,
 				971096CA207A006D00568785 /* ic_stars_coupons_plat@3x.png in Resources */,
@@ -7263,6 +7312,7 @@
 				97109B06207A1C0800568785 /* StudentsTableViewCell.xib in Resources */,
 				87FD07D821BE443800664AF1 /* icon_Enclosure_noedit@3x.png in Resources */,
 				1204264222FD565B008B90C9 /* MIToastView.xib in Resources */,
+				1204266823001133008B90C9 /* count_1.mp3 in Resources */,
 				1950D7F22277E856004F7291 /* HomeworkConfirmViewController.xib in Resources */,
 				9710973A207A006D00568785 /* ic_stars_coupons_plat@2x.png in Resources */,
 				97109BD3207A1D5000568785 /* CalendarTableViewCell.xib in Resources */,
@@ -7363,6 +7413,7 @@
 				97109C3B207A2E3E00568785 /* CircleLikeUsersTableViewCell.xib in Resources */,
 				9710981C207A006D00568785 /* ic_class_bule@3x.png in Resources */,
 				8702868C2184113F00559195 /* navbar_screen@2x.png in Resources */,
+				1204265023001025008B90C9 /* go.mp3 in Resources */,
 				8709C2BA219C304900970757 /* HomeworkSendHistoryHeaderView.xib in Resources */,
 				12CB738122AB52CF0064FB21 /* MIInPutTypeTableViewCell.xib in Resources */,
 				122F799722AD3D6500D2AA53 /* MISutActDetailTableViewCell.xib in Resources */,
@@ -7381,6 +7432,7 @@
 				87FD07D421BE443800664AF1 /* icon_Enclosure@3x.png in Resources */,
 				8709C30821A2507C00970757 /* 弹窗@3x.png in Resources */,
 				97109921207A0BF600568785 /* AlertView.xib in Resources */,
+				1204266523001133008B90C9 /* count_3.mp3 in Resources */,
 				9710979E207A006D00568785 /* icon_choice@3x.png in Resources */,
 				1950D7EC2277DE02004F7291 /* StudentStarRecordViewController.xib in Resources */,
 				97109D7C207A2F0400568785 /* TeachersViewController.xib in Resources */,
@@ -7483,6 +7535,7 @@
 				973649CB20AF2F8600511A95 /* HomeworkImageTableViewCell.xib in Resources */,
 				971097E8207A006D00568785 /* gray_top_corner_bg@2x.png in Resources */,
 				97109A53207A158C00568785 /* RightVideoMessageTableViewCell.xib in Resources */,
+				1204265323001025008B90C9 /* ready.mp3 in Resources */,
 				97109684207A006D00568785 /* bottom_ic_pencil@2x.png in Resources */,
 				9710966C207A006D00568785 /* label_key@3x.png in Resources */,
 				97109927207A0BF600568785 /* SegmentControl.xib in Resources */,
@@ -7551,6 +7604,7 @@
 				971096D8207A006D00568785 /* icon_time@3x.png in Resources */,
 				128F12F422CCA2DF00C9F5B7 /* MITagsView.xib in Resources */,
 				8709C2F621A24C7400970757 /* 第1名@3x.png in Resources */,
+				1204266F2300F30A008B90C9 /* goodjob.mp3 in Resources */,
 				97109B0D207A1C0800568785 /* ClassTableViewCell.xib in Resources */,
 				971096A6207A006D00568785 /* label_key@2x.png in Resources */,
 				87959A6921FDD1D300A670B9 /* UnfinishedStudentHomeworkSessionTableViewCell.xib in Resources */,
@@ -8000,6 +8054,7 @@
 				128F13A322D73ADA00C9F5B7 /* MICampusManagerViewController.m in Sources */,
 				128F139222D6C80200C9F5B7 /* MISecondTeachStatisticsView.m in Sources */,
 				12DCE76622A15C7C00E2DAFE /* MIScoreListTableViewCell.m in Sources */,
+				1204264823000EA5008B90C9 /* AudioPlayerManager.m in Sources */,
 				12961C6B229E66AA0075B04A /* StudentSelectorTableViewCell.m in Sources */,
 				12ED3B65229D96E600255F8B /* RefreshHeader.m in Sources */,
 				12B7B96E22D88C690057C798 /* DeleteClassTableViewCell.m in Sources */,
@@ -8026,6 +8081,7 @@
 				1226F328229832A500BAB1C9 /* FullfillProfileViewController.m in Sources */,
 				1226F3352298334800BAB1C9 /* UIColor+HEX.m in Sources */,
 				1229814722C5B44100C09750 /* HomeworkRequest.m in Sources */,
+				120426722300FA56008B90C9 /* MIStudentWordsViewController.m in Sources */,
 				12ED3B03229C2E4D00255F8B /* MISecondSheetView.m in Sources */,
 				1226F3252298327600BAB1C9 /* RegisterViewController.m in Sources */,
 				12961CD8229FD6ED0075B04A /* UpdateTaskModifiedTimeRequest.m in Sources */,
@@ -8100,7 +8156,6 @@
 				12961C57229E653B0075B04A /* TeacherCollectionViewCell.m in Sources */,
 				12747C0B22A7CF7C009C390E /* StudentRemarkTableViewCell.m in Sources */,
 				128CF0C022C35C39004FBC91 /* ClassAndStudentSelectView.m in Sources */,
-				12747BF022A7CDBC009C390E /* SendAudioManager.m in Sources */,
 				12961C5C229E65810075B04A /* SendTimePickerView.m in Sources */,
 				12961C7F229E67F70075B04A /* StudentRequest.m in Sources */,
 				1226F31C2298318C00BAB1C9 /* PortraitNavigationController.m in Sources */,
@@ -8246,6 +8301,7 @@
 				87FDFBC1214B6764006E987C /* AppVersion.m in Sources */,
 				8707EFCB21D61E6B0060B5A6 /* DeleteTagRequest.m in Sources */,
 				97109DA3207A2F0400568785 /* NicknameEditViewController.m in Sources */,
+				1204264623000EA5008B90C9 /* AudioPlayerManager.m in Sources */,
 				97109A38207A158C00568785 /* HomeworkSessionsRequest.m in Sources */,
 				97109912207A0BF500568785 /* ProgressHUD.m in Sources */,
 				97109D53207A2F0400568785 /* CommentMessagesRequest.m in Sources */,
@@ -8487,7 +8543,6 @@
 				1229814122C5B3BC00C09750 /* PinyinFormatter.m in Sources */,
 				977BD093207CA13B000A1994 /* PushManager.m in Sources */,
 				97109962207A0BF600568785 /* FileUploader.m in Sources */,
-				1950D7E422774EE5004F7291 /* SendAudioManager.m in Sources */,
 				97109C14207A2E3E00568785 /* CircleHomeworkViewController.m in Sources */,
 				128F132122CD112A00C9F5B7 /* MIEidtFileView.m in Sources */,
 				127A403522FBCA2500CBB085 /* MIStudentWordsViewController.m in Sources */,
@@ -8625,6 +8680,7 @@
 				97109C87207A2EC900568785 /* SMSCodeRequest.m in Sources */,
 				973649F320AF2F8600511A95 /* CreateTagRequest.m in Sources */,
 				97109C19207A2E3E00568785 /* CircleContainerController.m in Sources */,
+				1204264723000EA5008B90C9 /* AudioPlayerManager.m in Sources */,
 				97109AE7207A1C0800568785 /* ClassesContainerController.m in Sources */,
 				87EED4A5219443E400AEA974 /* ChooseDatePickerView.m in Sources */,
 				973649C620AF2F8600511A95 /* HomeworkLabelTableViewCell.m in Sources */,
@@ -8710,7 +8766,6 @@
 				871806DE21DF51540023511C /* MUPhotoPreviewController.m in Sources */,
 				97109B03207A1C0800568785 /* ClassTableViewCell.m in Sources */,
 				87707872219AB5BA00940A88 /* SendHomeworkHistoryRequest.m in Sources */,
-				1950D7EB2277568E004F7291 /* SendAudioManager.m in Sources */,
 				97109909207A0BF500568785 /* UIScrollView+Refresh.m in Sources */,
 				97109945207A0BF600568785 /* Utils.m in Sources */,
 				973649F020AF2F8600511A95 /* TagService.m in Sources */,
@@ -8885,6 +8940,7 @@
 				1923CB1A2283C07D0056B2AD /* StudentLabelRequest.m in Sources */,
 				8770A2B2223CA9F8005733E4 /* PinyinHelper.m in Sources */,
 				871806CD21DF438C0023511C /* MUVideoIndicatorView.m in Sources */,
+				120426712300FA55008B90C9 /* MIStudentWordsViewController.m in Sources */,
 				8770A2B1223CA9F8005733E4 /* NSString+PinYin4Cocoa.m in Sources */,
 				973649C420AF2F8600511A95 /* HomeworkVideoTableViewCell.m in Sources */,
 				128F132422CD113300C9F5B7 /* MICreateFolderView.m in Sources */,
