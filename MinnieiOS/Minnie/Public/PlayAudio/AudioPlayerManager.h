@@ -13,40 +13,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^FinishedBlock)(void);
 
-typedef void(^ProgressBlock)(CGFloat time, CGFloat duration);
-
 typedef void(^StatusBlock)(AVPlayerItemStatus status);
 
-@protocol AudioPlayerManagerDelegate <NSObject>
+typedef void(^ProgressBlock)(CGFloat time, CGFloat duration);
 
-@optional
-
-/*
- * 播放完成
- */
-- (void)playbackFinished;
-
-/**
- *  播放进度
- */
-- (void)playerProgressTime:(float)time duration:(float)duration;
-
-// 播放状态
-- (void)playerStatus:(AVPlayerItemStatus)status;
-
-
-@end
 
 @interface AudioPlayerManager : NSObject
 
-
-//@property (nonatomic,weak) id<AudioPlayerManagerDelegate> delegate;
 
 @property (nonatomic,copy) StatusBlock statusBlock;
 
 @property (nonatomic,copy) FinishedBlock finishedBlock;
 
 @property (nonatomic,copy) ProgressBlock progressBlock;
+
+
+@property (nonatomic, assign) CGFloat current;
 
 @property (nonatomic, assign) CGFloat duration;
 

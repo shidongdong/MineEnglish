@@ -88,7 +88,6 @@
 - (void)sliderValueChanged:(id)sender {
     
     _isSliding = YES;
-    NSLog(@"sliderValueChanged  %lu,%f",_currentWordIndex,self.sliderView.value);
 }
 
 - (void)sliderValueFinished:(id)sender {
@@ -154,10 +153,12 @@
         
         WordInfo *tempWord = self.wordsItem.words[_currentWordIndex];
         self.englishLabel.text = tempWord.english;
+        if (self.readingWordsProgressCallBack) {
+            self.readingWordsProgressCallBack(_currentWordIndex);
+        }
     }
     
     self.sliderView.value = (CGFloat)_currentWordIndex/self.wordsItem.words.count;
-    NSLog(@"playWords  %lu,%f %@",_currentWordIndex,self.sliderView.value,self.englishLabel.text);
     
     _currentWordIndex ++;
     

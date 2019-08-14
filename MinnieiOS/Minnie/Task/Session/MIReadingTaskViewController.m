@@ -83,13 +83,14 @@ VIResourceLoaderManagerDelegate
     [super viewWillDisappear:animated];
     if (self.isChecking) { // 查看作业
         
-        [self.bgMusicPlayer pause];
         [self.wordsView invalidateTimer];
-        [self.playerVC.player seekToTime:CMTimeMake(0, 1)];
-        [self.playerVC.player pause];
         if (self.isReadingWords) {
             
             [self.audioPlayer resetCurrentPlayer];
+        } else {
+            
+            [self.playerVC.player seekToTime:CMTimeMake(0, 1)];
+            [self.playerVC.player pause];
         }
     } else {
         
@@ -124,7 +125,7 @@ VIResourceLoaderManagerDelegate
     } else {
       
         self.commitBtn.hidden = NO;
-        self.myRecordBtn.hidden = NO;//
+        self.myRecordBtn.hidden = NO;
         self.myRecordLabel.hidden = NO;
         self.myRecordBtn.enabled = NO;
         [self.startRecordBtn setBackgroundImage:[UIImage imageNamed:@"btn_record"] forState:UIControlStateNormal];
@@ -136,7 +137,7 @@ VIResourceLoaderManagerDelegate
         self.wordsView.hidden = NO;
         [self.vedioBgView addSubview:self.wordsView];
         [self.wordsView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.bottom.right.equalTo(self.vedioBgView);
+            make.edges.equalTo(self.vedioBgView);
         }];
     } else {
         
@@ -436,7 +437,6 @@ VIResourceLoaderManagerDelegate
                     [HUD showErrorWithMessage:@"语音录制失败"];
                 }
             }
-            
         };
         _wordsView.readingWordsSeekCallBack = ^(CGFloat rate) {
           
@@ -448,7 +448,19 @@ VIResourceLoaderManagerDelegate
                 weakSelf.startRecordLabel.text = @"点击停止录音";
                 [weakSelf.wordsView startPlayWords];
             }
-            
+        };
+        _wordsView.readingWordsProgressCallBack = ^(NSInteger index) {
+           
+//            HomeworkItem *wordItem = weakSelf.wordsView.wordsItem;
+//
+//            CGFloat rate =  (CGFloat)(weakSelf.audioPlayer.current/weakSelf.audioPlayer.duration);
+//            int tempIndex = roundf(rate * wordItem.words.count);
+//
+//            if (abs(tempIndex - (int)index) > 1) {
+//
+//                CGFloat time = weakSelf.audioPlayer.duration * index/wordItem.words.count;
+//                [weakSelf.audioPlayer seekToTime:time];
+//            }
         };
     }
     return _wordsView;
@@ -472,6 +484,8 @@ VIResourceLoaderManagerDelegate
                     weakSelf.startRecordLabel.text = @"点击查看录音";
                     [weakSelf.wordsView stopPlayWords];
                 }
+            } else if (status == AVPlayerItemStatusReadyToPlay) {
+                NSLog(@"AVPlayerItemStatusReadyToPlay");
             }
         };
         
@@ -611,13 +625,18 @@ VIResourceLoaderManagerDelegate
 - (void)didEnterBackground{
     
     if (self.isChecking) {
-        
-        [self.bgMusicPlayer pause];
+     
+        if (self.isReadingWords) {
+            
+            [self.audioPlayer play:NO];
+        } else {
+            
+            [self.playerVC.player seekToTime:CMTimeMake(0, 1)];
+            [self.playerVC.player pause];
+        }
         [self.wordsView stopPlayWords];
         self.startRecordBtn.selected = NO;
         self.startRecordLabel.text = @"点击查看录音";
-        [self.playerVC.player seekToTime:CMTimeMake(0, 1)];
-        [self.playerVC.player pause];
     } else {
       
         if (self.recordState == 1) {

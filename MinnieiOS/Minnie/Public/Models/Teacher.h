@@ -20,6 +20,11 @@ typedef NS_ENUM(NSInteger, TeacherType) {
     TeacherTypeAssistant = 2, // 助教
 };
 
+
+@protocol AuthorPreview <NSObject>
+@end
+
+
 @interface Teacher : User<MTLJSONSerializing>
 
 @property (nonatomic, assign) TeacherType type; // 类型：教师，助教
@@ -33,11 +38,37 @@ typedef NS_ENUM(NSInteger, TeacherType) {
 @property (nonatomic, assign) BOOL canExchangeRewards; // 兑换礼品
 @property (nonatomic, assign) BOOL canCreateNoticeMessage; // 创建通知消息
 
+
+@property (nonatomic, assign) BOOL canManagerTeachers; //教师管理（新建/编辑/删除
+@property (nonatomic, assign) BOOL canManagerActivity; //活动管理
+@property (nonatomic, assign) BOOL canManagerCampus; //校区管理（新建/编辑/删除） (班级管理)
+@property (nonatomic, assign) BOOL canManagerPassword; //密码管理
+
+
+@property (nonatomic, strong) NSArray<AuthorPreview> *teachersPreview; // 教师查看
+@property (nonatomic, strong) NSArray<AuthorPreview> *homeworksPreview; // 作业查看
+@property (nonatomic, strong) NSArray<AuthorPreview> *classesPreview; // 班级信息查看
+@property (nonatomic, strong) NSArray<AuthorPreview> *studentsPreview; // 学生信息查看
+
+
 @property (nonatomic, readonly) NSString *typeDescription;
 @property (nonatomic, readonly) NSString *authorityDescription;
 
 @end
 
+
+@interface AuthorPreview : MTLModel<MTLJSONSerializing> //权限预览
+
+// id
+@property (nonatomic, assign) NSInteger classId;
+// 名称
+@property (nonatomic, copy) NSString *name;
+// 查看状态
+@property (nonatomic, assign) BOOL state;
+// 头像
+@property (nonatomic, copy) NSString *avatarUrl;
+
+@end
 
 
 @interface OnClass : MTLModel<MTLJSONSerializing>

@@ -18,7 +18,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="world" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="40" translatesAutoresizingMaskIntoConstraints="NO" id="v5x-Pw-TqT">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="866"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="240"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -34,13 +34,12 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="v5x-Pw-TqT" secondAttribute="bottom" constant="10" id="BHz-re-g5r"/>
                         <constraint firstItem="kVz-Mm-QBV" firstAttribute="trailing" secondItem="v5x-Pw-TqT" secondAttribute="trailing" id="FoX-HA-Mkc"/>
                         <constraint firstItem="v5x-Pw-TqT" firstAttribute="leading" secondItem="IW1-fJ-bvT" secondAttribute="leading" id="JhE-ib-wU3"/>
                         <constraint firstItem="v5x-Pw-TqT" firstAttribute="centerX" secondItem="IW1-fJ-bvT" secondAttribute="centerX" id="QUl-h3-tZv"/>
                         <constraint firstAttribute="trailing" secondItem="v5x-Pw-TqT" secondAttribute="trailing" id="XG4-aT-Hd0"/>
                         <constraint firstAttribute="bottom" secondItem="kVz-Mm-QBV" secondAttribute="bottom" id="Xky-nc-dGc"/>
-                        <constraint firstAttribute="height" constant="896" id="c4v-wR-9uL"/>
+                        <constraint firstItem="kVz-Mm-QBV" firstAttribute="top" secondItem="v5x-Pw-TqT" secondAttribute="bottom" constant="10" id="bqy-3L-FHt"/>
                         <constraint firstItem="kVz-Mm-QBV" firstAttribute="leading" secondItem="v5x-Pw-TqT" secondAttribute="leading" id="fv7-dA-7VL"/>
                         <constraint firstItem="v5x-Pw-TqT" firstAttribute="top" secondItem="IW1-fJ-bvT" secondAttribute="top" id="vLR-Nl-98W"/>
                     </constraints>

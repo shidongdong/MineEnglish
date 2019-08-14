@@ -12,6 +12,7 @@
 #import "MISecondTeachersView.h"
 #import "HanyuPinyinOutputFormat.h"
 #import "TeacherEditViewController.h"
+#import "MITeacherAuthorViewController.h"
 #import "MISecondReaTimeTaskTableViewCell.h"
 
 @interface MISecondTeachersView ()<
@@ -85,7 +86,10 @@ UITableViewDataSource
 - (void)addTeacherBtnClicked:(UIButton *)btn{
     
     UIViewController *rootVC = self.window.rootViewController;
-    TeacherEditViewController *editVC = [[TeacherEditViewController alloc] initWithNibName:@"TeacherEditViewController" bundle:nil];
+//    TeacherEditViewController *editVC = [[TeacherEditViewController alloc] initWithNibName:@"TeacherEditViewController" bundle:nil];
+    
+    
+    MITeacherAuthorViewController *editVC = [[MITeacherAuthorViewController alloc] initWithNibName:@"MITeacherAuthorViewController" bundle:nil];
     
     UIView *bgView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     bgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];

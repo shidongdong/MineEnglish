@@ -55,6 +55,19 @@
 
 @end
 
+@implementation AuthorPreview
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    
+    return @{@"classId":@"id",
+             @"name":@"name",
+             @"state":@"state",
+             @"avatarUrl":@"avatarUrl",
+             };
+}
+
+@end
+
 
 @implementation OnClass
 

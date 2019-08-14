@@ -25,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="69a-Mn-ZvF">
-                    <rect key="frame" x="59" y="15" width="44" height="44"/>
+                    <rect key="frame" x="49" y="15" width="44" height="44"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="69a-Mn-ZvF" secondAttribute="height" multiplier="1:1" id="GYz-Wl-pZC"/>
                         <constraint firstAttribute="width" constant="44" id="gOW-74-Gmr"/>
@@ -61,7 +61,7 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="69a-Mn-ZvF" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="15" id="957-I6-X62"/>
+                <constraint firstItem="69a-Mn-ZvF" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="5" id="957-I6-X62"/>
                 <constraint firstItem="69a-Mn-ZvF" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="15" id="9CA-VL-Rq4"/>
                 <constraint firstItem="xEg-PN-a4U" firstAttribute="bottom" secondItem="Q5M-cg-NOt" secondAttribute="bottom" constant="7" id="BvB-ad-4vw"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="xEg-PN-a4U" secondAttribute="trailing" id="F8v-1V-Iee"/>

@@ -75,7 +75,6 @@
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
     
-    NSLog(@"++++++ %@",url);
     self.audioPlayer = [AVPlayer playerWithPlayerItem:self.playerItem];
     self.audioPlayer.volume = 0.5;
     [self addPlayerProgress];
@@ -101,7 +100,7 @@
         
         CMTime tempTime = CMTimeMake(time, 1);
         [self.playerItem seekToTime:tempTime];
-        [self play:YES];
+        [_audioPlayer play];
     }
 }
 
@@ -123,11 +122,15 @@
         _progressObserve = [self.audioPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
             
             if (!weakSelf) return;
+            if (weakSelf.isSeek) return;
             if (weakSelf.progressBlock) {
                 
                 CGFloat currentTime = weakSelf.playerItem.currentTime.value/weakSelf.playerItem.currentTime.timescale;// 计算当前在第几秒
                 CGFloat duration = CMTimeGetSeconds(weakSelf.playerItem.duration);
                 weakSelf.progressBlock(currentTime, duration);
+                weakSelf.current = currentTime;
+                weakSelf.duration = duration;
+                NSLog(@"++++++ %f",currentTime);
             }
         }];
     }
@@ -158,8 +161,9 @@
                     
                     [self seekToTime:_seekToTime];
                     _isSeek = NO;
+                } else {
+                    [_audioPlayer play];
                 }
-                [_audioPlayer play];
                 self.duration = CMTimeGetSeconds(self.playerItem.duration);
                 break;
             case AVPlayerItemStatusFailed:      // 加载失败，网络或者服务器出现问题

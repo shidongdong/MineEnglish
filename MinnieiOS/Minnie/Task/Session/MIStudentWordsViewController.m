@@ -135,6 +135,9 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 #pragma mark - 1.开始倒计时
 - (void)startCountTime{
    
+    if (self.wordsItem.words.count == 0) {
+        return;
+    }
     [self stopTask];
     _recordState = 1;
     _currentWordIndex = -5;

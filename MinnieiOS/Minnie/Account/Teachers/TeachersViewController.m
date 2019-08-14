@@ -11,6 +11,7 @@
 #import "TeacherTableViewCell.h"
 #import "TeachersTableHeaderView.h"
 #import "TeacherEditViewController.h"
+#import "MITeacherAuthorViewController.h"
 
 @interface TeachersViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -161,7 +162,12 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     Teacher *teacher = self.teachers[indexPath.row];
-    TeacherEditViewController *editVC = [[TeacherEditViewController alloc] initWithNibName:@"TeacherEditViewController" bundle:nil];
+//    TeacherEditViewController *editVC = [[TeacherEditViewController alloc] initWithNibName:@"TeacherEditViewController" bundle:nil];
+//    editVC.teacher = teacher;
+//    [self.navigationController pushViewController:editVC animated:YES];
+    
+    
+    MITeacherAuthorViewController *editVC = [[MITeacherAuthorViewController alloc] initWithNibName:@"MITeacherAuthorViewController" bundle:nil];
     editVC.teacher = teacher;
     [self.navigationController pushViewController:editVC animated:YES];
 }

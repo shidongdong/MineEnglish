@@ -9,6 +9,7 @@
 #import "TeacherService.h"
 #import "MIScoreListViewController.h"
 #import "TeacherEditViewController.h"
+#import "MITeacherAuthorViewController.h"
 #import "MITeacherOnlineTableViewCell.h"
 #import "MITeacherDetailViewController.h"
 
@@ -92,7 +93,10 @@ UITableViewDataSource
 - (IBAction)setAction:(id)sender {
     
     UIViewController *rootVC = self.view.window.rootViewController;
-    TeacherEditViewController *editVC = [[TeacherEditViewController alloc] initWithNibName:@"TeacherEditViewController" bundle:nil];
+//    TeacherEditViewController *editVC = [[TeacherEditViewController alloc] initWithNibName:@"TeacherEditViewController" bundle:nil];
+    
+    MITeacherAuthorViewController *editVC = [[MITeacherAuthorViewController alloc] initWithNibName:@"MITeacherAuthorViewController" bundle:nil];
+    
     editVC.teacher = self.teacher;
     
     UIView *bgView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
