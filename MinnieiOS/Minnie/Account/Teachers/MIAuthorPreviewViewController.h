@@ -11,11 +11,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^EidtPreviewAuthorCallBack)(NSArray *authorArray);
+
 @interface MIAuthorPreviewViewController : UIViewController
 
 @property (nonatomic, assign) MIAuthorManagerType authorManagerType;
 
-@property (nonatomic, strong) NSArray<AuthorPreview> *authorArray; 
+@property (nonatomic, copy) EidtPreviewAuthorCallBack editCallBack;
+
+@property (nonatomic, strong) NSArray *authorArray;
 
 @end
 

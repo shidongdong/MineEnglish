@@ -299,9 +299,13 @@
     Clazz *clazz = self.classes[indexPath.row];
 
     if (self.isManageMode) {
-        ClassManagerViewController *vc = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
-        vc.classId = clazz.classId;
-        [self.navigationController pushViewController:vc animated:YES];
+       
+//        if (APP.currentUser.canManageClasses) {
+        
+            ClassManagerViewController *vc = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
+            vc.classId = clazz.classId;
+            [self.navigationController pushViewController:vc animated:YES];
+//        }
     } else {
         CircleHomeworksViewController *homeworksVC = [[CircleHomeworksViewController alloc] initWithNibName:@"CircleHomeworksViewController" bundle:nil];
         homeworksVC.clazz = clazz;

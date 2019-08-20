@@ -48,6 +48,11 @@ NS_ASSUME_NONNULL_BEGIN
                                       nextUrl:(NSString *_Nullable)nextUrl
                                      callback:(RequestCallback)callback;
 
+
+// 获取一级任务管理文件夹（设置权限用）
++ (BaseRequest *)requestAllParentFileListWithCallback:(RequestCallback)callback;
+
+
 #pragma mark - 活动管理
 
 // 新建活动（ipad管理端）

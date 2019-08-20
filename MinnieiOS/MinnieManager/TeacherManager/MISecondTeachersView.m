@@ -81,6 +81,7 @@ UITableViewDataSource
     
     _tableView.tableFooterView = [UIView new];
     _tableView.cellLayoutMarginsFollowReadableWidth = NO;
+    
 }
 
 - (void)addTeacherBtnClicked:(UIButton *)btn{
@@ -119,6 +120,13 @@ UITableViewDataSource
     [self requestTeachers];
     
     self.addActivitybtn.hidden = (self.teacherListType == 0) ? YES : NO;
+    
+    if (self.teacherListType == 0) {
+        
+        self.addActivitybtn.hidden = YES;
+    } else {
+        self.addActivitybtn.hidden = !APP.currentUser.canManageTeachers;
+    }
 }
 
 #pragma mark -

@@ -88,6 +88,18 @@
     return request;
 }
 
+// 获取一级任务管理文件夹（设置权限用）
++ (BaseRequest *)requestAllParentFileListWithCallback:(RequestCallback)callback{
+  
+    GetParentFilesRequest * request = [[GetParentFilesRequest alloc] init];
+    request.objectKey = @"list";
+    request.objectClassName = @"FileInfo";
+    [request setCallback:callback];
+    [request start];
+    return request;
+}
+
+
 // 新建活动（ipad管理端）
 + (BaseRequest *)requestCreateActivity:(ActivityInfo *)activityInfo callback:(RequestCallback)callback{
     

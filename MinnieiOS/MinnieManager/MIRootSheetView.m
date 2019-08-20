@@ -29,53 +29,82 @@
     
     self.backgroundColor = [UIColor whiteColor];
     
-    NSArray *titleArray = @[@"实时任务",
-                            @"教师管理",
-                            @"任务管理",
-                            @"活动管理",
-                            @"教学统计",
-                            @"校区管理",
-                            @"礼物管理",
-                            @"设置"];
-    NSArray *selectImage = @[@"menu_mission_sel",
-                             @"menu_number_sel",
-                             @"menu_mission_manage_sel",
-                             @"menu_activity_sel",
-                             @"menu_Statistics_sel",
-                             @"menu_school_sel",
-                             @"menu_gift_sel",
-                             @"navbar_setup_select"];
-    NSArray *normalImage = @[@"menu_mission_def",
-                             @"menu_number_def",
-                             @"menu_mission_manage_def",
-                             @"menu_activity_def",
-                             @"menu_Statistics_def",
-                             @"menu_school_def",
-                             @"menu_gift_def",
-                             @"navbar_setup_normal"];
+    NSMutableArray *dataArray = [NSMutableArray array];
+    [dataArray addObject:@{@"type":@(MIManagerFuncRealTaskModule),
+                           @"title":@"实时任务",
+                           @"select":@"menu_mission_sel",
+                           @"normal":@"menu_mission_def"}];
+    [dataArray addObject:@{@"type":@(MIManagerFuncTeacherModule),
+                           @"title":@"教师管理",
+                           @"select":@"menu_number_sel",
+                           @"normal":@"menu_number_def"}];
+    
+    if (APP.currentUser.canManageHomeworks) {
+        
+        [dataArray addObject:@{@"type":@(MIManagerFuncTaskModule),
+                               @"title":@"任务管理",
+                               @"select":@"menu_mission_manage_sel",
+                               @"normal":@"menu_mission_manage_def"}];
+    }
+    if (APP.currentUser.canManageActivity) {
+    
+        [dataArray addObject:@{@"type":@(MIManagerFuncActivityModule),
+                               @"title":@"活动管理",
+                               @"select":@"menu_activity_sel",
+                               @"normal":@"menu_activity_def"}];
+    }
+    if (APP.currentUser.canManageStudents) {
+        
+        [dataArray addObject:@{@"type":@(MIManagerFuncTeachingModule),
+                               @"title":@"教学统计",
+                               @"select":@"menu_Statistics_sel",
+                               @"normal":@"menu_Statistics_def"}];
+    }
+    if (APP.currentUser.canManageCampus) {
+      
+        [dataArray addObject:@{@"type":@(MIManagerFuncCampusModule),
+                               @"title":@"校区管理",
+                               @"select":@"menu_school_sel",
+                               @"normal":@"menu_school_def"}];
+    }
+    if (APP.currentUser.canExchangeRewards) {
+        
+        [dataArray addObject:@{@"type":@(MIManagerFuncGiftsModule),
+                               @"title":@"礼物管理",
+                               @"select":@"menu_gift_sel",
+                               @"normal":@"menu_gift_def"}];
+    }
+    [dataArray addObject:@{@"type":@(MIManagerFuncSettingModule),
+                           @"title":@"设置",
+                           @"select":@"navbar_setup_select",
+                           @"normal":@"navbar_setup_normal"}];
+    
     
     self.btns = [NSMutableArray array];
-    for (NSInteger i = 0; i < titleArray.count; i++) {
+
+    for (NSInteger i = 0; i < dataArray.count; i++) {
         
-        NSString *selectImg = selectImage[i];
-        NSString *normalImg = normalImage[i];
+        NSDictionary *dict = dataArray[i];
+        NSString *title = dict[@"title"];
+        NSString *selectImg = dict[@"select"];
+        NSString *normalImg = dict[@"normal"];
+        MIManagerFuncModule type = ((NSNumber *)dict[@"type"]).integerValue;
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.tag = 1500 + i;
+        btn.tag = 1500 + type;
         [btn setImage:[UIImage imageNamed:normalImg] forState:UIControlStateNormal];
         [btn setImage:[UIImage imageNamed:selectImg] forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btn];
         
         // 设置
-        if (i == titleArray.count - 1) {
+        if (type == MIManagerFuncSettingModule) {
             btn.frame = CGRectMake((kRootModularWidth - 50)/2.0, ScreenHeight - 90, 50, 50);
         } else {
-          
+            
             CGFloat pointY = kNaviBarHeight + (36 + 50) * i;
             btn.frame = CGRectMake((kRootModularWidth - 50)/2.0, pointY, 50, 50);
             
-            NSString *title = titleArray[i];
             [btn setTitle:title forState:UIControlStateNormal];
             btn.titleLabel.font = [UIFont systemFontOfSize:16];
             [btn setTitleColor:[UIColor detailColor] forState:UIControlStateNormal];
@@ -88,6 +117,7 @@
         [self.btns addObject:btn];
     }
     
+    
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(kRootModularWidth - 1.0, 0, 0.5, ScreenHeight)];
     lineView.backgroundColor = [UIColor separatorLineColor];
     [self addSubview:lineView];
@@ -95,34 +125,36 @@
 
 - (void)btnClicked:(UIButton *)selectBtn{
     
-    NSInteger selectIndex = selectBtn.tag - 1500;
+    MIManagerFuncModule selectType = selectBtn.tag - 1500;
 
     for (UIButton *btn in self.btns) {
         btn.selected = NO;
     }
     selectBtn.selected = YES;
  
-    if (self.delegate && [self.delegate respondsToSelector:@selector(rootSheetViewClickedIndex:)]) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(rootSheetViewClickedType:)]) {
         
-        [self.delegate rootSheetViewClickedIndex:selectIndex];
+        [self.delegate rootSheetViewClickedType:selectType];
     }
 }
 
-- (void)setSelectIndex:(NSInteger)selectIndex{
+
+- (void)setSelectType:(MIManagerFuncModule)selectType{
     
-    _selectIndex = selectIndex;
+    _selectType = selectType;
     
     for (UIButton *btn in self.btns) {
         btn.selected = NO;
-        if (btn.tag - 1500 == _selectIndex) {
+        if (btn.tag - 1500 == _selectType) {
             
             btn.selected = YES;
         }
     }
-    if (self.delegate && [self.delegate respondsToSelector:@selector(rootSheetViewClickedIndex:)]) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(rootSheetViewClickedType:)]) {
         
-        [self.delegate rootSheetViewClickedIndex:selectIndex];
+        [self.delegate rootSheetViewClickedType:_selectType];
     }
+    
 }
 
 @end

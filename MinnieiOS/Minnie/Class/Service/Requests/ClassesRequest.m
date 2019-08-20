@@ -77,3 +77,18 @@
 
 @end
 
+
+//2.5.8    获取所有班级列表（设置权限用）
+@implementation AllClassesRequest
+
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+
+- (NSString *)requestUrl {
+
+    return [NSString stringWithFormat:@"%@/class/getAllclasses", ServerProjectName];
+}
+
+@end
+

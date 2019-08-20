@@ -6,6 +6,7 @@
 //  Copyright © 2018年 minnieedu. All rights reserved.
 //
 
+#import "AppDelegate+ConfigureUI.h"
 #import "TrialClassViewController.h"
 #import "EnrollTrialClassView.h"
 #import "TrialClassService.h"
@@ -114,26 +115,29 @@
 }
 
 - (IBAction)exitButtonPressed:(id)sender {
-    [AuthService logoutWithCallback:^(Result *result, NSError *error) {
-        //新增 by shidongdong
-        AppDelegate * app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        [app removeRemoteNotification];
-        Application.sharedInstance.currentUser = nil;
-        [[IMManager sharedManager] logout];
-        [app refreshOnlineState:NO needWait:NO];
-        
-        [APP clearData];
-        NSString *nibName = nil;
-#if TEACHERSIDE
-        nibName = @"LoginViewController_Teacher";
-#else
-        nibName = @"LoginViewController_Student";
-#endif
-        LoginViewController *loginVC = [[LoginViewController alloc] initWithNibName:nibName bundle:nil];
-        
-        PortraitNavigationController *loginNC = [[PortraitNavigationController alloc] initWithRootViewController:loginVC];
-        self.view.window.rootViewController = loginNC;
-    }];
+//    [AuthService logoutWithCallback:^(Result *result, NSError *error) {
+//        //新增 by shidongdong
+//        AppDelegate * app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//        [app removeRemoteNotification];
+//        Application.sharedInstance.currentUser = nil;
+//        [[IMManager sharedManager] logout];
+//        [app refreshOnlineState:NO needWait:NO];
+//
+//        [APP clearData];
+//        NSString *nibName = nil;
+//#if TEACHERSIDE
+//        nibName = @"LoginViewController_Teacher";
+//#else
+//        nibName = @"LoginViewController_Student";
+//#endif
+//        LoginViewController *loginVC = [[LoginViewController alloc] initWithNibName:nibName bundle:nil];
+//
+//        PortraitNavigationController *loginNC = [[PortraitNavigationController alloc] initWithRootViewController:loginVC];
+//        self.view.window.rootViewController = loginNC;
+//    }];
+    
+    AppDelegate * app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [app logout];
 }
 
 - (IBAction)nextButtonPressed:(id)sender {

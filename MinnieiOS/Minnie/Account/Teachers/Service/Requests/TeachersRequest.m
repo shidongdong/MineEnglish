@@ -52,3 +52,18 @@
 }
 
 @end
+
+
+@implementation ALLTeachersRequest
+
+
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+
+- (NSString *)requestUrl {
+    return [NSString stringWithFormat:@"%@/teacher/getAllTeachers", ServerProjectName];
+}
+
+
+@end

@@ -68,11 +68,11 @@ MISecondTeachStatisticsViewDelegate
     [self.view addSubview:self.reaTimTasSheetView];
     
     // 默认选中 实时任务
-    self.firstSheetView.selectIndex = 0;
+    self.firstSheetView.selectType = MIManagerFuncRealTaskModule;
 }
 
 #pragma mark - RootSheetViewDelete
-- (void)rootSheetViewClickedIndex:(NSInteger)index{
+- (void)rootSheetViewClickedType:(MIManagerFuncModule)type{
     
     UINavigationController *nav = ((UINavigationController *)self.customSplitViewController.viewControllers[1]);
     [nav popToRootViewControllerAnimated:YES];
@@ -82,7 +82,7 @@ MISecondTeachStatisticsViewDelegate
     [self.teaStaStockSplitVC hiddenZeroMessages];
     
     NSInteger cloumnScale = 0;
-    if (index == 0) { // 实时任务
+    if (type == MIManagerFuncRealTaskModule) { // 实时任务
         
         [self.view addSubview:self.reaTimTasSheetView];
         _secondSheetView.hidden = YES;
@@ -97,7 +97,7 @@ MISecondTeachStatisticsViewDelegate
         [self.reaTimTasSheetView updateTeacherListWithListType:0];
         [self.reaTimTasStockSplitVC updateHomeworkSessionWithTeacher:nil];
         
-    } else if (index == 1){ // 教师管理
+    } else if (type == MIManagerFuncTeacherModule){ // 教师管理
         
         [self.view addSubview:self.teacherManagerSheetView];
         _secondSheetView.hidden = YES;
@@ -112,7 +112,7 @@ MISecondTeachStatisticsViewDelegate
         [self.teacherManagerSheetView updateTeacherListWithListType:1];
         [self.teacherStockSplitVC updateTeacher:nil];
         
-    } else if (index == 2){ // 任务管理 不展开文件夹，不显示内容
+    } else if (type == MIManagerFuncTaskModule){ // 任务管理 不展开文件夹，不显示内容
        
         [self.view addSubview:self.secondSheetView];
         _reaTimTasSheetView.hidden = YES;
@@ -128,7 +128,7 @@ MISecondTeachStatisticsViewDelegate
         [_secondSheetView collapseAllFolders];
         [_secondSheetView updateFileListInfo];
         
-    } else if (index == 3) { // 活动管理
+    } else if (type == MIManagerFuncActivityModule) { // 活动管理
         
         [self.view addSubview:self.secondActivitySheetView];
         _secondSheetView.hidden = YES;
@@ -141,7 +141,7 @@ MISecondTeachStatisticsViewDelegate
         [self.secondDetailVC addSubViewController:self.activityStockSplitVC];
         
         [_secondActivitySheetView updateActivityListInfo];
-    } else if (index == 4) { // 教学统计
+    } else if (type == MIManagerFuncTeachingModule) { // 教学统计
         
         [self.view addSubview:self.secondTeaStaSheetView];
         _secondSheetView.hidden = YES;
@@ -155,13 +155,13 @@ MISecondTeachStatisticsViewDelegate
         
         [self.secondTeaStaSheetView updateStudentList];
         [self.teaStaStockSplitVC updateStudent:nil];
-    } else if (index == 5) { // 校区管理
+    } else if (type == MIManagerFuncCampusModule) { // 校区管理
         cloumnScale = kRootModularWidth;
         [self.secondDetailVC addSubViewController:self.camManStockSplitVC];
-    } else if (index == 6) { // 礼物管理
+    } else if (type == MIManagerFuncGiftsModule) { // 礼物管理
         cloumnScale = kRootModularWidth;
         [self.secondDetailVC addSubViewController:self.giftStockSplitVC];
-    } else if (index == 7) { // 设置
+    } else if (type == MIManagerFuncSettingModule) { // 设置
         cloumnScale = kRootModularWidth;
         [self.secondDetailVC addSubViewController:self.setterStockSplitVC];
     }

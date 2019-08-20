@@ -57,6 +57,7 @@
         [self requestData];
     }
 }
+
 - (void)configureUI{
     
     if (self.isAwardListByClass) {

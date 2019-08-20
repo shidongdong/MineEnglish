@@ -34,6 +34,9 @@
 // 一级文件夹展开、折叠
 @property (nonatomic ,assign) BOOL isOpen;
 
+@property (nonatomic ,assign) BOOL canLookFile;
+
+
 @end
 
 

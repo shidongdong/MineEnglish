@@ -124,6 +124,21 @@
 
 @end
 
+
+#pragma mark - 获取一级任务管理文件夹（设置权限用）
+@implementation GetParentFilesRequest
+
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+
+- (NSString *)requestUrl {
+    return [NSString stringWithFormat:@"%@/homework/getAllOneFiles", ServerProjectName];
+}
+
+@end
+
+
 #pragma mark MoveFilesRequest
 @interface MoveFilesRequest ()
 

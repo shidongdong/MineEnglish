@@ -203,31 +203,42 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat height = 0;
 
+    Teacher *teacher = APP.currentUser;
     if (indexPath.row == 0) {
         height = ProfileTableViewCellHeight;
     } else if (indexPath.row == 1) {
         height = AccountTableViewCellHeight;
-        if (!APP.currentUser.canExchangeRewards) {
+        
+        if (teacher.authority == TeacherAuthorityManager ||
+            teacher.authority == TeacherAuthoritySuperManager) {
+            
+            if (!APP.currentUser.canExchangeRewards) {
+                height -= 50.f;
+            }
+        } else {
             height -= 50.f;
         }
     } else if (indexPath.row == 2) {
         height = 0;
         
-        if (APP.currentUser.canManageHomeworks) {
+        if (teacher.authority == TeacherAuthorityManager ||
+            teacher.authority == TeacherAuthoritySuperManager) {
+            
+            if (teacher.canManageHomeworks) {
+                height += 50.f;
+            }
+            
+            if (teacher.canManageTeachers) {
+                height += 50.f;
+            }
+            if (teacher.canManageCampus) {
+                height += 50.f;
+            }
+            height += 50.f;
+        } else {
             height += 50.f;
         }
-        
-        if (APP.currentUser.authority==TeacherAuthoritySuperManager) {
-            height += 50.f;
-        }
-        
-        if (APP.currentUser.canManageClasses) {
-            height += 50.f;
-        }
-        
-        if (APP.currentUser.canManageStudents) {
-            height += 50.f;
-        }
+    
         
         if (height > 0) {
             height += 12;

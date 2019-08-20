@@ -28,6 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 // 更新上下线状态  times:在线时长
 - (void)refreshOnlineState:(BOOL)online
                   needWait:(BOOL)needWait;
+
+// 退出登陆
+- (void)logout;
 @end
 
 NS_ASSUME_NONNULL_END

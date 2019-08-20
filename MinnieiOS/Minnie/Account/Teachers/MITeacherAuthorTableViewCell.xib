@@ -33,7 +33,7 @@
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="textFieldAction:" destination="KGk-i7-Jjw" eventType="valueChanged" id="cDo-m9-2iE"/>
+                                    <action selector="textFieldAction:" destination="KGk-i7-Jjw" eventType="editingChanged" id="zaW-yx-JpY"/>
                                 </connections>
                             </textField>
                         </subviews>

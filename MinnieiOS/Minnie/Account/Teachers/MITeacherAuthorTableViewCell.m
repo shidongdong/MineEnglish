@@ -114,9 +114,12 @@ CGFloat const MITeacherAuthorTableViewCellHeight = 44.f;
 }
 
 - (IBAction)textFieldAction:(id)sender {
-    
-    if (self.authorBlock) {
-        self.authorBlock(_authorType);
+
+    if (_type == 0) {
+        
+        if (self.inputBlock) {
+            self.inputBlock(_authorType, _inputTextField.text);
+        }
     }
 }
 

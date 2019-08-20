@@ -42,6 +42,7 @@ UITableViewDataSource
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.setButton.hidden = !APP.currentUser.canManageTeachers;
     
     self.currentIndex = -1;
     self.iconImageV.layer.masksToBounds = YES;
@@ -53,6 +54,8 @@ UITableViewDataSource
     self.setButton.layer.borderColor = [UIColor mainColor].CGColor;
     
     self.onlineButton.layer.cornerRadius = 4.0;
+    self.onlineButton.backgroundColor = [UIColor detailColor];
+    self.onlineButton.selected = NO;
     
     self.titleArray = @[@"在线时长",@"任务批改总览",@"上课班级",@"任务评分统计"];
     

@@ -73,5 +73,18 @@
     return request;
     
 }
+
+// 获取所有教师（权限修改）
++ (BaseRequest *)getAllTeacherWithCallback:(RequestCallback)callback{
+    
+    ALLTeachersRequest *request = [[ALLTeachersRequest alloc] init];
+    request.objectKey = @"list";
+    request.objectClassName = @"Teacher";
+    request.callback = callback;
+    
+    [request start];
+    
+    return request;
+}
 @end
 

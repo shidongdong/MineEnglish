@@ -32,9 +32,12 @@
     [self registerCellNibs];
     
     // TODO: 超级管理员才有新建
-    if (1) {
+    if (APP.currentUser.authority == TeacherAuthoritySuperManager) {
         self.addButton.hidden = NO;
+    } else {
+        self.addButton.hidden = YES;
     }
+
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reload:)
@@ -74,13 +77,8 @@
 #pragma mark - IBAction
 
 - (IBAction)addButtonPressed:(id)sender {
-    if (APP.currentUser.authority != TeacherAuthoritySuperManager) {
-        [HUD showErrorWithMessage:@"无操作权限"];
-
-        return;
-    }
     
-    TeacherEditViewController *editVC = [[TeacherEditViewController alloc] initWithNibName:@"TeacherEditViewController" bundle:nil];
+    MITeacherAuthorViewController *editVC = [[MITeacherAuthorViewController alloc] initWithNibName:@"MITeacherAuthorViewController" bundle:nil];
     [self.navigationController pushViewController:editVC animated:YES];
 }
 
@@ -102,6 +100,7 @@
     
     WeakifySelf;
     self.teachersRequest = [TeacherService requestTeachersWithCallback:^(Result *result, NSError *error) {
+        
         StrongifySelf;
         strongSelf.teachersRequest = nil;
         

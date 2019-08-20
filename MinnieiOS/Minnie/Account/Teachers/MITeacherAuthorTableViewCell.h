@@ -35,15 +35,25 @@ typedef NS_ENUM(NSInteger, MIAuthorManagerType) {
 extern NSString * const MITeacherAuthorTableViewCellId;
 extern CGFloat const MITeacherAuthorTableViewCellHeight;
 
-typedef void(^MITeacherAuthorBlock)(MIAuthorManagerType authorType);
 
-typedef void(^MITeacherAuthorStateBlock)(MIAuthorManagerType authorType,BOOL state);
+typedef void(^MITeacherAuthorBtnBlock)(MIAuthorManagerType authorType);
+
+typedef void(^MITeacherAuthorSwitchBlock)(MIAuthorManagerType authorType,BOOL state);
+
+typedef void(^MITeacherAuthorInputBlock)(MIAuthorManagerType authorType, NSString *text);
+
 
 @interface MITeacherAuthorTableViewCell : UITableViewCell
 
-@property (nonatomic,copy) MITeacherAuthorBlock authorBlock;
+@property (nonatomic,assign) NSInteger currentIndex;
 
-@property (nonatomic,copy) MITeacherAuthorStateBlock stateBlock;
+
+@property (nonatomic,copy) MITeacherAuthorInputBlock inputBlock;
+
+@property (nonatomic,copy) MITeacherAuthorBtnBlock authorBlock;
+
+@property (nonatomic,copy) MITeacherAuthorSwitchBlock stateBlock;
+
 
 /**
  type:  0 输入 text:内容文本

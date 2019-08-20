@@ -18,11 +18,21 @@
              @"gender":@"gender",
              @"avatarUrl":@"avatarUrl",
              @"token":@"token",
+             @"stuRemark":@"stuRemark",
+             @"stuLabel":@"stuLabel",
              @"type":@"type",
              @"authority":@"authority",
+             @"canManageTeachers":@"canManageTeachers",
+             @"canLookTeachers":@"canLookTeachers",
              @"canManageHomeworks":@"canManageHomeworks",
-             @"canManageClasses":@"canManageClasses",
+             @"canLookHomeworks":@"canLookHomeworks",
+             @"canManageActivity":@"canManageActivity",
+             @"canManageCampus":@"canManageCampus",
+             @"canLookClasses":@"canLookClasses",
              @"canManageStudents":@"canManageStudents",
+             @"canLookStudents":@"canLookStudents",
+             @"canManagePresents":@"canManagePresents",
+             @"canManageClasses":@"canManageClasses",
              @"canCreateRewards":@"canCreateRewards",
              @"canExchangeRewards":@"canExchangeRewards",
              @"canCreateNoticeMessage":@"canCreateNoticeMessage"
@@ -51,19 +61,6 @@
     }
     
     return authority;
-}
-
-@end
-
-@implementation AuthorPreview
-
-+ (NSDictionary *)JSONKeyPathsByPropertyKey {
-    
-    return @{@"classId":@"id",
-             @"name":@"name",
-             @"state":@"state",
-             @"avatarUrl":@"avatarUrl",
-             };
 }
 
 @end

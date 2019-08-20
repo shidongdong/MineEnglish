@@ -41,7 +41,12 @@
     }
     
     self.backButton.hidden = !self.isManageMode;
-    self.createButton.hidden = !self.isManageMode;
+    if (self.isManageMode) {
+//        self.createButton.hidden = !APP.currentUser.canManageClasses;
+        self.createButton.hidden = NO;
+    } else {
+        self.createButton.hidden = YES;
+    }
     
     self.segmentControl = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SegmentControl class]) owner:nil options:nil] lastObject];
     self.segmentControl.titles = @[@"进行中", @"已结课"];
@@ -70,11 +75,11 @@
 }
 
 - (IBAction)createClassButtonPress:(id)sender {
-    if (!APP.currentUser.canManageClasses) {
-        [HUD showErrorWithMessage:@"无操作权限"];
-        
-        return;
-    }
+//    if (!APP.currentUser.canManageClasses) {
+//        [HUD showErrorWithMessage:@"无操作权限"];
+//        
+//        return;
+//    }
     
     ClassManagerViewController *vc = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController"
                                                                                 bundle:nil];

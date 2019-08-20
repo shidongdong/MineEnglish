@@ -39,19 +39,6 @@
     return [MTLJSONAdapter dictionaryTransformerWithModelClass:[HomeworkItem class]];
 }
 
-//+ (NSValueTransformer *)studentIdsJSONTransformer {
-//    return [MTLJSONAdapter arrayTransformerWithModelClass:[NSString class]];
-//}
-//+ (NSValueTransformer *)classIdsJSONTransformer {
-//    return [MTLJSONAdapter arrayTransformerWithModelClass:[NSString class]];
-//}
-//
-//+ (NSValueTransformer *)studentNamesJSONTransformer {
-//    return [MTLJSONAdapter arrayTransformerWithModelClass:[NSString class]];
-//}
-//+ (NSValueTransformer *)classNamesJSONTransformer {
-//    return [MTLJSONAdapter arrayTransformerWithModelClass:[NSString class]];
-//}
 
 - (NSDictionary *)dictionaryForUpload {
    

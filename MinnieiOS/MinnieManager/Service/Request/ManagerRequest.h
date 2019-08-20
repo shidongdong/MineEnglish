@@ -40,6 +40,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+#pragma mark - 获取一级任务管理文件夹（设置权限用）
+@interface GetParentFilesRequest : BaseRequest
+
+@end
 
 #pragma mark - 任务位置移动
 @interface MoveFilesRequest : BaseRequest

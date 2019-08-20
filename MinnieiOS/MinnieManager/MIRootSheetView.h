@@ -7,11 +7,23 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, MIManagerFuncModule) {
+  
+    MIManagerFuncRealTaskModule,            // 实时任务
+    MIManagerFuncTeacherModule,             // 教师管理
+    MIManagerFuncTaskModule,                // 任务管理
+    MIManagerFuncActivityModule,            // 活动管理
+    MIManagerFuncTeachingModule,            // 教学统计
+    MIManagerFuncCampusModule,              // 校区管理
+    MIManagerFuncGiftsModule,                // 礼物管理
+    MIManagerFuncSettingModule              // 设置
+};
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol RootSheetViewDelete <NSObject>
 
-- (void)rootSheetViewClickedIndex:(NSInteger)index;
+- (void)rootSheetViewClickedType:(MIManagerFuncModule)type;
 
 @end
 
@@ -19,7 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<RootSheetViewDelete> delegate;
 
-@property (nonatomic,assign) NSInteger selectIndex;
+//@property (nonatomic,assign) NSInteger selectIndex;
+
+@property (nonatomic,assign) MIManagerFuncModule selectType;
 
 @end
 

@@ -17,3 +17,9 @@
 - (instancetype)initWithTeacherId:(NSInteger)teacherId;
 
 @end
+
+
+
+@interface ALLTeachersRequest : BaseRequest
+
+@end

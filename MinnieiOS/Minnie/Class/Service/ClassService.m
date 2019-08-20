@@ -129,6 +129,20 @@
     return request;
 }
 
+
+// 2.5.8    获取所有班级列表（设置权限用）
++ (BaseRequest *)requestAllClassesWithCallback:(RequestCallback)callback{
+    
+    AllClassesRequest *request = [[AllClassesRequest alloc] init];
+    request.objectKey = @"list";
+    request.objectClassName = @"Clazz";
+    request.callback = callback;
+    [request start];
+    
+    return request;
+}
+
+
 @end
 
 

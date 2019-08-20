@@ -8,11 +8,15 @@
 
 #import "AuthService.h"
 #import "TeacherService.h"
+#import "ManagerServce.h"
+#import "ClassService.h"
 #import "DeleteTeacherAlertView.h"
 #import "MITeacherAuthorTableViewCell.h"
 #import "MITeacherAuthorViewController.h"
 #import "MIAuthorPreviewViewController.h"
 #import "ResetPasswordViewController.h"
+
+
 
 
 @interface MITeacherAuthorViewController ()<
@@ -35,6 +39,12 @@ UITableViewDataSource>
 
 @property (strong, nonatomic) Teacher *tempTeacher;
 
+
+@property (strong, nonatomic) NSMutableArray *lookTeachers;
+@property (strong, nonatomic) NSMutableArray *lookHomeworks;
+@property (strong, nonatomic) NSMutableArray *lookClasses;
+@property (strong, nonatomic) NSMutableArray *lookStudents;
+
 @end
 
 @implementation MITeacherAuthorViewController
@@ -51,16 +61,30 @@ UITableViewDataSource>
     self.tempTeacher.type = self.teacher.type;
     self.tempTeacher.authority = self.teacher.authority;
     
-    self.tempTeacher.canManageHomeworks = self.teacher.canManageHomeworks;
-    self.tempTeacher.canManageClasses = self.teacher.canManageClasses;
-    self.tempTeacher.canManageStudents = self.teacher.canManageStudents;
-    self.tempTeacher.canCreateRewards = self.teacher.canCreateRewards;
-    self.tempTeacher.canExchangeRewards = self.teacher.canExchangeRewards;
-    self.tempTeacher.canCreateNoticeMessage = self.teacher.canCreateNoticeMessage;
+//    self.tempTeacher.canManageTeachers = self.teacher.canManageTeachers;
+//    self.tempTeacher.canLookTeachers = self.teacher.canLookTeachers;
+//    self.tempTeacher.canManageHomeworks = self.teacher.canManageHomeworks;
+//    self.tempTeacher.canLookHomeworks = self.teacher.canLookHomeworks;
+//    self.tempTeacher.canManageActivity = self.teacher.canManageActivity;
+//
+//    self.tempTeacher.canManageCampus = self.teacher.canManageCampus;
+//    self.tempTeacher.canLookClasses = self.teacher.canLookClasses;
+//    self.tempTeacher.canManageStudents = self.teacher.canManageStudents;
+//    self.tempTeacher.canLookStudents = self.teacher.canLookStudents;
+//
+//    self.tempTeacher.canManagePresents = self.teacher.canManagePresents;
+//    self.tempTeacher.canExchangeRewards = self.teacher.canExchangeRewards;
+//    self.tempTeacher.canCreateNoticeMessage = self.teacher.canCreateNoticeMessage;
+    [self resetAutohrState];
     
     self.dataArray = [self getDataArray];
     [self.tableview reloadData];
     self.tableview.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    
+    
+    [self requestAllTeacherList];
+    [self requestAllParentFileList];
+    [self requestAllClasses];
 }
 
 - (NSInteger)authorType{
@@ -191,6 +215,10 @@ UITableViewDataSource>
                   @[@{@"title":@"创建消息",
                       @"authorType":@(MIAuthorManagerMessageType),
                       @"type":@(2)}
+                    ],
+                  @[@{@"title":@"修改密码",
+                      @"authorType":@(MIAuthorManagerPasswordType),
+                      @"type":@(3)}
                     ]
                   ];
     }
@@ -204,6 +232,7 @@ UITableViewDataSource>
        
         [tempArray addObject:delete];
     }
+    [self resetAutohrState];
     return tempArray;
 }
 
@@ -230,7 +259,6 @@ UITableViewDataSource>
             errorTip = @"姓名格式不正确";
             break;
         }
-        
         
         NSString *phoneNumber = [self.tempTeacher.phoneNumber stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         if (phoneNumber.length != 11) {
@@ -260,12 +288,28 @@ UITableViewDataSource>
             
             changedInfos[@"authority"] = @(self.tempTeacher.authority);
         }
+        changedInfos[@"nickname"] = nickname;
+        changedInfos[@"phoneNumber"] = phoneNumber;
+        changedInfos[@"type"] = @(self.tempTeacher.type);
+        changedInfos[@"authority"] = @(self.tempTeacher.authority);
+        
+        changedInfos[@"canManageTeachers"] = @(self.tempTeacher.canManageTeachers);
+        changedInfos[@"canLookTeachers"] = self.tempTeacher.canLookTeachers;
         changedInfos[@"canManageHomeworks"] = @(self.tempTeacher.canManageHomeworks);
-        changedInfos[@"canManageClasses"] = @(self.tempTeacher.canManageClasses);
+        changedInfos[@"canLookHomeworks"] = self.tempTeacher.canLookHomeworks;
+        changedInfos[@"canManageActivity"] = @(self.tempTeacher.canManageActivity);
+        
+        changedInfos[@"canManageCampus"] = @(self.tempTeacher.canManageCampus);
+        changedInfos[@"canLookClasses"] = self.tempTeacher.canLookClasses;
         changedInfos[@"canManageStudents"] = @(self.tempTeacher.canManageStudents);
-        changedInfos[@"canCreateRewards"] = @(self.tempTeacher.canCreateRewards);
+        changedInfos[@"canLookStudents"] = self.tempTeacher.canLookStudents;
+        
+        
+        changedInfos[@"canManagePresents"] = @(self.tempTeacher.canManagePresents);
         changedInfos[@"canExchangeRewards"] = @(self.tempTeacher.canExchangeRewards);
+        
         changedInfos[@"canCreateNoticeMessage"] = @(self.tempTeacher.canCreateNoticeMessage);
+        
     } while(NO);
     
     if (errorTip.length > 0) {
@@ -382,36 +426,25 @@ UITableViewDataSource>
     } else if (authorType.integerValue == MIAuthorManagerPhoneNumType) {
         text = self.tempTeacher.phoneNumber;
     } else if (authorType.integerValue == MIAuthorManagerTeacherType) {
-       
-        text = (self.tempTeacher.type == TeacherTypeAssistant) ? @"助教" : @"教师";
+        text = self.tempTeacher.typeDescription;
     } else if (authorType.integerValue == MIAuthorManagerAuthorType) {
-        
-        if (self.tempTeacher.authority == TeacherAuthoritySuperManager) {
-            
-            text = @"超级管理员";
-        } else if (self.tempTeacher.authority == TeacherAuthorityManager) {
-            
-            text = @"管理员";
-        } else {
-            
-            text = @"普通教师";
-        }
+        text = self.tempTeacher.authorityDescription;
     } else if (authorType.integerValue == MIAuthorManagerTeacherEditType) {
-         switchState = YES;
+         switchState = self.tempTeacher.canManageTeachers;
     } else if (authorType.integerValue == MIAuthorManagerHomeworkType) {
-         switchState = YES;
+         switchState = self.tempTeacher.canManageHomeworks;
     } else if (authorType.integerValue == MIAuthorManagerActivityType) {
-         switchState = YES;
+         switchState = self.tempTeacher.canManageActivity;
     } else if (authorType.integerValue == MIAuthorManagerCampusType) {
-         switchState = YES;
+         switchState = self.tempTeacher.canManageCampus;
     } else if (authorType.integerValue == MIAuthorManagerStudentManagerType) {
-         switchState = YES;
+         switchState = self.tempTeacher.canManageStudents;
     } else if (authorType.integerValue == MIAuthorManagerGiftsType) {
-         switchState = YES;
+         switchState = self.tempTeacher.canManagePresents;
     } else if (authorType.integerValue == MIAuthorManagerGiftsExchangeType) {
-         switchState = YES;
+         switchState = self.tempTeacher.canExchangeRewards;
     } else if (authorType.integerValue == MIAuthorManagerMessageType) {
-         switchState = YES;
+         switchState = self.tempTeacher.canCreateNoticeMessage;
     }
     
     [cell setupTitle:tempDic[@"title"]
@@ -443,17 +476,16 @@ UITableViewDataSource>
     cell.stateBlock = ^(MIAuthorManagerType authorType, BOOL state) {
         
         if (authorType == MIAuthorManagerTeacherEditType) {
-            self.tempTeacher.canManagerTeachers = state;
+            self.tempTeacher.canManageTeachers = state;
         } else if (authorType == MIAuthorManagerHomeworkType) {
             
             self.tempTeacher.canManageHomeworks = state;
         } else if (authorType == MIAuthorManagerActivityType) {
            
-            self.tempTeacher.canManagerActivity = state;
+            self.tempTeacher.canManageActivity = state;
         } else if (authorType == MIAuthorManagerCampusType) {
             
-            self.tempTeacher.canManageClasses = state;
-            self.tempTeacher.canManagerCampus = state;
+            self.tempTeacher.canManageCampus = state;
         } else if (authorType == MIAuthorManagerStudentManagerType) {
             
             self.tempTeacher.canManageStudents = state;
@@ -468,6 +500,17 @@ UITableViewDataSource>
         }
     };
     
+    cell.inputBlock = ^(MIAuthorManagerType authorType, NSString * _Nonnull text) {
+      
+        if (authorType == MIAuthorManagerNameType) {
+            
+            self.tempTeacher.nickname = text;
+        } else if (authorType == MIAuthorManagerPhoneNumType) {
+            
+            self.tempTeacher.phoneNumber = text;
+        }
+    };
+ 
     return cell;
 }
 
@@ -499,6 +542,37 @@ UITableViewDataSource>
     
     MIAuthorPreviewViewController *authorPreviewVC = [[MIAuthorPreviewViewController alloc] initWithNibName:NSStringFromClass([MIAuthorPreviewViewController class]) bundle:nil];
     authorPreviewVC.authorManagerType = authorType;
+    
+    
+    if (authorType == MIAuthorManagerTeacherPreviewType) {// 教师任务查看
+        
+        authorPreviewVC.authorArray = self.tempTeacher.canLookTeachers;
+    } else if (authorType == MIAuthorManagerHomeworkPreviewType) {//作业查看
+        
+        authorPreviewVC.authorArray = self.tempTeacher.canLookHomeworks;
+    } else if (authorType == MIAuthorManagerClassPreviewType) {//班级信息查看
+        
+        authorPreviewVC.authorArray = self.tempTeacher.canLookClasses;
+    } else if (authorType == MIAuthorManagerStudentPreviewType) {//学生信息查看
+        authorPreviewVC.authorArray = self.tempTeacher.canLookStudents;
+    }
+    
+    authorPreviewVC.editCallBack = ^(NSArray * _Nonnull authorArray) {
+      
+        if (authorType == MIAuthorManagerTeacherPreviewType) {// 教师任务查看
+          
+            self.tempTeacher.canLookTeachers = authorArray;
+        } else if (authorType == MIAuthorManagerHomeworkPreviewType) {//作业查看
+            
+            self.tempTeacher.canLookHomeworks = authorArray;
+        } else if (authorType == MIAuthorManagerClassPreviewType) {//班级信息查看
+            
+            self.tempTeacher.canLookClasses = authorArray;
+        } else if (authorType == MIAuthorManagerStudentPreviewType) {//学生信息查看
+            
+            self.tempTeacher.canLookStudents = authorArray;
+        }
+    };
     [self.navigationController pushViewController:authorPreviewVC animated:YES];
 }
 
@@ -678,11 +752,126 @@ UITableViewDataSource>
                                }];
 }
 
-- (void)updateSwitchsAfterAuthorityChanged {
+- (void)resetAutohrState {
+    
     if (self.tempTeacher.authority == TeacherAuthoritySuperManager) {
-
+      
+        self.tempTeacher.canManageTeachers = YES;
+        self.tempTeacher.canLookTeachers = self.lookTeachers;
+        self.tempTeacher.canManageHomeworks = YES;
+       
+        self.tempTeacher.canLookHomeworks = self.lookHomeworks;
+        self.tempTeacher.canManageActivity = YES;
+        
+        self.tempTeacher.canManageCampus = YES;
+    
+        self.tempTeacher.canLookClasses = self.lookClasses;
+        self.tempTeacher.canLookStudents = self.lookStudents;
+        self.tempTeacher.canManageStudents = YES;
+        
+        self.tempTeacher.canManagePresents = YES;
+        self.tempTeacher.canExchangeRewards = YES;
+        self.tempTeacher.canCreateNoticeMessage = YES;
     } else if (self.tempTeacher.authority == TeacherAuthorityManager) {
+        
+        self.tempTeacher.canManageTeachers = self.teacher.canManageTeachers;
+        self.tempTeacher.canLookTeachers = self.teacher.canLookTeachers;
+        self.tempTeacher.canManageHomeworks = self.teacher.canManageHomeworks;
+        self.tempTeacher.canLookHomeworks = self.teacher.canLookHomeworks;
+        self.tempTeacher.canManageActivity = self.teacher.canManageActivity;
+        
+        self.tempTeacher.canManageCampus = self.teacher.canManageCampus;
+        self.tempTeacher.canLookClasses = self.teacher.canLookClasses;
+        self.tempTeacher.canManageStudents = self.teacher.canManageStudents;
+        self.tempTeacher.canLookStudents = self.teacher.canLookStudents;
+        
+        self.tempTeacher.canManagePresents = self.teacher.canManagePresents;
+        self.tempTeacher.canExchangeRewards = self.teacher.canExchangeRewards;
+        self.tempTeacher.canCreateNoticeMessage = self.teacher.canCreateNoticeMessage;
     } else {
+      
+        self.tempTeacher.canManageTeachers = NO;
+        self.tempTeacher.canLookTeachers = self.teacher.canLookTeachers;
+        self.tempTeacher.canManageHomeworks = NO;
+        self.tempTeacher.canLookHomeworks =  self.teacher.canLookHomeworks;
+        self.tempTeacher.canManageActivity = NO;
+        
+        self.tempTeacher.canManageCampus = NO;
+        self.tempTeacher.canLookClasses =  self.teacher.canLookClasses;
+        self.tempTeacher.canManageStudents = NO;
+        self.tempTeacher.canLookStudents =  self.teacher.canLookStudents;
+        
+        self.tempTeacher.canManagePresents = NO;
+        self.tempTeacher.canExchangeRewards = NO;
+        self.tempTeacher.canCreateNoticeMessage = NO;
     }
 }
+
+- (void)requestAllTeacherList{
+    
+    [TeacherService getAllTeacherWithCallback:^(Result *result, NSError *error) {
+        
+        NSDictionary *dict = (NSDictionary *)(result.userInfo);
+        NSArray *array = (NSArray *)(dict[@"list"]);
+        if (!self.lookTeachers) {
+            self.lookTeachers = [NSMutableArray array];
+        } else {
+            
+            [self.lookTeachers removeAllObjects];
+        }
+        for (Teacher *teacher in array) {
+            [self.lookTeachers addObject:@(teacher.userId)];
+        }
+        self.tempTeacher.canLookTeachers = self.lookTeachers;
+    }];
+}
+
+
+- (void)requestAllParentFileList{
+    
+    [ManagerServce requestAllParentFileListWithCallback:^(Result *result, NSError *error) {
+        
+        NSDictionary *dict = (NSDictionary *)(result.userInfo);
+        NSArray *array = (NSArray *)(dict[@"list"]);
+        
+        if (!self.lookHomeworks) {
+            self.lookHomeworks = [NSMutableArray array];
+        } else {
+            [self.lookHomeworks removeAllObjects];
+        }
+        for (FileInfo *file in array) {
+            [self.lookHomeworks addObject:@(file.fileId)];
+        }
+        self.tempTeacher.canLookHomeworks = self.lookHomeworks;
+    }];
+}
+
+- (void)requestAllClasses{
+  
+    [ClassService requestAllClassesWithCallback:^(Result *result, NSError *error) {
+        
+        NSDictionary *dict = (NSDictionary *)(result.userInfo);
+        NSArray *array = (NSArray *)(dict[@"list"]);
+       
+        if (!self.lookClasses) {
+            self.lookClasses = [NSMutableArray array];
+        } else {
+            [self.lookClasses removeAllObjects];
+        }
+        if (!self.lookStudents) {
+            self.lookStudents = [NSMutableArray array];
+        } else {
+            [self.lookStudents removeAllObjects];
+        }
+        
+        for (Clazz *clazz in array) {
+            [self.lookClasses addObject:@(clazz.classId)];
+            [self.lookStudents addObject:@(clazz.classId)];
+        }
+        self.tempTeacher.canLookClasses = self.lookClasses;
+        self.tempTeacher.canLookStudents = self.lookStudents;
+    }];
+}
+
+
 @end

@@ -6,6 +6,7 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
+#import "AuthService.h"
 #import <Bugly/Bugly.h>
 #import "IMManager.h"
 #import "AppDelegate.h"
@@ -347,5 +348,45 @@
                                            weakSelf.onlineStartTime = CFAbsoluteTimeGetCurrent();
                                        }];
     }
+}
+
+
+- (void)logout{
+    
+    NSInteger times = (CFAbsoluteTimeGetCurrent() - self.onlineStartTime)/60;
+    WeakifySelf; // 先更新在线状态，后退出登录
+    [ManagerServce requestUpdateOnlineState:NO
+                                      times:times
+                                   callback:^(Result *result, NSError *error) {
+                                       if (error) {
+                                           [HUD showErrorWithMessage:@"退出失败"];
+                                           return ;
+                                       }
+                                       [AuthService logoutWithCallback:^(Result *result, NSError *error) {
+                                           
+                                           if (error) {
+                                               [HUD showErrorWithMessage:@"退出失败"];
+                                               return ;
+                                           }
+                                           
+                                           AppDelegate * app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                                           [app removeRemoteNotification];
+                                           Application.sharedInstance.currentUser = nil;
+                                           [[IMManager sharedManager] logout];
+                                           
+                                           [APP clearData];
+                                           NSString *nibName = nil;
+#if TEACHERSIDE | MANAGERSIDE
+                                           nibName = @"LoginViewController_Teacher";
+#else
+                                           nibName = @"LoginViewController_Student";
+#endif
+                                           LoginViewController *loginVC = [[LoginViewController alloc] initWithNibName:nibName bundle:nil];
+                                           
+                                           PortraitNavigationController *loginNC = [[PortraitNavigationController alloc] initWithRootViewController:loginVC];
+                                           weakSelf.window.rootViewController = loginNC;
+                                       }];
+
+                                   }];
 }
 @end

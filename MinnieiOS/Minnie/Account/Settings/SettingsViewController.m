@@ -85,25 +85,27 @@
 #pragma mark - Private Methods
 
 - (void)doLogout {
-    [AuthService logoutWithCallback:^(Result *result, NSError *error) {
-        //新增 by shidongdong
-        AppDelegate * app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        [app removeRemoteNotification];
-        Application.sharedInstance.currentUser = nil;
-        [[IMManager sharedManager] logout];
-        [app refreshOnlineState:NO needWait:NO];
-        [APP clearData];
-        NSString *nibName = nil;
-#if TEACHERSIDE | MANAGERSIDE
-        nibName = @"LoginViewController_Teacher";
-#else
-        nibName = @"LoginViewController_Student";
-#endif
-        LoginViewController *loginVC = [[LoginViewController alloc] initWithNibName:nibName bundle:nil];
-        
-        PortraitNavigationController *loginNC = [[PortraitNavigationController alloc] initWithRootViewController:loginVC];
-        self.view.window.rootViewController = loginNC;
-    }];
+//    [AuthService logoutWithCallback:^(Result *result, NSError *error) {
+//        //新增 by shidongdong
+//        AppDelegate * app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//        [app removeRemoteNotification];
+//        Application.sharedInstance.currentUser = nil;
+//        [[IMManager sharedManager] logout];
+//        [app refreshOnlineState:NO needWait:NO];
+//        [APP clearData];
+//        NSString *nibName = nil;
+//#if TEACHERSIDE | MANAGERSIDE
+//        nibName = @"LoginViewController_Teacher";
+//#else
+//        nibName = @"LoginViewController_Student";
+//#endif
+//        LoginViewController *loginVC = [[LoginViewController alloc] initWithNibName:nibName bundle:nil];
+//
+//        PortraitNavigationController *loginNC = [[PortraitNavigationController alloc] initWithRootViewController:loginVC];
+//        self.view.window.rootViewController = loginNC;
+//    }];
+    AppDelegate * app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [app logout];
 }
 
 #pragma mark - UITableViewDataSource

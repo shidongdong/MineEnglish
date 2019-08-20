@@ -45,6 +45,11 @@
                                      studentIds:(NSArray<NSNumber *> *)studentIds
                                        callback:(RequestCallback)callback;
 
+
+
+// 2.5.8    获取所有班级列表（设置权限用）
++ (BaseRequest *)requestAllClassesWithCallback:(RequestCallback)callback;
+
 @end
 
 

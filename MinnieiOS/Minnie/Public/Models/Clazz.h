@@ -37,6 +37,9 @@
 
 @property (nonatomic, copy) NSString *pinyinName;
 
+@property (nonatomic, assign) BOOL canLookClass;
+@property (nonatomic, assign) BOOL canLookStudent;
+
 - (NSDictionary *)dictionaryForUpload;
 
 @end

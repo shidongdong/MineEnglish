@@ -28,4 +28,7 @@
 + (BaseRequest *)getTeacherDetailWithId:(NSInteger)teacherId
                             callback:(RequestCallback)callback;
 
+// 获取所有教师（权限修改）
++ (BaseRequest *)getAllTeacherWithCallback:(RequestCallback)callback;
+
 @end
