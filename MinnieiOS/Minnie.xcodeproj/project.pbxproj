@@ -2356,8 +2356,8 @@
 		12B7BE6722DCADFC0057C798 /* MITeacherOnlineTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MITeacherOnlineTableViewCell.h; sourceTree = "<group>"; };
 		12B7BE6822DCADFC0057C798 /* MITeacherOnlineTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MITeacherOnlineTableViewCell.m; sourceTree = "<group>"; };
 		12B7BE6922DCADFC0057C798 /* MITeacherOnlineTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MITeacherOnlineTableViewCell.xib; sourceTree = "<group>"; };
-		12B7BE6C22DDA0AD0057C798 /* CampusInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CampusInfo.h; sourceTree = "<group>"; };
-		12B7BE6D22DDA0AD0057C798 /* CampusInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CampusInfo.m; sourceTree = "<group>"; };
+		12B7BE6C22DDA0AD0057C798 /* CampusInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CampusInfo.h; path = ../CampusInfo.h; sourceTree = "<group>"; };
+		12B7BE6D22DDA0AD0057C798 /* CampusInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CampusInfo.m; path = ../CampusInfo.m; sourceTree = "<group>"; };
 		12B9B63122891C6F00D8F277 /* my_star_rank@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_star_rank@3x.png"; sourceTree = "<group>"; };
 		12B9B63222891C6F00D8F277 /* my_star_rank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_star_rank@2x.png"; sourceTree = "<group>"; };
 		12B9B6352289341300D8F277 /* btn_mission_preview@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_mission_preview@3x.png"; sourceTree = "<group>"; };
@@ -3629,16 +3629,7 @@
 		122A1EC622A232D6009358DE /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				12FD85D422C05C900026B7E2 /* ActivityInfo.h */,
-				12FD85D022C05C8F0026B7E2 /* ActivityInfo.m */,
-				12FD85D522C05C900026B7E2 /* ParentFileInfo.h */,
-				12FD85D322C05C8F0026B7E2 /* ParentFileInfo.m */,
-				12FD85D622C05C900026B7E2 /* ScoreInfo.h */,
-				12FD85D122C05C8F0026B7E2 /* ScoreInfo.m */,
-				12B7BE6C22DDA0AD0057C798 /* CampusInfo.h */,
-				12B7BE6D22DDA0AD0057C798 /* CampusInfo.m */,
-				12FD85D722C05C900026B7E2 /* WordInfo.h */,
-				12FD85D222C05C8F0026B7E2 /* WordInfo.m */,
+				12E07977230D4D600054A8CE /* Model */,
 				122A1ECC22A2332A009358DE /* ManagerRequest.h */,
 				122A1ECD22A2332A009358DE /* ManagerRequest.m */,
 				122A1EC922A23306009358DE /* ManagerServce.h */,
@@ -3799,6 +3790,23 @@
 			name = Activity;
 			path = Minnie/Task/Activity;
 			sourceTree = SOURCE_ROOT;
+		};
+		12E07977230D4D600054A8CE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				12FD85D422C05C900026B7E2 /* ActivityInfo.h */,
+				12FD85D022C05C8F0026B7E2 /* ActivityInfo.m */,
+				12FD85D522C05C900026B7E2 /* ParentFileInfo.h */,
+				12FD85D322C05C8F0026B7E2 /* ParentFileInfo.m */,
+				12FD85D622C05C900026B7E2 /* ScoreInfo.h */,
+				12FD85D122C05C8F0026B7E2 /* ScoreInfo.m */,
+				12B7BE6C22DDA0AD0057C798 /* CampusInfo.h */,
+				12B7BE6D22DDA0AD0057C798 /* CampusInfo.m */,
+				12FD85D722C05C900026B7E2 /* WordInfo.h */,
+				12FD85D222C05C8F0026B7E2 /* WordInfo.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
 		};
 		12ED3AF3229C2DD100255F8B /* TaskManager */ = {
 			isa = PBXGroup;
@@ -5058,6 +5066,7 @@
 		97109A9E207A1C0800568785 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				97109AB4207A1C0800568785 /* Service */,
 				97109AB2207A1C0800568785 /* ClassesContainerController.h */,
 				97109AA1207A1C0800568785 /* ClassesContainerController.m */,
 				97109A9F207A1C0800568785 /* ClassesContainerController.xib */,
@@ -5073,7 +5082,6 @@
 				97567DDE20BAC9EA00AA0EB8 /* TeacherClassesViewController.h */,
 				97567DDF20BAC9EA00AA0EB8 /* TeacherClassesViewController.m */,
 				97567DE020BAC9EA00AA0EB8 /* TeacherClassesViewController.xib */,
-				97109AB4207A1C0800568785 /* Service */,
 				97109AA7207A1C0800568785 /* StudentsManageViewController */,
 				97109AC4207A1C0800568785 /* Views */,
 			);
@@ -5202,6 +5210,8 @@
 		97109BD8207A2E3E00568785 /* Circle */ = {
 			isa = PBXGroup;
 			children = (
+				97109BE2207A2E3E00568785 /* Service */,
+				97109BF8207A2E3E00568785 /* Views */,
 				97109C10207A2E3E00568785 /* CircleContainerController.h */,
 				97109BDD207A2E3E00568785 /* CircleContainerController.m */,
 				97109BDE207A2E3E00568785 /* CircleContainerController.xib */,
@@ -5214,8 +5224,6 @@
 				97109BDA207A2E3E00568785 /* CircleViewController.h */,
 				97109BE1207A2E3E00568785 /* CircleViewController.m */,
 				97109BF7207A2E3E00568785 /* CircleViewController.xib */,
-				97109BE2207A2E3E00568785 /* Service */,
-				97109BF8207A2E3E00568785 /* Views */,
 			);
 			path = Circle;
 			sourceTree = "<group>";
