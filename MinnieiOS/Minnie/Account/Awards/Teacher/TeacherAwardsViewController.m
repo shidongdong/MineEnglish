@@ -108,7 +108,7 @@
     CreateAwardViewController *vc = [[CreateAwardViewController alloc] initWithNibName:NSStringFromClass([CreateAwardViewController class]) bundle:nil];
     vc.award = award;
     
-    UIView *bgView = [Utils viewOfVCAddToWindowWithVC:vc];
+    UIView *bgView = [Utils viewOfVCAddToWindowWithVC:vc width:375.0];
     vc.closeViewCallBack = ^{
         if (bgView.superview) {
             [bgView removeFromSuperview];

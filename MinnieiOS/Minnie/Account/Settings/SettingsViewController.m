@@ -10,11 +10,8 @@
 #import "ResetPasswordViewController.h"
 #import "SettingTableViewCell.h"
 #import <SDWebImage/SDImageCache.h>
-#import "AuthService.h"
 #import "UIColor+HEX.h"
 #import "Application.h"
-#import "TIP.h"
-#import "Utils.h"
 #import "IMManager.h"
 #import "LoginViewController.h"
 #import "PortraitNavigationController.h"
@@ -85,25 +82,7 @@
 #pragma mark - Private Methods
 
 - (void)doLogout {
-//    [AuthService logoutWithCallback:^(Result *result, NSError *error) {
-//        //新增 by shidongdong
-//        AppDelegate * app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-//        [app removeRemoteNotification];
-//        Application.sharedInstance.currentUser = nil;
-//        [[IMManager sharedManager] logout];
-//        [app refreshOnlineState:NO needWait:NO];
-//        [APP clearData];
-//        NSString *nibName = nil;
-//#if TEACHERSIDE | MANAGERSIDE
-//        nibName = @"LoginViewController_Teacher";
-//#else
-//        nibName = @"LoginViewController_Student";
-//#endif
-//        LoginViewController *loginVC = [[LoginViewController alloc] initWithNibName:nibName bundle:nil];
-//
-//        PortraitNavigationController *loginNC = [[PortraitNavigationController alloc] initWithRootViewController:loginVC];
-//        self.view.window.rootViewController = loginNC;
-//    }];
+
     AppDelegate * app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [app logout];
 }

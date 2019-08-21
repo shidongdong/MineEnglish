@@ -8,7 +8,6 @@
 
 #import "CircleVideoTableViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "Utils.h"
 #import "MaskImageView.h"
 #import "Application.h"
 

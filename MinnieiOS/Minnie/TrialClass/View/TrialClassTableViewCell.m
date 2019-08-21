@@ -7,7 +7,6 @@
 //
 
 #import "TrialClassTableViewCell.h"
-#import "Utils.h"
 
 NSString * const TrialClassTableViewCellId = @"TrialClassTableViewCellId";
 CGFloat const TrialClassTableViewCellHeight = 52;

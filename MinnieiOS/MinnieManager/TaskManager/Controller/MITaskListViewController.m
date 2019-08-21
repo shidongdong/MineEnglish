@@ -790,38 +790,27 @@ VIResourceLoaderManagerDelegate
 
 - (void)goToCreateTaskWithType:(MIHomeworkTaskType)type{
     
-  
-    MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] init];
+    MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] initWithNibName:NSStringFromClass([MICreateTaskViewController class]) bundle:nil];
     [createVC setupCreateHomework:nil currentFileInfo:self.currentFileInfo taskType:type];
 
-    UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     WeakifySelf;
-    
+    UIView *bgView = [Utils viewOfVCAddToWindowWithVC:createVC width:ScreenWidth - kRootModularWidth];
     createVC.callBack = ^(BOOL isDelete) {
      
         [weakSelf requestHomeworks];
         if (weakSelf.createTaskCallBack) {
             weakSelf.createTaskCallBack(nil, 1);
         }
-        if (view.superview) {
-            [view removeFromSuperview];
+        if (bgView.superview) {
+            [bgView removeFromSuperview];
         }
     };
-    createVC.cancelCallBack = ^{
+    createVC.closeViewCallBack = ^{
       
-        if (view.superview) {
-            [view removeFromSuperview];
+        if (bgView.superview) {
+            [bgView removeFromSuperview];
         }
     };
-    
-    view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-    UIViewController *rootVC = self.view.window.rootViewController;
-    [rootVC.view addSubview:view];
-    
-    [view addSubview:createVC.view];
-    createVC.view.frame = CGRectMake(kRootModularWidth/2.0, 70, ScreenWidth - kRootModularWidth, ScreenHeight - 120);
-    createVC.view.layer.cornerRadius = 10.f;
-    createVC.view.layer.masksToBounds = YES;
 }
 
 - (void)dealloc {

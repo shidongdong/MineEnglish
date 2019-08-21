@@ -7,7 +7,6 @@
 //
 
 #import "ResetPasswordViewController.h"
-#import "Utils.h"
 #import "AuthService.h"
 #import "LoginViewController.h"
 #import "IMManager.h"
@@ -123,32 +122,13 @@
                                           [HUD showErrorWithMessage:@"密码修改失败"];
                                       } else {
                                           [HUD showWithMessage:@"密码修改成功"];
-                                          
-//                                          [AuthService logoutWithCallback:^(Result *result, NSError *error) {
-//                                              //新增 by shidongdong
-//                                              AppDelegate * app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-//                                              [app removeRemoteNotification];
-//                                              Application.sharedInstance.currentUser = nil;
-//                                              [[IMManager sharedManager] logout];
-//                                              [app refreshOnlineState:NO needWait:NO];
-//
-//                                              [APP clearData];
-//                                              NSString *nibName = nil;
-//#if TEACHERSIDE | MANAGERSIDE
-//                                              nibName = @"LoginViewController_Teacher";
-//#else
-//                                              nibName = @"LoginViewController_Student";
-//#endif
-//                                              LoginViewController *loginVC = [[LoginViewController alloc] initWithNibName:nibName bundle:nil];
-//
-//                                              PortraitNavigationController *loginNC = [[PortraitNavigationController alloc] initWithRootViewController:loginVC];
-//                                              self.view.window.rootViewController = loginNC;
-//                                          }];
+
                                           if ([self.phoneNumber isEqualToString:APP.currentUser.phoneNumber]) {
                                               
                                               AppDelegate * app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                                               [app logout];
                                           } else {
+                                              // 修改其他老师
                                               if (self.closeViewCallBack) {
                                                   self.closeViewCallBack();
                                               }

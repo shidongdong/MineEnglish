@@ -126,8 +126,8 @@ ClassAndStudentSelectorControllerDelegate
     if (self.teacherSider) {
         [self.navigationController popViewControllerAnimated:YES];
     }
-    if (self.cancelCallBack) {
-        self.cancelCallBack();
+    if (self.closeViewCallBack) {
+        self.closeViewCallBack();
     }
 }
 - (IBAction)sendBtnAction:(id)sender {

@@ -8,7 +8,6 @@
 
 #import "NoticeMessageHeadTableViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "Utils.h"
 
 NSString * const NoticeMessageHeadTableViewCellId = @"NoticeMessageHeadTableViewCellId";
 

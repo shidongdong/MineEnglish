@@ -8,7 +8,6 @@
 
 #import "ExchangeRecordTableViewCell.h"
 #import "UIColor+HEX.h"
-#import "Utils.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 NSString * const ExchangeRecordTableViewCellId = @"ExchangeRecordTableViewCellId";

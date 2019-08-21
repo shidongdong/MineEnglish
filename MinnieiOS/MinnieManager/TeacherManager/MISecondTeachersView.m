@@ -88,7 +88,7 @@ UITableViewDataSource
     
     MITeacherAuthorViewController *editVC = [[MITeacherAuthorViewController alloc] initWithNibName:@"MITeacherAuthorViewController" bundle:nil];
 
-    UIView *bgView = [Utils viewOfVCAddToWindowWithVC:editVC];
+    UIView *bgView = [Utils viewOfVCAddToWindowWithVC:editVC width:375.0];
     editVC.closeViewCallBack = ^{
         if (bgView.superview) {
             [bgView removeFromSuperview];

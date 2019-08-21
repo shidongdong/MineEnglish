@@ -7,7 +7,6 @@
 //
 
 #import "StudentDetailViewController.h"
-#import "Utils.h"
 #import "Student.h"
 #import "PublicService.h"
 #import "StudentDetailCell.h"

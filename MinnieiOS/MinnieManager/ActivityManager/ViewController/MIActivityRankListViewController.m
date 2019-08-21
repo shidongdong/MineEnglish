@@ -122,10 +122,12 @@ UITableViewDataSource
 
 - (void)showCreateListVC:(BOOL)isCreate{
     
-    __block  UIView *bgView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] init];
-    
+    MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] initWithNibName:NSStringFromClass([MICreateTaskViewController class]) bundle:nil];
     [createVC setupCreateActivity: (isCreate) ? nil : self.curActInfo];
+    
+    
+    UIView *bgView = [Utils viewOfVCAddToWindowWithVC:createVC width:ScreenWidth - kRootModularWidth];
+    
     WeakifySelf;
     createVC.callBack = ^(BOOL isDelete) {
         if (isCreate) {
@@ -145,21 +147,12 @@ UITableViewDataSource
             [bgView removeFromSuperview];
         }
     };
-    createVC.cancelCallBack = ^{
+    createVC.closeViewCallBack = ^{
         
         if (bgView.superview) {
             [bgView removeFromSuperview];
         }
     };
-    bgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-    UIViewController *rootVC = self.view.window.rootViewController;
-    if (rootVC) {
-        [rootVC.view addSubview:bgView];
-    }
-    [bgView addSubview:createVC.view];
-    createVC.view.frame = CGRectMake(kRootModularWidth/2.0, 70, ScreenWidth - kRootModularWidth, ScreenHeight - 120);
-    createVC.view.layer.cornerRadius = 10.f;
-    createVC.view.layer.masksToBounds = YES;
 }
 
 - (void)updateRankListWithActivityModel:(ActivityInfo *_Nullable)model index:(NSInteger)currentIndex{

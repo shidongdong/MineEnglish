@@ -9,13 +9,11 @@
 #import "ClassesViewController.h"
 #import "ClassTableViewCell.h"
 #import "Clazz.h"
-#import "Utils.h"
 #import "Constants.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "ClassService.h"
 #import "UIScrollView+Refresh.h"
 #import "CircleHomeworksViewController.h"
-#import "TIP.h"
 #import "PinyinHelper.h"
 #import "HanyuPinyinOutputFormat.h"
 #import "ClassManagerViewController.h"

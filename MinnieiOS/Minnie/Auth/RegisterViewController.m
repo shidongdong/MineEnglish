@@ -9,7 +9,6 @@
 #import "RegisterViewController.h"
 #import "FullfillProfileViewController.h"
 #import "AuthService.h"
-#import "Utils.h"
 #import "HUD.h"
 #import "Result.h"
 

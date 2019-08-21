@@ -231,7 +231,7 @@
     return @"res.zhengminyi.com";
 }
 
-+ (UIView *)viewOfVCAddToWindowWithVC:(UIViewController *)vc{
++ (UIView *)viewOfVCAddToWindowWithVC:(UIViewController *)vc width:(CGFloat)width{
     
     CGRect bounds = [UIScreen mainScreen].bounds;
     UIViewController *rootVC = [Utils topmostWindow].rootViewController;
@@ -241,7 +241,7 @@
     [bgView addSubview:vc.view];
     [rootVC addChildViewController:vc];
     [vc didMoveToParentViewController:rootVC];
-    vc.view.frame = CGRectMake((bounds.size.width - 375.0)/2.0, 50, 375, bounds.size.height - 100);
+    vc.view.frame = CGRectMake((bounds.size.width - width)/2.0, 50, width, bounds.size.height - 100);
     vc.view.layer.cornerRadius = 10.f;
     vc.view.layer.masksToBounds = YES;
     return bgView;

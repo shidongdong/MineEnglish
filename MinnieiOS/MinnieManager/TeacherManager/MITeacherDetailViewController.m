@@ -124,7 +124,7 @@ UITableViewDataSource
     
     editVC.teacher = self.teacher;
 
-    UIView *bgView = [Utils viewOfVCAddToWindowWithVC:editVC];
+    UIView *bgView = [Utils viewOfVCAddToWindowWithVC:editVC width:375.0];
     editVC.closeViewCallBack = ^{
         if (bgView.superview) {
             [bgView removeFromSuperview];

@@ -7,7 +7,6 @@
 //
 
 #import "FullfillProfileViewController.h"
-#import "Utils.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "AuthService.h"
 #import "ProfileService.h"

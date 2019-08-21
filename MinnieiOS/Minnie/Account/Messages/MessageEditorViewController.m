@@ -10,11 +10,9 @@
 #import "UITextView+Placeholder.h"
 #import "UIColor+HEX.h"
 #import "ImageTextAttachment.h"
-#import "HUD.h"
 #import "MessageService.h"
 #import "NoticeMessage.h"
 #import "NoticeMessageItem.h"
-#import "Utils.h"
 #import "FileUploader.h"
 #import "PushManager.h"
 

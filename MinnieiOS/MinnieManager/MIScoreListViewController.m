@@ -109,28 +109,20 @@ UITableViewDataSource
         };
         [self.navigationController pushViewController:createVC animated:YES];
     } else {
-     
 #if MANAGERSIDE
-        __block  UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-        [self.view.window.rootViewController.view addSubview:view];
         
-        [view addSubview:createVC.view];
-        createVC.view.frame = CGRectMake(kRootModularWidth/2.0, 70, ScreenWidth - kRootModularWidth, ScreenHeight - 120);
-        createVC.view.layer.cornerRadius = 10.f;
-        createVC.view.layer.masksToBounds = YES;
-        
+        UIView *bgView = [Utils viewOfVCAddToWindowWithVC:createVC width:ScreenWidth - kRootModularWidth];
         createVC.callBack = ^(BOOL isDelete) {
             if (weakSelf.editTaskCallBack) {
                 weakSelf.editTaskCallBack();
             }
-            if (view.superview) {
-                [view removeFromSuperview];
+            if (bgView.superview) {
+                [bgView removeFromSuperview];
             }
         };
-        createVC.cancelCallBack = ^{
-            if (view.superview) {
-                [view removeFromSuperview];
+        createVC.closeViewCallBack = ^{
+            if (bgView.superview) {
+                [bgView removeFromSuperview];
             }
         };
 #endif

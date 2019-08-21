@@ -131,7 +131,6 @@
     [alertVC addAction:assistantAction];
     [alertVC addAction:cancelAction];
 #if MANAGERSIDE
-    
     [self.view.window.rootViewController presentViewController:alertVC
                                                       animated:YES
                                                     completion:nil];

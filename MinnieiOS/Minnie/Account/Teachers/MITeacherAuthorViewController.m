@@ -530,7 +530,7 @@ UITableViewDataSource>
     ResetPasswordViewController *resetPasswordVC = [[ResetPasswordViewController alloc] initWithNibName:[[ResetPasswordViewController class] description] bundle:nil];
     resetPasswordVC.phoneNumber = self.teacher.phoneNumber;
 #if MANAGERSIDE
-    UIView *bgView = [Utils viewOfVCAddToWindowWithVC:resetPasswordVC];
+    UIView *bgView = [Utils viewOfVCAddToWindowWithVC:resetPasswordVC width:375.0];
     resetPasswordVC.closeViewCallBack = ^{
         if (bgView.superview) {
             [bgView removeFromSuperview];
@@ -589,7 +589,7 @@ UITableViewDataSource>
     //    };
     
 #if MANAGERSIDE
-    UIView *bgview = [Utils viewOfVCAddToWindowWithVC:authorPreviewVC];
+    UIView *bgview = [Utils viewOfVCAddToWindowWithVC:authorPreviewVC width:375.0];
     authorPreviewVC.closeViewCallBack = ^{
         if (bgview.superview) {
             [bgview removeFromSuperview];

@@ -7,8 +7,6 @@
 //
 
 #import "MITagsView.h"
-#import "HUD.h"
-#import "Utils.h"
 #import "Constants.h"
 #import "TagService.h"
 #import "Application.h"

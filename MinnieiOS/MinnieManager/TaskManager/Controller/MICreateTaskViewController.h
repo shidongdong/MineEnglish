@@ -7,8 +7,8 @@
 //
 
 #import "Homework.h"
-#import <UIKit/UIKit.h>
 #import "ActivityInfo.h"
+#import "BaseViewController.h"
 
 typedef void(^CreateTaskCallBack)(BOOL isDelete);
 
@@ -17,11 +17,11 @@ typedef void(^CreateTaskCancelCallBack)(void);
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MICreateTaskViewController : UIViewController
+@interface MICreateTaskViewController : BaseViewController
 
 @property (nonatomic, copy) CreateTaskCallBack callBack;
-
-@property (nonatomic, copy) CreateTaskCancelCallBack cancelCallBack;
+//
+//@property (nonatomic, copy) CreateTaskCancelCallBack cancelCallBack;
 
 @property (nonatomic, assign) BOOL teacherSider;
 

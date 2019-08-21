@@ -7,7 +7,6 @@
 //
 
 #import "AvatarEditViewController.h"
-#import "Utils.h"
 #import "UIColor+HEX.h"
 #import "ProfileService.h"
 #import "Application.h"
