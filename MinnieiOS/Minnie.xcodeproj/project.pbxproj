@@ -2210,7 +2210,6 @@
 		979BBD53207FBC6800359253 /* EnrollTrialClassView.m in Sources */ = {isa = PBXBuildFile; fileRef = 979BBD50207FBC6700359253 /* EnrollTrialClassView.m */; };
 		979BBD57207FBD0D00359253 /* TrialClassTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 979BBD55207FBD0D00359253 /* TrialClassTableViewCell.m */; };
 		979BBD58207FBD0D00359253 /* TrialClassTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 979BBD56207FBD0D00359253 /* TrialClassTableViewCell.xib */; };
-		979BBD7F2081B36A00359253 /* EnrollTrialClassRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 979BBD7E2081B36A00359253 /* EnrollTrialClassRequest.m */; };
 		979BBD822081B38900359253 /* TrialClassService.m in Sources */ = {isa = PBXBuildFile; fileRef = 979BBD812081B38900359253 /* TrialClassService.m */; };
 		979BBD852081B9C700359253 /* TrialClasssRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 979BBD842081B9C700359253 /* TrialClasssRequest.m */; };
 		979C851D208CB93F00940959 /* FinishClassTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 979C851B208CB93E00940959 /* FinishClassTableViewCell.m */; };
@@ -2708,8 +2707,8 @@
 		879CE52421913DD000BBE4B7 /* AchieverListHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AchieverListHeaderView.h; sourceTree = "<group>"; };
 		879CE52521913DD000BBE4B7 /* AchieverListHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AchieverListHeaderView.m; sourceTree = "<group>"; };
 		879CE52621913DD000BBE4B7 /* AchieverListHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AchieverListHeaderView.xib; sourceTree = "<group>"; };
-		879CE52D2191725800BBE4B7 /* AchieverService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AchieverService.h; sourceTree = "<group>"; };
-		879CE52E2191725800BBE4B7 /* AchieverService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AchieverService.m; sourceTree = "<group>"; };
+		879CE52D2191725800BBE4B7 /* AchieverService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AchieverService.h; path = ../AchieverService.h; sourceTree = "<group>"; };
+		879CE52E2191725800BBE4B7 /* AchieverService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AchieverService.m; path = ../AchieverService.m; sourceTree = "<group>"; };
 		879CE53A2191777F00BBE4B7 /* UserMedalDto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserMedalDto.h; sourceTree = "<group>"; };
 		879CE53B2191777F00BBE4B7 /* UserMedalDto.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserMedalDto.m; sourceTree = "<group>"; };
 		87AF72FD2193D164003E87F0 /* StudentDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudentDetailCell.h; sourceTree = "<group>"; };
@@ -3583,10 +3582,8 @@
 		979BBD54207FBD0D00359253 /* TrialClassTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrialClassTableViewCell.h; sourceTree = "<group>"; };
 		979BBD55207FBD0D00359253 /* TrialClassTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrialClassTableViewCell.m; sourceTree = "<group>"; };
 		979BBD56207FBD0D00359253 /* TrialClassTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrialClassTableViewCell.xib; sourceTree = "<group>"; };
-		979BBD7D2081B36A00359253 /* EnrollTrialClassRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EnrollTrialClassRequest.h; sourceTree = "<group>"; };
-		979BBD7E2081B36A00359253 /* EnrollTrialClassRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EnrollTrialClassRequest.m; sourceTree = "<group>"; };
-		979BBD802081B38900359253 /* TrialClassService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrialClassService.h; sourceTree = "<group>"; };
-		979BBD812081B38900359253 /* TrialClassService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrialClassService.m; sourceTree = "<group>"; };
+		979BBD802081B38900359253 /* TrialClassService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TrialClassService.h; path = ../TrialClassService.h; sourceTree = "<group>"; };
+		979BBD812081B38900359253 /* TrialClassService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TrialClassService.m; path = ../TrialClassService.m; sourceTree = "<group>"; };
 		979BBD832081B9C600359253 /* TrialClasssRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrialClasssRequest.h; sourceTree = "<group>"; };
 		979BBD842081B9C700359253 /* TrialClasssRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrialClasssRequest.m; sourceTree = "<group>"; };
 		979C851A208CB93E00940959 /* FinishClassTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinishClassTableViewCell.h; sourceTree = "<group>"; };
@@ -4146,8 +4143,6 @@
 			children = (
 				879CE5392191774D00BBE4B7 /* Model */,
 				879CE52C21916A7000BBE4B7 /* Request */,
-				879CE52D2191725800BBE4B7 /* AchieverService.h */,
-				879CE52E2191725800BBE4B7 /* AchieverService.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -4157,6 +4152,8 @@
 			children = (
 				12E07967230D3B940054A8CE /* AchieverRequest.h */,
 				12E07968230D3B940054A8CE /* AchieverRequest.m */,
+				879CE52D2191725800BBE4B7 /* AchieverService.h */,
+				879CE52E2191725800BBE4B7 /* AchieverService.m */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -6199,8 +6196,6 @@
 			isa = PBXGroup;
 			children = (
 				979BBD7C2081AFBD00359253 /* Request */,
-				979BBD802081B38900359253 /* TrialClassService.h */,
-				979BBD812081B38900359253 /* TrialClassService.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -6221,10 +6216,10 @@
 		979BBD7C2081AFBD00359253 /* Request */ = {
 			isa = PBXGroup;
 			children = (
-				979BBD7D2081B36A00359253 /* EnrollTrialClassRequest.h */,
-				979BBD7E2081B36A00359253 /* EnrollTrialClassRequest.m */,
 				979BBD832081B9C600359253 /* TrialClasssRequest.h */,
 				979BBD842081B9C700359253 /* TrialClasssRequest.m */,
+				979BBD802081B38900359253 /* TrialClassService.h */,
+				979BBD812081B38900359253 /* TrialClassService.m */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -8565,7 +8560,6 @@
 				1923CB12228117E20056B2AD /* EditStudentMarkView.m in Sources */,
 				97109960207A0BF600568785 /* Application.m in Sources */,
 				97109C34207A2E3E00568785 /* HomeworkDetailCommentTableViewCell.m in Sources */,
-				979BBD7F2081B36A00359253 /* EnrollTrialClassRequest.m in Sources */,
 				97109A62207A158C00568785 /* AudioMessageTableViewCell.m in Sources */,
 				12FD85BD22B9DFAE0026B7E2 /* UIAlertController+Alert.m in Sources */,
 				8709C31F21A2AF7800970757 /* SearchHomeworkTypeRequest.m in Sources */,
