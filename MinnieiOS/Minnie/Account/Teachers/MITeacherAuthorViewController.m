@@ -61,20 +61,7 @@ UITableViewDataSource>
     self.tempTeacher.type = self.teacher.type;
     self.tempTeacher.authority = self.teacher.authority;
     
-//    self.tempTeacher.canManageTeachers = self.teacher.canManageTeachers;
-//    self.tempTeacher.canLookTeachers = self.teacher.canLookTeachers;
-//    self.tempTeacher.canManageHomeworks = self.teacher.canManageHomeworks;
-//    self.tempTeacher.canLookHomeworks = self.teacher.canLookHomeworks;
-//    self.tempTeacher.canManageActivity = self.teacher.canManageActivity;
-//
-//    self.tempTeacher.canManageCampus = self.teacher.canManageCampus;
-//    self.tempTeacher.canLookClasses = self.teacher.canLookClasses;
-//    self.tempTeacher.canManageStudents = self.teacher.canManageStudents;
-//    self.tempTeacher.canLookStudents = self.teacher.canLookStudents;
-//
-//    self.tempTeacher.canManagePresents = self.teacher.canManagePresents;
-//    self.tempTeacher.canExchangeRewards = self.teacher.canExchangeRewards;
-//    self.tempTeacher.canCreateNoticeMessage = self.teacher.canCreateNoticeMessage;
+    
     [self resetAutohrState];
     
     self.dataArray = [self getDataArray];
@@ -470,6 +457,7 @@ UITableViewDataSource>
         } else if (authorType == MIAuthorManagerPasswordType) {
             
             ResetPasswordViewController *resetPasswordVC = [[ResetPasswordViewController alloc] initWithNibName:[[ResetPasswordViewController class] description] bundle:nil];
+            resetPasswordVC.phoneNumber = self.teacher.phoneNumber;
             [self.navigationController pushViewController:resetPasswordVC animated:YES];
         }
     };
@@ -532,6 +520,7 @@ UITableViewDataSource>
     } else if (authorType == MIAuthorManagerPasswordType) {
         
         ResetPasswordViewController *resetPasswordVC = [[ResetPasswordViewController alloc] initWithNibName:[[ResetPasswordViewController class] description] bundle:nil];
+        resetPasswordVC.phoneNumber = self.teacher.phoneNumber;
         [self.navigationController pushViewController:resetPasswordVC animated:YES];
     } else if (authorType == MIAuthorManagerDeleteType) {
         

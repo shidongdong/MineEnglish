@@ -117,6 +117,7 @@
     [HUD showProgressWithMessage:@"正在修改密码"];
     [AuthService resetPasswordWithPassword:password
                                newPassword:password1
+                               phoneNumber:self.phoneNumber
                                   callback:^(Result *result, NSError *error) {
                                       if (error != nil) {
                                           [HUD showErrorWithMessage:@"密码修改失败"];
@@ -143,8 +144,13 @@
 //                                              PortraitNavigationController *loginNC = [[PortraitNavigationController alloc] initWithRootViewController:loginVC];
 //                                              self.view.window.rootViewController = loginNC;
 //                                          }];
-                                          AppDelegate * app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                                          [app logout];
+                                          if ([self.phoneNumber isEqualToString:APP.currentUser.phoneNumber]) {
+                                              
+                                              AppDelegate * app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                                              [app logout];
+                                          } else {
+                                              [self.navigationController popViewControllerAnimated:YES];
+                                          }
                                       }
                                   }];
 }

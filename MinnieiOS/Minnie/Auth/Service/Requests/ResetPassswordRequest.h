@@ -11,6 +11,7 @@
 @interface ResetPassswordRequest : BaseRequest
 
 - (instancetype)initWithOldPassword:(NSString *)oldPassword
-                        newPassword:(NSString *)newPassword;
+                        newPassword:(NSString *)newPassword
+                        phoneNumber:(NSString *)phoneNumber;
 
 @end

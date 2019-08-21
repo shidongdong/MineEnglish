@@ -186,6 +186,7 @@
     if (indexPath.row == 0) {
         
         ResetPasswordViewController *resetPasswordVC = [[ResetPasswordViewController alloc] initWithNibName:[[ResetPasswordViewController class] description] bundle:nil];
+        resetPasswordVC.phoneNumber = APP.currentUser.phoneNumber;
 #if MANAGERSIDE
         if (self.pushCallBack) {
             self.pushCallBack(resetPasswordVC);

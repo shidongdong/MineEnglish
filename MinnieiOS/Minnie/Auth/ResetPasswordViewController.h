@@ -15,5 +15,6 @@ typedef void(^ResetPasswordCancelCallBack) (void);
 
 @property (nonatomic,copy) ResetPasswordCancelCallBack cancelCallBack;
 
+@property (nonatomic,copy) NSString *phoneNumber;
 
 @end

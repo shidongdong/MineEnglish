@@ -35,31 +35,6 @@ CGFloat const AccountManageTableViewCellHeight = 212.f;
     self.containerView.layer.shadowOffset = CGSizeMake(2, 4);
 }
 
-//- (void)setup {
-//    NSInteger lastIndex = -1;
-//    self.homeworkManageViewHeightConstraint.constant = APP.currentUser.canManageHomeworks?50.f:0;
-//    lastIndex = APP.currentUser.canManageHomeworks?0:lastIndex;
-//
-//    self.teacherManageViewHeightConstraint.constant = APP.currentUser.authority==TeacherAuthoritySuperManager?50.f:0;
-//    lastIndex = (APP.currentUser.authority==TeacherAuthoritySuperManager)?1:lastIndex;
-//
-//    self.classManageViewHeightConstraint.constant = APP.currentUser.canManageClasses?50.f:0;
-//    lastIndex = (APP.currentUser.canManageClasses)?2:lastIndex;
-//
-//    self.studentManageViewHeightConstraint.constant = APP.currentUser.canManageStudents?50.f:0;
-//    lastIndex = (APP.currentUser.canManageStudents)?3:lastIndex;
-//
-//    for (NSInteger index=0; index<4; index++) {
-//        UIView *v = [self.contentView viewWithTag:10+index];
-//        [v setHidden:NO];
-//    }
-//    NSLog(@"lastIndex:: %lu",lastIndex);
-//
-//    NSInteger tag = lastIndex+10;
-//    UIView *v = [self.contentView viewWithTag:tag];
-//    [v setHidden:YES];
-//}
-
 - (void)setup{
     
     TeacherAuthority author = APP.currentUser.authority;

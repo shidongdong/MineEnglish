@@ -10,7 +10,7 @@
 #import "TeacherService.h"
 #import "TeacherTableViewCell.h"
 #import "TeachersTableHeaderView.h"
-#import "TeacherEditViewController.h"
+//#import "TeacherEditViewController.h"
 #import "MITeacherAuthorViewController.h"
 
 @interface TeachersViewController ()<UITableViewDataSource, UITableViewDelegate>

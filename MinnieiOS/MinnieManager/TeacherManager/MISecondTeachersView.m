@@ -11,7 +11,7 @@
 #import "TeacherService.h"
 #import "MISecondTeachersView.h"
 #import "HanyuPinyinOutputFormat.h"
-#import "TeacherEditViewController.h"
+//#import "TeacherEditViewController.h"
 #import "MITeacherAuthorViewController.h"
 #import "MISecondReaTimeTaskTableViewCell.h"
 

@@ -8,7 +8,7 @@
 
 #import "TeacherService.h"
 #import "MIScoreListViewController.h"
-#import "TeacherEditViewController.h"
+//#import "TeacherEditViewController.h"
 #import "MITeacherAuthorViewController.h"
 #import "MITeacherOnlineTableViewCell.h"
 #import "MITeacherDetailViewController.h"
@@ -305,7 +305,7 @@ UITableViewDataSource
 }
 
 - (void)requestTeacherDetail{
-    // 1496
+    
     WeakifySelf;
     [TeacherService getTeacherDetailWithId:self.teacher.userId callback:^(Result *result, NSError *error) {
         

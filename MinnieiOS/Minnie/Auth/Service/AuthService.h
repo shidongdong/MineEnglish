@@ -33,6 +33,7 @@
 
 + (BaseRequest *)resetPasswordWithPassword:(NSString *)password
                                newPassword:(NSString *)newPassword
+                               phoneNumber:(NSString *)phoneNumber
                                   callback:(RequestCallback)callback;
 
 + (BaseRequest *)logoutWithCallback:(RequestCallback)callback;

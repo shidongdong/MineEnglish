@@ -339,7 +339,7 @@ UITableViewDataSource
 #pragma mark - 请求学生列表 按名字
 - (void)requestStudents {
 
-    if (self.students.count == 0) {
+    if (self.students.count + self.classes.count == 0) {
        
         [self showLoadingView];
         self.leftTableView.hidden = YES;
@@ -424,7 +424,7 @@ UITableViewDataSource
 #pragma mark - 请求学生列表 按班级
 - (void)requestStudentLisByClasst{
    
-    if (self.classes.count == 0) {
+    if (self.students.count + self.classes.count == 0) {
         [self showLoadingView];
         self.rightTableView.hidden = YES;
     }

@@ -80,8 +80,10 @@
 
 + (BaseRequest *)resetPasswordWithPassword:(NSString *)password
                                newPassword:(NSString *)newPassword
+                               phoneNumber:(NSString *)phoneNumber
                                   callback:(RequestCallback)callback {
-    ResetPassswordRequest *request = [[ResetPassswordRequest alloc] initWithOldPassword:password newPassword:newPassword];
+    ResetPassswordRequest *request = [[ResetPassswordRequest alloc] initWithOldPassword:password newPassword:newPassword phoneNumber:phoneNumber];
+    
     
     [request setCallback:callback];
     [request start];

@@ -13,6 +13,7 @@
 
 @property (nonatomic, copy) NSString *oldPassword;
 @property (nonatomic, copy) NSString *password;
+@property (nonatomic, copy) NSString *phoneNumber;
 
 @end
 
@@ -20,11 +21,13 @@
 @implementation ResetPassswordRequest
 
 - (instancetype)initWithOldPassword:(NSString *)oldPassword
-                        newPassword:(NSString *)newPassword {
+                        newPassword:(NSString *)newPassword
+                        phoneNumber:(NSString *)phoneNumber{
     self = [super init];
     if (self != nil) {
         _oldPassword = oldPassword;
         _password = newPassword;
+        _phoneNumber = phoneNumber;
     }
     
     return self;
@@ -41,7 +44,7 @@
     
     return @{@"oldPassword":oldPasswordHash,
              @"newPassword":passwordHash,
-             @"username":APP.currentUser.phoneNumber,
+             @"username":_phoneNumber,
              };
 }
 
