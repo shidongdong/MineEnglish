@@ -6,11 +6,9 @@
 //  Copyright © 2018年 minnieedu. All rights reserved.
 //
 
+#import "AchieverRequest.h"
 #import "AchieverService.h"
-#import "AchieverNoticeFlagRequest.h"
-#import "AchieverMedalDetailRequest.h"
-#import "AchieverUpdateFlagRequest.h"
-#import "AchieverUpdateMedalDetailRequest.h"
+
 @implementation AchieverService
 
 //获取勋章小红点

@@ -36,6 +36,17 @@
 }
 @end
 
+
+@implementation MedalFlag
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{@"metalFlag":@"metalFlag",
+             };
+}
+
+@end
+
+
 @implementation UserMedalDto
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
