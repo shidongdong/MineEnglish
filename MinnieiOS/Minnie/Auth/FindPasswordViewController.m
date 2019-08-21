@@ -94,10 +94,10 @@
                                             [HUD showErrorWithMessage:@"密码设置成功"];
                                             [self.navigationController popToRootViewControllerAnimated:YES];
                                         } else {
-                                            if (error.code == 105) {
-                                                [HUD showErrorWithMessage:@"该手机号是教师端用户"];
-                                            } else if (error.code == 106) {
-                                                [HUD showErrorWithMessage:@"该手机号是学生端用户"];
+                                            
+                                            if (error.code == 105 || error.code == 106) {
+                                                NSString *message = error.userInfo[@"NSLocalizedDescription"];
+                                                [HUD showErrorWithMessage:message];
                                             } else {
                                                 [HUD showErrorWithMessage:@"密码修改失败"];
                                             }
