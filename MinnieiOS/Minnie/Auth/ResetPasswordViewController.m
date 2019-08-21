@@ -58,8 +58,8 @@
 
 - (IBAction)backButtonPressed:(id)sender {
  
-    if (self.cancelCallBack) {
-        self.cancelCallBack();
+    if (self.closeViewCallBack) {
+        self.closeViewCallBack();
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -149,6 +149,9 @@
                                               AppDelegate * app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                                               [app logout];
                                           } else {
+                                              if (self.closeViewCallBack) {
+                                                  self.closeViewCallBack();
+                                              }
                                               [self.navigationController popViewControllerAnimated:YES];
                                           }
                                       }

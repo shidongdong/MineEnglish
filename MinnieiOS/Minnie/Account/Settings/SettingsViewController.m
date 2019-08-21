@@ -188,14 +188,15 @@
         ResetPasswordViewController *resetPasswordVC = [[ResetPasswordViewController alloc] initWithNibName:[[ResetPasswordViewController class] description] bundle:nil];
         resetPasswordVC.phoneNumber = APP.currentUser.phoneNumber;
 #if MANAGERSIDE
-        if (self.pushCallBack) {
-            self.pushCallBack(resetPasswordVC);
-        }
         WeakifySelf;
-        resetPasswordVC.cancelCallBack = ^{
+        resetPasswordVC.closeViewCallBack = ^{
+          
             weakSelf.currentIndex = -1;
             [tableView reloadData];
         };
+        if (self.pushCallBack) {
+            self.pushCallBack(resetPasswordVC);
+        }
 #else
     [self.navigationController pushViewController:resetPasswordVC animated:YES];
 #endif

@@ -119,29 +119,13 @@ UITableViewDataSource
 
 - (IBAction)setAction:(id)sender {
     
-    UIViewController *rootVC = self.view.window.rootViewController;
-//    TeacherEditViewController *editVC = [[TeacherEditViewController alloc] initWithNibName:@"TeacherEditViewController" bundle:nil];
     
     MITeacherAuthorViewController *editVC = [[MITeacherAuthorViewController alloc] initWithNibName:@"MITeacherAuthorViewController" bundle:nil];
     
     editVC.teacher = self.teacher;
-    
-    UIView *bgView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    bgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-    [rootVC.view addSubview:bgView];
-    [bgView addSubview:editVC.view];
-    [rootVC addChildViewController:editVC];
-    [editVC didMoveToParentViewController:rootVC];
-    editVC.view.frame = CGRectMake((ScreenWidth - 375.0)/2.0, 50, 375, ScreenHeight - 100);
-    editVC.view.layer.cornerRadius = 10.f;
-    editVC.view.layer.masksToBounds = YES;
 
-    editVC.cancelCallBack = ^{
-        if (bgView.superview) {
-            [bgView removeFromSuperview];
-        }
-    };
-    editVC.successCallBack = ^{
+    UIView *bgView = [Utils viewOfVCAddToWindowWithVC:editVC];
+    editVC.closeViewCallBack = ^{
         if (bgView.superview) {
             [bgView removeFromSuperview];
         }

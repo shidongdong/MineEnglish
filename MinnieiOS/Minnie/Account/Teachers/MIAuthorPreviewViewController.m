@@ -49,9 +49,13 @@ UITableViewDataSource>
 }
 
 - (IBAction)backAction:(id)sender {
-    
+#if MANAGERSIDE
+    if (self.closeViewCallBack) {
+        self.closeViewCallBack();
+    }
+#else
     [self.navigationController popViewControllerAnimated:YES];
-    
+#endif
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

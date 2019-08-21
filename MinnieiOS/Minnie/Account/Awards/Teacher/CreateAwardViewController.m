@@ -71,8 +71,8 @@
 - (void)backButtonPressed:(id)sender{
 
 #if MANAGERSIDE
-    if (self.cancelCallBack) {
-        self.cancelCallBack();
+    if(self.closeViewCallBack) {
+        self.closeViewCallBack();
     }
 #else
     [self.navigationController popViewControllerAnimated:YES];

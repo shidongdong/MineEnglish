@@ -226,8 +226,8 @@ UITableViewDataSource>
 - (IBAction)backAction:(id)sender {
     
 #if MANAGERSIDE
-    if (self.successCallBack) {
-        self.successCallBack();
+    if (self.closeViewCallBack) {
+        self.closeViewCallBack();
     }
 #else
     [self.navigationController popViewControllerAnimated:YES];
@@ -331,8 +331,8 @@ UITableViewDataSource>
                                               [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfUpdateTeacher
                                                                                                   object:nil];
 #if MANAGERSIDE
-                                              if (weakSelf.successCallBack) {
-                                                  weakSelf.successCallBack();
+                                              if (weakSelf.closeViewCallBack) {
+                                                  weakSelf.closeViewCallBack();
                                               }
 #else
                                               [weakSelf.navigationController popViewControllerAnimated:YES];
@@ -360,8 +360,8 @@ UITableViewDataSource>
                                               [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfAddTeacher
                                                                                                   object:nil];
 #if MANAGERSIDE
-                                              if (weakSelf.successCallBack) {
-                                                  weakSelf.successCallBack();
+                                              if (weakSelf.closeViewCallBack) {
+                                                  weakSelf.closeViewCallBack();
                                               }
 #else
                                               [weakSelf.navigationController popViewControllerAnimated:YES];
@@ -456,9 +456,7 @@ UITableViewDataSource>
             [self toAuthorPreview:authorType];
         } else if (authorType == MIAuthorManagerPasswordType) {
             
-            ResetPasswordViewController *resetPasswordVC = [[ResetPasswordViewController alloc] initWithNibName:[[ResetPasswordViewController class] description] bundle:nil];
-            resetPasswordVC.phoneNumber = self.teacher.phoneNumber;
-            [self.navigationController pushViewController:resetPasswordVC animated:YES];
+            [self toShowResetPassword];
         }
     };
     cell.stateBlock = ^(MIAuthorManagerType authorType, BOOL state) {
@@ -519,19 +517,35 @@ UITableViewDataSource>
         [self toAuthorPreview:authorType];
     } else if (authorType == MIAuthorManagerPasswordType) {
         
-        ResetPasswordViewController *resetPasswordVC = [[ResetPasswordViewController alloc] initWithNibName:[[ResetPasswordViewController class] description] bundle:nil];
-        resetPasswordVC.phoneNumber = self.teacher.phoneNumber;
-        [self.navigationController pushViewController:resetPasswordVC animated:YES];
+        [self toShowResetPassword];
     } else if (authorType == MIAuthorManagerDeleteType) {
         
         [self deleteTeacher];
     }
 }
+
+#pragma mark - 修改密码
+- (void)toShowResetPassword{
+  
+    ResetPasswordViewController *resetPasswordVC = [[ResetPasswordViewController alloc] initWithNibName:[[ResetPasswordViewController class] description] bundle:nil];
+    resetPasswordVC.phoneNumber = self.teacher.phoneNumber;
+#if MANAGERSIDE
+    UIView *bgView = [Utils viewOfVCAddToWindowWithVC:resetPasswordVC];
+    resetPasswordVC.closeViewCallBack = ^{
+        if (bgView.superview) {
+            [bgView removeFromSuperview];
+        }
+    };
+#else
+    [self.navigationController pushViewController:resetPasswordVC animated:YES];
+#endif
+    
+}
+#pragma mark - 查看权限列表
 - (void)toAuthorPreview:(MIAuthorManagerType)authorType{
     
     MIAuthorPreviewViewController *authorPreviewVC = [[MIAuthorPreviewViewController alloc] initWithNibName:NSStringFromClass([MIAuthorPreviewViewController class]) bundle:nil];
     authorPreviewVC.authorManagerType = authorType;
-    
     
     if (authorType == MIAuthorManagerTeacherPreviewType) {// 教师任务查看
         
@@ -562,7 +576,29 @@ UITableViewDataSource>
             self.tempTeacher.canLookStudents = authorArray;
         }
     };
-    [self.navigationController pushViewController:authorPreviewVC animated:YES];
+    
+    //    authorPreviewVC.cancelCallBack = ^{
+    //        if (bgView.superview) {
+    //            [bgView removeFromSuperview];
+    //        }
+    //    };
+    //    authorPreviewVC.successCallBack = ^{
+    //        if (bgView.superview) {
+    //            [bgView removeFromSuperview];
+    //        }
+    //    };
+    
+#if MANAGERSIDE
+    UIView *bgview = [Utils viewOfVCAddToWindowWithVC:authorPreviewVC];
+    authorPreviewVC.closeViewCallBack = ^{
+        if (bgview.superview) {
+            [bgview removeFromSuperview];
+        }
+    };
+#else
+        [self.navigationController pushViewController:authorPreviewVC animated:YES];
+#endif
+
 }
 
 - (void)selectTeacherType{
@@ -731,8 +767,8 @@ UITableViewDataSource>
                                        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfDeleteTeacher
                                                                                            object:nil];
 #if MANAGERSIDE
-                                       if (weakSelf.successCallBack) {
-                                           weakSelf.successCallBack();
+                                       if (weakSelf.closeViewCallBack) {
+                                           weakSelf.closeViewCallBack();
                                        }
 #else
                                        [weakSelf.navigationController popViewControllerAnimated:YES];

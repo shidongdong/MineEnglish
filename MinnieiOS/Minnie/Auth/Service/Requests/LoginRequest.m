@@ -44,7 +44,9 @@
 #if TEACHERSIDE
     type = 1;
 #elif MANAGERSIDE
+    
     type = 3;
+    type = 1;
 #endif
     return @{@"type": @(type),
              @"username":self.phoneNumber,

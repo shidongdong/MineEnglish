@@ -13,8 +13,6 @@ typedef void(^ResetPasswordCancelCallBack) (void);
 // 设置密码
 @interface ResetPasswordViewController : BaseViewController
 
-@property (nonatomic,copy) ResetPasswordCancelCallBack cancelCallBack;
-
 @property (nonatomic,copy) NSString *phoneNumber;
 
 @end

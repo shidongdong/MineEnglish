@@ -790,22 +790,22 @@ VIResourceLoaderManagerDelegate
 
 - (void)goToCreateTaskWithType:(MIHomeworkTaskType)type{
     
-  __block  UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    
+  
     MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] init];
     [createVC setupCreateHomework:nil currentFileInfo:self.currentFileInfo taskType:type];
+
+    UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     WeakifySelf;
     
     createVC.callBack = ^(BOOL isDelete) {
-      [weakSelf requestHomeworks];
-        
+     
+        [weakSelf requestHomeworks];
         if (weakSelf.createTaskCallBack) {
             weakSelf.createTaskCallBack(nil, 1);
         }
         if (view.superview) {
             [view removeFromSuperview];
         }
-        
     };
     createVC.cancelCallBack = ^{
       

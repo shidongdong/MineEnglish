@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 #import "MITeacherAuthorTableViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^EidtPreviewAuthorCallBack)(NSArray *authorArray);
 
-@interface MIAuthorPreviewViewController : UIViewController
+@interface MIAuthorPreviewViewController : BaseViewController
 
 @property (nonatomic, assign) MIAuthorManagerType authorManagerType;
 

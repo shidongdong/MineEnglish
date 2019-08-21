@@ -37,4 +37,7 @@
 
 + (NSString *)qiniuHost;
 
+#pragma mark - ViewController的view以弹窗的形式添加到rootVC
++ (UIView *)viewOfVCAddToWindowWithVC:(UIViewController *)vc;
+
 @end

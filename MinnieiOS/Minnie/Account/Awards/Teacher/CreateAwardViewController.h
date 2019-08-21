@@ -9,13 +9,9 @@
 #import "BaseViewController.h"
 #import "Award.h"
 
-typedef void(^CreateAwardDissmissCallBack)(void);
 
 @interface CreateAwardViewController : BaseViewController
 
 @property (nonatomic, strong) Award *award;
-
-@property (nonatomic, copy) CreateAwardDissmissCallBack cancelCallBack;
-
 
 @end

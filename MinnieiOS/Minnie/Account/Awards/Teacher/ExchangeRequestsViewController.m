@@ -13,7 +13,6 @@
 #import "TIP.h"
 #import "UIScrollView+Refresh.h"
 #import "TeacherAwardsViewController.h"
-//#import "CreateAwardViewController.h"
 #import "UIColor+HEX.h"
 #import "PinyinHelper.h"
 #import "HanyuPinyinOutputFormat.h"

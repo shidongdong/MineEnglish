@@ -105,26 +105,15 @@
 
 - (void)showCreateAwardWithAward:(Award *_Nullable)award{
     
-    UIView *bgAwardView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    bgAwardView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-    
-//    CreateAwardViewController *vc = [[CreateAwardViewController alloc] initWithNibName:NSStringFromClass([CreateAwardViewController class]) bundle:nil];
-    CreateAwardViewController *vc = [[CreateAwardViewController alloc] init];
+    CreateAwardViewController *vc = [[CreateAwardViewController alloc] initWithNibName:NSStringFromClass([CreateAwardViewController class]) bundle:nil];
     vc.award = award;
-    vc.cancelCallBack = ^{
-        
-        if (bgAwardView.superview) {
-            [bgAwardView removeFromSuperview];
+    
+    UIView *bgView = [Utils viewOfVCAddToWindowWithVC:vc];
+    vc.closeViewCallBack = ^{
+        if (bgView.superview) {
+            [bgView removeFromSuperview];
         }
     };
-    UIViewController *rootVC = self.view.window.rootViewController;
-    [rootVC.view addSubview:bgAwardView];
-    [bgAwardView addSubview:vc.view];
-    [rootVC addChildViewController:vc];
-    [vc didMoveToParentViewController:rootVC];
-    vc.view.layer.cornerRadius = 10.f;
-    vc.view.layer.masksToBounds = YES;
-    vc.view.frame = CGRectMake((ScreenWidth - 375)/2.0, 50, 375, ScreenHeight - 100);
 }
 
 
