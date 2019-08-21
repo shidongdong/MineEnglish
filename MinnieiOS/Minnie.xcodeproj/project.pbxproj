@@ -61,12 +61,6 @@
 		1226F31A22982F9300BAB1C9 /* AuthService.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C5F207A2EC900568785 /* AuthService.m */; };
 		1226F31B2298305900BAB1C9 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 971098AF207A0BF500568785 /* User.m */; };
 		1226F31C2298318C00BAB1C9 /* PortraitNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97DC3AEA208343DA009D811B /* PortraitNavigationController.m */; };
-		1226F31D229831DD00BAB1C9 /* ResetPassswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C63207A2EC900568785 /* ResetPassswordRequest.m */; };
-		1226F31E229831F800BAB1C9 /* FindPasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C62207A2EC900568785 /* FindPasswordRequest.m */; };
-		1226F31F2298321D00BAB1C9 /* LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C6C207A2EC900568785 /* LoginRequest.m */; };
-		1226F3202298322000BAB1C9 /* LogoutRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C6A207A2EC900568785 /* LogoutRequest.m */; };
-		1226F3212298322500BAB1C9 /* SMSCodeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C68207A2EC900568785 /* SMSCodeRequest.m */; };
-		1226F3222298322800BAB1C9 /* VerifySMSCodeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C6B207A2EC900568785 /* VerifySMSCodeRequest.m */; };
 		1226F3232298324A00BAB1C9 /* UserRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 971098BF207A0BF500568785 /* UserRequest.m */; };
 		1226F3242298326600BAB1C9 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109866207A0BF500568785 /* BaseViewController.m */; };
 		1226F3252298327600BAB1C9 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109DE6207A5D9600568785 /* RegisterViewController.m */; };
@@ -81,7 +75,6 @@
 		1226F32E229832DE00BAB1C9 /* InputPhoneNumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109C56207A2EC900568785 /* InputPhoneNumberViewController.xib */; };
 		1226F32F229832F200BAB1C9 /* FullfillProfileViewController_Student.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109DE7207A5D9600568785 /* FullfillProfileViewController_Student.xib */; };
 		1226F330229832F500BAB1C9 /* LoginViewController_Student.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109DDA207A472700568785 /* LoginViewController_Student.xib */; };
-		1226F331229832FE00BAB1C9 /* RegisterRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109DD2207A2F6900568785 /* RegisterRequest.m */; };
 		1226F3322298333F00BAB1C9 /* NSDate+X5.m in Sources */ = {isa = PBXBuildFile; fileRef = 971098C7207A0BF500568785 /* NSDate+X5.m */; };
 		1226F3332298334200BAB1C9 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 971098C8207A0BF500568785 /* NSString+MD5.m */; };
 		1226F3342298334500BAB1C9 /* NSString+Qiniu.m in Sources */ = {isa = PBXBuildFile; fileRef = 971098C5207A0BF500568785 /* NSString+Qiniu.m */; };
@@ -735,6 +728,9 @@
 		12DCE76D22A16A9600E2DAFE /* MIMoveHomeworkTaskView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12DCE76C22A16A9600E2DAFE /* MIMoveHomeworkTaskView.xib */; };
 		12E07969230D3B950054A8CE /* AchieverRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E07968230D3B940054A8CE /* AchieverRequest.m */; };
 		12E0796A230D3BA60054A8CE /* AchieverRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E07968230D3B940054A8CE /* AchieverRequest.m */; };
+		12E0796D230D422D0054A8CE /* AuthRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0796C230D422D0054A8CE /* AuthRequest.m */; };
+		12E0796E230D42390054A8CE /* AuthRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0796C230D422D0054A8CE /* AuthRequest.m */; };
+		12E0796F230D423B0054A8CE /* AuthRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0796C230D422D0054A8CE /* AuthRequest.m */; };
 		12EAC63422AD405E00F1F3DB /* MISutdentActDetailViewController.m in Resources */ = {isa = PBXBuildFile; fileRef = 12CB73C222AC0DD60064FB21 /* MISutdentActDetailViewController.m */; };
 		12EAC63522AD40A000F1F3DB /* MIStuActDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 122F798A22ACB02B00D2AA53 /* MIStuActDetailHeaderView.m */; };
 		12EAC63922AD4BF400F1F3DB /* MIReadingTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC63722AD4BF300F1F3DB /* MIReadingTaskViewController.m */; };
@@ -1937,18 +1933,6 @@
 		97109C7D207A2EC900568785 /* FindPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C5B207A2EC900568785 /* FindPasswordViewController.m */; };
 		97109C80207A2EC900568785 /* AuthService.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C5F207A2EC900568785 /* AuthService.m */; };
 		97109C81207A2EC900568785 /* AuthService.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C5F207A2EC900568785 /* AuthService.m */; };
-		97109C82207A2EC900568785 /* FindPasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C62207A2EC900568785 /* FindPasswordRequest.m */; };
-		97109C83207A2EC900568785 /* FindPasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C62207A2EC900568785 /* FindPasswordRequest.m */; };
-		97109C84207A2EC900568785 /* ResetPassswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C63207A2EC900568785 /* ResetPassswordRequest.m */; };
-		97109C85207A2EC900568785 /* ResetPassswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C63207A2EC900568785 /* ResetPassswordRequest.m */; };
-		97109C86207A2EC900568785 /* SMSCodeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C68207A2EC900568785 /* SMSCodeRequest.m */; };
-		97109C87207A2EC900568785 /* SMSCodeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C68207A2EC900568785 /* SMSCodeRequest.m */; };
-		97109C88207A2EC900568785 /* LogoutRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C6A207A2EC900568785 /* LogoutRequest.m */; };
-		97109C89207A2EC900568785 /* LogoutRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C6A207A2EC900568785 /* LogoutRequest.m */; };
-		97109C8A207A2EC900568785 /* VerifySMSCodeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C6B207A2EC900568785 /* VerifySMSCodeRequest.m */; };
-		97109C8B207A2EC900568785 /* VerifySMSCodeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C6B207A2EC900568785 /* VerifySMSCodeRequest.m */; };
-		97109C8C207A2EC900568785 /* LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C6C207A2EC900568785 /* LoginRequest.m */; };
-		97109C8D207A2EC900568785 /* LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C6C207A2EC900568785 /* LoginRequest.m */; };
 		97109C8E207A2EC900568785 /* InputPhoneNumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C6E207A2EC900568785 /* InputPhoneNumberViewController.m */; };
 		97109C8F207A2EC900568785 /* InputPhoneNumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C6E207A2EC900568785 /* InputPhoneNumberViewController.m */; };
 		97109C90207A2EC900568785 /* FullfillProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C6F207A2EC900568785 /* FullfillProfileViewController.m */; };
@@ -2050,8 +2034,6 @@
 		97109DA4207A2F0400568785 /* NicknameEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109D02207A2F0400568785 /* NicknameEditViewController.m */; };
 		97109DA5207A2F0400568785 /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109D03207A2F0400568785 /* ProfileTableViewCell.m */; };
 		97109DA6207A2F0400568785 /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109D03207A2F0400568785 /* ProfileTableViewCell.m */; };
-		97109DD3207A2F6900568785 /* RegisterRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109DD2207A2F6900568785 /* RegisterRequest.m */; };
-		97109DD4207A2F6900568785 /* RegisterRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109DD2207A2F6900568785 /* RegisterRequest.m */; };
 		97109DD7207A305A00568785 /* LoadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109DD5207A305900568785 /* LoadViewController.m */; };
 		97109DD8207A305A00568785 /* LoadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109DD5207A305900568785 /* LoadViewController.m */; };
 		97109DDB207A472700568785 /* LoginViewController_Teacher.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109DD9207A472700568785 /* LoginViewController_Teacher.xib */; };
@@ -2425,6 +2407,8 @@
 		12DCE76C22A16A9600E2DAFE /* MIMoveHomeworkTaskView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MIMoveHomeworkTaskView.xib; sourceTree = "<group>"; };
 		12E07967230D3B940054A8CE /* AchieverRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AchieverRequest.h; sourceTree = "<group>"; };
 		12E07968230D3B940054A8CE /* AchieverRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AchieverRequest.m; sourceTree = "<group>"; };
+		12E0796B230D422D0054A8CE /* AuthRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthRequest.h; sourceTree = "<group>"; };
+		12E0796C230D422D0054A8CE /* AuthRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthRequest.m; sourceTree = "<group>"; };
 		12EAC63622AD4BF300F1F3DB /* MIReadingTaskViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIReadingTaskViewController.h; sourceTree = "<group>"; };
 		12EAC63722AD4BF300F1F3DB /* MIReadingTaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MIReadingTaskViewController.m; sourceTree = "<group>"; };
 		12EAC63822AD4BF400F1F3DB /* MIReadingTaskViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MIReadingTaskViewController.xib; sourceTree = "<group>"; };
@@ -3253,18 +3237,6 @@
 		97109C5B207A2EC900568785 /* FindPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindPasswordViewController.m; sourceTree = "<group>"; };
 		97109C5D207A2EC900568785 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		97109C5F207A2EC900568785 /* AuthService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthService.m; sourceTree = "<group>"; };
-		97109C61207A2EC900568785 /* SMSCodeRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSCodeRequest.h; sourceTree = "<group>"; };
-		97109C62207A2EC900568785 /* FindPasswordRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindPasswordRequest.m; sourceTree = "<group>"; };
-		97109C63207A2EC900568785 /* ResetPassswordRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPassswordRequest.m; sourceTree = "<group>"; };
-		97109C64207A2EC900568785 /* VerifySMSCodeRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifySMSCodeRequest.h; sourceTree = "<group>"; };
-		97109C65207A2EC900568785 /* LogoutRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutRequest.h; sourceTree = "<group>"; };
-		97109C66207A2EC900568785 /* LoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginRequest.h; sourceTree = "<group>"; };
-		97109C67207A2EC900568785 /* FindPasswordRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindPasswordRequest.h; sourceTree = "<group>"; };
-		97109C68207A2EC900568785 /* SMSCodeRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMSCodeRequest.m; sourceTree = "<group>"; };
-		97109C69207A2EC900568785 /* ResetPassswordRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPassswordRequest.h; sourceTree = "<group>"; };
-		97109C6A207A2EC900568785 /* LogoutRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutRequest.m; sourceTree = "<group>"; };
-		97109C6B207A2EC900568785 /* VerifySMSCodeRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifySMSCodeRequest.m; sourceTree = "<group>"; };
-		97109C6C207A2EC900568785 /* LoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginRequest.m; sourceTree = "<group>"; };
 		97109C6D207A2EC900568785 /* AuthService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthService.h; sourceTree = "<group>"; };
 		97109C6E207A2EC900568785 /* InputPhoneNumberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputPhoneNumberViewController.m; sourceTree = "<group>"; };
 		97109C6F207A2EC900568785 /* FullfillProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullfillProfileViewController.m; sourceTree = "<group>"; };
@@ -3365,8 +3337,6 @@
 		97109D02207A2F0400568785 /* NicknameEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NicknameEditViewController.m; sourceTree = "<group>"; };
 		97109D03207A2F0400568785 /* ProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewCell.m; sourceTree = "<group>"; };
 		97109D30207A2F0400568785 /* TeacherAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeacherAccountViewController.h; sourceTree = "<group>"; };
-		97109DD1207A2F6800568785 /* RegisterRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterRequest.h; sourceTree = "<group>"; };
-		97109DD2207A2F6900568785 /* RegisterRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterRequest.m; sourceTree = "<group>"; };
 		97109DD5207A305900568785 /* LoadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadViewController.m; sourceTree = "<group>"; };
 		97109DD6207A305900568785 /* LoadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadViewController.h; sourceTree = "<group>"; };
 		97109DD9207A472700568785 /* LoginViewController_Teacher.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController_Teacher.xib; sourceTree = "<group>"; };
@@ -5365,6 +5335,7 @@
 		97109C52207A2EC900568785 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				97109C5E207A2EC900568785 /* Service */,
 				97109C54207A2EC900568785 /* FindPasswordViewController.h */,
 				97109C5B207A2EC900568785 /* FindPasswordViewController.m */,
 				97109C53207A2EC900568785 /* FindPasswordViewController.xib */,
@@ -5385,7 +5356,6 @@
 				97109C6F207A2EC900568785 /* FullfillProfileViewController.m */,
 				97109DE7207A5D9600568785 /* FullfillProfileViewController_Student.xib */,
 				97109DE5207A5D9600568785 /* FullfillProfileViewController_Teacher.xib */,
-				97109C5E207A2EC900568785 /* Service */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -5403,20 +5373,8 @@
 		97109C60207A2EC900568785 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
-				97109DD1207A2F6800568785 /* RegisterRequest.h */,
-				97109DD2207A2F6900568785 /* RegisterRequest.m */,
-				97109C67207A2EC900568785 /* FindPasswordRequest.h */,
-				97109C62207A2EC900568785 /* FindPasswordRequest.m */,
-				97109C66207A2EC900568785 /* LoginRequest.h */,
-				97109C6C207A2EC900568785 /* LoginRequest.m */,
-				97109C65207A2EC900568785 /* LogoutRequest.h */,
-				97109C6A207A2EC900568785 /* LogoutRequest.m */,
-				97109C69207A2EC900568785 /* ResetPassswordRequest.h */,
-				97109C63207A2EC900568785 /* ResetPassswordRequest.m */,
-				97109C61207A2EC900568785 /* SMSCodeRequest.h */,
-				97109C68207A2EC900568785 /* SMSCodeRequest.m */,
-				97109C64207A2EC900568785 /* VerifySMSCodeRequest.h */,
-				97109C6B207A2EC900568785 /* VerifySMSCodeRequest.m */,
+				12E0796B230D422D0054A8CE /* AuthRequest.h */,
+				12E0796C230D422D0054A8CE /* AuthRequest.m */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -7976,7 +7934,6 @@
 				12747BEA22A7CD52009C390E /* WBGImageEditorCollectionViewCell.m in Sources */,
 				12961CDC229FD7100075B04A /* HomeworkSessionsRequest.m in Sources */,
 				12DCE76B22A16A8900E2DAFE /* MIMoveHomeworkTaskView.m in Sources */,
-				1226F3202298322000BAB1C9 /* LogoutRequest.m in Sources */,
 				12747C9522A96E8E009C390E /* MICreateWordView.m in Sources */,
 				12961C82229E682B0075B04A /* UpdateTeacherRequest.m in Sources */,
 				12961C4F229E5E110075B04A /* SessionHomeworkTableViewCell.m in Sources */,
@@ -7989,19 +7946,16 @@
 				12747C0722A7CF2F009C390E /* GiveAwardRequest.m in Sources */,
 				12FEA39F22E19D2F008503B2 /* MISecondStockSplitViewController.m in Sources */,
 				12CB73B422AB92240064FB21 /* UIView+AZGradient.m in Sources */,
-				1226F3222298322800BAB1C9 /* VerifySMSCodeRequest.m in Sources */,
 				12ED3B62229D96CB00255F8B /* ProgressHUD.m in Sources */,
 				12961CD1229FD6B20075B04A /* CommitHomeworkRequest.m in Sources */,
 				12EAC66122B39D8C00F1F3DB /* EditAudioVideo.m in Sources */,
 				12961C7A229E67BE0075B04A /* TeachersRequest.m in Sources */,
 				1226F33A2298335A00BAB1C9 /* Homework.m in Sources */,
-				1226F31D229831DD00BAB1C9 /* ResetPassswordRequest.m in Sources */,
 				12961CBF229F734C0075B04A /* MITitleTypeTableViewCell.m in Sources */,
 				123042E222A0FF6900E111A4 /* MIActivityRankListTableViewCell.m in Sources */,
 				12961CC7229FD59B0075B04A /* CustomCollectionView.m in Sources */,
 				12B7081C22A4F40600117537 /* ChooseDatePickerView.m in Sources */,
 				122A1ECE22A2332A009358DE /* ManagerRequest.m in Sources */,
-				1226F3212298322500BAB1C9 /* SMSCodeRequest.m in Sources */,
 				128B70862302A89E00A2A187 /* MITeacherAuthorTableViewCell.m in Sources */,
 				12B7B95C22D88B830057C798 /* ClassEditTableViewCell.m in Sources */,
 				128F135722D3348E00C9F5B7 /* TeacherAwardsViewController.m in Sources */,
@@ -8081,7 +8035,6 @@
 				1204263F22FD5633008B90C9 /* MIToastView.m in Sources */,
 				1226F3232298324A00BAB1C9 /* UserRequest.m in Sources */,
 				1226F3402298363C00BAB1C9 /* ModifyStarRequest.m in Sources */,
-				1226F31E229831F800BAB1C9 /* FindPasswordRequest.m in Sources */,
 				1226F30B2297F65E00BAB1C9 /* BaseRequest.m in Sources */,
 				12961CCA229FD6550075B04A /* CreateTagView.m in Sources */,
 				1226F328229832A500BAB1C9 /* FullfillProfileViewController.m in Sources */,
@@ -8148,6 +8101,7 @@
 				12CB739B22AB5BD50064FB21 /* MIHomeworkTaskListViewController.m in Sources */,
 				12961C67229E667B0075B04A /* HanyuPinyinOutputFormat.m in Sources */,
 				12B7BE6A22DCADFD0057C798 /* MITeacherOnlineTableViewCell.m in Sources */,
+				12E0796F230D423B0054A8CE /* AuthRequest.m in Sources */,
 				1226F30E2297F73E00BAB1C9 /* LoginViewController.m in Sources */,
 				128F137B22D4697500C9F5B7 /* HomeworkSearchNameViewController.m in Sources */,
 				12961C78229E67A50075B04A /* DeleteClassStudentRequest.m in Sources */,
@@ -8188,7 +8142,6 @@
 				12CB73A822AB919F0064FB21 /* HomeworkTextTableViewCell.m in Sources */,
 				12A1E94322A57885001247D7 /* HomeworkAudioTableViewCell.m in Sources */,
 				1226F3242298326600BAB1C9 /* BaseViewController.m in Sources */,
-				1226F31F2298321D00BAB1C9 /* LoginRequest.m in Sources */,
 				12961C5B229E656B0075B04A /* HomeworkSession.m in Sources */,
 				12ED3B0E229C2E5E00255F8B /* MIStockMasterViewController.m in Sources */,
 				12747BFF22A7CE78009C390E /* EditStudentMarkView.m in Sources */,
@@ -8221,7 +8174,6 @@
 				12ED3B10229C2E5E00255F8B /* CSCustomSplitViewController.m in Sources */,
 				12ED3B02229C2E4D00255F8B /* MIRootSheetView.m in Sources */,
 				128F138D22D5EF5400C9F5B7 /* MISecondTeachersView.m in Sources */,
-				1226F331229832FE00BAB1C9 /* RegisterRequest.m in Sources */,
 				128F136922D37EB500C9F5B7 /* ExchangeRecord.m in Sources */,
 				12EAC63522AD40A000F1F3DB /* MIStuActDetailHeaderView.m in Sources */,
 				12747C1122A7D02E009C390E /* AwardsRequest.m in Sources */,
@@ -8418,7 +8370,6 @@
 				97109A89207A171600568785 /* HomeworkAudioCollectionViewCell.m in Sources */,
 				871806CA21DF438C0023511C /* MUCircleView.m in Sources */,
 				9710993E207A0BF600568785 /* Error.m in Sources */,
-				97109C88207A2EC900568785 /* LogoutRequest.m in Sources */,
 				97109C7A207A2EC900568785 /* ResetPasswordViewController.m in Sources */,
 				97109928207A0BF600568785 /* SegmentControl.m in Sources */,
 				1229813D22C5B3AB00C09750 /* NSString+PinYin4Cocoa.m in Sources */,
@@ -8448,7 +8399,6 @@
 				9710991E207A0BF600568785 /* TIP.m in Sources */,
 				97109ED6207A7C1600568785 /* StudentAwardsViewController.m in Sources */,
 				12EAC64E22B0D73100F1F3DB /* AVIMWordsMessage.m in Sources */,
-				97109C8C207A2EC900568785 /* LoginRequest.m in Sources */,
 				1229813C22C5B39200C09750 /* HomeworkService.m in Sources */,
 				871806CE21DF438C0023511C /* MUVideoIconView.m in Sources */,
 				872C742C21BE91A10027F47C /* GuideViewController.m in Sources */,
@@ -8477,6 +8427,7 @@
 				871806E121DF51540023511C /* MUTapDetectingView.m in Sources */,
 				9710990C207A0BF500568785 /* RefreshFooter.m in Sources */,
 				8725589C21D397910028BC2A /* CorrectHomeworkAddCommentRequest.m in Sources */,
+				12E0796D230D422D0054A8CE /* AuthRequest.m in Sources */,
 				128F131822CD10E800C9F5B7 /* MIParticipateDetailTableViewCell.m in Sources */,
 				97109924207A0BF600568785 /* LoadingIndicatorView.m in Sources */,
 				8702867B2182FE2C00559195 /* StudentStarRankRequest.m in Sources */,
@@ -8496,7 +8447,6 @@
 				97109C80207A2EC900568785 /* AuthService.m in Sources */,
 				9786AA9720F26A7200BD0AF9 /* HomeworkAnswerItem.m in Sources */,
 				879CE53C2191777F00BBE4B7 /* UserMedalDto.m in Sources */,
-				97109C86207A2EC900568785 /* SMSCodeRequest.m in Sources */,
 				97109C24207A2E3E00568785 /* CircleService.m in Sources */,
 				97109C1E207A2E3E00568785 /* CircleViewController.m in Sources */,
 				8707EFC521D61E120060B5A6 /* TagService.m in Sources */,
@@ -8532,11 +8482,9 @@
 				97109EE1207A7C1600568785 /* ExchangeAwardView.m in Sources */,
 				12AF64F5228E4A790031E1F6 /* EqualSpaceFlowLayout.m in Sources */,
 				971098F2207A0BF500568785 /* EmojiInputCollectionViewCell.m in Sources */,
-				97109C84207A2EC900568785 /* ResetPassswordRequest.m in Sources */,
 				97109956207A0BF600568785 /* UIColor+HEX.m in Sources */,
 				87EED4A4219443E400AEA974 /* ChooseDatePickerView.m in Sources */,
 				872069C821AE9A5200847713 /* SearchHomeworkNameRequest.m in Sources */,
-				97109DD3207A2F6900568785 /* RegisterRequest.m in Sources */,
 				12EAC64222AE2AED00F1F3DB /* MIReadingWordsView.m in Sources */,
 				97109D35207A2F0400568785 /* SettingsViewController.m in Sources */,
 				8753CD1621C7BB8400762266 /* CircleHomeworkFlagRequest.m in Sources */,
@@ -8577,7 +8525,6 @@
 				97109906207A0BF500568785 /* BaseViewController.m in Sources */,
 				872F5B382171825900D88855 /* StudentsRequest.m in Sources */,
 				97109EE2207A7C1600568785 /* StudentAwardCollectionViewCell.m in Sources */,
-				97109C82207A2EC900568785 /* FindPasswordRequest.m in Sources */,
 				97109C78207A2EC900568785 /* LoginViewController.m in Sources */,
 				879CE52F2191725800BBE4B7 /* AchieverService.m in Sources */,
 				971098F4207A0BF500568785 /* NEPhotoBrowser.m in Sources */,
@@ -8613,7 +8560,6 @@
 				875C2625218AAB0B0047E32A /* SegementLabelsView.m in Sources */,
 				97109BD6207A1D5000568785 /* CalendarViewController.m in Sources */,
 				122C16A922AA2DD900084AC7 /* NSDate+Extension.m in Sources */,
-				97109C8A207A2EC900568785 /* VerifySMSCodeRequest.m in Sources */,
 				19577737227731590025573D /* StudentStarRecordViewController.m in Sources */,
 				97109D9B207A2F0400568785 /* ProfileService.m in Sources */,
 				97109D41207A2F0400568785 /* NoticeMessageDetailViewController.m in Sources */,
@@ -8677,7 +8623,6 @@
 				8702866F2182EA8700559195 /* StudentStarListViewController.m in Sources */,
 				87C52FB62164AC59004288F4 /* WBGImageToolBase.m in Sources */,
 				97109B0A207A1C0800568785 /* DeleteClassTableViewCell.m in Sources */,
-				97109C87207A2EC900568785 /* SMSCodeRequest.m in Sources */,
 				973649F320AF2F8600511A95 /* CreateTagRequest.m in Sources */,
 				97109C19207A2E3E00568785 /* CircleContainerController.m in Sources */,
 				1204264723000EA5008B90C9 /* AudioPlayerManager.m in Sources */,
@@ -8786,7 +8731,6 @@
 				977BD094207CA140000A1994 /* PushManager.m in Sources */,
 				9710993F207A0BF600568785 /* Error.m in Sources */,
 				97109B07207A1C0800568785 /* DatePickerView.m in Sources */,
-				97109DD4207A2F6900568785 /* RegisterRequest.m in Sources */,
 				973649E020AF2F8600511A95 /* HomeworksRequest.m in Sources */,
 				12CB738222AB52D20064FB21 /* MISegmentTypeTableViewCell.m in Sources */,
 				876D982221D0DC2000A0E06E /* CorrectHomeworkHisCommentTableViewCell.m in Sources */,
@@ -8872,7 +8816,6 @@
 				8709C32021A2AF7800970757 /* SearchHomeworkTypeRequest.m in Sources */,
 				870286762182F06C00559195 /* StudentStarListTableViewCell.m in Sources */,
 				97109AF8207A1C0800568785 /* AddClassStudentRequest.m in Sources */,
-				97109C8B207A2EC900568785 /* VerifySMSCodeRequest.m in Sources */,
 				87FD07DD21BE464700664AF1 /* HomeworkAudioTableViewCell.m in Sources */,
 				97109C2F207A2E3E00568785 /* DeleteHomeworkCommentRequest.m in Sources */,
 				97109C21207A2E3E00568785 /* CircleHomework.m in Sources */,
@@ -8883,7 +8826,6 @@
 				97109D3C207A2F0400568785 /* NoticeMessagesViewController.m in Sources */,
 				97DC3AEC20835620009D811B /* PortraitNavigationController.m in Sources */,
 				973649CF20AF2F8600511A95 /* ClassAndStudentSelectorController.m in Sources */,
-				97109C85207A2EC900568785 /* ResetPassswordRequest.m in Sources */,
 				876D981B21D0DBF100A0E06E /* CorrectHomeworkCommentTableViewCell.m in Sources */,
 				1923CB332286B35A0056B2AD /* HomeworkPreviewViewController.m in Sources */,
 				9710995F207A0BF600568785 /* IMManager.m in Sources */,
@@ -8963,6 +8905,7 @@
 				97109D9A207A2F0400568785 /* UpdateProfileRequest.m in Sources */,
 				97109A4B207A158C00568785 /* ImageMessageTableViewCell.m in Sources */,
 				87915A3721B933BC006C1BFD /* AudioPlayerViewController.m in Sources */,
+				12E0796E230D42390054A8CE /* AuthRequest.m in Sources */,
 				876D981421D0DBAC00A0E06E /* CorrectHomeworkScoreTableViewCell.m in Sources */,
 				871806E021DF51540023511C /* MUPhotoPreviewView.m in Sources */,
 				97109961207A0BF600568785 /* Application.m in Sources */,
@@ -8976,7 +8919,6 @@
 				97109955207A0BF600568785 /* UserRequest.m in Sources */,
 				97109DA4207A2F0400568785 /* NicknameEditViewController.m in Sources */,
 				12FD85BE22B9DFAE0026B7E2 /* UIAlertController+Alert.m in Sources */,
-				97109C8D207A2EC900568785 /* LoginRequest.m in Sources */,
 				97109C3F207A2E3E00568785 /* CircleMoreCommentsTableViewCell.m in Sources */,
 				97109AF4207A1C0800568785 /* DeleteClassStudentRequest.m in Sources */,
 				97109907207A0BF500568785 /* BaseViewController.m in Sources */,
@@ -8992,7 +8934,6 @@
 				97109D66207A2F0400568785 /* NoticeMessageTextItemTableViewCell.m in Sources */,
 				128F131A22CD111900C9F5B7 /* MISecondSheetView.m in Sources */,
 				12CB73C522AC0DD60064FB21 /* MISutdentActDetailViewController.m in Sources */,
-				97109C89207A2EC900568785 /* LogoutRequest.m in Sources */,
 				1237F3DB23039C050086AB1B /* MIAuthorPreviewViewController.m in Sources */,
 				97109C7B207A2EC900568785 /* ResetPasswordViewController.m in Sources */,
 				97109D52207A2F0400568785 /* NoticeMessageItem.m in Sources */,
@@ -9001,7 +8942,6 @@
 				87FDFBC2214B6769006E987C /* AppVersion.m in Sources */,
 				871806BF21DF438C0023511C /* MUAssetsViewController.m in Sources */,
 				97109EB7207A7C0A00568785 /* GiveAwardRequest.m in Sources */,
-				97109C83207A2EC900568785 /* FindPasswordRequest.m in Sources */,
 				1950D7F12277E856004F7291 /* HomeworkConfirmViewController.m in Sources */,
 				128F130822CD109800C9F5B7 /* MISecondActivitySheetView.m in Sources */,
 				97109A2F207A158C00568785 /* HomeworkSessionService.m in Sources */,

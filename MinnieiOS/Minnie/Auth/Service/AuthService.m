@@ -6,14 +6,9 @@
 //  Copyright © 2017年 mfox. All rights reserved.
 //
 
+#import "AuthRequest.h"
 #import "AuthService.h"
-#import "SMSCodeRequest.h"
-#import "RegisterRequest.h"
-#import "LoginRequest.h"
-#import "FindPasswordRequest.h"
-#import "LogoutRequest.h"
-#import "VerifySMSCodeRequest.h"
-#import "ResetPassswordRequest.h"
+
 
 @implementation AuthService
 
