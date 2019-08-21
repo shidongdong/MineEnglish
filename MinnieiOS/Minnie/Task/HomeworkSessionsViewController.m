@@ -87,8 +87,8 @@ MIActivityBannerViewDelegate
     
     [self setupRequestState];
 #if MANAGERSIDE
-    self.currentSelectIndex = -1;
     
+    self.currentSelectIndex = -1;
 #elif TEACHERSIDE
 #else
     [self requestGetActivityList];
@@ -485,7 +485,6 @@ MIActivityBannerViewDelegate
             if (homeworkSession.conversation == nil) {
                 homeworkSession.conversation = messageConversation;
             }
-//            [self loadConversations];
             [self loadConversationsWithHomeworkSessions:@[homeworkSession]];
             bExit = YES;
             break;
@@ -534,7 +533,6 @@ MIActivityBannerViewDelegate
                     {
                         [self.unReadHomeworkSessions addObject:session];
                     }
-                    
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self reloadTableViewForNewMessage:message];
                     });
@@ -545,13 +543,13 @@ MIActivityBannerViewDelegate
     });
 }
 
-#pragma mark - ipad管理端更新作业
+#pragma mark - ipad管理：端更新作业
 - (void)updateSessionList {
     
     [self resetCurrentSelectIndex];
     [self requestHomeworkSessions];
 }
-#pragma mark - ipad重置选中任务状态
+#pragma mark - ipad端：重置选中任务状态
 - (void)resetCurrentSelectIndex{
     
     self.currentSelectIndex = -1;
@@ -562,6 +560,8 @@ MIActivityBannerViewDelegate
 #pragma mark - 获取作业列表  加载更多  处理请求作业列表结果
 - (void)requestHomeworkSessions {
    
+    // 教师端、管理端作业排序方式 按时间、任务、人
+    // 学生端 按得分
     if (self.homeworkSessionsRequest != nil) {
         return;
     }
@@ -569,10 +569,13 @@ MIActivityBannerViewDelegate
         [self.view showLoadingView];
         self.homeworkSessionsTableView.hidden = YES;
     }
+    NSLog(@"searchFliter %lu, mState %lu",self.searchFliter,self.mState);
+    
+    // mState 0：待批改；1已完成；2未提交
     WeakifySelf;
-    if (self.searchFliter == -1) //-1 表示是按名字搜索
-    {
-        WeakifySelf;
+    if (self.searchFliter == -1)
+    {// 教师端：-1 表示是按名字搜索
+        
         self.homeworkSessionsRequest =
         [HomeworkSessionService searchHomeworkSessionWithName:self.searchFilterName
                                                      forState:self.mState
@@ -582,8 +585,8 @@ MIActivityBannerViewDelegate
             [strongSelf handleRequestResult:result isLoadMore:NO error:error];
         }];
     }
-    else if (self.searchFliter == 0) // 0 按时间
-    {
+    else if (self.searchFliter == 0)
+    { // searchFliter   0 按时间
         self.homeworkSessionsRequest =
         [HomeworkSessionService requestHomeworkSessionsWithFinishState:self.mState
                                                              teacherId:self.teacher.userId
@@ -597,10 +600,9 @@ MIActivityBannerViewDelegate
     }
     else
     {
-        // searchFliter  1 按作业 2 按人
-        // mState        0：待批改；1已完成；2未提交
-       WeakifySelf;
+        
 #if TEACHERSIDE || MANAGERSIDE
+        // searchFliter  1 按作业 2 按人 (教师端、管理端)
         self.homeworkSessionsRequest =
         [HomeworkSessionService searchHomeworkSessionWithType:self.searchFliter
                                                     teacherId:self.teacher.userId
@@ -611,6 +613,7 @@ MIActivityBannerViewDelegate
             [strongSelf handleRequestResult:result isLoadMore:NO error:error];
         }];
 #else
+        // searchFliter  按得分 1：0星 2：1星 ··· 6：5星(学生端)
         self.homeworkSessionsRequest =
         [HomeworkSessionService searchHomeworkSessionWithScore:self.searchFliter - 1
                                                      teacherId:self.teacher.userId
@@ -629,8 +632,8 @@ MIActivityBannerViewDelegate
         return;
     }
     WeakifySelf;
-    if (self.searchFliter == -1) //-1 表示是按名字搜索
-    {
+    if (self.searchFliter == -1)
+    {// -1 表示是按名字搜索
         self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithNameWithNextUrl:self.nextUrl callback:^(Result *result, NSError *error) {
             StrongifySelf;
             [strongSelf handleRequestResult:result
@@ -638,8 +641,8 @@ MIActivityBannerViewDelegate
                                       error:error];
         }];
     }
-    else if (self.searchFliter == 0) // 0 按时间
-    {
+    else if (self.searchFliter == 0)
+    {// 0 按时间
         self.homeworkSessionsRequest = [HomeworkSessionService requestHomeworkSessionsWithNextUrl:self.nextUrl
                                                                                          callback:^(Result *result, NSError *error) {
                                                                                              StrongifySelf;
@@ -649,14 +652,15 @@ MIActivityBannerViewDelegate
     }
     else
     {
-        // searchFliter  1 按作业 2 按人
-        // mState        0：待批改；1已完成；2未提交
+        
 #if TEACHERSIDE || MANAGERSIDE
+        // searchFliter  1 按作业 2 按人 (教师端、管理端)
         self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithTypeWithNextUrl:self.nextUrl callback:^(Result *result, NSError *error) {
             StrongifySelf;
             [strongSelf handleRequestResult:result isLoadMore:YES error:error];
         }];
 #else
+        // searchFliter  按得分 1：0星 2：1星 ··· 6：5星(学生端)
         self.homeworkSessionsRequest = [HomeworkSessionService searchHomeworkSessionWithScoreWithNextUrl:self.nextUrl callback:^(Result *result, NSError *error) {
             
             StrongifySelf;
@@ -686,8 +690,6 @@ MIActivityBannerViewDelegate
         
         if (homeworkSessions.count > 0) {
             [self.homeworkSessions addObjectsFromArray:homeworkSessions];
-//            [self loadConversations];
-            
             [self loadConversationsWithHomeworkSessions:homeworkSessions];
         }
         if (nextUrl.length == 0) {
@@ -715,10 +717,6 @@ MIActivityBannerViewDelegate
         
         if (homeworkSessions.count > 0) {
             self.homeworkSessionsTableView.hidden = NO;
-            
-//            [self.homeworkSessions addObjectsFromArray:homeworkSessions];
-//            [self loadConversations];
-            
             [self loadConversationsWithHomeworkSessions:homeworkSessions];
             
             [self.homeworkSessionsTableView addPullToRefreshWithTarget:self
@@ -765,7 +763,7 @@ MIActivityBannerViewDelegate
 #endif
 }
 
-#pragma mark - 获取活动列表
+#pragma mark - 学生端：获取活动列表
 - (void)requestGetActivityList{
     WeakifySelf;
     [ManagerServce requestGetActivityListWithCallback:^(Result *result, NSError *error) {

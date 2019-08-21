@@ -12,14 +12,14 @@
 
 @interface HomeworkSessionService : NSObject
 
-// 根据完成状态获取作业列表
+// 按时间获取作业列表
 + (BaseRequest *)requestHomeworkSessionsWithFinishState:(NSInteger)state
                                               teacherId:(NSInteger)teacherId
                                                callback:(RequestCallback)callback;
 + (BaseRequest *)requestHomeworkSessionsWithNextUrl:(NSString *)nextUrl
                                            callback:(RequestCallback)callback;
 
-//教师端根据类型搜索作业列表
+// 根据类型(任务&人)搜索作业列表(教师端，ipad)
 + (BaseRequest *)searchHomeworkSessionWithType:(NSInteger)type
                                      teacherId:(NSInteger)teacherId
                                       forState:(NSInteger)state
@@ -27,7 +27,7 @@
 + (BaseRequest *)searchHomeworkSessionWithTypeWithNextUrl:(NSString *)nextUrl
                                                  callback:(RequestCallback)callback;
 
-//教师端按照名字搜索作业列表
+// 按学生名字搜索作业（教师端，ipad）
 + (BaseRequest *)searchHomeworkSessionWithName:(NSString *)name
                                       forState:(NSInteger)state
                                      teacherId:(NSInteger)teacherId

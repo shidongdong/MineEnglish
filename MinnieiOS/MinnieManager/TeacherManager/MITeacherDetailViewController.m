@@ -42,7 +42,7 @@ UITableViewDataSource
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.setButton.hidden = !APP.currentUser.canManageTeachers;
+
     
     self.currentIndex = -1;
     self.iconImageV.layer.masksToBounds = YES;
@@ -82,9 +82,33 @@ UITableViewDataSource
         
         self.nameLabel.text = self.teacher.nickname;
         [self.iconImageV sd_setImageWithURL:[self.teacher.avatarUrl imageURLWithWidth:24] placeholderImage:[UIImage imageNamed: @"attachment_placeholder"]];
+        [self setupEditTeacherBtn];
         [self resetCurrentSelectIndex];
         // 请求用户信息
         [self requestTeacherDetail];
+    }
+}
+
+- (void)setupEditTeacherBtn{
+    
+    // 超级管理拥有所有权限
+    if (APP.currentUser.authority == TeacherAuthoritySuperManager) {
+        
+        self.setButton.hidden = NO;
+    } else if (APP.currentUser.authority == TeacherAuthorityManager) {
+       
+        // 管理员无法编辑超级管理员、管理员
+        if ( self.teacher.authority == TeacherAuthorityManager ||
+            self.teacher.authority == TeacherAuthoritySuperManager
+            ) {
+            
+            self.setButton.hidden = YES;
+        } else {
+            // 普通教师
+            self.setButton.hidden = !APP.currentUser.canManageTeachers;
+        }
+    } else {
+        self.setButton.hidden = YES;
     }
 }
 
