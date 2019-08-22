@@ -359,7 +359,7 @@ UITableViewDataSource
 #pragma mark - 请求班级列表 && 学生列表
 - (void)requestClasses {
     WeakifySelf;
-    [ClassService requestClassesWithFinishState:0
+    [ClassService requestNewClassesWithFinishState:0
                                         listAll:YES
                                          simple:YES
                                      campusName:nil

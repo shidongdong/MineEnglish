@@ -68,7 +68,7 @@ UITableViewDelegate
         self.tableView.hidden = YES;
     }
     WeakifySelf;
-    [ClassService requestClassesWithFinishState:0
+    [ClassService requestNewClassesWithFinishState:0
                                        listAll:YES
                                          simple:NO
                                      campusName:self.campusInfo.campusName

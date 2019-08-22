@@ -67,7 +67,7 @@
     self.classesTableView.hidden = YES;
     
     WeakifySelf;
-    self.classesRequest = [ClassService requestClassesWithFinishState:0
+    self.classesRequest = [ClassService requestNewClassesWithFinishState:0
                                                               listAll:YES
                                                                simple:YES
                                                            campusName:nil

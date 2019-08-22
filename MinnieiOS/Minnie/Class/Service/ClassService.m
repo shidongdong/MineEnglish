@@ -44,6 +44,27 @@
     return request;
 }
 
++ (BaseRequest *)requestNewClassesWithFinishState:(BOOL)finished
+                                          listAll:(BOOL)listAll
+                                           simple:(BOOL)simple
+                                       campusName:(NSString *)campusName
+                                         callback:(RequestCallback)callback {
+    NSInteger teacherId = 0;
+    if (!listAll) {
+        teacherId = APP.currentUser.userId;
+    }
+    
+    ClassesRequest *request = [[ClassesRequest alloc] initWithFinishState:finished teacherId:teacherId simple:simple campusName:campusName];
+    
+    request.objectKey = @"list";
+    request.objectClassName = @"Clazz";
+    request.callback = callback;
+    [request start];
+    
+    return request;
+}
+
+
 + (BaseRequest *)requestClassesWithNextUrl:(NSString *)nextUrl
                                   callback:(RequestCallback)callback {
     ClassesRequest *request = [[ClassesRequest alloc] initWithNextUrl:nextUrl];

@@ -6,8 +6,8 @@
 //  Copyright © 2018年 netease. All rights reserved.
 //
 
-#import "MyClassService.h"
 #import "Clazz.h"
+#import "MyClassService.h"
 #import "MyClassRequest.h"
 
 @implementation MyClassService

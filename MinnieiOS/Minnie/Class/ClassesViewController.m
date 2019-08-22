@@ -134,7 +134,7 @@
 
     WeakifySelf;
     Teacher *teacher = APP.currentUser;
-    self.classesRequest = [ClassService requestClassesWithFinishState:self.isUnfinished?0:1
+    self.classesRequest = [ClassService requestNewClassesWithFinishState:self.isUnfinished?0:1
                                                               listAll:self.isManageMode||teacher.authority==TeacherAuthoritySuperManager
                                                                simple:NO
                                                            campusName:nil
