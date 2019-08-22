@@ -50,12 +50,16 @@
 }
 
 - (id)requestArgument {
+    
     if (self.nextUrl.length > 0) {
         return nil;
     }
     if (self.teacherId == 0) {
         
-        return @{@"finished":@(self.finished)};
+        return @{@"finished":@(self.finished),
+//                 @"pageNo":@(0),
+//                 @"pageNum":@(100)
+                 };
     } else {
         return @{@"finished":@(self.finished),
                  @"teacherId":@(self.teacherId)};
@@ -63,7 +67,6 @@
 }
 
 @end
-
 
 
 
@@ -314,7 +317,10 @@
     }
     if (self.teacherId == 0) {
         
-        return @{@"score":@(self.score)};
+        return @{@"score":@(self.score)
+//                 @"pageNo":@(0),
+//                 @"pageNum":@(100)
+                 };
     } else {
         return @{@"score":@(self.score),
                  @"teacherId":@(self.teacherId)};
@@ -322,7 +328,6 @@
 }
 
 @end
-
 
 
 
@@ -381,7 +386,11 @@
         return nil;
     }
     if (self.teacherId == 0) {
-        return @{@"studentName":self.name,@"finished":@(self.finished)};
+        return @{@"studentName":self.name,
+                 @"finished":@(self.finished),
+//                 @"pageNo":@(0),
+//                 @"pageNum":@(100)
+                 };
     } else {
         return @{@"studentName":self.name,
                  @"finished":@(self.finished),
@@ -445,7 +454,11 @@
     }
     if (self.teacherId == 0) {
         
-        return @{@"type":@(self.type),@"finished":@(self.finished)};
+        return @{@"type":@(self.type),
+                 @"finished":@(self.finished),
+//                 @"pageNo":@(0),
+//                 @"pageNum":@(100)
+                 };
     } else {
         
         return @{@"type":@(self.type),
