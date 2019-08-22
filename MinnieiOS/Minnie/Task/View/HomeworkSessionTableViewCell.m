@@ -193,7 +193,7 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
 
 - (void)setupWithHomeworkSession:(HomeworkSession *)homeworkSession {
     
-    HomeworkItem *item = homeworkSession.homework.items[0];
+    HomeworkItem *item = homeworkSession.homework.items.firstObject;
     
     [self setupSelectState:NO];
 #if TEACHERSIDE | MAMAGERSIDE
@@ -383,7 +383,7 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
         });
         
         
-        HomeworkItem *item = homeworkSession.homework.items[0];
+        HomeworkItem *item = homeworkSession.homework.items.firstObject;
         
         NSString * homeworkTitle = item.text?:@"[无文字内容]";
         NSMutableAttributedString * mAttribute = [[NSMutableAttributedString alloc] initWithString:homeworkTitle];
@@ -414,7 +414,7 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
             
         });
         
-        HomeworkItem *item = homeworkSession.homework.items[0];
+        HomeworkItem *item = homeworkSession.homework.items.firstObject;
         NSString * homeworkTitle = item.text?:@"[无文字内容]";
         NSMutableAttributedString * mAttribute = [[NSMutableAttributedString alloc] initWithString:homeworkTitle];
         NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
