@@ -2030,8 +2030,6 @@
 		97109E0A207A682F00568785 /* MyClassViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109E08207A682F00568785 /* MyClassViewController.xib */; };
 		97109E0D207A6A1A00568785 /* StudentCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109AB0207A1C0800568785 /* StudentCollectionViewCell.m */; };
 		97109E0E207A6A1A00568785 /* StudentCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109AB1207A1C0800568785 /* StudentCollectionViewCell.xib */; };
-		97109E15207A6A9B00568785 /* MyClassService.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109E10207A6A9B00568785 /* MyClassService.m */; };
-		97109E16207A6A9B00568785 /* MyClassRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109E13207A6A9B00568785 /* MyClassRequest.m */; };
 		97109E8E207A7BDD00568785 /* AwardsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109E52207A7BDC00568785 /* AwardsRequest.m */; };
 		97109E8F207A7BDD00568785 /* AwardsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109E52207A7BDC00568785 /* AwardsRequest.m */; };
 		97109E90207A7BDD00568785 /* Award.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109E54207A7BDC00568785 /* Award.m */; };
@@ -3304,10 +3302,6 @@
 		97109E06207A682F00568785 /* MyClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyClassViewController.m; sourceTree = "<group>"; };
 		97109E07207A682F00568785 /* MyClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyClassViewController.h; sourceTree = "<group>"; };
 		97109E08207A682F00568785 /* MyClassViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyClassViewController.xib; sourceTree = "<group>"; };
-		97109E10207A6A9B00568785 /* MyClassService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyClassService.m; sourceTree = "<group>"; };
-		97109E12207A6A9B00568785 /* MyClassRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyClassRequest.h; sourceTree = "<group>"; };
-		97109E13207A6A9B00568785 /* MyClassRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyClassRequest.m; sourceTree = "<group>"; };
-		97109E14207A6A9B00568785 /* MyClassService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyClassService.h; sourceTree = "<group>"; };
 		97109E51207A7BDC00568785 /* AwardsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwardsRequest.h; sourceTree = "<group>"; };
 		97109E52207A7BDC00568785 /* AwardsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwardsRequest.m; sourceTree = "<group>"; };
 		97109E54207A7BDC00568785 /* Award.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Award.m; sourceTree = "<group>"; };
@@ -5550,31 +5544,11 @@
 		97109E05207A682F00568785 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
-				97109E0F207A6A9B00568785 /* Service */,
 				97109E07207A682F00568785 /* MyClassViewController.h */,
 				97109E06207A682F00568785 /* MyClassViewController.m */,
 				97109E08207A682F00568785 /* MyClassViewController.xib */,
 			);
 			path = MyClass;
-			sourceTree = "<group>";
-		};
-		97109E0F207A6A9B00568785 /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				97109E14207A6A9B00568785 /* MyClassService.h */,
-				97109E10207A6A9B00568785 /* MyClassService.m */,
-				97109E11207A6A9B00568785 /* Requests */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
-		97109E11207A6A9B00568785 /* Requests */ = {
-			isa = PBXGroup;
-			children = (
-				97109E12207A6A9B00568785 /* MyClassRequest.h */,
-				97109E13207A6A9B00568785 /* MyClassRequest.m */,
-			);
-			path = Requests;
 			sourceTree = "<group>";
 		};
 		97109E4F207A7BDC00568785 /* Common */ = {
@@ -8166,7 +8140,6 @@
 				97109D53207A2F0400568785 /* CommentMessagesRequest.m in Sources */,
 				87AF73072193D17F003E87F0 /* StudentDetailHeaderCell.m in Sources */,
 				97109D59207A2F0400568785 /* NoticeMessagesRequest.m in Sources */,
-				97109E15207A6A9B00568785 /* MyClassService.m in Sources */,
 				97109904207A0BF500568785 /* RecordButton.m in Sources */,
 				12EAC65F22B39D8C00F1F3DB /* EditAudioVideo.m in Sources */,
 				97364A0A20B1231E00511A95 /* StudentDetailViewController.m in Sources */,
@@ -8249,7 +8222,6 @@
 				97109918207A0BF600568785 /* CustomCollectionView.m in Sources */,
 				97109908207A0BF500568785 /* UIScrollView+Refresh.m in Sources */,
 				1229815022C5B55600C09750 /* SendWarnRequest.m in Sources */,
-				97109E16207A6A9B00568785 /* MyClassRequest.m in Sources */,
 				97109C22207A2E3E00568785 /* Comment.m in Sources */,
 				12CB73C422AC0DD60064FB21 /* MISutdentActDetailViewController.m in Sources */,
 				1229814422C5B40400C09750 /* StudentSelectorTableViewCell.m in Sources */,
