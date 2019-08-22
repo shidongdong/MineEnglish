@@ -25,12 +25,6 @@
 + (BaseRequest *)requestClassesWithNextUrl:(NSString *)nextUrl
                                   callback:(RequestCallback)callback;
 
-+ (BaseRequest *)requestClassHomeworksWithClassId:(NSUInteger)classId
-                                         callback:(RequestCallback)callback;
-
-+ (BaseRequest *)requestClassHomeworksWithNextUrl:(NSString *)nextUrl
-                                         callback:(RequestCallback)callback;
-
 + (BaseRequest *)createOrUpdateClass:(NSDictionary *)dict
                             callback:(RequestCallback)callback;
 

@@ -26,7 +26,7 @@
 @end
 
 
-#pragma mark - 2.5.7    试听课报名（学生端）
+#pragma mark - 2.5.8    试听课报名（学生端）
 @interface EnrollTrialClassRequest()
 
 @property (nonatomic, assign) NSInteger classId;

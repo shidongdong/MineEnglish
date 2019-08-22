@@ -6,15 +6,9 @@
 //  Copyright © 2018年 netease. All rights reserved.
 //
 
+#import "Clazz.h"
 #import "ClassService.h"
 #import "ClassesRequest.h"
-#import "CreateOrUpdateClassRequest.h"
-#import "HomeworksRequest.h"
-#import "DeleteClassRequest.h"
-#import "Clazz.h"
-#import "ClassRequest.h"
-#import "AddClassStudentRequest.h"
-#import "DeleteClassStudentRequest.h"
 
 @implementation ClassService
 
@@ -56,30 +50,6 @@
     
     request.objectKey = @"list";
     request.objectClassName = @"Clazz";
-    request.callback = callback;
-    [request start];
-    
-    return request;
-}
-
-+ (BaseRequest *)requestClassHomeworksWithClassId:(NSUInteger)classId
-                                         callback:(RequestCallback)callback {
-    HomeworksRequest *request = [[HomeworksRequest alloc] initWithClassId:classId];
-    
-    request.objectKey = @"list";
-    request.objectClassName = @"Homework";
-    request.callback = callback;
-    [request start];
-    
-    return request;
-}
-
-+ (BaseRequest *)requestClassHomeworksWithNextUrl:(NSString *)nextUrl
-                                         callback:(RequestCallback)callback {
-    HomeworksRequest *request = [[HomeworksRequest alloc] initWithNextUrl:nextUrl];
-    
-    request.objectKey = @"list";
-    request.objectClassName = @"Homework";
     request.callback = callback;
     [request start];
     
