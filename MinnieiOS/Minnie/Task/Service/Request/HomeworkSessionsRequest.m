@@ -57,8 +57,8 @@
     if (self.teacherId == 0) {
         
         return @{@"finished":@(self.finished),
-//                 @"pageNo":@(0),
-//                 @"pageNum":@(100)
+                 @"pageNo":@(0),
+                 @"pageNum":@(100)
                  };
     } else {
         return @{@"finished":@(self.finished),
@@ -388,8 +388,8 @@
     if (self.teacherId == 0) {
         return @{@"studentName":self.name,
                  @"finished":@(self.finished),
-//                 @"pageNo":@(0),
-//                 @"pageNum":@(100)
+                 @"pageNo":@(0),
+                 @"pageNum":@(100)
                  };
     } else {
         return @{@"studentName":self.name,
@@ -456,8 +456,8 @@
         
         return @{@"type":@(self.type),
                  @"finished":@(self.finished),
-//                 @"pageNo":@(0),
-//                 @"pageNum":@(100)
+                 @"pageNo":@(0),
+                 @"pageNum":@(100)
                  };
     } else {
         

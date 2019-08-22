@@ -45,16 +45,15 @@
 }
 
 + (BaseRequest *)requestNewClassesWithFinishState:(BOOL)finished
-                                          listAll:(BOOL)listAll
-                                           simple:(BOOL)simple
                                        campusName:(NSString *)campusName
                                          callback:(RequestCallback)callback {
-    NSInteger teacherId = 0;
-    if (!listAll) {
-        teacherId = APP.currentUser.userId;
-    }
+//    NSInteger teacherId = 0;
+//    if (!listAll) {
+//        teacherId = APP.currentUser.userId;
+//    }
     
-    ClassesRequest *request = [[ClassesRequest alloc] initWithFinishState:finished teacherId:teacherId simple:simple campusName:campusName];
+    NewClassesRequest *request = [[NewClassesRequest alloc] initWithFinishState:finished
+                                                                     campusName:campusName];
     
     request.objectKey = @"list";
     request.objectClassName = @"Clazz";

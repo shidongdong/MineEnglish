@@ -93,15 +93,11 @@
 @implementation NewClassesRequest
 
 - (instancetype)initWithFinishState:(BOOL)finished
-                          teacherId:(NSInteger)teacherId
-                             simple:(BOOL)simple
                          campusName:(NSString *)campusName
 {
     self = [super init];
     if (self != nil) {
         _finished = finished;
-        _simple = simple;
-        _teacherId = teacherId;
         _campusName = campusName;
     }
     
@@ -136,11 +132,11 @@
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     dict[@"finished"] = self.finished?@(1):@(0);
-    dict[@"simple"] = self.simple?@(1):@(0);
+//    dict[@"simple"] = self.simple?@(1):@(0);
     
-    if (self.teacherId > 0) {
-        dict[@"teacherId"] = @(self.teacherId);
-    }
+//    if (self.teacherId > 0) {
+//        dict[@"teacherId"] = @(self.teacherId);
+//    }
     if (self.campusName.length > 0) {
         dict[@"campusName"] = self.campusName;
     }

@@ -621,7 +621,7 @@
 @end
 
 
-#pragma mark - 上下线管理（ipad管理端）
+#pragma mark - 2.1.17    上下线管理（ipad）
 @interface OnlineStateRequest ()
 
 @property (nonatomic,assign) BOOL online;
@@ -653,6 +653,86 @@
 - (id)requestArgument {
     return @{@"isOnline":@(self.online),
              @"times":@(self.times)};
+}
+
+@end
+
+
+
+#pragma mark - 2.16.1    欢迎页上传（ipad管理端）
+@interface UpWelcomesRequest ()
+
+@property (nonatomic,strong) NSArray *imageUrls;
+@end
+
+
+@implementation UpWelcomesRequest
+
+
+- (instancetype)initWithImageUrls:(NSArray *)urls{
+    
+    self = [super init];
+    if (self != nil) {
+        self.imageUrls = urls;
+    }
+    return self;
+}
+
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodPOST;
+}
+
+
+- (NSString *)requestUrl {
+    return [NSString stringWithFormat:@"%@/first/upWelcomes", ServerProjectName];
+}
+
+- (id)requestArgument {
+    return @{@"urls":self.imageUrls,
+             @"type":@"ipad"};
+}
+
+@end
+
+
+#pragma mark - 2.16.2    返回欢迎页（学生端，ipad管理端）
+@interface GetWelcomesRequest ()
+
+//    0：    app：(android,ios)
+//    1：    ipad：(管理端)
+@property (nonatomic,assign) NSInteger type;
+
+@end
+
+
+@implementation GetWelcomesRequest
+
+- (instancetype)initWithType:(NSInteger)type{
+    
+    self = [super init];
+    if (self != nil) {
+        self.type = type;
+    }
+    return self;
+}
+
+
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+
+
+- (NSString *)requestUrl {
+    return [NSString stringWithFormat:@"%@/first/getWelcomes", ServerProjectName];
+}
+
+- (id)requestArgument {
+    
+    NSString *temType = @"app";
+    if (self.type == 1) {
+        temType = @"ipad";
+    }
+    return @{@"type":temType};
 }
 
 @end

@@ -11,6 +11,6 @@
 @interface ClassesViewController : BaseViewController
 
 @property (nonatomic, assign) BOOL isUnfinished; // 是否是进行中的
-@property (nonatomic, assign) BOOL isManageMode; // 是否在是管理页面，管理页面获取全部
+@property (nonatomic, assign) BOOL isManageMode; // 是否在是班级管理页面，管理页面获取全部
 
 @end

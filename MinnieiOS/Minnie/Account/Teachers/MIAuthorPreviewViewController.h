@@ -20,6 +20,8 @@ typedef void(^EidtPreviewAuthorCallBack)(NSArray *authorArray);
 
 @property (nonatomic, copy) EidtPreviewAuthorCallBack editCallBack;
 
+@property (nonatomic, assign) TeacherAuthority selectAuthority;
+
 @property (nonatomic, strong) NSArray *authorArray;
 
 @end

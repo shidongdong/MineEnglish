@@ -163,11 +163,29 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#pragma mark - 上下线管理（ipad管理端）
+#pragma mark - 2.1.17    上下线管理（ipad）
 @interface OnlineStateRequest : BaseRequest
 
 - (instancetype)initWithOnline:(BOOL)online
                          times:(NSInteger)times;
 
 @end
+
+
+
+#pragma mark - 2.16.1    欢迎页上传（ipad管理端）
+@interface UpWelcomesRequest: BaseRequest
+
+- (instancetype)initWithImageUrls:(NSArray *)urls;
+
+@end
+
+
+#pragma mark - 2.16.2    返回欢迎页（学生端，ipad管理端）
+@interface GetWelcomesRequest: BaseRequest
+
+- (instancetype)initWithType:(NSInteger)type;
+
+@end
+
 NS_ASSUME_NONNULL_END

@@ -244,11 +244,25 @@ UITableViewDataSource>
     }
 
     if (self.authorManagerType == MIAuthorManagerTeacherPreviewType) {// 教师任务查看
+        
+        NSMutableArray *tempTeachers = [NSMutableArray array];
         for (Teacher *teacher in array) {
+            
             BOOL isContent =[self.authorSet containsObject:@(teacher.userId)];
             teacher.canLookTasks = isContent;
+            
+            // 超级管理员列表为所有教师 管理员列表为所有普通教师
+            if (self.selectAuthority == TeacherAuthoritySuperManager) {
+                [tempTeachers addObject:teacher];
+            } else {
+               
+                if (teacher.authority !=  TeacherAuthoritySuperManager) {
+                    [tempTeachers addObject:teacher];
+                }
+            }
         }
-        self.teachers = array;
+        self.teachers = tempTeachers;
+        
     } else if (self.authorManagerType == MIAuthorManagerHomeworkPreviewType) {//作业查看
     
         for (FileInfo *file in array) {

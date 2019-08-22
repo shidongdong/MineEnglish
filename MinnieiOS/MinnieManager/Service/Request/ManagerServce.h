@@ -106,6 +106,17 @@ NS_ASSUME_NONNULL_BEGIN
 + (BaseRequest *)requestUpdateOnlineState:(BOOL)online
                                     times:(NSInteger)times
                            callback:(RequestCallback)callback;
+
+
+#pragma mark - 2.16.1    欢迎页上传（ipad管理端）
++ (BaseRequest *)uploadWelcomesWithImages:(NSArray *)images
+                        callback:(RequestCallback)callback;
+
+
+#pragma mark - 2.16.2    返回欢迎页（学生端，ipad管理端）
++ (BaseRequest *)getWelcomesImagesWithType:(NSInteger)type
+                                  callback:(RequestCallback)callback;
+
 @end
 
 

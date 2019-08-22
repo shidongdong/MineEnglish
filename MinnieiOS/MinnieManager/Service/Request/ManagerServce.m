@@ -231,4 +231,29 @@
     return request;
 }
 
+
+
+#pragma mark - 2.16.1    欢迎页上传（ipad管理端）
++ (BaseRequest *)uploadWelcomesWithImages:(NSArray *)images
+                        callback:(RequestCallback)callback{
+    
+    UpWelcomesRequest *request = [[UpWelcomesRequest alloc] initWithImageUrls:images];
+    [request setCallback:callback];
+    [request start];
+    return request;
+    
+}
+
+
+#pragma mark - 2.16.2    返回欢迎页（学生端，ipad管理端）
++ (BaseRequest *)getWelcomesImagesWithType:(NSInteger)type
+                                  callback:(RequestCallback)callback{
+    
+    GetWelcomesRequest *request = [[GetWelcomesRequest alloc] initWithType:type];
+    [request setCallback:callback];
+    request.objectKey = @"list";
+    [request start];
+    return request;
+}
+
 @end

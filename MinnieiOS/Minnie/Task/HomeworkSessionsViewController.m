@@ -226,7 +226,7 @@ MIActivityBannerViewDelegate
     // 设置查询选项，指定返回对话的最后一条消息
     conversation.option = AVIMConversationQueryOptionWithMessage;
     // 每条作业 homeworkSessionId唯一 限制查询数量，减少耗时
-    conversation.limit = 20;
+    conversation.limit = 100;
     [conversation findConversationsWithCallback:^(NSArray<AVIMConversation *> * _Nullable conversations, NSError * _Nullable error) {
         
         dispatch_async(dispatch_get_main_queue(), ^{

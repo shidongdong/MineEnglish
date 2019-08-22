@@ -134,9 +134,17 @@
 
     WeakifySelf;
     Teacher *teacher = APP.currentUser;
+    BOOL isAll = NO;
+    if (teacher.authority == TeacherAuthoritySuperManager) {
+        
+        isAll = YES;
+    } else {
+        
+        // 超级管理员 显示所有班级   管理员、普通教师：显示所有可见普通教师的班级
+        
+    }
+ 
     self.classesRequest = [ClassService requestNewClassesWithFinishState:self.isUnfinished?0:1
-                                                              listAll:self.isManageMode||teacher.authority==TeacherAuthoritySuperManager
-                                                               simple:NO
                                                            campusName:nil
                                                              callback:^(Result *result, NSError *error) {
                                                                  StrongifySelf;

@@ -201,7 +201,7 @@ UICollectionViewDelegateFlowLayout>
         }
     }
     homeworkSession.homework.cellHeight = height;
-    
+    NSLog(@"homeworkSession:%f  \n %@",height,homeworkSession.homework);
     return homeworkSession.homework.cellHeight;
 }
 

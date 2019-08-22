@@ -26,8 +26,6 @@
 @interface NewClassesRequest : BaseRequest
 
 - (instancetype)initWithFinishState:(BOOL)finished
-                          teacherId:(NSInteger)teacherId
-                             simple:(BOOL)simple
                          campusName:(NSString *)campusName;
 
 - (instancetype)initWithNextUrl:(NSString *)nextUrl;

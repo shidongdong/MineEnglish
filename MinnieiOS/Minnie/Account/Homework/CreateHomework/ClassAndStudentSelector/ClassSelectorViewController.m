@@ -68,8 +68,6 @@
     
     WeakifySelf;
     self.classesRequest = [ClassService requestNewClassesWithFinishState:0
-                                                              listAll:YES
-                                                               simple:YES
                                                            campusName:nil
                                                              callback:^(Result *result, NSError *error) {
                                                                  StrongifySelf;

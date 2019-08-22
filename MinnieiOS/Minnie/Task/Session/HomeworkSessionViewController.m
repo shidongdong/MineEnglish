@@ -254,6 +254,7 @@ HomeworkAnswersPickerViewControllerDelegate>
     }
     
     APP.currentIMHomeworkSessionId = self.homeworkSession.homeworkSessionId;
+    [self requestHomeworkDetail];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -2273,6 +2274,22 @@ HomeworkAnswersPickerViewControllerDelegate>
 {
     [self sendTextMessage:self.inputTextView.text];
 }
+
+- (void)requestHomeworkDetail{
+   // 获取作业内容作业
+    [HomeworkSessionService requestHomeworkSessionWithId:self.homeworkSession.homeworkSessionId callback:^(Result *result, NSError *error) {
+        
+        HomeworkSession *session = (HomeworkSession *)(result.userInfo);
+        if (session) {
+           
+            self.homeworkSession.homework = session.homework;
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+            [self.messagesTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+        }
+    }];
+}
+
+#pragma mark -
 
 - (void)studentName{
     

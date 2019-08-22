@@ -27,8 +27,6 @@
 
 #pragma mark - 2.5.2    获取班级列表new
 + (BaseRequest *)requestNewClassesWithFinishState:(BOOL)finished
-                                          listAll:(BOOL)listAll
-                                           simple:(BOOL)simple
                                        campusName:(NSString *)campusName
                                          callback:(RequestCallback)callback;
 

@@ -69,8 +69,6 @@ UITableViewDelegate
     }
     WeakifySelf;
     [ClassService requestNewClassesWithFinishState:0
-                                       listAll:YES
-                                         simple:NO
                                      campusName:self.campusInfo.campusName
                                        callback:^(Result *result, NSError *error) {
                                            StrongifySelf;

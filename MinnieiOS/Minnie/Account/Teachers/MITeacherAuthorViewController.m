@@ -40,6 +40,7 @@ UITableViewDataSource>
 @property (strong, nonatomic) Teacher *tempTeacher;
 
 
+// 可查看教师列表 超级管理员：默认可查看全部教师  管理员:默认不可查看
 @property (strong, nonatomic) NSMutableArray *lookTeachers;
 @property (strong, nonatomic) NSMutableArray *lookHomeworks;
 @property (strong, nonatomic) NSMutableArray *lookClasses;
@@ -546,6 +547,7 @@ UITableViewDataSource>
     
     MIAuthorPreviewViewController *authorPreviewVC = [[MIAuthorPreviewViewController alloc] initWithNibName:NSStringFromClass([MIAuthorPreviewViewController class]) bundle:nil];
     authorPreviewVC.authorManagerType = authorType;
+    authorPreviewVC.selectAuthority = self.tempTeacher.authority;
     
     if (authorType == MIAuthorManagerTeacherPreviewType) {// 教师任务查看
         
@@ -779,7 +781,24 @@ UITableViewDataSource>
 
 - (void)resetAutohrState {
     
-    if (self.tempTeacher.authority == TeacherAuthoritySuperManager) {
+    // 未修改权限
+    if (self.tempTeacher.authority == self.teacher.authority) {
+        
+        self.tempTeacher.canManageTeachers = self.teacher.canManageTeachers;
+        self.tempTeacher.canLookTeachers = self.teacher.canLookTeachers;
+        self.tempTeacher.canManageHomeworks = self.teacher.canManageHomeworks;
+        self.tempTeacher.canLookHomeworks = self.teacher.canLookHomeworks;
+        self.tempTeacher.canManageActivity = self.teacher.canManageActivity;
+        
+        self.tempTeacher.canManageCampus = self.teacher.canManageCampus;
+        self.tempTeacher.canLookClasses = self.teacher.canLookClasses;
+        self.tempTeacher.canManageStudents = self.teacher.canManageStudents;
+        self.tempTeacher.canLookStudents = self.teacher.canLookStudents;
+        
+        self.tempTeacher.canManagePresents = self.teacher.canManagePresents;
+        self.tempTeacher.canExchangeRewards = self.teacher.canExchangeRewards;
+        self.tempTeacher.canCreateNoticeMessage = self.teacher.canCreateNoticeMessage;
+    } else if (self.tempTeacher.authority == TeacherAuthoritySuperManager) {
       
         self.tempTeacher.canManageTeachers = YES;
         self.tempTeacher.canLookTeachers = self.lookTeachers;
@@ -800,7 +819,7 @@ UITableViewDataSource>
     } else if (self.tempTeacher.authority == TeacherAuthorityManager) {
         
         self.tempTeacher.canManageTeachers = self.teacher.canManageTeachers;
-        self.tempTeacher.canLookTeachers = self.teacher.canLookTeachers;
+        self.tempTeacher.canLookTeachers = @[];
         self.tempTeacher.canManageHomeworks = self.teacher.canManageHomeworks;
         self.tempTeacher.canLookHomeworks = self.teacher.canLookHomeworks;
         self.tempTeacher.canManageActivity = self.teacher.canManageActivity;
@@ -816,15 +835,15 @@ UITableViewDataSource>
     } else {
       
         self.tempTeacher.canManageTeachers = NO;
-        self.tempTeacher.canLookTeachers = self.teacher.canLookTeachers;
+        self.tempTeacher.canLookTeachers = @[];
         self.tempTeacher.canManageHomeworks = NO;
         self.tempTeacher.canLookHomeworks =  self.teacher.canLookHomeworks;
         self.tempTeacher.canManageActivity = NO;
         
         self.tempTeacher.canManageCampus = NO;
-        self.tempTeacher.canLookClasses =  self.teacher.canLookClasses;
+        self.tempTeacher.canLookClasses =  @[];
         self.tempTeacher.canManageStudents = NO;
-        self.tempTeacher.canLookStudents =  self.teacher.canLookStudents;
+        self.tempTeacher.canLookStudents =  @[];
         
         self.tempTeacher.canManagePresents = NO;
         self.tempTeacher.canExchangeRewards = NO;
@@ -847,7 +866,7 @@ UITableViewDataSource>
         for (Teacher *teacher in array) {
             [self.lookTeachers addObject:@(teacher.userId)];
         }
-        self.tempTeacher.canLookTeachers = self.lookTeachers;
+        [self resetAutohrState];
     }];
 }
 
@@ -867,7 +886,7 @@ UITableViewDataSource>
         for (FileInfo *file in array) {
             [self.lookHomeworks addObject:@(file.fileId)];
         }
-        self.tempTeacher.canLookHomeworks = self.lookHomeworks;
+        [self resetAutohrState];
     }];
 }
 
@@ -888,15 +907,12 @@ UITableViewDataSource>
         } else {
             [self.lookStudents removeAllObjects];
         }
-        
         for (Clazz *clazz in array) {
             [self.lookClasses addObject:@(clazz.classId)];
             [self.lookStudents addObject:@(clazz.classId)];
         }
-        self.tempTeacher.canLookClasses = self.lookClasses;
-        self.tempTeacher.canLookStudents = self.lookStudents;
+        [self resetAutohrState];
     }];
 }
-
 
 @end
