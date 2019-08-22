@@ -73,12 +73,14 @@ UICollectionViewDelegateFlowLayout>
             break;
         }
     }
-    
-    NSMutableAttributedString * mAttribute = [[NSMutableAttributedString alloc] initWithString:text];
-    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
-    paragraphStyle.lineSpacing = 5;
-    [mAttribute addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, text.length)];
-    self.homeworkTextLabel.attributedText = mAttribute;
+    if (text.length > 0) {
+       
+        NSMutableAttributedString * mAttribute = [[NSMutableAttributedString alloc] initWithString:text];
+        NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+        paragraphStyle.lineSpacing = 5;
+        [mAttribute addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, text.length)];
+        self.homeworkTextLabel.attributedText = mAttribute;
+    }
     
     // 批改备注 (仅教师端显示)
     NSString *teremark = @"";
@@ -91,6 +93,8 @@ UICollectionViewDelegateFlowLayout>
     if (teremark.length) {
  
         NSMutableAttributedString * teremarkAtt = [[NSMutableAttributedString alloc] initWithString:teremark];
+        NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+        paragraphStyle.lineSpacing = 5;
         [teremarkAtt addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, teremark.length)];
         self.teremarkLabel.attributedText = teremarkAtt;
     }
@@ -162,11 +166,14 @@ UICollectionViewDelegateFlowLayout>
             break;
         }
     }
-    NSMutableAttributedString * mAttribute = [[NSMutableAttributedString alloc] initWithString:text];
-    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
-    paragraphStyle.lineSpacing = 5;
-    [mAttribute addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, text.length)];
-    cell.homeworkTextLabel.attributedText = mAttribute;
+    if (text.length > 0) {
+        
+        NSMutableAttributedString * mAttribute = [[NSMutableAttributedString alloc] initWithString:text];
+        NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+        paragraphStyle.lineSpacing = 5;
+        [mAttribute addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, text.length)];
+        cell.homeworkTextLabel.attributedText = mAttribute;
+    }
     
     
     // 批改备注
@@ -180,6 +187,8 @@ UICollectionViewDelegateFlowLayout>
     if (teremark.length) {
      
         NSMutableAttributedString * teremarkAtt = [[NSMutableAttributedString alloc] initWithString:teremark];
+        NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+        paragraphStyle.lineSpacing = 5;
         [teremarkAtt addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, teremark.length)];
         cell.teremarkLabel.attributedText = teremarkAtt;
     }
