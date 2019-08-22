@@ -12,6 +12,24 @@
 #import "Result.h"
 #import <Mantle/Mantle.h>
 #import "StudentLabelRequest.h"
+
+
+#pragma mark -
+#pragma mark - 2.1.10    星星排行榜
+@implementation StudentStarRankRequest
+
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+
+- (NSString *)requestUrl {
+    return [NSString stringWithFormat:@"%@/user/getStarRank", ServerProjectName];
+}
+
+
+@end
+
+
 #pragma mark -
 #pragma mark - 图形标注（教师端）
 

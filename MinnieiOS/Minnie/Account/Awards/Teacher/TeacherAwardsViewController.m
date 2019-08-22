@@ -11,7 +11,7 @@
 #import "TeacherAwardCollectionViewCell.h"
 #import "Award.h"
 #import "ExchangeAwardView.h"
-#import "TeacherAwardService.h"
+#import "AwardsService.h"
 #import "UIScrollView+Refresh.h"
 #import "ProgressHUD.h"
 
@@ -143,7 +143,7 @@
 //    [self.awardsCollectionContainerView showLoadingView];
     
     WeakifySelf;
-    self.awardsRequest = [TeacherAwardService requestAwardsWithCallback:^(Result *result, NSError *error) {
+    self.awardsRequest = [AwardsService requestAwardsWithCallback:^(Result *result, NSError *error) {
         StrongifySelf;
         [weakSelf.awardsCollectionView headerEndRefreshing];
         strongSelf.awardsRequest = nil;

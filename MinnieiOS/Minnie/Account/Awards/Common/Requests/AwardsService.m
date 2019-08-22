@@ -1,19 +1,15 @@
 //
-//  AwardService.m
-//  X5
+//  AwardsService.m
+//  Minnie
 //
-//  Created by yebw on 2017/10/19.
-//  Copyright © 2017年 mfox. All rights reserved.
+//  Created by songzhen on 2019/8/22.
+//  Copyright © 2019 minnieedu. All rights reserved.
 //
 
-#import "TeacherAwardService.h"
 #import "AwardsRequest.h"
-#import "GiveAwardRequest.h"
-#import "ExchangeRequestsRequest.h"
-#import "AddAwardRequest.h"
-#import "UnexchangedRequestCountRequest.h"
+#import "AwardsService.h"
 
-@implementation TeacherAwardService
+@implementation AwardsService
 
 + (BaseRequest *)requestAwardsWithCallback:(RequestCallback)callback {
     AwardsRequest *request = [[AwardsRequest alloc] init];
@@ -38,9 +34,21 @@
     return request;
 }
 
+
++ (BaseRequest *)exchangeAwardWithId:(NSUInteger)awardId callback:(RequestCallback)callback {
+    ExchangeAwardRequest *request = [[ExchangeAwardRequest alloc] initWithId:awardId];
+    
+    [request setCallback:callback];
+    [request start];
+    
+    return request;
+}
+
+
+
 + (BaseRequest *)giveAwardWithId:(NSUInteger)requestId callback:(RequestCallback)callback {
     GiveAwardRequest *request = [[GiveAwardRequest alloc] initWithId:requestId];
-
+    
     [request setCallback:callback];
     [request start];
     
@@ -48,20 +56,34 @@
 }
 
 + (BaseRequest *)requestExchangeRequestsWithState:(BOOL)exchanged
-                                        callback:(RequestCallback)callback {
+                                         callback:(RequestCallback)callback {
     ExchangeRequestsRequest *request = [[ExchangeRequestsRequest alloc] initWithExchangeState:(exchanged?1:0)];
     
     request.objectKey = @"list";
     request.objectClassName = @"ExchangeRecord";
-
+    
     [request setCallback:callback];
     [request start];
     
     return request;
 }
 
++ (BaseRequest *)requestExchangeRecordsWithCallback:(RequestCallback)callback {
+   
+    ExchangeRecordsStudentRequest *request = [[ExchangeRecordsStudentRequest alloc] init];
+    
+    request.objectKey = @"list";
+    request.objectClassName = @"ExchangeRecord";
+    
+    [request setCallback:callback];
+    [request start];
+    
+    return request;
+}
+
+
 + (BaseRequest *)requestExchangeRequestsWithMoreUrl:(NSString *)moreUrl
-                                          callback:(RequestCallback)callback {
+                                           callback:(RequestCallback)callback {
     ExchangeRequestsRequest *request = [[ExchangeRequestsRequest alloc] initWithNextUrl:moreUrl];
     
     request.objectKey = @"list";
@@ -93,5 +115,5 @@
     return request;
 }
 
-@end
 
+@end

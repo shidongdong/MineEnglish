@@ -17,9 +17,6 @@
 
 + (BaseRequest *)requestAwardsWithCallback:(RequestCallback)callback;
 
-+ (BaseRequest *)exchangeAwardWithId:(NSUInteger)award callback:(RequestCallback)callback;
-
-+ (BaseRequest *)requestExchangeRecordsWithCallback:(RequestCallback)callback;
 
 //获取星星排行榜 
 + (BaseRequest *)requestStudentStarRankListWithCallback:(RequestCallback)callback;

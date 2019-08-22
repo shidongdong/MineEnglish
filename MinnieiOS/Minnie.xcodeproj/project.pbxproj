@@ -216,17 +216,12 @@
 		12747C0322A7CEDD009C390E /* CorrectHomeworkCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 876D981821D0DBF100A0E06E /* CorrectHomeworkCommentTableViewCell.m */; };
 		12747C0422A7CEE0009C390E /* CorrectHomeworkCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 876D981921D0DBF100A0E06E /* CorrectHomeworkCommentTableViewCell.xib */; };
 		12747C0522A7CEF0009C390E /* StudentAwardService.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EC5207A7C1600568785 /* StudentAwardService.m */; };
-		12747C0622A7CF2D009C390E /* AddAwardRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EA2207A7C0A00568785 /* AddAwardRequest.m */; };
-		12747C0722A7CF2F009C390E /* GiveAwardRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EA3207A7C0A00568785 /* GiveAwardRequest.m */; };
 		12747C0822A7CF42009C390E /* AnswerPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8770A2902233BD93005733E4 /* AnswerPickerCell.m */; };
 		12747C0922A7CF53009C390E /* AnswerPickerAudioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8770A29822360F84005733E4 /* AnswerPickerAudioCell.xib */; };
 		12747C0A22A7CF69009C390E /* StudentLabelRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1923CB182283C0750056B2AD /* StudentLabelRequest.m */; };
 		12747C0B22A7CF7C009C390E /* StudentRemarkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12B9B646228AE40600D8F277 /* StudentRemarkTableViewCell.m */; };
 		12747C0C22A7CF80009C390E /* StudentRemarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12B9B647228AE40600D8F277 /* StudentRemarkTableViewCell.xib */; };
 		12747C0D22A7CFB2009C390E /* StarLogs.m in Sources */ = {isa = PBXBuildFile; fileRef = 1923CB1D2283E6620056B2AD /* StarLogs.m */; };
-		12747C0E22A7CFBF009C390E /* StudentStarRankRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8702867A2182FE2C00559195 /* StudentStarRankRequest.m */; };
-		12747C0F22A7CFDA009C390E /* ExchangeRecordsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EC8207A7C1600568785 /* ExchangeRecordsRequest.m */; };
-		12747C1022A7D004009C390E /* ExchangeAwardRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EC9207A7C1600568785 /* ExchangeAwardRequest.m */; };
 		12747C1122A7D02E009C390E /* AwardsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109E52207A7BDC00568785 /* AwardsRequest.m */; };
 		12747C1222A7D043009C390E /* CorrectHomeworkScoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 876D981121D0DBAC00A0E06E /* CorrectHomeworkScoreTableViewCell.m */; };
 		12747C1322A7D047009C390E /* CorrectHomeworkScoreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 876D981221D0DBAC00A0E06E /* CorrectHomeworkScoreTableViewCell.xib */; };
@@ -397,13 +392,10 @@
 		128F133422CDD6C500C9F5B7 /* EwenCopyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8709C32921A53BD400970757 /* EwenCopyLabel.m */; };
 		128F135722D3348E00C9F5B7 /* TeacherAwardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109E9A207A7C0A00568785 /* TeacherAwardsViewController.m */; };
 		128F135922D3349900C9F5B7 /* TeacherAwardsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109EAD207A7C0A00568785 /* TeacherAwardsViewController.xib */; };
-		128F135A22D334BA00C9F5B7 /* TeacherAwardService.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109E9C207A7C0A00568785 /* TeacherAwardService.m */; };
 		128F135B22D334C100C9F5B7 /* TeacherAwardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EAC207A7C0A00568785 /* TeacherAwardCollectionViewCell.m */; };
 		128F135C22D334C600C9F5B7 /* TeacherAwardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109EAB207A7C0A00568785 /* TeacherAwardCollectionViewCell.xib */; };
 		128F135D22D334DB00C9F5B7 /* CreateAwardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109E99207A7C0A00568785 /* CreateAwardViewController.m */; };
 		128F135E22D334E000C9F5B7 /* CreateAwardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109E95207A7C0A00568785 /* CreateAwardViewController.xib */; };
-		128F135F22D334F900C9F5B7 /* UnexchangedRequestCountRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97364A1D20B170FE00511A95 /* UnexchangedRequestCountRequest.m */; };
-		128F136022D3350E00C9F5B7 /* ExchangeRequestsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109E9E207A7C0A00568785 /* ExchangeRequestsRequest.m */; };
 		128F136122D3365B00C9F5B7 /* add_image_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109639207A006D00568785 /* add_image_bg@3x.png */; };
 		128F136222D3365E00C9F5B7 /* add_image_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97109637207A006D00568785 /* add_image_bg@2x.png */; };
 		128F136322D33B2D00C9F5B7 /* MIScoreListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 123042F722A1334000E111A4 /* MIScoreListViewController.m */; };
@@ -722,6 +714,9 @@
 		12E0796F230D423B0054A8CE /* AuthRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0796C230D422D0054A8CE /* AuthRequest.m */; };
 		12E07972230D47FD0054A8CE /* CircleRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E07971230D47FD0054A8CE /* CircleRequest.m */; };
 		12E07973230D480B0054A8CE /* CircleRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E07971230D47FD0054A8CE /* CircleRequest.m */; };
+		12E0797F230E2C0C0054A8CE /* AwardsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0797E230E2C0C0054A8CE /* AwardsService.m */; };
+		12E07980230E2C0C0054A8CE /* AwardsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0797E230E2C0C0054A8CE /* AwardsService.m */; };
+		12E07981230E2C0C0054A8CE /* AwardsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0797E230E2C0C0054A8CE /* AwardsService.m */; };
 		12EAC63422AD405E00F1F3DB /* MISutdentActDetailViewController.m in Resources */ = {isa = PBXBuildFile; fileRef = 12CB73C222AC0DD60064FB21 /* MISutdentActDetailViewController.m */; };
 		12EAC63522AD40A000F1F3DB /* MIStuActDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 122F798A22ACB02B00D2AA53 /* MIStuActDetailHeaderView.m */; };
 		12EAC63922AD4BF400F1F3DB /* MIReadingTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC63722AD4BF300F1F3DB /* MIReadingTaskViewController.m */; };
@@ -908,8 +903,6 @@
 		870286762182F06C00559195 /* StudentStarListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 870286732182F06C00559195 /* StudentStarListTableViewCell.m */; };
 		870286772182F06C00559195 /* StudentStarListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 870286742182F06C00559195 /* StudentStarListTableViewCell.xib */; };
 		870286782182F06C00559195 /* StudentStarListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 870286742182F06C00559195 /* StudentStarListTableViewCell.xib */; };
-		8702867B2182FE2C00559195 /* StudentStarRankRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8702867A2182FE2C00559195 /* StudentStarRankRequest.m */; };
-		8702867C2182FE2C00559195 /* StudentStarRankRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8702867A2182FE2C00559195 /* StudentStarRankRequest.m */; };
 		8702867F2182FF0800559195 /* StarRank.m in Sources */ = {isa = PBXBuildFile; fileRef = 8702867E2182FF0800559195 /* StarRank.m */; };
 		870286802182FF0800559195 /* StarRank.m in Sources */ = {isa = PBXBuildFile; fileRef = 8702867E2182FF0800559195 /* StarRank.m */; };
 		870286832184100200559195 /* navbar_medal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8702868121840FFF00559195 /* navbar_medal@2x.png */; };
@@ -1173,8 +1166,6 @@
 		87C52FB82164AC62004288F4 /* WBGImageEditorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87C52FAB2164AC47004288F4 /* WBGImageEditorViewController.xib */; };
 		87C52FB92164ACAF004288F4 /* WBGDrawTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 87C52FA82164AC3E004288F4 /* WBGDrawTool.m */; };
 		87CF0348218818FD00B6F574 /* StudentAwardService.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EC5207A7C1600568785 /* StudentAwardService.m */; };
-		87CF03492188191800B6F574 /* ExchangeRecordsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EC8207A7C1600568785 /* ExchangeRecordsRequest.m */; };
-		87CF034A2188193100B6F574 /* ExchangeAwardRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EC9207A7C1600568785 /* ExchangeAwardRequest.m */; };
 		87EED4A4219443E400AEA974 /* ChooseDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EED4A1219443E200AEA974 /* ChooseDatePickerView.m */; };
 		87EED4A5219443E400AEA974 /* ChooseDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EED4A1219443E200AEA974 /* ChooseDatePickerView.m */; };
 		87EED4A6219443E400AEA974 /* ChooseDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87EED4A2219443E200AEA974 /* ChooseDatePickerView.xib */; };
@@ -2041,10 +2032,6 @@
 		97109EB1207A7C0A00568785 /* ExchangeRequestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109E98207A7C0A00568785 /* ExchangeRequestsViewController.xib */; };
 		97109EB2207A7C0A00568785 /* CreateAwardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109E99207A7C0A00568785 /* CreateAwardViewController.m */; };
 		97109EB3207A7C0A00568785 /* TeacherAwardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109E9A207A7C0A00568785 /* TeacherAwardsViewController.m */; };
-		97109EB4207A7C0A00568785 /* TeacherAwardService.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109E9C207A7C0A00568785 /* TeacherAwardService.m */; };
-		97109EB5207A7C0A00568785 /* ExchangeRequestsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109E9E207A7C0A00568785 /* ExchangeRequestsRequest.m */; };
-		97109EB6207A7C0A00568785 /* AddAwardRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EA2207A7C0A00568785 /* AddAwardRequest.m */; };
-		97109EB7207A7C0A00568785 /* GiveAwardRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EA3207A7C0A00568785 /* GiveAwardRequest.m */; };
 		97109EB8207A7C0A00568785 /* ExchangeRequestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109EA9207A7C0A00568785 /* ExchangeRequestTableViewCell.xib */; };
 		97109EB9207A7C0A00568785 /* ExchangeRequestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EAA207A7C0A00568785 /* ExchangeRequestTableViewCell.m */; };
 		97109EBA207A7C0A00568785 /* TeacherAwardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109EAB207A7C0A00568785 /* TeacherAwardCollectionViewCell.xib */; };
@@ -2055,8 +2042,6 @@
 		97109ED8207A7C1600568785 /* ExchangeRecordsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109EC0207A7C1600568785 /* ExchangeRecordsViewController.xib */; };
 		97109ED9207A7C1600568785 /* ExchangeRecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EC1207A7C1600568785 /* ExchangeRecordsViewController.m */; };
 		97109EDA207A7C1600568785 /* StudentAwardService.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EC5207A7C1600568785 /* StudentAwardService.m */; };
-		97109EDB207A7C1600568785 /* ExchangeRecordsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EC8207A7C1600568785 /* ExchangeRecordsRequest.m */; };
-		97109EDC207A7C1600568785 /* ExchangeAwardRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109EC9207A7C1600568785 /* ExchangeAwardRequest.m */; };
 		97109EDD207A7C1600568785 /* ExchangeAwardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109ECD207A7C1600568785 /* ExchangeAwardView.xib */; };
 		97109EDE207A7C1600568785 /* ExchangeRecordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109ECF207A7C1600568785 /* ExchangeRecordTableViewCell.m */; };
 		97109EDF207A7C1600568785 /* StudentAwardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109ED1207A7C1600568785 /* StudentAwardCollectionViewCell.xib */; };
@@ -2138,7 +2123,6 @@
 		97364A1720B16C0B00511A95 /* NetworkStateErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97364A1520B16C0B00511A95 /* NetworkStateErrorView.xib */; };
 		97364A1A20B1704900511A95 /* MessageUpdateCountRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97364A1920B1704900511A95 /* MessageUpdateCountRequest.m */; };
 		97364A1B20B1704900511A95 /* MessageUpdateCountRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97364A1920B1704900511A95 /* MessageUpdateCountRequest.m */; };
-		97364A1E20B170FE00511A95 /* UnexchangedRequestCountRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97364A1D20B170FE00511A95 /* UnexchangedRequestCountRequest.m */; };
 		97567DDC20B86B2A00AA0EB8 /* UpdateTaskModifiedTimeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97567DDA20B86B2A00AA0EB8 /* UpdateTaskModifiedTimeRequest.m */; };
 		97567DDD20B86C6900AA0EB8 /* UpdateTaskModifiedTimeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97567DDA20B86B2A00AA0EB8 /* UpdateTaskModifiedTimeRequest.m */; };
 		97567DE220BAC9EA00AA0EB8 /* TeacherClassesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97567DE020BAC9EA00AA0EB8 /* TeacherClassesViewController.xib */; };
@@ -2377,6 +2361,8 @@
 		12E0796C230D422D0054A8CE /* AuthRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AuthRequest.m; path = Requests/AuthRequest.m; sourceTree = "<group>"; };
 		12E07970230D47FD0054A8CE /* CircleRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircleRequest.h; sourceTree = "<group>"; };
 		12E07971230D47FD0054A8CE /* CircleRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircleRequest.m; sourceTree = "<group>"; };
+		12E0797D230E2C0C0054A8CE /* AwardsService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AwardsService.h; path = Requests/AwardsService.h; sourceTree = "<group>"; };
+		12E0797E230E2C0C0054A8CE /* AwardsService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AwardsService.m; path = Requests/AwardsService.m; sourceTree = "<group>"; };
 		12EAC63622AD4BF300F1F3DB /* MIReadingTaskViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIReadingTaskViewController.h; sourceTree = "<group>"; };
 		12EAC63722AD4BF300F1F3DB /* MIReadingTaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MIReadingTaskViewController.m; sourceTree = "<group>"; };
 		12EAC63822AD4BF400F1F3DB /* MIReadingTaskViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MIReadingTaskViewController.xib; sourceTree = "<group>"; };
@@ -2466,8 +2452,6 @@
 		870286722182F06C00559195 /* StudentStarListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudentStarListTableViewCell.h; sourceTree = "<group>"; };
 		870286732182F06C00559195 /* StudentStarListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudentStarListTableViewCell.m; sourceTree = "<group>"; };
 		870286742182F06C00559195 /* StudentStarListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StudentStarListTableViewCell.xib; sourceTree = "<group>"; };
-		870286792182FE2C00559195 /* StudentStarRankRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudentStarRankRequest.h; sourceTree = "<group>"; };
-		8702867A2182FE2C00559195 /* StudentStarRankRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudentStarRankRequest.m; sourceTree = "<group>"; };
 		8702867D2182FF0800559195 /* StarRank.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StarRank.h; sourceTree = "<group>"; };
 		8702867E2182FF0800559195 /* StarRank.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StarRank.m; sourceTree = "<group>"; };
 		8702868121840FFF00559195 /* navbar_medal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar_medal@2x.png"; sourceTree = "<group>"; };
@@ -3302,8 +3286,8 @@
 		97109E06207A682F00568785 /* MyClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyClassViewController.m; sourceTree = "<group>"; };
 		97109E07207A682F00568785 /* MyClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyClassViewController.h; sourceTree = "<group>"; };
 		97109E08207A682F00568785 /* MyClassViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyClassViewController.xib; sourceTree = "<group>"; };
-		97109E51207A7BDC00568785 /* AwardsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwardsRequest.h; sourceTree = "<group>"; };
-		97109E52207A7BDC00568785 /* AwardsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwardsRequest.m; sourceTree = "<group>"; };
+		97109E51207A7BDC00568785 /* AwardsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AwardsRequest.h; path = Requests/AwardsRequest.h; sourceTree = "<group>"; };
+		97109E52207A7BDC00568785 /* AwardsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AwardsRequest.m; path = Requests/AwardsRequest.m; sourceTree = "<group>"; };
 		97109E54207A7BDC00568785 /* Award.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Award.m; sourceTree = "<group>"; };
 		97109E55207A7BDC00568785 /* ExchangeRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeRecord.h; sourceTree = "<group>"; };
 		97109E56207A7BDC00568785 /* ExchangeRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeRecord.m; sourceTree = "<group>"; };
@@ -3314,14 +3298,6 @@
 		97109E98207A7C0A00568785 /* ExchangeRequestsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExchangeRequestsViewController.xib; sourceTree = "<group>"; };
 		97109E99207A7C0A00568785 /* CreateAwardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateAwardViewController.m; sourceTree = "<group>"; };
 		97109E9A207A7C0A00568785 /* TeacherAwardsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeacherAwardsViewController.m; sourceTree = "<group>"; };
-		97109E9C207A7C0A00568785 /* TeacherAwardService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeacherAwardService.m; sourceTree = "<group>"; };
-		97109E9E207A7C0A00568785 /* ExchangeRequestsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeRequestsRequest.m; sourceTree = "<group>"; };
-		97109E9F207A7C0A00568785 /* GiveAwardRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GiveAwardRequest.h; sourceTree = "<group>"; };
-		97109EA0207A7C0A00568785 /* AddAwardRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAwardRequest.h; sourceTree = "<group>"; };
-		97109EA1207A7C0A00568785 /* ExchangeRequestsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeRequestsRequest.h; sourceTree = "<group>"; };
-		97109EA2207A7C0A00568785 /* AddAwardRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAwardRequest.m; sourceTree = "<group>"; };
-		97109EA3207A7C0A00568785 /* GiveAwardRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiveAwardRequest.m; sourceTree = "<group>"; };
-		97109EA4207A7C0A00568785 /* TeacherAwardService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeacherAwardService.h; sourceTree = "<group>"; };
 		97109EA5207A7C0A00568785 /* ExchangeRequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeRequestsViewController.h; sourceTree = "<group>"; };
 		97109EA7207A7C0A00568785 /* ExchangeRequestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeRequestTableViewCell.h; sourceTree = "<group>"; };
 		97109EA8207A7C0A00568785 /* TeacherAwardCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeacherAwardCollectionViewCell.h; sourceTree = "<group>"; };
@@ -3338,10 +3314,6 @@
 		97109EC2207A7C1600568785 /* StudentAwardsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentAwardsViewController.h; sourceTree = "<group>"; };
 		97109EC3207A7C1600568785 /* ExchangeRecordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeRecordsViewController.h; sourceTree = "<group>"; };
 		97109EC5207A7C1600568785 /* StudentAwardService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentAwardService.m; sourceTree = "<group>"; };
-		97109EC7207A7C1600568785 /* ExchangeAwardRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeAwardRequest.h; sourceTree = "<group>"; };
-		97109EC8207A7C1600568785 /* ExchangeRecordsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeRecordsRequest.m; sourceTree = "<group>"; };
-		97109EC9207A7C1600568785 /* ExchangeAwardRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeAwardRequest.m; sourceTree = "<group>"; };
-		97109ECA207A7C1600568785 /* ExchangeRecordsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeRecordsRequest.h; sourceTree = "<group>"; };
 		97109ECB207A7C1600568785 /* StudentAwardService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentAwardService.h; sourceTree = "<group>"; };
 		97109ECD207A7C1600568785 /* ExchangeAwardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExchangeAwardView.xib; sourceTree = "<group>"; };
 		97109ECE207A7C1600568785 /* ExchangeAwardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeAwardView.h; sourceTree = "<group>"; };
@@ -3462,8 +3434,6 @@
 		97364A1520B16C0B00511A95 /* NetworkStateErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NetworkStateErrorView.xib; sourceTree = "<group>"; };
 		97364A1820B1704900511A95 /* MessageUpdateCountRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageUpdateCountRequest.h; sourceTree = "<group>"; };
 		97364A1920B1704900511A95 /* MessageUpdateCountRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageUpdateCountRequest.m; sourceTree = "<group>"; };
-		97364A1C20B170FE00511A95 /* UnexchangedRequestCountRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnexchangedRequestCountRequest.h; sourceTree = "<group>"; };
-		97364A1D20B170FE00511A95 /* UnexchangedRequestCountRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UnexchangedRequestCountRequest.m; sourceTree = "<group>"; };
 		97567DDA20B86B2A00AA0EB8 /* UpdateTaskModifiedTimeRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateTaskModifiedTimeRequest.m; sourceTree = "<group>"; };
 		97567DDB20B86B2A00AA0EB8 /* UpdateTaskModifiedTimeRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateTaskModifiedTimeRequest.h; sourceTree = "<group>"; };
 		97567DDE20BAC9EA00AA0EB8 /* TeacherClassesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TeacherClassesViewController.h; sourceTree = "<group>"; };
@@ -5554,19 +5524,13 @@
 		97109E4F207A7BDC00568785 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				97109E50207A7BDC00568785 /* Requests */,
 				97109E53207A7BDC00568785 /* Model */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
-		97109E50207A7BDC00568785 /* Requests */ = {
-			isa = PBXGroup;
-			children = (
 				97109E51207A7BDC00568785 /* AwardsRequest.h */,
 				97109E52207A7BDC00568785 /* AwardsRequest.m */,
+				12E0797D230E2C0C0054A8CE /* AwardsService.h */,
+				12E0797E230E2C0C0054A8CE /* AwardsService.m */,
 			);
-			path = Requests;
+			path = Common;
 			sourceTree = "<group>";
 		};
 		97109E53207A7BDC00568785 /* Model */ = {
@@ -5594,36 +5558,9 @@
 				97109E96207A7C0A00568785 /* TeacherAwardsViewController.h */,
 				97109E9A207A7C0A00568785 /* TeacherAwardsViewController.m */,
 				97109EAD207A7C0A00568785 /* TeacherAwardsViewController.xib */,
-				97109E9B207A7C0A00568785 /* Service */,
 				97109EA6207A7C0A00568785 /* Views */,
 			);
 			path = Teacher;
-			sourceTree = "<group>";
-		};
-		97109E9B207A7C0A00568785 /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				97109EE3207A7FA000568785 /* Model */,
-				97109E9D207A7C0A00568785 /* Requests */,
-				97109EA4207A7C0A00568785 /* TeacherAwardService.h */,
-				97109E9C207A7C0A00568785 /* TeacherAwardService.m */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
-		97109E9D207A7C0A00568785 /* Requests */ = {
-			isa = PBXGroup;
-			children = (
-				97109EA0207A7C0A00568785 /* AddAwardRequest.h */,
-				97109EA2207A7C0A00568785 /* AddAwardRequest.m */,
-				97109EA1207A7C0A00568785 /* ExchangeRequestsRequest.h */,
-				97109E9E207A7C0A00568785 /* ExchangeRequestsRequest.m */,
-				97109E9F207A7C0A00568785 /* GiveAwardRequest.h */,
-				97109EA3207A7C0A00568785 /* GiveAwardRequest.m */,
-				97364A1C20B170FE00511A95 /* UnexchangedRequestCountRequest.h */,
-				97364A1D20B170FE00511A95 /* UnexchangedRequestCountRequest.m */,
-			);
-			path = Requests;
 			sourceTree = "<group>";
 		};
 		97109EA6207A7C0A00568785 /* Views */ = {
@@ -5676,12 +5613,6 @@
 			children = (
 				1923CB172283C0750056B2AD /* StudentLabelRequest.h */,
 				1923CB182283C0750056B2AD /* StudentLabelRequest.m */,
-				97109EC7207A7C1600568785 /* ExchangeAwardRequest.h */,
-				97109EC9207A7C1600568785 /* ExchangeAwardRequest.m */,
-				97109ECA207A7C1600568785 /* ExchangeRecordsRequest.h */,
-				97109EC8207A7C1600568785 /* ExchangeRecordsRequest.m */,
-				870286792182FE2C00559195 /* StudentStarRankRequest.h */,
-				8702867A2182FE2C00559195 /* StudentStarRankRequest.m */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -5703,13 +5634,6 @@
 				870286742182F06C00559195 /* StudentStarListTableViewCell.xib */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		97109EE3207A7FA000568785 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		9736494A20AF2F8500511A95 /* Homework */ = {
@@ -7824,7 +7748,6 @@
 				12961C72229E670A0075B04A /* ClassSelectorTableViewCell.m in Sources */,
 				12ED3B49229D906F00255F8B /* HomeworksRequest.m in Sources */,
 				12ED3B6A229D972000255F8B /* LoadingIndicatorView.m in Sources */,
-				12747C0722A7CF2F009C390E /* GiveAwardRequest.m in Sources */,
 				12FEA39F22E19D2F008503B2 /* MISecondStockSplitViewController.m in Sources */,
 				12CB73B422AB92240064FB21 /* UIView+AZGradient.m in Sources */,
 				12ED3B62229D96CB00255F8B /* ProgressHUD.m in Sources */,
@@ -7844,7 +7767,6 @@
 				128F137722D468B200C9F5B7 /* HomeworkSessionsContainerViewController.m in Sources */,
 				128F136422D375D900C9F5B7 /* Award.m in Sources */,
 				12ED3B4A229D907500255F8B /* SendHomeworkHistoryRequest.m in Sources */,
-				128F135A22D334BA00C9F5B7 /* TeacherAwardService.m in Sources */,
 				12747BEE22A7CD91009C390E /* StudentDetailHeaderCell.m in Sources */,
 				12CB73AC22AB91E70064FB21 /* HomeworkLimitTimeCell.m in Sources */,
 				12961CD6229FD6DC0075B04A /* SearchHomeworkNameRequest.m in Sources */,
@@ -7918,13 +7840,13 @@
 				1226F3402298363C00BAB1C9 /* ModifyStarRequest.m in Sources */,
 				1226F30B2297F65E00BAB1C9 /* BaseRequest.m in Sources */,
 				12961CCA229FD6550075B04A /* CreateTagView.m in Sources */,
+				12E07981230E2C0C0054A8CE /* AwardsService.m in Sources */,
 				1226F328229832A500BAB1C9 /* FullfillProfileViewController.m in Sources */,
 				1226F3352298334800BAB1C9 /* UIColor+HEX.m in Sources */,
 				12ED3B03229C2E4D00255F8B /* MISecondSheetView.m in Sources */,
 				1226F3252298327600BAB1C9 /* RegisterViewController.m in Sources */,
 				12961CD8229FD6ED0075B04A /* UpdateTaskModifiedTimeRequest.m in Sources */,
 				12ED3B46229D8FE300255F8B /* SendHomeworkRequest.m in Sources */,
-				128F136022D3350E00C9F5B7 /* ExchangeRequestsRequest.m in Sources */,
 				12CB73C622AC0DD60064FB21 /* MISutdentActDetailViewController.m in Sources */,
 				1226F3082297F3C700BAB1C9 /* AppDelegate.m in Sources */,
 				12CB739422AB59000064FB21 /* MIHomeworkSubFileViewController.m in Sources */,
@@ -7974,7 +7896,6 @@
 				12EAC63B22AD4BF400F1F3DB /* MIReadingTaskViewController.m in Sources */,
 				12747BFA22A7CE35009C390E /* CorrectHomeworkViewController.m in Sources */,
 				1226F3272298329300BAB1C9 /* FindPasswordViewController.m in Sources */,
-				128F135F22D334F900C9F5B7 /* UnexchangedRequestCountRequest.m in Sources */,
 				12ED3B68229D96F300255F8B /* SegmentControl.m in Sources */,
 				12CB739B22AB5BD50064FB21 /* MIHomeworkTaskListViewController.m in Sources */,
 				12961C67229E667B0075B04A /* HanyuPinyinOutputFormat.m in Sources */,
@@ -8032,7 +7953,6 @@
 				12CB73B122AB91FE0064FB21 /* HomeworkSegmentTableViewCell.m in Sources */,
 				12747BE022A7CCF8009C390E /* VideoMessageTableViewCell.m in Sources */,
 				122F799C22AD3D7A00D2AA53 /* MIStuUploadVideoViewController.m in Sources */,
-				12747C0E22A7CFBF009C390E /* StudentStarRankRequest.m in Sources */,
 				12961C51229E5E430075B04A /* ClassAndStudentSelectorController.m in Sources */,
 				123042F822A1334000E111A4 /* MIScoreListViewController.m in Sources */,
 				12B7B96C22D88C350057C798 /* StudentCollectionViewCell.m in Sources */,
@@ -8040,7 +7960,6 @@
 				12961C59229E65550075B04A /* StudentSelectorViewController.m in Sources */,
 				12CB73AA22AB91B10064FB21 /* HomeworkTitleTableViewCell.m in Sources */,
 				12961C62229E65E20075B04A /* NEPhotoBrowserView.m in Sources */,
-				12747C0F22A7CFDA009C390E /* ExchangeRecordsRequest.m in Sources */,
 				12747BD622A7CC2D009C390E /* HomeworkAnswersPickerViewController.m in Sources */,
 				1226F3322298333F00BAB1C9 /* NSDate+X5.m in Sources */,
 				12961CCE229FD6920075B04A /* FormTagsRequest.m in Sources */,
@@ -8064,7 +7983,6 @@
 				12961C4D229E5DDC0075B04A /* HomeworkPreviewViewController.m in Sources */,
 				1226F31B2298305900BAB1C9 /* User.m in Sources */,
 				1226F31A22982F9300BAB1C9 /* AuthService.m in Sources */,
-				12747C1022A7D004009C390E /* ExchangeAwardRequest.m in Sources */,
 				12747BF122A7CDC6009C390E /* RecordStateView.m in Sources */,
 				12961C71229E66FC0075B04A /* ClassService.m in Sources */,
 				1226F3092297F3CB00BAB1C9 /* LoadViewController.m in Sources */,
@@ -8073,7 +7991,6 @@
 				12961C77229E677B0075B04A /* StudentsRequest.m in Sources */,
 				128F133422CDD6C500C9F5B7 /* EwenCopyLabel.m in Sources */,
 				12961C6D229E66D00075B04A /* HomeworkAudioCollectionViewCell.m in Sources */,
-				12747C0622A7CF2D009C390E /* AddAwardRequest.m in Sources */,
 				128F135D22D334DB00C9F5B7 /* CreateAwardViewController.m in Sources */,
 				12961C7C229E67CF0075B04A /* ClassesRequest.m in Sources */,
 				1226F33B2298335D00BAB1C9 /* HomeworkItem.m in Sources */,
@@ -8144,7 +8061,6 @@
 				12EAC65F22B39D8C00F1F3DB /* EditAudioVideo.m in Sources */,
 				97364A0A20B1231E00511A95 /* StudentDetailViewController.m in Sources */,
 				128F132822CD113C00C9F5B7 /* MICreateWordView.m in Sources */,
-				97109EDC207A7C1600568785 /* ExchangeAwardRequest.m in Sources */,
 				97109C16207A2E3E00568785 /* CircleHomeworksViewController.m in Sources */,
 				97109C50207A2E3E00568785 /* CircleBottomTableViewCell.m in Sources */,
 				97109EDA207A7C1600568785 /* StudentAwardService.m in Sources */,
@@ -8293,7 +8209,6 @@
 				12E0796D230D422D0054A8CE /* AuthRequest.m in Sources */,
 				128F131822CD10E800C9F5B7 /* MIParticipateDetailTableViewCell.m in Sources */,
 				97109924207A0BF600568785 /* LoadingIndicatorView.m in Sources */,
-				8702867B2182FE2C00559195 /* StudentStarRankRequest.m in Sources */,
 				872558AA21D4CB970028BC2A /* CorrectHomeworkAddCommentViewController.m in Sources */,
 				9710994A207A0BF600568785 /* Homework.m in Sources */,
 				1229814222C5B3D300C09750 /* ClassService.m in Sources */,
@@ -8378,6 +8293,7 @@
 				12FD85DB22C05C900026B7E2 /* ScoreInfo.m in Sources */,
 				128F12EF22CCA2C400C9F5B7 /* MITagsView.m in Sources */,
 				97109D5F207A2F0400568785 /* NoticeMessageImageItemTableViewCell.m in Sources */,
+				12E0797F230E2C0C0054A8CE /* AwardsService.m in Sources */,
 				1229814822C5B46400C09750 /* SendHomeworkRequest.m in Sources */,
 				97109E90207A7BDD00568785 /* Award.m in Sources */,
 				128F130922CD109900C9F5B7 /* MISecondActivitySheetView.m in Sources */,
@@ -8400,7 +8316,6 @@
 				97109A58207A158C00568785 /* VideoMessageTableViewCell.m in Sources */,
 				871806EC21E05D680023511C /* WBGImageEditorCollectionViewCell.m in Sources */,
 				8707EFCC21D61E7C0060B5A6 /* FormTagsRequest.m in Sources */,
-				97109EDB207A7C1600568785 /* ExchangeRecordsRequest.m in Sources */,
 				97109C44207A2E3E00568785 /* CircleContentBaseTableViewCell.m in Sources */,
 				97109A36207A158C00568785 /* CorrectHomeworkRequest.m in Sources */,
 				1229814C22C5B4D500C09750 /* ClassesRequest.m in Sources */,
@@ -8518,7 +8433,6 @@
 				8709C2B8219C303800970757 /* HomeworkSendHistoryHeaderView.m in Sources */,
 				973649D020AF2F8600511A95 /* StudentSelectorViewController.m in Sources */,
 				871806ED21E05D680023511C /* WBGImageEditorCollectionViewCell.m in Sources */,
-				97109EB6207A7C0A00568785 /* AddAwardRequest.m in Sources */,
 				973649E120AF2F8600511A95 /* DeleteHomeworksRequest.m in Sources */,
 				8753CD1321C1FDC800762266 /* UITabBar+KSBadge.m in Sources */,
 				97109D8C207A2F0400568785 /* TeacherTableViewCell.m in Sources */,
@@ -8532,7 +8446,6 @@
 				8709C31C21A28A3000970757 /* FormTagsRequest.m in Sources */,
 				8753CD1B21C7BC2500762266 /* CircleHomeworkFlag.m in Sources */,
 				97109A23207A158C00568785 /* HomeworkSessionsViewController.m in Sources */,
-				87CF03492188191800B6F574 /* ExchangeRecordsRequest.m in Sources */,
 				12FD85DF22C05C900026B7E2 /* WordInfo.m in Sources */,
 				870286682181E29100559195 /* HomeworkDiffTableViewCell.m in Sources */,
 				97109A33207A158C00568785 /* CommitHomeworkRequest.m in Sources */,
@@ -8593,7 +8506,6 @@
 				973649E020AF2F8600511A95 /* HomeworksRequest.m in Sources */,
 				12CB738222AB52D20064FB21 /* MISegmentTypeTableViewCell.m in Sources */,
 				876D982221D0DC2000A0E06E /* CorrectHomeworkHisCommentTableViewCell.m in Sources */,
-				97364A1E20B170FE00511A95 /* UnexchangedRequestCountRequest.m in Sources */,
 				97109C25207A2E3E00568785 /* CircleService.m in Sources */,
 				97109929207A0BF600568785 /* SegmentControl.m in Sources */,
 				12CB739A22AB5BD50064FB21 /* MIHomeworkTaskListViewController.m in Sources */,
@@ -8660,9 +8572,7 @@
 				97109C17207A2E3E00568785 /* CircleHomeworksViewController.m in Sources */,
 				97109C35207A2E3E00568785 /* HomeworkDetailCommentTableViewCell.m in Sources */,
 				97109D7E207A2F0400568785 /* TeacherEditViewController.m in Sources */,
-				8702867C2182FE2C00559195 /* StudentStarRankRequest.m in Sources */,
 				12CB739F22AB70360064FB21 /* MIScoreListTableViewCell.m in Sources */,
-				87CF034A2188193100B6F574 /* ExchangeAwardRequest.m in Sources */,
 				97109B05207A1C0800568785 /* TimePickerView.m in Sources */,
 				97109D84207A2F0400568785 /* UpdateTeacherRequest.m in Sources */,
 				97109A86207A171600568785 /* HomeworkImageCollectionViewCell.m in Sources */,
@@ -8697,6 +8607,7 @@
 				8709C31821A26C4E00970757 /* DeleteFormTagsRequest.m in Sources */,
 				9710990F207A0BF500568785 /* ChatRefreshHeader.m in Sources */,
 				971098F9207A0BF500568785 /* NEPhotoBrowserView.m in Sources */,
+				12E07980230E2C0C0054A8CE /* AwardsService.m in Sources */,
 				97109C15207A2E3E00568785 /* CircleHomeworkViewController.m in Sources */,
 				973649DF20AF2F8600511A95 /* SendHomeworkRequest.m in Sources */,
 				870ABA4E2229237200958ED2 /* FileUploaderService.m in Sources */,
@@ -8738,7 +8649,6 @@
 				973649D420AF2F8600511A95 /* StudentsRequest.m in Sources */,
 				122F799922AD3D6C00D2AA53 /* MIStuActDetailHeaderView.m in Sources */,
 				97109AEB207A1C0800568785 /* ClassesViewController.m in Sources */,
-				97109EB4207A7C0A00568785 /* TeacherAwardService.m in Sources */,
 				973649D220AF2F8600511A95 /* StudentService.m in Sources */,
 				9790705920C04FBF00F1D344 /* HomeworkSessionRequest.m in Sources */,
 				97109D62207A2F0400568785 /* CommentMessageTableViewCell.m in Sources */,
@@ -8789,7 +8699,6 @@
 				97109D8A207A2F0400568785 /* TeachersRequest.m in Sources */,
 				87FDFBC2214B6769006E987C /* AppVersion.m in Sources */,
 				871806BF21DF438C0023511C /* MUAssetsViewController.m in Sources */,
-				97109EB7207A7C0A00568785 /* GiveAwardRequest.m in Sources */,
 				1950D7F12277E856004F7291 /* HomeworkConfirmViewController.m in Sources */,
 				128F130822CD109800C9F5B7 /* MISecondActivitySheetView.m in Sources */,
 				97109A2F207A158C00568785 /* HomeworkSessionService.m in Sources */,
@@ -8804,7 +8713,6 @@
 				97109D50207A2F0400568785 /* NoticeMessage.m in Sources */,
 				97109C91207A2EC900568785 /* FullfillProfileViewController.m in Sources */,
 				87FD07E321BE791E00664AF1 /* UIView+AZGradient.m in Sources */,
-				97109EB5207A7C0A00568785 /* ExchangeRequestsRequest.m in Sources */,
 				97108E1A2079F7A400568785 /* AppDelegate.m in Sources */,
 				97109BD5207A1D5000568785 /* CalendarHeaderView.m in Sources */,
 				87C52FB22164AC52004288F4 /* WBGImageEditorGestureManager.m in Sources */,

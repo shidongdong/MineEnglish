@@ -8,9 +8,6 @@
 
 #import "StudentAwardService.h"
 #import "AwardsRequest.h"
-#import "ExchangeAwardRequest.h"
-#import "ExchangeRecordsRequest.h"
-#import "StudentStarRankRequest.h"
 #import "StudentLabelRequest.h"
 @implementation StudentAwardService
 
@@ -26,26 +23,6 @@
     return request;
 }
 
-+ (BaseRequest *)exchangeAwardWithId:(NSUInteger)awardId callback:(RequestCallback)callback {
-    ExchangeAwardRequest *request = [[ExchangeAwardRequest alloc] initWithId:awardId];
-    
-    [request setCallback:callback];
-    [request start];
-    
-    return request;
-}
-
-+ (BaseRequest *)requestExchangeRecordsWithCallback:(RequestCallback)callback {
-    ExchangeRecordsRequest *request = [[ExchangeRecordsRequest alloc] init];
-    
-    request.objectKey = @"list";
-    request.objectClassName = @"ExchangeRecord";
-
-    [request setCallback:callback];
-    [request start];
-    
-    return request;
-}
 
 + (BaseRequest *)requestStudentStarRankListWithCallback:(RequestCallback)callback
 {

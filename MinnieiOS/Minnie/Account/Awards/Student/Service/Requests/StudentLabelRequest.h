@@ -11,13 +11,19 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark -
+#pragma mark - 2.1.10    星星排行榜
+@interface StudentStarRankRequest : BaseRequest
+
+@end
+
+
+#pragma mark -
 #pragma mark - 图形标注（教师端）
 @interface StudentLabelRequest : BaseRequest
 
 - (instancetype)initWithId:(NSUInteger)studentId stuLabel:(NSInteger)stuLabel;
 
 @end
-
 
 
 #pragma mark -

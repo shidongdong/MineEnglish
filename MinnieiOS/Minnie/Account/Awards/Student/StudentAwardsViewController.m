@@ -11,7 +11,7 @@
 #import "StudentAwardCollectionViewCell.h"
 #import "Award.h"
 #import "ExchangeAwardView.h"
-#import "StudentAwardService.h"
+#import "AwardsService.h"
 #import "UIScrollView+Refresh.h"
 #import "PushManager.h"
 #import "StudentStarListViewController.h"
@@ -86,7 +86,7 @@
     [self.awardsCollectionContainerView showLoadingView];
     
     WeakifySelf;
-    self.awardsRequest = [StudentAwardService requestAwardsWithCallback:^(Result *result, NSError *error) {
+    self.awardsRequest = [AwardsService requestAwardsWithCallback:^(Result *result, NSError *error) {
         StrongifySelf;
         
         strongSelf.awardsRequest = nil;
@@ -186,7 +186,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
                                                 [HUD showProgressWithMessage:@"正在兑换"];
                                                 
                                                 
-                                                [StudentAwardService exchangeAwardWithId:award.awardId
+                                                [AwardsService exchangeAwardWithId:award.awardId
                                                                                 callback:^(Result *result, NSError *error) {
                                                                                     if (error != nil) {
                                                                                         if (error.code == 703) {

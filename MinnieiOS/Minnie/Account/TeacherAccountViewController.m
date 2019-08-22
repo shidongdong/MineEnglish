@@ -22,7 +22,7 @@
 #import "ClassesContainerController.h"
 #import "StudentsViewController.h"
 #import "MessageService.h"
-#import "TeacherAwardService.h"
+#import "AwardsService.h"
 #import "PublicService.h"
 #import "MIHomeworkManagerViewController.h"
 
@@ -57,7 +57,7 @@
         }
     }];
     
-    [TeacherAwardService requestUnexchangedRequestCountWithCallback:^(Result *result, NSError *error) {
+    [AwardsService requestUnexchangedRequestCountWithCallback:^(Result *result, NSError *error) {
         if (error == nil && [result.userInfo isKindOfClass:[NSDictionary class]]) {
             NSDictionary *userInfo = (NSDictionary *)(result.userInfo);
             NSInteger count = [userInfo[@"count"] integerValue];

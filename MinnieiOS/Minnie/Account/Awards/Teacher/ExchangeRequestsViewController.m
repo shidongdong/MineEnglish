@@ -8,9 +8,8 @@
 
 #import "ExchangeRequestsViewController.h"
 #import "ExchangeRequestTableViewCell.h"
-#import "TeacherAwardService.h"
+#import "AwardsService.h"
 #import "Constants.h"
-#import "TIP.h"
 #import "UIScrollView+Refresh.h"
 #import "TeacherAwardsViewController.h"
 #import "UIColor+HEX.h"
@@ -124,7 +123,7 @@
     [self.containerView showLoadingView];
 
     WeakifySelf;
-    self.listRequest = [TeacherAwardService requestExchangeRequestsWithState:self.exchanged
+    self.listRequest = [AwardsService requestExchangeRequestsWithState:self.exchanged
                                                              callback:^(Result *result, NSError *error) {
                                                                  StrongifySelf;
                                                                  
@@ -138,7 +137,7 @@
     }
     
     WeakifySelf;
-    self.listRequest = [TeacherAwardService requestExchangeRequestsWithMoreUrl:self.nextUrl
+    self.listRequest = [AwardsService requestExchangeRequestsWithMoreUrl:self.nextUrl
                                                                callback:^(Result *result, NSError *error) {
                                                                    StrongifySelf;
                                                                    
@@ -231,7 +230,7 @@
 - (void)requestAwardListByClass {
     
     WeakifySelf;
-    [TeacherAwardService requestexchangeAwardByClassWithState:0
+    [AwardsService requestexchangeAwardByClassWithState:0
                                                      callback:^(Result *result, NSError *error) {
                                                          
                                                          [weakSelf.requestsTableView headerEndRefreshing];
@@ -310,7 +309,7 @@
                                                           handler:^(UIAlertAction * _Nonnull action) {
                                                              
                                                               [HUD showProgressWithMessage:@"正在兑换"];
-                                                              [TeacherAwardService giveAwardWithId:exchangeId
+                                                              [AwardsService giveAwardWithId:exchangeId
                                                                                    callback:^(Result *result, NSError *error) {
                                                                                       
                                                                                        if (error != nil) {

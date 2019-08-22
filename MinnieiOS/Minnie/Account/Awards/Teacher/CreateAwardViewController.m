@@ -7,7 +7,7 @@
 //
 
 #import "CreateAwardViewController.h"
-#import "TeacherAwardService.h"
+#import "AwardsService.h"
 #import "FileUploader.h"
 #import "TIP.h"
 #import "Constants.h"
@@ -159,7 +159,7 @@
 - (void)addAwardWithInfo:(NSDictionary *)info {
     [HUD showProgressWithMessage:@"正在新建礼物..."];
     
-    [TeacherAwardService addAward:info
+    [AwardsService addAward:info
                          callback:^(Result *result, NSError *error) {
                              if (error != nil) {
                                  [HUD showErrorWithMessage:@"创建礼物失败"];
