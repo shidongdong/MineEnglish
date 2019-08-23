@@ -124,16 +124,6 @@ MIActivityBannerViewDelegate
     }
 }
 
-- (void)dealloc {
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    [self.homeworkSessionsRequest clearCompletionBlock];
-    [self.homeworkSessionsRequest stop];
-    self.homeworkSessionsRequest = nil;
-    
-    NSLog(@"%s", __func__);
-}
 
 #pragma mark - Public Methods
 - (void)requestSearchForName:(NSString *)name
@@ -206,7 +196,7 @@ MIActivityBannerViewDelegate
 #pragma mark - 查询消息会话，并最后一条消息内容
 - (void)loadConversationsWithHomeworkSessions:(NSArray *)sessions {
     
-    if (!sessions) {
+    if (sessions.count == 0) {
         return;
     }
     NSDate *startTime = [NSDate date];
@@ -953,6 +943,18 @@ MIActivityBannerViewDelegate
         _bannerView.backgroundColor = [UIColor bgColor];
     }
     return _bannerView;
+}
+
+
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [self.homeworkSessionsRequest clearCompletionBlock];
+    [self.homeworkSessionsRequest stop];
+    self.homeworkSessionsRequest = nil;
+    
+    NSLog(@"%s", __func__);
 }
 @end
 
