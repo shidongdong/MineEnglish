@@ -62,6 +62,8 @@
                  };
     } else {
         return @{@"finished":@(self.finished),
+                 @"pageNo":@(0),
+                 @"pageNum":@(100),
                  @"teacherId":@(self.teacherId)};
     }
 }
@@ -228,13 +230,25 @@
 }
 
 - (id)requestArgument {
-    return @{@"id":@(self.sessionId),
-             @"score":@(self.score),
-             @"content":self.text,
-             @"scope":@(self.scope),
-             @"isRedo":@(self.isRedo),
-             @"isCircle":@(self.isCircle),
-             };
+    
+    if (self.isCircle) { // 分享
+       
+        return @{@"id":@(self.sessionId),
+                 @"score":@(self.score),
+                 @"content":self.text,
+                 @"scope":@(self.scope),
+                 @"isRedo":@(self.isRedo),
+                 @"isCircle":@(self.isCircle),
+                 };
+    } else { // 不分享
+        return @{@"id":@(self.sessionId),
+                 @"score":@(self.score),
+                 @"content":self.text,
+                 @"isRedo":@(self.isRedo),
+                 @"isCircle":@(self.isCircle),
+                 };
+    }
+
 }
 
 @end
@@ -322,12 +336,14 @@
     }
     if (self.teacherId == 0) {
         
-        return @{@"score":@(self.score)
-//                 @"pageNo":@(0),
-//                 @"pageNum":@(100)
+        return @{@"score":@(self.score),
+                 @"pageNo":@(0),
+                 @"pageNum":@(100)
                  };
     } else {
         return @{@"score":@(self.score),
+                 @"pageNo":@(0),
+                 @"pageNum":@(100),
                  @"teacherId":@(self.teacherId)};
     }
 }
@@ -399,6 +415,8 @@
     } else {
         return @{@"studentName":self.name,
                  @"finished":@(self.finished),
+                 @"pageNo":@(0),
+                 @"pageNum":@(100),
                  @"teacherId":@(self.teacherId)};
     }
 }
@@ -468,6 +486,8 @@
         
         return @{@"type":@(self.type),
                  @"finished":@(self.finished),
+                 @"pageNo":@(0),
+                 @"pageNum":@(100),
                  @"teacherId":@(self.teacherId)};
     }
 }

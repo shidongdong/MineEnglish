@@ -131,21 +131,10 @@ HomeworkAnswersPickerViewControllerDelegate>
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-#if TEACHERSIDE || MANAGERSIDE
-    [self studentName];
-    self.correctButton.hidden = NO;
-    self.answerViewWidthConstraint.constant = ScreenWidth/4;
-    self.warnViewWidthConstraint.constant = ScreenWidth/4;
-#else
-    self.customTitleLabel.text = self.homeworkSession.correctTeacher.nickname;
-    self.correctButton.hidden = YES;
-    self.answerViewWidthConstraint.constant = 0;
-    self.warnViewWidthConstraint.constant = 0;
-#endif
-    
     self.messages = [NSMutableArray array];
     self.sortedMessages = [NSMutableDictionary dictionary];
     self.currentImageViews = [NSMutableArray array];
+    
     //从作业中提取
     self.homeworkImages = [NSMutableArray array];
     for (int i = 0; i < self.homeworkSession.homework.items.count; i++)
@@ -156,60 +145,15 @@ HomeworkAnswersPickerViewControllerDelegate>
             [self.homeworkImages addObject:items.imageUrl];
         }
     }
+    APP.currentIMHomeworkSessionId = self.homeworkSession.homeworkSessionId;
     
-    self.recordButton.hidden = YES;
-    self.recordButton.layer.borderWidth = 0.5f;
-    self.recordButton.layer.borderColor = [UIColor colorWithHex:0x333333].CGColor;
-    self.recordButton.layer.cornerRadius = 12.f;
-    self.recordButton.layer.masksToBounds = YES;
-    WeakifySelf;
-    self.recordButton.stateChangeBlock = ^(RecordButtonState state) {
-        if (state == RecordButtonStateTouchCancelled ||
-            state == RecordButtonStateTouchUpInside ||
-            state == RecordButtonStateTouchUpOutside) {
-            weakSelf.recordButton.backgroundColor = [UIColor whiteColor];
-        } else {
-            weakSelf.recordButton.backgroundColor = [UIColor colorWithHex:0xCCCCCC];
-        }
-        
-        if (state == RecordButtonStateTouchDown) {
-            [weakSelf startRecord];
-            
-            weakSelf.recordStateView = [RecordStateView showInView:weakSelf.view];
-        } else if (state == RecordButtonStateMoveInside) {
-            [weakSelf.recordStateView updateWithCancelState:NO];
-        } else if (state == RecordButtonStateMoveOutside) {
-            [weakSelf.recordStateView updateWithCancelState:YES];
-        } else if (state == RecordButtonStateTouchUpInside) {
-            [weakSelf.recordStateView hide];
-            [weakSelf stopRecord:YES];
-        } else if (state == RecordButtonStateTouchUpOutside ||
-                   state == RecordButtonStateTouchCancelled) {
-            [weakSelf.recordStateView hide];
-            [weakSelf stopRecord:NO];
-        }
-    };
-    
-    self.inputTextBgView.layer.cornerRadius = 12.f;
-    self.inputTextBgView.layer.masksToBounds = YES;
-    self.inputTextView.textContainerInset = UIEdgeInsetsZero;
-    self.inputTextViewHeightConstraint.constant = self.inputTextView.font.lineHeight;
-    
-    self.messagesTableView.estimatedRowHeight = 0.f;
-    self.messagesTableView.estimatedSectionFooterHeight = 0.f;
-    self.messagesTableView.estimatedSectionHeaderHeight = 0.f;
-    
-    UIView *footerView = [[UIView alloc] init];
-    [footerView setBackgroundColor:[UIColor colorWithHex:0xF5F5F5]];
-    [footerView setFrame:CGRectMake(0, 0, ScreenWidth, 20)];
-    self.messagesTableView.tableFooterView = footerView;
-    
-    self.emojiViewBottomLayoutConstraint.constant = -216.f - (isIPhoneX?39:0);
-    self.operationsViewBottomConstraint.constant = -80.f - (isIPhoneX?39:0);
-    
-    if (self.messages == nil) {
-        self.messages = [NSMutableArray array];
-    }
+    [self addNotification];
+    [self configureUI];
+    [self requestHomeworkDetail];
+}
+
+
+- (void)addNotification{
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardFrameWillChange:)
@@ -232,30 +176,8 @@ HomeworkAnswersPickerViewControllerDelegate>
                                                  name:kNotificationKeyOfCorrectHomework
                                                object:nil];
     
-    [self setupConversation];
-    
-    // -1表示未批改过
-    if (self.homeworkSession.score >= 0) {
-        [self setupResultView];
-        self.resultView.hidden = NO;
-        self.inputView.hidden = YES;
-    } else {
-        self.resultView.hidden = YES;
-        self.inputView.hidden = NO;
-
-#if MANAGERSIDE
-        // 管理端非当前账号会话页不允许输入
-        if (self.teacher.userId != APP.currentUser.userId) {
-            self.inputViewBottomConstraint.constant = -180;
-        }  else {
-            self.inputViewBottomConstraint.constant = 0;
-        }
-#endif
-    }
-    
-    APP.currentIMHomeworkSessionId = self.homeworkSession.homeworkSessionId;
-    [self requestHomeworkDetail];
 }
+
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -267,18 +189,17 @@ HomeworkAnswersPickerViewControllerDelegate>
         self.dontScrollWhenAppeard = NO;
     }
     
-    for (UIGestureRecognizer *gr in self.view.window.gestureRecognizers) {
-        if (gr.delaysTouchesBegan) {
-            gr.delaysTouchesBegan = NO;
-        }
-    }
+//    for (UIGestureRecognizer *gr in self.view.window.gestureRecognizers) {
+//        if (gr.delaysTouchesBegan) {
+//            gr.delaysTouchesBegan = NO;
+//        }
+//    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
     [[AudioPlayer sharedPlayer] stop];
-
 }
 
 - (IBAction)backButtonPressed:(id)sender {
@@ -288,14 +209,6 @@ HomeworkAnswersPickerViewControllerDelegate>
     }
 #endif
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)dealloc {
-    APP.currentIMHomeworkSessionId = 0;
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    NSLog(@"%s", __func__);
 }
 
 #pragma mark - Notification
@@ -804,57 +717,6 @@ HomeworkAnswersPickerViewControllerDelegate>
                                                            }];
 }
 
-- (void)setupResultView {
-    UIColor *bgColor = nil;
-    NSString *text = nil;
-    
-    self.start1ImageView.hidden = self.homeworkSession.score<1;
-    self.start2ImageView.hidden = self.homeworkSession.score<2;
-    self.start3ImageView.hidden = self.homeworkSession.score<3;
-    self.start4ImageView.hidden = self.homeworkSession.score<4;
-    self.start5ImageView.hidden = self.homeworkSession.score<5;
-    
-    if (self.homeworkSession.score == 0) {
-        bgColor = [UIColor lightGrayColor];
-    }else if (self.homeworkSession.score == 1) {
-        text = @"Pass!";
-        bgColor = [UIColor colorWithHex:0x28C4B7];
-    } else if (self.homeworkSession.score == 2) {
-        text = @"Good job!";
-        bgColor = [UIColor colorWithHex:0x00CE00];
-    } else if (self.homeworkSession.score == 3) {
-        text = @"Very nice!";
-        bgColor = [UIColor colorWithHex:0x0098FE];
-    } else if (self.homeworkSession.score == 4) {
-        text = @"Great!";
-        bgColor = [UIColor colorWithHex:0xFFC600];
-    } else if (self.homeworkSession.score == 5) {
-        text = @"Perfect!";
-        bgColor = [UIColor colorWithHex:0xFF4858];
-    } else if (self.homeworkSession.score == 6) {
-        text = @"Very hardworking!";
-        bgColor = [UIColor colorWithHex:0xB248FF];
-    }
-    
-    self.scoreLabel.text = self.homeworkSession.reviewText;
-    
-    self.resultContentView.backgroundColor = bgColor;
-    self.resultPaddingView.backgroundColor = bgColor;
-    
-#if TEACHERSIDE || MANAGERSIDE
-    self.retryButton.hidden = YES;
-#else
-    if (self.homeworkSession.isRedo)
-    {
-        self.retryButton.backgroundColor = bgColor;
-        self.retryButton.layer.cornerRadius = 12.f;
-        self.retryButton.layer.masksToBounds = YES;
-        self.retryButton.layer.borderColor = [UIColor whiteColor].CGColor;
-        self.retryButton.layer.borderWidth = 1;
-        self.retryButton.hidden = NO;
-    }
-#endif
-}
 
 #pragma mark - 设置会话
 - (void)setupConversation {
@@ -865,19 +727,17 @@ HomeworkAnswersPickerViewControllerDelegate>
     [self.loadingContainerView showLoadingView];
     
     NSString *name = [NSString stringWithFormat:@"%@", @(self.homeworkSession.homeworkSessionId)];
-    //WeakifySelf;
-    
     if (self.conversation == nil) {
        
         AVIMConversationQuery *query = [self.client conversationQuery];
         [query whereKey:@"name" equalTo:name];
         [query findConversationsWithCallback:^(NSArray * _Nullable conversations, NSError * _Nullable error) {
-          //  StrongifySelf;
+
             if (error == nil)
             {
                 if (conversations.count > 0) {
-                    self.homeworkSession.conversation = conversations[0];
                     
+                    self.homeworkSession.conversation = conversations[0];
                     [self loadMessagesHistory];
                 } else {
                     [self.client createConversationWithName:name
@@ -902,13 +762,13 @@ HomeworkAnswersPickerViewControllerDelegate>
             else
             {
                 BLYLogError(@"会话页面加载失败(创建IM会话失败): %@", error);
-                
                 [self.loadingContainerView showFailureViewWithRetryCallback:^{
                     [self setupConversation];
                 }];
             }
         }];
     } else {
+
         [self loadMessagesHistory];
     }
 }
@@ -1289,7 +1149,9 @@ HomeworkAnswersPickerViewControllerDelegate>
     if (message.mediaType == kAVIMMessageMediaTypeText)
     {
         AVIMTextMessage * textMessage = (AVIMTextMessage *)message;
-        text = textMessage.text;
+        if (textMessage.text.length > 0) {
+            text = textMessage.text;
+        }
     }
     else if (message.mediaType == kAVIMMessageMediaTypeImage)
     {
@@ -1557,12 +1419,13 @@ HomeworkAnswersPickerViewControllerDelegate>
     
     NSLog(@"loadMessagesHistory %@  %@",[IMManager sharedManager].client.clientId,self.conversation.description);
     WeakifySelf;
-    [self.conversation queryMessagesFromServerWithLimit:1000 callback:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+    [self.conversation queryMessagesWithLimit:1000 callback:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         StrongifySelf;
         if (error != nil) {
             BLYLogError(@"会话页面加载失败(加载历史小时失败): %@", error);
 
             [strongSelf.loadingContainerView showFailureViewWithRetryCallback:^{
+                strongSelf.homeworkSession.conversation = nil;
                 [strongSelf setupConversation];
             }];
 
@@ -1582,12 +1445,10 @@ HomeworkAnswersPickerViewControllerDelegate>
 
             [strongSelf sortMessages];
             dispatch_async(dispatch_get_main_queue(), ^{
+               
                 [strongSelf.messagesTableView reloadData];
-
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [strongSelf scrollMessagesTableViewToBottom:NO];
-                    strongSelf.messagesTableView.hidden = NO;
-                });
+                [strongSelf scrollMessagesTableViewToBottom:NO];
+                strongSelf.messagesTableView.hidden = NO;
             });
         }
     }];
@@ -1861,7 +1722,7 @@ HomeworkAnswersPickerViewControllerDelegate>
         SessionHomeworkTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:nibName owner:nil options:nil] lastObject];
         
         [cell setupWithHomeworkSession:self.homeworkSession];
-        
+        NSLog(@"setupWithHomeworkSession  %@",indexPath);
         WeakifySelf;
         [cell setStartTaskCallback:^(void) { // 开始任务
             
@@ -2275,23 +2136,41 @@ HomeworkAnswersPickerViewControllerDelegate>
     [self sendTextMessage:self.inputTextView.text];
 }
 
+#pragma mark - 获取作业内容
 - (void)requestHomeworkDetail{
-   // 获取作业内容作业
+
+    [self.loadingContainerView showLoadingView];
     [HomeworkSessionService requestHomeworkSessionWithId:self.homeworkSession.homeworkSessionId callback:^(Result *result, NSError *error) {
         
-        HomeworkSession *session = (HomeworkSession *)(result.userInfo);
-        if (session) {
-           
-            self.homeworkSession.homework = session.homework;
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-            [self.messagesTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+        [self.loadingContainerView hideAllStateView];
+        if (error) {
+            [self.loadingContainerView showFailureViewWithRetryCallback:^{
+                [self requestHomeworkDetail];
+            }];
+            return ;
+        } else {
+            HomeworkSession *session = (HomeworkSession *)(result.userInfo);
+            if (session) {
+                self.homeworkSession = session;
+              
+                if ((session.correctTeacher.userId > 0) && (session.student.userId > 0)) {
+                    [self setupConversation];
+                } else {
+                    [self.loadingContainerView showFailureViewWithRetryCallback:^{
+                        [self requestHomeworkDetail];
+                    }];
+                }
+            }
+            [self updateData];
         }
     }];
 }
 
-#pragma mark -
+#pragma mark - 更新
 
-- (void)studentName{
+- (void)updateData{
+    
+#if TEACHERSIDE || MANAGERSIDE
     
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:self.homeworkSession.student.nickname];
     if (self.homeworkSession.stuLabel > 0) {
@@ -2303,7 +2182,157 @@ HomeworkAnswersPickerViewControllerDelegate>
         [attrStr appendAttributedString:imageStr];
     }
     self.customTitleLabel.attributedText = attrStr;
+#else
+    self.customTitleLabel.text = self.homeworkSession.correctTeacher.nickname;
+#endif
+    
+    // -1表示未批改过
+    if (self.homeworkSession.score >= 0) {
+        
+        [self setupResultView];
+        self.resultView.hidden = NO;
+        self.inputView.hidden = YES;
+    } else {
+        
+        self.resultView.hidden = YES;
+        self.inputView.hidden = NO;
+        
+#if MANAGERSIDE
+        // 管理端非当前账号会话页不允许输入
+        if (self.teacher.userId != APP.currentUser.userId) {
+            self.inputViewBottomConstraint.constant = -180;
+        }  else {
+            self.inputViewBottomConstraint.constant = 0;
+        }
+#endif
+    }
 }
+
+- (void)configureUI{
+    
+#if TEACHERSIDE || MANAGERSIDE
+    self.correctButton.hidden = NO;
+    self.answerViewWidthConstraint.constant = ScreenWidth/4;
+    self.warnViewWidthConstraint.constant = ScreenWidth/4;
+#else
+    self.correctButton.hidden = YES;
+    self.answerViewWidthConstraint.constant = 0;
+    self.warnViewWidthConstraint.constant = 0;
+#endif
+    
+    self.recordButton.hidden = YES;
+    self.recordButton.layer.borderWidth = 0.5f;
+    self.recordButton.layer.borderColor = [UIColor colorWithHex:0x333333].CGColor;
+    self.recordButton.layer.cornerRadius = 12.f;
+    self.recordButton.layer.masksToBounds = YES;
+    WeakifySelf;
+    self.recordButton.stateChangeBlock = ^(RecordButtonState state) {
+        if (state == RecordButtonStateTouchCancelled ||
+            state == RecordButtonStateTouchUpInside ||
+            state == RecordButtonStateTouchUpOutside) {
+            weakSelf.recordButton.backgroundColor = [UIColor whiteColor];
+        } else {
+            weakSelf.recordButton.backgroundColor = [UIColor colorWithHex:0xCCCCCC];
+        }
+        
+        if (state == RecordButtonStateTouchDown) {
+            [weakSelf startRecord];
+            
+            weakSelf.recordStateView = [RecordStateView showInView:weakSelf.view];
+        } else if (state == RecordButtonStateMoveInside) {
+            [weakSelf.recordStateView updateWithCancelState:NO];
+        } else if (state == RecordButtonStateMoveOutside) {
+            [weakSelf.recordStateView updateWithCancelState:YES];
+        } else if (state == RecordButtonStateTouchUpInside) {
+            [weakSelf.recordStateView hide];
+            [weakSelf stopRecord:YES];
+        } else if (state == RecordButtonStateTouchUpOutside ||
+                   state == RecordButtonStateTouchCancelled) {
+            [weakSelf.recordStateView hide];
+            [weakSelf stopRecord:NO];
+        }
+    };
+    
+    self.inputTextBgView.layer.cornerRadius = 12.f;
+    self.inputTextBgView.layer.masksToBounds = YES;
+    self.inputTextView.textContainerInset = UIEdgeInsetsZero;
+    self.inputTextViewHeightConstraint.constant = self.inputTextView.font.lineHeight;
+    
+    self.messagesTableView.estimatedRowHeight = 0.f;
+    self.messagesTableView.estimatedSectionFooterHeight = 0.f;
+    self.messagesTableView.estimatedSectionHeaderHeight = 0.f;
+    
+    UIView *footerView = [[UIView alloc] init];
+    [footerView setBackgroundColor:[UIColor colorWithHex:0xF5F5F5]];
+    [footerView setFrame:CGRectMake(0, 0, ScreenWidth, 20)];
+    self.messagesTableView.tableFooterView = footerView;
+    
+    self.emojiViewBottomLayoutConstraint.constant = -216.f - (isIPhoneX?39:0);
+    self.operationsViewBottomConstraint.constant = -80.f - (isIPhoneX?39:0);
+}
+
+- (void)setupResultView {
+    UIColor *bgColor = nil;
+    NSString *text = nil;
+    
+    self.start1ImageView.hidden = self.homeworkSession.score<1;
+    self.start2ImageView.hidden = self.homeworkSession.score<2;
+    self.start3ImageView.hidden = self.homeworkSession.score<3;
+    self.start4ImageView.hidden = self.homeworkSession.score<4;
+    self.start5ImageView.hidden = self.homeworkSession.score<5;
+    
+    if (self.homeworkSession.score == 0) {
+        bgColor = [UIColor lightGrayColor];
+    }else if (self.homeworkSession.score == 1) {
+        text = @"Pass!";
+        bgColor = [UIColor colorWithHex:0x28C4B7];
+    } else if (self.homeworkSession.score == 2) {
+        text = @"Good job!";
+        bgColor = [UIColor colorWithHex:0x00CE00];
+    } else if (self.homeworkSession.score == 3) {
+        text = @"Very nice!";
+        bgColor = [UIColor colorWithHex:0x0098FE];
+    } else if (self.homeworkSession.score == 4) {
+        text = @"Great!";
+        bgColor = [UIColor colorWithHex:0xFFC600];
+    } else if (self.homeworkSession.score == 5) {
+        text = @"Perfect!";
+        bgColor = [UIColor colorWithHex:0xFF4858];
+    } else if (self.homeworkSession.score == 6) {
+        text = @"Very hardworking!";
+        bgColor = [UIColor colorWithHex:0xB248FF];
+    }
+    
+    self.scoreLabel.text = self.homeworkSession.reviewText;
+    
+    self.resultContentView.backgroundColor = bgColor;
+    self.resultPaddingView.backgroundColor = bgColor;
+    
+#if TEACHERSIDE || MANAGERSIDE
+    self.retryButton.hidden = YES;
+#else
+    if (self.homeworkSession.isRedo)
+    {
+        self.retryButton.backgroundColor = bgColor;
+        self.retryButton.layer.cornerRadius = 12.f;
+        self.retryButton.layer.masksToBounds = YES;
+        self.retryButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.retryButton.layer.borderWidth = 1;
+        self.retryButton.hidden = NO;
+    }
+#endif
+}
+
+
+- (void)dealloc {
+    
+    APP.currentIMHomeworkSessionId = 0;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    NSLog(@"%s", __func__);
+}
+
+
 @end
 
 

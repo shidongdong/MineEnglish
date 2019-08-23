@@ -20,6 +20,10 @@ CGFloat const CorrectHomeworkScoreTableViewCellHeight = 39.0f;
 @property (weak, nonatomic) IBOutlet UIView *fiveStarView;
 @property (weak, nonatomic) IBOutlet UIView *zeroStarView;
 @property (weak, nonatomic) IBOutlet UIView *shareView;
+@property (weak, nonatomic) IBOutlet UIView *shareGradeView;
+
+@property (weak, nonatomic) IBOutlet UIButton *shareGradeBtn;
+@property (weak, nonatomic) IBOutlet UIButton *shareCampusBtn;
 
 @property (weak, nonatomic) IBOutlet UIButton *oneBtn;
 @property (weak, nonatomic) IBOutlet UIButton *twoBtn;
@@ -29,8 +33,8 @@ CGFloat const CorrectHomeworkScoreTableViewCellHeight = 39.0f;
 @property (weak, nonatomic) IBOutlet UIButton *zeroBtn;
 
 @property (nonatomic, assign)NSInteger lastSelectedScore;   //上次选中的分数
-@property (nonatomic, assign)NSInteger bShareCircle;            //分享到朋友圈
-
+@property (nonatomic, assign)NSInteger bShareCircle;                  //分享到学校
+@property (nonatomic, assign)NSInteger bShareGradeCircle;             //分享到年级
 @property (nonatomic, assign)NSInteger homeworkLevel;
 
 @end
@@ -61,6 +65,10 @@ CGFloat const CorrectHomeworkScoreTableViewCellHeight = 39.0f;
     self.shareView.layer.cornerRadius = 4.0;
     self.shareView.layer.borderColor = [UIColor colorWithHex:0xDDDDDD].CGColor;
     self.shareView.layer.borderWidth = 1.0;
+    
+    self.shareGradeView.layer.cornerRadius = 4.0;
+    self.shareGradeView.layer.borderColor = [UIColor colorWithHex:0xDDDDDD].CGColor;
+    self.shareGradeView.layer.borderWidth = 1.0;
     // Initialization code
 }
 
@@ -209,13 +217,61 @@ CGFloat const CorrectHomeworkScoreTableViewCellHeight = 39.0f;
         self.shareView.backgroundColor = [UIColor colorWithHex:0xFFFFFF];
         [sender setTitleColor:[UIColor colorWithHex:0x999999] forState:UIControlStateNormal];
     }
-    
-    if (self.shareCallback)
-    {
-        self.shareCallback(self.bShareCircle);
+
+    if (self.bShareCircle == 1) { // 分享到校区
+       
+        // 取消年级选中
+        self.bShareGradeCircle = 0;
+        self.shareGradeView.backgroundColor = [UIColor colorWithHex:0xFFFFFF];
+        [self.shareGradeBtn setTitleColor:[UIColor colorWithHex:0x999999] forState:UIControlStateNormal];
+        
+        if (self.shareCallback) {
+            
+            self.shareCallback(YES, NO);
+        }
+        
+    } else {// 不分享
+        
+        if (self.shareCallback){
+            
+            self.shareCallback(NO, NO);
+        }
     }
-    
 }
 
+- (IBAction)shareToGrade:(id)sender { // 分享到年级
+    
+    self.bShareGradeCircle = self.bShareGradeCircle == 1 ? 0 : 1;
+    
+    if (self.bShareGradeCircle) {
+        self.shareGradeView.backgroundColor = [UIColor colorWithHex:0x00CE00];
+        [sender setTitleColor:[UIColor colorWithHex:0xFFFFFF] forState:UIControlStateNormal];
+    }
+    else
+    {
+        self.shareGradeView.backgroundColor = [UIColor colorWithHex:0xFFFFFF];
+        [sender setTitleColor:[UIColor colorWithHex:0x999999] forState:UIControlStateNormal];
+    }
+    
+
+    if (self.bShareGradeCircle == 1) {
+        
+        // 取消校区选中
+        self.bShareCircle = 0;
+        self.shareView.backgroundColor = [UIColor colorWithHex:0xFFFFFF];
+        [self.shareCampusBtn setTitleColor:[UIColor colorWithHex:0x999999] forState:UIControlStateNormal];
+        
+        if (self.shareCallback) {
+            
+            self.shareCallback(YES,YES);
+        }
+    } else {
+       
+        if (self.shareCallback) {
+            
+            self.shareCallback(NO, NO);
+        }
+    }
+}
 
 @end

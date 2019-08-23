@@ -902,6 +902,7 @@ MIActivityBannerViewDelegate
     self.currentSelectIndex = indexPath.row;
     [self.homeworkSessionsTableView reloadData];
 #else
+//    self.teacher = APP.currentUser;
     [vc setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:vc animated:YES];
 #endif

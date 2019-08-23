@@ -12,7 +12,7 @@ extern NSString * const CorrectHomeworkScoreTableViewCellId;
 extern CGFloat const CorrectHomeworkScoreTableViewCellHeight;
 
 typedef void(^CorrectHomeworkScoreTableViewCellClickScoreCallback)(NSInteger);
-typedef void(^CorrectHomeworkScoreTableViewCellClickShareCallback)(NSInteger);
+typedef void(^CorrectHomeworkScoreTableViewCellClickShareCallback)(BOOL share,BOOL shareType);
 
 @interface CorrectHomeworkScoreTableViewCell : UITableViewCell
 

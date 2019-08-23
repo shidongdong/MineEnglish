@@ -26,6 +26,7 @@
 @property (nonatomic, assign) NSInteger currentScore; //评分
 @property (nonatomic, strong) NSString * commentText; //评语
 @property (nonatomic, assign) NSInteger m_circle;     //分享到朋友圈
+@property (nonatomic, assign) NSInteger m_scope;      //1:年级；0：所有
 @property (nonatomic, strong) NSArray * commentTags; //常用评论列表
 
 @end
@@ -59,8 +60,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-   // [self.textView becomeFirstResponder];
 }
 
 - (void)dealloc {
@@ -134,7 +133,7 @@
                                                     redo:0
                                               sendCircle:self.m_circle
                                                     text:reviewText
-                                                   scope:1
+                                                   scope:self.m_scope
                                                 callback:^(Result *result, NSError *error) {
                                                     if (error != nil) {
                                                         if (error.code == 202) {
@@ -267,9 +266,12 @@
         {
             weakSelf.currentScore = score;
         }];
-        [scoreCell setShareCallback:^(NSInteger bShare)
-        {
-            weakSelf.m_circle = bShare;
+
+        [scoreCell setShareCallback:^(BOOL share, BOOL shareType) {
+           
+            NSLog(@"setShareCallback  %d   %d",share,shareType);
+            weakSelf.m_circle = share;
+            weakSelf.m_scope = shareType;
         }];
         cell = scoreCell;
     }

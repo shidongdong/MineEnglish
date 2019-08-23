@@ -122,7 +122,6 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
     
     //计算时间
     NSInteger hours = [self calculateDeadlineHourForTime:homeworkSession.sendTime];
-    NSLog(@"hours:::::::%lu",hours);
     
     if (hours < maxHours)
     {
