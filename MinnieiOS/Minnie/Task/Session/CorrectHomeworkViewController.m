@@ -134,6 +134,7 @@
                                                     redo:0
                                               sendCircle:self.m_circle
                                                     text:reviewText
+                                                   scope:1
                                                 callback:^(Result *result, NSError *error) {
                                                     if (error != nil) {
                                                         if (error.code == 202) {

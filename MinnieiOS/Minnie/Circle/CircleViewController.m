@@ -60,7 +60,10 @@
     [super viewDidLoad];
     
     [self.homeworks removeAllObjects];
+#if MANAGERSIDE || TEACHERSIDE
+#else
     [self.homeworks addObjectsFromArray:APP.circleList];
+#endif
     
     self.homeworksTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
@@ -192,7 +195,7 @@
                                           error:error];
             }];
         } else {
-            self.homeworksRequest = [CirlcleService requestHomeworksWithClassId:APP.currentUser.clazz.classId
+            self.homeworksRequest = [CirlcleService requestHomeworksWithLevel:APP.currentUser.clazz.classLevel + 1
                                                                        callback:^(Result *result, NSError *error) {
                                                                            StrongifySelf;
                                                                            

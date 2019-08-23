@@ -17,11 +17,24 @@
 
 @property (nonatomic, assign) NSUInteger userId;
 @property (nonatomic, assign) NSUInteger classId;
+
+// 0-7
+@property (nonatomic, assign) NSUInteger level;
 @property (nonatomic, copy) NSString *nextUrl;
 
 @end
 
 @implementation CircleHomeworksRequest
+
+
+- (BaseRequest *)initWithLevel:(NSUInteger)level{
+    
+    self = [super init];
+    if (self != nil) {
+        _level = level;
+    }
+    return self;
+}
 
 - (BaseRequest *)initWithUserId:(NSUInteger)userId {
     self = [super init];
@@ -71,8 +84,9 @@
         return @{@"studentId":@(self.userId)};
     } else if (self.classId > 0) {
         return @{@"classId":@(self.classId)};
+    } else if (self.level > 0) {
+        return @{@"level":@(self.level - 1)};
     }
-    
     return nil;
 }
 

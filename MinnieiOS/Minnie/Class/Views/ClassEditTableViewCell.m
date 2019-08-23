@@ -65,15 +65,17 @@ CGFloat const ClassEditTableViewCellHeight = 320.f;
 }
 
 - (void)textDidChange:(NSNotification *)notification {
+   
     if (self.classNameTextField.isFirstResponder) {
         if (self.nameChangedCallback != nil) {
             self.nameChangedCallback([self.classNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]);
         }
-    } else if (self.classLocationTextField.isFirstResponder) {
-        if (self.locationChangedCallback != nil) {
-            self.locationChangedCallback([self.classLocationTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]);
-        }
     }
+//    else if (self.classLocationTextField.isFirstResponder) {
+//        if (self.locationChangedCallback != nil) {
+//            self.locationChangedCallback([self.classLocationTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]);
+//        }
+//    }
 }
 
 - (IBAction)startTimeButtonPressed:(id)sender {
@@ -87,6 +89,14 @@ CGFloat const ClassEditTableViewCellHeight = 320.f;
         self.selectEndTimeCallback();
     }
 }
+
+- (IBAction)localButtonPressed:(id)sender {
+    
+    if (self.locationChangedCallback) {
+        self.locationChangedCallback();
+    }
+}
+
 
 - (IBAction)teacherButtonPressed:(id)sender {
     if (self.selectTeacherCallback != nil) {

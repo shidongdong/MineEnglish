@@ -74,6 +74,13 @@
                                @"select":@"menu_gift_sel",
                                @"normal":@"menu_gift_def"}];
     }
+    
+    
+//    [dataArray addObject:@{@"type":@(MIManagerFuncImagesModule),
+//                           @"title":@"图片管理",
+//                           @"select":@"menu_gift_sel",
+//                           @"normal":@"menu_gift_def"}];
+    
     [dataArray addObject:@{@"type":@(MIManagerFuncSettingModule),
                            @"title":@"设置",
                            @"select":@"navbar_setup_select",
@@ -99,10 +106,10 @@
         
         // 设置
         if (type == MIManagerFuncSettingModule) {
-            btn.frame = CGRectMake((kRootModularWidth - 50)/2.0, ScreenHeight - 90, 50, 50);
+            btn.frame = CGRectMake((kRootModularWidth - 50)/2.0, ScreenHeight - 60, 50, 50);
         } else {
             
-            CGFloat pointY = kNaviBarHeight + (36 + 50) * i;
+            CGFloat pointY = 40 + (36 + 50) * i;
             btn.frame = CGRectMake((kRootModularWidth - 50)/2.0, pointY, 50, 50);
             
             [btn setTitle:title forState:UIControlStateNormal];

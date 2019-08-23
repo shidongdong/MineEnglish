@@ -52,8 +52,13 @@
                                          redo:(NSInteger)redo
                                    sendCircle:(NSInteger)circle
                                          text:(NSString *)text
+                                        scope:(NSInteger)scope
                                      callback:(RequestCallback)callback {
-    CorrectHomeworkRequest *request = [[CorrectHomeworkRequest alloc] initWithScore:score text:text canRedo:redo sendCircle:circle homeworkSessionId:sessionId];
+    CorrectHomeworkRequest *request = [[CorrectHomeworkRequest alloc] initWithScore:score
+                                                                               text:text
+                                                                              scope:scope
+                                                                            canRedo:redo
+                                                                         sendCircle:circle homeworkSessionId:sessionId];
     
     request.callback = callback;
     [request start];

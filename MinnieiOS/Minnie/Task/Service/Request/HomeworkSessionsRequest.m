@@ -190,12 +190,15 @@
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, assign) NSInteger isRedo;
 @property (nonatomic, assign) NSInteger isCircle;
+@property (nonatomic, assign) NSInteger scope;
+
 @end
 
 @implementation CorrectHomeworkRequest
 
 - (instancetype)initWithScore:(NSInteger)score
                          text:(NSString *)text
+                        scope:(NSInteger)scope
                       canRedo:(NSInteger)bRedo
                    sendCircle:(NSInteger)bSend
             homeworkSessionId:(NSInteger)homeworkSessionId {
@@ -214,6 +217,7 @@
         _sessionId = homeworkSessionId;
         _isRedo = bRedo;
         _isCircle = bSend;
+        _scope = scope;
     }
     
     return self;
@@ -227,6 +231,7 @@
     return @{@"id":@(self.sessionId),
              @"score":@(self.score),
              @"content":self.text,
+             @"scope":@(self.scope),
              @"isRedo":@(self.isRedo),
              @"isCircle":@(self.isCircle),
              };

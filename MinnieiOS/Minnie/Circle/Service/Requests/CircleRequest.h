@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 2.4.1    获取同学圈列表（学生端，教师端）
 @interface CircleHomeworksRequest : BaseRequest
 
+- (BaseRequest *)initWithLevel:(NSUInteger)level;
+
 - (BaseRequest *)initWithUserId:(NSUInteger)userId;
 
 - (BaseRequest *)initWithClassId:(NSUInteger)classId;

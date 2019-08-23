@@ -6,6 +6,7 @@
 //  Copyright © 2016年 Aaron. All rights reserved.
 //
 
+#import "ManagerServce.h"
 #import "MIRootSheetView.h"
 #import "MISecondTeachersView.h"
 #import "MISecondSheetView.h"
@@ -161,6 +162,11 @@ MISecondTeachStatisticsViewDelegate
     } else if (type == MIManagerFuncGiftsModule) { // 礼物管理
         cloumnScale = kRootModularWidth;
         [self.secondDetailVC addSubViewController:self.giftStockSplitVC];
+    } else if (type == MIManagerFuncImagesModule) { // 图片管理
+        
+        [ManagerServce uploadWelcomesWithImages:@[] callback:^(Result *result, NSError *error) {
+            
+        }];
     } else if (type == MIManagerFuncSettingModule) { // 设置
         cloumnScale = kRootModularWidth;
         [self.secondDetailVC addSubViewController:self.setterStockSplitVC];

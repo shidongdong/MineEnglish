@@ -52,6 +52,7 @@
 
 - (instancetype)initWithScore:(NSInteger)score
                          text:(NSString *)text
+                        scope:(NSInteger)scope
                       canRedo:(NSInteger)bRedo
                    sendCircle:(NSInteger)bSend
             homeworkSessionId:(NSInteger)homeworkSessionId;

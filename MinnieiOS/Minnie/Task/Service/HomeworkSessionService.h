@@ -45,6 +45,7 @@
                                          redo:(NSInteger)redo
                                    sendCircle:(NSInteger)circle
                                          text:(NSString *)text
+                                        scope:(NSInteger)scope
                                      callback:(RequestCallback)callback;
 
 

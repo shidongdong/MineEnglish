@@ -20,6 +20,8 @@
 #import "ClassService.h"
 #import "DeleteTeacherAlertView.h"
 #import "AuthService.h"
+#import "ManagerServce.h"
+
 @interface ClassManagerViewController ()<UITableViewDataSource, UITableViewDelegate> {
 }
 
@@ -27,6 +29,8 @@
 @property (nonatomic, weak) IBOutlet UIButton *rightButton;
 
 @property (nonatomic, strong) NSArray *teachers;
+
+@property (nonatomic, strong) NSArray *campus;
 
 @property (nonatomic, assign) BOOL reloadWhenAppeard;
 
@@ -65,6 +69,8 @@
                                              selector:@selector(shouldReloadWhenAppeard)
                                                  name:kNotificationKeyOfUpdateSchedule
                                                object:nil];
+    
+    [self requestCampus];
 }
 
 - (void)dealloc {
@@ -161,6 +167,23 @@
         NSArray *teachers = (NSArray *)(dict[@"list"]);
         if (teachers.count > 0) {
             self.teachers = teachers;
+        }
+    }];
+}
+
+#pragma mark - 获取校区列表
+- (void)requestCampus{
+    
+    [ManagerServce requestCampusCallback:^(Result *result, NSError *error) {
+        
+        NSDictionary *dict = (NSDictionary *)(result.userInfo);
+        NSArray *campus = (NSArray *)(dict[@"list"]);
+        if (campus.count > 0) {
+            NSMutableArray *tempCampus = [NSMutableArray array];
+            for (CampusInfo *temCampu in campus) {
+                [tempCampus addObject:temCampu.campusName];
+            }
+            self.campus = tempCampus;
         }
     }];
 }
@@ -365,9 +388,24 @@
         editCell.nameChangedCallback = ^(NSString *name) {
             weakSelf.clazz.name = name;
         };
-        
-        editCell.locationChangedCallback = ^(NSString *location) {
-            weakSelf.clazz.location = location;
+ 
+        editCell.locationChangedCallback = ^{
+          
+            if (weakSelf.campus.count == 0) {
+                [weakSelf requestCampus];
+                return;
+            }
+            [weakCell.classNameTextField resignFirstResponder];
+            [weakCell.classLocationTextField resignFirstResponder];
+            NSArray * pickList = self.campus;
+            NSInteger index = 0;
+            [TextPickerView showInView:weakSelf.navigationController.view
+                              contents:pickList
+                         selectedIndex:index
+                              callback:^(NSString *name) {
+                                  weakSelf.clazz.location = name;
+                                  weakCell.classLocationTextField.text = name;
+                              }];
         };
         
         editCell.selectStartTimeCallback = ^{
