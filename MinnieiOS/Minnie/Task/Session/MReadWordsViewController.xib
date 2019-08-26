@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="landscape">
-        <adaptation id="fullscreen"/>
-    </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MIStudentWordsViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MReadWordsViewController">
             <connections>
                 <outlet property="backBtn" destination="69a-Mn-ZvF" id="XSh-gK-otM"/>
                 <outlet property="progressBgView" destination="xEg-PN-a4U" id="V8N-nk-Qne"/>
@@ -25,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="69a-Mn-ZvF">
-                    <rect key="frame" x="49" y="15" width="44" height="44"/>
+                    <rect key="frame" x="5" y="15" width="44" height="44"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="69a-Mn-ZvF" secondAttribute="height" multiplier="1:1" id="GYz-Wl-pZC"/>
                         <constraint firstAttribute="width" constant="44" id="gOW-74-Gmr"/>
@@ -36,7 +32,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="80" translatesAutoresizingMaskIntoConstraints="NO" id="5k8-Pd-Gig">
-                    <rect key="frame" x="308" y="56.5" width="280" height="280"/>
+                    <rect key="frame" x="308" y="67" width="280" height="280"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="280" id="79d-RJ-tsn"/>
                         <constraint firstAttribute="width" secondItem="5k8-Pd-Gig" secondAttribute="height" multiplier="1:1" id="TAH-9o-TX0"/>
@@ -46,13 +42,13 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="50" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zl0-ZD-IlO">
-                    <rect key="frame" x="44" y="0.0" width="808" height="383"/>
+                    <rect key="frame" x="0.0" y="0.0" width="896" height="404"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="300"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xEg-PN-a4U">
-                    <rect key="frame" x="44" y="395" width="808" height="5"/>
+                    <rect key="frame" x="0.0" y="416" width="896" height="5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="5" id="z1m-hX-nTu"/>

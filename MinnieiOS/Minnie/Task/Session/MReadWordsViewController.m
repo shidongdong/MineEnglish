@@ -16,17 +16,17 @@
 #import "MIReadingWordsView.h"
 #import "VIResourceLoaderManager.h"
 #import <AVOSCloudIM/AVOSCloudIM.h>
-#import "MIReadingTaskViewController.h"
+#import "MICheckWordsViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "AudioPlayerViewController.h"
-#import "MIStudentWordsViewController.h"
+#import "MReadWordsViewController.h"
 
 
 static NSString * const kKeyOfCreateTimestamp = @"createTimestamp";
 static NSString * const kKeyOfAudioDuration = @"audioDuration";
 static NSString * const kKeyOfVideoDuration = @"videoDuration";
 
-@interface MIStudentWordsViewController ()
+@interface MReadWordsViewController ()
 
 
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
@@ -54,7 +54,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 
 @end
 
-@implementation MIStudentWordsViewController
+@implementation MReadWordsViewController
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

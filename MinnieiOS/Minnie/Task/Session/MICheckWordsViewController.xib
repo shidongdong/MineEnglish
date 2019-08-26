@@ -9,11 +9,8 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MIReadingTaskViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MICheckWordsViewController">
             <connections>
-                <outlet property="commitBtn" destination="ap6-30-NOq" id="M6p-Rw-bNi"/>
-                <outlet property="myRecordBtn" destination="sW1-9q-kJd" id="c5l-2i-9oF"/>
-                <outlet property="myRecordLabel" destination="zrC-Nd-sCb" id="dp0-LC-8Lu"/>
                 <outlet property="recordAniBgView" destination="8Vz-gc-PVO" id="31v-jq-d78"/>
                 <outlet property="startRecordBtn" destination="2Vy-Ij-6GQ" id="lZm-pG-W2C"/>
                 <outlet property="startRecordLabel" destination="kGm-Nv-4oN" id="3ua-a2-V2x"/>
@@ -85,7 +82,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oqB-rv-40c" userLabel="FooterView">
                     <rect key="frame" x="0.0" y="642" width="414" height="220"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q8v-AG-PfJ">
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q8v-AG-PfJ">
                             <rect key="frame" x="0.0" y="0.0" width="138" height="170"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4C4-Xu-rYN">
@@ -142,7 +139,7 @@
                                 <constraint firstItem="2Vy-Ij-6GQ" firstAttribute="centerX" secondItem="YMA-6C-BNv" secondAttribute="centerX" id="wJi-Ox-30o"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zu7-vm-Grg">
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zu7-vm-Grg">
                             <rect key="frame" x="276" y="0.0" width="138" height="170"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sW1-9q-kJd">
@@ -155,9 +152,6 @@
                                         <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <state key="selected" backgroundImage="btn_stop_green"/>
-                                    <connections>
-                                        <action selector="myRecordAction:" destination="-1" eventType="touchUpInside" id="F2v-Y8-o97"/>
-                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的录音" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zrC-Nd-sCb">
                                     <rect key="frame" x="40.5" y="93" width="57.5" height="17"/>
@@ -172,30 +166,15 @@
                                 <constraint firstItem="zrC-Nd-sCb" firstAttribute="centerX" secondItem="sW1-9q-kJd" secondAttribute="centerX" id="CAR-en-hB8"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ap6-30-NOq">
-                            <rect key="frame" x="0.0" y="170" width="414" height="50"/>
-                            <color key="backgroundColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="50" id="wNR-pw-kK8"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <state key="normal" title="提交"/>
-                            <connections>
-                                <action selector="commitAction:" destination="-1" eventType="touchUpInside" id="KFN-H3-3Vf"/>
-                            </connections>
-                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="220" id="1vO-aM-4hZ"/>
                         <constraint firstItem="Q8v-AG-PfJ" firstAttribute="top" secondItem="oqB-rv-40c" secondAttribute="top" id="6e4-qC-iaV"/>
-                        <constraint firstItem="ap6-30-NOq" firstAttribute="leading" secondItem="oqB-rv-40c" secondAttribute="leading" id="7q4-Ss-rJQ"/>
-                        <constraint firstAttribute="bottom" secondItem="ap6-30-NOq" secondAttribute="bottom" id="8Km-wD-mAr"/>
                         <constraint firstItem="YMA-6C-BNv" firstAttribute="bottom" secondItem="Q8v-AG-PfJ" secondAttribute="bottom" id="B5L-jh-c7y"/>
                         <constraint firstItem="zu7-vm-Grg" firstAttribute="width" secondItem="YMA-6C-BNv" secondAttribute="width" id="CkA-lK-hYn"/>
                         <constraint firstItem="YMA-6C-BNv" firstAttribute="leading" secondItem="Q8v-AG-PfJ" secondAttribute="trailing" id="G6g-wv-Rr5"/>
                         <constraint firstItem="sW1-9q-kJd" firstAttribute="centerY" secondItem="2Vy-Ij-6GQ" secondAttribute="centerY" id="H7f-zJ-pOi"/>
-                        <constraint firstAttribute="trailing" secondItem="ap6-30-NOq" secondAttribute="trailing" id="I8q-dB-4SP"/>
                         <constraint firstItem="zu7-vm-Grg" firstAttribute="top" secondItem="YMA-6C-BNv" secondAttribute="top" id="JfV-Ji-h18"/>
                         <constraint firstItem="zrC-Nd-sCb" firstAttribute="centerY" secondItem="kGm-Nv-4oN" secondAttribute="centerY" id="KdQ-zG-LUr"/>
                         <constraint firstItem="bOj-lr-6ul" firstAttribute="centerY" secondItem="kGm-Nv-4oN" secondAttribute="centerY" id="PZ5-1q-u23"/>
@@ -205,7 +184,7 @@
                         <constraint firstItem="Q8v-AG-PfJ" firstAttribute="leading" secondItem="oqB-rv-40c" secondAttribute="leading" id="mL9-r2-jzB"/>
                         <constraint firstItem="zu7-vm-Grg" firstAttribute="leading" secondItem="YMA-6C-BNv" secondAttribute="trailing" id="mgv-jj-4Tj"/>
                         <constraint firstItem="YMA-6C-BNv" firstAttribute="width" secondItem="Q8v-AG-PfJ" secondAttribute="width" id="pxe-h1-t0Y"/>
-                        <constraint firstItem="ap6-30-NOq" firstAttribute="top" secondItem="Q8v-AG-PfJ" secondAttribute="bottom" id="rgV-QI-oe2"/>
+                        <constraint firstAttribute="bottom" secondItem="Q8v-AG-PfJ" secondAttribute="bottom" constant="50" id="wsB-Bm-zvs"/>
                         <constraint firstAttribute="trailing" secondItem="zu7-vm-Grg" secondAttribute="trailing" id="xqs-Sl-Ozy"/>
                     </constraints>
                 </view>

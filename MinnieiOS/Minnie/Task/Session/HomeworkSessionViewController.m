@@ -40,13 +40,13 @@
 #import "TZImagePickerController.h"
 #import "VICacheManager.h"
 #import "HomeworkAnswersPickerViewController.h"
-#import "MIReadingTaskViewController.h"
+#import "MICheckWordsViewController.h"
 #import "MIFollowUpViewController.h"
 
 #if MANAGERSIDE
 #else
 
-#import "MIStudentWordsViewController.h"
+#import "MReadWordsViewController.h"
 
 #endif
 
@@ -1730,20 +1730,7 @@ HomeworkAnswersPickerViewControllerDelegate>
             if ([typeName isEqualToString:kHomeworkTaskFollowUpName]) {
                 
                 if (weakSelf.homeworkSession.score != -1)  return;
-//                MIReadingTaskViewController *taskVC = [[MIReadingTaskViewController alloc] initWithNibName:NSStringFromClass([MIReadingTaskViewController class]) bundle:nil];
-//                taskVC.isChecking = NO;
-//                taskVC.teacher = weakSelf.teacher;
-//                taskVC.conversation = weakSelf.conversation;
-//                taskVC.homework = weakSelf.homeworkSession.homework;
-//                taskVC.finishCallBack = ^(AVIMAudioMessage *message){
-//
-//                    [weakSelf.messages addObject:message];
-//                    [weakSelf sortMessages];
-//                    [weakSelf reloadDataAndScrollToBottom];
-//                };
-//                [weakSelf.navigationController pushViewController:taskVC animated:YES];
-//
-                
+   
                 MIFollowUpViewController *followUpVC = [[MIFollowUpViewController alloc] initWithNibName:NSStringFromClass([MIFollowUpViewController class]) bundle:nil];
                 followUpVC.isChecking = NO;
                 followUpVC.teacher = weakSelf.teacher;
@@ -1761,7 +1748,7 @@ HomeworkAnswersPickerViewControllerDelegate>
 #if MANAGERSIDE
 #else
                 if (weakSelf.homeworkSession.score != -1)  return;
-                MIStudentWordsViewController * words = [[MIStudentWordsViewController alloc] init];
+                MReadWordsViewController * words = [[MReadWordsViewController alloc] init];
                 words.teacher = weakSelf.teacher;
                 words.conversation = weakSelf.conversation;
                 words.homework =  weakSelf.homeworkSession.homework;
@@ -1997,7 +1984,7 @@ HomeworkAnswersPickerViewControllerDelegate>
                     
                 } else if ([typeName isEqualToString:kHomeworkTaskWordMemoryName]){
                    
-                    MIReadingTaskViewController *taskVC = [[MIReadingTaskViewController alloc] initWithNibName:NSStringFromClass([MIReadingTaskViewController class]) bundle:nil];
+                    MICheckWordsViewController *taskVC = [[MICheckWordsViewController alloc] initWithNibName:NSStringFromClass([MICheckWordsViewController class]) bundle:nil];
                     NSString *fileUrl = message.file.url;
                     taskVC.audioUrl = fileUrl;
                     taskVC.isChecking = YES;
