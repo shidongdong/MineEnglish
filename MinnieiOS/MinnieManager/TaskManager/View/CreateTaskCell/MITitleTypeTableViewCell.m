@@ -297,8 +297,8 @@ UIDocumentPickerDelegate
         [alertVC addAction:cancelAction];
     } else if ((self.contentType == MIHomeworkCreateContentType_AddFollowMaterials)){
 
+        [alertVC addAction:imageAction];
         [alertVC addAction:fileAction];
-        [alertVC addAction:videoAction];
         [alertVC addAction:cancelAction];
     } else if ((self.contentType == MIHomeworkCreateContentType_AddBgMusic)){
         

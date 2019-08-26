@@ -740,13 +740,62 @@ ClassAndStudentSelectorControllerDelegate
             __weak MITitleTypeTableViewCell *weakContentCell = contentCell;
             __weak UITableView *weakTableView = tableView;
             contentCell.addItemCallback = ^(NSArray * _Nullable items) {
+
                 [weakSelf.followItems removeAllObjects];
-                [weakSelf.followItems addObject:items.lastObject];
-                [weakContentCell setupWithItems:weakSelf.followItems vc:weakSelf contentType:createType];
+                HomeworkItem *coverItem = [[HomeworkItem alloc] init];
+                HomeworkItem *audioItem = [[HomeworkItem alloc] init];
+                NSMutableArray *audioItems = [NSMutableArray array];
+                for (HomeworkItem *item in items) {
+                    
+                    if ([item.type isEqualToString:HomeworkItemTypeImage]) {
+                      
+                        coverItem = item;
+                        coverItem.audioCoverUrl = item.imageUrl;
+                    }
+                    if ([item.type isEqualToString:HomeworkItemTypeAudio]) {
+                        
+                       audioItem = item;
+                    }
+                }
+                if (coverItem.audioCoverUrl.length > 0) {
+                    
+                    [audioItems addObject:coverItem];
+                }
+                if (audioItem.audioUrl.length > 0) {
+                    
+                    [audioItems addObject:audioItem];
+                }
+                
+                HomeworkItem *selItem = [[HomeworkItem alloc] init];
+                selItem.type = HomeworkItemTypeAudio;
+                selItem.audioUrl = audioItem.audioUrl;
+                selItem.audioCoverUrl = coverItem.audioCoverUrl;
+                [weakSelf.followItems removeAllObjects];
+                [weakSelf.followItems addObject:selItem];
+
+                [weakContentCell setupWithItems:audioItems vc:weakSelf contentType:createType];
                 [weakTableView beginUpdates];
                 [weakTableView endUpdates];
             };
-            [contentCell setupWithItems:self.followItems vc:self contentType:createType];
+           
+            HomeworkItem *followItem = self.followItems.lastObject;
+            NSMutableArray *audioItems = [NSMutableArray array];
+            if (followItem.audioCoverUrl.length > 0) {
+                
+                HomeworkItem *coverItem = [[HomeworkItem alloc] init];
+                coverItem.type = HomeworkItemTypeImage;
+                coverItem.imageUrl = followItem.imageUrl;
+                coverItem.audioCoverUrl = followItem.audioCoverUrl;
+                [audioItems addObject:coverItem];
+            }
+            if (followItem.audioUrl.length > 0) {
+                
+                HomeworkItem *audioItem = [[HomeworkItem alloc] init];
+                audioItem.type = HomeworkItemTypeAudio;
+                audioItem.audioUrl = followItem.audioUrl;
+                [audioItems addObject:audioItem];
+            }
+            [contentCell setupWithItems:audioItems vc:self contentType:createType];
             cell = contentCell;
         }
             break;
@@ -1217,11 +1266,22 @@ ClassAndStudentSelectorControllerDelegate
             }
             break;
         case MIHomeworkCreateContentType_AddFollowMaterials:
-            if (self.followItems.count) {
-                rowHeight = self.followItems.count * 112 + MITitleTypeTableViewCellHeight;
+        {
+           
+            NSInteger count = 0;
+            HomeworkItem *followItem = self.followItems.lastObject;
+            if (followItem.audioCoverUrl.length > 0) {
+                count ++;
+            }
+            if (followItem.audioUrl.length > 0) {
+                count ++;
+            }
+            if (count) {
+                rowHeight = count * 112 + MITitleTypeTableViewCellHeight;
             } else {
                 rowHeight = MITitleTypeTableViewCellHeight;
             }
+        }
             break;
         case MIHomeworkCreateContentType_WordsTimeInterval:
         case MIHomeworkCreateContentType_TimeLimit:
@@ -1609,8 +1669,12 @@ ClassAndStudentSelectorControllerDelegate
         }
     }
     if (self.taskType == MIHomeworkTaskType_FollowUp) {
-        if (self.followItems.count == 0) {
-            [HUD showErrorWithMessage:@"请添加跟读材料"]; return;
+
+        HomeworkItem *item = self.followItems.lastObject;
+        if (item.audioUrl.length == 0 ||
+            item.audioCoverUrl.length == 0) {
+           
+            [HUD showErrorWithMessage:@"跟读材料不完整"]; return;
         }
     }
     NSMutableArray *resultItems = [NSMutableArray array];
