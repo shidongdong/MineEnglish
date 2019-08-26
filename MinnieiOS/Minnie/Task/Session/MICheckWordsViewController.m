@@ -111,14 +111,11 @@ CAAnimationDelegate
         };
         _wordsView.readingWordsSeekCallBack = ^(CGFloat rate) {
           
-            if (weakSelf.isChecking) {
-                
-                CGFloat time = weakSelf.audioPlayer.duration * rate;
-                [weakSelf.audioPlayer seekToTime:time];
-                weakSelf.startRecordBtn.selected = YES;
-                weakSelf.startRecordLabel.text = @"点击停止录音";
-                [weakSelf.wordsView startPlayWords];
-            }
+            CGFloat time = weakSelf.audioPlayer.duration * rate;
+            [weakSelf.audioPlayer seekToTime:time];
+            weakSelf.startRecordBtn.selected = YES;
+            weakSelf.startRecordLabel.text = @"点击停止录音";
+            [weakSelf.wordsView startPlayWords];
         };
         _wordsView.readingWordsProgressCallBack = ^(NSInteger index) {
            
@@ -148,12 +145,9 @@ CAAnimationDelegate
             
             if (status == AVPlayerItemStatusFailed) {
                 
-                if (weakSelf.isChecking) {
-                    
-                    weakSelf.startRecordBtn.selected = NO;
-                    weakSelf.startRecordLabel.text = @"点击查看录音";
-                    [weakSelf.wordsView stopPlayWords];
-                }
+                weakSelf.startRecordBtn.selected = NO;
+                weakSelf.startRecordLabel.text = @"点击查看录音";
+                [weakSelf.wordsView stopPlayWords];
             } else if (status == AVPlayerItemStatusReadyToPlay) {
                 NSLog(@"AVPlayerItemStatusReadyToPlay");
             }
@@ -165,11 +159,8 @@ CAAnimationDelegate
         
         _audioPlayer.finishedBlock = ^{
             
-            if (weakSelf.isChecking) {
-                
-                weakSelf.startRecordBtn.selected = NO;
-                weakSelf.startRecordLabel.text = @"点击查看录音";
-            }
+            weakSelf.startRecordBtn.selected = NO;
+            weakSelf.startRecordLabel.text = @"点击查看录音";
         };
     }
     return _audioPlayer;

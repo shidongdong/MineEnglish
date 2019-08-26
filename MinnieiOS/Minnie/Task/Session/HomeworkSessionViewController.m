@@ -1987,8 +1987,6 @@ HomeworkAnswersPickerViewControllerDelegate>
                     MICheckWordsViewController *taskVC = [[MICheckWordsViewController alloc] initWithNibName:NSStringFromClass([MICheckWordsViewController class]) bundle:nil];
                     NSString *fileUrl = message.file.url;
                     taskVC.audioUrl = fileUrl;
-                    taskVC.isChecking = YES;
-                    taskVC.teacher = weakSelf.teacher;
                     taskVC.homework = weakSelf.homeworkSession.homework;
                     [weakSelf.navigationController pushViewController:taskVC animated:YES];
                 }
