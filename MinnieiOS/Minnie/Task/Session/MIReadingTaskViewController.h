@@ -4,7 +4,7 @@
 //
 //  Created by songzhen on 2019/6/9.
 //  Copyright © 2019 minnieedu. All rights reserved.
-//
+//  查看单词
 
 #import "IMManager.h"
 #import "Homework.h"

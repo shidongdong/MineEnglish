@@ -41,6 +41,7 @@
 #import "VICacheManager.h"
 #import "HomeworkAnswersPickerViewController.h"
 #import "MIReadingTaskViewController.h"
+#import "MIFollowUpViewController.h"
 
 #if MANAGERSIDE
 #else
@@ -1729,18 +1730,32 @@ HomeworkAnswersPickerViewControllerDelegate>
             if ([typeName isEqualToString:kHomeworkTaskFollowUpName]) {
                 
                 if (weakSelf.homeworkSession.score != -1)  return;
-                MIReadingTaskViewController *taskVC = [[MIReadingTaskViewController alloc] initWithNibName:NSStringFromClass([MIReadingTaskViewController class]) bundle:nil];
-                taskVC.isChecking = NO;
-                taskVC.teacher = weakSelf.teacher;
-                taskVC.conversation = weakSelf.conversation;
-                taskVC.homework = weakSelf.homeworkSession.homework;
-                taskVC.finishCallBack = ^(AVIMAudioMessage *message){
-    
+//                MIReadingTaskViewController *taskVC = [[MIReadingTaskViewController alloc] initWithNibName:NSStringFromClass([MIReadingTaskViewController class]) bundle:nil];
+//                taskVC.isChecking = NO;
+//                taskVC.teacher = weakSelf.teacher;
+//                taskVC.conversation = weakSelf.conversation;
+//                taskVC.homework = weakSelf.homeworkSession.homework;
+//                taskVC.finishCallBack = ^(AVIMAudioMessage *message){
+//
+//                    [weakSelf.messages addObject:message];
+//                    [weakSelf sortMessages];
+//                    [weakSelf reloadDataAndScrollToBottom];
+//                };
+//                [weakSelf.navigationController pushViewController:taskVC animated:YES];
+//
+                
+                MIFollowUpViewController *followUpVC = [[MIFollowUpViewController alloc] initWithNibName:NSStringFromClass([MIFollowUpViewController class]) bundle:nil];
+                followUpVC.isChecking = NO;
+                followUpVC.teacher = weakSelf.teacher;
+                followUpVC.conversation = weakSelf.conversation;
+                followUpVC.homework = weakSelf.homeworkSession.homework;
+                followUpVC.finishCallBack = ^(AVIMAudioMessage *message){
+                    
                     [weakSelf.messages addObject:message];
                     [weakSelf sortMessages];
                     [weakSelf reloadDataAndScrollToBottom];
                 };
-                [weakSelf.navigationController pushViewController:taskVC animated:YES];
+                [weakSelf.navigationController pushViewController:followUpVC animated:YES];
             } else if ([typeName isEqualToString:kHomeworkTaskWordMemoryName]) {
               
 #if MANAGERSIDE
@@ -1969,13 +1984,27 @@ HomeworkAnswersPickerViewControllerDelegate>
             }];
             [textCell setClickCallback:^{// 查看作业
 
-                MIReadingTaskViewController *taskVC = [[MIReadingTaskViewController alloc] initWithNibName:NSStringFromClass([MIReadingTaskViewController class]) bundle:nil];
-                NSString *fileUrl = message.file.url;
-                taskVC.audioUrl = fileUrl;
-                taskVC.isChecking = YES;
-                taskVC.teacher = weakSelf.teacher;
-                taskVC.homework = weakSelf.homeworkSession.homework;
-                [weakSelf.navigationController pushViewController:taskVC animated:YES];
+                NSString *typeName = self.homeworkSession.homework.typeName;
+                if ([typeName isEqualToString:kHomeworkTaskFollowUpName]) {
+                    
+                    MIFollowUpViewController *followVC = [[MIFollowUpViewController alloc] initWithNibName:NSStringFromClass([MIFollowUpViewController class]) bundle:nil];
+                    NSString *fileUrl = message.file.url;
+                    followVC.audioUrl = fileUrl;
+                    followVC.isChecking = YES;
+                    followVC.teacher = weakSelf.teacher;
+                    followVC.homework = weakSelf.homeworkSession.homework;
+                    [weakSelf.navigationController pushViewController:followVC animated:YES];
+                    
+                } else if ([typeName isEqualToString:kHomeworkTaskWordMemoryName]){
+                   
+                    MIReadingTaskViewController *taskVC = [[MIReadingTaskViewController alloc] initWithNibName:NSStringFromClass([MIReadingTaskViewController class]) bundle:nil];
+                    NSString *fileUrl = message.file.url;
+                    taskVC.audioUrl = fileUrl;
+                    taskVC.isChecking = YES;
+                    taskVC.teacher = weakSelf.teacher;
+                    taskVC.homework = weakSelf.homeworkSession.homework;
+                    [weakSelf.navigationController pushViewController:taskVC animated:YES];
+                }
             }];
             cell = textCell;
             
@@ -2205,6 +2234,7 @@ HomeworkAnswersPickerViewControllerDelegate>
         }
 #endif
     }
+    [self.messagesTableView reloadData];
 }
 
 - (void)configureUI{

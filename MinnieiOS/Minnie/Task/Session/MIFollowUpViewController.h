@@ -1,22 +1,21 @@
 //
-//  MIStudentWordsViewController.h
-//  MinnieStudent
+//  MIFollowUpViewController.h
+//  Minnie
 //
-//  Created by songzhen on 2019/8/8.
+//  Created by songzhen on 2019/8/26.
 //  Copyright © 2019 minnieedu. All rights reserved.
-//  单词任务
+//  跟读任务   查看跟读
 
 #import "IMManager.h"
 #import "Homework.h"
 #import <UIKit/UIKit.h>
-#import "MIReadingTaskViewController.h"
-
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MIStudentWordsViewController : UIViewController
+@interface MIFollowUpViewController : UIViewController
 
 // 查阅
+@property (nonatomic,assign) BOOL isChecking;
 @property (nonatomic,copy) NSString *audioUrl;
 
 @property (nonatomic,strong) Homework *homework;
@@ -25,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) AVIMConversation *conversation;
 
-@property (nonatomic, copy) MIReadingTaskFinishCallBack finishCallBack;
+@property (nonatomic, copy) void(^finishCallBack)(AVIMAudioMessage * _Nullable message);
 
 @end
 

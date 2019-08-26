@@ -536,4 +536,9 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     return settings;
 }
 
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 @end

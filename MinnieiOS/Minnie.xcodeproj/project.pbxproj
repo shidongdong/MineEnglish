@@ -706,6 +706,12 @@
 		12E0797F230E2C0C0054A8CE /* AwardsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0797E230E2C0C0054A8CE /* AwardsService.m */; };
 		12E07980230E2C0C0054A8CE /* AwardsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0797E230E2C0C0054A8CE /* AwardsService.m */; };
 		12E07981230E2C0C0054A8CE /* AwardsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0797E230E2C0C0054A8CE /* AwardsService.m */; };
+		12E079852313865F0054A8CE /* MIFollowUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E079832313865E0054A8CE /* MIFollowUpViewController.m */; };
+		12E07986231386600054A8CE /* MIFollowUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E079832313865E0054A8CE /* MIFollowUpViewController.m */; };
+		12E07987231386600054A8CE /* MIFollowUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E079832313865E0054A8CE /* MIFollowUpViewController.m */; };
+		12E07988231386600054A8CE /* MIFollowUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E079842313865E0054A8CE /* MIFollowUpViewController.xib */; };
+		12E07989231386600054A8CE /* MIFollowUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E079842313865E0054A8CE /* MIFollowUpViewController.xib */; };
+		12E0798A231386600054A8CE /* MIFollowUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E079842313865E0054A8CE /* MIFollowUpViewController.xib */; };
 		12EAC63422AD405E00F1F3DB /* MISutdentActDetailViewController.m in Resources */ = {isa = PBXBuildFile; fileRef = 12CB73C222AC0DD60064FB21 /* MISutdentActDetailViewController.m */; };
 		12EAC63522AD40A000F1F3DB /* MIStuActDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 122F798A22ACB02B00D2AA53 /* MIStuActDetailHeaderView.m */; };
 		12EAC63922AD4BF400F1F3DB /* MIReadingTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC63722AD4BF300F1F3DB /* MIReadingTaskViewController.m */; };
@@ -2330,6 +2336,9 @@
 		12E07971230D47FD0054A8CE /* CircleRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircleRequest.m; sourceTree = "<group>"; };
 		12E0797D230E2C0C0054A8CE /* AwardsService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AwardsService.h; path = Requests/AwardsService.h; sourceTree = "<group>"; };
 		12E0797E230E2C0C0054A8CE /* AwardsService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AwardsService.m; path = Requests/AwardsService.m; sourceTree = "<group>"; };
+		12E079822313865E0054A8CE /* MIFollowUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIFollowUpViewController.h; sourceTree = "<group>"; };
+		12E079832313865E0054A8CE /* MIFollowUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MIFollowUpViewController.m; sourceTree = "<group>"; };
+		12E079842313865E0054A8CE /* MIFollowUpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MIFollowUpViewController.xib; sourceTree = "<group>"; };
 		12EAC63622AD4BF300F1F3DB /* MIReadingTaskViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIReadingTaskViewController.h; sourceTree = "<group>"; };
 		12EAC63722AD4BF300F1F3DB /* MIReadingTaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MIReadingTaskViewController.m; sourceTree = "<group>"; };
 		12EAC63822AD4BF400F1F3DB /* MIReadingTaskViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MIReadingTaskViewController.xib; sourceTree = "<group>"; };
@@ -4826,6 +4835,9 @@
 				127A403222FBCA2500CBB085 /* MIStudentWordsViewController.h */,
 				127A403322FBCA2500CBB085 /* MIStudentWordsViewController.m */,
 				127A403422FBCA2500CBB085 /* MIStudentWordsViewController.xib */,
+				12E079822313865E0054A8CE /* MIFollowUpViewController.h */,
+				12E079832313865E0054A8CE /* MIFollowUpViewController.m */,
+				12E079842313865E0054A8CE /* MIFollowUpViewController.xib */,
 				1204263B22FD5633008B90C9 /* MIToastView.h */,
 				1204263C22FD5633008B90C9 /* MIToastView.m */,
 				1204264022FD565B008B90C9 /* MIToastView.xib */,
@@ -6154,6 +6166,7 @@
 				12747C6622A7D1CF009C390E /* navbar_message@2x.png in Resources */,
 				12961C4C229E5B5B0075B04A /* icon_mission_choice@3x.png in Resources */,
 				12961C83229E690F0075B04A /* attachment_placeholder@3x.png in Resources */,
+				12E0798A231386600054A8CE /* MIFollowUpViewController.xib in Resources */,
 				128F137E22D4699D00C9F5B7 /* UnfinishedStudentHomeworkSessionTableViewCell.xib in Resources */,
 				12961C70229E66EA0075B04A /* HomeworkImageCollectionViewCell.xib in Resources */,
 				12747C4622A7D1A9009C390E /* teacher@3x.png in Resources */,
@@ -6632,6 +6645,7 @@
 				97109ED7207A7C1600568785 /* StudentAwardsViewController.xib in Resources */,
 				872558A721D4CB860028BC2A /* CorrectHomeworkCommentTableViewCell.xib in Resources */,
 				128F132922CD114000C9F5B7 /* MICreateWordView.xib in Resources */,
+				12E07988231386600054A8CE /* MIFollowUpViewController.xib in Resources */,
 				872C742021BE8FD40027F47C /* load背景02@3x.png in Resources */,
 				8709C2FD21A24C7400970757 /* 第1名@2x.png in Resources */,
 				1923CB2B22869B970056B2AD /* EditStudentRemarkViewController.xib in Resources */,
@@ -7130,6 +7144,7 @@
 				97109764207A006D00568785 /* icon_choice@2x.png in Resources */,
 				8770A29A22360F84005733E4 /* AnswerPickerAudioCell.xib in Resources */,
 				97109D5C207A2F0400568785 /* CommentMessageTableViewCell.xib in Resources */,
+				12E07989231386600054A8CE /* MIFollowUpViewController.xib in Resources */,
 				8764C99221F35F3D00FD7AAF /* default_save_image_pressed@3x.png in Resources */,
 				12A1E95222A65EB0001247D7 /* MIMoveHomeworkTaskView.xib in Resources */,
 				971097A0207A006D00568785 /* navbar_back@2x.png in Resources */,
@@ -7671,6 +7686,7 @@
 				12961C72229E670A0075B04A /* ClassSelectorTableViewCell.m in Sources */,
 				12ED3B49229D906F00255F8B /* HomeworksRequest.m in Sources */,
 				12ED3B6A229D972000255F8B /* LoadingIndicatorView.m in Sources */,
+				12E07987231386600054A8CE /* MIFollowUpViewController.m in Sources */,
 				12FEA39F22E19D2F008503B2 /* MISecondStockSplitViewController.m in Sources */,
 				12CB73B422AB92240064FB21 /* UIView+AZGradient.m in Sources */,
 				12ED3B62229D96CB00255F8B /* ProgressHUD.m in Sources */,
@@ -8051,6 +8067,7 @@
 				1229814422C5B40400C09750 /* StudentSelectorTableViewCell.m in Sources */,
 				8753CD1221C1FDC800762266 /* UITabBar+KSBadge.m in Sources */,
 				872F5B362171821C00D88855 /* StudentService.m in Sources */,
+				12E079852313865F0054A8CE /* MIFollowUpViewController.m in Sources */,
 				979BBD852081B9C700359253 /* TrialClasssRequest.m in Sources */,
 				97109944207A0BF600568785 /* Utils.m in Sources */,
 				872558A221D4CB5B0028BC2A /* CorrectHomeworkViewController.m in Sources */,
@@ -8485,6 +8502,7 @@
 				9710995F207A0BF600568785 /* IMManager.m in Sources */,
 				97109A21207A158C00568785 /* HomeworkSessionsContainerViewController.m in Sources */,
 				871806BD21DF438C0023511C /* MUSlomoIconView.m in Sources */,
+				12E07986231386600054A8CE /* MIFollowUpViewController.m in Sources */,
 				8725588D21D1D2A70028BC2A /* CorrectHomeworkAddCommentViewController.m in Sources */,
 				128CF0C822C46645004FBC91 /* HomeworkConfirmView.m in Sources */,
 				8770A2B5223CA9F8005733E4 /* PinyinFormatter.m in Sources */,
