@@ -768,6 +768,7 @@ ClassAndStudentSelectorControllerDelegate
                 
                 HomeworkItem *selItem = [[HomeworkItem alloc] init];
                 selItem.type = HomeworkItemTypeAudio;
+                selItem.imageUrl = audioItem.audioCoverUrl;
                 selItem.audioUrl = audioItem.audioUrl;
                 selItem.audioCoverUrl = coverItem.audioCoverUrl;
                 [weakSelf.followItems removeAllObjects];
@@ -784,7 +785,7 @@ ClassAndStudentSelectorControllerDelegate
                 
                 HomeworkItem *coverItem = [[HomeworkItem alloc] init];
                 coverItem.type = HomeworkItemTypeImage;
-                coverItem.imageUrl = followItem.imageUrl;
+                coverItem.imageUrl = followItem.audioCoverUrl;
                 coverItem.audioCoverUrl = followItem.audioCoverUrl;
                 [audioItems addObject:coverItem];
             }
