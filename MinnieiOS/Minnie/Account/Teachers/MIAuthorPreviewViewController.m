@@ -124,6 +124,8 @@ UITableViewDataSource>
         title = clazz.name;
         state = clazz.canLookStudent;
     }
+    
+    [cell setAuthority:self.selectAuthority];
     [cell setupTitle:title
                 text:nil
                image:avatar

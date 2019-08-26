@@ -99,6 +99,8 @@ MIActivityBannerViewDelegate
         [self setupAndLoadConversations];
 #if MANAGERSIDE
 #else
+        
+        NSLog(@"requestHomeworkSessions2");
         [self requestHomeworkSessions];
 #endif
     }
@@ -114,6 +116,8 @@ MIActivityBannerViewDelegate
         if (self.homeworkSessions.count > 0) {
             [self.homeworkSessionsTableView headerBeginRefreshing];
         } else {
+            
+            NSLog(@"requestHomeworkSessions3");
             [self requestHomeworkSessions];
         }
     } else {
@@ -129,12 +133,16 @@ MIActivityBannerViewDelegate
 - (void)requestSearchForName:(NSString *)name
 {
     self.searchFilterName = name;
+    
+    NSLog(@"requestHomeworkSessions4");
     [self requestHomeworkSessions];
 }
 
 - (void)requestSearchForSorceAtIndex:(NSInteger)index
 {
     self.searchFliter = index;
+    
+    NSLog(@"requestHomeworkSessions5");
     [self requestHomeworkSessions];
 }
 
@@ -375,6 +383,8 @@ MIActivityBannerViewDelegate
     if (self.homeworkSessions.count > 0) {
         [self.homeworkSessionsTableView headerBeginRefreshing];
     } else {
+        
+        NSLog(@"requestHomeworkSessions6");
         [self requestHomeworkSessions];
     }
 }
@@ -384,6 +394,8 @@ MIActivityBannerViewDelegate
     if (self.homeworkSessions.count > 0) {
         [self.homeworkSessionsTableView headerBeginRefreshing];
     } else {
+        
+        NSLog(@"requestHomeworkSessions7");
         [self requestHomeworkSessions];
     }
 }
@@ -459,6 +471,8 @@ MIActivityBannerViewDelegate
         if (self.homeworkSessions.count > 0) {
             [self.homeworkSessionsTableView headerBeginRefreshing];
         } else {
+            
+            NSLog(@"requestHomeworkSessions8");
             [self requestHomeworkSessions];
         }
         return ;
@@ -537,6 +551,8 @@ MIActivityBannerViewDelegate
 - (void)updateSessionList {
     
     [self resetCurrentSelectIndex];
+    
+    NSLog(@"requestHomeworkSessions9");
     [self requestHomeworkSessions];
 }
 #pragma mark - ipad端：重置选中任务状态
@@ -559,8 +575,6 @@ MIActivityBannerViewDelegate
         [self.view showLoadingView];
         self.homeworkSessionsTableView.hidden = YES;
     }
-    NSLog(@"searchFliter %lu, mState %lu",self.searchFliter,self.mState);
-    
     // mState 0：待批改；1已完成；2未提交
     WeakifySelf;
     if (self.searchFliter == -1)
@@ -696,6 +710,8 @@ MIActivityBannerViewDelegate
             } else {
                 WeakifySelf;
                 [self.view showFailureViewWithRetryCallback:^{
+                    
+                    NSLog(@"requestHomeworkSessions10");
                     [weakSelf requestHomeworkSessions];
                 }];
             }
@@ -737,6 +753,8 @@ MIActivityBannerViewDelegate
                                     linkTitle:nil
                             linkClickCallback:nil
                                 retryCallback:^{
+                                    
+                                    NSLog(@"requestHomeworkSessions11");
                                     [weakSelf requestHomeworkSessions];
                                 }];
         }
@@ -746,6 +764,7 @@ MIActivityBannerViewDelegate
 
 - (void)pullToRefresh{
     
+    NSLog(@"requestHomeworkSessions0");
     [self requestHomeworkSessions];
 #if TEACHERSIDE || MANAGERSIDE
 #else
@@ -925,6 +944,8 @@ MIActivityBannerViewDelegate
                                 linkTitle:nil
                         linkClickCallback:nil
                             retryCallback:^{
+                                
+                                NSLog(@"requestHomeworkSessions1");
                                 [weakSelf requestHomeworkSessions];
                             }];
     } else {

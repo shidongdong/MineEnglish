@@ -434,7 +434,7 @@ UITableViewDataSource>
     } else if (authorType.integerValue == MIAuthorManagerMessageType) {
          switchState = self.tempTeacher.canCreateNoticeMessage;
     }
-    
+    [cell setAuthority:self.tempTeacher.authority];
     [cell setupTitle:tempDic[@"title"]
                 text:text
                image:nil

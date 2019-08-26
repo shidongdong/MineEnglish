@@ -60,6 +60,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     [super viewWillAppear:animated];
     [self setNewOrientation:YES];//调用转屏代码
 }
+
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     
@@ -136,6 +137,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 - (void)startCountTime{
    
     if (self.wordsItem.words.count == 0) {
+        [HUD showErrorWithMessage:@"无单词内容"];
         return;
     }
     [self stopTask];

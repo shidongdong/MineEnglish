@@ -1722,7 +1722,6 @@ HomeworkAnswersPickerViewControllerDelegate>
         SessionHomeworkTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:nibName owner:nil options:nil] lastObject];
         
         [cell setupWithHomeworkSession:self.homeworkSession];
-        NSLog(@"setupWithHomeworkSession  %@",indexPath);
         WeakifySelf;
         [cell setStartTaskCallback:^(void) { // 开始任务
             

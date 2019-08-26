@@ -47,6 +47,7 @@ typedef void(^MITeacherAuthorInputBlock)(MIAuthorManagerType authorType, NSStrin
 
 @property (nonatomic,assign) NSInteger currentIndex;
 
+@property (nonatomic,assign) TeacherAuthority authority;
 
 @property (nonatomic,copy) MITeacherAuthorInputBlock inputBlock;
 

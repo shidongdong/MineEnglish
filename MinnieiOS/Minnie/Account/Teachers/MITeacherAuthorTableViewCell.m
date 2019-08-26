@@ -125,6 +125,9 @@ CGFloat const MITeacherAuthorTableViewCellHeight = 44.f;
 
 - (IBAction)switchAction:(id)sender {
     
+    if (self.authority == TeacherAuthoritySuperManager) {
+        self.switchBtn.on = YES;
+    }
     if (_type == 2) {
         
         if (self.stateBlock) {
