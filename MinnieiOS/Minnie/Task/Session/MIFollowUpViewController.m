@@ -25,6 +25,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 @property (weak, nonatomic) IBOutlet UIView *recordRedView;
 @property (weak, nonatomic) IBOutlet UIView *startRecordView;
 @property (weak, nonatomic) IBOutlet UIButton *startRecordBtn;
+@property (weak, nonatomic) IBOutlet UIButton *backBtn;
 
 @property (strong,nonatomic) HomeworkItem *followItem;
 
@@ -278,6 +279,8 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                  
                  [weakSelf startTask];
              }];
+    
+    [self.view addSubview:self.backBtn];
 }
 
 #pragma mark - 4.上传录制音频

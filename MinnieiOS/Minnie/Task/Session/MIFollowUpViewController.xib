@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MIFollowUpViewController">
             <connections>
+                <outlet property="backBtn" destination="o9g-zz-1A4" id="8XL-tO-GN1"/>
                 <outlet property="coverImageV" destination="Rsw-Wz-TqL" id="Qpr-Zp-awZ"/>
                 <outlet property="recordGrayView" destination="D9f-mV-WVt" id="AFu-gx-IvC"/>
                 <outlet property="recordRedView" destination="r7e-Df-uCk" id="vMg-ht-2oL"/>
