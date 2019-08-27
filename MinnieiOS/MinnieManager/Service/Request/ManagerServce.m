@@ -251,7 +251,6 @@
     
     GetWelcomesRequest *request = [[GetWelcomesRequest alloc] initWithType:type];
     [request setCallback:callback];
-    request.objectKey = @"list";
     [request start];
     return request;
 }

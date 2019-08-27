@@ -5,7 +5,7 @@
 //  Created by songzhen on 2019/6/1.
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
-
+#import "Result.h"
 #import "BaseRequest.h"
 #import "CampusInfo.h"
 #import "ActivityInfo.h"

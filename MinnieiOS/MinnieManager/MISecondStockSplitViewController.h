@@ -22,6 +22,7 @@ typedef NS_ENUM(NSInteger,MIRootModularType) {
     MIRootModularType_TeachingStatistic,        // 教学统计
     MIRootModularType_CampusManager,            // 校区管理
     MIRootModularType_GiftManager,              // 礼物管理
+    MIRootModularType_ImagesManager,            // 首页管理
     MIRootModularType_SetterManager             // 设置
 };
 
@@ -76,6 +77,10 @@ typedef NS_ENUM(NSInteger,MIRootModularType) {
  *  校区管理
  */
 
+/*
+ *  首页管理
+ */
+- (void)updateImages;
 
 /*
  *  礼物管理

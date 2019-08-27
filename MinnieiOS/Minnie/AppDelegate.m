@@ -139,20 +139,7 @@
 
 #pragma mark - 学生端、教师端不支持横屏 管理端不支持竖屏
 #if MANAGERSIDE
-//#elif TEACHERSIDE
-//
-////是否支持屏幕旋转
-//- (BOOL)shouldAutorotate{
-//    return NO;
-//}
-//
-//- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
-//    return UIInterfaceOrientationMaskPortrait;
-//}
-//
-//- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
-//    return UIInterfaceOrientationMaskPortrait;
-//}
+
 #else
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(nullable UIWindow *)window{

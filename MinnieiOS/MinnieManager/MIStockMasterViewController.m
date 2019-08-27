@@ -53,6 +53,8 @@ MISecondTeachStatisticsViewDelegate
 @property (nonatomic, strong) MISecondStockSplitViewController *camManStockSplitVC;
 // 礼物管理
 @property (nonatomic, strong) MISecondStockSplitViewController *giftStockSplitVC;
+// 首页管理
+@property (nonatomic, strong) MISecondStockSplitViewController *imagesStockSplitVC;
 // 设置
 @property (nonatomic, strong) MISecondStockSplitViewController *setterStockSplitVC;
 
@@ -164,9 +166,10 @@ MISecondTeachStatisticsViewDelegate
         [self.secondDetailVC addSubViewController:self.giftStockSplitVC];
     } else if (type == MIManagerFuncImagesModule) { // 图片管理
         
-        [ManagerServce uploadWelcomesWithImages:@[] callback:^(Result *result, NSError *error) {
-            
-        }];
+        cloumnScale = kRootModularWidth;
+        [self.secondDetailVC addSubViewController:self.imagesStockSplitVC];
+        
+        [self.imagesStockSplitVC updateImages];
     } else if (type == MIManagerFuncSettingModule) { // 设置
         cloumnScale = kRootModularWidth;
         [self.secondDetailVC addSubViewController:self.setterStockSplitVC];
@@ -324,6 +327,18 @@ MISecondTeachStatisticsViewDelegate
     CGFloat columnThreeWidth = (ScreenWidth - kRootModularWidth)/2.0;
     [_camManStockSplitVC updatePrimaryCloumnScale:columnThreeWidth];
     return _camManStockSplitVC;
+}
+
+
+- (MISecondStockSplitViewController *)imagesStockSplitVC{
+    
+    if (!_imagesStockSplitVC) {
+        _imagesStockSplitVC = [[MISecondStockSplitViewController alloc] init];
+    }
+    _imagesStockSplitVC.rootModularType = MIRootModularType_ImagesManager;
+    CGFloat columnThreeWidth = (ScreenWidth - kRootModularWidth)/2.0;
+    [_imagesStockSplitVC updatePrimaryCloumnScale:columnThreeWidth];
+    return _imagesStockSplitVC;
 }
 
 - (MISecondStockSplitViewController *)giftStockSplitVC{

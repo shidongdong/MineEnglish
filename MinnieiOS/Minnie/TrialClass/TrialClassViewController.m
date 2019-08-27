@@ -6,20 +6,21 @@
 //  Copyright © 2018年 minnieedu. All rights reserved.
 //
 
-#import "AppDelegate+ConfigureUI.h"
-#import "TrialClassViewController.h"
-#import "EnrollTrialClassView.h"
-#import "TrialClassService.h"
+#import "IMManager.h"
 #import "AlertView.h"
 #import "PushManager.h"
-//#import "LoadViewController.h"
 #import "AuthService.h"
-#import "LoginViewController.h"
-#import "IMManager.h"
-#import "PortraitNavigationController.h"
 #import "AppDelegate.h"
+#import "ManagerServce.h"
+#import "TrialClassService.h"
+#import "LoginViewController.h"
+#import "EnrollTrialClassView.h"
 #import "AppDelegate+ConfigureUI.h"
+#import "TrialClassViewController.h"
+#import "PortraitNavigationController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+
+
 @interface TrialClassViewController ()
 
 @property (nonatomic, weak) IBOutlet UIButton *nextButton;
@@ -29,6 +30,7 @@
 @property (nonatomic, assign) NSInteger gender;
 @property (weak, nonatomic) IBOutlet UIImageView *firstImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *secondImageView;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *contentViewHeight;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *image1ViewHeight;
@@ -36,6 +38,11 @@
 
 @property (nonatomic, assign) BOOL bFirstDown;
 @property (nonatomic, assign) BOOL bSecondDown;
+
+@property (nonatomic, strong) NSArray *images;
+@property (nonatomic, assign) NSInteger currentIndex;
+@property (nonatomic, assign) NSInteger contentHeight;
+@property (nonatomic, strong) NSMutableArray *imageViews;
 
 @end
 
@@ -47,26 +54,26 @@
 //    UIImage *image1 = [UIImage imageNamed:@"首页1.png"];
 //    UIImage *image2 = [UIImage imageNamed:@"首页2.png"];
     
-    [self.firstImageView sd_setImageWithURL:[NSURL URLWithString:@"http://api.minniedu.com:8888/main.png"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-        if (image.size.width > 0) {
-            
-            self.image1ViewHeight.constant = ScreenWidth * image.size.height / image.size.width;
-        }
-        self.bFirstDown = YES;
-        [self checkDownloadFinish];
-    }];
-    
-    [self.secondImageView sd_setImageWithURL:[NSURL URLWithString:@"http://api.minniedu.com:8888/main_detail.png"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-        if (image.size.width > 0) {
-            self.image2ViewHeight.constant = ScreenWidth * image.size.height / image.size.width;
-        }
-        self.bSecondDown = YES;
-        [self checkDownloadFinish];
-    }];
-    
+    [self requestImages];
+//
+//    [self.firstImageView sd_setImageWithURL:[NSURL URLWithString:@"http://api.minniedu.com:8888/main.png"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+//        if (image.size.width > 0) {
+//
+//            self.image1ViewHeight.constant = ScreenWidth * image.size.height / image.size.width;
+//        }
+//        self.bFirstDown = YES;
+//        [self checkDownloadFinish];
+//    }];
+//
+//    [self.secondImageView sd_setImageWithURL:[NSURL URLWithString:@"http://api.minniedu.com:8888/main_detail.png"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+//        if (image.size.width > 0) {
+//            self.image2ViewHeight.constant = ScreenWidth * image.size.height / image.size.width;
+//        }
+//        self.bSecondDown = YES;
+//        [self checkDownloadFinish];
+//    }];
+//
 
-    
-    
     self.nextButton.layer.cornerRadius = 6.f;
     self.nextButton.layer.masksToBounds = YES;
     self.nextButton.backgroundColor = nil;
@@ -86,7 +93,6 @@
     {
         self.contentViewHeight.constant = self.image1ViewHeight.constant + self.image2ViewHeight.constant + 100;
     }
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -208,6 +214,50 @@
                                        }];
           }];
 }
+
+
+- (void)requestImages{
+    
+    [ManagerServce getWelcomesImagesWithType:0 callback:^(Result *result, NSError *error) {
+        
+        NSDictionary *dict = (NSDictionary *)(result.userInfo);
+        NSArray *list = (NSArray *)(dict[@"urls"]);
+        
+        
+        self.images = list;
+        self.currentIndex = 0;
+        self.contentHeight = 0;
+        [self updateContentImage];
+    }];
+}
+
+- (void)updateContentImage{
+    
+    if (self.currentIndex >= self.images.count) {
+        return;
+    }
+    NSString * imageUrl = self.images[self.currentIndex];
+    
+    UIImageView *imageV = [[UIImageView alloc] init];
+    [self.contentView addSubview:imageV];
+
+    [imageV sd_setImageWithURL:[NSURL URLWithString:imageUrl] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+       
+        if (image.size.width > 0) {
+            
+            CGFloat imageHeight = ScreenWidth * image.size.height / image.size.width;
+            CGRect rect = CGRectMake(0, self.contentHeight , ScreenWidth, imageHeight);
+            imageV.frame = rect;
+            self.contentHeight = self.contentHeight + imageHeight;
+            self.contentViewHeight.constant = self.contentHeight;
+        }
+        self.currentIndex++;
+        [self updateContentImage];
+    }];
+}
+
+
+
 
 @end
 

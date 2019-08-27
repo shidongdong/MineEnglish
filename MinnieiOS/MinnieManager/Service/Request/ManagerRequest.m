@@ -688,8 +688,9 @@
 }
 
 - (id)requestArgument {
-    return @{@"urls":self.imageUrls,
-             @"type":@"ipad"};
+    NSDictionary *dic =@{@"urls":self.imageUrls,
+                         @"type":@"app"};
+    return dic;
 }
 
 @end

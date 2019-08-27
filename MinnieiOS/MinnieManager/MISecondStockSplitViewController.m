@@ -18,6 +18,8 @@
 #import "MICampusManagerViewController.h"
 #import "TeacherAwardsViewController.h"
 #import "ExchangeRequestsViewController.h"
+#import "MISelectImageViewController.h"
+#import "MILookImagesViewController.h"
 
 
 @interface MISecondStockSplitViewController ()<
@@ -53,6 +55,8 @@ MICampusManagerViewControllerDelegate
 @property (nonatomic, strong) TeacherAwardsViewController *giftMasterVC;
 @property (nonatomic, strong) ExchangeRequestsViewController *giftDetailVC;
 
+@property (nonatomic, strong) MISelectImageViewController *imageMasterVC;
+@property (nonatomic, strong) MILookImagesViewController *imageDetailVC;
 
 @property (nonatomic, strong) SettingsViewController *setterMasterVC;
 @property (nonatomic, strong) MIStockDetailViewController *setterDetailVC;
@@ -88,6 +92,9 @@ MICampusManagerViewControllerDelegate
     } else if (self.rootModularType == MIRootModularType_GiftManager) {
         
         [self configureGiftManagerUI];
+    } else if (self.rootModularType == MIRootModularType_ImagesManager) {
+        
+        [self configureImageManagerUI];
     } else if (self.rootModularType == MIRootModularType_SetterManager) {
      
         [self configureSetterUI];
@@ -375,6 +382,31 @@ MICampusManagerViewControllerDelegate
     [self.giftDetailVC.navigationController pushViewController:vc animated:NO];
 }
 
+#pragma mark - 首页管理
+- (void)configureImageManagerUI{
+    
+    self.imageMasterVC = [[MISelectImageViewController alloc] initWithNibName:@"MISelectImageViewController" bundle:nil];
+    UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:self.imageMasterVC];
+    [masterNav setNavigationBarHidden:YES animated:NO];
+    
+    WeakifySelf;
+    self.imageMasterVC.imageCallBack = ^(NSString * _Nonnull imageUrl) {
+        
+        weakSelf.imageDetailVC.imageUrl = imageUrl;
+    };
+    
+    self.imageDetailVC = [[MILookImagesViewController alloc] initWithNibName:@"MILookImagesViewController" bundle:nil];
+    UINavigationController *detailNav = [[UINavigationController alloc] initWithRootViewController:self.imageDetailVC];
+    [detailNav setNavigationBarHidden:YES animated:NO];
+    
+    self.viewControllers = @[masterNav, detailNav];
+}
+
+- (void)updateImages{
+    
+    [self.imageMasterVC updateData];
+}
+
 #pragma mark - 设置
 - (void)configureSetterUI{
     
@@ -405,4 +437,5 @@ MICampusManagerViewControllerDelegate
         [self setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
     }
 }
+
 @end

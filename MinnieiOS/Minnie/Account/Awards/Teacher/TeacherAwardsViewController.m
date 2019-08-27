@@ -15,7 +15,9 @@
 #import "UIScrollView+Refresh.h"
 #import "ProgressHUD.h"
 
-@interface TeacherAwardsViewController ()<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface TeacherAwardsViewController ()<
+UICollectionViewDataSource,
+UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, weak) IBOutlet UIView *awardsCollectionContainerView;
 @property (nonatomic, weak) IBOutlet UICollectionView *awardsCollectionView;

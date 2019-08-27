@@ -717,6 +717,12 @@
 		12E079952313D3600054A8CE /* MICheckWordsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E079942313D3600054A8CE /* MICheckWordsViewController.xib */; };
 		12E079962313D3600054A8CE /* MICheckWordsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E079942313D3600054A8CE /* MICheckWordsViewController.xib */; };
 		12E079972313D3600054A8CE /* MICheckWordsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E079942313D3600054A8CE /* MICheckWordsViewController.xib */; };
+		12E0799D231409C10054A8CE /* MISelectImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0799B231409C10054A8CE /* MISelectImageViewController.m */; };
+		12E0799E231409C10054A8CE /* MISelectImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E0799C231409C10054A8CE /* MISelectImageViewController.xib */; };
+		12E079A2231409E80054A8CE /* MILookImagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E079A0231409E80054A8CE /* MILookImagesViewController.m */; };
+		12E079A3231409E80054A8CE /* MILookImagesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E079A1231409E80054A8CE /* MILookImagesViewController.xib */; };
+		12E079A723140ECA0054A8CE /* MISelectImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E079A523140ECA0054A8CE /* MISelectImageCollectionViewCell.m */; };
+		12E079A823140ECA0054A8CE /* MISelectImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E079A623140ECA0054A8CE /* MISelectImageCollectionViewCell.xib */; };
 		12EAC63422AD405E00F1F3DB /* MISutdentActDetailViewController.m in Resources */ = {isa = PBXBuildFile; fileRef = 12CB73C222AC0DD60064FB21 /* MISutdentActDetailViewController.m */; };
 		12EAC63522AD40A000F1F3DB /* MIStuActDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 122F798A22ACB02B00D2AA53 /* MIStuActDetailHeaderView.m */; };
 		12EAC63922AD4BF400F1F3DB /* MICheckWordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC63722AD4BF300F1F3DB /* MICheckWordsViewController.m */; };
@@ -2342,6 +2348,15 @@
 		12E0798C2313CFB00054A8CE /* MReadWordsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MReadWordsViewController.m; sourceTree = "<group>"; };
 		12E0798D2313CFB10054A8CE /* MReadWordsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MReadWordsViewController.xib; sourceTree = "<group>"; };
 		12E079942313D3600054A8CE /* MICheckWordsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MICheckWordsViewController.xib; sourceTree = "<group>"; };
+		12E0799A231409C10054A8CE /* MISelectImageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MISelectImageViewController.h; sourceTree = "<group>"; };
+		12E0799B231409C10054A8CE /* MISelectImageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MISelectImageViewController.m; sourceTree = "<group>"; };
+		12E0799C231409C10054A8CE /* MISelectImageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MISelectImageViewController.xib; sourceTree = "<group>"; };
+		12E0799F231409E80054A8CE /* MILookImagesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MILookImagesViewController.h; sourceTree = "<group>"; };
+		12E079A0231409E80054A8CE /* MILookImagesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MILookImagesViewController.m; sourceTree = "<group>"; };
+		12E079A1231409E80054A8CE /* MILookImagesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MILookImagesViewController.xib; sourceTree = "<group>"; };
+		12E079A423140ECA0054A8CE /* MISelectImageCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MISelectImageCollectionViewCell.h; sourceTree = "<group>"; };
+		12E079A523140ECA0054A8CE /* MISelectImageCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MISelectImageCollectionViewCell.m; sourceTree = "<group>"; };
+		12E079A623140ECA0054A8CE /* MISelectImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MISelectImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		12EAC63622AD4BF300F1F3DB /* MICheckWordsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MICheckWordsViewController.h; sourceTree = "<group>"; };
 		12EAC63722AD4BF300F1F3DB /* MICheckWordsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MICheckWordsViewController.m; sourceTree = "<group>"; };
 		12EAC64022AE2AED00F1F3DB /* MIReadingWordsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIReadingWordsView.h; sourceTree = "<group>"; };
@@ -3498,6 +3513,7 @@
 				123042CB22A0C5CD00E111A4 /* ActivityManager */,
 				128F138F22D6C78500C9F5B7 /* TeachStatistics */,
 				128F138E22D6C6DE00C9F5B7 /* CampusManager */,
+				12E079992314097F0054A8CE /* ImagesManager */,
 				1226F2E52297F37A00BAB1C9 /* Info_manager.plist */,
 			);
 			path = MinnieManager;
@@ -3701,6 +3717,22 @@
 				12FD85D222C05C8F0026B7E2 /* WordInfo.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		12E079992314097F0054A8CE /* ImagesManager */ = {
+			isa = PBXGroup;
+			children = (
+				12E0799A231409C10054A8CE /* MISelectImageViewController.h */,
+				12E0799B231409C10054A8CE /* MISelectImageViewController.m */,
+				12E0799C231409C10054A8CE /* MISelectImageViewController.xib */,
+				12E0799F231409E80054A8CE /* MILookImagesViewController.h */,
+				12E079A0231409E80054A8CE /* MILookImagesViewController.m */,
+				12E079A1231409E80054A8CE /* MILookImagesViewController.xib */,
+				12E079A423140ECA0054A8CE /* MISelectImageCollectionViewCell.h */,
+				12E079A523140ECA0054A8CE /* MISelectImageCollectionViewCell.m */,
+				12E079A623140ECA0054A8CE /* MISelectImageCollectionViewCell.xib */,
+			);
+			path = ImagesManager;
 			sourceTree = "<group>";
 		};
 		12ED3AF3229C2DD100255F8B /* TaskManager */ = {
@@ -6175,6 +6207,7 @@
 				12961C64229E66090075B04A /* HomeworkVideoCollectionViewCell.xib in Resources */,
 				12B7B95D22D88B860057C798 /* ClassEditTableViewCell.xib in Resources */,
 				12FD85CA22BB2F6A0026B7E2 /* label_drop@3x.png in Resources */,
+				12E079A3231409E80054A8CE /* MILookImagesViewController.xib in Resources */,
 				12ED3B04229C2E4D00255F8B /* MIHeaderTableViewCell.xib in Resources */,
 				12747C9222A9108F009C390E /* MIWordTagCollectionViewCell.xib in Resources */,
 				12FD85CD22BB2F750026B7E2 /* label_phone@3x.png in Resources */,
@@ -6197,6 +6230,7 @@
 				128CF0CD22C4665C004FBC91 /* HomeworkConfirmView.xib in Resources */,
 				128F138022D46A5700C9F5B7 /* navbar_search@3x.png in Resources */,
 				123042ED22A1160F00E111A4 /* MIParticipateDetailViewController.xib in Resources */,
+				12E079A823140ECA0054A8CE /* MISelectImageCollectionViewCell.xib in Resources */,
 				12747C2122A7D0EC009C390E /* icon_btn_talk_small@2x.png in Resources */,
 				1226F32C229832CF00BAB1C9 /* RegisterViewController.xib in Resources */,
 				12ED3B53229D960C00255F8B /* 加载动画03@3x.png in Resources */,
@@ -6396,6 +6430,7 @@
 				12747C8322A7D29B009C390E /* btn_add@2x.png in Resources */,
 				12747C1322A7D047009C390E /* CorrectHomeworkScoreTableViewCell.xib in Resources */,
 				12ED3B6E229D9A5700255F8B /* label_ic_into@2x.png in Resources */,
+				12E0799E231409C10054A8CE /* MISelectImageViewController.xib in Resources */,
 				1226F349229839CA00BAB1C9 /* login_img_logo@3x.png in Resources */,
 				12ED3B13229C34BF00255F8B /* SettingTableViewCell.xib in Resources */,
 				1226F330229832F500BAB1C9 /* LoginViewController_Student.xib in Resources */,
@@ -7731,6 +7766,7 @@
 				128F138222D5C16E00C9F5B7 /* TeacherEditViewController.m in Sources */,
 				12961C6F229E66E60075B04A /* HomeworkImageCollectionViewCell.m in Sources */,
 				12961C74229E67290075B04A /* HomeworkConfirmViewController.m in Sources */,
+				12E0799D231409C10054A8CE /* MISelectImageViewController.m in Sources */,
 				12ED3B4D229D95A800255F8B /* UIView+Load.m in Sources */,
 				12EAC66822B65F3C00F1F3DB /* MIRecordWaveView.m in Sources */,
 				12B7BE6E22DDA0AD0057C798 /* CampusInfo.m in Sources */,
@@ -7833,6 +7869,7 @@
 				12961C65229E66720075B04A /* NSString+PinYin4Cocoa.m in Sources */,
 				12EAC63B22AD4BF400F1F3DB /* MICheckWordsViewController.m in Sources */,
 				12747BFA22A7CE35009C390E /* CorrectHomeworkViewController.m in Sources */,
+				12E079A723140ECA0054A8CE /* MISelectImageCollectionViewCell.m in Sources */,
 				1226F3272298329300BAB1C9 /* FindPasswordViewController.m in Sources */,
 				12ED3B68229D96F300255F8B /* SegmentControl.m in Sources */,
 				12CB739B22AB5BD50064FB21 /* MIHomeworkTaskListViewController.m in Sources */,
@@ -7952,6 +7989,7 @@
 				128F138922D5CA8800C9F5B7 /* MITeacherDetailViewController.m in Sources */,
 				12B7B97222D88DAB0057C798 /* StudentsWithoutClassViewController.m in Sources */,
 				12A2724222A756240020A3BA /* MIEqualSpaceFlowLayout.m in Sources */,
+				12E079A2231409E80054A8CE /* MILookImagesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

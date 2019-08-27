@@ -85,7 +85,7 @@
                                             }
 #endif
                                         }
-                                        
+                                        shouldToHome = NO;
                                         if (shouldToHome) {
                                             AppDelegate * delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                                             [delegate toHome];

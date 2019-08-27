@@ -62,8 +62,6 @@ typedef NS_ENUM(NSUInteger, CircleType) {
 + (BaseRequest *)requestHomeworksWithUserId:(NSUInteger)userId
                                    callback:(RequestCallback)callback;
 
-+ (BaseRequest *)requestHomeworksWithLevel:(NSUInteger)level
-                                  callback:(RequestCallback)callback;
 // 获取所有的优秀作业
 + (BaseRequest *)requestAllHomeworksWithCallback:(RequestCallback)callback;
 
