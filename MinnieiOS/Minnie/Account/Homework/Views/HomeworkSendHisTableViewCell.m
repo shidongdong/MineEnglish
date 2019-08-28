@@ -95,8 +95,11 @@ NSString * const HomeworkSendHisTableViewCellId = @"HomeworkSendHisTableViewCell
         
         if (bShow)
         {
-            [appendString appendString:[NSString stringWithFormat:@"%d.",i + 1]];
-            [indexArray addObject:@(appendString.length - 2)];
+            
+            NSString *currentIndexStr = [NSString stringWithFormat:@"%d",i+1];
+            
+            [appendString appendString:[NSString stringWithFormat:@"%@.",currentIndexStr]];
+            [indexArray addObject:@(appendString.length - (currentIndexStr.length + 1))];
         }
         NSString * tmpStr = [strArray objectAtIndex:i];
         [appendString appendString:tmpStr];
@@ -109,10 +112,13 @@ NSString * const HomeworkSendHisTableViewCellId = @"HomeworkSendHisTableViewCell
     NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:appendString];
     [attr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} range:NSMakeRange(0, appendString.length)];
     if (appendString.length) {
+        
         for (NSNumber *index in indexArray) {
             
+            NSString *currentIndexStr = [NSString stringWithFormat:@"%lu",(unsigned long)[indexArray indexOfObject:index]];
+
             if (index.intValue < appendString.length) {
-                [attr setAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]} range:NSMakeRange(index.intValue, 1)];
+                [attr setAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]} range:NSMakeRange(index.intValue, currentIndexStr.length + 1)];
             }
         }
     }
