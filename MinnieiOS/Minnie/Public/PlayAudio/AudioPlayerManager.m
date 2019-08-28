@@ -22,6 +22,8 @@
 
 @property (nonatomic, assign) BOOL isPlaying;
 
+@property (nonatomic, assign) BOOL preparePlay;
+
 @property (nonatomic, assign) BOOL isSeek;
 
 
@@ -44,7 +46,7 @@
 - (void)play:(BOOL)play{
     
     if (play) {
-        
+        _preparePlay = YES;
         if (isnan(CMTimeGetSeconds(self.playerItem.duration))) {
             // 资源未加载
             if (_currentUrl.length) {
@@ -56,7 +58,7 @@
             self.isPlaying = [self playState];
         }
     } else {
-        
+        _preparePlay = NO;
         [self.audioPlayer pause];
     }
 }
@@ -100,7 +102,7 @@
         
         CMTime tempTime = CMTimeMake(time, 1);
         [self.playerItem seekToTime:tempTime];
-        [_audioPlayer play];
+        [self play:YES];
     }
 }
 
@@ -140,6 +142,7 @@
 #pragma mark - 播放完成 playbackFinished
 - (void)playbackFinished:(NSNotification *)notice{
     
+    _preparePlay = NO;
     [self.audioPlayer seekToTime:CMTimeMake(0, 1)];
     if (self.finishedBlock) {
         self.finishedBlock();
@@ -162,7 +165,10 @@
                     [self seekToTime:_seekToTime];
                     _isSeek = NO;
                 } else {
-                    [_audioPlayer play];
+                    if (_preparePlay) {
+                        
+                        [_audioPlayer play];
+                    }
                 }
                 self.duration = CMTimeGetSeconds(self.playerItem.duration);
                 break;
@@ -180,7 +186,10 @@
     } else if (object == _playerItem && [keyPath isEqualToString:@"playbackLikelyToKeepUp"]) {
         
         // 缓存充足后需要手动播放
-        [self.audioPlayer play];
+        if (_preparePlay) {
+            
+            [_audioPlayer play];
+        }
     }
 }
 
@@ -199,6 +208,7 @@
 #pragma mark 重置播放器
 - (void)resetCurrentPlayer{
     
+    _preparePlay = NO;
     [self.audioPlayer pause];
     [self.playerItem cancelPendingSeeks];
     [self.playerItem.asset cancelLoading];

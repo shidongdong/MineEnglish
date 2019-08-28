@@ -46,7 +46,7 @@ NSString * const RightTextMessageTableViewCellId = @"RightTextMessageTableViewCe
     CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     
     if (![message isKindOfClass:[AVIMTextMessage class]]) {
-        size.height = 70;
+        size.height = 95;
     }
     return size.height + 5;
 }
@@ -69,13 +69,13 @@ NSString * const RightTextMessageTableViewCellId = @"RightTextMessageTableViewCe
         attach.bounds = CGRectMake(0, -3, 18, 18);
         NSMutableAttributedString * attr = [[NSMutableAttributedString alloc] init];
         if (message.ioType==AVIMMessageIOTypeIn) {
-            
-            attach.image = [UIImage imageNamed:@"chat_talk3"];
+
+//            attach.image = [UIImage imageNamed:@"chat_talk3"];
             [attr appendAttributedString:[[NSAttributedString alloc] initWithString:message.text]];
-            [attr appendAttributedString:[NSAttributedString attributedStringWithAttachment:attach]];
+//            [attr appendAttributedString:[NSAttributedString attributedStringWithAttachment:attach]];
         } else {
-            attach.image = [UIImage imageNamed:@"right_chat_talk3"];
-            [attr appendAttributedString:[NSAttributedString attributedStringWithAttachment:attach]];
+//            attach.image = [UIImage imageNamed:@"right_chat_talk3"];
+//            [attr appendAttributedString:[NSAttributedString attributedStringWithAttachment:attach]];
             [attr appendAttributedString:[[NSAttributedString alloc] initWithString:message.text]];
         }
         [attr addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:NSMakeRange(0, attr.length)];

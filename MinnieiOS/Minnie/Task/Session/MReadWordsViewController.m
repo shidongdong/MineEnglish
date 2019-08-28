@@ -32,6 +32,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *wordLabel;
 @property (weak, nonatomic) IBOutlet UIView *progressBgView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *progressHeight;
 
 @property (weak, nonatomic) IBOutlet UIButton *backBtn;
 
@@ -59,6 +60,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self setNewOrientation:YES];//调用转屏代码
+    [self configureUI];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -83,27 +85,31 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         self.wordsItem = tempWordItem;
     }
     
-    [self configureUI];
     [self startTask];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterBackground) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void)configureUI{
     
+    CGFloat progressHeight = 5.0;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        progressHeight = 10.0;
+    }
+    self.progressHeight.constant = progressHeight;
     // 进度条
-    CGFloat proWidth = CGRectGetWidth(self.progressBgView.frame) /self.wordsItem.words.count;
+    CGFloat proWidth = ScreenWidth /self.wordsItem.words.count;
     for (NSInteger i = 0; i < self.wordsItem.words.count; i++) {
-        
+      
         UIView *progress = [[UIView alloc] init];
         if (i == 0) {
-            progress.frame = CGRectMake(0, 0, proWidth - 1, 5);
+            progress.frame = CGRectMake(0, 0, proWidth - 1, progressHeight);
         } else if (i == self.wordsItem.words.count - 1) {
-            progress.frame = CGRectMake(i * proWidth + 1, 0, proWidth - 1, 5);
+            progress.frame = CGRectMake(i * proWidth + 1, 0, proWidth - 1, progressHeight);
         } else {
-            progress.frame = CGRectMake(i * proWidth + 1, 0, proWidth - 2, 5);
+            progress.frame = CGRectMake(i * proWidth + 1, 0, proWidth - 2, progressHeight);
         }
         progress.backgroundColor = [UIColor detailColor];
-        progress.layer.cornerRadius = 2.0;
+        progress.layer.cornerRadius = progressHeight/2.0;
         [self.progressBgView addSubview:progress];
         
         [_progressViews addObject:progress];
@@ -114,6 +120,12 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     self.wordLabel.hidden = NO;
     self.timeLabel.hidden = YES;
     self.wordLabel.text = [NSString stringWithFormat:@"Ready"];
+
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        self.progressHeight.constant = 5.0;
+    } else {
+        self.progressHeight.constant = 10.0;
+    }
 }
 
 - (IBAction)backAction:(id)sender {
@@ -396,22 +408,23 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     _currentWordIndex ++;
     
     
-    if (_currentWordIndex == self.wordsItem.words.count) {
+    if (_currentWordIndex == self.wordsItem.words.count + 1) {
       
         // 停止背景音乐
         [self.bgMusicPlayer pause];
         [self.bgMusicPlayer seekToTime:CMTimeMake(0, 1)];
         // 停止录音
         [self stopRecordFound];
-    } else if (_currentWordIndex > self.wordsItem.words.count) {
+        
+        self.wordLabel.text = @"Good job!";
+    } else if (_currentWordIndex > self.wordsItem.words.count + 1) {
         
         _recordState = 2;
         [self invalidateTimer];
         // 播放完成提示音
-        self.wordLabel.text = @"Good job!";
         [[AudioPlayer sharedPlayer] playLocalURL:@"goodjob"];
         
-        [self performSelector:@selector(finishedToast) withObject:nil afterDelay:1.5];
+        [self performSelector:@selector(finishedToast) withObject:nil afterDelay:1.0];
     }
 }
 
