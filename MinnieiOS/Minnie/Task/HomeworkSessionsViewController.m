@@ -63,17 +63,11 @@ MIActivityBannerViewDelegate
 
 @implementation HomeworkSessionsViewController
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self != nil) {
-        _homeworkSessions = [NSMutableArray array];
-    }
-    return self;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _homeworkSessions = [NSMutableArray array];
     self.view.backgroundColor = [UIColor unSelectedColor];
     self.unReadHomeworkSessions = [[NSMutableArray alloc] init];
     self.noHandleNotications = [[NSMutableArray alloc] init];
@@ -127,24 +121,6 @@ MIActivityBannerViewDelegate
     }
 }
 
-
-#pragma mark - Public Methods
-- (void)requestSearchForName:(NSString *)name
-{
-    self.searchFilterName = name;
-    
-    NSLog(@"requestHomeworkSessions4");
-    [self requestHomeworkSessions];
-}
-
-- (void)requestSearchForSorceAtIndex:(NSInteger)index
-{
-    self.searchFliter = index;
-    
-    NSLog(@"requestHomeworkSessions5");
-    [self requestHomeworkSessions];
-}
-
 - (void)setupRequestState
 {   // 学生端：未完成、已完成  老师端：待批改、已完成、未提交
     if (self.isUnfinished)
@@ -172,7 +148,7 @@ MIActivityBannerViewDelegate
 #pragma mark - 会话初始化
 - (void)setupAndLoadConversations {
     
-    if (!self.isUnfinished)return;
+    if (!self.isUnfinished) return;
     //不需要加载
     if (!self.bLoadConversion)  return;
  
@@ -200,7 +176,7 @@ MIActivityBannerViewDelegate
 }
 
 #pragma mark -
-#pragma mark - 查询消息会话，并最后一条消息内容
+#pragma mark - 查询消息会话，匹配最后一条消息内容
 - (void)loadConversationsWithHomeworkSessions:(NSArray *)sessions {
     
     if (sessions.count == 0) {
@@ -242,10 +218,7 @@ MIActivityBannerViewDelegate
 
 - (void)mergeAndReloadWithQueriedConversations:(NSArray *)conversations homeworkSessions:(NSArray *)sessions{
     
-    // 进行一个排序
-//    NSArray *homeworkSessions = sessions;
     NSArray *queriedConversations = conversations;
-    
     for (HomeworkSession *homeworkSession in sessions) {
         
         for (AVIMConversation *conversation in queriedConversations) {
@@ -284,16 +257,6 @@ MIActivityBannerViewDelegate
             homeworkSession.sortTime = homeworkSession.updateTime;
         }
     }
-    
-//    [self.homeworkSessions addObjectsFromArray:homeworkSessions];
-
-//    NSMutableArray *resultArrM = [NSMutableArray array];
-//    for (HomeworkSession *session in self.homeworkSessions) {// 去重
-//        if (![resultArrM containsObject:session]) {
-//            [resultArrM addObject:session];
-//        }
-//    }
-//    self.homeworkSessions = resultArrM;
     [self updateUI];
 }
 
@@ -383,6 +346,23 @@ MIActivityBannerViewDelegate
                                                object:nil];
 }
 #pragma mark - 处理通知响应事件
+- (void)imOnline:(NSNotification *)notification {
+    [self.homeworkSessionsTableView setTableHeaderView:nil];
+}
+
+- (void)imOffline:(NSNotification *)notification {
+    
+    if (self.homeworkSessionsTableView.tableHeaderView != nil)  return;
+    if ([AFNetworkReachabilityManager sharedManager].networkReachabilityStatus != AFNetworkReachabilityStatusNotReachable) {
+        
+        [self.homeworkSessionsTableView setTableHeaderView:nil];
+        return ;
+    }
+    NetworkStateErrorView *errorView = [[[NSBundle mainBundle] loadNibNamed:@"NetworkStateErrorView" owner:nil options:0] lastObject];
+    
+    self.homeworkSessionsTableView.tableHeaderView = errorView;
+}
+
 - (void)apnsRefreshHomeworkSession:(NSNotification *)notification
 {
     if (self.homeworkSessions.count > 0) {
@@ -438,23 +418,6 @@ MIActivityBannerViewDelegate
     if (found) {
         self.shouldReloadTableWhenAppeard = YES;
     }
-}
-
-- (void)imOnline:(NSNotification *)notification {
-    [self.homeworkSessionsTableView setTableHeaderView:nil];
-}
-
-- (void)imOffline:(NSNotification *)notification {
-  
-    if (self.homeworkSessionsTableView.tableHeaderView != nil)  return;
-    if ([AFNetworkReachabilityManager sharedManager].networkReachabilityStatus != AFNetworkReachabilityStatusNotReachable) {
-       
-        [self.homeworkSessionsTableView setTableHeaderView:nil];
-        return ;
-    }
-    NetworkStateErrorView *errorView = [[[NSBundle mainBundle] loadNibNamed:@"NetworkStateErrorView" owner:nil options:0] lastObject];
-    
-    self.homeworkSessionsTableView.tableHeaderView = errorView;
 }
 
 - (void)lastMessageDidChange:(NSNotification *)notification {
@@ -554,23 +517,24 @@ MIActivityBannerViewDelegate
     });
 }
 
-#pragma mark - ipad管理：端更新作业
-- (void)updateSessionList {
-    
-    [self resetCurrentSelectIndex];
-    
-    NSLog(@"requestHomeworkSessions9");
-    [self requestHomeworkSessions];
-}
-#pragma mark - ipad端：重置选中任务状态
-- (void)resetCurrentSelectIndex{
-    
-    self.currentSelectIndex = -1;
-    [self.homeworkSessionsTableView reloadData];
-}
-
 #pragma mark -
 #pragma mark - 获取作业列表  加载更多  处理请求作业列表结果
+- (void)requestSearchForName:(NSString *)name
+{
+    self.searchFilterName = name;
+    
+    NSLog(@"requestHomeworkSessions4");
+    [self requestHomeworkSessions];
+}
+
+- (void)requestSearchForSorceAtIndex:(NSInteger)index
+{
+    self.searchFliter = index;
+    
+    NSLog(@"requestHomeworkSessions5");
+    [self requestHomeworkSessions];
+}
+
 - (void)requestHomeworkSessions {
    
     // 教师端、管理端作业排序方式 按时间、任务、人
@@ -791,60 +755,6 @@ MIActivityBannerViewDelegate
 #endif
 }
 
-#pragma mark - 学生端：获取活动列表
-- (void)requestGetActivityList{
-    WeakifySelf;
-    [ManagerServce requestGetActivityListWithCallback:^(Result *result, NSError *error) {
-        
-        NSDictionary *dict = (NSDictionary *)result.userInfo;
-        NSArray *list = dict[@"list"];
-        
-        NSMutableArray *tempList = [NSMutableArray array];
-        for (ActivityInfo *actInfo in list) {
-            
-            NSDate *endDate = [NSDate dateByDateString:actInfo.endTime format:@"yyyy-MM-dd HH:mm:ss"];
-            if ([endDate isEarlierThanDate:[NSDate date]]) {
-                continue; // 活动结束
-            }
-            NSDate *startDate = [NSDate dateByDateString:actInfo.startTime format:@"yyyy-MM-dd HH:mm:ss"];
-            if ([startDate isLaterThanDate:[NSDate date]]) {
-                continue; // 活动未开始
-            }
-            [tempList addObject:actInfo];
-        }
-        weakSelf.bannerArray = tempList;
-
-        if (weakSelf.mState == 0 && tempList.count > 0) {
-            weakSelf.topConstraint.constant = 124;
-            [weakSelf.view addSubview:weakSelf.bannerView];
-            weakSelf.bannerView.imagesGroup = tempList;
-        } else {
-            weakSelf.topConstraint.constant = 0;
-            if (weakSelf.bannerView.superview) {
-                [weakSelf.bannerView removeFromSuperview];
-            }
-        }
-    }];
-}
-
-#pragma mark - 活动 MIActivityBannerViewDelegate
-- (void)bannerView:(MIActivityBannerView *)bannerView didSelectItemAtIndex:(NSInteger)index{
-    
-#if TEACHERSIDE || MANAGERSIDE
-#else
-    ActivityInfo *actInfo = self.bannerArray[index];
-    MISutdentActDetailViewController *stuActDetailVC = [[MISutdentActDetailViewController alloc] initWithNibName:NSStringFromClass([MISutdentActDetailViewController class]) bundle:nil];
-    stuActDetailVC.actInfo = actInfo;
-    WeakifySelf;
-    stuActDetailVC.actCallBack = ^{
-        [weakSelf requestGetActivityList];
-    };
-    [stuActDetailVC setHidesBottomBarWhenPushed:YES];
-    [self.navigationController pushViewController:stuActDetailVC animated:YES];
-    
-#endif
-}
-
 #pragma mark - UITableViewDataSource &&  UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.homeworkSessions.count;
@@ -914,10 +824,16 @@ MIActivityBannerViewDelegate
 - (void)toHomeworkSessionViewController:(NSIndexPath *)indexPath{
     
     HomeworkSession *session = self.homeworkSessions[indexPath.row];
+#if MANAGERSIDE
+    if (session.unreadMessageCount > 0) {
+        session.unreadMessageCount = 0;
+        [self.homeworkSessionsTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    }
+#endif
+
     HomeworkSessionViewController *vc = [[HomeworkSessionViewController alloc] initWithNibName:@"HomeworkSessionViewController" bundle:nil];
     vc.homeworkSession = session;
 #if MANAGERSIDE
-   
     vc.homeworkSession.conversation = nil;
     vc.teacher = self.teacher;
     if (self.pushVCCallBack) {
@@ -930,7 +846,6 @@ MIActivityBannerViewDelegate
     self.currentSelectIndex = indexPath.row;
     [self.homeworkSessionsTableView reloadData];
 #else
-//    self.teacher = APP.currentUser;
     [vc setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:vc animated:YES];
 #endif
@@ -972,6 +887,77 @@ MIActivityBannerViewDelegate
         self.homeworkSessionsTableView.hidden = NO;
     }
     [self.homeworkSessionsTableView reloadData];
+}
+
+#pragma mark -
+#pragma mark - ipad管理：更新作业
+- (void)updateSessionList {
+    
+    [self resetCurrentSelectIndex];
+    
+    NSLog(@"requestHomeworkSessions9");
+    [self requestHomeworkSessions];
+}
+#pragma mark - ipad端：重置选中任务状态
+- (void)resetCurrentSelectIndex{
+    
+    self.currentSelectIndex = -1;
+    [self.homeworkSessionsTableView reloadData];
+}
+
+#pragma mark -
+#pragma mark - 学生端 获取活动列表
+- (void)requestGetActivityList{
+    WeakifySelf;
+    [ManagerServce requestGetActivityListWithCallback:^(Result *result, NSError *error) {
+        
+        NSDictionary *dict = (NSDictionary *)result.userInfo;
+        NSArray *list = dict[@"list"];
+        
+        NSMutableArray *tempList = [NSMutableArray array];
+        for (ActivityInfo *actInfo in list) {
+            
+            NSDate *endDate = [NSDate dateByDateString:actInfo.endTime format:@"yyyy-MM-dd HH:mm:ss"];
+            if ([endDate isEarlierThanDate:[NSDate date]]) {
+                continue; // 活动结束
+            }
+            NSDate *startDate = [NSDate dateByDateString:actInfo.startTime format:@"yyyy-MM-dd HH:mm:ss"];
+            if ([startDate isLaterThanDate:[NSDate date]]) {
+                continue; // 活动未开始
+            }
+            [tempList addObject:actInfo];
+        }
+        weakSelf.bannerArray = tempList;
+        
+        if (weakSelf.mState == 0 && tempList.count > 0) {
+            weakSelf.topConstraint.constant = 124;
+            [weakSelf.view addSubview:weakSelf.bannerView];
+            weakSelf.bannerView.imagesGroup = tempList;
+        } else {
+            weakSelf.topConstraint.constant = 0;
+            if (weakSelf.bannerView.superview) {
+                [weakSelf.bannerView removeFromSuperview];
+            }
+        }
+    }];
+}
+
+#pragma mark - 学生端 活动 MIActivityBannerViewDelegate
+- (void)bannerView:(MIActivityBannerView *)bannerView didSelectItemAtIndex:(NSInteger)index{
+    
+#if TEACHERSIDE || MANAGERSIDE
+#else
+    ActivityInfo *actInfo = self.bannerArray[index];
+    MISutdentActDetailViewController *stuActDetailVC = [[MISutdentActDetailViewController alloc] initWithNibName:NSStringFromClass([MISutdentActDetailViewController class]) bundle:nil];
+    stuActDetailVC.actInfo = actInfo;
+    WeakifySelf;
+    stuActDetailVC.actCallBack = ^{
+        [weakSelf requestGetActivityList];
+    };
+    [stuActDetailVC setHidesBottomBarWhenPushed:YES];
+    [self.navigationController pushViewController:stuActDetailVC animated:YES];
+    
+#endif
 }
 
 #pragma mark - setter && getter
