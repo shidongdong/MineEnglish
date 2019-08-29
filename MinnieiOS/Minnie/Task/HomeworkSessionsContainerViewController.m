@@ -27,7 +27,7 @@
 #import "CircleHomeworkFlag.h"
 #import "AchieverListViewController.h"
 #import "AchieverService.h"
-#import "UserMedalDto.h"
+//#import "UserMedalDto.h"
 
 #endif
 

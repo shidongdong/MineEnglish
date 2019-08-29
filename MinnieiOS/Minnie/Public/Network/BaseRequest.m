@@ -150,7 +150,8 @@ static NSString *accessToken = nil;
 
 - (void)requestCompletePreprocessor {
     if (self.responseData.length > 0) {
-        NSLog(@"Request Success: %@", [[NSString alloc] initWithData:self.responseData encoding:NSUTF8StringEncoding]);
+        NSLog(@"Request Success:  %@", [[NSString alloc] initWithData:self.responseData encoding:NSUTF8StringEncoding]);
+        NSLog(@"Request: %@",self);
     }
     
     NSError *error = nil;

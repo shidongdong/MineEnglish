@@ -690,7 +690,6 @@
 		12DCE76B22A16A8900E2DAFE /* MIMoveHomeworkTaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12DCE76A22A16A8900E2DAFE /* MIMoveHomeworkTaskView.m */; };
 		12DCE76D22A16A9600E2DAFE /* MIMoveHomeworkTaskView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12DCE76C22A16A9600E2DAFE /* MIMoveHomeworkTaskView.xib */; };
 		12E07969230D3B950054A8CE /* AchieverRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E07968230D3B940054A8CE /* AchieverRequest.m */; };
-		12E0796A230D3BA60054A8CE /* AchieverRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E07968230D3B940054A8CE /* AchieverRequest.m */; };
 		12E0796D230D422D0054A8CE /* AuthRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0796C230D422D0054A8CE /* AuthRequest.m */; };
 		12E0796E230D42390054A8CE /* AuthRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0796C230D422D0054A8CE /* AuthRequest.m */; };
 		12E0796F230D423B0054A8CE /* AuthRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E0796C230D422D0054A8CE /* AuthRequest.m */; };
@@ -1124,7 +1123,6 @@
 		879CE51A21905D0300BBE4B7 /* AchieverListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879CE51721905D0300BBE4B7 /* AchieverListViewController.xib */; };
 		879CE51B21905D0300BBE4B7 /* AchieverListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879CE51721905D0300BBE4B7 /* AchieverListViewController.xib */; };
 		879CE52021905F7100BBE4B7 /* AchieverListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE51E21905F7100BBE4B7 /* AchieverListCollectionViewCell.m */; };
-		879CE52121905F7100BBE4B7 /* AchieverListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE51E21905F7100BBE4B7 /* AchieverListCollectionViewCell.m */; };
 		879CE52221905F7100BBE4B7 /* AchieverListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879CE51F21905F7100BBE4B7 /* AchieverListCollectionViewCell.xib */; };
 		879CE52321905F7100BBE4B7 /* AchieverListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879CE51F21905F7100BBE4B7 /* AchieverListCollectionViewCell.xib */; };
 		879CE52721913DD000BBE4B7 /* AchieverListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE52521913DD000BBE4B7 /* AchieverListHeaderView.m */; };
@@ -1132,9 +1130,7 @@
 		879CE52921913DD000BBE4B7 /* AchieverListHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879CE52621913DD000BBE4B7 /* AchieverListHeaderView.xib */; };
 		879CE52A21913DD000BBE4B7 /* AchieverListHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879CE52621913DD000BBE4B7 /* AchieverListHeaderView.xib */; };
 		879CE52F2191725800BBE4B7 /* AchieverService.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE52E2191725800BBE4B7 /* AchieverService.m */; };
-		879CE5302191725800BBE4B7 /* AchieverService.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE52E2191725800BBE4B7 /* AchieverService.m */; };
 		879CE53C2191777F00BBE4B7 /* UserMedalDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE53B2191777F00BBE4B7 /* UserMedalDto.m */; };
-		879CE53D2191777F00BBE4B7 /* UserMedalDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 879CE53B2191777F00BBE4B7 /* UserMedalDto.m */; };
 		87AF73002193D164003E87F0 /* StudentDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AF72FE2193D164003E87F0 /* StudentDetailCell.m */; };
 		87AF73012193D164003E87F0 /* StudentDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87AF72FE2193D164003E87F0 /* StudentDetailCell.m */; };
 		87AF73022193D164003E87F0 /* StudentDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87AF72FF2193D164003E87F0 /* StudentDetailCell.xib */; };
@@ -8313,7 +8309,6 @@
 				97109EB3207A7C0A00568785 /* TeacherAwardsViewController.m in Sources */,
 				97109AEA207A1C0800568785 /* ScheduleEditViewController.m in Sources */,
 				9786AA9820F26A7200BD0AF9 /* HomeworkAnswerItem.m in Sources */,
-				879CE53D2191777F00BBE4B7 /* UserMedalDto.m in Sources */,
 				97109943207A0BF600568785 /* Result.m in Sources */,
 				97364A0F20B1447700511A95 /* StudentsWithoutClassViewController.m in Sources */,
 				8770A2932233BD93005733E4 /* AnswerPickerCell.m in Sources */,
@@ -8386,7 +8381,6 @@
 				879CE52821913DD000BBE4B7 /* AchieverListHeaderView.m in Sources */,
 				973649C120AF2F8600511A95 /* HomeworkTagsTableViewCell.m in Sources */,
 				97109AFA207A1C0800568785 /* StudentsTableViewCell.m in Sources */,
-				879CE52121905F7100BBE4B7 /* AchieverListCollectionViewCell.m in Sources */,
 				9710992B207A0BF600568785 /* UIView+Load.m in Sources */,
 				97109DD8207A305A00568785 /* LoadViewController.m in Sources */,
 				973649F120AF2F8600511A95 /* TagsRequest.m in Sources */,
@@ -8402,7 +8396,6 @@
 				12EAC66722B65F3C00F1F3DB /* MIRecordWaveView.m in Sources */,
 				9710995D207A0BF600568785 /* NSString+MD5.m in Sources */,
 				87AF73012193D164003E87F0 /* StudentDetailCell.m in Sources */,
-				879CE5302191725800BBE4B7 /* AchieverService.m in Sources */,
 				979C851D208CB93F00940959 /* FinishClassTableViewCell.m in Sources */,
 				97109919207A0BF600568785 /* CustomCollectionView.m in Sources */,
 				128F130E22CD10B900C9F5B7 /* MIParticipateDetailViewController.m in Sources */,
@@ -8415,7 +8408,6 @@
 				97109AF0207A1C0800568785 /* StudentCollectionViewCell.m in Sources */,
 				97109D9C207A2F0400568785 /* ProfileService.m in Sources */,
 				12CB737E22AB52B70064FB21 /* MICreateTaskViewController.m in Sources */,
-				12E0796A230D3BA60054A8CE /* AchieverRequest.m in Sources */,
 				97109D96207A2F0400568785 /* TeachersTableHeaderView.m in Sources */,
 				8725E955214A5748005FAA74 /* CheckAppVerRequest.m in Sources */,
 				97109EB9207A7C0A00568785 /* ExchangeRequestTableViewCell.m in Sources */,
