@@ -87,7 +87,6 @@ MIActivityBannerViewDelegate
     
     [self setupRequestState];
 #if MANAGERSIDE
-    
     self.currentSelectIndex = -1;
 #elif TEACHERSIDE
 #else
@@ -210,9 +209,8 @@ MIActivityBannerViewDelegate
     NSDate *startTime = [NSDate date];
     AVIMClient *client = [IMManager sharedManager].client;
     NSMutableArray *queryArr = [NSMutableArray array];
-    NSArray *homeworkSessions = sessions;
-    for (HomeworkSession *homeworkSession in homeworkSessions) {
-        if (homeworkSessions.count > 1 && homeworkSession.lastSessionContent > 0) {
+    for (HomeworkSession *homeworkSession in sessions) {
+        if (sessions.count > 1 && homeworkSession.lastSessionContent > 0) {
             // count > 1 刷新会话列表，不再更新已加载过对话的最后一条消息 (count = 1 新的消息单条刷新)
             continue;
         }
@@ -236,7 +234,7 @@ MIActivityBannerViewDelegate
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            [self mergeAndReloadWithQueriedConversations:conversations homeworkSessions:homeworkSessions];
+            [self mergeAndReloadWithQueriedConversations:conversations homeworkSessions:sessions];
         });
         NSLog(@" ======= 会话数:%@ count:%lu 耗时%.fms", @(conversations.count),sessions.count, [[NSDate date] timeIntervalSinceDate:startTime]*1000);
     }];
@@ -245,10 +243,10 @@ MIActivityBannerViewDelegate
 - (void)mergeAndReloadWithQueriedConversations:(NSArray *)conversations homeworkSessions:(NSArray *)sessions{
     
     // 进行一个排序
-    NSArray *homeworkSessions = sessions;
+//    NSArray *homeworkSessions = sessions;
     NSArray *queriedConversations = conversations;
     
-    for (HomeworkSession *homeworkSession in homeworkSessions) {
+    for (HomeworkSession *homeworkSession in sessions) {
         
         for (AVIMConversation *conversation in queriedConversations) {
             
@@ -287,15 +285,15 @@ MIActivityBannerViewDelegate
         }
     }
     
-    [self.homeworkSessions addObjectsFromArray:homeworkSessions];
+//    [self.homeworkSessions addObjectsFromArray:homeworkSessions];
 
-    NSMutableArray *resultArrM = [NSMutableArray array];
-    for (HomeworkSession *session in self.homeworkSessions) {// 去重
-        if (![resultArrM containsObject:session]) {
-            [resultArrM addObject:session];
-        }
-    }
-    self.homeworkSessions = resultArrM;
+//    NSMutableArray *resultArrM = [NSMutableArray array];
+//    for (HomeworkSession *session in self.homeworkSessions) {// 去重
+//        if (![resultArrM containsObject:session]) {
+//            [resultArrM addObject:session];
+//        }
+//    }
+//    self.homeworkSessions = resultArrM;
     [self updateUI];
 }
 
@@ -466,6 +464,7 @@ MIActivityBannerViewDelegate
     }
     AVIMMessage *message = (AVIMMessage *)(notification.userInfo)[@"message"];
     [self reloadTableViewForNewMessage:message];
+    NSLog(@"lastMessageDidChange: %@",message);
 }
 
 
@@ -511,6 +510,7 @@ MIActivityBannerViewDelegate
                
                 if (error != nil) return;
                 HomeworkSession *session = (HomeworkSession *)(result.userInfo);
+                [weakSelf.homeworkSessions addObject:session];
                 [weakSelf loadConversationsWithHomeworkSessions:@[session]];
             }];
         }
@@ -700,8 +700,13 @@ MIActivityBannerViewDelegate
         if (error != nil)  return;
         
         if (homeworkSessions.count > 0) {
+           
             [self.homeworkSessions addObjectsFromArray:homeworkSessions];
-            [self loadConversationsWithHomeworkSessions:homeworkSessions];
+            if (_mState == 0) {
+                [self loadConversationsWithHomeworkSessions:homeworkSessions];
+            } else {
+                [self updateUI];
+            }
         }
         if (nextUrl.length == 0) {
             [self.homeworkSessionsTableView removeFooter];
@@ -729,9 +734,16 @@ MIActivityBannerViewDelegate
         self.nextUrl = nil;
         
         if (homeworkSessions.count > 0) {
-            self.homeworkSessionsTableView.hidden = NO;
-            [self loadConversationsWithHomeworkSessions:homeworkSessions];
             
+            [self.homeworkSessions addObjectsFromArray:homeworkSessions];
+            if (_mState == 0) {
+                
+                [self loadConversationsWithHomeworkSessions:homeworkSessions];
+            } else {
+                [self updateUI];
+            }
+           
+            self.homeworkSessionsTableView.hidden = NO;
             [self.homeworkSessionsTableView addPullToRefreshWithTarget:self
                                                       refreshingAction:@selector(pullToRefresh)];
             
