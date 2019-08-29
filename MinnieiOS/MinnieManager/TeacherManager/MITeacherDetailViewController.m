@@ -61,6 +61,18 @@ UITableViewDataSource
     
     self.tableView.tableFooterView = [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    // 教师批改作业
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadWhenHomeworkCorrected:)
+                                                 name:kNotificationKeyOfCorrectHomework
+                                               object:nil];
+}
+
+
+- (void)reloadWhenHomeworkCorrected:(NSNotification *)notification {
+    
+    [self resetCurrentSelectIndex];
 }
 
 - (void)updateTeacher:(Teacher *_Nullable)teacher{
@@ -327,6 +339,11 @@ UITableViewDataSource
         weakSelf.onlineButton.selected = weakSelf.teacherDetail.isOnline;
         [weakSelf.tableView reloadData];
     }];
+}
+
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

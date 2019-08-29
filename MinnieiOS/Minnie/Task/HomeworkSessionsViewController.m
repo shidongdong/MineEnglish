@@ -87,16 +87,15 @@ MIActivityBannerViewDelegate
     [self requestGetActivityList];
 #endif
     
+#if MANAGERSIDE
+#else
     if (self.searchFliter != -1)
     {
         [self setupAndLoadConversations];
-#if MANAGERSIDE
-#else
-        
         NSLog(@"requestHomeworkSessions2");
         [self requestHomeworkSessions];
-#endif
     }
+#endif
     [self addNotificationObservers];
 }
 
@@ -165,6 +164,7 @@ MIActivityBannerViewDelegate
     if ([userId isEqualToString:clientId] && status == AVIMClientStatusOpened) {
         [self loadConversationsWithHomeworkSessions:self.homeworkSessions];
     } else {
+        
         [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success,  NSError * error) {
             if (!success) {
                 [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
@@ -894,9 +894,27 @@ MIActivityBannerViewDelegate
 - (void)updateSessionList {
     
     [self resetCurrentSelectIndex];
+  
+    NSString *userId = [NSString stringWithFormat:@"%@", @(self.teacher.userId)];
+    NSString *clientId = [IMManager sharedManager].client.clientId;
+    AVIMClientStatus status = [IMManager sharedManager].client.status;
     
+    WeakifySelf;
+    if ([userId isEqualToString:clientId] && status == AVIMClientStatusOpened) {
+        
+        [weakSelf requestHomeworkSessions];
+    } else {
+        if (_mState == 0) {
+            
+            [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success,  NSError * error) {
+                
+                [weakSelf requestHomeworkSessions];
+            }];
+        } else {
+            [self requestHomeworkSessions];
+        }
+    }
     NSLog(@"requestHomeworkSessions9");
-    [self requestHomeworkSessions];
 }
 #pragma mark - ipad端：重置选中任务状态
 - (void)resetCurrentSelectIndex{

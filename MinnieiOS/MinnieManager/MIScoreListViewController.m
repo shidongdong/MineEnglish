@@ -160,12 +160,12 @@ UITableViewDataSource
     ScoreInfo *scoreInfo = self.scoreListArray[indexPath.row];
 
 #if MANAGERSIDE
-    WeakifySelf;
     if (indexPath.row == self.currentIndex) {
         return;
     }
     self.currentIndex = indexPath.row;
     
+    WeakifySelf;
     NSString *userId = [NSString stringWithFormat:@"%@", @(scoreInfo.userId)];
     NSString *clientId = [IMManager sharedManager].client.clientId;
     AVIMClientStatus status = [IMManager sharedManager].client.status;
@@ -189,17 +189,12 @@ UITableViewDataSource
 
 - (void)requestHomeworkSession:(ScoreInfo *)scoreInfo {
     
-    WeakifySelf;
-    [HomeworkSessionService requestHomeworkSessionWithId:scoreInfo.hometaskId callback:^(Result *result, NSError *error) {
-        if (error != nil) {
-            [HUD showErrorWithMessage:@"获取会话内容失败"];
-            return;
-        }
-        HomeworkSession *session = (HomeworkSession *)(result.userInfo);
-        HomeworkSessionViewController *vc = [[HomeworkSessionViewController alloc] initWithNibName:@"HomeworkSessionViewController" bundle:nil];
-        vc.homeworkSession = session;
-        [weakSelf.navigationController pushViewController:vc animated:YES];
-    }];
+    HomeworkSession *session = [[HomeworkSession alloc] init];
+    session.homeworkSessionId = scoreInfo.hometaskId;
+    HomeworkSessionViewController *vc = [[HomeworkSessionViewController alloc] initWithNibName:@"HomeworkSessionViewController" bundle:nil];
+    vc.homeworkSession = session;
+    vc.teacher.userId = self.teacherId;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #endif

@@ -741,6 +741,7 @@ HomeworkAnswersPickerViewControllerDelegate>
                     self.homeworkSession.conversation = conversations[0];
                     [self loadMessagesHistory];
                 } else {
+                    
                     [self.client createConversationWithName:name
                                                   clientIds:@[teacherId, studentId]
                                                  attributes:nil
@@ -982,6 +983,10 @@ HomeworkAnswersPickerViewControllerDelegate>
     AVIMClientStatus status = [IMManager sharedManager].client.status;
 #if MANAGERSIDE
     userId = [NSString stringWithFormat:@"%@", @(self.teacher.userId)];
+    if (userId.integerValue != APP.currentUser.userId) {// 非当前不能发送消息
+        return;
+    }
+    
 #else
     userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
 #endif
@@ -1128,6 +1133,9 @@ HomeworkAnswersPickerViewControllerDelegate>
     AVIMClientStatus status = [IMManager sharedManager].client.status;
 #if MANAGERSIDE
     userId = [NSString stringWithFormat:@"%@", @(self.teacher.userId)];
+    if (userId.integerValue != APP.currentUser.userId) {// 非当前不能发送消息
+        return;
+    }
 #else
     userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
 #endif
