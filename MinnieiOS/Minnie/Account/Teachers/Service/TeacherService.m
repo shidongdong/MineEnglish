@@ -8,9 +8,9 @@
 
 #import "TeacherService.h"
 #import "TeachersRequest.h"
-#import "CreateTeacherRequest.h"
-#import "UpdateTeacherRequest.h"
-#import "DeleteTeacherRequest.h"
+//#import "CreateTeacherRequest.h"
+//#import "UpdateTeacherRequest.h"
+//#import "DeleteTeacherRequest.h"
 
 @implementation TeacherService
 
@@ -29,7 +29,7 @@
 
 + (BaseRequest *)updateTeacherWithInfos:(NSDictionary *)infos
                                callback:(RequestCallback)callback {
-    UpdateTeacherRequest *request = [[UpdateTeacherRequest alloc] initWithInfos:infos];
+    CreateTeacherRequest *request = [[CreateTeacherRequest alloc] initWithInfos:infos];
     
     request.objectClassName = @"Teacher";
     request.callback = callback;
@@ -39,6 +39,7 @@
     return request;
 }
 
+#pragma mark - 2.8.1    新建/编辑教师（教师端）
 + (BaseRequest *)createTeacherWithInfos:(NSDictionary *)infos
                                callback:(RequestCallback)callback {
     CreateTeacherRequest *request = [[CreateTeacherRequest alloc] initWithInfos:infos];

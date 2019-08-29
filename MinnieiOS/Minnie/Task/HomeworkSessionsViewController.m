@@ -212,10 +212,17 @@ MIActivityBannerViewDelegate
     NSMutableArray *queryArr = [NSMutableArray array];
     NSArray *homeworkSessions = sessions;
     for (HomeworkSession *homeworkSession in homeworkSessions) {
+        if (homeworkSessions.count > 1 && homeworkSession.lastSessionContent > 0) {
+            // count > 1 刷新会话列表，不再更新已加载过对话的最后一条消息 (count = 1 新的消息单条刷新)
+            continue;
+        }
         NSString *name = [NSString stringWithFormat:@"%ld",(long)homeworkSession.homeworkSessionId];
         AVIMConversationQuery *query = [client conversationQuery];
         [query whereKey:@"name" equalTo:name];
         [queryArr addObject:query];
+    }
+    if (queryArr.count == 0) {
+        return;
     }
     // 通过组合的方式，根据唯一homeworkSessionId，查询指定作业的消息会话内容，明确会话数量，减少耗时
     AVIMConversationQuery *conversation = [AVIMConversationQuery orQueryWithSubqueries:queryArr];
@@ -224,14 +231,14 @@ MIActivityBannerViewDelegate
     // 设置查询选项，指定返回对话的最后一条消息
     conversation.option = AVIMConversationQueryOptionWithMessage;
     // 每条作业 homeworkSessionId唯一 限制查询数量，减少耗时
-    conversation.limit = 100;
+    conversation.limit = 200;
     [conversation findConversationsWithCallback:^(NSArray<AVIMConversation *> * _Nullable conversations, NSError * _Nullable error) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [self mergeAndReloadWithQueriedConversations:conversations homeworkSessions:homeworkSessions];
         });
-        NSLog(@" ======= 会话数:%@ 耗时%.fms", @(conversations.count), [[NSDate date] timeIntervalSinceDate:startTime]*1000);
+        NSLog(@" ======= 会话数:%@ count:%lu 耗时%.fms", @(conversations.count),sessions.count, [[NSDate date] timeIntervalSinceDate:startTime]*1000);
     }];
 }
 

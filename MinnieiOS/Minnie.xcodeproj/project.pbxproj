@@ -483,9 +483,6 @@
 		12961C7A229E67BE0075B04A /* TeachersRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109CE6207A2F0400568785 /* TeachersRequest.m */; };
 		12961C7C229E67CF0075B04A /* ClassesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109ABC207A1C0800568785 /* ClassesRequest.m */; };
 		12961C7F229E67F70075B04A /* StudentRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9736497320AF2F8500511A95 /* StudentRequest.m */; };
-		12961C80229E68040075B04A /* DeleteTeacherRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109CE4207A2F0400568785 /* DeleteTeacherRequest.m */; };
-		12961C81229E68220075B04A /* CreateTeacherRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109CE5207A2F0400568785 /* CreateTeacherRequest.m */; };
-		12961C82229E682B0075B04A /* UpdateTeacherRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109CE3207A2F0400568785 /* UpdateTeacherRequest.m */; };
 		12961C83229E690F0075B04A /* attachment_placeholder@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9786AA9020F24E9A00BD0AF9 /* attachment_placeholder@3x.png */; };
 		12961C84229E69190075B04A /* attachment_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9786AA8F20F24E9A00BD0AF9 /* attachment_placeholder@2x.png */; };
 		12961C85229E69280075B04A /* btn_mission_preview@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B9B6362289341300D8F277 /* btn_mission_preview@2x.png */; };
@@ -1957,9 +1954,6 @@
 		97109D7E207A2F0400568785 /* TeacherEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109CD9207A2F0400568785 /* TeacherEditViewController.m */; };
 		97109D80207A2F0400568785 /* TeachersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109CDA207A2F0400568785 /* TeachersViewController.m */; };
 		97109D82207A2F0400568785 /* TeacherService.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109CDC207A2F0400568785 /* TeacherService.m */; };
-		97109D84207A2F0400568785 /* UpdateTeacherRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109CE3207A2F0400568785 /* UpdateTeacherRequest.m */; };
-		97109D86207A2F0400568785 /* DeleteTeacherRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109CE4207A2F0400568785 /* DeleteTeacherRequest.m */; };
-		97109D88207A2F0400568785 /* CreateTeacherRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109CE5207A2F0400568785 /* CreateTeacherRequest.m */; };
 		97109D8A207A2F0400568785 /* TeachersRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109CE6207A2F0400568785 /* TeachersRequest.m */; };
 		97109D8C207A2F0400568785 /* TeacherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109CEA207A2F0400568785 /* TeacherTableViewCell.m */; };
 		97109D8E207A2F0400568785 /* TeachersTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109CEC207A2F0400568785 /* TeachersTableHeaderView.xib */; };
@@ -3206,14 +3200,8 @@
 		97109CD9207A2F0400568785 /* TeacherEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeacherEditViewController.m; sourceTree = "<group>"; };
 		97109CDA207A2F0400568785 /* TeachersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeachersViewController.m; sourceTree = "<group>"; };
 		97109CDC207A2F0400568785 /* TeacherService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeacherService.m; sourceTree = "<group>"; };
-		97109CDF207A2F0400568785 /* UpdateTeacherRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateTeacherRequest.h; sourceTree = "<group>"; };
-		97109CE0207A2F0400568785 /* TeachersRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeachersRequest.h; sourceTree = "<group>"; };
-		97109CE1207A2F0400568785 /* CreateTeacherRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateTeacherRequest.h; sourceTree = "<group>"; };
-		97109CE2207A2F0400568785 /* DeleteTeacherRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteTeacherRequest.h; sourceTree = "<group>"; };
-		97109CE3207A2F0400568785 /* UpdateTeacherRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateTeacherRequest.m; sourceTree = "<group>"; };
-		97109CE4207A2F0400568785 /* DeleteTeacherRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteTeacherRequest.m; sourceTree = "<group>"; };
-		97109CE5207A2F0400568785 /* CreateTeacherRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateTeacherRequest.m; sourceTree = "<group>"; };
-		97109CE6207A2F0400568785 /* TeachersRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeachersRequest.m; sourceTree = "<group>"; };
+		97109CE0207A2F0400568785 /* TeachersRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeachersRequest.h; path = Requests/TeachersRequest.h; sourceTree = "<group>"; };
+		97109CE6207A2F0400568785 /* TeachersRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeachersRequest.m; path = Requests/TeachersRequest.m; sourceTree = "<group>"; };
 		97109CE7207A2F0400568785 /* TeacherService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeacherService.h; sourceTree = "<group>"; };
 		97109CE8207A2F0400568785 /* TeacherEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeacherEditViewController.h; sourceTree = "<group>"; };
 		97109CEA207A2F0400568785 /* TeacherTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeacherTableViewCell.m; sourceTree = "<group>"; };
@@ -5399,26 +5387,12 @@
 		97109CDB207A2F0400568785 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				97109CDE207A2F0400568785 /* Requests */,
 				97109CE7207A2F0400568785 /* TeacherService.h */,
 				97109CDC207A2F0400568785 /* TeacherService.m */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
-		97109CDE207A2F0400568785 /* Requests */ = {
-			isa = PBXGroup;
-			children = (
-				97109CE1207A2F0400568785 /* CreateTeacherRequest.h */,
-				97109CE5207A2F0400568785 /* CreateTeacherRequest.m */,
-				97109CE2207A2F0400568785 /* DeleteTeacherRequest.h */,
-				97109CE4207A2F0400568785 /* DeleteTeacherRequest.m */,
 				97109CE0207A2F0400568785 /* TeachersRequest.h */,
 				97109CE6207A2F0400568785 /* TeachersRequest.m */,
-				97109CDF207A2F0400568785 /* UpdateTeacherRequest.h */,
-				97109CE3207A2F0400568785 /* UpdateTeacherRequest.m */,
 			);
-			path = Requests;
+			path = Service;
 			sourceTree = "<group>";
 		};
 		97109CE9207A2F0400568785 /* Views */ = {
@@ -5793,12 +5767,12 @@
 		9736498A20AF2F8500511A95 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
+				9736498E20AF2F8500511A95 /* HomeworksRequest.h */,
+				9736499020AF2F8500511A95 /* HomeworksRequest.m */,
 				9736499120AF2F8500511A95 /* CreateHomeworkRequest.h */,
 				9736498D20AF2F8500511A95 /* CreateHomeworkRequest.m */,
 				9736498C20AF2F8500511A95 /* DeleteHomeworksRequest.h */,
 				9736499220AF2F8500511A95 /* DeleteHomeworksRequest.m */,
-				9736498E20AF2F8500511A95 /* HomeworksRequest.h */,
-				9736499020AF2F8500511A95 /* HomeworksRequest.m */,
 				9736498B20AF2F8500511A95 /* SendHomeworkRequest.h */,
 				9736498F20AF2F8500511A95 /* SendHomeworkRequest.m */,
 				8770786F219AB5BA00940A88 /* SendHomeworkHistoryRequest.h */,
@@ -7717,7 +7691,6 @@
 				12961CDC229FD7100075B04A /* HomeworkSessionsRequest.m in Sources */,
 				12DCE76B22A16A8900E2DAFE /* MIMoveHomeworkTaskView.m in Sources */,
 				12747C9522A96E8E009C390E /* MICreateWordView.m in Sources */,
-				12961C82229E682B0075B04A /* UpdateTeacherRequest.m in Sources */,
 				12961C4F229E5E110075B04A /* SessionHomeworkTableViewCell.m in Sources */,
 				12EAC65A22B229F000F1F3DB /* UIImagePickerController+ImagePicker.m in Sources */,
 				12747C0522A7CEF0009C390E /* StudentAwardService.m in Sources */,
@@ -7905,7 +7878,6 @@
 				12961C56229E65290075B04A /* EqualSpaceFlowLayout.m in Sources */,
 				12B7B96222D88BC10057C798 /* CalendarTableViewCell.m in Sources */,
 				123042DD22A0D63700E111A4 /* MIActivityRankListViewController.m in Sources */,
-				12961C81229E68220075B04A /* CreateTeacherRequest.m in Sources */,
 				12CB73A622AB91660064FB21 /* HomeworkLabelTableViewCell.m in Sources */,
 				12961C61229E65E00075B04A /* NEPhotoIndicatorView.m in Sources */,
 				12EAC65022B0D73100F1F3DB /* AVIMWordsMessage.m in Sources */,
@@ -7973,7 +7945,6 @@
 				12ED3B66229D96EA00255F8B /* UIScrollView+Refresh.m in Sources */,
 				12A1E93F22A57865001247D7 /* HomeworkVideoTableViewCell.m in Sources */,
 				12747BE922A7CD4E009C390E /* WBGDrawTool.m in Sources */,
-				12961C80229E68040075B04A /* DeleteTeacherRequest.m in Sources */,
 				12FD85BF22B9DFAE0026B7E2 /* UIAlertController+Alert.m in Sources */,
 				12FD85DA22C05C900026B7E2 /* ActivityInfo.m in Sources */,
 				128B70782302A6CE00A2A187 /* MITeacherAuthorViewController.m in Sources */,
@@ -8496,8 +8467,6 @@
 				8770A27A22310224005733E4 /* ModifyStarCountViewController.m in Sources */,
 				973649E220AF2F8600511A95 /* HomeworkService.m in Sources */,
 				97109EB2207A7C0A00568785 /* CreateAwardViewController.m in Sources */,
-				97109D86207A2F0400568785 /* DeleteTeacherRequest.m in Sources */,
-				97109D88207A2F0400568785 /* CreateTeacherRequest.m in Sources */,
 				9710990D207A0BF500568785 /* RefreshFooter.m in Sources */,
 				12CB736C22AB430E0064FB21 /* MIExpandPickerView.m in Sources */,
 				97109925207A0BF600568785 /* LoadingIndicatorView.m in Sources */,
@@ -8528,7 +8497,6 @@
 				97109D7E207A2F0400568785 /* TeacherEditViewController.m in Sources */,
 				12CB739F22AB70360064FB21 /* MIScoreListTableViewCell.m in Sources */,
 				97109B05207A1C0800568785 /* TimePickerView.m in Sources */,
-				97109D84207A2F0400568785 /* UpdateTeacherRequest.m in Sources */,
 				97109A86207A171600568785 /* HomeworkImageCollectionViewCell.m in Sources */,
 				870286762182F06C00559195 /* StudentStarListTableViewCell.m in Sources */,
 				87FD07DD21BE464700664AF1 /* HomeworkAudioTableViewCell.m in Sources */,
