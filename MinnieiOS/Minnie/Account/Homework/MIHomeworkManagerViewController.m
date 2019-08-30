@@ -174,7 +174,7 @@
 
 - (void)goToCreateTaskWithType:(MIHomeworkTaskType)type{
     
-    MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] init];
+    MICreateTaskViewController *createVC = [[MICreateTaskViewController alloc] initWithNibName:NSStringFromClass([MICreateTaskViewController class]) bundle:nil];
     createVC.teacherSider = YES;
     [createVC setupCreateHomework:nil currentFileInfo:nil taskType:type];
     [self.navigationController pushViewController:createVC animated:YES];

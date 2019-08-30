@@ -311,6 +311,7 @@ MICampusManagerViewControllerDelegate
 #pragma mark - 校区管理
 - (void)configureCampusManagerUI{
  
+    self.classId = -1;
     self.campusMasterVC = [[MICampusManagerViewController alloc] init];
     self.campusMasterVC.delegate = self;
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:self.campusMasterVC];
@@ -335,9 +336,11 @@ MICampusManagerViewControllerDelegate
     ClassManagerViewController *classManagerVC = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
     WeakifySelf;
     classManagerVC.cancelCallBack = ^{
+        weakSelf.classId = -1;
         [weakSelf.campusMasterVC resetSelectIndex];
     };
     classManagerVC.successCallBack = ^{
+        weakSelf.classId = -1;
         [weakSelf.campusMasterVC updateClassInfo];
     };
     self.classId = clazz.classId;
@@ -349,6 +352,7 @@ MICampusManagerViewControllerDelegate
   
     if (self.classId != 0) {
        
+        self.classId = -1;
         [self.campusDetailVC.navigationController popViewControllerAnimated:YES];
     }
 }
