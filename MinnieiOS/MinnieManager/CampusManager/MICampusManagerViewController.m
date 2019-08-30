@@ -152,8 +152,7 @@ MIClassDetailViewControllerDelegate
     self.pageController.titleColorNormal = [UIColor detailColor];
     self.preIndex = self.pageController.selectIndex;
     
-    self.view.frame = CGRectMake(0, 0, (ScreenWidth - kRootModularWidth)/2.0, ScreenHeight);
-    self.pageController.view.frame = CGRectMake(0, 20, (ScreenWidth - kRootModularWidth)/2.0, ScreenHeight - 20);
+    self.pageController.view.frame = CGRectMake(0, 20, (ScreenWidth - kRootModularWidth)/2.0, ScreenHeight);
     [self.view addSubview:self.pageController.view];
     [self addChildViewController:self.pageController];
     [self.pageController didMoveToParentViewController:self];
@@ -164,7 +163,7 @@ MIClassDetailViewControllerDelegate
     [btn setTitleColor:[UIColor mainColor] forState:UIControlStateNormal];
     [btn setTitle:@"新建" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(createAction) forControlEvents:UIControlEventTouchUpInside];
-    btn.frame = CGRectMake(0, 0, 50, 44);
+    btn.frame = CGRectMake(0, 0, 45, 44);
     [self.pageController.menuView setRightView:btn];
     
     if (!self.rightLineView) {

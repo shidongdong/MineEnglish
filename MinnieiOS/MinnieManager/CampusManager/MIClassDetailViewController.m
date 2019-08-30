@@ -34,7 +34,7 @@ UITableViewDelegate
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.currentIndex = -1;
-    self.tableView= [[UITableView alloc] initWithFrame:CGRectMake(0, 0, (ScreenWidth - kRootModularWidth)/2.0, ScreenHeight) style:UITableViewStylePlain];
+    self.tableView= [[UITableView alloc] initWithFrame:CGRectMake(0, 0, (ScreenWidth - kRootModularWidth)/2.0, ScreenHeight - 64) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
