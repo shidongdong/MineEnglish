@@ -47,7 +47,7 @@ MICampusManagerViewControllerDelegate
 @property (nonatomic, strong) MIStudentRecordViewController *teachStatistickDetailVC;
 
 
-@property (nonatomic, strong) ClassManagerViewController *classManagerVC;
+@property (nonatomic, assign) NSInteger classId;
 @property (nonatomic, strong) MICampusManagerViewController *campusMasterVC;
 @property (nonatomic, strong) MIStockDetailViewController *campusDetailVC;
 
@@ -327,25 +327,27 @@ MICampusManagerViewControllerDelegate
 #pragma mark - MICampusManagerViewControllerDelegate
 - (void)campusManagerViewControllerEditClazz:(Clazz *)clazz{
     
-    [self.campusDetailVC.navigationController popViewControllerAnimated:YES];
-    
-    if (!_classManagerVC) {
-        _classManagerVC = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
+    if (clazz.classId == self.classId) {
+        return;
     }
+    [self.campusDetailVC.navigationController popToRootViewControllerAnimated:NO];
+  
+    ClassManagerViewController *classManagerVC = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
     WeakifySelf;
-    _classManagerVC.cancelCallBack = ^{
+    classManagerVC.cancelCallBack = ^{
         [weakSelf.campusMasterVC resetSelectIndex];
     };
-    _classManagerVC.successCallBack = ^{
+    classManagerVC.successCallBack = ^{
         [weakSelf.campusMasterVC updateClassInfo];
     };
-    _classManagerVC.classId = clazz.classId;
-    [self.campusDetailVC.navigationController pushViewController:_classManagerVC animated:YES];
+    self.classId = clazz.classId;
+    classManagerVC.classId = clazz.classId;
+    [self.campusDetailVC.navigationController pushViewController:classManagerVC animated:YES];
 }
 
 - (void)campusManagerViewControllerPopEditClassState{
   
-    if (_classManagerVC.classId != 0) {
+    if (self.classId != 0) {
        
         [self.campusDetailVC.navigationController popViewControllerAnimated:YES];
     }
