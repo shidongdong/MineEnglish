@@ -559,6 +559,11 @@
 		12B5045A2318C485001880A9 /* MITagsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12B503F62317DC3B001880A9 /* MITagsViewController.xib */; };
 		12B5045B2318C490001880A9 /* MITaskListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12B503EF2317DC3A001880A9 /* MITaskListViewController.m */; };
 		12B5045C2318C493001880A9 /* MITaskListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12B503F82317DC3B001880A9 /* MITaskListViewController.xib */; };
+		12B5045E2318CEDF001880A9 /* MaskImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109861207A0BF500568785 /* MaskImageView.m */; };
+		12B5045F2318CF63001880A9 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9710985D207A0BF500568785 /* WebViewController.m */; };
+		12B504602318CF66001880A9 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9710985E207A0BF500568785 /* WebViewController.xib */; };
+		12B504612318CF6B001880A9 /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9710985A207A0BF500568785 /* UITextView+Placeholder.m */; };
+		12B504622318CFA0001880A9 /* PortraitTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9710987D207A0BF500568785 /* PortraitTabBarController.m */; };
 		12B7081922A40B6D00117537 /* MIEidtFileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12B7081822A40B6D00117537 /* MIEidtFileView.m */; };
 		12B7081B22A40B8A00117537 /* MIEidtFileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12B7081A22A40B8A00117537 /* MIEidtFileView.xib */; };
 		12B7081C22A4F40600117537 /* ChooseDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EED4A1219443E200AEA974 /* ChooseDatePickerView.m */; };
@@ -6366,6 +6371,7 @@
 				1237F3DE23039C050086AB1B /* MIAuthorPreviewViewController.xib in Resources */,
 				12ED3B6B229D9A4D00255F8B /* label_ic_into@3x.png in Resources */,
 				12961C8D229E722B0075B04A /* HomeworkPreviewViewController.xib in Resources */,
+				12B504602318CF66001880A9 /* WebViewController.xib in Resources */,
 				12747C8322A7D29B009C390E /* btn_add@2x.png in Resources */,
 				12B503CC2317C34E001880A9 /* MITeacherOnlineTableViewCell.xib in Resources */,
 				12747C1322A7D047009C390E /* CorrectHomeworkScoreTableViewCell.xib in Resources */,
@@ -7697,6 +7703,7 @@
 				12747C8C22A90B6C009C390E /* MIAddWordTableViewCell.m in Sources */,
 				12747BE822A7CD44009C390E /* WBGImageEditorGestureManager.m in Sources */,
 				128F138222D5C16E00C9F5B7 /* TeacherEditViewController.m in Sources */,
+				12B504622318CFA0001880A9 /* PortraitTabBarController.m in Sources */,
 				12961C6F229E66E60075B04A /* HomeworkImageCollectionViewCell.m in Sources */,
 				12961C74229E67290075B04A /* HomeworkConfirmViewController.m in Sources */,
 				12B503DA2317D391001880A9 /* ManagerServce.m in Sources */,
@@ -7740,6 +7747,7 @@
 				12B504332317DDC3001880A9 /* MIZeroMessagesTableViewCell.m in Sources */,
 				1226F31722982EEB00BAB1C9 /* Student.m in Sources */,
 				12747BE522A7CD1A009C390E /* EmojiMessageTableViewCell.m in Sources */,
+				12B504612318CF6B001880A9 /* UITextView+Placeholder.m in Sources */,
 				12CB73A422AB90FE0064FB21 /* CreateHomeworkViewController.m in Sources */,
 				12747BD222A7CC0F009C390E /* WBGImageEditorViewController.m in Sources */,
 				12747BE722A7CD42009C390E /* WBGImageToolBase.m in Sources */,
@@ -7848,6 +7856,7 @@
 				12747BFF22A7CE78009C390E /* EditStudentMarkView.m in Sources */,
 				12747BDA22A7CCC4009C390E /* MessageTimeTableViewCell.m in Sources */,
 				12961CC1229FD4EC0075B04A /* TagsViewController.m in Sources */,
+				12B5045F2318CF63001880A9 /* WebViewController.m in Sources */,
 				1226F3432298366B00BAB1C9 /* UpdateProfileRequest.m in Sources */,
 				12B7B96622D88BEA0057C798 /* TimePickerView.m in Sources */,
 				128F136722D37D9700C9F5B7 /* ExchangeRequestTableViewCell.m in Sources */,
@@ -7901,6 +7910,7 @@
 				12961C7C229E67CF0075B04A /* ClassesRequest.m in Sources */,
 				1226F33B2298335D00BAB1C9 /* HomeworkItem.m in Sources */,
 				12961C93229ECAAB0075B04A /* MIInPutTypeTableViewCell.m in Sources */,
+				12B5045E2318CEDF001880A9 /* MaskImageView.m in Sources */,
 				12ED3B64229D96E300255F8B /* RefreshFooter.m in Sources */,
 				12ED3B58229D967700255F8B /* AlertView.m in Sources */,
 				12ED3B67229D96EF00255F8B /* ChatRefreshHeader.m in Sources */,
