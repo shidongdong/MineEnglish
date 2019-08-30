@@ -299,6 +299,7 @@ UITableViewDataSource
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     if (indexPath.section == 3) {
+       
         if (self.currentIndex != indexPath.row) {
             
             self.currentIndex = indexPath.row;
@@ -307,7 +308,7 @@ UITableViewDataSource
         OnHomework *taskDetail = self.teacherDetail.onHomeworkList[indexPath.row];
         MIScoreListViewController *scoreListVC = [[MIScoreListViewController alloc] initWithNibName:NSStringFromClass([MIScoreListViewController class]) bundle:nil];
         scoreListVC.hiddenEditTask = YES;
-        scoreListVC.teacherId = self.teacher.userId;
+        scoreListVC.teacher = self.teacher;
         Homework *homework = [[Homework alloc] init];
         homework.homeworkId = taskDetail.homeworkId;
         scoreListVC.homework = homework;

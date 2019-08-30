@@ -100,6 +100,12 @@ VIResourceLoaderManagerDelegate
                                                  name:kNotificationKeyOfAddHomework
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(homeworkDidSendSuccess) name:kNotificationKeyOfHomeworkSendSuccess object:nil];
+    
+    // 教师批改作业
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadWhenHomeworkCorrected:)
+                                                 name:kNotificationKeyOfCorrectHomework
+                                               object:nil];
 }
 
 - (void)configureUI{
@@ -272,6 +278,12 @@ VIResourceLoaderManagerDelegate
 - (void)homeworkDidSendSuccess{
 
     [self cancelEditMode];
+}
+
+- (void)reloadWhenHomeworkCorrected:(NSNotification *)notification {
+    
+    self.currentSelectedIndex = -1;
+    [self.tableView reloadData];
 }
 
 #pragma mark - 请求作业列表
@@ -551,7 +563,6 @@ VIResourceLoaderManagerDelegate
         weakSelf.currentSelectedIndex = indexPath.row;
         [tableView reloadData];
         MIScoreListViewController *scoreListVC = [[MIScoreListViewController alloc] initWithNibName:NSStringFromClass([MIScoreListViewController class]) bundle:nil];
-        scoreListVC.teacherId = 0;
         scoreListVC.editTaskCallBack = ^{
          
             [weakSelf requestHomeworks];
@@ -618,7 +629,6 @@ VIResourceLoaderManagerDelegate
     
     Homework *homework = self.homeworks[indexPath.row];
     MIScoreListViewController *scoreListVC = [[MIScoreListViewController alloc] initWithNibName:NSStringFromClass([MIScoreListViewController class]) bundle:nil];
-    scoreListVC.teacherId = 0;
     WeakifySelf;
     scoreListVC.editTaskCallBack = ^{
         [weakSelf requestHomeworks];

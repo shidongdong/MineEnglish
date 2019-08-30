@@ -193,7 +193,7 @@ UITableViewDataSource
     session.homeworkSessionId = scoreInfo.hometaskId;
     HomeworkSessionViewController *vc = [[HomeworkSessionViewController alloc] initWithNibName:@"HomeworkSessionViewController" bundle:nil];
     vc.homeworkSession = session;
-    vc.teacher.userId = self.teacherId;
+    vc.teacher = self.teacher;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -207,7 +207,7 @@ UITableViewDataSource
     if (isLoadMore) {
         
         [ManagerServce requestScoreListByHomeworkId:self.homework.homeworkId
-                                          teacherId:self.teacherId
+                                          teacherId:self.teacher.userId
                                             nextUrl:self.nextUrl
                                            callback:^(Result *result, NSError *error) {
             [weakSelf.view hideAllStateView];
@@ -222,7 +222,7 @@ UITableViewDataSource
         self.tableView.hidden = YES;
         [self.view showLoadingView];
         [ManagerServce requestScoreListByHomeworkId:self.homework.homeworkId
-                                          teacherId:self.teacherId
+                                          teacherId:self.teacher.userId
                                             nextUrl:nil
                                            callback:^(Result *result, NSError *error) {
             

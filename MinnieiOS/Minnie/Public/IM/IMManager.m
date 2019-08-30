@@ -149,6 +149,8 @@ didOfflineWithError:(NSError *)error {
             [HUD showErrorWithMessage:@"你的帐号在别处登录"];
         });
         
+        NSLog(@"被人踢出来了，应用退出:: %lu,%@",APP.currentUser.userId,client.clientId);
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:kIMManagerClientDidKickOutReceiveNotification
                                                             object:nil];
     }

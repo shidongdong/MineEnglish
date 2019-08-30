@@ -30,7 +30,7 @@
     self.user = user;
     self.message = message;
 
-    [self.avatarImageView sd_setImageWithURL:[user.avatarUrl imageURLWithWidth:44.f]];
+    [self.avatarImageView sd_setImageWithURL:[user.avatarUrl imageURLWithWidth:44.f] placeholderImage:[UIImage imageNamed:@"attachment_placeholder"]];
     
     self.retryButton.hidden = YES;
     self.sendingIndicatorView.hidden = YES;

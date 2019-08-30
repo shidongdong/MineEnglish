@@ -997,7 +997,7 @@ HomeworkAnswersPickerViewControllerDelegate>
         }];
     }
     if (status != AVIMClientStatusOpened) {
-        [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
+//        [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
         return;
     }
     
@@ -1146,7 +1146,7 @@ HomeworkAnswersPickerViewControllerDelegate>
         }];
     }
     if (status != AVIMClientStatusOpened) {
-        [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
+//        [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
         return;
     }
     
@@ -1808,19 +1808,26 @@ HomeworkAnswersPickerViewControllerDelegate>
     AVIMTypedMessage *message = messages[indexPath.row-1];
     UITableViewCell *cell = nil;
     
-    User *currentUser = APP.currentUser;
     User *user = nil;
     BOOL isPeerMessage = message.ioType==AVIMMessageIOTypeIn;
+    
+#if TEACHERSIDE || MANAGERSIDE
+    
+    if (message.clientId.integerValue == self.homeworkSession.student.userId) {
+       
+        user = self.homeworkSession.student;
+    } else {
+        user = self.homeworkSession.correctTeacher;
+    }
+    NSLog(@"clientId:: %@  %lu",[IMManager sharedManager].client.clientId,user.userId);
+#else
     if ([message.clientId integerValue] == APP.currentUser.userId) {
         user = currentUser;
     } else {
-#if TEACHERSIDE || MANAGERSIDE
-        user = self.homeworkSession.student;
-#else
         user = self.homeworkSession.correctTeacher;
-#endif
     }
-    
+#endif
+
     if (message.mediaType == kAVIMMessageMediaTypeText) { // 文本信息
         NSDictionary *attributes = ((AVIMTextMessage *)(message)).attributes;
         NSString *identifier = nil;
