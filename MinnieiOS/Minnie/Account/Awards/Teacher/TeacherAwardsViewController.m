@@ -237,12 +237,20 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     [self showCreateAwardWithAward:award];
 #else
     
-    if (APP.currentUser.canCreateRewards) {
+    if (APP.currentUser.authority == TeacherAuthoritySuperManager) {
         
         CreateAwardViewController *vc = [[CreateAwardViewController alloc] initWithNibName:NSStringFromClass([CreateAwardViewController class]) bundle:nil];
         vc.award = award;
         [self.navigationController pushViewController:vc animated:YES];
+    } else {
+      
+        if (APP.currentUser.canCreateRewards) {
+            CreateAwardViewController *vc = [[CreateAwardViewController alloc] initWithNibName:NSStringFromClass([CreateAwardViewController class]) bundle:nil];
+            vc.award = award;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
+
 #endif
 }
 

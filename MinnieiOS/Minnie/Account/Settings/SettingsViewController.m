@@ -6,17 +6,17 @@
 //  Copyright © 2017年 mfox. All rights reserved.
 //
 
-#import "SettingsViewController.h"
-#import "ResetPasswordViewController.h"
-#import "SettingTableViewCell.h"
-#import <SDWebImage/SDImageCache.h>
 #import "UIColor+HEX.h"
 #import "Application.h"
 #import "IMManager.h"
-#import "LoginViewController.h"
-#import "PortraitNavigationController.h"
 #import "AppDelegate.h"
+#import "LoginViewController.h"
+#import "SettingTableViewCell.h"
+#import "SettingsViewController.h"
 #import "AppDelegate+ConfigureUI.h"
+#import <SDWebImage/SDImageCache.h>
+#import "ResetPasswordViewController.h"
+#import "PortraitNavigationController.h"
 
 @interface SettingsViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -159,6 +159,12 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
 #if MANAGERSIDE
+    if (self.currentIndex == 0 && indexPath.row != 0) {
+        
+        if (self.popResetPasswordVCCallBack) {
+            self.popResetPasswordVCCallBack();
+        }
+    }
     self.currentIndex = indexPath.row;
     [tableView reloadData];
 #endif

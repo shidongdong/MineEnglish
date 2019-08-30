@@ -17,4 +17,6 @@ typedef void(^SettingsPushNewVCCallBack) (UIViewController * _Nullable VC);
 
 @property (copy, nonatomic) SettingsPushNewVCCallBack _Nullable pushCallBack;
 
+@property (copy, nonatomic) void (^popResetPasswordVCCallBack)(void);
+
 @end

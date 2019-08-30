@@ -429,6 +429,9 @@ MICampusManagerViewControllerDelegate
         [weakSelf.setterDetailVC.navigationController popToRootViewControllerAnimated:NO];
         [weakSelf.setterDetailVC.navigationController pushViewController: VC animated:YES];
     };
+    self.setterMasterVC.popResetPasswordVCCallBack = ^{
+        [weakSelf.setterDetailVC.navigationController popToRootViewControllerAnimated:NO];
+    };
 }
 
 
