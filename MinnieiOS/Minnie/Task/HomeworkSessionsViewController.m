@@ -231,7 +231,12 @@ MIActivityBannerViewDelegate
                 if ([message isKindOfClass:[AVIMTextMessage class]]) {
                     homeworkSession.lastSessionContent = ((AVIMTextMessage *)message).text;
                 } else if ([message isKindOfClass:[AVIMAudioMessage class]]) {
-                    homeworkSession.lastSessionContent = @"[音频]";
+                    
+                    if ([((AVIMTextMessage *)message).text isEqualToString:kHomeworkTaskFollowUpName] ||
+                        [((AVIMTextMessage *)message).text isEqualToString:kHomeworkTaskWordMemoryName]) {
+                    } else {
+                        homeworkSession.lastSessionContent = @"[链接]";
+                    }
                 } else if ([message isKindOfClass:[AVIMVideoMessage class]]) {
                     homeworkSession.lastSessionContent = @"[视频]";
                 } else if ([message isKindOfClass:[AVIMImageMessage class]]) {

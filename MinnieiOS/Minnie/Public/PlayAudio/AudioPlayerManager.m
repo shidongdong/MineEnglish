@@ -132,7 +132,6 @@
                 weakSelf.progressBlock(currentTime, duration);
                 weakSelf.current = currentTime;
                 weakSelf.duration = duration;
-                NSLog(@"++++++ %f",currentTime);
             }
         }];
     }

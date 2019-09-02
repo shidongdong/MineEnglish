@@ -16,7 +16,11 @@ static NSString * const kKeyOfCreateTimestamp = @"createTimestamp";
 static NSString * const kKeyOfAudioDuration = @"audioDuration";
 static NSString * const kKeyOfVideoDuration = @"videoDuration";
 
-@interface MIFollowUpViewController ()
+@interface MIFollowUpViewController (){
+    
+    id _progressObserve;
+}
+@property (weak, nonatomic) IBOutlet UIButton *backBtn;
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverImageV;
 @property (weak, nonatomic) IBOutlet UIView *recordingView;
@@ -25,7 +29,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 @property (weak, nonatomic) IBOutlet UIView *recordRedView;
 @property (weak, nonatomic) IBOutlet UIView *startRecordView;
 @property (weak, nonatomic) IBOutlet UIButton *startRecordBtn;
-@property (weak, nonatomic) IBOutlet UIButton *backBtn;
 
 @property (strong,nonatomic) HomeworkItem *followItem;
 
@@ -69,6 +72,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         [self invalidateTimer];
         [self.audioPlayer pause];
         [self removeRecordSound];
+        [self removePlayerProgress];
     }
 }
 
@@ -82,8 +86,14 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
        
         self.startBtnConstraintHeight.constant = 44;
     }
+    
+    self.backBtn.layer.cornerRadius = 15;
+    self.backBtn.layer.masksToBounds = YES;
+    self.backBtn.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    
     self.recordGrayView.layer.cornerRadius = 15;
     self.recordGrayView.layer.masksToBounds = YES;
+    self.recordGrayView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
     
     self.recordRedView.layer.cornerRadius = 5;
     self.recordRedView.layer.masksToBounds = YES;
@@ -122,6 +132,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
            
             // 播放音频
             if (self.followItem.audioUrl.length) {
+               
                 self.audioPlayer = [self getPlayerWith:self.audioUrl isLocal:NO];
                 self.audioPlayer.volume = 0.5;
                 [self.audioPlayer play];
@@ -228,14 +239,45 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     return recordPlayer;
 }
 
+
+#pragma mark - 进度
+- (void)removePlayerProgress{
+    
+    if (_progressObserve) {
+        
+        [self.audioPlayer removeTimeObserver:_progressObserve];
+        _progressObserve = nil;
+    }
+}
+
+- (void)addPlayerProgress{
+    
+    if (!_progressObserve) {
+        WeakifySelf;
+        // 监听进度
+        _progressObserve = [self.audioPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+            
+            if (!weakSelf) return;
+            CGFloat currentTime = weakSelf.audioPlayer.currentItem.currentTime.value/weakSelf.audioPlayer.currentItem.currentTime.timescale;// 计算当前在第几秒
+            CGFloat duration = CMTimeGetSeconds(weakSelf.audioPlayer.currentItem.duration);
+            int surplus = duration - currentTime;
+            NSString *surplusTime = [NSString stringWithFormat:@"%.2d:%.2d",surplus/60,surplus%60];
+            [weakSelf.startRecordBtn setTitle:surplusTime forState:UIControlStateNormal];
+        }];
+    }
+}
+
+
 #pragma mark - 1.开始任务
 - (void)startTask{
 
     _recordState = 1;
-    self.startRecordView.hidden = YES;
+//    self.startRecordView.hidden = YES;
     // 播放音频
     if (self.followItem.audioUrl.length) {
+        [self removePlayerProgress];
         self.audioPlayer = [self getPlayerWith:self.followItem.audioUrl isLocal:NO];
+        [self addPlayerProgress];
         self.audioPlayer.volume = 0.5;
         [self.audioPlayer play];
     }
@@ -269,15 +311,15 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     
     WeakifySelf;
     [MIToastView setTitle:@"是否提交作业？"
-                  confirm:@"立即提交"
-                   cancel:@"重新来过"
+                  confirm:@"重新来过"
+                   cancel:@"立即提交"
                 superView:self.view
              confirmBlock:^{
                  
-                 [weakSelf uploadRecord];
+                 [weakSelf startTask];
              } cancelBlock:^{
                  
-                 [weakSelf startTask];
+                 [weakSelf uploadRecord];
              }];
     
     [self.view addSubview:self.backBtn];

@@ -580,6 +580,14 @@
 		12B504E123191EB4001880A9 /* MIAddWordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12B5047B23191B1D001880A9 /* MIAddWordTableViewCell.xib */; };
 		12B504E223191EB4001880A9 /* MITagsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12B5048E23191B1D001880A9 /* MITagsTableViewCell.xib */; };
 		12B504E323192005001880A9 /* MICreateTaskViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12B503F22317DC3B001880A9 /* MICreateTaskViewController.xib */; };
+		12B504E4231CB20C001880A9 /* WordInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12B503E42317DC04001880A9 /* WordInfo.m */; };
+		12B504E5231CB21D001880A9 /* ParentFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 12B503E22317DC04001880A9 /* ParentFileInfo.m */; };
+		12B504E6231CB26F001880A9 /* MIToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12B5048623191B1D001880A9 /* MIToastView.m */; };
+		12B504E7231CB272001880A9 /* MIToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12B5048623191B1D001880A9 /* MIToastView.m */; };
+		12B504E8231CB27A001880A9 /* MIToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12B5046723191B1D001880A9 /* MIToastView.xib */; };
+		12B504E9231CB27B001880A9 /* MIToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12B5046723191B1D001880A9 /* MIToastView.xib */; };
+		12B504EA231CB2EA001880A9 /* ManagerServce.m in Sources */ = {isa = PBXBuildFile; fileRef = 12B503D72317D391001880A9 /* ManagerServce.m */; };
+		12B504EB231CB329001880A9 /* ManagerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 12B503D92317D391001880A9 /* ManagerRequest.m */; };
 		12B7081C22A4F40600117537 /* ChooseDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EED4A1219443E200AEA974 /* ChooseDatePickerView.m */; };
 		12B7081D22A4F41000117537 /* ChooseDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87EED4A2219443E200AEA974 /* ChooseDatePickerView.xib */; };
 		12B7082622A5207200117537 /* DatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109ADB207A1C0800568785 /* DatePickerView.m */; };
@@ -6728,6 +6736,7 @@
 				9710973F207A006D00568785 /* icon_warning@3x.png in Resources */,
 				872069C221AD2F2E00847713 /* btn_send_warning@2x.png in Resources */,
 				97109699207A006D00568785 /* 加载动画01@3x.png in Resources */,
+				12B504E9231CB27B001880A9 /* MIToastView.xib in Resources */,
 				8770A29922360F84005733E4 /* AnswerPickerAudioCell.xib in Resources */,
 				8770A2A02237AE24005733E4 /* photo_sel_photoPickerVc@2x.png in Resources */,
 				9710975F207A006D00568785 /* pop_finish@2x.png in Resources */,
@@ -6862,6 +6871,7 @@
 				97109816207A006D00568785 /* icon_stars@3x.png in Resources */,
 				97364A0920B1231E00511A95 /* StudentDetailViewController.xib in Resources */,
 				971096B6207A006D00568785 /* label_security@3x.png in Resources */,
+				12B504E8231CB27A001880A9 /* MIToastView.xib in Resources */,
 				9710982C207A006D00568785 /* buttonbar_class_manager_active@2x.png in Resources */,
 				971097B2207A006D00568785 /* btn_keyboard@2x.png in Resources */,
 				97109AE8207A1C0800568785 /* ClassManagerViewController.xib in Resources */,
@@ -7944,12 +7954,14 @@
 				97364A0A20B1231E00511A95 /* StudentDetailViewController.m in Sources */,
 				97109C16207A2E3E00568785 /* CircleHomeworksViewController.m in Sources */,
 				97109C50207A2E3E00568785 /* CircleBottomTableViewCell.m in Sources */,
+				12B504E4231CB20C001880A9 /* WordInfo.m in Sources */,
 				97109EDA207A7C1600568785 /* StudentAwardService.m in Sources */,
 				87AF73002193D164003E87F0 /* StudentDetailCell.m in Sources */,
 				97109D3B207A2F0400568785 /* NoticeMessagesViewController.m in Sources */,
 				97364A1A20B1704900511A95 /* MessageUpdateCountRequest.m in Sources */,
 				87915A3621B933BC006C1BFD /* AudioPlayerViewController.m in Sources */,
 				87707876219ABAE900940A88 /* HomeworkSendLog.m in Sources */,
+				12B504E6231CB26F001880A9 /* MIToastView.m in Sources */,
 				8770A2842233B3F5005733E4 /* HomeworkAnswersPickerViewController.m in Sources */,
 				1226E7D3229572C100BAB1C9 /* DrawImageView.m in Sources */,
 				97109D63207A2F0400568785 /* NoticeMessageHeadTableViewCell.m in Sources */,
@@ -8049,6 +8061,7 @@
 				97109922207A0BF600568785 /* AlertView.m in Sources */,
 				12EAC66622B65F3C00F1F3DB /* MIRecordWaveView.m in Sources */,
 				97DC3AEB208343DA009D811B /* PortraitNavigationController.m in Sources */,
+				12B504EA231CB2EA001880A9 /* ManagerServce.m in Sources */,
 				9710991E207A0BF600568785 /* TIP.m in Sources */,
 				97109ED6207A7C1600568785 /* StudentAwardsViewController.m in Sources */,
 				12EAC64E22B0D73100F1F3DB /* AVIMWordsMessage.m in Sources */,
@@ -8095,6 +8108,7 @@
 				97109C24207A2E3E00568785 /* CircleService.m in Sources */,
 				97109C1E207A2E3E00568785 /* CircleViewController.m in Sources */,
 				8707EFC521D61E120060B5A6 /* TagService.m in Sources */,
+				12B504EB231CB329001880A9 /* ManagerRequest.m in Sources */,
 				8702866E2182EA8700559195 /* StudentStarListViewController.m in Sources */,
 				97109DF6207A655000568785 /* GoodWorkTableViewCell.m in Sources */,
 				97109D61207A2F0400568785 /* CommentMessageTableViewCell.m in Sources */,
@@ -8142,6 +8156,7 @@
 				872558AC21D4CBC40028BC2A /* TagCollectionViewCell.m in Sources */,
 				97109A4A207A158C00568785 /* ImageMessageTableViewCell.m in Sources */,
 				1923CB12228117E20056B2AD /* EditStudentMarkView.m in Sources */,
+				12B504E5231CB21D001880A9 /* ParentFileInfo.m in Sources */,
 				97109960207A0BF600568785 /* Application.m in Sources */,
 				97109C34207A2E3E00568785 /* HomeworkDetailCommentTableViewCell.m in Sources */,
 				97109A62207A158C00568785 /* AudioMessageTableViewCell.m in Sources */,
@@ -8333,6 +8348,7 @@
 				973649BD20AF2F8600511A95 /* CreateHomeworkViewController.m in Sources */,
 				977BD094207CA140000A1994 /* PushManager.m in Sources */,
 				9710993F207A0BF600568785 /* Error.m in Sources */,
+				12B504E7231CB272001880A9 /* MIToastView.m in Sources */,
 				97109B07207A1C0800568785 /* DatePickerView.m in Sources */,
 				973649E020AF2F8600511A95 /* HomeworksRequest.m in Sources */,
 				876D982221D0DC2000A0E06E /* CorrectHomeworkHisCommentTableViewCell.m in Sources */,

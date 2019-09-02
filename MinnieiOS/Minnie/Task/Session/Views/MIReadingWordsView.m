@@ -40,7 +40,9 @@
 @property (assign,nonatomic) NSInteger currentWordIndex;
 @property (weak, nonatomic) IBOutlet UIView *bgProgressView;
 
-@property (strong, nonatomic) WordSlider *sliderView;
+//@property (strong, nonatomic) WordSlider *sliderView;
+
+@property (strong, nonatomic) UIProgressView *progressView;
 
 @property (strong,nonatomic) NSMutableArray *progressViews;
 
@@ -54,25 +56,28 @@
     [super awakeFromNib];
     self.progressViews = [NSMutableArray array];
     
-    self.sliderView = [[WordSlider alloc] init];
-    [self.bgProgressView addSubview:self.sliderView];
-    self.sliderView.value = 0.0;
-    self.sliderView.layer.cornerRadius = 0.0;
-    self.sliderView.layer.masksToBounds = YES;
+    self.progressView = [[UIProgressView alloc] init];
+//    self.sliderView = [[WordSlider alloc] init];
+    [self.bgProgressView addSubview:self.progressView];
+    self.progressView.progress = 0.0;
+    self.progressView.layer.cornerRadius = 0.0;
+    self.progressView.layer.masksToBounds = YES;
     
-    [self.sliderView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.edges.equalTo(self.bgProgressView);
     }];
     
-    [self.sliderView setMinimumTrackTintColor:[UIColor mainColor]];
-    [self.sliderView setMaximumTrackTintColor:[UIColor unSelectedColor]];
+//    [self.sliderView setMinimumTrackTintColor:[UIColor mainColor]];
+//    [self.sliderView setMaximumTrackTintColor:[UIColor unSelectedColor]];
     
-    [self.sliderView addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-    [self.sliderView addTarget:self action:@selector(sliderValueFinished:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.progressView addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+//    [self.progressView addTarget:self action:@selector(sliderValueFinished:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.progressView setThumbImage:[UIImage imageNamed:@"thum"] forState:UIControlStateNormal];
+//    [self.sliderView setThumbImage:[UIImage imageNamed:@"thum"] forState:UIControlStateHighlighted];
     
-    [self.sliderView setThumbImage:[UIImage imageNamed:@"thum"] forState:UIControlStateNormal];
-    [self.sliderView setThumbImage:[UIImage imageNamed:@"thum"] forState:UIControlStateHighlighted];
+    self.progressView.progressTintColor = [UIColor mainColor];
+    self.progressView.trackTintColor = [UIColor unSelectedColor];
     
     WordInfo *tempWord = _wordsItem.words.firstObject;
     self.englishLabel.text = tempWord.english;
@@ -92,16 +97,16 @@
 
 - (void)sliderValueFinished:(id)sender {
    
-    NSInteger tempIndex = roundf(self.sliderView.value * self.wordsItem.words.count) - 1;
-    _currentWordIndex = tempIndex;
-    
-    if (self.readingWordsSeekCallBack) {
-        self.readingWordsSeekCallBack(self.sliderView.value);
-    }
-    [self startPlayWords];
-    
-    _isSliding = NO;
-    [self playWords];
+//    NSInteger tempIndex = roundf(self.sliderView.value * self.wordsItem.words.count) - 1;
+//    _currentWordIndex = tempIndex;
+//
+//    if (self.readingWordsSeekCallBack) {
+//        self.readingWordsSeekCallBack(self.sliderView.value);
+//    }
+//    [self startPlayWords];
+//
+//    _isSliding = NO;
+//    [self playWords];
     
 }
 
@@ -111,7 +116,7 @@
         _currentWordIndex = 0;
         WordInfo *tempWord = _wordsItem.words.firstObject;
         self.englishLabel.text = tempWord.english;
-        self.sliderView.value = 0.0;
+        self.progressView.progress = 0.0;
     }
     [self stopPlayWords];
     [self.wordsTimer fireDate];
@@ -121,6 +126,38 @@
     
     [self.wordsTimer invalidate];
     self.wordsTimer = nil;
+}
+
+
+- (void)seekToWordInterval:(NSInteger)interval{
+    
+    _currentWordIndex = _currentWordIndex + interval;
+
+    WordInfo *tempWord;
+    if (interval < 0) {
+        
+        if ( _currentWordIndex - 1 <= 0) {
+            _currentWordIndex = self.wordsItem.words.count;
+        } else if ( _currentWordIndex > self.wordsItem.words.count) {
+             _currentWordIndex  = 1;
+        }
+        tempWord = self.wordsItem.words[_currentWordIndex - 1];
+    } else {
+       
+        if ( _currentWordIndex - 1 <= 0) {
+            _currentWordIndex = self.wordsItem.words.count;
+        } else if ( _currentWordIndex > self.wordsItem.words.count) {
+            _currentWordIndex  = 1;
+        }
+        tempWord = self.wordsItem.words[_currentWordIndex - 1];
+    }
+    self.englishLabel.text = tempWord.english;
+    self.progressView.progress = (CGFloat)(_currentWordIndex -1)/self.wordsItem.words.count;
+    
+    if (self.readingWordsSeekCallBack) {
+        self.readingWordsSeekCallBack(_currentWordIndex - 1);
+    }
+    [self startPlayWords];
 }
 
 -(NSTimer *)wordsTimer{
@@ -158,14 +195,14 @@
         }
     }
     
-    self.sliderView.value = (CGFloat)_currentWordIndex/self.wordsItem.words.count;
+    self.progressView.progress = (CGFloat)_currentWordIndex/self.wordsItem.words.count;
     
     _currentWordIndex ++;
     
     if (_currentWordIndex > self.wordsItem.words.count) {
         
-        if (self.readingWordsCallBack) {
-            self.readingWordsCallBack();
+        if (self.readingWordsFinishCallBack) {
+            self.readingWordsFinishCallBack();
         }
         [self stopPlayWords];
     }

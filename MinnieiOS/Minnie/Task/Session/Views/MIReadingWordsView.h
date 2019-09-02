@@ -13,21 +13,25 @@ typedef void(^MIReadingWordsFinish)(void);
 
 typedef void(^MIReadingWordsSeek)(CGFloat rate);
 
-typedef void(^MIReadingWordsProgress)(NSInteger index);
+//typedef void(^MIReadingWordsProgress)(NSInteger index);
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MIReadingWordsView : UIView
 
 @property (nonatomic,strong) HomeworkItem *wordsItem;
-@property (nonatomic,copy) MIReadingWordsFinish readingWordsCallBack;
 
-@property (nonatomic,copy) MIReadingWordsSeek readingWordsSeekCallBack;
+@property (nonatomic,copy) void(^readingWordsFinishCallBack)(void);
 
-@property (nonatomic,copy) MIReadingWordsProgress readingWordsProgressCallBack;
+@property (nonatomic,copy) void(^readingWordsSeekCallBack)(NSInteger index);
+
+@property (nonatomic,copy) void(^readingWordsProgressCallBack)(NSInteger index);
 
 - (void)startPlayWords;
 - (void)stopPlayWords;
+
+// 
+- (void)seekToWordInterval:(NSInteger)interval;
 
 - (void)invalidateTimer;
 

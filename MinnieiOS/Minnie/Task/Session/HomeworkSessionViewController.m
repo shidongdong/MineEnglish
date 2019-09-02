@@ -1822,7 +1822,7 @@ HomeworkAnswersPickerViewControllerDelegate>
     NSLog(@"clientId:: %@  %lu",[IMManager sharedManager].client.clientId,user.userId);
 #else
     if ([message.clientId integerValue] == APP.currentUser.userId) {
-        user = currentUser;
+        user = APP.currentUser;
     } else {
         user = self.homeworkSession.correctTeacher;
     }
@@ -1989,13 +1989,16 @@ HomeworkAnswersPickerViewControllerDelegate>
                 NSString *typeName = self.homeworkSession.homework.typeName;
                 if ([typeName isEqualToString:kHomeworkTaskFollowUpName]) {
                     
-                    MIFollowUpViewController *followVC = [[MIFollowUpViewController alloc] initWithNibName:NSStringFromClass([MIFollowUpViewController class]) bundle:nil];
-                    NSString *fileUrl = message.file.url;
-                    followVC.audioUrl = fileUrl;
-                    followVC.isChecking = YES;
-                    followVC.teacher = weakSelf.teacher;
-                    followVC.homework = weakSelf.homeworkSession.homework;
-                    [weakSelf.navigationController pushViewController:followVC animated:YES];
+//                    MIFollowUpViewController *followVC = [[MIFollowUpViewController alloc] initWithNibName:NSStringFromClass([MIFollowUpViewController class]) bundle:nil];
+//                    NSString *fileUrl = message.file.url;
+//                    followVC.audioUrl = fileUrl;
+//                    followVC.isChecking = YES;
+//                    followVC.teacher = weakSelf.teacher;
+//                    followVC.homework = weakSelf.homeworkSession.homework;
+//                    [weakSelf.navigationController pushViewController:followVC animated:YES];
+                  
+                    HomeworkItem *followItem = weakSelf.homeworkSession.homework.otherItem.firstObject;
+                    [self playAudioWithURL:message.file.url withCoverURL:followItem.audioCoverUrl];
                     
                 } else if ([typeName isEqualToString:kHomeworkTaskWordMemoryName]){
                    

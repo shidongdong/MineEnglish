@@ -154,7 +154,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     }
     [self stopTask];
     _recordState = 1;
-    _currentWordIndex = -5;
+    _currentWordIndex = -4;
     [self.countTimer fireDate];
     
     for (UIView *progress in self.progressViews) {
@@ -167,10 +167,9 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     
     [self invalidateTimer];
     // 播放单词
-    WordInfo *tempWord = _wordsItem.words.firstObject;
-    self.wordLabel.text = tempWord.english;
+//    WordInfo *tempWord = _wordsItem.words.firstObject;
+//    self.wordLabel.text = tempWord.english;
     [self.wordsTimer fireDate];
-    
     // 播放背景音乐
     if (self.wordsItem.bgmusicUrl.length) {
         self.bgMusicPlayer = [self getPlayerWith:self.wordsItem.bgmusicUrl isLocal:NO];
@@ -222,15 +221,14 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 
     WeakifySelf;
     [MIToastView setTitle:@"是否提交作业？"
-                  confirm:@"立即提交"
-                   cancel:@"重新来过"
+                  confirm:@"重新来过"
+                   cancel:@"立即提交"
                 superView:self.view
              confirmBlock:^{
              
-                 [weakSelf uploadRecord];
-             } cancelBlock:^{
-                 
                  [weakSelf startTask];
+             } cancelBlock:^{
+                 [weakSelf uploadRecord];
     }];
     [self.view addSubview:self.backBtn];
 }
@@ -342,28 +340,29 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 #pragma mark - 定时播放任务
-- (void)countTime { // 计时
+- (void)countTime { // 到计时
   
     if (_currentWordIndex >= 0) {
         
         [self invalidateCountTimer];
         [[AudioPlayer sharedPlayer] stop];
         [self startPlayWords];
-    }
-    
-    if (_currentWordIndex < 0) { // 4,3, 2, 1, 0
         
         self.wordLabel.hidden = YES;
         self.timeLabel.hidden = NO;
-        if (_currentWordIndex == -1) {
+        if (_currentWordIndex == 0) {
             
             self.wordLabel.hidden = NO;
             self.timeLabel.hidden = YES;
             self.wordLabel.text = [NSString stringWithFormat:@"Go!"];
             
             [[AudioPlayer sharedPlayer] playLocalURL:@"go"];
-            
-        } else if (_currentWordIndex == -5){
+        }
+    }
+    
+    if (_currentWordIndex < 0) { // 4,3, 2, 1, 0  ready,3,2,1,go
+        
+        if (_currentWordIndex <= -4){
             
             self.wordLabel.hidden = NO;
             self.timeLabel.hidden = YES;
@@ -373,16 +372,17 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             
         } else {
             
-            self.timeLabel.text = [NSString stringWithFormat:@"%lu",-(_currentWordIndex + 1)];
+            self.wordLabel.hidden = YES;
+            self.timeLabel.hidden = NO;
+            self.timeLabel.text = [NSString stringWithFormat:@"%lu",-(_currentWordIndex)];
             self.timeLabel.layer.cornerRadius = 140;
             self.timeLabel.layer.borderWidth = 5.0;
             self.timeLabel.layer.borderColor = [UIColor detailColor].CGColor;
-           NSString *url = [NSString stringWithFormat:@"count_%lu",-(_currentWordIndex + 1)];
+           NSString *url = [NSString stringWithFormat:@"count_%lu",-(_currentWordIndex)];
             [[AudioPlayer sharedPlayer] playLocalURL:url];
         }
         _currentWordIndex ++;
     }
-
 }
 - (void)playWords{ // 播放单词
     
@@ -426,6 +426,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         
         [self performSelector:@selector(finishedToast) withObject:nil afterDelay:1.0];
     }
+    NSLog(@"startPlayWords:%@",self.wordLabel.text);
 }
 
 #pragma mark setter && getter

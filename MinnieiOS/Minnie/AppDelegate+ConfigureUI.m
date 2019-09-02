@@ -311,7 +311,8 @@
     WeakifySelf;
     if (needWait) {
         // 进入后台、退出APP，异步请求失败，结果无法返回，无法完成，使用信号量解决请求失败问题
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://api.minniedu.com:9999/user/onoffline"]];
+       NSString  *url = [NSString stringWithFormat:@"%@/user/onoffline",kConfigBaseUrl];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
         request.timeoutInterval = 10;
         request.HTTPMethod = @"POST";
         // 请求体

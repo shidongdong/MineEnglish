@@ -98,6 +98,19 @@ CAAnimationDelegate
     }
 }
 
+- (IBAction)leftButtonAction:(id)sender {
+    [self.audioPlayer play:NO];
+    [_wordsView stopPlayWords];
+    [_wordsView seekToWordInterval:-1];
+}
+
+- (IBAction)rightButtonAction:(id)sender {
+    
+    [self.audioPlayer play:NO];
+    [_wordsView stopPlayWords];
+    [_wordsView seekToWordInterval:1];
+}
+
 #pragma mark setter && getter
 
 - (MIReadingWordsView *)wordsView{
@@ -106,29 +119,27 @@ CAAnimationDelegate
         
         _wordsView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MIReadingWordsView class]) owner:nil options:nil].lastObject;
         WeakifySelf;
-        _wordsView.readingWordsCallBack = ^{
+        _wordsView.readingWordsFinishCallBack = ^{
             
         };
-        _wordsView.readingWordsSeekCallBack = ^(CGFloat rate) {
-          
-            CGFloat time = weakSelf.audioPlayer.duration * rate;
+        _wordsView.readingWordsSeekCallBack = ^(NSInteger index) {
+           
+            HomeworkItem *wordItem = weakSelf.wordsView.wordsItem;
+           
+            CGFloat time = (CGFloat)index/(wordItem.words.count) * weakSelf.audioPlayer.duration;
+            if (index >= wordItem.words.count) {
+                
+                time = (CGFloat)(index - 1)/(wordItem.words.count) * weakSelf.audioPlayer.duration;
+            }
+            
             [weakSelf.audioPlayer seekToTime:time];
+            
             weakSelf.startRecordBtn.selected = YES;
-            weakSelf.startRecordLabel.text = @"点击停止录音";
-            [weakSelf.wordsView startPlayWords];
+            weakSelf.startRecordLabel.text = @"点击停止播放";
         };
+        
         _wordsView.readingWordsProgressCallBack = ^(NSInteger index) {
            
-//            HomeworkItem *wordItem = weakSelf.wordsView.wordsItem;
-//
-//            CGFloat rate =  (CGFloat)(weakSelf.audioPlayer.current/weakSelf.audioPlayer.duration);
-//            int tempIndex = roundf(rate * wordItem.words.count);
-//
-//            if (abs(tempIndex - (int)index) > 1) {
-//
-//                CGFloat time = weakSelf.audioPlayer.duration * index/wordItem.words.count;
-//                [weakSelf.audioPlayer seekToTime:time];
-//            }
         };
     }
     return _wordsView;
@@ -161,6 +172,8 @@ CAAnimationDelegate
             
             weakSelf.startRecordBtn.selected = NO;
             weakSelf.startRecordLabel.text = @"点击查看录音";
+            [weakSelf.audioPlayer play:NO];
+            [weakSelf.wordsView stopPlayWords];
         };
     }
     return _audioPlayer;

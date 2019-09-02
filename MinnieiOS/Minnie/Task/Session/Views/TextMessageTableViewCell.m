@@ -68,15 +68,20 @@ NSString * const RightTextMessageTableViewCellId = @"RightTextMessageTableViewCe
         NSTextAttachment *attach = [[NSTextAttachment alloc] init];
         attach.bounds = CGRectMake(0, -3, 18, 18);
         NSMutableAttributedString * attr = [[NSMutableAttributedString alloc] init];
+        NSString *text = message.text;
+        if ([message.text isEqualToString:kHomeworkTaskFollowUpName]) {
+            text = @"跟读任务";
+        }
+        NSString *title = [NSString stringWithFormat:@"     %@     ",text];
         if (message.ioType==AVIMMessageIOTypeIn) {
 
 //            attach.image = [UIImage imageNamed:@"chat_talk3"];
-            [attr appendAttributedString:[[NSAttributedString alloc] initWithString:message.text]];
+            [attr appendAttributedString:[[NSAttributedString alloc] initWithString:title]];
 //            [attr appendAttributedString:[NSAttributedString attributedStringWithAttachment:attach]];
         } else {
 //            attach.image = [UIImage imageNamed:@"right_chat_talk3"];
 //            [attr appendAttributedString:[NSAttributedString attributedStringWithAttachment:attach]];
-            [attr appendAttributedString:[[NSAttributedString alloc] initWithString:message.text]];
+            [attr appendAttributedString:[[NSAttributedString alloc] initWithString:title]];
         }
         [attr addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:NSMakeRange(0, attr.length)];
         self.messageTextLabel.attributedText = attr;
