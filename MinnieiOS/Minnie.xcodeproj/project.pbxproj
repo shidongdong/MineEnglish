@@ -719,9 +719,6 @@
 		12EAC64622AE2B3B00F1F3DB /* MIReadingWordsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12EAC64522AE2B3B00F1F3DB /* MIReadingWordsView.xib */; };
 		12EAC64722AE2B3B00F1F3DB /* MIReadingWordsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12EAC64522AE2B3B00F1F3DB /* MIReadingWordsView.xib */; };
 		12EAC64822AE2B3B00F1F3DB /* MIReadingWordsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12EAC64522AE2B3B00F1F3DB /* MIReadingWordsView.xib */; };
-		12EAC64E22B0D73100F1F3DB /* AVIMWordsMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC64D22B0D73000F1F3DB /* AVIMWordsMessage.m */; };
-		12EAC64F22B0D73100F1F3DB /* AVIMWordsMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC64D22B0D73000F1F3DB /* AVIMWordsMessage.m */; };
-		12EAC65022B0D73100F1F3DB /* AVIMWordsMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC64D22B0D73000F1F3DB /* AVIMWordsMessage.m */; };
 		12EAC65822B229F000F1F3DB /* UIImagePickerController+ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC65722B229F000F1F3DB /* UIImagePickerController+ImagePicker.m */; };
 		12EAC65922B229F000F1F3DB /* UIImagePickerController+ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC65722B229F000F1F3DB /* UIImagePickerController+ImagePicker.m */; };
 		12EAC65A22B229F000F1F3DB /* UIImagePickerController+ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 12EAC65722B229F000F1F3DB /* UIImagePickerController+ImagePicker.m */; };
@@ -2342,8 +2339,6 @@
 		12EAC64022AE2AED00F1F3DB /* MIReadingWordsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIReadingWordsView.h; sourceTree = "<group>"; };
 		12EAC64122AE2AED00F1F3DB /* MIReadingWordsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MIReadingWordsView.m; sourceTree = "<group>"; };
 		12EAC64522AE2B3B00F1F3DB /* MIReadingWordsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MIReadingWordsView.xib; sourceTree = "<group>"; };
-		12EAC64C22B0D73000F1F3DB /* AVIMWordsMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AVIMWordsMessage.h; sourceTree = "<group>"; };
-		12EAC64D22B0D73000F1F3DB /* AVIMWordsMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AVIMWordsMessage.m; sourceTree = "<group>"; };
 		12EAC65622B229F000F1F3DB /* UIImagePickerController+ImagePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+ImagePicker.h"; sourceTree = "<group>"; };
 		12EAC65722B229F000F1F3DB /* UIImagePickerController+ImagePicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+ImagePicker.m"; sourceTree = "<group>"; };
 		12EAC65D22B39D8A00F1F3DB /* EditAudioVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAudioVideo.h; sourceTree = "<group>"; };
@@ -4821,8 +4816,6 @@
 				12E079822313865E0054A8CE /* MIFollowUpViewController.h */,
 				12E079832313865E0054A8CE /* MIFollowUpViewController.m */,
 				12E079842313865E0054A8CE /* MIFollowUpViewController.xib */,
-				12EAC64C22B0D73000F1F3DB /* AVIMWordsMessage.h */,
-				12EAC64D22B0D73000F1F3DB /* AVIMWordsMessage.m */,
 				971099FF207A158C00568785 /* Views */,
 				8725588921D1D2A70028BC2A /* CorrectHomeworkAddCommentViewController.h */,
 				8725588A21D1D2A70028BC2A /* CorrectHomeworkAddCommentViewController.m */,
@@ -7826,7 +7819,6 @@
 				12CB73A622AB91660064FB21 /* HomeworkLabelTableViewCell.m in Sources */,
 				12961C61229E65E00075B04A /* NEPhotoIndicatorView.m in Sources */,
 				12B5049C23191B1D001880A9 /* MIEqualSpaceFlowLayout.m in Sources */,
-				12EAC65022B0D73100F1F3DB /* AVIMWordsMessage.m in Sources */,
 				12CB73A822AB919F0064FB21 /* HomeworkTextTableViewCell.m in Sources */,
 				12A1E94322A57885001247D7 /* HomeworkAudioTableViewCell.m in Sources */,
 				12B503D42317D312001880A9 /* MISecondReaTimeTaskTableViewCell.m in Sources */,
@@ -8064,7 +8056,6 @@
 				12B504EA231CB2EA001880A9 /* ManagerServce.m in Sources */,
 				9710991E207A0BF600568785 /* TIP.m in Sources */,
 				97109ED6207A7C1600568785 /* StudentAwardsViewController.m in Sources */,
-				12EAC64E22B0D73100F1F3DB /* AVIMWordsMessage.m in Sources */,
 				1229813C22C5B39200C09750 /* HomeworkService.m in Sources */,
 				871806CE21DF438C0023511C /* MUVideoIconView.m in Sources */,
 				872C742C21BE91A10027F47C /* GuideViewController.m in Sources */,
@@ -8268,7 +8259,6 @@
 				97109AEF207A1C0800568785 /* AddStudentView.m in Sources */,
 				97109D58207A2F0400568785 /* AddNoticeMessageRequest.m in Sources */,
 				122F799B22AD3D7900D2AA53 /* MIStuUploadVideoViewController.m in Sources */,
-				12EAC64F22B0D73100F1F3DB /* AVIMWordsMessage.m in Sources */,
 				1226E7D42295786100BAB1C9 /* DrawImageView.m in Sources */,
 				973649F420AF2F8600511A95 /* CreateTagView.m in Sources */,
 				97109E8F207A7BDD00568785 /* AwardsRequest.m in Sources */,

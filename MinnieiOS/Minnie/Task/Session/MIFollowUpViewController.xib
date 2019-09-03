@@ -30,20 +30,19 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o9g-zz-1A4">
-                    <rect key="frame" x="10" y="30" width="44" height="30"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <rect key="frame" x="10" y="40" width="44" height="30"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="eyl-Gi-aOH"/>
                         <constraint firstAttribute="width" constant="44" id="rEg-qQ-JCN"/>
                     </constraints>
-                    <inset key="imageEdgeInsets" minX="12" minY="5" maxX="12" maxY="5"/>
                     <state key="normal" image="label_close_gray.png"/>
                     <connections>
                         <action selector="backAction:" destination="-1" eventType="touchUpInside" id="Qdh-Xr-TqD"/>
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Psv-ma-qsZ">
-                    <rect key="frame" x="354" y="23" width="40" height="44"/>
+                    <rect key="frame" x="354" y="33" width="40" height="44"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D9f-mV-WVt">
                             <rect key="frame" x="0.0" y="7" width="40" height="30"/>
@@ -112,8 +111,9 @@
                 <constraint firstItem="Rsw-Wz-TqL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="frg-BL-gGU"/>
                 <constraint firstAttribute="bottom" secondItem="Rsw-Wz-TqL" secondAttribute="bottom" id="iTy-9u-4gp"/>
                 <constraint firstAttribute="bottom" secondItem="6bg-hq-B1e" secondAttribute="bottom" id="pTQ-Pi-f93"/>
-                <constraint firstItem="o9g-zz-1A4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="u9U-xK-b2G"/>
+                <constraint firstItem="o9g-zz-1A4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="40" id="u9U-xK-b2G"/>
             </constraints>
+            <point key="canvasLocation" x="131.8840579710145" y="93.75"/>
         </view>
     </objects>
     <resources>

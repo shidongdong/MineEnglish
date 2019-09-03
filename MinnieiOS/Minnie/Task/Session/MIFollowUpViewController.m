@@ -87,10 +87,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         self.startBtnConstraintHeight.constant = 44;
     }
     
-    self.backBtn.layer.cornerRadius = 15;
-    self.backBtn.layer.masksToBounds = YES;
-    self.backBtn.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-    
     self.recordGrayView.layer.cornerRadius = 15;
     self.recordGrayView.layer.masksToBounds = YES;
     self.recordGrayView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
@@ -166,6 +162,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         [self.audioRecorder record];
         self.duration = 0;
         self.startTime = [NSDate date];
+        NSLog(@"starRecoreFound::%@",[NSDate date]);
     }
 }
 
@@ -178,6 +175,8 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         [[AudioPlayer sharedPlayer] stop];
         [weakSelf.audioRecorder stop];
         weakSelf.audioRecorder = nil;
+        weakSelf.duration = [[NSDate date] timeIntervalSinceDate:self.startTime];
+        NSLog(@"stopRecordFound::%@",[NSDate date]);
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
         [[AVAudioSession sharedInstance] setActive:NO error:nil];
     });
@@ -352,7 +351,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                                                                     error:nil];
                                          
                                          [HUD hideAnimated:YES];
-                                         [weakSelf sendAudioMessage:[NSURL URLWithString:audioUrl] duration:weakSelf. duration];
+                                         [weakSelf sendAudioMessage:[NSURL URLWithString:audioUrl] duration:weakSelf.duration];
                                      } else {
                                          [HUD showErrorWithMessage:@"音频上传失败"];
                                          [weakSelf finishedToast];

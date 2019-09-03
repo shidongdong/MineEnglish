@@ -220,9 +220,20 @@
     
     [ManagerServce getWelcomesImagesWithType:0 callback:^(Result *result, NSError *error) {
         
+        if (error) {
+            
+            UIImage *image = [UIImage imageNamed:@"首页1.png"];
+            UIImageView *imageV = [[UIImageView alloc] initWithImage:image];
+            [self.contentView addSubview:imageV];
+            
+            CGFloat imageHeight = ScreenWidth * image.size.height / image.size.width;
+            imageV.frame = CGRectMake(0,0, ScreenWidth, imageHeight);
+            self.contentViewHeight.constant = imageHeight;
+            return ;
+        }
+        
         NSDictionary *dict = (NSDictionary *)(result.userInfo);
         NSArray *list = (NSArray *)(dict[@"urls"]);
-        
         
         self.images = list;
         self.currentIndex = 0;

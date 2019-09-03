@@ -359,10 +359,10 @@
     [ManagerServce requestUpdateOnlineState:NO
                                       times:times
                                    callback:^(Result *result, NSError *error) {
-                                       if (error) {
-                                           [HUD showErrorWithMessage:@"退出失败"];
-                                           return ;
-                                       }
+//                                       if (error) {
+//                                           [HUD showErrorWithMessage:@"退出失败"];
+//                                           return ;
+//                                       }
                                        [AuthService logoutWithCallback:^(Result *result, NSError *error) {
                                            
                                            if (error) {

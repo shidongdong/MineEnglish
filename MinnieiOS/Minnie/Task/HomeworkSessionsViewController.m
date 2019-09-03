@@ -223,6 +223,7 @@ MIActivityBannerViewDelegate
         
         for (AVIMConversation *conversation in queriedConversations) {
             
+            NSLog(@" ======= 会话数 conversation:%lu SessionId:%lu", [conversation.name integerValue], homeworkSession.homeworkSessionId);
             if ([conversation.name integerValue] == homeworkSession.homeworkSessionId) {
                 homeworkSession.conversation = conversation;
                 homeworkSession.unreadMessageCount = conversation.unreadMessagesCount;
@@ -234,6 +235,8 @@ MIActivityBannerViewDelegate
                     
                     if ([((AVIMTextMessage *)message).text isEqualToString:kHomeworkTaskFollowUpName] ||
                         [((AVIMTextMessage *)message).text isEqualToString:kHomeworkTaskWordMemoryName]) {
+                        
+                        homeworkSession.lastSessionContent = @"[音频]";
                     } else {
                         homeworkSession.lastSessionContent = @"[链接]";
                     }
@@ -242,6 +245,7 @@ MIActivityBannerViewDelegate
                 } else if ([message isKindOfClass:[AVIMImageMessage class]]) {
                     homeworkSession.lastSessionContent = @"[图片]";
                 }
+                NSLog(@" ======= 会话数 lastSessionContent:%@  %@", homeworkSession.lastSessionContent, message);
 #if TEACHERSIDE || MANAGERSIDE
                 homeworkSession.shouldColorLastSessionContent = message.ioType == AVIMMessageIOTypeOut;
 #else
