@@ -92,7 +92,6 @@
 
 - (void)sliderValueChanged:(id)sender {
     
-    _isSliding = YES;
 }
 
 - (void)sliderValueFinished:(id)sender {
@@ -118,6 +117,12 @@
         self.englishLabel.text = tempWord.english;
         self.progressView.progress = 0.0;
     }
+    if (_currentWordIndex == 0) {
+        
+        WordInfo *tempWord = _wordsItem.words.firstObject;
+        self.englishLabel.text = tempWord.english;
+        self.progressView.progress = 1.0/self.wordsItem.words.count;
+    }
     [self stopPlayWords];
     [self.wordsTimer fireDate];
 }
@@ -136,16 +141,16 @@
     WordInfo *tempWord;
     if (interval < 0) {
         
-        if ( _currentWordIndex - 1 <= 0) {
-            _currentWordIndex = self.wordsItem.words.count;
+        if ( _currentWordIndex <= 0) {
+            _currentWordIndex = 1;
         } else if ( _currentWordIndex > self.wordsItem.words.count) {
              _currentWordIndex  = 1;
         }
         tempWord = self.wordsItem.words[_currentWordIndex - 1];
     } else {
        
-        if ( _currentWordIndex - 1 <= 0) {
-            _currentWordIndex = self.wordsItem.words.count;
+        if ( _currentWordIndex <= 0) {
+            _currentWordIndex = 1;
         } else if ( _currentWordIndex > self.wordsItem.words.count) {
             _currentWordIndex  = 1;
         }
@@ -173,7 +178,6 @@
     return _wordsTimer;
 }
 
-
 - (void)invalidateTimer{
     _currentWordIndex = 0;
     [self.wordsTimer invalidate];
@@ -182,30 +186,28 @@
 
 - (void)playWords{
     
-    if (_isSliding) {
+    NSInteger index = _currentWordIndex;
+    if (index < self.wordsItem.words.count) {
         
-        return;
-    }
-    if (_currentWordIndex < self.wordsItem.words.count) {
-        
-        WordInfo *tempWord = self.wordsItem.words[_currentWordIndex];
+        WordInfo *tempWord = self.wordsItem.words[index];
         self.englishLabel.text = tempWord.english;
         if (self.readingWordsProgressCallBack) {
-            self.readingWordsProgressCallBack(_currentWordIndex);
+            self.readingWordsProgressCallBack(index);
         }
     }
     
-    self.progressView.progress = (CGFloat)_currentWordIndex/self.wordsItem.words.count;
+    self.progressView.progress = (CGFloat)(index+1)/self.wordsItem.words.count;
     
     _currentWordIndex ++;
     
-    if (_currentWordIndex > self.wordsItem.words.count) {
+    if (index > self.wordsItem.words.count) {
         
         if (self.readingWordsFinishCallBack) {
             self.readingWordsFinishCallBack();
         }
         [self stopPlayWords];
     }
+    NSLog(@"playWords::::%d %@,%@",index,[NSDate date],self.englishLabel.text);
 }
 
 @end
