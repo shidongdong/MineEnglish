@@ -213,6 +213,15 @@ MISecondTeachStatisticsViewDelegate
     HomeWorkSendHistoryViewController * historyHomeworkVC = [[HomeWorkSendHistoryViewController alloc] initWithNibName:@"HomeWorkSendHistoryViewController" bundle:nil];
     [self.secondDetailVC.navigationController pushViewController:historyHomeworkVC animated:YES];
 }
+#pragma mark - 搜索作业
+- (void)toSearchHomework{
+    
+    [_secondSheetView collapseAllFolders];
+    [self.taskManagerStockSplitVC showTaskListWithFoldInfo:nil folderIndex:-1];
+    [self.taskManagerStockSplitVC searchHomework];
+}
+
+
 #pragma mark - 任务管理 一级文件夹 && 二级文件夹
 #pragma mark - SecondSheetViewDelegate
 - (void)secondSheetViewFirstLevelData:(ParentFileInfo *_Nullable)data index:(NSInteger)index{

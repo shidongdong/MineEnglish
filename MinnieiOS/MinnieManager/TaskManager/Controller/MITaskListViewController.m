@@ -551,7 +551,6 @@ VIResourceLoaderManagerDelegate
         
         HomeworkPreviewViewController *vc = [[HomeworkPreviewViewController alloc] init];
         vc.homework = homework;
-//        [weakSelf.navigationController pushViewController:vc animated:YES];
         if (weakSelf.pushVCCallBack) {
             weakSelf.pushVCCallBack(vc);
         }

@@ -252,7 +252,7 @@ UIPickerViewDelegate>{
 
 -(CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component{
     
-    return 90;
+    return 150;
 }
 
 #pragma mark - UIPickerView Delegate

@@ -56,11 +56,18 @@ UITableViewDataSource
     [recordbtn setTitleColor:[UIColor mainColor] forState:UIControlStateNormal];
     [recordbtn addTarget:self action:@selector(recordbtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:recordbtn];
-    recordbtn.frame = CGRectMake(12, kNaviBarHeight - 35, 80, 28);
+    recordbtn.frame = CGRectMake(12, kNaviBarHeight - 35, 75, 28);
     recordbtn.layer.masksToBounds = YES;
     recordbtn.layer.cornerRadius = 5.f;
     recordbtn.layer.borderWidth = 0.5;
     recordbtn.layer.borderColor = [UIColor mainColor].CGColor;
+    
+    UIButton *searchbtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [searchbtn addTarget:self action:@selector(searchbtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [searchbtn setImage:[UIImage imageNamed:@"navbar_search"] forState:UIControlStateNormal];
+    [self addSubview:searchbtn];
+    searchbtn.frame = CGRectMake(kColumnSecondWidth - 44, kNaviBarHeight - 43, 44, 44);
+
     
     UIButton *addFolderbtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [addFolderbtn setTitle:@"添加文件夹" forState:UIControlStateNormal];
@@ -302,6 +309,15 @@ UITableViewDataSource
         [self.delegate toSendRecord];
     }
 }
+
+- (void)searchbtnClicked:(UIButton *)btn{
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(toSearchHomework)]) {
+        
+        [self.delegate toSearchHomework];
+    }
+}
+
 #pragma mark -  新建一级文件夹
 - (void)addFolderBtnClicked:(UIButton *)addBtn{
     

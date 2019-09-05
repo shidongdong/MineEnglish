@@ -10,12 +10,6 @@
 #import "BaseViewController.h"
 
 
-typedef void(^PushNewVCCallBack) (UIViewController * _Nullable VC);
-
-// 新建任务 state 0：进入创建，1：创建成功 2：取消创建
-typedef void(^CreateHomeworkTaskCallBack) (UIViewController * _Nullable VC,NSInteger createState);
-
-typedef void(^ActionAddFolderCallBack) (NSInteger folderIndex);
 
 #pragma mark - 
 
@@ -24,14 +18,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MITaskListViewController : BaseViewController
 
+@property (nonatomic, copy) void(^pushVCCallBack) (UIViewController * _Nullable VC);
 
-@property (nonatomic, strong) UIViewController *parentVC;
+// 新建任务 state 0：进入创建，1：创建成功 2：取消创建
+@property (nonatomic, copy) void(^createTaskCallBack) (UIViewController * _Nullable VC,NSInteger createState);
 
-@property (nonatomic, copy) PushNewVCCallBack pushVCCallBack;
-
-@property (nonatomic, copy) CreateHomeworkTaskCallBack createTaskCallBack;
-
-@property (nonatomic, copy) ActionAddFolderCallBack addFolderCallBack;
+@property (nonatomic, copy) void(^addFolderCallBack) (NSInteger folderIndex);
 
 - (void)showTaskListWithFoldInfo:(FileInfo * _Nullable)fileInfo folderIndex:(NSInteger)folder;
 

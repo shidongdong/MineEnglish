@@ -31,7 +31,7 @@ typedef NS_ENUM(NSInteger,MIRootModularType) {
 @property (nonatomic,assign) MIRootModularType rootModularType;
 
 // 任务管理，添加文件callback
-@property (nonatomic, copy) ActionAddFolderCallBack addFolderCallBack;
+@property (nonatomic, copy) void(^addFolderCallBack) (NSInteger folderIndex);
 
 // 活动管理 创建活动callback
 @property (nonatomic,copy) ActivityRankListCallback createCallback;
@@ -56,6 +56,7 @@ typedef NS_ENUM(NSInteger,MIRootModularType) {
 // yes 添加文件夹 no 添加文件
 - (void)showEmptyViewWithIsFolder:(BOOL)isAddFolder folderIndex:(NSInteger)folder;
 
+- (void)searchHomework;
 
 /*
  *  活动管理

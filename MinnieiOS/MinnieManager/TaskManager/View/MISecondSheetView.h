@@ -16,6 +16,9 @@
 // 查看发送记录
 - (void)toSendRecord;
 
+- (void)toSearchHomework;
+
+
 // 点击任务管理一级文件夹
 - (void)secondSheetViewFirstLevelData:(ParentFileInfo *_Nullable)data index:(NSInteger)index;
 

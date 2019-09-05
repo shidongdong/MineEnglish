@@ -10,4 +10,8 @@
 
 @interface SearchHomeworkViewController : BaseViewController
 
+@property (nonatomic, copy) void(^popDetailCallBack) (void);
+
+@property (nonatomic, copy) void(^pushVCCallBack) (UIViewController * _Nullable VC);
+
 @end

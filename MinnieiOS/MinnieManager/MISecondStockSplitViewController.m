@@ -20,6 +20,7 @@
 #import "ExchangeRequestsViewController.h"
 #import "MISelectImageViewController.h"
 #import "MILookImagesViewController.h"
+#import "SearchHomeworkViewController.h"
 
 
 @interface MISecondStockSplitViewController ()<
@@ -33,7 +34,7 @@ MICampusManagerViewControllerDelegate
 @property (nonatomic, strong) MITeacherDetailViewController *teacherManagerMasterVC;
 @property (nonatomic, strong) MIStockDetailViewController *teacherManagerDetailVC;
 
-
+// 任务管理
 @property (nonatomic, strong) MITaskListViewController *taskManagerMasterVC;
 @property (nonatomic, strong) MIStockDetailViewController *taskManagerDetailVC;
 
@@ -175,7 +176,30 @@ MICampusManagerViewControllerDelegate
     self.viewControllers = @[masterNav, detailNav];
 }
 
+- (void)searchHomework{
+    
+    if (self.taskManagerMasterVC.navigationController.viewControllers.count > 1) {
+        return;
+    }
+    [self.taskManagerDetailVC.navigationController popToRootViewControllerAnimated:YES];
+    
+    SearchHomeworkViewController *searchHomeworkVC = [[SearchHomeworkViewController alloc] initWithNibName:@"SearchHomeworkViewController" bundle:nil];
+    WeakifySelf;
+    searchHomeworkVC.pushVCCallBack = ^(UIViewController *VC) {
+        [weakSelf.taskManagerDetailVC.navigationController popToRootViewControllerAnimated:NO];
+        [weakSelf.taskManagerDetailVC.navigationController pushViewController:VC animated:YES];
+    };
+    searchHomeworkVC.popDetailCallBack = ^{
+        [weakSelf.taskManagerDetailVC.navigationController popToRootViewControllerAnimated:NO];
+    };
+    [self.taskManagerMasterVC.navigationController pushViewController:searchHomeworkVC animated:NO];
+}
+
 - (void)showTaskListWithFoldInfo:(FileInfo * _Nullable)fileInfo folderIndex:(NSInteger)folder{
+    
+    if (self.taskManagerMasterVC.navigationController.viewControllers.count > 1) {
+        [self.taskManagerMasterVC.navigationController popToRootViewControllerAnimated:NO];
+    }
     
     [self.taskManagerMasterVC showTaskListWithFoldInfo:fileInfo folderIndex:folder];
     
@@ -186,6 +210,10 @@ MICampusManagerViewControllerDelegate
 
 // yes 添加文件夹 no 添加文件
 - (void)showEmptyViewWithIsFolder:(BOOL)isAddFolder folderIndex:(NSInteger)folder{
+   
+    if (self.taskManagerMasterVC.navigationController.viewControllers.count > 1) {
+        [self.taskManagerMasterVC.navigationController popToRootViewControllerAnimated:NO];
+    }
     
     [self.taskManagerMasterVC showEmptyViewWithIsFolder:isAddFolder folderIndex:folder];
     
@@ -199,7 +227,6 @@ MICampusManagerViewControllerDelegate
     if (!_taskManagerMasterVC) {
         
         _taskManagerMasterVC = [[MITaskListViewController alloc] initWithNibName:NSStringFromClass([MITaskListViewController class]) bundle:nil];
-        _taskManagerMasterVC.parentVC = self;
         _taskManagerMasterVC.addFolderCallBack = self.addFolderCallBack;
         
         WeakifySelf;
