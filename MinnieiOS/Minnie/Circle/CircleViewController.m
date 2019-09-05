@@ -81,8 +81,12 @@ UITableViewDelegate
     self.inputBGImageView.image = [[UIImage imageNamed:@"inputBG"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 14, 14, 14) resizingMode:UIImageResizingModeStretch];
     
     [self registerCellNibs];
-    
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20.f)];
+   
+    CGFloat width = ScreenWidth;
+#if MANAGERSIDE
+    width = kColumnThreeWidth;
+#endif
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 20.f)];
     footerView.backgroundColor = [UIColor clearColor];
     self.homeworksTableView.tableFooterView = footerView;
     

@@ -21,7 +21,7 @@
 #import "MISelectImageViewController.h"
 #import "MILookImagesViewController.h"
 #import "SearchHomeworkViewController.h"
-//#import "CircleViewController.h"
+#import "CircleViewController.h"
 
 
 @interface MISecondStockSplitViewController ()<
@@ -361,23 +361,23 @@ MICampusManagerViewControllerDelegate
     }
     [self.campusDetailVC.navigationController popToRootViewControllerAnimated:NO];
   
-    ClassManagerViewController *classManagerVC = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
-    WeakifySelf;
-    classManagerVC.cancelCallBack = ^{
-        weakSelf.classId = -1;
-        [weakSelf.campusMasterVC resetSelectIndex];
-    };
-    classManagerVC.successCallBack = ^{
-        weakSelf.classId = -1;
-        [weakSelf.campusMasterVC updateClassInfo];
-    };
-    self.classId = clazz.classId;
-    classManagerVC.classId = clazz.classId;
-    [self.campusDetailVC.navigationController pushViewController:classManagerVC animated:YES];
+//    ClassManagerViewController *classManagerVC = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
+//    WeakifySelf;
+//    classManagerVC.cancelCallBack = ^{
+//        weakSelf.classId = -1;
+//        [weakSelf.campusMasterVC resetSelectIndex];
+//    };
+//    classManagerVC.successCallBack = ^{
+//        weakSelf.classId = -1;
+//        [weakSelf.campusMasterVC updateClassInfo];
+//    };
+//    self.classId = clazz.classId;
+//    classManagerVC.classId = clazz.classId;
+//    [self.campusDetailVC.navigationController pushViewController:classManagerVC animated:YES];
     
-//    CircleViewController *circleVC = [[CircleViewController alloc] initWithNibName:NSStringFromClass([CircleViewController class]) bundle:nil];
-//    circleVC.classId = clazz.classId;
-//    [self.campusDetailVC.navigationController pushViewController:circleVC animated:YES];
+    CircleViewController *circleVC = [[CircleViewController alloc] initWithNibName:NSStringFromClass([CircleViewController class]) bundle:nil];
+    circleVC.classId = clazz.classId;
+    [self.campusDetailVC.navigationController pushViewController:circleVC animated:YES];
 }
 
 - (void)campusManagerViewControllerPopEditClassState{

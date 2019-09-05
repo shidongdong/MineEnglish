@@ -87,6 +87,9 @@ static CGFloat const CircleVideoThumbnailRatio = 140/222.f;
     [self.likeButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     
     CGFloat width = [UIScreen mainScreen].bounds.size.width - 24 - 70 - 60.f;
+#if MANAGERSIDE
+    width = kColumnThreeWidth - 24 - 70 - 60.f;
+#endif
     
     UIImage *maskImage = [[UIImage imageNamed:@"三圆角_遮罩"] resizableImageWithCapInsets:UIEdgeInsetsMake(15, 15, 15, 15) resizingMode:UIImageResizingModeStretch];
     [self.videoThumbnailView fitShapeWithMaskImage:maskImage
@@ -97,7 +100,9 @@ static CGFloat const CircleVideoThumbnailRatio = 140/222.f;
 
 + (CGFloat)cellHeight {
     CGFloat width = [UIScreen mainScreen].bounds.size.width - 24 - 70 - 60.f;
-    
+#if MANAGERSIDE
+    width = kColumnThreeWidth - 24 - 70 - 60.f;
+#endif
     return ceil(12.f + 34.f + width * CircleVideoThumbnailRatio + 44.f);
 }
 

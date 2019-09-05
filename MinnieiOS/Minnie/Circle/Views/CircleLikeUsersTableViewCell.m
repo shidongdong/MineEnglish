@@ -28,7 +28,11 @@ NSString * const CircleLikeUsersTableViewCellId = @"CircleLikeUsersTableViewCell
     self.bgImageView.layer.masksToBounds = YES;
     
     self.likeUsersLabel.numberOfLines = 0;
-    self.likeUsersLabel.preferredMaxLayoutWidth = [UIScreen mainScreen].bounds.size.width - 12 * 2 - 12 - 70 - 16;
+    CGFloat width = ScreenWidth;
+#if MANAGERSIDE
+    width = kColumnThreeWidth;
+#endif
+    self.likeUsersLabel.preferredMaxLayoutWidth = width - 12 * 2 - 12 - 70 - 16;
 }
 
 - (void)setupWithLikeUsers:(NSArray <User *> *)users {
