@@ -1989,14 +1989,6 @@ HomeworkAnswersPickerViewControllerDelegate>
                 NSString *typeName = self.homeworkSession.homework.typeName;
                 if ([typeName isEqualToString:kHomeworkTaskFollowUpName]) {
                     
-//                    MIFollowUpViewController *followVC = [[MIFollowUpViewController alloc] initWithNibName:NSStringFromClass([MIFollowUpViewController class]) bundle:nil];
-//                    NSString *fileUrl = message.file.url;
-//                    followVC.audioUrl = fileUrl;
-//                    followVC.isChecking = YES;
-//                    followVC.teacher = weakSelf.teacher;
-//                    followVC.homework = weakSelf.homeworkSession.homework;
-//                    [weakSelf.navigationController pushViewController:followVC animated:YES];
-                  
                     HomeworkItem *followItem = weakSelf.homeworkSession.homework.otherItem.firstObject;
                     [self playAudioWithURL:message.file.url withCoverURL:followItem.audioCoverUrl];
                     

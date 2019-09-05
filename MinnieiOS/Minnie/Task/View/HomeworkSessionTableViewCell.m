@@ -196,7 +196,7 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
     HomeworkItem *item = homeworkSession.homework.items.firstObject;
     
     [self setupSelectState:NO];
-#if TEACHERSIDE | MAMAGERSIDE
+#if TEACHERSIDE | MANAGERSIDE
     self.nameLabel.text = homeworkSession.student.nickname;
     
     if ([self.reuseIdentifier isEqualToString:@"UnfinishedStudentHomeworkSessionTableViewCellId"])
