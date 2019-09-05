@@ -6,12 +6,9 @@
 //  Copyright © 2017年 mfox. All rights reserved.
 //
 
-#import "CircleHomeworksViewController.h"
-#import "CircleViewController.h"
 #import <Masonry/Masonry.h>
-#if TEACHERSIDE
-#import "ClassManagerViewController.h"
-#endif
+#import "CircleViewController.h"
+#import "CircleHomeworksViewController.h"
 
 @interface CircleHomeworksViewController ()
 

@@ -21,6 +21,7 @@
 #import "MISelectImageViewController.h"
 #import "MILookImagesViewController.h"
 #import "SearchHomeworkViewController.h"
+//#import "CircleViewController.h"
 
 
 @interface MISecondStockSplitViewController ()<
@@ -373,6 +374,10 @@ MICampusManagerViewControllerDelegate
     self.classId = clazz.classId;
     classManagerVC.classId = clazz.classId;
     [self.campusDetailVC.navigationController pushViewController:classManagerVC animated:YES];
+    
+//    CircleViewController *circleVC = [[CircleViewController alloc] initWithNibName:NSStringFromClass([CircleViewController class]) bundle:nil];
+//    circleVC.classId = clazz.classId;
+//    [self.campusDetailVC.navigationController pushViewController:circleVC animated:YES];
 }
 
 - (void)campusManagerViewControllerPopEditClassState{

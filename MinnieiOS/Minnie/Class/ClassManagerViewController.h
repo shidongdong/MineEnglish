@@ -6,19 +6,16 @@
 //  Copyright © 2018年 netease. All rights reserved.
 //
 
-#import "BaseViewController.h"
 #import "Clazz.h"
-
-typedef void (^ClassManagerCancelCallBack) (void);
-typedef void (^ClassManagerSuccessCallBack) (void);
+#import "BaseViewController.h"
 
 
 @interface ClassManagerViewController : BaseViewController
 
 @property (nonatomic, assign) NSInteger classId;
 
-@property (nonatomic, copy) ClassManagerCancelCallBack cancelCallBack;
-@property (nonatomic, copy) ClassManagerSuccessCallBack successCallBack;
+@property (nonatomic, copy) void (^cancelCallBack) (void);
+@property (nonatomic, copy) void (^successCallBack) (void);
 
 
 @end

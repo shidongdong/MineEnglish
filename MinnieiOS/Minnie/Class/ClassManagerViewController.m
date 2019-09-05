@@ -6,23 +6,25 @@
 //  Copyright © 2018年 netease. All rights reserved.
 //
 
-#import "ClassManagerViewController.h"
-#import "ClassEditTableViewCell.h"
-#import "ClassScheduleAndStudentsTableViewCell.h"
-#import "StudentsManageViewController.h"
-#import "ScheduleEditViewController.h"
+#import "ClassService.h"
+#import "AuthService.h"
+#import "ManagerServce.h"
 #import "TeacherService.h"
 #import "TimePickerView.h"
 #import "TextPickerView.h"
+#import "DeleteTeacherAlertView.h"
 #import "StudentsTableViewCell.h"
+#import "ClassEditTableViewCell.h"
 #import "DeleteClassTableViewCell.h"
 #import "FinishClassTableViewCell.h"
-#import "ClassService.h"
-#import "DeleteTeacherAlertView.h"
-#import "AuthService.h"
-#import "ManagerServce.h"
+#import "ClassManagerViewController.h"
+#import "ScheduleEditViewController.h"
+#import "StudentsManageViewController.h"
+#import "ClassScheduleAndStudentsTableViewCell.h"
 
-@interface ClassManagerViewController ()<UITableViewDataSource, UITableViewDelegate> {
+@interface ClassManagerViewController ()<
+UITableViewDataSource,
+UITableViewDelegate> {
 }
 
 @property (nonatomic, weak) IBOutlet UITableView *classTableView;

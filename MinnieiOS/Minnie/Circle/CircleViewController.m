@@ -5,25 +5,32 @@
 //  Created by yebw on 2017/10/8.
 //  Copyright © 2017年 mfox. All rights reserved.
 //
-#import "CircleViewController.h"
-#import "CircleVideoTableViewCell.h"
-#import "CircleLikeUsersTableViewCell.h"
-#import "CircleCommentTableViewCell.h"
-#import "CircleMoreCommentsTableViewCell.h"
-#import "CircleBottomTableViewCell.h"
 #import "TIP.h"
 #import "Constants.h"
-#import "CircleHomework.h"
 #import "Application.h"
-#import "UIScrollView+Refresh.h"
+#import <AVKit/AVKit.h>
+#import "PushManager.h"
+#import "CircleHomework.h"
 #import "WebViewController.h"
+#import "UIScrollView+Refresh.h"
+#import "UITextView+Placeholder.h"
 #import "CircleHomeworkViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-#import <AVKit/AVKit.h>
-#import "UITextView+Placeholder.h"
-#import "PushManager.h"
+
+#import "CircleViewController.h"
+#import "CircleVideoTableViewCell.h"
+#import "CircleBottomTableViewCell.h"
+#import "CircleCommentTableViewCell.h"
+#import "CircleLikeUsersTableViewCell.h"
 #import "CircleHomeworksViewController.h"
-@interface CircleViewController ()<UITableViewDataSource, UITableViewDelegate>
+#import "CircleMoreCommentsTableViewCell.h"
+
+
+@interface CircleViewController ()
+<
+UITableViewDataSource,
+UITableViewDelegate
+>
 
 @property (nonatomic, strong) BaseRequest *homeworksRequest;
 
