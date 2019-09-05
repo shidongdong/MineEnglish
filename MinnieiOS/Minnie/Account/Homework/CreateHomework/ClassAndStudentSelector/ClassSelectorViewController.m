@@ -10,7 +10,7 @@
 #import "ClassService.h"
 #import "ClassSelectorTableViewCell.h"
 #import "UIScrollView+Refresh.h"
-#import "TIP.h"
+
 #import "PinyinHelper.h"
 #import "HanyuPinyinOutputFormat.h"
 

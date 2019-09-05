@@ -15,7 +15,6 @@
 #import "ClassAndStudentSelectorController.h"
 #import "HomeWorkSendHistoryViewController.h"
 
-#import "TIP.h"
 #import <AVKit/AVKit.h>
 #import "VICacheManager.h"
 #import "NEPhotoBrowser.h"

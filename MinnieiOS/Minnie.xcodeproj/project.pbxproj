@@ -426,6 +426,30 @@
 		12A15693231FFB6E0078C2E5 /* AVAudioSession+Audio.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A15692231FFB6E0078C2E5 /* AVAudioSession+Audio.m */; };
 		12A15694231FFB6E0078C2E5 /* AVAudioSession+Audio.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A15692231FFB6E0078C2E5 /* AVAudioSession+Audio.m */; };
 		12A15695231FFB6E0078C2E5 /* AVAudioSession+Audio.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A15692231FFB6E0078C2E5 /* AVAudioSession+Audio.m */; };
+		12A156962320FD9F0078C2E5 /* CircleVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C0E207A2E3E00568785 /* CircleVideoTableViewCell.m */; };
+		12A156972320FDB90078C2E5 /* CircleVideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109C01207A2E3E00568785 /* CircleVideoTableViewCell.xib */; };
+		12A156982320FDD10078C2E5 /* CircleBottomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C0F207A2E3E00568785 /* CircleBottomTableViewCell.m */; };
+		12A156992320FDD10078C2E5 /* CircleBottomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109C09207A2E3E00568785 /* CircleBottomTableViewCell.xib */; };
+		12A1569A2320FDEF0078C2E5 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109BE7207A2E3E00568785 /* Comment.m */; };
+		12A1569B2320FDFD0078C2E5 /* CircleCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109BFF207A2E3E00568785 /* CircleCommentTableViewCell.m */; };
+		12A1569C2320FDFD0078C2E5 /* CircleCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109C0C207A2E3E00568785 /* CircleCommentTableViewCell.xib */; };
+		12A1569D2320FE140078C2E5 /* CircleLikeUsersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C08207A2E3E00568785 /* CircleLikeUsersTableViewCell.m */; };
+		12A1569E2320FE140078C2E5 /* CircleLikeUsersTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109C00207A2E3E00568785 /* CircleLikeUsersTableViewCell.xib */; };
+		12A1569F2320FE240078C2E5 /* CircleMoreCommentsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C04207A2E3E00568785 /* CircleMoreCommentsTableViewCell.m */; };
+		12A156A02320FE240078C2E5 /* CircleMoreCommentsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109BFE207A2E3E00568785 /* CircleMoreCommentsTableViewCell.xib */; };
+		12A156A12320FE330078C2E5 /* CircleHomeworksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109BDC207A2E3E00568785 /* CircleHomeworksViewController.m */; };
+		12A156A22320FE330078C2E5 /* CircleHomeworksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109BD9207A2E3E00568785 /* CircleHomeworksViewController.xib */; };
+		12A156A32320FE450078C2E5 /* CircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109BE1207A2E3E00568785 /* CircleViewController.m */; };
+		12A156A42320FE450078C2E5 /* CircleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109BF7207A2E3E00568785 /* CircleViewController.xib */; };
+		12A156A52320FEE50078C2E5 /* CircleService.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109BE9207A2E3E00568785 /* CircleService.m */; };
+		12A156A62320FF430078C2E5 /* CircleRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E07971230D47FD0054A8CE /* CircleRequest.m */; };
+		12A156A7232100720078C2E5 /* HomeworkDetailCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109BFD207A2E3E00568785 /* HomeworkDetailCommentTableViewCell.m */; };
+		12A156A8232100720078C2E5 /* HomeworkDetailCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109C0D207A2E3E00568785 /* HomeworkDetailCommentTableViewCell.xib */; };
+		12A156A9232100880078C2E5 /* HomeworkDetailLikeUsersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C06207A2E3E00568785 /* HomeworkDetailLikeUsersTableViewCell.m */; };
+		12A156AA232100880078C2E5 /* HomeworkDetailLikeUsersTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109C05207A2E3E00568785 /* HomeworkDetailLikeUsersTableViewCell.xib */; };
+		12A156AB232100A20078C2E5 /* CircleHomeworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109BDB207A2E3E00568785 /* CircleHomeworkViewController.m */; };
+		12A156AC232100A80078C2E5 /* CircleHomeworkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97109BDF207A2E3E00568785 /* CircleHomeworkViewController.xib */; };
+		12A156AD2321018C0078C2E5 /* CircleContentBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97109C07207A2E3E00568785 /* CircleContentBaseTableViewCell.m */; };
 		12A1E93F22A57865001247D7 /* HomeworkVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9736495A20AF2F8500511A95 /* HomeworkVideoTableViewCell.m */; };
 		12A1E94022A5786F001247D7 /* HomeworkVideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9736496220AF2F8500511A95 /* HomeworkVideoTableViewCell.xib */; };
 		12A1E94122A57878001247D7 /* HomeworkImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9736495320AF2F8500511A95 /* HomeworkImageTableViewCell.m */; };
@@ -6106,6 +6130,7 @@
 				12961C4B229E5B590075B04A /* icon_mission_choice@2x.png in Resources */,
 				122F799E22AD3D7F00D2AA53 /* MIStuUploadVideoViewController.xib in Resources */,
 				12747C4922A7D1A9009C390E /* white_bottom_corner_bg@2x.png in Resources */,
+				12A156A02320FE240078C2E5 /* CircleMoreCommentsTableViewCell.xib in Resources */,
 				12CB739622AB59000064FB21 /* MIHomeworkSubFileViewController.xib in Resources */,
 				12B504172317DD89001880A9 /* MIActivityRankListViewController.xib in Resources */,
 				1226F3482298399D00BAB1C9 /* splash_img_logo@2x.png in Resources */,
@@ -6122,11 +6147,13 @@
 				12747C4422A7D1A9009C390E /* send_homework@3x.png in Resources */,
 				122F799822AD3D6600D2AA53 /* MISutActDetailTableViewCell.xib in Resources */,
 				12747C6E22A7D222009C390E /* icon_Emoji@2x.png in Resources */,
+				12A156A8232100720078C2E5 /* HomeworkDetailCommentTableViewCell.xib in Resources */,
 				12B7B96722D88BEE0057C798 /* TimePickerView.xib in Resources */,
 				12747C6622A7D1CF009C390E /* navbar_message@2x.png in Resources */,
 				12961C4C229E5B5B0075B04A /* icon_mission_choice@3x.png in Resources */,
 				12961C83229E690F0075B04A /* attachment_placeholder@3x.png in Resources */,
 				12B504B723191B1D001880A9 /* MITagsTableViewCell.xib in Resources */,
+				12A1569C2320FDFD0078C2E5 /* CircleCommentTableViewCell.xib in Resources */,
 				12E0798A231386600054A8CE /* MIFollowUpViewController.xib in Resources */,
 				128F137E22D4699D00C9F5B7 /* UnfinishedStudentHomeworkSessionTableViewCell.xib in Resources */,
 				12961C70229E66EA0075B04A /* HomeworkImageCollectionViewCell.xib in Resources */,
@@ -6163,6 +6190,7 @@
 				12B5044F2317DE35001880A9 /* MISelectImageCollectionViewCell.xib in Resources */,
 				12747C8722A7D2D2009C390E /* EmojiInputCollectionViewCell.xib in Resources */,
 				1226F32F229832F200BAB1C9 /* FullfillProfileViewController_Student.xib in Resources */,
+				12A1569E2320FE140078C2E5 /* CircleLikeUsersTableViewCell.xib in Resources */,
 				12ED3B17229CC2FC00255F8B /* ic_add_small@3x.png in Resources */,
 				12FD85CB22BB2F6D0026B7E2 /* label_drop@2x.png in Resources */,
 				12961C89229E710B0075B04A /* btn_play@2x.png in Resources */,
@@ -6245,6 +6273,7 @@
 				12961CBA229F6D220075B04A /* icon_drop_small_black@3x.png in Resources */,
 				12B504AA23191B1D001880A9 /* MIAddTypeTableViewCell.xib in Resources */,
 				12747C2722A7D103009C390E /* navbar_screen@2x.png in Resources */,
+				12A156A22320FE330078C2E5 /* CircleHomeworksViewController.xib in Resources */,
 				12ED3B5B229D969A00255F8B /* FilterAlertView.xib in Resources */,
 				12FD85C622BB2F5C0026B7E2 /* label_ic_eye_hide@2x.png in Resources */,
 				12961CCB229FD6590075B04A /* CreateTagView.xib in Resources */,
@@ -6262,10 +6291,12 @@
 				12747C6B22A7D211009C390E /* icon_Emoji@3x.png in Resources */,
 				128F13A522D73D2C00C9F5B7 /* 缺省插画_无作业@3x.png in Resources */,
 				12747C7A22A7D22E009C390E /* ic_Subtract_small@3x.png in Resources */,
+				12A156992320FDD10078C2E5 /* CircleBottomTableViewCell.xib in Resources */,
 				12747C5E22A7D1B0009C390E /* right_chat_talk1@2x.png in Resources */,
 				12747C0422A7CEE0009C390E /* CorrectHomeworkCommentTableViewCell.xib in Resources */,
 				12B5041C2317DD89001880A9 /* MIActivityRankListTableViewCell.xib in Resources */,
 				12747C0222A7CEA5009C390E /* EditStudentRemarkViewController.xib in Resources */,
+				12A156AA232100880078C2E5 /* HomeworkDetailLikeUsersTableViewCell.xib in Resources */,
 				12ED3B57229D961700255F8B /* 加载动画05@3x.png in Resources */,
 				12ED3B75229E2AC900255F8B /* label_close_gray@2x.png in Resources */,
 				12747BD522A7CC23009C390E /* StudentDetailViewController.xib in Resources */,
@@ -6293,6 +6324,7 @@
 				12747C5F22A7D1B0009C390E /* right_chat_talk1@3x.png in Resources */,
 				12CB73A722AB916A0064FB21 /* HomeworkLabelTableViewCell.xib in Resources */,
 				1226F32E229832DE00BAB1C9 /* InputPhoneNumberViewController.xib in Resources */,
+				12A156A42320FE450078C2E5 /* CircleViewController.xib in Resources */,
 				12747BED22A7CD84009C390E /* ModifyStarCountViewController.xib in Resources */,
 				12747BDF22A7CCEA009C390E /* RightImageMessageTableViewCell.xib in Resources */,
 				128F137A22D4696200C9F5B7 /* HomeworkSessionsViewController.xib in Resources */,
@@ -6379,6 +6411,7 @@
 				12747C1422A7D090009C390E /* btn_send_photo@3x.png in Resources */,
 				12961C60229E65CA0075B04A /* NEPhotoBrowser.bundle in Resources */,
 				12FD85C222BB2B3D0026B7E2 /* label_key@2x.png in Resources */,
+				12A156972320FDB90078C2E5 /* CircleVideoTableViewCell.xib in Resources */,
 				12A1E95822A6997D001247D7 /* ic_remove_plat@2x.png in Resources */,
 				12747C1C22A7D0D8009C390E /* 警告图片@2x.png in Resources */,
 				12747C2322A7D0F5009C390E /* 卡片角标@2x.png in Resources */,
@@ -6408,6 +6441,7 @@
 				128F137F22D469A100C9F5B7 /* FinishedHomeworkSessionTableViewCell.xib in Resources */,
 				12B504012317DC3C001880A9 /* MITaskListViewController.xib in Resources */,
 				12ED3B43229D8F5200255F8B /* HomeworkSendHisTableViewCell.xib in Resources */,
+				12A156AC232100A80078C2E5 /* CircleHomeworkViewController.xib in Resources */,
 				12747C4E22A7D1B0009C390E /* pop_finish@2x.png in Resources */,
 				12ED3B60229D96B600255F8B /* hud_ic_loading@2x.png in Resources */,
 				12747C5B22A7D1B0009C390E /* pop_loading@3x.png in Resources */,
@@ -7640,6 +7674,7 @@
 				12ED3B6A229D972000255F8B /* LoadingIndicatorView.m in Sources */,
 				12E07987231386600054A8CE /* MIFollowUpViewController.m in Sources */,
 				12FEA39F22E19D2F008503B2 /* MISecondStockSplitViewController.m in Sources */,
+				12A156A52320FEE50078C2E5 /* CircleService.m in Sources */,
 				12CB73B422AB92240064FB21 /* UIView+AZGradient.m in Sources */,
 				12ED3B62229D96CB00255F8B /* ProgressHUD.m in Sources */,
 				12B503FF2317DC3C001880A9 /* MITagsView.m in Sources */,
@@ -7661,6 +7696,7 @@
 				12B503CE2317C34E001880A9 /* MISecondTeachersView.m in Sources */,
 				12FEA39822E040C2008503B2 /* AppDelegate+ConfigureUI.m in Sources */,
 				12B7B95A22D88B5E0057C798 /* FinishClassTableViewCell.m in Sources */,
+				12A156A7232100720078C2E5 /* HomeworkDetailCommentTableViewCell.m in Sources */,
 				12B7B95E22D88B950057C798 /* ClassScheduleAndStudentsTableViewCell.m in Sources */,
 				12ED3B12229C34B000255F8B /* SettingTableViewCell.m in Sources */,
 				1226F3362298334C00BAB1C9 /* FileUploader.m in Sources */,
@@ -7689,6 +7725,7 @@
 				1226F3382298335100BAB1C9 /* AskQNTokenRequest.m in Sources */,
 				1226F33F2298363700BAB1C9 /* CheckAppVerRequest.m in Sources */,
 				1226F31222982D4700BAB1C9 /* PushManager.m in Sources */,
+				12A156AD2321018C0078C2E5 /* CircleContentBaseTableViewCell.m in Sources */,
 				1226F31922982F8600BAB1C9 /* IMManager.m in Sources */,
 				12B504B523191B1D001880A9 /* MIExpandPickerView.m in Sources */,
 				12CB73AE22AB91F20064FB21 /* HomeworkDiffTableViewCell.m in Sources */,
@@ -7705,6 +7742,7 @@
 				12961C6B229E66AA0075B04A /* StudentSelectorTableViewCell.m in Sources */,
 				12ED3B65229D96E600255F8B /* RefreshHeader.m in Sources */,
 				12B7B96E22D88C690057C798 /* DeleteClassTableViewCell.m in Sources */,
+				12A156A12320FE330078C2E5 /* CircleHomeworksViewController.m in Sources */,
 				12B504192317DD89001880A9 /* MIParticipateDetailViewController.m in Sources */,
 				12ED3B40229D8F2200255F8B /* HomeworkSendHistoryHeaderView.m in Sources */,
 				12961CCD229FD6880075B04A /* CreateFormTagRequest.m in Sources */,
@@ -7742,6 +7780,7 @@
 				12747C0122A7CEA2009C390E /* EditStudentRemarkViewController.m in Sources */,
 				12ED3B4B229D907900255F8B /* SendWarnRequest.m in Sources */,
 				1226F3342298334500BAB1C9 /* NSString+Qiniu.m in Sources */,
+				12A156A62320FF430078C2E5 /* CircleRequest.m in Sources */,
 				12747C0322A7CEDD009C390E /* CorrectHomeworkCommentTableViewCell.m in Sources */,
 				12CB73A222AB90D20064FB21 /* SearchHomeworkViewController.m in Sources */,
 				12B503FC2317DC3C001880A9 /* MITagsViewController.m in Sources */,
@@ -7792,6 +7831,7 @@
 				12B7B96422D88BD10057C798 /* ScheduleEditHeaderView.m in Sources */,
 				12ED3B48229D906C00255F8B /* DeleteHomeworksRequest.m in Sources */,
 				12961C68229E667E0075B04A /* ChineseToPinyinResource.m in Sources */,
+				12A156962320FD9F0078C2E5 /* CircleVideoTableViewCell.m in Sources */,
 				12747C8622A7D2CD009C390E /* EmojiInputCollectionViewCell.m in Sources */,
 				12961C57229E653B0075B04A /* TeacherCollectionViewCell.m in Sources */,
 				12747C0B22A7CF7C009C390E /* StudentRemarkTableViewCell.m in Sources */,
@@ -7831,6 +7871,7 @@
 				12B5045F2318CF63001880A9 /* WebViewController.m in Sources */,
 				1226F3432298366B00BAB1C9 /* UpdateProfileRequest.m in Sources */,
 				12B7B96622D88BEA0057C798 /* TimePickerView.m in Sources */,
+				12A156A32320FE450078C2E5 /* CircleViewController.m in Sources */,
 				128F136722D37D9700C9F5B7 /* ExchangeRequestTableViewCell.m in Sources */,
 				12ED3B3E229D8F0000255F8B /* HomeWorkSendHistoryViewController.m in Sources */,
 				12B504A823191B1D001880A9 /* MIAddWordTableViewCell.m in Sources */,
@@ -7839,10 +7880,12 @@
 				122F799C22AD3D7A00D2AA53 /* MIStuUploadVideoViewController.m in Sources */,
 				12961C51229E5E430075B04A /* ClassAndStudentSelectorController.m in Sources */,
 				123042F822A1334000E111A4 /* MIScoreListViewController.m in Sources */,
+				12A1569B2320FDFD0078C2E5 /* CircleCommentTableViewCell.m in Sources */,
 				12B7B96C22D88C350057C798 /* StudentCollectionViewCell.m in Sources */,
 				12B504AE23191B1D001880A9 /* MITitleTypeTableViewCell.m in Sources */,
 				12B503FE2317DC3C001880A9 /* MICreateTaskViewController.m in Sources */,
 				12961C75229E673E0075B04A /* StudentService.m in Sources */,
+				12A1569A2320FDEF0078C2E5 /* Comment.m in Sources */,
 				12961C59229E65550075B04A /* StudentSelectorViewController.m in Sources */,
 				12CB73AA22AB91B10064FB21 /* HomeworkTitleTableViewCell.m in Sources */,
 				12961C62229E65E20075B04A /* NEPhotoBrowserView.m in Sources */,
@@ -7853,6 +7896,7 @@
 				12961C55229E5ECB0075B04A /* AudioPlayerViewController.m in Sources */,
 				12B504B023191B1D001880A9 /* MISecondSheetView.m in Sources */,
 				12B504A023191B1D001880A9 /* MITaskEmptyView.m in Sources */,
+				12A156AB232100A20078C2E5 /* CircleHomeworkViewController.m in Sources */,
 				12961C5F229E65C30075B04A /* NEPhotoBrowser.m in Sources */,
 				12B503EB2317DC05001880A9 /* WordInfo.m in Sources */,
 				12ED3B10229C2E5E00255F8B /* CSCustomSplitViewController.m in Sources */,
@@ -7874,13 +7918,16 @@
 				1226F31B2298305900BAB1C9 /* User.m in Sources */,
 				1226F31A22982F9300BAB1C9 /* AuthService.m in Sources */,
 				12747BF122A7CDC6009C390E /* RecordStateView.m in Sources */,
+				12A156982320FDD10078C2E5 /* CircleBottomTableViewCell.m in Sources */,
 				12B504202317DD89001880A9 /* MISecondActivitySheetView.m in Sources */,
 				12961C71229E66FC0075B04A /* ClassService.m in Sources */,
 				1226F3092297F3CB00BAB1C9 /* LoadViewController.m in Sources */,
+				12A1569F2320FE240078C2E5 /* CircleMoreCommentsTableViewCell.m in Sources */,
 				12747BD422A7CC20009C390E /* StudentDetailViewController.m in Sources */,
 				12961C53229E5E510075B04A /* SelectTeacherView.m in Sources */,
 				12961C77229E677B0075B04A /* StudentsRequest.m in Sources */,
 				12B504BA23191B1D001880A9 /* MIScoreListTableViewCell.m in Sources */,
+				12A156A9232100880078C2E5 /* HomeworkDetailLikeUsersTableViewCell.m in Sources */,
 				128F133422CDD6C500C9F5B7 /* EwenCopyLabel.m in Sources */,
 				12961C6D229E66D00075B04A /* HomeworkAudioCollectionViewCell.m in Sources */,
 				128F135D22D334DB00C9F5B7 /* CreateAwardViewController.m in Sources */,
@@ -7900,6 +7947,7 @@
 				1226F31322982D5600BAB1C9 /* Constants.m in Sources */,
 				12961C63229E66030075B04A /* HomeworkVideoCollectionViewCell.m in Sources */,
 				122F799622AD3D5D00D2AA53 /* MISutActDetailTableViewCell.m in Sources */,
+				12A1569D2320FE140078C2E5 /* CircleLikeUsersTableViewCell.m in Sources */,
 				12FEA39922E05E5A008503B2 /* DateButton.m in Sources */,
 				12B7B96A22D88C0A0057C798 /* StudentsTableViewCell.m in Sources */,
 				12B7B97222D88DAB0057C798 /* StudentsWithoutClassViewController.m in Sources */,

@@ -6,10 +6,11 @@
 //  Copyright © 2017年 mfox. All rights reserved.
 //
 
+
+#import "Application.h"
+#import "MaskImageView.h"
 #import "CircleVideoTableViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "MaskImageView.h"
-#import "Application.h"
 
 NSString * const CircleVideoTableViewCellId = @"CircleVideoTableViewCellId";
 

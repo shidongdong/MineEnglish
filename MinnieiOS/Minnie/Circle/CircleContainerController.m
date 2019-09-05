@@ -11,7 +11,6 @@
 #import "SegmentControl.h"
 #import "Constants.h"
 #import "CircleHomeworksViewController.h"
-#import <Masonry/Masonry.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface CircleContainerController ()

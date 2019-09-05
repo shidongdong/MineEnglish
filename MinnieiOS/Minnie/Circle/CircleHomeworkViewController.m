@@ -6,18 +6,17 @@
 //  Copyright © 2017年 mfox. All rights reserved.
 //
 
-#import "CircleHomeworkViewController.h"
-#import "CircleService.h"
-#import "CircleVideoTableViewCell.h"
-#import "HomeworkDetailLikeUsersTableViewCell.h"
-#import "HomeworkDetailCommentTableViewCell.h"
-#import "WebViewController.h"
-#import "Constants.h"
-#import "CircleService.h"
+
 #import "Comment.h"
+#import "Constants.h"
 #import "PushManager.h"
 #import <AVKit/AVKit.h>
+#import "CircleService.h"
 #import "UITextView+Placeholder.h"
+#import "CircleVideoTableViewCell.h"
+#import "CircleHomeworkViewController.h"
+#import "HomeworkDetailCommentTableViewCell.h"
+#import "HomeworkDetailLikeUsersTableViewCell.h"
 
 @interface CircleHomeworkViewController ()<UITableViewDataSource, UITableViewDelegate>
 

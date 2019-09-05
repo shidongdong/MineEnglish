@@ -6,9 +6,9 @@
 //  Copyright © 2017年 mfox. All rights reserved.
 //
 
-#import "CircleCommentTableViewCell.h"
 #import "Comment.h"
 #import "UIColor+HEX.h"
+#import "CircleCommentTableViewCell.h"
 
 NSString * const CircleCommentTableViewCellId = @"CircleCommentTableViewCellId";
 

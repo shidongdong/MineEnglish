@@ -15,7 +15,7 @@
 #import "MICreateTaskViewController.h"
 #import "HomeworkPreviewViewController.h"
 
-#import "TIP.h"
+
 #import <AVKit/AVKit.h>
 #import "TeacherService.h"
 #import "UIScrollView+Refresh.h"

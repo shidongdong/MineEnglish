@@ -14,7 +14,7 @@
 #import "UIScrollView+Refresh.h"
 #import "SearchHomeworkViewController.h"
 #import "ClassAndStudentSelectorController.h"
-#import "TIP.h"
+
 #import "NEPhotoBrowser.h"
 #import <AVKit/AVKit.h>
 #import "HomeworkPreviewViewController.h"

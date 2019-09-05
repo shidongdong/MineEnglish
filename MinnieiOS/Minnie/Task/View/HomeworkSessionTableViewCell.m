@@ -9,7 +9,6 @@
 #import "HomeworkSessionTableViewCell.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
-#import <Masonry/Masonry.h>
 #import "IMManager.h"
 
 NSString * const UnfinishedHomeworkSessionTableViewCellId = @"UnfinishedHomeworkSessionTableViewCellId";

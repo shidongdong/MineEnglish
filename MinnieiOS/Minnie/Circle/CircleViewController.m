@@ -5,7 +5,7 @@
 //  Created by yebw on 2017/10/8.
 //  Copyright © 2017年 mfox. All rights reserved.
 //
-#import "TIP.h"
+
 #import "Constants.h"
 #import "Application.h"
 #import <AVKit/AVKit.h>
@@ -14,7 +14,6 @@
 #import "WebViewController.h"
 #import "UIScrollView+Refresh.h"
 #import "UITextView+Placeholder.h"
-#import "CircleHomeworkViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 #import "CircleViewController.h"
@@ -22,6 +21,7 @@
 #import "CircleBottomTableViewCell.h"
 #import "CircleCommentTableViewCell.h"
 #import "CircleLikeUsersTableViewCell.h"
+#import "CircleHomeworkViewController.h"
 #import "CircleHomeworksViewController.h"
 #import "CircleMoreCommentsTableViewCell.h"
 
@@ -192,7 +192,7 @@ UITableViewDelegate
                                                                                                  error:error];
                                                                    }];
     } else {
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
 #else
         if (self.circleType == CircleSchool) {
             self.homeworksRequest = [CirlcleService requestAllHomeworksWithCallback:^(Result *result, NSError *error) {

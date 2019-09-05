@@ -13,7 +13,7 @@
 #import "UIScrollView+Refresh.h"
 #import "TagCollectionViewCell.h"
 #import "HomeworkTableViewCell.h"
-#import "TIP.h"
+
 #import "NEPhotoBrowser.h"
 #import "VICacheManager.h"
 #import "TeacherService.h"

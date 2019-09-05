@@ -8,7 +8,6 @@
 
 
 #import "Result.h"
-#import "TIP.h"
 #import <AVKit/AVKit.h>
 #import "NEPhotoBrowser.h"
 #import "VICacheManager.h"

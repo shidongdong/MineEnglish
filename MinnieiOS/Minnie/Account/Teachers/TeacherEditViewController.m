@@ -9,7 +9,7 @@
 #import "TeacherEditViewController.h"
 #import "TeacherService.h"
 #import "HUD.h"
-#import "TIP.h"
+
 #import "DeleteTeacherAlertView.h"
 #import "AuthService.h"
 

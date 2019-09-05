@@ -9,7 +9,6 @@
 #import "CreateAwardViewController.h"
 #import "AwardsService.h"
 #import "FileUploader.h"
-#import "TIP.h"
 #import "Constants.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 

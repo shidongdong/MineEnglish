@@ -7,7 +7,6 @@
 //
 
 #import "EnrollTrialClassView.h"
-#import <Masonry/Masonry.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface EnrollTrialClassView()
