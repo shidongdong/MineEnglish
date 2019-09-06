@@ -75,11 +75,13 @@
                                @"normal":@"menu_gift_def"}];
     }
     
-    
-    [dataArray addObject:@{@"type":@(MIManagerFuncImagesModule),
-                           @"title":@"首页管理",
-                           @"select":@"menu_gift_sel",
-                           @"normal":@"menu_gift_def"}];
+    if (APP.currentUser.authority == TeacherAuthoritySuperManager) {
+        
+        [dataArray addObject:@{@"type":@(MIManagerFuncImagesModule),
+                               @"title":@"首页管理",
+                               @"select":@"menu_gift_sel",
+                               @"normal":@"menu_gift_def"}];
+    }
     
     [dataArray addObject:@{@"type":@(MIManagerFuncSettingModule),
                            @"title":@"设置",
