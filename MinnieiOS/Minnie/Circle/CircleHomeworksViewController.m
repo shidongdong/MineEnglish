@@ -9,11 +9,13 @@
 #import <Masonry/Masonry.h>
 #import "CircleViewController.h"
 #import "CircleHomeworksViewController.h"
+#import "ClassManagerViewController.h"
 
 @interface CircleHomeworksViewController ()
 
 @property (nonatomic, weak) IBOutlet UIView *containerView;
 @property (nonatomic, strong) CircleViewController *circleChildController;
+@property (weak, nonatomic) IBOutlet UIButton *editBtn;
 
 @end
 
@@ -22,9 +24,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if (self.clazz != 0) {
+    if (self.clazz != 0) { // 班级
         self.customTitleLabel.text = self.clazz.name;
-    } else {
+#if MANAGERSIDE
+        self.editBtn.hidden = NO;
+#endif
+    } else { // 学生
         if (APP.currentUser.userId == self.userId) {
             self.customTitleLabel.text = @"我发布的";
         }
@@ -50,6 +55,31 @@
         make.edges.equalTo(self.containerView);
     }];
     [self.circleChildController didMoveToParentViewController:self];
+}
+- (IBAction)editBtnAction:(id)sender {
+    
+#if MANAGERSIDE
+        ClassManagerViewController *classManagerVC = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
+        WeakifySelf;
+        classManagerVC.successCallBack = ^{
+            if (weakSelf.editSuccessCallBack) {
+                weakSelf.editSuccessCallBack();
+            }
+        };
+        classManagerVC.classId = self.clazz.classId;
+        [self.navigationController pushViewController:classManagerVC animated:YES];
+#endif
+}
+
+- (void)backButtonPressed:(id)sender{
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+#if MANAGERSIDE
+    if (self.cancelCallBack) {
+        self.cancelCallBack();
+    }
+#endif
 }
 
 - (void)dealloc {

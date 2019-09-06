@@ -28,7 +28,7 @@ NSString * const CircleCommentTableViewCellId = @"CircleCommentTableViewCellId";
     self.commentLabel.numberOfLines = 0;
     CGFloat width = ScreenWidth;
 #if MANAGERSIDE
-    width = kColumnThreeWidth;
+    width = (ScreenWidth - kRootModularWidth)/2.0;
 #endif
     self.commentLabel.preferredMaxLayoutWidth = width - 90.f - 32.f;
     
@@ -56,7 +56,7 @@ NSString * const CircleCommentTableViewCellId = @"CircleCommentTableViewCellId";
     CGFloat height = 0.f;
     CGFloat width = ScreenWidth;
 #if MANAGERSIDE
-    width = kColumnThreeWidth;
+    width = (ScreenWidth - kRootModularWidth)/2.0;
 #endif
     YYTextLayout *layout = [YYTextLayout layoutWithContainerSize:CGSizeMake(width-122, MAXFLOAT) text:[CircleCommentTableViewCell attributedStringWithComment:comment]];
     CGSize size = layout.textBoundingSize;

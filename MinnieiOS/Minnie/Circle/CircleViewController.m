@@ -25,7 +25,6 @@
 #import "CircleHomeworksViewController.h"
 #import "CircleMoreCommentsTableViewCell.h"
 
-
 @interface CircleViewController ()
 <
 UITableViewDataSource,
@@ -84,7 +83,7 @@ UITableViewDelegate
    
     CGFloat width = ScreenWidth;
 #if MANAGERSIDE
-    width = kColumnThreeWidth;
+    width = (ScreenWidth - kRootModularWidth)/2.0;
 #endif
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 20.f)];
     footerView.backgroundColor = [UIColor clearColor];

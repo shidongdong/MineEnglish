@@ -30,7 +30,7 @@ NSString * const CircleLikeUsersTableViewCellId = @"CircleLikeUsersTableViewCell
     self.likeUsersLabel.numberOfLines = 0;
     CGFloat width = ScreenWidth;
 #if MANAGERSIDE
-    width = kColumnThreeWidth;
+    width = (ScreenWidth - kRootModularWidth)/2.0;
 #endif
     self.likeUsersLabel.preferredMaxLayoutWidth = width - 12 * 2 - 12 - 70 - 16;
 }

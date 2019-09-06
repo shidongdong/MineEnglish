@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -93,18 +92,7 @@
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8pv-k7-CVa">
-                                <rect key="frame" x="296" y="223.5" width="44" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="44" id="WQF-Ep-4nW"/>
-                                    <constraint firstAttribute="height" constant="44" id="pAd-Hu-Khu"/>
-                                </constraints>
-                                <state key="normal" image="icon_like_disabled.png"/>
-                                <connections>
-                                    <action selector="likeButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="icX-um-OYm"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fME-ej-IJg">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fME-ej-IJg" userLabel="commetButton">
                                 <rect key="frame" x="340" y="223.5" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="4Me-kE-82f"/>
@@ -129,11 +117,23 @@
                                     <action selector="deleteButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="xsT-Du-64n"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8pv-k7-CVa">
+                                <rect key="frame" x="296" y="223.5" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="WQF-Ep-4nW"/>
+                                    <constraint firstAttribute="height" constant="44" id="pAd-Hu-Khu"/>
+                                </constraints>
+                                <state key="normal" image="icon_like_disabled.png"/>
+                                <connections>
+                                    <action selector="likeButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="icX-um-OYm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Kx4-Zm-iL6" firstAttribute="leading" secondItem="oHj-mP-BXG" secondAttribute="leading" id="7AO-BD-hCq"/>
                             <constraint firstItem="m94-VE-N1I" firstAttribute="leading" secondItem="oe4-uq-bp8" secondAttribute="leading" id="8KS-CW-8R0"/>
+                            <constraint firstItem="8pv-k7-CVa" firstAttribute="centerY" secondItem="fME-ej-IJg" secondAttribute="centerY" id="9Id-6W-sl7"/>
                             <constraint firstItem="oe4-uq-bp8" firstAttribute="leading" secondItem="oHj-mP-BXG" secondAttribute="leading" constant="70" id="B2R-dV-Rxd"/>
                             <constraint firstItem="fME-ej-IJg" firstAttribute="centerY" secondItem="m94-VE-N1I" secondAttribute="centerY" id="Fyy-YH-tVO"/>
                             <constraint firstAttribute="bottom" secondItem="Kx4-Zm-iL6" secondAttribute="bottom" id="GDl-zt-AoC"/>

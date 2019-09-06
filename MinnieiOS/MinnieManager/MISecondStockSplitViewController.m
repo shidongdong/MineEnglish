@@ -21,7 +21,7 @@
 #import "MISelectImageViewController.h"
 #import "MILookImagesViewController.h"
 #import "SearchHomeworkViewController.h"
-#import "CircleViewController.h"
+#import "CircleHomeworksViewController.h"
 
 
 @interface MISecondStockSplitViewController ()<
@@ -361,23 +361,38 @@ MICampusManagerViewControllerDelegate
     }
     [self.campusDetailVC.navigationController popToRootViewControllerAnimated:NO];
   
-//    ClassManagerViewController *classManagerVC = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
-//    WeakifySelf;
-//    classManagerVC.cancelCallBack = ^{
-//        weakSelf.classId = -1;
-//        [weakSelf.campusMasterVC resetSelectIndex];
-//    };
-//    classManagerVC.successCallBack = ^{
-//        weakSelf.classId = -1;
-//        [weakSelf.campusMasterVC updateClassInfo];
-//    };
-//    self.classId = clazz.classId;
-//    classManagerVC.classId = clazz.classId;
-//    [self.campusDetailVC.navigationController pushViewController:classManagerVC animated:YES];
-    
-    CircleViewController *circleVC = [[CircleViewController alloc] initWithNibName:NSStringFromClass([CircleViewController class]) bundle:nil];
-    circleVC.classId = clazz.classId;
-    [self.campusDetailVC.navigationController pushViewController:circleVC animated:YES];
+    if (clazz.classId == 0) {
+        
+        ClassManagerViewController *classManagerVC = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
+            WeakifySelf;
+            classManagerVC.cancelCallBack = ^{
+                weakSelf.classId = -1;
+                [weakSelf.campusMasterVC resetSelectIndex];
+            };
+            classManagerVC.successCallBack = ^{
+                weakSelf.classId = -1;
+                [weakSelf.campusMasterVC updateClassInfo];
+            };
+            self.classId = clazz.classId;
+            classManagerVC.classId = clazz.classId;
+            [self.campusDetailVC.navigationController pushViewController:classManagerVC animated:YES];
+    } else {
+     
+        
+        CircleHomeworksViewController *homeworksVC = [[CircleHomeworksViewController alloc] initWithNibName:@"CircleHomeworksViewController" bundle:nil];
+        homeworksVC.clazz = clazz;
+        WeakifySelf;
+        homeworksVC.cancelCallBack = ^{
+            weakSelf.classId = -1;
+            [weakSelf.campusMasterVC resetSelectIndex];
+        };
+        homeworksVC.editSuccessCallBack = ^{
+            weakSelf.classId = -1;
+            [weakSelf.campusMasterVC updateClassInfo];
+        };
+        self.classId = clazz.classId;
+        [self.campusDetailVC.navigationController pushViewController:homeworksVC animated:YES];
+    }
 }
 
 - (void)campusManagerViewControllerPopEditClassState{
