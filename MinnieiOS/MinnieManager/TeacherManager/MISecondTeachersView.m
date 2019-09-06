@@ -108,7 +108,11 @@ UITableViewDataSource
         
         self.addActivitybtn.hidden = YES;
     } else {
-        self.addActivitybtn.hidden = !APP.currentUser.canManageTeachers;
+        if (APP.currentUser.authority == TeacherAuthoritySuperManager) {
+            self.addActivitybtn.hidden = NO;
+        } else {
+            self.addActivitybtn.hidden = !APP.currentUser.canManageTeachers;
+        }
     }
 }
 

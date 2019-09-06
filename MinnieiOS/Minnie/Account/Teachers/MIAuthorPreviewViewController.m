@@ -36,7 +36,10 @@ UITableViewDataSource>
     self.authorSet = [NSMutableSet setWithArray:self.authorArray];
     
     self.tableView.tableFooterView = [UIView new];
-    if (self.authorManagerType == MIAuthorManagerTeacherPreviewType) {
+
+    if (self.authorManagerType == MIAuthorManagerRealTimeTaskPreviewType){
+        self.titleLabel.text = @"实时任务查看";
+    } else if (self.authorManagerType == MIAuthorManagerTeacherPreviewType) {
         self.titleLabel.text = @"教师任务查看";
     } else if (self.authorManagerType == MIAuthorManagerHomeworkPreviewType) {
         self.titleLabel.text = @"作业查看";
@@ -60,7 +63,10 @@ UITableViewDataSource>
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if (self.authorManagerType == MIAuthorManagerTeacherPreviewType) {// 教师任务查看
+    if (self.authorManagerType == MIAuthorManagerRealTimeTaskPreviewType) {// 实时任务查看
+        
+        return self.teachers.count;
+    } else if (self.authorManagerType == MIAuthorManagerTeacherPreviewType) {// 教师任务查看
        
         return self.teachers.count;
     } else if (self.authorManagerType == MIAuthorManagerHomeworkPreviewType) {//作业查看
@@ -96,11 +102,23 @@ UITableViewDataSource>
     NSString *title;
     BOOL state;
     NSString *avatar = nil;
-    if (self.authorManagerType == MIAuthorManagerTeacherPreviewType) {// 教师任务查看
+    
+    if (self.authorManagerType == MIAuthorManagerRealTimeTaskPreviewType) {// 实时任务查看
+        
+        Teacher *teacher = self.teachers[indexPath.row];
+        title = teacher.nickname;
+        state = teacher.lookTasks;
+        
+        if (teacher.avatarUrl.length == 0) {
+            avatar = @"attachment_placeholder";
+        } else {
+            avatar = teacher.avatarUrl;
+        }
+    } else if (self.authorManagerType == MIAuthorManagerTeacherPreviewType) {// 教师任务查看
  
         Teacher *teacher = self.teachers[indexPath.row];
         title = teacher.nickname;
-        state = teacher.canLookTasks;
+        state = teacher.lookTeachers;
         
         if (teacher.avatarUrl.length == 0) {
             avatar = @"attachment_placeholder";
@@ -145,10 +163,19 @@ UITableViewDataSource>
 
 - (void)updateAuthorData:(MIAuthorManagerType)authorType state:(BOOL)state index:(NSInteger)index{
     
-    if (authorType == MIAuthorManagerTeacherPreviewType) {// 教师任务查看
+    if (authorType == MIAuthorManagerRealTimeTaskPreviewType) {// 实时任务查看
         
         Teacher *teacher = self.teachers[index];
-        teacher.canLookTasks = state;
+        teacher.lookTasks = state;
+        if (state == 1) {
+            [self.authorSet addObject:@(teacher.userId)];
+        } else {
+            [self.authorSet removeObject:@(teacher.userId)];
+        }
+    } else if (authorType == MIAuthorManagerTeacherPreviewType) {// 教师任务查看
+        
+        Teacher *teacher = self.teachers[index];
+        teacher.lookTeachers = state;
         if (state == 1) {
             [self.authorSet addObject:@(teacher.userId)];
         } else {
@@ -196,7 +223,11 @@ UITableViewDataSource>
         [self.view showLoadingView];
     }
     
-    if (self.authorManagerType == MIAuthorManagerTeacherPreviewType) {// 教师任务查看
+    if (self.authorManagerType == MIAuthorManagerRealTimeTaskPreviewType) {// 实时任务查看
+        [TeacherService getAllTeacherWithCallback:^(Result *result, NSError *error) {
+            [self handleRest:result error:error];
+        }];
+    } else if (self.authorManagerType == MIAuthorManagerTeacherPreviewType) {// 教师任务查看
         [TeacherService getAllTeacherWithCallback:^(Result *result, NSError *error) {
             [self handleRest:result error:error];
         }];
@@ -245,13 +276,33 @@ UITableViewDataSource>
         return;
     }
 
-    if (self.authorManagerType == MIAuthorManagerTeacherPreviewType) {// 教师任务查看
+    if (self.authorManagerType == MIAuthorManagerRealTimeTaskPreviewType) {// 实时任务查看
         
         NSMutableArray *tempTeachers = [NSMutableArray array];
         for (Teacher *teacher in array) {
             
             BOOL isContent =[self.authorSet containsObject:@(teacher.userId)];
-            teacher.canLookTasks = isContent;
+            teacher.lookTasks = isContent;
+            
+            // 超级管理员列表为所有教师 管理员列表为所有普通教师
+            if (self.selectAuthority == TeacherAuthoritySuperManager) {
+                [tempTeachers addObject:teacher];
+            } else {
+                
+                if (teacher.authority !=  TeacherAuthoritySuperManager) {
+                    [tempTeachers addObject:teacher];
+                }
+            }
+        }
+        self.teachers = tempTeachers;
+        
+    } else if (self.authorManagerType == MIAuthorManagerTeacherPreviewType) {// 教师任务查看
+        
+        NSMutableArray *tempTeachers = [NSMutableArray array];
+        for (Teacher *teacher in array) {
+            
+            BOOL isContent =[self.authorSet containsObject:@(teacher.userId)];
+            teacher.lookTeachers = isContent;
             
             // 超级管理员列表为所有教师 管理员列表为所有普通教师
             if (self.selectAuthority == TeacherAuthoritySuperManager) {

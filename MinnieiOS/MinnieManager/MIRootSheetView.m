@@ -30,65 +30,103 @@
     self.backgroundColor = [UIColor whiteColor];
     
     NSMutableArray *dataArray = [NSMutableArray array];
-    [dataArray addObject:@{@"type":@(MIManagerFuncRealTaskModule),
-                           @"title":@"实时任务",
-                           @"select":@"menu_mission_sel",
-                           @"normal":@"menu_mission_def"}];
-    [dataArray addObject:@{@"type":@(MIManagerFuncTeacherModule),
-                           @"title":@"教师管理",
-                           @"select":@"menu_number_sel",
-                           @"normal":@"menu_number_def"}];
     
-    if (APP.currentUser.canManageHomeworks) {
-        
+    BOOL superManager = (APP.currentUser.authority == TeacherAuthoritySuperManager) ? YES : NO;
+    if (superManager) {
+     
+        [dataArray addObject:@{@"type":@(MIManagerFuncRealTaskModule),
+                               @"title":@"实时任务",
+                               @"select":@"menu_mission_sel",
+                               @"normal":@"menu_mission_def"}];
+        [dataArray addObject:@{@"type":@(MIManagerFuncTeacherModule),
+                               @"title":@"教师管理",
+                               @"select":@"menu_number_sel",
+                               @"normal":@"menu_number_def"}];
         [dataArray addObject:@{@"type":@(MIManagerFuncTaskModule),
                                @"title":@"任务管理",
                                @"select":@"menu_mission_manage_sel",
                                @"normal":@"menu_mission_manage_def"}];
-    }
-    if (APP.currentUser.canManageActivity) {
-    
+        
         [dataArray addObject:@{@"type":@(MIManagerFuncActivityModule),
                                @"title":@"活动管理",
                                @"select":@"menu_activity_sel",
                                @"normal":@"menu_activity_def"}];
-    }
-    if (APP.currentUser.canManageStudents) {
-        
         [dataArray addObject:@{@"type":@(MIManagerFuncTeachingModule),
                                @"title":@"教学统计",
                                @"select":@"menu_Statistics_sel",
                                @"normal":@"menu_Statistics_def"}];
-    }
-    if (APP.currentUser.canManageCampus) {
-      
         [dataArray addObject:@{@"type":@(MIManagerFuncCampusModule),
                                @"title":@"校区管理",
                                @"select":@"menu_school_sel",
                                @"normal":@"menu_school_def"}];
-    }
-    if (APP.currentUser.canExchangeRewards) {
-        
         [dataArray addObject:@{@"type":@(MIManagerFuncGiftsModule),
                                @"title":@"礼物管理",
                                @"select":@"menu_gift_sel",
                                @"normal":@"menu_gift_def"}];
-    }
-    
-    if (APP.currentUser.authority == TeacherAuthoritySuperManager) {
-        
         [dataArray addObject:@{@"type":@(MIManagerFuncImagesModule),
                                @"title":@"首页管理",
                                @"select":@"menu_gift_sel",
                                @"normal":@"menu_gift_def"}];
+        [dataArray addObject:@{@"type":@(MIManagerFuncSettingModule),
+                               @"title":@"设置",
+                               @"select":@"navbar_setup_select",
+                               @"normal":@"navbar_setup_normal"}];
+    } else {
+       
+        if (APP.currentUser.canManageTasks) {
+            
+            [dataArray addObject:@{@"type":@(MIManagerFuncRealTaskModule),
+                                   @"title":@"实时任务",
+                                   @"select":@"menu_mission_sel",
+                                   @"normal":@"menu_mission_def"}];
+        }
+        
+        [dataArray addObject:@{@"type":@(MIManagerFuncTeacherModule),
+                               @"title":@"教师管理",
+                               @"select":@"menu_number_sel",
+                               @"normal":@"menu_number_def"}];
+        
+        if (APP.currentUser.canManageHomeworks) {
+            
+            [dataArray addObject:@{@"type":@(MIManagerFuncTaskModule),
+                                   @"title":@"任务管理",
+                                   @"select":@"menu_mission_manage_sel",
+                                   @"normal":@"menu_mission_manage_def"}];
+        }
+        if (APP.currentUser.canManageActivity) {
+            
+            [dataArray addObject:@{@"type":@(MIManagerFuncActivityModule),
+                                   @"title":@"活动管理",
+                                   @"select":@"menu_activity_sel",
+                                   @"normal":@"menu_activity_def"}];
+        }
+        if (APP.currentUser.canManageStudents) {
+            
+            [dataArray addObject:@{@"type":@(MIManagerFuncTeachingModule),
+                                   @"title":@"教学统计",
+                                   @"select":@"menu_Statistics_sel",
+                                   @"normal":@"menu_Statistics_def"}];
+        }
+        if (APP.currentUser.canManageCampus) {
+            
+            [dataArray addObject:@{@"type":@(MIManagerFuncCampusModule),
+                                   @"title":@"校区管理",
+                                   @"select":@"menu_school_sel",
+                                   @"normal":@"menu_school_def"}];
+        }
+        if (APP.currentUser.canExchangeRewards) {
+            
+            [dataArray addObject:@{@"type":@(MIManagerFuncGiftsModule),
+                                   @"title":@"礼物管理",
+                                   @"select":@"menu_gift_sel",
+                                   @"normal":@"menu_gift_def"}];
+        }
+        [dataArray addObject:@{@"type":@(MIManagerFuncSettingModule),
+                               @"title":@"设置",
+                               @"select":@"navbar_setup_select",
+                               @"normal":@"navbar_setup_normal"}];
     }
-    
-    [dataArray addObject:@{@"type":@(MIManagerFuncSettingModule),
-                           @"title":@"设置",
-                           @"select":@"navbar_setup_select",
-                           @"normal":@"navbar_setup_normal"}];
-    
-    
+
     self.btns = [NSMutableArray array];
 
     for (NSInteger i = 0; i < dataArray.count; i++) {

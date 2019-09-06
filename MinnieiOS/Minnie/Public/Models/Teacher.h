@@ -29,6 +29,9 @@ typedef NS_ENUM(NSInteger, TeacherType) {
 
 // 权限相关
 
+@property (nonatomic, assign) BOOL canManageTasks; //实时任务
+@property (nonatomic, strong) NSArray *canLookTasks; // 实时任务查看
+
 // 管理端：教师新建和设置按钮是否可见     教师端：我的-教师管理是否可见
 @property (nonatomic, assign) BOOL canManageTeachers; //教师管理（新建/编辑/删除）
 // 管理端:实时任务教师列表中的教师是否可见
@@ -67,7 +70,8 @@ typedef NS_ENUM(NSInteger, TeacherType) {
 @property (nonatomic, readonly) NSString *authorityDescription;
 
 
-@property (nonatomic, assign) BOOL canLookTasks; 
+@property (nonatomic, assign) BOOL lookTasks;
+@property (nonatomic, assign) BOOL lookTeachers; 
 
 @end
 

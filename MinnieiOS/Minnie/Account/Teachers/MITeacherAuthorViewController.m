@@ -41,6 +41,7 @@ UITableViewDataSource>
 
 
 // 可查看教师列表 超级管理员：默认可查看全部教师  管理员:默认不可查看
+@property (strong, nonatomic) NSMutableArray *lookTasks;
 @property (strong, nonatomic) NSMutableArray *lookTeachers;
 @property (strong, nonatomic) NSMutableArray *lookHomeworks;
 @property (strong, nonatomic) NSMutableArray *lookClasses;
@@ -164,7 +165,13 @@ UITableViewDataSource>
                       @"authorType":@(MIAuthorManagerAuthorType),
                       @"type":@(1)},
                     ],
-                  @[@{@"title":@"教师管理（新建/编辑/删除）",
+                  @[@{@"title":@"实时任务",
+                      @"authorType":@(MIAuthorManagerRealTimeTaskType),
+                      @"type":@(2)},
+                    @{@"title":@"实时任务查看",
+                      @"authorType":@(MIAuthorManagerRealTimeTaskPreviewType),
+                      @"type":@(3)},
+                    @{@"title":@"教师管理（新建/编辑/删除）",
                       @"authorType":@(MIAuthorManagerTeacherEditType),
                       @"type":@(2)},
                     @{@"title":@"教师查看",
@@ -281,6 +288,8 @@ UITableViewDataSource>
         changedInfos[@"type"] = @(self.tempTeacher.type);
         changedInfos[@"authority"] = @(self.tempTeacher.authority);
         
+//        changedInfos[@"canManageTasks"] = @(self.tempTeacher.canManageTasks);
+//        changedInfos[@"canLookTasks"] = self.tempTeacher.canLookTasks;
         changedInfos[@"canManageTeachers"] = @(self.tempTeacher.canManageTeachers);
         changedInfos[@"canLookTeachers"] = self.tempTeacher.canLookTeachers;
         changedInfos[@"canManageHomeworks"] = @(self.tempTeacher.canManageHomeworks);
@@ -417,6 +426,8 @@ UITableViewDataSource>
         text = self.tempTeacher.typeDescription;
     } else if (authorType.integerValue == MIAuthorManagerAuthorType) {
         text = self.tempTeacher.authorityDescription;
+    } else if (authorType.integerValue == MIAuthorManagerRealTimeTaskType) {
+        switchState = self.tempTeacher.canManageTasks;
     } else if (authorType.integerValue == MIAuthorManagerTeacherEditType) {
          switchState = self.tempTeacher.canManageTeachers;
     } else if (authorType.integerValue == MIAuthorManagerHomeworkType) {
@@ -449,7 +460,8 @@ UITableViewDataSource>
             [self selectTeacherType];
         } else if (authorType == MIAuthorManagerAuthorType) {
             [self setTeacherAuthorType];
-        } else if (authorType == MIAuthorManagerTeacherPreviewType ||
+        } else if (authorType == MIAuthorManagerRealTimeTaskPreviewType ||
+                   authorType == MIAuthorManagerTeacherPreviewType ||
                    authorType == MIAuthorManagerHomeworkPreviewType ||
                    authorType == MIAuthorManagerClassPreviewType ||
                    authorType == MIAuthorManagerStudentPreviewType) {
@@ -461,8 +473,9 @@ UITableViewDataSource>
         }
     };
     cell.stateBlock = ^(MIAuthorManagerType authorType, BOOL state) {
-        
-        if (authorType == MIAuthorManagerTeacherEditType) {
+        if (authorType == MIAuthorManagerRealTimeTaskType) {
+            self.tempTeacher.canManageTasks = state;
+        } else if (authorType == MIAuthorManagerTeacherEditType) {
             self.tempTeacher.canManageTeachers = state;
         } else if (authorType == MIAuthorManagerHomeworkType) {
             
@@ -510,7 +523,8 @@ UITableViewDataSource>
     NSDictionary *tempDic = tempArr[indexPath.row];
     NSInteger authorType = ((NSNumber *)tempDic[@"authorType"]).integerValue;
     
-    if (authorType == MIAuthorManagerTeacherPreviewType ||
+    if (authorType == MIAuthorManagerRealTimeTaskPreviewType ||
+        authorType == MIAuthorManagerTeacherPreviewType ||
         authorType == MIAuthorManagerHomeworkPreviewType ||
         authorType == MIAuthorManagerClassPreviewType ||
         authorType == MIAuthorManagerStudentPreviewType) {
@@ -548,8 +562,11 @@ UITableViewDataSource>
     MIAuthorPreviewViewController *authorPreviewVC = [[MIAuthorPreviewViewController alloc] initWithNibName:NSStringFromClass([MIAuthorPreviewViewController class]) bundle:nil];
     authorPreviewVC.authorManagerType = authorType;
     authorPreviewVC.selectAuthority = self.tempTeacher.authority;
-    
-    if (authorType == MIAuthorManagerTeacherPreviewType) {// 教师任务查看
+   
+    if (authorType == MIAuthorManagerRealTimeTaskPreviewType) {// 实时任务查看
+        
+        authorPreviewVC.authorArray = self.tempTeacher.canLookTasks;
+    } else if (authorType == MIAuthorManagerTeacherPreviewType) {// 教师任务查看
         
         authorPreviewVC.authorArray = self.tempTeacher.canLookTeachers;
     } else if (authorType == MIAuthorManagerHomeworkPreviewType) {//作业查看
@@ -564,7 +581,10 @@ UITableViewDataSource>
     
     authorPreviewVC.editCallBack = ^(NSArray * _Nonnull authorArray) {
       
-        if (authorType == MIAuthorManagerTeacherPreviewType) {// 教师任务查看
+        if (authorType == MIAuthorManagerRealTimeTaskPreviewType) {// 实时任务查看
+            
+            self.tempTeacher.canLookTasks = authorArray;
+        } else if (authorType == MIAuthorManagerTeacherPreviewType) {// 教师任务查看
           
             self.tempTeacher.canLookTeachers = authorArray;
         } else if (authorType == MIAuthorManagerHomeworkPreviewType) {//作业查看
@@ -784,6 +804,8 @@ UITableViewDataSource>
     // 未修改权限
     if (self.tempTeacher.authority == self.teacher.authority) {
         
+        self.tempTeacher.canManageTasks = self.teacher.canManageTasks;
+        self.tempTeacher.canLookTasks = self.teacher.canLookTasks;
         self.tempTeacher.canManageTeachers = self.teacher.canManageTeachers;
         self.tempTeacher.canLookTeachers = self.teacher.canLookTeachers;
         self.tempTeacher.canManageHomeworks = self.teacher.canManageHomeworks;
@@ -800,6 +822,8 @@ UITableViewDataSource>
         self.tempTeacher.canCreateNoticeMessage = self.teacher.canCreateNoticeMessage;
     } else if (self.tempTeacher.authority == TeacherAuthoritySuperManager) {
       
+        self.tempTeacher.canManageTasks = YES;
+        self.tempTeacher.canLookTasks = self.lookTasks;
         self.tempTeacher.canManageTeachers = YES;
         self.tempTeacher.canLookTeachers = self.lookTeachers;
         self.tempTeacher.canManageHomeworks = YES;
@@ -818,6 +842,8 @@ UITableViewDataSource>
         self.tempTeacher.canCreateNoticeMessage = YES;
     } else if (self.tempTeacher.authority == TeacherAuthorityManager) {
         
+        self.tempTeacher.canManageTasks = self.teacher.canManageTasks;
+        self.tempTeacher.canLookTasks = @[];
         self.tempTeacher.canManageTeachers = self.teacher.canManageTeachers;
         self.tempTeacher.canLookTeachers = @[];
         self.tempTeacher.canManageHomeworks = self.teacher.canManageHomeworks;
@@ -833,7 +859,8 @@ UITableViewDataSource>
         self.tempTeacher.canExchangeRewards = self.teacher.canExchangeRewards;
         self.tempTeacher.canCreateNoticeMessage = self.teacher.canCreateNoticeMessage;
     } else {
-      
+        self.tempTeacher.canManageTasks = NO;
+        self.tempTeacher.canLookTasks = @[];
         self.tempTeacher.canManageTeachers = NO;
         self.tempTeacher.canLookTeachers = @[];
         self.tempTeacher.canManageHomeworks = NO;

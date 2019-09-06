@@ -16,7 +16,9 @@ typedef NS_ENUM(NSInteger, MIAuthorManagerType) {
     MIAuthorManagerPhoneNumType,                // 号码
     MIAuthorManagerTeacherType,                 // 教师类型
     MIAuthorManagerAuthorType,                  // 权限设置
-    MIAuthorManagerTeacherEditType,             // 教师管理（编辑）
+    MIAuthorManagerRealTimeTaskType,            // 实时任务
+    MIAuthorManagerRealTimeTaskPreviewType,     // 实时任务查看
+    MIAuthorManagerTeacherEditType,             // 教师管理（新建/编辑/删除）
     MIAuthorManagerTeacherPreviewType,          // 教师查看
     MIAuthorManagerHomeworkType,                // 作业库管理
     MIAuthorManagerHomeworkPreviewType,         // 作业查看
