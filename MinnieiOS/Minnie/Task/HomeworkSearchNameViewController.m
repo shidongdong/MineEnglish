@@ -28,6 +28,7 @@
 - (void)initChildViewController
 {
     self.homeworkClassesChildController = [[HomeworkSessionsViewController alloc] initWithNibName:NSStringFromClass([HomeworkSessionsViewController class]) bundle:nil];
+    self.homeworkClassesChildController.pushVCCallBack = self.pushVCCallBack;
     
     if (self.finished == 0)
     {
@@ -102,6 +103,11 @@
 
 - (IBAction)cancel:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated:NO];
+#if MANAGERSIDE
+    if (self.cancelCallBack) {
+        self.cancelCallBack();
+    }
+#endif
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

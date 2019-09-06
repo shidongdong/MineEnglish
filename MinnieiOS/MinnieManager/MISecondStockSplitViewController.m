@@ -119,7 +119,7 @@ MICampusManagerViewControllerDelegate
         [weakSelf.reaTimTaskDetailVC.navigationController popToRootViewControllerAnimated:YES];
         [weakSelf.reaTimTaskDetailVC.navigationController pushViewController:vc animated:YES];
     };
-    self.reaTimTaskMasterVC.exchangeCallBack = ^{
+    self.reaTimTaskMasterVC.popDetailVCCallBack = ^{
         [weakSelf.reaTimTaskDetailVC.navigationController popToRootViewControllerAnimated:YES];
     };
     

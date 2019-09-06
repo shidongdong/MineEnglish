@@ -270,8 +270,8 @@
     
 #if MANAGERSIDE
     // 重置选中任务状态
-    if (self.exchangeCallBack) {
-        self.exchangeCallBack();
+    if (self.popDetailVCCallBack) {
+        self.popDetailVCCallBack();
     }
     [self.currentViewController resetCurrentSelectIndex];
 #endif
@@ -280,6 +280,8 @@
     HomeworkSearchNameViewController * searchVc = [[HomeworkSearchNameViewController alloc] initWithNibName:NSStringFromClass([HomeworkSearchNameViewController class]) bundle:nil];
     searchVc.finished = self.currentIndex;
     [searchVc setHidesBottomBarWhenPushed:YES];
+    searchVc.pushVCCallBack = self.pushVCCallBack;
+    searchVc.cancelCallBack  = self.popDetailVCCallBack;
     [self.navigationController pushViewController:searchVc animated:YES];
     
 #else
@@ -308,8 +310,8 @@
     }];
     
     // 重置选中任务状态
-    if (self.exchangeCallBack) {
-        self.exchangeCallBack();
+    if (self.popDetailVCCallBack) {
+        self.popDetailVCCallBack();
     }
     [self.currentViewController resetCurrentSelectIndex];
 #elif TEACHERSIDE
@@ -442,8 +444,8 @@
 #if MANAGERSIDE
     if (exchangedSession) {
      
-        if (self.exchangeCallBack) {
-            self.exchangeCallBack();
+        if (self.popDetailVCCallBack) {
+            self.popDetailVCCallBack();
         }
         [childPageViewController resetCurrentSelectIndex];
     }
