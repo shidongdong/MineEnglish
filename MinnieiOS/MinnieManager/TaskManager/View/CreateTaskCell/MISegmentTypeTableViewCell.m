@@ -63,7 +63,7 @@ NSString * const MISegmentTypeTableViewCellId = @"MISegmentTypeTableViewCellId";
     self.createType = createType;
     
     if (self.createType == MIHomeworkCreateContentType_CommitCount) {
-        
+        // 提交的次数:1/2/3/4
         self.btnNum =4;
         self.titleLabel.text = @"可提交次数:";
         [self.btn1 setTitle:@"1次" forState:UIControlStateNormal];
@@ -71,14 +71,14 @@ NSString * const MISegmentTypeTableViewCellId = @"MISegmentTypeTableViewCellId";
         [self.btn3 setTitle:@"3次" forState:UIControlStateNormal];
         [self.btn4 setTitle:@"4次" forState:UIControlStateNormal];
     } else if (self.createType == MIHomeworkCreateContentType_ExaminationType) {
-        
+        // 任务类型为成绩统计：1:周测；2:正式考试
         self.btnNum =2;
         self.titleLabel.text = @"考试类型:";
         [self.btn1 setTitle:@"周测" forState:UIControlStateNormal];
         [self.btn2 setTitle:@"正式考试" forState:UIControlStateNormal];
     } else if (self.createType == MIHomeworkCreateContentType_HomeworkDifficulty) {
         self.btnNum =5;
-        // 1-5
+        // 0-4代表1-5星
         self.titleLabel.text = @"选择星级:";
         [self.btn1 setTitle:@"1星" forState:UIControlStateNormal];
         [self.btn2 setTitle:@"2星" forState:UIControlStateNormal];
@@ -92,7 +92,7 @@ NSString * const MISegmentTypeTableViewCellId = @"MISegmentTypeTableViewCellId";
         [self.btn1 setTitle:@"普通" forState:UIControlStateNormal];
         [self.btn2 setTitle:@"附加" forState:UIControlStateNormal];
     } else if (self.createType == MIHomeworkCreateContentType_CommitTime){
-        // 1-4
+        //提交时间：1/2/3/4天
         self.btnNum =4;
         self.titleLabel.text = @"提交时间:";
         [self.btn1 setTitle:@"1天" forState:UIControlStateNormal];

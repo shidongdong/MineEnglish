@@ -105,7 +105,7 @@ static CGFloat const CircleVideoThumbnailRatio = 140/222.f;
     return ceil(12.f + 34.f + width * CircleVideoThumbnailRatio + 44);
     
 #else
-    width = [UIScreen mainScreen].bounds.size.width - 24 - 70 - 60.f
+    width = [UIScreen mainScreen].bounds.size.width - 24 - 70 - 60.f;
     return ceil(12.f + 34.f + width * CircleVideoThumbnailRatio + 44.f);
 #endif
 }

@@ -224,14 +224,14 @@ ClassAndStudentSelectorControllerDelegate
         self.limitTimeSecs = 300;
       
         self.homework.style = 1;
-        self.homework.level = 1;
+        self.homework.level = 0;
         if (self.taskType == MIHomeworkTaskType_Notify) {
             
             self.homework.style = 3;
         } else if (self.taskType == MIHomeworkTaskType_ExaminationStatistics) {
             
             self.homework.style = 4;
-            self.homework.level = 5;
+            self.homework.level = 4;
         }
         self.homework.category = 1;
         self.homework.limitTimes = 300;
@@ -540,9 +540,9 @@ ClassAndStudentSelectorControllerDelegate
             MISegmentTypeTableViewCell *contentCell = [tableView dequeueReusableCellWithIdentifier:MISegmentTypeTableViewCellId forIndexPath:indexPath];
             WeakifySelf;
             contentCell.callback = ^(NSInteger selectIndex) {
-                weakSelf.homework.level = selectIndex;
+                weakSelf.homework.level = selectIndex - 1;
             };
-            [contentCell setupWithSelectIndex:self.homework.level createType:createType];
+            [contentCell setupWithSelectIndex:self.homework.level + 1 createType:createType];
             cell = contentCell;
         }
             break;
@@ -1678,6 +1678,9 @@ ClassAndStudentSelectorControllerDelegate
             [HUD showErrorWithMessage:@"跟读材料不完整"]; return;
         }
     }
+    if (self.homework.level >= 5) {
+        self.homework.level = 4;
+    }
     NSMutableArray *resultItems = [NSMutableArray array];
     [resultItems addObject:self.contentItem];
     [resultItems addObjectsFromArray:self.items];
@@ -1692,6 +1695,7 @@ ClassAndStudentSelectorControllerDelegate
     self.homework.answerItems = self.answerItems;
     self.homework.createTeacher = APP.currentUser;
     self.homework.otherItem = self.followItems;
+
     
     if (self.isCreateTask) {
         [HUD showProgressWithMessage:@"正在新建作业"];
