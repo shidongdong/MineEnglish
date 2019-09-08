@@ -1233,14 +1233,42 @@ ClassAndStudentSelectorControllerDelegate
             }
         case MIHomeworkCreateContentType_Materials:
             if (self.items.count) {
-                rowHeight = self.items.count * 112 + MITitleTypeTableViewCellHeight;
+               
+                CGFloat height = MITitleTypeTableViewCellHeight;
+                for (HomeworkItem *item in self.items) {
+                    
+                    height = height + 112;
+                    if ([item.type isEqualToString:@"audio"]) {
+                    
+                        if (item.audioCoverUrl.length > 0 && item.audioUrl.length > 0) {
+                            
+                            height = height + 80;
+                        }
+                    }
+                }
+                rowHeight = height;
+//                rowHeight = self.items.count * 112 + MITitleTypeTableViewCellHeight;
             } else {
                 rowHeight = MITitleTypeTableViewCellHeight;
             }
             break;
         case MIHomeworkCreateContentType_Answer:
             if (self.answerItems.count) {
-                rowHeight = self.answerItems.count * 112  + MITitleTypeTableViewCellHeight;
+              
+                CGFloat height = MITitleTypeTableViewCellHeight;
+                height = height + 112;
+                for (HomeworkAnswerItem *item in self.answerItems) {
+                   
+                    if ([item.type isEqualToString:@"audio"]) {
+                        
+                        if (item.audioCoverUrl.length > 0 && item.audioUrl.length > 0) {
+                            
+                            height = height + 80;
+                        }
+                    }
+                }
+                rowHeight = height;
+//                rowHeight = self.answerItems.count * 112  + MITitleTypeTableViewCellHeight;
             } else {
                 rowHeight = MITitleTypeTableViewCellHeight;
             }

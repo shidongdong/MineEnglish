@@ -109,7 +109,29 @@ UIDocumentPickerDelegate
             return MIAddTypeTableViewCellHeight;
         }
     }
-    return 112.f;
+    CGFloat height = 112.f;
+    if (self.isAddingAnswerItem) {
+        
+        HomeworkAnswerItem *item = self.answerItems[indexPath.row];
+        if ([item.type isEqualToString:@"audio"]) {
+            
+            if (item.audioCoverUrl.length > 0 && item.audioUrl.length > 0) {
+                
+                height = height + 80;
+            }
+        }
+    } else {
+     
+        HomeworkItem *item = self.items[indexPath.row];
+        if ([item.type isEqualToString:@"audio"]) {
+            
+            if (item.audioCoverUrl.length > 0 && item.audioUrl.length > 0) {
+                
+                height = height + 80;
+            }
+        }
+    }
+    return height;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -170,7 +192,6 @@ UIDocumentPickerDelegate
                 cell = videoCell;
             } else if ([item.type isEqualToString:@"audio"]) {
                 
-                HomeworkAnswerItem *item = [[HomeworkAnswerItem alloc] init];
                 HomeworkAudioTableViewCell *audioCell = [tableView dequeueReusableCellWithIdentifier:HomeworkAudioTableViewCellId forIndexPath:indexPath];
                 [audioCell setupWithAudioUrl:item.audioUrl coverUrl:item.audioCoverUrl];
                 
