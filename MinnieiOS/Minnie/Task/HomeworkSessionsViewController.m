@@ -186,10 +186,7 @@ MIActivityBannerViewDelegate
     AVIMClient *client = [IMManager sharedManager].client;
     NSMutableArray *queryArr = [NSMutableArray array];
     for (HomeworkSession *homeworkSession in sessions) {
-        if (sessions.count > 1 && homeworkSession.lastSessionContent > 0) {
-            // count > 1 刷新会话列表，不再更新已加载过对话的最后一条消息 (count = 1 新的消息单条刷新)
-            continue;
-        }
+
         NSString *name = [NSString stringWithFormat:@"%ld",(long)homeworkSession.homeworkSessionId];
         AVIMConversationQuery *query = [client conversationQuery];
         [query whereKey:@"name" equalTo:name];
@@ -205,14 +202,14 @@ MIActivityBannerViewDelegate
     // 设置查询选项，指定返回对话的最后一条消息
     conversation.option = AVIMConversationQueryOptionWithMessage;
     // 每条作业 homeworkSessionId唯一 限制查询数量，减少耗时
-    conversation.limit = 200;
+    conversation.limit = 1000;
     [conversation findConversationsWithCallback:^(NSArray<AVIMConversation *> * _Nullable conversations, NSError * _Nullable error) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [self mergeAndReloadWithQueriedConversations:conversations homeworkSessions:sessions];
         });
-        NSLog(@" ======= 会话数:%@ count:%lu 耗时%.fms", @(conversations.count),sessions.count, [[NSDate date] timeIntervalSinceDate:startTime]*1000);
+        NSLog(@" ======= 会话数:%@ total:%lu 耗时%.fms", @(conversations.count),sessions.count, [[NSDate date] timeIntervalSinceDate:startTime]*1000);
     }];
 }
 
@@ -223,11 +220,11 @@ MIActivityBannerViewDelegate
         
         for (AVIMConversation *conversation in queriedConversations) {
             
-            NSLog(@" ======= 会话数 conversation:%lu SessionId:%lu", [conversation.name integerValue], homeworkSession.homeworkSessionId);
             if ([conversation.name integerValue] == homeworkSession.homeworkSessionId) {
                 homeworkSession.conversation = conversation;
                 homeworkSession.unreadMessageCount = conversation.unreadMessagesCount;
                 
+                NSLog(@" ======= 会话数=== :%lu SessionId:%lu", [conversation.name integerValue], homeworkSession.homeworkSessionId);
                 AVIMMessage *message = conversation.lastMessage;
                 if ([message isKindOfClass:[AVIMTextMessage class]]) {
                     homeworkSession.lastSessionContent = ((AVIMTextMessage *)message).text;
@@ -245,7 +242,6 @@ MIActivityBannerViewDelegate
                 } else if ([message isKindOfClass:[AVIMImageMessage class]]) {
                     homeworkSession.lastSessionContent = @"[图片]";
                 }
-                NSLog(@" ======= 会话数 lastSessionContent:%@  %@", homeworkSession.lastSessionContent, message);
 #if TEACHERSIDE || MANAGERSIDE
                 homeworkSession.shouldColorLastSessionContent = message.ioType == AVIMMessageIOTypeOut;
 #else
