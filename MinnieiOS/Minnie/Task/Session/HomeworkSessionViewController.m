@@ -305,6 +305,14 @@ HomeworkAnswersPickerViewControllerDelegate>
 #else
     return ;
 #endif
+    NSDictionary *data = notification.userInfo;
+    HomeworkSession *session = data[@"HomeworkSession"];
+    NSLog(@"correct:%@",session.conversation.conversationId);
+    if (session.conversation.conversationId != self.conversation.conversationId) {
+        
+        NSLog(@"correct:not correct");
+        return;
+    }
     
     NSString *text = nil;
     if (self.homeworkSession.score == 0){
@@ -1489,6 +1497,10 @@ HomeworkAnswersPickerViewControllerDelegate>
         AVIMMessage *message = orderedMessages[index];
         if ([message isKindOfClass:[AVIMTextMessage class]] &&
             ((AVIMTextMessage *)message).text.length == 0) {
+            if (index == orderedMessages.count-1) {
+                NSString *key = [NSString stringWithFormat:@"%.f", timeKey];
+                self.sortedMessages[key] = groupMessages;
+            }
             continue;
         }
         
@@ -1521,6 +1533,11 @@ HomeworkAnswersPickerViewControllerDelegate>
             NSString *key = [NSString stringWithFormat:@"%.f", timeKey];
             self.sortedMessages[key] = groupMessages;
         }
+        
+        NSLog(@"message:%lld %f, %@ ",message.sendTimestamp,timeKey,((AVIMTextMessage *)message).text);
+        NSLog(@"message:1 %@",self.sortedMessages);
+        NSLog(@"message:2 %@",groupMessages);
+        
     }
     
     self.sortedKeys = [self.sortedMessages.allKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
