@@ -224,7 +224,6 @@ MIActivityBannerViewDelegate
                 homeworkSession.conversation = conversation;
                 homeworkSession.unreadMessageCount = conversation.unreadMessagesCount;
                 
-                NSLog(@" ======= 会话数=== :%lu SessionId:%lu", [conversation.name integerValue], homeworkSession.homeworkSessionId);
                 AVIMMessage *message = conversation.lastMessage;
                 if ([message isKindOfClass:[AVIMTextMessage class]]) {
                     homeworkSession.lastSessionContent = ((AVIMTextMessage *)message).text;
@@ -242,6 +241,7 @@ MIActivityBannerViewDelegate
                 } else if ([message isKindOfClass:[AVIMImageMessage class]]) {
                     homeworkSession.lastSessionContent = @"[图片]";
                 }
+                NSLog(@" ======= 会话数=== :%lu text:%@", [conversation.name integerValue], homeworkSession.lastSessionContent);
 #if TEACHERSIDE || MANAGERSIDE
                 homeworkSession.shouldColorLastSessionContent = message.ioType == AVIMMessageIOTypeOut;
 #else

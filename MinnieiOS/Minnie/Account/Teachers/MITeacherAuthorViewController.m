@@ -804,22 +804,45 @@ UITableViewDataSource>
     // 未修改权限
     if (self.tempTeacher.authority == self.teacher.authority) {
         
-        self.tempTeacher.canManageHomeworkTask = self.teacher.canManageHomeworkTask;
-        self.tempTeacher.canLookTaskTeachers = self.teacher.canLookTaskTeachers;
-        self.tempTeacher.canManageTeachers = self.teacher.canManageTeachers;
-        self.tempTeacher.canLookTeachers = self.teacher.canLookTeachers;
-        self.tempTeacher.canManageHomeworks = self.teacher.canManageHomeworks;
-        self.tempTeacher.canLookHomeworks = self.teacher.canLookHomeworks;
-        self.tempTeacher.canManageActivity = self.teacher.canManageActivity;
-        
-        self.tempTeacher.canManageCampus = self.teacher.canManageCampus;
-        self.tempTeacher.canLookClasses = self.teacher.canLookClasses;
-        self.tempTeacher.canManageStudents = self.teacher.canManageStudents;
-        self.tempTeacher.canLookStudents = self.teacher.canLookStudents;
-        
-        self.tempTeacher.canManagePresents = self.teacher.canManagePresents;
-        self.tempTeacher.canExchangeRewards = self.teacher.canExchangeRewards;
-        self.tempTeacher.canCreateNoticeMessage = self.teacher.canCreateNoticeMessage;
+        if (self.teacher.authority == TeacherAuthoritySuperManager) {
+            
+            self.tempTeacher.canManageHomeworkTask = YES;
+            self.tempTeacher.canLookTaskTeachers = self.lookTasks;
+            self.tempTeacher.canManageTeachers = YES;
+            self.tempTeacher.canLookTeachers = self.lookTeachers;
+            self.tempTeacher.canManageHomeworks = YES;
+            
+            self.tempTeacher.canLookHomeworks = self.lookHomeworks;
+            self.tempTeacher.canManageActivity = YES;
+            
+            self.tempTeacher.canManageCampus = YES;
+            
+            self.tempTeacher.canLookClasses = self.lookClasses;
+            self.tempTeacher.canLookStudents = self.lookStudents;
+            self.tempTeacher.canManageStudents = YES;
+            
+            self.tempTeacher.canManagePresents = YES;
+            self.tempTeacher.canExchangeRewards = YES;
+            self.tempTeacher.canCreateNoticeMessage = YES;
+        } else {
+            
+            self.tempTeacher.canManageHomeworkTask = self.teacher.canManageHomeworkTask;
+            self.tempTeacher.canLookTaskTeachers = self.teacher.canLookTaskTeachers;
+            self.tempTeacher.canManageTeachers = self.teacher.canManageTeachers;
+            self.tempTeacher.canLookTeachers = self.teacher.canLookTeachers;
+            self.tempTeacher.canManageHomeworks = self.teacher.canManageHomeworks;
+            self.tempTeacher.canLookHomeworks = self.teacher.canLookHomeworks;
+            self.tempTeacher.canManageActivity = self.teacher.canManageActivity;
+            
+            self.tempTeacher.canManageCampus = self.teacher.canManageCampus;
+            self.tempTeacher.canLookClasses = self.teacher.canLookClasses;
+            self.tempTeacher.canManageStudents = self.teacher.canManageStudents;
+            self.tempTeacher.canLookStudents = self.teacher.canLookStudents;
+            
+            self.tempTeacher.canManagePresents = self.teacher.canManagePresents;
+            self.tempTeacher.canExchangeRewards = self.teacher.canExchangeRewards;
+            self.tempTeacher.canCreateNoticeMessage = self.teacher.canCreateNoticeMessage;
+        }
     } else if (self.tempTeacher.authority == TeacherAuthoritySuperManager) {
       
         self.tempTeacher.canManageHomeworkTask = YES;
@@ -887,10 +910,15 @@ UITableViewDataSource>
         if (!self.lookTeachers) {
             self.lookTeachers = [NSMutableArray array];
         } else {
-            
             [self.lookTeachers removeAllObjects];
         }
+        if (!self.lookTasks) {
+            self.lookTasks = [NSMutableArray array];
+        } else {
+            [self.lookTasks removeAllObjects];
+        }
         for (Teacher *teacher in array) {
+            [self.lookTasks addObject:@(teacher.userId)];
             [self.lookTeachers addObject:@(teacher.userId)];
         }
         [self resetAutohrState];

@@ -1533,10 +1533,10 @@ HomeworkAnswersPickerViewControllerDelegate>
             NSString *key = [NSString stringWithFormat:@"%.f", timeKey];
             self.sortedMessages[key] = groupMessages;
         }
-        
-        NSLog(@"message:%lld %f, %@ ",message.sendTimestamp,timeKey,((AVIMTextMessage *)message).text);
-        NSLog(@"message:1 %@",self.sortedMessages);
-        NSLog(@"message:2 %@",groupMessages);
+//
+//        NSLog(@"message:%lld %f, %@ ",message.sendTimestamp,timeKey,((AVIMTextMessage *)message).text);
+//        NSLog(@"message:1 %@",self.sortedMessages);
+//        NSLog(@"message:2 %@",groupMessages);
         
     }
     
