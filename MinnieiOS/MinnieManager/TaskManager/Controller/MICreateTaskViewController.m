@@ -741,60 +741,27 @@ ClassAndStudentSelectorControllerDelegate
             __weak UITableView *weakTableView = tableView;
             contentCell.addItemCallback = ^(NSArray * _Nullable items) {
 
+                HomeworkItem *newItem = items.lastObject;
+                newItem.audioCoverUrl = newItem.imageUrl;
                 [weakSelf.followItems removeAllObjects];
-                HomeworkItem *coverItem = [[HomeworkItem alloc] init];
-                HomeworkItem *audioItem = [[HomeworkItem alloc] init];
-                NSMutableArray *audioItems = [NSMutableArray array];
-                for (HomeworkItem *item in items) {
-                    
-                    if ([item.type isEqualToString:HomeworkItemTypeImage]) {
-                      
-                        coverItem = item;
-                        coverItem.audioCoverUrl = item.imageUrl;
-                    }
-                    if ([item.type isEqualToString:HomeworkItemTypeAudio]) {
-                        
-                       audioItem = item;
-                    }
-                }
-                if (coverItem.audioCoverUrl.length > 0) {
-                    
-                    [audioItems addObject:coverItem];
-                }
-                if (audioItem.audioUrl.length > 0) {
-                    
-                    [audioItems addObject:audioItem];
-                }
+                if (newItem) {
                 
-                HomeworkItem *selItem = [[HomeworkItem alloc] init];
-                selItem.type = HomeworkItemTypeAudio;
-                selItem.imageUrl = audioItem.audioCoverUrl;
-                selItem.audioUrl = audioItem.audioUrl;
-                selItem.audioCoverUrl = coverItem.audioCoverUrl;
-                [weakSelf.followItems removeAllObjects];
-                [weakSelf.followItems addObject:selItem];
-
-                [weakContentCell setupWithItems:audioItems vc:weakSelf contentType:createType];
+                    [weakSelf.followItems addObject:newItem];
+                }
+                NSLog(@"image:%@,cover:%@,audio:%@",newItem.imageUrl,newItem.audioCoverUrl,newItem.audioUrl);
+                
+                
+                [weakContentCell setupWithItems:weakSelf.followItems vc:weakSelf contentType:createType];
                 [weakTableView beginUpdates];
                 [weakTableView endUpdates];
             };
            
             HomeworkItem *followItem = self.followItems.lastObject;
             NSMutableArray *audioItems = [NSMutableArray array];
-            if (followItem.audioCoverUrl.length > 0) {
+            if (followItem) {
                 
-                HomeworkItem *coverItem = [[HomeworkItem alloc] init];
-                coverItem.type = HomeworkItemTypeImage;
-                coverItem.imageUrl = followItem.audioCoverUrl;
-                coverItem.audioCoverUrl = followItem.audioCoverUrl;
-                [audioItems addObject:coverItem];
-            }
-            if (followItem.audioUrl.length > 0) {
-                
-                HomeworkItem *audioItem = [[HomeworkItem alloc] init];
-                audioItem.type = HomeworkItemTypeAudio;
-                audioItem.audioUrl = followItem.audioUrl;
-                [audioItems addObject:audioItem];
+                followItem.imageUrl = followItem.audioCoverUrl;
+                [audioItems addObject:followItem];
             }
             [contentCell setupWithItems:audioItems vc:self contentType:createType];
             cell = contentCell;
@@ -1701,7 +1668,8 @@ ClassAndStudentSelectorControllerDelegate
 
         HomeworkItem *item = self.followItems.lastObject;
         if (item.audioUrl.length == 0 ||
-            item.audioCoverUrl.length == 0) {
+            item.audioCoverUrl.length == 0 ||
+            ![item.type isEqualToString:@"audio"]) {
            
             [HUD showErrorWithMessage:@"跟读材料不完整"]; return;
         }

@@ -1836,7 +1836,6 @@ HomeworkAnswersPickerViewControllerDelegate>
     } else {
         user = self.homeworkSession.correctTeacher;
     }
-    NSLog(@"clientId:: %@  %lu",[IMManager sharedManager].client.clientId,user.userId);
 #else
     if ([message.clientId integerValue] == APP.currentUser.userId) {
         user = APP.currentUser;
