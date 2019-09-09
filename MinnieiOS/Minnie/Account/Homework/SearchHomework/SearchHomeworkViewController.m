@@ -227,6 +227,7 @@ VIResourceLoaderManagerDelegate>
     
     WeakifySelf;
     self.searchRequest = [HomeworkService searchHomeworkWithKeyword:self.keywords
+                                                            fieldId:self.fieldId
                                                            callback:^(Result *result, NSError *error) {
                                                                [weakSelf handleSearchResult:result error:error];
                                                            }];
@@ -240,6 +241,7 @@ VIResourceLoaderManagerDelegate>
     WeakifySelf;
     self.searchRequest = [HomeworkService searchHomeworkWithNextUrl:self.nextUrl
                                                         withKeyword:self.keywords
+                                                            fieldId:self.fieldId
                                                            callback:^(Result *result, NSError *error) {
                                                                [weakSelf handleSearchResult:result error:error];
                                                            }];
@@ -269,7 +271,6 @@ VIResourceLoaderManagerDelegate>
         }
         
         if (homeworks.count > 0) {
-            [self.homeworks removeAllObjects];
             [self.homeworks addObjectsFromArray:homeworks];
         }
         

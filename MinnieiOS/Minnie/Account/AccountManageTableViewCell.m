@@ -38,7 +38,27 @@ CGFloat const AccountManageTableViewCellHeight = 212.f;
 - (void)setup{
     
     TeacherAuthority author = APP.currentUser.authority;
-    if (author == TeacherAuthoritySuperManager ||
+    
+    if (author == TeacherAuthoritySuperManager) { // 超管，所有权限
+        
+        self.homeworkManageViewHeightConstraint.constant = 50.f;
+        self.teacherManageViewHeightConstraint.constant = 50.f;
+        self.classManageViewHeightConstraint.constant = 50.f;
+        self.studentManageViewHeightConstraint.constant = 50.f;
+        
+        UIView *vHomework = [self.contentView viewWithTag:10];
+        [vHomework setHidden:NO];
+        
+        UIView *vTeacher = [self.contentView viewWithTag:11];
+        [vTeacher setHidden:NO];
+        
+        UIView *vClass = [self.contentView viewWithTag:12];
+        [vClass setHidden:NO];
+        
+        UIView *vStudents = [self.contentView viewWithTag:13];
+        [vStudents setHidden:NO];
+        
+    } else if (author == TeacherAuthoritySuperManager ||
         author == TeacherAuthorityManager) {
         
         self.homeworkManageViewHeightConstraint.constant = APP.currentUser.canManageHomeworks?50.f:0;

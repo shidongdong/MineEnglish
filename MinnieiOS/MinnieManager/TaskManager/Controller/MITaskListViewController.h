@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 // yes 添加文件夹 no 添加文件
 - (void)showEmptyViewWithIsFolder:(BOOL)isAddFolder folderIndex:(NSInteger)folder;
 
+- (void)resetSelectIndex;
 
 @end
 

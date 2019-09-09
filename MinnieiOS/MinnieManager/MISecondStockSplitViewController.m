@@ -36,6 +36,9 @@ MICampusManagerViewControllerDelegate
 @property (nonatomic, strong) MIStockDetailViewController *teacherManagerDetailVC;
 
 // 任务管理
+
+// 当前展开的文件夹
+@property (nonatomic, strong) FileInfo *subFileInfo;
 @property (nonatomic, strong) MITaskListViewController *taskManagerMasterVC;
 @property (nonatomic, strong) MIStockDetailViewController *taskManagerDetailVC;
 
@@ -182,6 +185,7 @@ MICampusManagerViewControllerDelegate
     if (self.taskManagerMasterVC.navigationController.viewControllers.count > 1) {
         return;
     }
+    [self.taskManagerMasterVC resetSelectIndex];
     [self.taskManagerDetailVC.navigationController popToRootViewControllerAnimated:YES];
     
     SearchHomeworkViewController *searchHomeworkVC = [[SearchHomeworkViewController alloc] initWithNibName:@"SearchHomeworkViewController" bundle:nil];
@@ -193,11 +197,13 @@ MICampusManagerViewControllerDelegate
     searchHomeworkVC.popDetailCallBack = ^{
         [weakSelf.taskManagerDetailVC.navigationController popToRootViewControllerAnimated:NO];
     };
+    searchHomeworkVC.fieldId = self.subFileInfo.fileId;
     [self.taskManagerMasterVC.navigationController pushViewController:searchHomeworkVC animated:NO];
 }
 
 - (void)showTaskListWithFoldInfo:(FileInfo * _Nullable)fileInfo folderIndex:(NSInteger)folder{
     
+    self.subFileInfo = fileInfo;
     if (self.taskManagerMasterVC.navigationController.viewControllers.count > 1) {
         [self.taskManagerMasterVC.navigationController popToRootViewControllerAnimated:NO];
     }
@@ -212,6 +218,7 @@ MICampusManagerViewControllerDelegate
 // yes 添加文件夹 no 添加文件
 - (void)showEmptyViewWithIsFolder:(BOOL)isAddFolder folderIndex:(NSInteger)folder{
    
+    self.subFileInfo = nil;
     if (self.taskManagerMasterVC.navigationController.viewControllers.count > 1) {
         [self.taskManagerMasterVC.navigationController popToRootViewControllerAnimated:NO];
     }

@@ -22,6 +22,8 @@
              @"stuLabel":@"stuLabel",
              @"type":@"type",
              @"authority":@"authority",
+             @"canManageHomeworkTask":@"canManageHomeworkTask",
+             @"canLookTaskTeachers":@"canLookTaskTeachers",
              @"canManageTeachers":@"canManageTeachers",
              @"canLookTeachers":@"canLookTeachers",
              @"canManageHomeworks":@"canManageHomeworks",

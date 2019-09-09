@@ -47,6 +47,7 @@
     }
     self.homeworkClassesChildController.searchFliter = -1;
     
+    self.homeworkClassesChildController.teacher = self.teacher;
     [self addChildViewController:self.homeworkClassesChildController];
     
     [self.containerView addSubview:self.homeworkClassesChildController.view];

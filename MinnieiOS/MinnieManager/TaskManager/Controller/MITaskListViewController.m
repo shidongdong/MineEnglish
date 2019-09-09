@@ -286,6 +286,12 @@ VIResourceLoaderManagerDelegate
     [self.tableView reloadData];
 }
 
+- (void)resetSelectIndex{
+    
+    self.currentSelectedIndex = -1;
+    [self.tableView reloadData];
+}
+
 #pragma mark - 请求作业列表
 - (void)requestHomeworks {
     

@@ -282,6 +282,7 @@
     [searchVc setHidesBottomBarWhenPushed:YES];
     searchVc.pushVCCallBack = self.pushVCCallBack;
     searchVc.cancelCallBack  = self.popDetailVCCallBack;
+    searchVc.teacher = self.teacher;
     [self.navigationController pushViewController:searchVc animated:YES];
     
 #else

@@ -221,8 +221,10 @@
     } else if (indexPath.row == 2) {
         height = 0;
         
-        if (teacher.authority == TeacherAuthorityManager ||
-            teacher.authority == TeacherAuthoritySuperManager) {
+        if (teacher.authority == TeacherAuthoritySuperManager) {
+            
+            height = 200.f;
+        } else if (teacher.authority == TeacherAuthorityManager) {
             
             if (teacher.canManageHomeworks) {
                 height += 50.f;
@@ -239,7 +241,6 @@
             height += 50.f;
         }
     
-        
         if (height > 0) {
             height += 12;
         }

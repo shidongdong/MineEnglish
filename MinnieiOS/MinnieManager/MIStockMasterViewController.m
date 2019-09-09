@@ -216,8 +216,6 @@ MISecondTeachStatisticsViewDelegate
 #pragma mark - 搜索作业
 - (void)toSearchHomework{
     
-    [_secondSheetView collapseAllFolders];
-    [self.taskManagerStockSplitVC showTaskListWithFoldInfo:nil folderIndex:-1];
     [self.taskManagerStockSplitVC searchHomework];
 }
 

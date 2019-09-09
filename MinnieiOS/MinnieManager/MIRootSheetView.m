@@ -73,7 +73,7 @@
                                @"normal":@"navbar_setup_normal"}];
     } else {
        
-        if (APP.currentUser.canManageTasks) {
+        if (APP.currentUser.canManageHomeworkTask) {
             
             [dataArray addObject:@{@"type":@(MIManagerFuncRealTaskModule),
                                    @"title":@"实时任务",

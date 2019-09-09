@@ -51,6 +51,7 @@
 - (IBAction)searchAction:(id)sender {
     
     SearchHomeworkViewController *vc = [[SearchHomeworkViewController alloc] initWithNibName:@"SearchHomeworkViewController" bundle:nil];
+    vc.fieldId = 0;
     [self.navigationController pushViewController:vc animated:NO];
 }
 

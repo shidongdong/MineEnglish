@@ -9,9 +9,11 @@
 #import "BaseRequest.h"
 
 @interface SearchHomeworksRequest : BaseRequest
+// 二级目录id，如果所有为0
+- (instancetype)initWithKeyword:(NSArray<NSString *> *)keyword fileId:(NSInteger)fileId;
 
-- (instancetype)initWithKeyword:(NSArray<NSString *> *)keyword;
-
-- (instancetype)initWithNextUrl:(NSString *)nextUrl withKeyword:(NSArray<NSString *> *)keyword;
+- (instancetype)initWithNextUrl:(NSString *)nextUrl
+                    withKeyword:(NSArray<NSString *> *)keyword
+                         fileId:(NSInteger)fileId;
 
 @end
