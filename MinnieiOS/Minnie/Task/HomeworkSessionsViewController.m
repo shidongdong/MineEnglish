@@ -671,7 +671,7 @@ MIActivityBannerViewDelegate
         if (homeworkSessions.count > 0) {
            
             [self.homeworkSessions addObjectsFromArray:homeworkSessions];
-            if (_mState == 0) {
+            if (_mState == 0 || _mState == 2) {
                 [self loadConversationsWithHomeworkSessions:homeworkSessions];
             } else {
                 [self updateUI];
@@ -705,7 +705,7 @@ MIActivityBannerViewDelegate
         if (homeworkSessions.count > 0) {
             
             [self.homeworkSessions addObjectsFromArray:homeworkSessions];
-            if (_mState == 0) {
+            if (_mState == 0 || _mState == 2) {
                 
                 [self loadConversationsWithHomeworkSessions:homeworkSessions];
             } else {
