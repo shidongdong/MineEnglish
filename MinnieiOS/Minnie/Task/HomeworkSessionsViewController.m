@@ -232,9 +232,9 @@ MIActivityBannerViewDelegate
                     if ([((AVIMTextMessage *)message).text isEqualToString:kHomeworkTaskFollowUpName] ||
                         [((AVIMTextMessage *)message).text isEqualToString:kHomeworkTaskWordMemoryName]) {
                         
-                        homeworkSession.lastSessionContent = @"[音频]";
-                    } else {
                         homeworkSession.lastSessionContent = @"[链接]";
+                    } else {
+                        homeworkSession.lastSessionContent = @"[音频]";
                     }
                 } else if ([message isKindOfClass:[AVIMVideoMessage class]]) {
                     homeworkSession.lastSessionContent = @"[视频]";
