@@ -333,6 +333,7 @@ HomeworkAnswersPickerViewControllerDelegate>
     else
     {
         //text = @"报错";
+        return;
     }
     
     if (self.homeworkSession.reviewText.length == 0)
@@ -350,7 +351,6 @@ HomeworkAnswersPickerViewControllerDelegate>
             }];
         }
     }];
-    
     [PushManager pushText:@"你有作业已通过" toUsers:@[@(self.homeworkSession.student.userId)]];
 }
 
@@ -1495,6 +1495,8 @@ HomeworkAnswersPickerViewControllerDelegate>
     NSMutableArray *groupMessages = nil;
     for (NSInteger index=0; index<orderedMessages.count; index++) {
         AVIMMessage *message = orderedMessages[index];
+        
+        NSLog(@"message: %@ ",((AVIMTextMessage *)message).text);
         if ([message isKindOfClass:[AVIMTextMessage class]] &&
             ((AVIMTextMessage *)message).text.length == 0) {
             if (index == orderedMessages.count-1) {
