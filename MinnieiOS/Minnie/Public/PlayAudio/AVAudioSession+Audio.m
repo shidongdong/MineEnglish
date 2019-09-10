@@ -10,8 +10,8 @@
 
 @implementation AVAudioSession (Audio)
 
-- (BOOL)setActive:(BOOL)active withOptions:(AVAudioSessionSetActiveOptions)options error:(NSError * _Nullable __autoreleasing *)outError{
-
-    return YES;
-}
+//- (BOOL)setActive:(BOOL)active withOptions:(AVAudioSessionSetActiveOptions)options error:(NSError * _Nullable __autoreleasing *)outError{
+//
+//    return YES;
+//}
 @end
