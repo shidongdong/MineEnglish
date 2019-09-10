@@ -185,18 +185,29 @@ MIActivityBannerViewDelegate
     NSDate *startTime = [NSDate date];
     AVIMClient *client = [IMManager sharedManager].client;
     NSMutableArray *queryArr = [NSMutableArray array];
+//    for (HomeworkSession *homeworkSession in sessions) {
+//
+//        NSString *name = [NSString stringWithFormat:@"%ld",(long)homeworkSession.homeworkSessionId];
+//        AVIMConversationQuery *query = [client conversationQuery];
+//        [query whereKey:@"name" equalTo:name];
+//        [queryArr addObject:query];
+//    }
+    
     for (HomeworkSession *homeworkSession in sessions) {
 
         NSString *name = [NSString stringWithFormat:@"%ld",(long)homeworkSession.homeworkSessionId];
-        AVIMConversationQuery *query = [client conversationQuery];
-        [query whereKey:@"name" equalTo:name];
-        [queryArr addObject:query];
+        [queryArr addObject:name];
     }
+    
     if (queryArr.count == 0) {
         return;
     }
     // 通过组合的方式，根据唯一homeworkSessionId，查询指定作业的消息会话内容，明确会话数量，减少耗时
-    AVIMConversationQuery *conversation = [AVIMConversationQuery orQueryWithSubqueries:queryArr];
+//    AVIMConversationQuery *conversation = [AVIMConversationQuery orQueryWithSubqueries:queryArr];
+    // 使用数组查询
+    AVIMConversationQuery *conversation = [client conversationQuery];
+    [conversation whereKey:@"name" containedIn:queryArr];
+    
     // 缓存 先走网络查询，发生网络错误的时候，再从本地查询
     conversation.cachePolicy = kAVCachePolicyCacheElseNetwork;
     // 设置查询选项，指定返回对话的最后一条消息
@@ -494,6 +505,7 @@ MIActivityBannerViewDelegate
         AVIMMessage * message = [notication.userInfo objectForKey:@"lastMessage"];
         BOOL bExist = NO;  //有可能有些作业需要下拉加载才能请求出来
         //遍历请求下来的数组
+        // 数组 was mutated while being enumerated
         for (HomeworkSession * session in self.homeworkSessions)
         {
             if (session.homeworkSessionId == homeworkSessionId)
