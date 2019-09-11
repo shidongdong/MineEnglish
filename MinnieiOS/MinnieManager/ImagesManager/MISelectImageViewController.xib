@@ -12,6 +12,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MISelectImageViewController">
             <connections>
                 <outlet property="collectionView" destination="DH1-FT-Yfg" id="QQj-qT-UF5"/>
+                <outlet property="label" destination="HlO-Zk-LNV" id="u0H-ga-XW9"/>
+                <outlet property="toastBgView" destination="cuQ-52-Ut3" id="yjb-j5-My9"/>
                 <outlet property="uploadBtn" destination="RIV-aT-IOY" id="lG2-gx-JH3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -32,13 +34,14 @@
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RIV-aT-IOY">
                             <rect key="frame" x="274" y="0.0" width="80" height="44"/>
+                            <color key="backgroundColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="6EJ-0G-eMY"/>
                                 <constraint firstAttribute="width" constant="80" id="lqo-SC-Q6s"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <state key="normal" title="上传图片">
-                                <color key="titleColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
                                 <action selector="uploadImagesAction:" destination="-1" eventType="touchUpInside" id="u4f-aj-xc6"/>
@@ -56,8 +59,13 @@
                         <constraint firstItem="b39-lc-AU2" firstAttribute="centerY" secondItem="cuQ-52-Ut3" secondAttribute="centerY" id="sHu-Vm-ShW"/>
                     </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已上传:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HlO-Zk-LNV">
+                    <rect key="frame" x="30" y="114" width="47" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="DH1-FT-Yfg">
-                    <rect key="frame" x="0.0" y="94" width="414" height="758"/>
+                    <rect key="frame" x="0.0" y="154" width="414" height="742"/>
                     <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jst-NW-PFt">
                         <size key="itemSize" width="50" height="50"/>
@@ -70,32 +78,17 @@
                         <outlet property="delegate" destination="-1" id="owi-vO-RUp"/>
                     </connections>
                 </collectionView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JWH-at-QwV">
-                    <rect key="frame" x="0.0" y="852" width="414" height="44"/>
-                    <color key="backgroundColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="44" id="sHm-4B-22g"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <state key="normal" title="发布">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </state>
-                    <connections>
-                        <action selector="saveAction:" destination="-1" eventType="touchUpInside" id="b31-Wv-40y"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="DH1-FT-Yfg" secondAttribute="trailing" id="43o-Kd-9Yn"/>
+                <constraint firstItem="HlO-Zk-LNV" firstAttribute="top" secondItem="cuQ-52-Ut3" secondAttribute="bottom" constant="20" id="5F1-yp-0AL"/>
                 <constraint firstAttribute="trailing" secondItem="cuQ-52-Ut3" secondAttribute="trailing" constant="30" id="6I7-Pf-7km"/>
-                <constraint firstItem="JWH-at-QwV" firstAttribute="top" secondItem="DH1-FT-Yfg" secondAttribute="bottom" id="J97-JR-11f"/>
-                <constraint firstAttribute="bottom" secondItem="JWH-at-QwV" secondAttribute="bottom" id="JBO-lW-qrq"/>
+                <constraint firstItem="HlO-Zk-LNV" firstAttribute="leading" secondItem="cuQ-52-Ut3" secondAttribute="leading" id="SVP-je-DmL"/>
+                <constraint firstAttribute="bottom" secondItem="DH1-FT-Yfg" secondAttribute="bottom" id="gyA-kC-GGV"/>
                 <constraint firstItem="DH1-FT-Yfg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gzr-7i-aQI"/>
-                <constraint firstAttribute="trailing" secondItem="JWH-at-QwV" secondAttribute="trailing" id="lAk-PE-tiQ"/>
-                <constraint firstItem="JWH-at-QwV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="qic-51-UBI"/>
                 <constraint firstItem="cuQ-52-Ut3" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="uVn-d4-SK3"/>
-                <constraint firstItem="DH1-FT-Yfg" firstAttribute="top" secondItem="cuQ-52-Ut3" secondAttribute="bottom" id="wxf-Oq-qQm"/>
+                <constraint firstItem="DH1-FT-Yfg" firstAttribute="top" secondItem="cuQ-52-Ut3" secondAttribute="bottom" constant="60" id="wxf-Oq-qQm"/>
                 <constraint firstItem="cuQ-52-Ut3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="xik-LJ-VkQ"/>
             </constraints>
         </view>

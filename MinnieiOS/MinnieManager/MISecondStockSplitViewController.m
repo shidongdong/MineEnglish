@@ -479,6 +479,9 @@ MICampusManagerViewControllerDelegate
     self.imageDetailVC = [[MILookImagesViewController alloc] initWithNibName:@"MILookImagesViewController" bundle:nil];
     UINavigationController *detailNav = [[UINavigationController alloc] initWithRootViewController:self.imageDetailVC];
     [detailNav setNavigationBarHidden:YES animated:NO];
+    self.imageDetailVC.uploadImagesCallBack = ^{
+        [weakSelf.imageMasterVC saveImages];
+    };
     
     self.viewControllers = @[masterNav, detailNav];
 }

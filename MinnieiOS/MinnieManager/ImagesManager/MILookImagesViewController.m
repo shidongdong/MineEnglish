@@ -9,10 +9,12 @@
 #import "MILookImagesViewController.h"
 
 @interface MILookImagesViewController ()
+
 @property (strong, nonatomic) UIImageView *imageV;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollview;
 @property (weak, nonatomic) IBOutlet UIView *titleBgView;
+@property (weak, nonatomic) IBOutlet UIButton *uploadBtn;
 
 @end
 
@@ -30,6 +32,8 @@
     [self.scrollview addSubview:self.imageV];
     
     
+    self.uploadBtn.layer.cornerRadius = 5;
+    self.uploadBtn.layer.masksToBounds = YES;
 }
 
 - (void)updateContentImage{
@@ -44,7 +48,7 @@
             
             CGFloat imageWidth = (ScreenWidth - kRootModularWidth)/2.0;
             CGFloat imageHeight = imageWidth * image.size.height / image.size.width;
-            self.imageV.frame =  CGRectMake(0, 0 , imageWidth, imageHeight);
+            self.imageV.frame =  CGRectMake(50, 0 , imageWidth - 100, imageHeight);
             self.scrollview.contentSize = CGSizeMake(imageWidth, imageHeight);
         }
     }];
@@ -56,9 +60,18 @@
     [self updateContentImage];
     if (_imageUrl.length ==0) {
         self.titleBgView.hidden = YES;
+        self.imageV.hidden = YES;
     } else {
         self.titleBgView.hidden = NO;
+        self.imageV.hidden = NO;
     }
 }
+- (IBAction)uploadBtnAction:(id)sender {
+
+    if (self.uploadImagesCallBack) {
+        self.uploadImagesCallBack();
+    }
+}
+
 
 @end

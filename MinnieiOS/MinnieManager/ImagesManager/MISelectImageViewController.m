@@ -22,8 +22,12 @@ UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UIButton *uploadBtn;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIView *toastBgView;
 
+@property (weak, nonatomic) IBOutlet UILabel *label;
 @property (strong, nonatomic) NSMutableArray *imgaes;
+
+@property (assign, nonatomic) NSInteger currentIndex;
 @end
 
 @implementation MISelectImageViewController
@@ -31,10 +35,14 @@ UICollectionViewDelegateFlowLayout>
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    _currentIndex = -1;
     self.imgaes = [NSMutableArray array];
     [self registerCellNibs];
     [self requestWelcomesImages];
+    
+    
+    self.toastBgView.layer.cornerRadius = 5;
+    self.toastBgView.layer.masksToBounds = YES;
     
     self.view.backgroundColor = [UIColor unSelectedColor];
     self.collectionView.backgroundColor = [UIColor unSelectedColor];
@@ -53,6 +61,17 @@ UICollectionViewDelegateFlowLayout>
 }
 - (IBAction)saveAction:(id)sender {
     
+    [ManagerServce uploadWelcomesWithImages:self.imgaes callback:^(Result *result, NSError *error) {
+        
+        if (!error) {
+            [HUD showWithMessage:@"保存成功"];
+        }
+    }];
+}
+
+- (void)saveImages{
+   
+    WeakifySelf;
     [ManagerServce uploadWelcomesWithImages:self.imgaes callback:^(Result *result, NSError *error) {
         
         if (!error) {
@@ -87,7 +106,8 @@ UICollectionViewDelegateFlowLayout>
     WeakifySelf;
     cell.imageCallBack = ^(NSInteger index) {
         
-        NSString *imageStr = self.imgaes[index - 1];
+        NSString *imageStr = weakSelf.imgaes[index - 1];
+        weakSelf.currentIndex = index - 1;
         if (weakSelf.imageCallBack) {
             weakSelf.imageCallBack(imageStr);
         }
@@ -95,7 +115,13 @@ UICollectionViewDelegateFlowLayout>
     
     cell.deleteCallBack = ^(NSInteger index) {
         if (index - 1 < self.imgaes.count) {
-            
+            if (index - 1 == self.currentIndex) {
+                
+                weakSelf.currentIndex = -1;
+                if (self.imageCallBack) {
+                    self.imageCallBack(@"");
+                }
+            }
             [self.imgaes removeObjectAtIndex:index - 1];
             [self.collectionView reloadData];
         }
@@ -201,6 +227,11 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
         
         [self.imgaes removeAllObjects];
         [self.imgaes addObjectsFromArray:list];
+        if (self.imgaes.count > 0) {
+            self.label.hidden = NO;
+        } else {
+            self.label.hidden = YES;
+        }
         [self.collectionView reloadData];
     }];
 }

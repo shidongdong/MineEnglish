@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="scrollview" destination="VVf-j8-Bkb" id="q83-Bz-V4n"/>
                 <outlet property="titleBgView" destination="Yph-Yg-fvw" id="aGH-qB-Qdy"/>
+                <outlet property="uploadBtn" destination="dPL-kQ-xAl" id="QfC-3R-tXH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -30,12 +31,11 @@
                                 <constraint firstAttribute="height" constant="44" id="j7E-mx-6ZT" userLabel="height = 44"/>
                             </constraints>
                             <fontDescription key="fontDescription" name=".PingFangSC-Regular" family=".PingFang SC" pointSize="16"/>
-                            <color key="textColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="highlightedColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                             <size key="shadowOffset" width="0.0" height="0.0"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="64" id="Oqv-ux-9hD" userLabel="height = 64"/>
                         <constraint firstAttribute="trailing" secondItem="zIa-uA-JnF" secondAttribute="trailing" id="eBL-7c-C8W"/>
@@ -44,18 +44,35 @@
                     </constraints>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VVf-j8-Bkb">
-                    <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                    <rect key="frame" x="0.0" y="64" width="375" height="479"/>
                 </scrollView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dPL-kQ-xAl">
+                    <rect key="frame" x="72.5" y="583" width="230" height="44"/>
+                    <color key="backgroundColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="230" id="eQa-jk-VQ4"/>
+                        <constraint firstAttribute="height" constant="44" id="sZU-rX-62Z"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="发布">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="uploadBtnAction:" destination="-1" eventType="touchUpInside" id="f9K-0P-qSv"/>
+                    </connections>
+                </button>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Yph-Yg-fvw" secondAttribute="trailing" id="Ere-dF-8cV"/>
                 <constraint firstItem="VVf-j8-Bkb" firstAttribute="top" secondItem="Yph-Yg-fvw" secondAttribute="bottom" id="QrI-Xm-oa1"/>
+                <constraint firstAttribute="bottom" secondItem="dPL-kQ-xAl" secondAttribute="bottom" constant="40" id="Uno-Sl-m0n"/>
                 <constraint firstItem="VVf-j8-Bkb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="b62-TX-wxs"/>
+                <constraint firstItem="dPL-kQ-xAl" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="kPZ-oR-7Zs"/>
                 <constraint firstItem="Yph-Yg-fvw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="l4q-2G-jdb"/>
                 <constraint firstItem="Yph-Yg-fvw" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="lad-T3-TWd"/>
                 <constraint firstAttribute="trailing" secondItem="VVf-j8-Bkb" secondAttribute="trailing" id="sbx-cV-8rw"/>
-                <constraint firstAttribute="bottom" secondItem="VVf-j8-Bkb" secondAttribute="bottom" id="x8l-Zo-bII"/>
+                <constraint firstAttribute="bottom" secondItem="VVf-j8-Bkb" secondAttribute="bottom" constant="124" id="x8l-Zo-bII"/>
             </constraints>
             <point key="canvasLocation" x="34.782608695652179" y="34.821428571428569"/>
         </view>

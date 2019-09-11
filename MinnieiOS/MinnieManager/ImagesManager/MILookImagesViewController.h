@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MILookImagesViewController : UIViewController
 
+
+@property (copy, nonatomic) void (^uploadImagesCallBack)(void);
+
+
 @property (nonatomic,copy) NSString *imageUrl;
 
 @end

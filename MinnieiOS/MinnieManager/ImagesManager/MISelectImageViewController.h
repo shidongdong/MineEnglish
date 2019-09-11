@@ -12,9 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MISelectImageViewController : UIViewController
 
-@property (nonatomic,copy) void(^imageCallBack)(NSString *imageUrl);
+@property (nonatomic,copy) void(^imageCallBack)(NSString *_Nullable imageUrl);
 
 - (void)updateData;
+
+- (void)saveImages;
 
 @end
 

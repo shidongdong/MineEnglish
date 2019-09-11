@@ -26,10 +26,10 @@ NSString * _Nullable const MISelectImageCollectionViewCellId = @"MISelectImageCo
     [super awakeFromNib];
     // Initialization code
     
-    self.deleteBtn.layer.cornerRadius = 5;
-    self.deleteBtn.layer.masksToBounds = YES;
-    self.deleteBtn.layer.borderWidth = 1.0;
-    self.deleteBtn.layer.borderColor = [UIColor separatorLineColor].CGColor;
+//    self.deleteBtn.layer.cornerRadius = 5;
+//    self.deleteBtn.layer.masksToBounds = YES;
+//    self.deleteBtn.layer.borderWidth = 1.0;
+//    self.deleteBtn.layer.borderColor = [UIColor separatorLineColor].CGColor;
 }
 
 - (void)setupImage:(NSString *)image index:(NSInteger)index{
