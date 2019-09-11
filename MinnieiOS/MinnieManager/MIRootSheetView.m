@@ -56,7 +56,7 @@
                                @"select":@"menu_Statistics_sel",
                                @"normal":@"menu_Statistics_def"}];
         [dataArray addObject:@{@"type":@(MIManagerFuncCampusModule),
-                               @"title":@"校区管理",
+                               @"title":@"班级管理",
                                @"select":@"menu_school_sel",
                                @"normal":@"menu_school_def"}];
         [dataArray addObject:@{@"type":@(MIManagerFuncGiftsModule),
@@ -110,7 +110,7 @@
         if (APP.currentUser.canManageCampus) {
             
             [dataArray addObject:@{@"type":@(MIManagerFuncCampusModule),
-                                   @"title":@"校区管理",
+                                   @"title":@"班级管理",
                                    @"select":@"menu_school_sel",
                                    @"normal":@"menu_school_def"}];
         }

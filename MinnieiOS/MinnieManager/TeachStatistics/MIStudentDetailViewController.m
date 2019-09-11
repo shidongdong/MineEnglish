@@ -106,7 +106,7 @@
         } else if (indexPath.row == 4) {
             cell.textLabel.attributedText = [self setupContentTitle:@"星星数：" text:[NSString stringWithFormat:@"%lu",self.studentDetail.starCount]];
         } else {
-            cell.textLabel.attributedText = [self setupContentTitle:@"兑换礼品数：" text:[NSString stringWithFormat:@"%lu/%lu星星",self.studentDetail.giftCount,self.studentDetail.starCount]];
+            cell.textLabel.attributedText = [self setupContentTitle:@"兑换礼品数：" text:[NSString stringWithFormat:@"%lu",self.studentDetail.giftCount]];
         }
     } else if (indexPath.section == 2) {
         
@@ -133,7 +133,7 @@
             starCount = self.studentDetail.homeworks[5 - indexPath.row];
         }
         NSString *titleStr = [NSString stringWithFormat:@"%lu星任务数：",5 - indexPath.row];
-        cell.textLabel.attributedText = [self setupContentTitle:titleStr text:[NSString stringWithFormat:@"%@颗",starCount]];
+        cell.textLabel.attributedText = [self setupContentTitle:titleStr text:[NSString stringWithFormat:@"%@",starCount]];
     }
     return cell;
 }

@@ -84,9 +84,9 @@ UIScrollViewDelegate
     return self.subPageTitleArray[index];
 }
 
-- (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info{
+- (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView{
     
-    NSLog(@"%@",viewController);
+    return CGRectMake(15, 0, kColumnThreeWidth - 30 , 35);
 }
 
 @end
