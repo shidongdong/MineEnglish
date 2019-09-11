@@ -184,9 +184,13 @@ UITableViewDataSource
         _currentIndex = -1;
         [_tableView reloadData];
         
-        if (self.delegate && [self.delegate respondsToSelector:@selector(secondSheetViewFirstLevelData:index:)]) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(secondSheetViewFirstLevelData:index:selected:)]) {
             
-            [self.delegate secondSheetViewFirstLevelData:parentInfo index:indexPath.section];
+            BOOL selected = YES;
+            if (self.currentParentFileId == -1) {
+                selected = NO;
+            }
+            [self.delegate secondSheetViewFirstLevelData:parentInfo index:indexPath.section selected:selected];
         }
     } else {
         

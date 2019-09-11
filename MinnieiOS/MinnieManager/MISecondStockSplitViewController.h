@@ -54,7 +54,13 @@ typedef NS_ENUM(NSInteger,MIRootModularType) {
 /*
  *  任务管理
  */
-- (void)showTaskListWithFoldInfo:(FileInfo * _Nullable)fileInfo folderIndex:(NSInteger)folder;
+
+// 点击二级文件夹更新任务列表  fileInfo:当前选中二级文件夹， folderIndex:当前选中文件夹索引 -1未选中
+//- (void)showTaskListWithFoldInfo:(FileInfo * _Nullable)fileInfo folderIndex:(NSInteger)folder;
+- (void)updateTaskListBySubFileInfo:(FileInfo * _Nullable)fileInfo folderIndex:(NSInteger)folder;
+
+// 点击一级文件夹更新任务列表
+- (void)updateTaskListByParentFileWithParentId:(NSInteger)parentId folderIndex:(NSInteger)folder;
 
 // yes 添加文件夹 no 添加文件
 - (void)showEmptyViewWithIsFolder:(BOOL)isAddFolder folderIndex:(NSInteger)folder;

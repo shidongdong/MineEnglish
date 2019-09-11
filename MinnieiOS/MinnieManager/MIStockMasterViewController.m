@@ -127,7 +127,7 @@ MISecondTeachStatisticsViewDelegate
         cloumnScale = kRootModularWidth + kColumnSecondWidth;
         [self.secondDetailVC addSubViewController:self.taskManagerStockSplitVC];
         
-        [self.taskManagerStockSplitVC showTaskListWithFoldInfo:nil folderIndex:-1];
+        [self.taskManagerStockSplitVC updateTaskListBySubFileInfo:nil folderIndex:-1];
         [_secondSheetView collapseAllFolders];
         [_secondSheetView updateFileListInfo];
         
@@ -205,7 +205,7 @@ MISecondTeachStatisticsViewDelegate
     [nav popToRootViewControllerAnimated:YES];
     
     [_secondSheetView collapseAllFolders];
-    [self.taskManagerStockSplitVC showTaskListWithFoldInfo:nil folderIndex:-1];
+    [self.taskManagerStockSplitVC updateTaskListBySubFileInfo:nil folderIndex:-1];
     
     self.customSplitViewController.primaryCloumnScale = kRootModularWidth + kColumnSecondWidth;
     [self.customSplitViewController setDisplayMode:CSSplitDisplayModeDisplayPrimaryAndSecondary withAnimated:YES];
@@ -222,12 +222,19 @@ MISecondTeachStatisticsViewDelegate
 
 #pragma mark - 任务管理 一级文件夹 && 二级文件夹
 #pragma mark - SecondSheetViewDelegate
-- (void)secondSheetViewFirstLevelData:(ParentFileInfo *_Nullable)data index:(NSInteger)index{
+- (void)secondSheetViewFirstLevelData:(ParentFileInfo *_Nullable)data
+                                index:(NSInteger)index
+                             selected:(BOOL)selected{
 
     [self popToRootDetailViewController];
     [self.secondDetailVC addSubViewController:self.taskManagerStockSplitVC];
     if (data.subFileList.count) { // 显示空内容
-        [self.taskManagerStockSplitVC showTaskListWithFoldInfo:nil folderIndex:index];
+//        [self.taskManagerStockSplitVC showTaskListWithFoldInfo:nil folderIndex:index];
+        if (selected) {
+            [self.taskManagerStockSplitVC updateTaskListByParentFileWithParentId:data.fileInfo.fileId folderIndex:index];
+        } else {
+            [self.taskManagerStockSplitVC updateTaskListByParentFileWithParentId:0 folderIndex:index];
+        }
     } else {// 显示创建文件夹
         [self.taskManagerStockSplitVC showEmptyViewWithIsFolder:YES folderIndex:index];
     }
@@ -237,12 +244,12 @@ MISecondTeachStatisticsViewDelegate
     
     [self popToRootDetailViewController];
     [self.secondDetailVC addSubViewController:self.taskManagerStockSplitVC];
-    [self.taskManagerStockSplitVC showTaskListWithFoldInfo:data folderIndex:index];
+    [self.taskManagerStockSplitVC updateTaskListBySubFileInfo:data folderIndex:index];
 }
 
 - (void)secondSheetViewDeleteFile{
 
-    [self.taskManagerStockSplitVC showTaskListWithFoldInfo:nil folderIndex:-1];
+    [self.taskManagerStockSplitVC updateTaskListBySubFileInfo:nil folderIndex:-1];
 }
 
 #pragma mark - 活动管理

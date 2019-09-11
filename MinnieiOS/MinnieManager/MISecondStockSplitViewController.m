@@ -37,8 +37,8 @@ MICampusManagerViewControllerDelegate
 
 // 任务管理
 
-// 当前展开的文件夹
-@property (nonatomic, strong) FileInfo *subFileInfo;
+// 当前展开的文件夹 id
+@property (nonatomic, assign) NSInteger fileId;
 @property (nonatomic, strong) MITaskListViewController *taskManagerMasterVC;
 @property (nonatomic, strong) MIStockDetailViewController *taskManagerDetailVC;
 
@@ -203,13 +203,14 @@ MICampusManagerViewControllerDelegate
     searchHomeworkVC.popDetailCallBack = ^{
         [weakSelf.taskManagerDetailVC.navigationController popToRootViewControllerAnimated:NO];
     };
-    searchHomeworkVC.fieldId = self.subFileInfo.fileId;
+    searchHomeworkVC.fieldId = self.fileId;
     [self.taskManagerMasterVC.navigationController pushViewController:searchHomeworkVC animated:NO];
 }
 
-- (void)showTaskListWithFoldInfo:(FileInfo * _Nullable)fileInfo folderIndex:(NSInteger)folder{
+
+- (void)updateTaskListBySubFileInfo:(FileInfo * _Nullable)fileInfo folderIndex:(NSInteger)folder{
     
-    self.subFileInfo = fileInfo;
+    self.fileId = fileInfo.fileId;
     if (self.taskManagerMasterVC.navigationController.viewControllers.count > 1) {
         [self.taskManagerMasterVC.navigationController popToRootViewControllerAnimated:NO];
     }
@@ -221,10 +222,24 @@ MICampusManagerViewControllerDelegate
     }
 }
 
+- (void)updateTaskListByParentFileWithParentId:(NSInteger)parentId folderIndex:(NSInteger)folder{
+    
+    self.fileId = parentId;
+    if (self.taskManagerMasterVC.navigationController.viewControllers.count > 1) {
+        [self.taskManagerMasterVC.navigationController popToRootViewControllerAnimated:NO];
+    }
+    
+    [self.taskManagerMasterVC showTaskListWithFoldInfo:nil folderIndex:folder];
+    
+    if (self.taskManagerDetailVC.navigationController.viewControllers.count > 1) {
+        [self.taskManagerDetailVC.navigationController popToRootViewControllerAnimated:NO];
+    }
+}
+
 // yes 添加文件夹 no 添加文件
 - (void)showEmptyViewWithIsFolder:(BOOL)isAddFolder folderIndex:(NSInteger)folder{
    
-    self.subFileInfo = nil;
+    self.fileId = 0;
     if (self.taskManagerMasterVC.navigationController.viewControllers.count > 1) {
         [self.taskManagerMasterVC.navigationController popToRootViewControllerAnimated:NO];
     }
