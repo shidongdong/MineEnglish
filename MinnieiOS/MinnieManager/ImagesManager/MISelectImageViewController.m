@@ -46,8 +46,8 @@ UICollectionViewDelegateFlowLayout>
     
     self.view.backgroundColor = [UIColor unSelectedColor];
     self.collectionView.backgroundColor = [UIColor unSelectedColor];
-    self.uploadBtn.layer.borderColor = [UIColor separatorLineColor].CGColor;
-    self.uploadBtn.layer.borderWidth = 1.0;
+//    self.uploadBtn.layer.borderColor = [UIColor separatorLineColor].CGColor;
+//    self.uploadBtn.layer.borderWidth = 1.0;
 }
 
 - (IBAction)uploadImagesAction:(id)sender {
@@ -203,6 +203,11 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
                 [HUD showWithMessage:@"图片上传成功"];
                 [weakSelf.imgaes addObject:imageUrl];
                 [weakSelf.collectionView reloadData];
+                if (weakSelf.imgaes.count > 0) {
+                    weakSelf.label.hidden = NO;
+                } else {
+                    weakSelf.label.hidden = YES;
+                }
             }];
         });
     });
