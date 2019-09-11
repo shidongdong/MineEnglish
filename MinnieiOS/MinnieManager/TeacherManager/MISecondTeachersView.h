@@ -20,8 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,weak) id<MISecondTeachersViewDelegate> delegate;
 
+// listType:0 实时任务 1教师管理
+// reset:是否需要重置当前选中 编辑教师权限，无需重置当前选中教师
+- (void)updateTeacherListWithListType:(NSInteger)listType resetIndex:(BOOL)reset;
 
-- (void)updateTeacherListWithListType:(NSInteger)listType;
 
 @end
 

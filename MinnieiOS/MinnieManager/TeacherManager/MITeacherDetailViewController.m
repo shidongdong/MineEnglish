@@ -137,9 +137,22 @@ UITableViewDataSource
     editVC.teacher = self.teacher;
 
     UIView *bgView = [Utils viewOfVCAddToWindowWithVC:editVC width:375.0];
+    WeakifySelf;
     editVC.closeViewCallBack = ^{
         if (bgView.superview) {
             [bgView removeFromSuperview];
+        }
+    };
+    editVC.editSuccessCallBack = ^(BOOL isDelete, Teacher * _Nonnull newTeacher) {
+      
+        if (!isDelete) {// 更新教师
+            weakSelf.teacher = newTeacher;
+        }
+        if (bgView.superview) {
+            [bgView removeFromSuperview];
+        }
+        if (weakSelf.editSuccessCallBack) {
+            weakSelf.editSuccessCallBack(isDelete);
         }
     };
 }

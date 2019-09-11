@@ -97,7 +97,7 @@ MISecondTeachStatisticsViewDelegate
         cloumnScale = kRootModularWidth + kColumnSecondWidth;
         [self.secondDetailVC addSubViewController:self.reaTimTasStockSplitVC];
         
-        [self.reaTimTasSheetView updateTeacherListWithListType:0];
+        [self.reaTimTasSheetView updateTeacherListWithListType:0 resetIndex:YES];
         [self.reaTimTasStockSplitVC updateHomeworkSessionWithTeacher:nil];
         
     } else if (type == MIManagerFuncTeacherModule){ // 教师管理
@@ -112,7 +112,7 @@ MISecondTeachStatisticsViewDelegate
         cloumnScale = kRootModularWidth + kColumnSecondWidth;
         [self.secondDetailVC addSubViewController:self.teacherStockSplitVC];
         
-        [self.teacherManagerSheetView updateTeacherListWithListType:1];
+        [self.teacherManagerSheetView updateTeacherListWithListType:1 resetIndex:YES];
         [self.teacherStockSplitVC updateTeacher:nil];
         
     } else if (type == MIManagerFuncTaskModule){ // 任务管理 不展开文件夹，不显示内容
@@ -281,6 +281,16 @@ MISecondTeachStatisticsViewDelegate
 - (MISecondStockSplitViewController *)teacherStockSplitVC{
     if (!_teacherStockSplitVC) {
         _teacherStockSplitVC = [[MISecondStockSplitViewController alloc] init];
+        WeakifySelf;
+        _teacherStockSplitVC.editTeacherCallBack = ^(BOOL isDelete) {
+          
+            if (isDelete) {
+                [weakSelf.teacherStockSplitVC updateTeacher:nil];
+                [weakSelf.teacherManagerSheetView updateTeacherListWithListType:1 resetIndex:YES];
+            } else {
+                [weakSelf.teacherManagerSheetView updateTeacherListWithListType:1 resetIndex:NO];
+            }
+        };
     }
     _teacherStockSplitVC.rootModularType = MIRootModularType_TeacherManager;
     [_teacherStockSplitVC updatePrimaryCloumnScale:kColumnThreeWidth];

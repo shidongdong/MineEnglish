@@ -96,10 +96,12 @@ UITableViewDataSource
     };
 }
 
-- (void)updateTeacherListWithListType:(NSInteger)listType{
+- (void)updateTeacherListWithListType:(NSInteger)listType resetIndex:(BOOL)reset{
     
     self.teacherListType = listType;
-    self.currentIndexPath = nil;
+    if (reset) {
+        self.currentIndexPath = nil;
+    }
     [self requestTeachers];
     
     self.addActivitybtn.hidden = (self.teacherListType == 0) ? YES : NO;

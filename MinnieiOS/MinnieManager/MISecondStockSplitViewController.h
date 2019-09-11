@@ -36,6 +36,9 @@ typedef NS_ENUM(NSInteger,MIRootModularType) {
 // 活动管理 创建活动callback
 @property (nonatomic,copy) ActivityRankListCallback createCallback;
 
+// 教师管理 编辑callback
+@property (nonatomic, copy) void(^editTeacherCallBack)(BOOL isDelete);
+
 /*
  *  实时任务
  */

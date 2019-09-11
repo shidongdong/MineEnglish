@@ -341,8 +341,8 @@ UITableViewDataSource>
                                               [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfUpdateTeacher
                                                                                                   object:nil];
 #if MANAGERSIDE
-                                              if (weakSelf.closeViewCallBack) {
-                                                  weakSelf.closeViewCallBack();
+                                              if (weakSelf.editSuccessCallBack) {
+                                                  weakSelf.editSuccessCallBack(NO,weakSelf.tempTeacher);
                                               }
 #else
                                               [weakSelf.navigationController popViewControllerAnimated:YES];
@@ -370,8 +370,8 @@ UITableViewDataSource>
                                               [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfAddTeacher
                                                                                                   object:nil];
 #if MANAGERSIDE
-                                              if (weakSelf.closeViewCallBack) {
-                                                  weakSelf.closeViewCallBack();
+                                              if (weakSelf.editSuccessCallBack) {
+                                                  weakSelf.editSuccessCallBack(NO,weakSelf.tempTeacher);
                                               }
 #else
                                               [weakSelf.navigationController popViewControllerAnimated:YES];
@@ -789,8 +789,8 @@ UITableViewDataSource>
                                        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfDeleteTeacher
                                                                                            object:nil];
 #if MANAGERSIDE
-                                       if (weakSelf.closeViewCallBack) {
-                                           weakSelf.closeViewCallBack();
+                                       if (weakSelf.editSuccessCallBack) {
+                                           weakSelf.editSuccessCallBack(YES, weakSelf.tempTeacher);
                                        }
 #else
                                        [weakSelf.navigationController popViewControllerAnimated:YES];

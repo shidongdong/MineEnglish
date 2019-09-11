@@ -152,6 +152,12 @@ MICampusManagerViewControllerDelegate
         [weakSelf.teacherManagerDetailVC.navigationController popToRootViewControllerAnimated:YES];
         [weakSelf.teacherManagerDetailVC.navigationController pushViewController:vc animated:YES];
     };
+    self.teacherManagerMasterVC.editSuccessCallBack = ^(BOOL isDelete) {
+        
+        if (weakSelf.editTeacherCallBack) {
+            weakSelf.editTeacherCallBack(isDelete);
+        }
+    };
     
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:self.teacherManagerMasterVC];
     [masterNav setNavigationBarHidden:YES animated:NO];

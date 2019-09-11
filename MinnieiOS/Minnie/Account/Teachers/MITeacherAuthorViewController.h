@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) Teacher *teacher; // 有传值表示是编辑，否则是新建
 
+@property (nonatomic, copy) void (^editSuccessCallBack) (BOOL isDelete, Teacher *newTeacher);
+
 @end
 
 NS_ASSUME_NONNULL_END

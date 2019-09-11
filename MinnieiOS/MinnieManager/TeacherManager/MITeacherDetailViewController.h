@@ -15,6 +15,8 @@ typedef void(^TeacherDetailPushCallBack)(UIViewController *vc);
 @interface MITeacherDetailViewController : UIViewController
 
 @property (nonatomic, copy) TeacherDetailPushCallBack pushCallBack;
+// 编辑教师
+@property (nonatomic, copy) void (^editSuccessCallBack) (BOOL isDelete);
 
 - (void)updateTeacher:(Teacher * _Nullable)teacher;
 
