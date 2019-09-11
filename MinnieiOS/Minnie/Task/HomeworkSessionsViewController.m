@@ -741,7 +741,13 @@ MIActivityBannerViewDelegate
             NSString *text = nil;
             
 #if TEACHERSIDE || MANAGERSIDE
-            text = self.isUnfinished?@"好棒！所有作业都批改完了！":@"还没有批改过的作业~";
+            
+            if (self.searchFliter == -1) {
+                
+                text = @"无搜索结果";
+            } else{
+                text = self.isUnfinished?@"好棒！所有作业都批改完了！":@"还没有批改过的作业~";
+            }
 #else
             text = self.isUnfinished?@"好棒！所有作业都完成了！\n去同学圈看看大家做得怎么样":@"还没有完成过作业";
 #endif

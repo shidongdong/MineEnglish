@@ -153,7 +153,6 @@ HomeworkAnswersPickerViewControllerDelegate>
     [self requestHomeworkDetail];
 }
 
-
 - (void)addNotification{
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -2241,7 +2240,7 @@ HomeworkAnswersPickerViewControllerDelegate>
 #if MANAGERSIDE
         // 管理端非当前账号会话页不允许输入
         if (self.teacher.userId != APP.currentUser.userId) {
-            self.inputViewBottomConstraint.constant = -180;
+            self.inputViewBottomConstraint.constant = -60;
         }  else {
             self.inputViewBottomConstraint.constant = 0;
         }
@@ -2252,10 +2251,16 @@ HomeworkAnswersPickerViewControllerDelegate>
 
 - (void)configureUI{
     
-#if TEACHERSIDE || MANAGERSIDE
+#if TEACHERSIDE
     self.correctButton.hidden = NO;
     self.answerViewWidthConstraint.constant = ScreenWidth/4;
     self.warnViewWidthConstraint.constant = ScreenWidth/4;
+    
+#elif MANAGERSIDE
+    
+    self.correctButton.hidden = NO;
+    self.answerViewWidthConstraint.constant = kColumnThreeWidth/4;
+    self.warnViewWidthConstraint.constant = kColumnThreeWidth/4;
 #else
     self.correctButton.hidden = YES;
     self.answerViewWidthConstraint.constant = 0;
