@@ -380,7 +380,7 @@
 
 - (IBAction)deleteButtonPressed:(id)sender {
     User *currentUser = [Application sharedInstance].currentUser;
-    currentUser.phoneNumber = @"13606505546";
+    currentUser.phoneNumber = @"18667186875";
     
     UIView *parentView = self.navigationController.view;
 #if MANAGERSIDE
@@ -392,6 +392,7 @@
                                       sendCodeCallback:^{
                                           [AuthService askForSMSCodeWithPhoneNumber:currentUser.phoneNumber
                                                                            callback:^(Result *result, NSError *error) {
+                                                                               
                                                                            }];
                                       }
                                        confirmCallback:^(NSString *code) {
