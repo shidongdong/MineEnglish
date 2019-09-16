@@ -17,6 +17,7 @@ typedef NS_ENUM(NSUInteger, MIManagerFuncModule) {
     MIManagerFuncCampusModule,              // 校区管理
     MIManagerFuncGiftsModule,               // 礼物管理
     MIManagerFuncImagesModule,              // 图片管理
+    MIManagerFuncAvatarModule,              // 用户头像
     MIManagerFuncSettingModule              // 设置
 };
 
