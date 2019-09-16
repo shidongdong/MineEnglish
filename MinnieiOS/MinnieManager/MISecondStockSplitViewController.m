@@ -364,7 +364,7 @@ MICampusManagerViewControllerDelegate
     return _zeroMessagesVC;
 }
 
-#pragma mark - 校区管理
+#pragma mark - 班级管理
 - (void)configureCampusManagerUI{
  
     self.classId = -1;

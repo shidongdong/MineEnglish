@@ -16,7 +16,7 @@
              @"location":@"location",
              @"startTime":@"startTime",
              @"endTime":@"endTime",
-             @"isTrial":@"trial",
+             @"trial":@"trial",
              @"maxStudentsCount":@"maxStudentsCount",
              @"studentsCount":@"studentsCount",
              @"circleCount":@"goodHomeworksCount",
@@ -61,7 +61,7 @@
     dict[@"location"] = self.location;
     dict[@"startTime"] = self.startTime;
     dict[@"endTime"] = self.endTime;
-    dict[@"trial"] = self.isTrial?@(1):@(0);
+    dict[@"trial"] = @(self.trial);
     dict[@"maxStudentsCount"] = @(self.maxStudentsCount);
     dict[@"level"] = @(self.classLevel);
     dict[@"commitedHomeworksCount"] = @(self.commitedHomeworksCount);

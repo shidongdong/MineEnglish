@@ -59,6 +59,7 @@
     }
 
     return [NSString stringWithFormat:@"%@/students", ServerProjectName];
+    return [NSString stringWithFormat:@"%@/teaching/students", ServerProjectName];
 }
 
 - (id)requestArgument {

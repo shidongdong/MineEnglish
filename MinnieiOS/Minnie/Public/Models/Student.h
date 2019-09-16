@@ -46,8 +46,12 @@
 
 @property (nonatomic, copy) NSString *pinyinName;
 
-
 @end
+
+
+@interface StudentsByName : User<MTLJSONSerializing>
+@end
+
 
 @interface StudentZeroTask : MTLModel<MTLJSONSerializing>
 

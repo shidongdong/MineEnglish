@@ -67,10 +67,7 @@
                                @"title":@"首页管理",
                                @"select":@"menu_homepage_sel",
                                @"normal":@"menu_homepage_def"}];
-        [dataArray addObject:@{@"type":@(MIManagerFuncSettingModule),
-                               @"title":@"设置",
-                               @"select":@"navbar_setup_select",
-                               @"normal":@"navbar_setup_normal"}];
+        
     } else {
        
         if (APP.currentUser.canManageHomeworkTask) {
@@ -121,11 +118,18 @@
                                    @"select":@"menu_gift_sel",
                                    @"normal":@"menu_gift_def"}];
         }
-        [dataArray addObject:@{@"type":@(MIManagerFuncSettingModule),
-                               @"title":@"设置",
-                               @"select":@"navbar_setup_select",
-                               @"normal":@"navbar_setup_normal"}];
     }
+    
+    
+    [dataArray addObject:@{@"type":@(MIManagerFuncAvatarModule),
+                           @"title":@"头像",
+                           @"select":@" ",
+                           @"normal":@" "}];
+    
+    [dataArray addObject:@{@"type":@(MIManagerFuncSettingModule),
+                           @"title":@"设置",
+                           @"select":@"navbar_setup_select",
+                           @"normal":@"navbar_setup_normal"}];
 
     self.btns = [NSMutableArray array];
 
@@ -147,6 +151,23 @@
         // 设置
         if (type == MIManagerFuncSettingModule) {
             btn.frame = CGRectMake((kRootModularWidth - 50)/2.0, ScreenHeight - 60, 50, 50);
+        } else if (type == MIManagerFuncAvatarModule) {
+            
+            btn.frame = CGRectMake((kRootModularWidth - 26)/2.0, ScreenHeight - 60 - 30, 26, 26);
+            NSString *avatar = APP.currentUser.avatarUrl;            btn.layer.cornerRadius = 13.0;
+            btn.layer.masksToBounds = YES;
+            
+            NSURL * url=[NSURL URLWithString:avatar];//从服务器获取的图片网址
+            // 创建GCD线程队列
+            dispatch_queue_t xrQueue = dispatch_queue_create("loadImage", NULL);
+            dispatch_async(xrQueue, ^{
+                
+                UIImage * img = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [btn setImage:img forState:UIControlStateNormal];
+                });
+            });
         } else {
             
             CGFloat pointY = 40 + (30 + 50) * i;

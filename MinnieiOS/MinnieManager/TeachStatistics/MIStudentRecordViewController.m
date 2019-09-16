@@ -25,6 +25,7 @@ UIScrollViewDelegate
 
 @property (nonatomic, strong) WMPageController *pageController;
 
+
 @end
 
 @implementation MIStudentRecordViewController
@@ -39,6 +40,7 @@ UIScrollViewDelegate
       
         StudentStarRecordViewController * statRecordVC = [[StudentStarRecordViewController alloc] initWithNibName:NSStringFromClass([StudentStarRecordViewController class]) bundle:nil];
         statRecordVC.recordType = i;
+        
         [self.subPageVCArray addObject:statRecordVC];
     }
     self.subPageTitleArray = @[@"星星获取", @"礼物兑换",@"任务得分",@"考试统计"];
@@ -69,6 +71,9 @@ UIScrollViewDelegate
 -(void)updateStudentRecordWithStudentId:(NSInteger)studentId{
     
     [(StudentStarRecordViewController *)self.pageController.currentViewController updateStarRecordWithSutdentId:studentId];
+    for (StudentStarRecordViewController *vc in self.pageController.viewControllerClasses) {
+        vc.studentId = studentId;
+    }
 }
 
 #pragma mark - WMPageControllerDelegate, WMPageControllerDataSource
@@ -89,4 +94,7 @@ UIScrollViewDelegate
     return CGRectMake(15, 0, kColumnThreeWidth - 30 , 35);
 }
 
+- (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info{
+    NSLog(@"selectIndex %d",pageController.selectIndex);
+}
 @end

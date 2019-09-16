@@ -59,7 +59,15 @@ CGFloat const ClassEditTableViewCellHeight = 320.f;
     } else {
         self.classStudentsTextField.text = nil;
     }
-    self.classTypeTextField.text = clazz.isTrial?@"试听课":@"正式课堂";
+    NSString *trial;
+    if (clazz.trial == 1) {
+        trial = @"春季";
+    } else if (clazz.trial == 2) {
+        trial = @"夏季";
+    } else {
+        trial = @"秋季";
+    }
+    self.classTypeTextField.text = trial;
     NSArray * pickList = @[@"零基础",@"1级",@"2级",@"3级",@"4级",@"5级",@"6级",@"7级"];
     self.classLevelTextField.text = [pickList objectAtIndex:clazz.classLevel];
 }

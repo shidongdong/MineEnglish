@@ -32,6 +32,7 @@ UITableViewDataSource
 // 班级列表
 @property (nonatomic,strong) NSMutableArray *classes;
 @property (nonatomic,strong) NSMutableArray *classNames;
+@property (nonatomic,strong) NSMutableDictionary *classDict;
 //@property (nonatomic,strong) NSArray *sortedClassKeys;
 
 
@@ -240,6 +241,7 @@ UITableViewDataSource
         NSArray *studentsGroup = self.studentDict[self.sortedKeys[section]];
         return studentsGroup.count;
     } else {
+        
         StudentsByClass * clazz= self.classes[section];
         return clazz.students.count;
     }
@@ -266,6 +268,8 @@ UITableViewDataSource
     } else {
         
         StudentsByClass * clazz= self.classes[indexPath.section];
+        
+//        [self.classDict setObject:obj forKey:[NSString stringWithFormat:@"%lu",clazz.classId]];
         student = clazz.students[indexPath.row];
     }
     if (self.currentIndexPath == nil) {
@@ -308,8 +312,10 @@ UITableViewDataSource
         timeLabel.text = self.sortedKeys[section];
     } else {
         
-        if (section < self.classNames.count) {
-            timeLabel.text = self.classNames[section];
+        if (section < self.classes.count) {
+            
+            StudentsByClass * clazz= self.classes[section];
+            timeLabel.text = clazz.className;
         }
     }
     return headerView;
@@ -464,14 +470,17 @@ UITableViewDataSource
     [outputFormat setVCharType:VCharTypeWithV];
     [outputFormat setCaseType:CaseTypeUppercase];
     [self.classNames removeAllObjects];
+    if (self.classDict == nil) {
+        self.classDict = [NSMutableDictionary dictionary];
+    }
+    [self.classDict removeAllObjects];
     
     WeakifySelf;
-    NSMutableDictionary *keyDict = [NSMutableDictionary dictionary];
     [self.classes enumerateObjectsUsingBlock:^(StudentsByClass * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString *pinyin = [[PinyinHelper toHanyuPinyinStringWithNSString:obj.className withHanyuPinyinOutputFormat:outputFormat withNSString:@" "] uppercaseString];
         obj.pinyinName = pinyin;
-        [weakSelf.classNames addObject:obj.className];
-        [keyDict setValue:obj.className forKey:[pinyin substringToIndex:1]];
+        [weakSelf.classNames addObject:obj];
+        [self.classDict setObject:obj forKey:[NSString stringWithFormat:@"%lu",obj.classId]];
     }];
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pinyinName" ascending:YES];
