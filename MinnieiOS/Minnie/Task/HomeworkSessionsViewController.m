@@ -515,15 +515,15 @@ MIActivityBannerViewDelegate
                 if (unReadCount == 0)
                 {
                     //一般由点击事件产生,需要在重新进入页面的时候
-                    [self.unReadHomeworkSessions removeObject:session];
+//                    [self.unReadHomeworkSessions removeObject:session];
                     self.shouldReloadTableWhenAppeard = YES;
                 }
                 else
                 {
-                    if (![self.unReadHomeworkSessions containsObject:session])
-                    {
-                        [self.unReadHomeworkSessions addObject:session];
-                    }
+//                    if (![self.unReadHomeworkSessions containsObject:session])
+//                    {
+//                        [self.unReadHomeworkSessions addObject:session];
+//                    }
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self reloadTableViewForNewMessage:message];
                     });
