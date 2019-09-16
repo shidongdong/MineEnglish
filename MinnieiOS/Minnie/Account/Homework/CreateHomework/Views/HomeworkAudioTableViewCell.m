@@ -70,7 +70,6 @@ CGFloat const HomeworkAudioWithMp3TableViewCellHeight = 164.f;
     if (self.deleteFileCallback != nil) {
         self.deleteFileCallback();
     }
-    
 }
 
 - (IBAction)deleteButtonPressed:(id)sender {

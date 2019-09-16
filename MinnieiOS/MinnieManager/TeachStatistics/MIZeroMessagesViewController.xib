@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MIZeroMessagesViewController">
+            <connections>
+                <outlet property="headerView" destination="JPZ-UK-TA0" id="lbM-y6-Ron"/>
+                <outlet property="tableView" destination="sHD-vg-IOM" id="vLB-Jf-3Mx"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JPZ-UK-TA0" userLabel="导航栏">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="零分动态" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WJr-I9-cYO">
+                            <rect key="frame" x="170.5" y="21" width="73.5" height="22"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                            <color key="textColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0XJ-os-9bA">
+                            <rect key="frame" x="0.0" y="63.5" width="414" height="0.5"/>
+                            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="aMA-h0-8Bq"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="64" id="4SX-rc-jis"/>
+                        <constraint firstItem="WJr-I9-cYO" firstAttribute="centerX" secondItem="JPZ-UK-TA0" secondAttribute="centerX" id="U8G-hh-6rZ"/>
+                        <constraint firstAttribute="bottom" secondItem="0XJ-os-9bA" secondAttribute="bottom" id="adl-7w-4Eh"/>
+                        <constraint firstItem="0XJ-os-9bA" firstAttribute="leading" secondItem="JPZ-UK-TA0" secondAttribute="leading" id="gDt-fg-RAS"/>
+                        <constraint firstAttribute="trailing" secondItem="0XJ-os-9bA" secondAttribute="trailing" id="l3e-K9-cjK"/>
+                        <constraint firstItem="WJr-I9-cYO" firstAttribute="centerY" secondItem="JPZ-UK-TA0" secondAttribute="centerY" id="zpJ-vL-fW6"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sHD-vg-IOM">
+                    <rect key="frame" x="0.0" y="64" width="414" height="832"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="VhB-Se-ocZ"/>
+                        <outlet property="delegate" destination="-1" id="fka-qm-GP1"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="sHD-vg-IOM" secondAttribute="trailing" id="K5C-hc-t1p"/>
+                <constraint firstItem="sHD-vg-IOM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="NIB-Xt-mcQ"/>
+                <constraint firstAttribute="bottom" secondItem="sHD-vg-IOM" secondAttribute="bottom" id="PDg-IM-M8F"/>
+                <constraint firstItem="JPZ-UK-TA0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gqq-sP-mLa"/>
+                <constraint firstItem="sHD-vg-IOM" firstAttribute="top" secondItem="JPZ-UK-TA0" secondAttribute="bottom" id="m6E-1d-QVf"/>
+                <constraint firstAttribute="trailing" secondItem="JPZ-UK-TA0" secondAttribute="trailing" id="tYc-9X-Ox2"/>
+                <constraint firstItem="JPZ-UK-TA0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="wyZ-ZH-50l"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

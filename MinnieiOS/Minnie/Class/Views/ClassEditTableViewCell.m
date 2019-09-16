@@ -56,6 +56,8 @@ CGFloat const ClassEditTableViewCellHeight = 320.f;
 
     if (clazz.maxStudentsCount > 0) {
         self.classStudentsTextField.text = [NSString stringWithFormat:@"%zd", clazz.maxStudentsCount];
+    } else {
+        self.classStudentsTextField.text = nil;
     }
     self.classTypeTextField.text = clazz.isTrial?@"试听课":@"正式课堂";
     NSArray * pickList = @[@"零基础",@"1级",@"2级",@"3级",@"4级",@"5级",@"6级",@"7级"];
@@ -63,15 +65,17 @@ CGFloat const ClassEditTableViewCellHeight = 320.f;
 }
 
 - (void)textDidChange:(NSNotification *)notification {
+   
     if (self.classNameTextField.isFirstResponder) {
         if (self.nameChangedCallback != nil) {
             self.nameChangedCallback([self.classNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]);
         }
-    } else if (self.classLocationTextField.isFirstResponder) {
-        if (self.locationChangedCallback != nil) {
-            self.locationChangedCallback([self.classLocationTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]);
-        }
     }
+//    else if (self.classLocationTextField.isFirstResponder) {
+//        if (self.locationChangedCallback != nil) {
+//            self.locationChangedCallback([self.classLocationTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]);
+//        }
+//    }
 }
 
 - (IBAction)startTimeButtonPressed:(id)sender {
@@ -85,6 +89,14 @@ CGFloat const ClassEditTableViewCellHeight = 320.f;
         self.selectEndTimeCallback();
     }
 }
+
+- (IBAction)localButtonPressed:(id)sender {
+    
+    if (self.locationChangedCallback) {
+        self.locationChangedCallback();
+    }
+}
+
 
 - (IBAction)teacherButtonPressed:(id)sender {
     if (self.selectTeacherCallback != nil) {

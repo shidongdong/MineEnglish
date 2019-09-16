@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,7 +25,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cek-MY-NQ6" userLabel="描述信息">
-                        <rect key="frame" x="272.5" y="16" width="35.5" height="17"/>
+                        <rect key="frame" x="272.5" y="16.5" width="35.5" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -38,7 +37,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="label_ic_into.png" translatesAutoresizingMaskIntoConstraints="NO" id="Pa7-2Z-tay">
-                        <rect key="frame" x="292" y="16" width="16" height="16"/>
+                        <rect key="frame" x="292" y="17" width="16" height="16"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="MEg-Q5-63B"/>
                             <constraint firstAttribute="width" constant="16" id="yca-La-MHO"/>
@@ -51,9 +50,17 @@
                             <constraint firstAttribute="height" constant="0.5" id="kOq-sf-xUx"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fZ2-n9-aEq">
+                        <rect key="frame" x="317" y="0.0" width="3" height="49.5"/>
+                        <color key="backgroundColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="3" id="pSk-YW-95V"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="vUa-iw-y9e" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="AE2-p7-skJ"/>
+                    <constraint firstAttribute="trailing" secondItem="fZ2-n9-aEq" secondAttribute="trailing" id="I78-Y6-Niw"/>
                     <constraint firstAttribute="bottom" secondItem="LHT-dm-TcF" secondAttribute="bottom" id="JIc-db-xYb"/>
                     <constraint firstAttribute="bottom" secondItem="yMZ-zO-DtL" secondAttribute="bottom" id="Po0-hr-KkQ"/>
                     <constraint firstAttribute="trailing" secondItem="Cek-MY-NQ6" secondAttribute="trailing" constant="12" id="dU0-Ul-y55"/>
@@ -62,6 +69,8 @@
                     <constraint firstItem="LHT-dm-TcF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="gKn-td-iUX"/>
                     <constraint firstItem="Pa7-2Z-tay" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="glL-fQ-7Nc"/>
                     <constraint firstItem="yMZ-zO-DtL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="gzR-Za-A3d"/>
+                    <constraint firstAttribute="bottom" secondItem="fZ2-n9-aEq" secondAttribute="bottom" id="kdJ-Xa-L80"/>
+                    <constraint firstItem="fZ2-n9-aEq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="lj1-A7-vd1"/>
                     <constraint firstAttribute="trailing" secondItem="LHT-dm-TcF" secondAttribute="trailing" id="qfM-3V-TZp"/>
                     <constraint firstItem="Pa7-2Z-tay" firstAttribute="leading" secondItem="vUa-iw-y9e" secondAttribute="trailing" constant="8" id="rpy-dC-uSa"/>
                     <constraint firstItem="yMZ-zO-DtL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="yRX-ba-oQA"/>
@@ -73,8 +82,9 @@
                 <outlet property="detailLabel" destination="Cek-MY-NQ6" id="4oq-pi-9li"/>
                 <outlet property="iconImageView" destination="Pa7-2Z-tay" id="mex-oa-lRE"/>
                 <outlet property="itemLabel" destination="yMZ-zO-DtL" id="nGp-cg-UNv"/>
+                <outlet property="rightLineView" destination="fZ2-n9-aEq" id="bz5-Qb-hMz"/>
             </connections>
-            <point key="canvasLocation" x="-276" y="-70"/>
+            <point key="canvasLocation" x="-276.80000000000001" y="-70.164917541229386"/>
         </tableViewCell>
     </objects>
     <resources>

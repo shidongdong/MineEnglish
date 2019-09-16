@@ -14,24 +14,26 @@
 @property (nonatomic, copy) NSString *nextUrl;
 @property (nonatomic, assign) NSInteger pageNum;
 @property (nonatomic, assign) NSInteger pageNo;
+@property (nonatomic, assign) NSInteger fileId;
 
 @end
 
 @implementation SearchHomeworksRequest
 
-- (instancetype)initWithKeyword:(NSArray<NSString *> *)keyword {
+- (instancetype)initWithKeyword:(NSArray<NSString *> *)keyword fileId:(NSInteger)fileId{
     self = [super init];
     if (self != nil) {
         
         _pageNo = 1;
         _pageNum = 10;
         _keyword = keyword;
+        _fileId = fileId;
     }
     
     return self;
 }
 
-- (instancetype)initWithNextUrl:(NSString *)nextUrl withKeyword:(NSArray<NSString *> *)keyword {
+- (instancetype)initWithNextUrl:(NSString *)nextUrl withKeyword:(NSArray<NSString *> *)keyword fileId:(NSInteger)fileId{
     self = [super init];
     if (self != nil) {
         
@@ -45,6 +47,7 @@
         _pageNo = [[parmsArray objectAtIndex:1] integerValue];
         _keyword = keyword;
         _nextUrl = nextUrl;
+        _fileId = fileId;
     }
     
     return self;
@@ -62,7 +65,9 @@
 - (id)requestArgument {
     
     if (self.keyword.count > 0) {
-        return @{@"tags":self.keyword};
+        return @{@"tags":self.keyword,
+                 @"fileId":@(self.fileId)
+                 };
     }
     return nil;
 }

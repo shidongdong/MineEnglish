@@ -7,15 +7,8 @@
 //
 
 #import "CircleService.h"
-#import "CircleHomeworksRequest.h"
-#import "AddHomeworkCommentRequest.h"
-#import "DeleteHomeworkCommentRequest.h"
-#import "LikeHomeworkRequest.h"
-#import "UnlikeHomeworkRequest.h"
-#import "HomeworkRequest.h"
-#import "DeleteCircleHomeworkRequest.h"
-#import "UnreaderCircleCountRequest.h"
-#import "CircleHomeworkFlagRequest.h"
+#import "CircleRequest.h"
+
 @implementation CirlcleService
 
 + (BaseRequest *)requestAllHomeworksWithCallback:(RequestCallback)callback {
@@ -30,6 +23,19 @@
     return request;
 }
 
+
++ (BaseRequest *)requestHomeworksWithLevel:(NSUInteger)level
+                                  callback:(RequestCallback)callback{
+    
+    CircleHomeworksRequest *request = [[CircleHomeworksRequest alloc] initWithLevel:level];
+    request.objectKey = @"list";
+    request.objectClassName = @"CircleHomework";
+    
+    request.callback = callback;
+    [request start];
+    
+    return request;
+}
 + (BaseRequest *)requestCircleHomeworkFlagWithcallback:(RequestCallback)callback
 {
     CircleHomeworkFlagRequest * request = [[CircleHomeworkFlagRequest alloc] init];

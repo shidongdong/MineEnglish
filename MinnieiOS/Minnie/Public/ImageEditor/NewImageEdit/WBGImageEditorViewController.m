@@ -143,9 +143,8 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
-    [self.mCollectionView setContentOffset:CGPointMake(self.selectIndex * kScreenWidth, 0)];
     
-    
+    [self.mCollectionView setContentOffset:CGPointMake(self.selectIndex * ScreenWidth, 0)];
      self.editorContent = (WBGImageEditorCollectionViewCell *)[self.mCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.selectIndex inSection:0]];
 }
 
@@ -215,13 +214,25 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+  
     WBGImageEditorCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:WBGImageEditorCollectionViewCellId forIndexPath:indexPath];
-    [cell setupThumbImage:[self.thumbnailImages objectAtIndex:indexPath.item] withOrignImageURLURL:[self.originalImageUrls objectAtIndex:indexPath.item]];
-    
+    if (self.originalImageUrls.count > 0) {
+        UIImage *thumImage;
+        if (indexPath.item < self.thumbnailImages.count) {
+            thumImage = [self.thumbnailImages objectAtIndex:indexPath.item];
+        } else {
+            thumImage = [UIImage imageNamed:@"activity_placeholder"];
+        }
+        [cell setupThumbImage:thumImage withOrignImageURLURL:[self.originalImageUrls objectAtIndex:indexPath.item]];
+    } else {
+        
+        [cell setupThumbImage:[self.thumbnailImages objectAtIndex:indexPath.item] withOrignImageURLURL:nil];
+    }
     return cell;
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+//    NSLog(@")
     int autualIndex = scrollView.contentOffset.x  / scrollView.bounds.size.width;
     self.selectIndex = autualIndex;
     
@@ -549,7 +560,9 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     self.whiteSelectedImageView.hidden = tag!=1;
     self.blackSelectedImageView.hidden = tag!=2;
     self.blueSelectedImageView.hidden = tag!=3;
-    self.currentColor = [self.colors objectAtIndex:tag];
+    if (tag < self.colors.count) {
+        self.currentColor = [self.colors objectAtIndex:tag];
+    }
 }
 
 @end

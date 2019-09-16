@@ -33,6 +33,9 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
 @property (nonatomic, weak) IBOutlet UICollectionView *homeworksCollectionView;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *homeworksCollectionViewHeightConstraint;
 
+@property (weak, nonatomic) IBOutlet UIView *rightViewLine;
+
+
 @property (nonatomic, assign) BOOL choice;
 
 @property (nonatomic, strong) Homework *homework;
@@ -45,12 +48,16 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
     [super awakeFromNib];
     [self layoutIfNeeded];
     self.containerView.layer.cornerRadius = 12.f;
-    self.containerView.layer.shadowOpacity = 0.4;// 阴影透明度
-    self.containerView.layer.shadowColor = [UIColor colorWithHex:0xEEEEEE].CGColor;
-    self.containerView.layer.shadowRadius = 3;
-    self.containerView.layer.shadowOffset = CGSizeMake(2, 4);
+//    self.containerView.layer.shadowOpacity = 0.4;// 阴影透明度
+//    self.containerView.layer.shadowColor = [UIColor colorWithHex:0xEEEEEE].CGColor;
+//    self.containerView.layer.shadowRadius = 3;
+//    self.containerView.layer.shadowOffset = CGSizeMake(2, 4);
+#if MANAGERSIDE
+    self.homeworkTextLabel.preferredMaxLayoutWidth = kColumnThreeWidth - 36 - 44;
+#else
+    self.homeworkTextLabel.preferredMaxLayoutWidth = ScreenWidth - 36 - 44;
+#endif
     
-    self.homeworkTextLabel.preferredMaxLayoutWidth = [UIScreen mainScreen].bounds.size.width - 36 - 44;
     self.previewButton.layer.masksToBounds = YES;
     self.previewButton.layer.cornerRadius = 16.0;
     
@@ -74,6 +81,7 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
 
 
 - (void)setupCollectionViewLayout {
+   
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     layout.itemSize = CGSizeMake(90, 110);
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -82,9 +90,22 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
     self.homeworksCollectionView.collectionViewLayout = layout;
 }
 
+- (void)selectedState:(BOOL)selected{
+    if (selected) {
+        self.backgroundColor = [UIColor selectedColor];
+        self.containerView.backgroundColor = [UIColor selectedColor];
+        self.homeworksCollectionView.backgroundColor = [UIColor selectedColor];
+    } else {
+        self.backgroundColor = [UIColor clearColor];
+        self.containerView.backgroundColor = [UIColor whiteColor];
+        self.homeworksCollectionView.backgroundColor = [UIColor clearColor];
+    }
+    self.rightViewLine.hidden = !selected;
+}
+
 - (void)setupWithHomework:(Homework *)homework {
     self.homework = homework;
-    
+    [self selectedState:NO];
     self.homeworkTitleLabel.text = self.homework.title?:@"[无标题]";
     
     NSString *text = nil;
@@ -95,19 +116,27 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
         }
     }
     
-    if (self.homework.items.count == 1) {
-        self.homeworksCollectionViewHeightConstraint.constant = 0.f;
+    if ([self.homework.typeName isEqualToString:kHomeworkTaskWordMemoryName]) {
+        if (self.homework.items.count <= 2) {
+            self.homeworksCollectionViewHeightConstraint.constant = 20.f;
+        } else {
+            self.homeworksCollectionViewHeightConstraint.constant = 110.f;
+        }
     } else {
-        self.homeworksCollectionViewHeightConstraint.constant = 110.f;
+      
+        if (self.homework.items.count == 1) {
+            self.homeworksCollectionViewHeightConstraint.constant = 20.f;
+        } else {
+            self.homeworksCollectionViewHeightConstraint.constant = 110.f;
+        }
     }
-
     self.homeworkTextLabel.text = text;
     self.dateLabel.text = [Utils formatedDateString:self.homework.createTime];
-    
     [self.homeworksCollectionView reloadData];
 }
 
 - (void)updateWithEditMode:(BOOL)editMode selected:(BOOL)selected {
+    
     if (editMode) {
         self.sendButton.hidden = YES;
         self.previewButton.hidden = YES;
@@ -119,8 +148,6 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
     }
 
     self.choice = selected;
-//    
-//    [self.previewButton setImage:[UIImage imageNamed:@"my_star_rank"] forState:UIControlStateNormal];
     if (selected) {
         [self.selecteButton setImage:[UIImage imageNamed:@"icon_mission_choice"] forState:UIControlStateNormal];
     } else {
@@ -129,10 +156,10 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
 }
 
 + (CGFloat)cellHeightWithHomework:(Homework *)homework {
+   
     if (homework.cellHeight > 0) {
         return homework.cellHeight;
     }
-    
     static HomeworkTableViewCell *cell = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -142,8 +169,7 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
     [cell setupWithHomework:homework];
     
     CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    
-    homework.cellHeight = size.height;
+    homework.cellHeight = size.height + 10;
     
     return homework.cellHeight;
 }
@@ -182,19 +208,17 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     NSInteger number = 0;
-    
+    //  items 第一个为内容文本，最后一个为单词
     for (HomeworkItem *item in self.homework.items) {
-        if (![item.type isEqualToString:HomeworkItemTypeText]) {
+        if (![item.type isEqualToString:HomeworkItemTypeText] && ![item.type isEqualToString:HomeworkItemTypeWord]) {
             number++;
         }
     }
-    
     return number;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = nil;
-    
     HomeworkItem *item = self.homework.items[indexPath.row+1];
     if ([item.type isEqualToString:HomeworkItemTypeImage]) {
         HomeworkImageCollectionViewCell *imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:HomeworkImageCollectionViewCellId forIndexPath:indexPath];
@@ -214,8 +238,10 @@ NSString * const HomeworkTableViewCellId = @"HomeworkTableViewCellId";
         [audioCell setupWithHomeworkItem:item name:[NSString stringWithFormat:@"材料%zd", indexPath.row+1]];
         
         cell = audioCell;
+    } else { // 异常保护
+        HomeworkImageCollectionViewCell *imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:HomeworkImageCollectionViewCellId forIndexPath:indexPath];
+        cell = imageCell;
     }
-    
     return cell;
 }
 

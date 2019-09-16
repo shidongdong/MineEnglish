@@ -12,6 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface StudentStarRecordViewController : BaseViewController
 
+// 0 星星记录 1 礼物兑换 2 任务得分 3 考试统计
+@property (nonatomic, assign) NSInteger recordType;
+
+
+- (void)updateStarRecordWithSutdentId:(NSInteger)studentId;
+
 @end
 
 NS_ASSUME_NONNULL_END

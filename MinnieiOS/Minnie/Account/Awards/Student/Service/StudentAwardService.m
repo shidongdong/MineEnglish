@@ -8,9 +8,6 @@
 
 #import "StudentAwardService.h"
 #import "AwardsRequest.h"
-#import "ExchangeAwardRequest.h"
-#import "ExchangeRecordsRequest.h"
-#import "StudentStarRankRequest.h"
 #import "StudentLabelRequest.h"
 @implementation StudentAwardService
 
@@ -26,26 +23,6 @@
     return request;
 }
 
-+ (BaseRequest *)exchangeAwardWithId:(NSUInteger)awardId callback:(RequestCallback)callback {
-    ExchangeAwardRequest *request = [[ExchangeAwardRequest alloc] initWithId:awardId];
-    
-    [request setCallback:callback];
-    [request start];
-    
-    return request;
-}
-
-+ (BaseRequest *)requestExchangeRecordsWithCallback:(RequestCallback)callback {
-    ExchangeRecordsRequest *request = [[ExchangeRecordsRequest alloc] init];
-    
-    request.objectKey = @"list";
-    request.objectClassName = @"ExchangeRecord";
-
-    [request setCallback:callback];
-    [request start];
-    
-    return request;
-}
 
 + (BaseRequest *)requestStudentStarRankListWithCallback:(RequestCallback)callback
 {
@@ -87,9 +64,11 @@
 //学生星星增减记录（学生端）
 + (BaseRequest *)requestStarLogsWithPageNo:(NSUInteger)pageNo
                                    pageNum:(NSUInteger)pageNum
+                                   logType:(NSString *)logType
+                                 studentId:(NSInteger)studentId
                                   callback:(RequestCallback)callback{
     
-    StudentStarLogsRequest *request = [[StudentStarLogsRequest alloc] initWithPageNo:pageNo pageNum:pageNum];
+    StudentStarLogsRequest *request = [[StudentStarLogsRequest alloc] initWithPageNo:pageNo pageNum:pageNum studentId:studentId logType:logType];
     request.objectKey = @"list";
     request.objectClassName = @"StarLogs";
     [request setCallback:callback];
@@ -97,4 +76,5 @@
     return request;
 }
 @end
+
 

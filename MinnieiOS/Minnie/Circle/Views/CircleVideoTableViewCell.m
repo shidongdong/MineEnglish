@@ -6,11 +6,11 @@
 //  Copyright © 2017年 mfox. All rights reserved.
 //
 
+
+#import "Application.h"
+#import "MaskImageView.h"
 #import "CircleVideoTableViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "Utils.h"
-#import "MaskImageView.h"
-#import "Application.h"
 
 NSString * const CircleVideoTableViewCellId = @"CircleVideoTableViewCellId";
 
@@ -87,18 +87,27 @@ static CGFloat const CircleVideoThumbnailRatio = 140/222.f;
     [self.likeButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     
     CGFloat width = [UIScreen mainScreen].bounds.size.width - 24 - 70 - 60.f;
-    
+#if MANAGERSIDE
+    width = (ScreenWidth - kRootModularWidth)/2.0 - 24 - 70 - 60.f;
+#endif
     UIImage *maskImage = [[UIImage imageNamed:@"三圆角_遮罩"] resizableImageWithCapInsets:UIEdgeInsetsMake(15, 15, 15, 15) resizingMode:UIImageResizingModeStretch];
     [self.videoThumbnailView fitShapeWithMaskImage:maskImage
                                        topCapInset:15
                                       leftCapInset:15
-                                              size:CGSizeMake(width, width*CircleVideoThumbnailRatio)];
+                                              size:CGSizeMake(width, width*CircleVideoThumbnailRatio )];
 }
 
 + (CGFloat)cellHeight {
-    CGFloat width = [UIScreen mainScreen].bounds.size.width - 24 - 70 - 60.f;
     
+    CGFloat width = 0;
+#if MANAGERSIDE
+    width = (ScreenWidth - kRootModularWidth)/2.0  - 24 - 70 - 60.f;
+    return ceil(12.f + 34.f + width * CircleVideoThumbnailRatio + 44);
+    
+#else
+    width = [UIScreen mainScreen].bounds.size.width - 24 - 70 - 60.f;
     return ceil(12.f + 34.f + width * CircleVideoThumbnailRatio + 44.f);
+#endif
 }
 
 @end

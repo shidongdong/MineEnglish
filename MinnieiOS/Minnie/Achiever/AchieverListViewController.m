@@ -10,7 +10,6 @@
 #import "AchieverListCollectionViewCell.h"
 #import "AchieverListHeaderView.h"
 #import "AchieverService.h"
-#import "UIView+Load.h"
 #import "AlertView.h"
 @interface AchieverListViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 

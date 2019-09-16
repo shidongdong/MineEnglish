@@ -9,11 +9,17 @@
 #import "BaseViewController.h"
 #import "HomeworkSession.h"
 
+typedef void(^SessionDetailDisappearCallBack)(void);
+
 // 作业聊天页面
 @interface HomeworkSessionViewController : BaseViewController
 
 // 作业session
 @property (nonatomic, strong) HomeworkSession *homeworkSession;
+
+// （管理端）
+@property (nonatomic, strong) Teacher *teacher;
+@property (nonatomic, copy) SessionDetailDisappearCallBack dissCallBack;
 
 @end
 

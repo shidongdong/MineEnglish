@@ -30,10 +30,12 @@
 
 // 搜索作业
 + (BaseRequest *)searchHomeworkWithKeyword:(NSArray<NSString *> *)key
+                                     fieldId:(NSInteger)fieldId
                                   callback:(RequestCallback)callback;
 
 + (BaseRequest *)searchHomeworkWithNextUrl:(NSString *)nextUrl
                                withKeyword:(NSArray<NSString *> *)key
+                                   fieldId:(NSInteger)fieldId
                                   callback:(RequestCallback)callback;
 
 + (BaseRequest *)sendHomeworkIds:(NSArray <NSNumber *> *)homeworkIds

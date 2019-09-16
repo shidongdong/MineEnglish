@@ -35,6 +35,11 @@
 @property (nonatomic, assign) NSInteger commitedHomeworksCount;  //已提交的作业数量
 @property (nonatomic, assign) NSInteger classLevel;//班级等级0-7
 
+@property (nonatomic, copy) NSString *pinyinName;
+
+@property (nonatomic, assign) BOOL canLookClass;
+@property (nonatomic, assign) BOOL canLookStudent;
+
 - (NSDictionary *)dictionaryForUpload;
 
 @end

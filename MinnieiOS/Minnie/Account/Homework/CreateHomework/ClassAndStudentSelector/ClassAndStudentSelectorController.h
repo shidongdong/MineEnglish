@@ -21,11 +21,15 @@
 
 @end
 
+// 发送消息、发送作业、创建活动
 @interface ClassAndStudentSelectorController : UIViewController
 
 @property (nonatomic, weak) IBOutlet id<ClassAndStudentSelectorControllerDelegate> delegate;
 
 // 要发送的作业
 @property (nonatomic, strong) NSArray <Homework *> *homeworks;
+
+//  创建活动
+@property (nonatomic, assign) BOOL isCreateActivityTask;
 
 @end

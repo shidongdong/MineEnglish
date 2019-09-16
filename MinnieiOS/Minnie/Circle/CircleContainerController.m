@@ -11,7 +11,6 @@
 #import "SegmentControl.h"
 #import "Constants.h"
 #import "CircleHomeworksViewController.h"
-#import <Masonry/Masonry.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface CircleContainerController ()
@@ -48,7 +47,7 @@
     [self.avatarImageView sd_setImageWithURL:[avatarUrl imageURLWithWidth:30]];
 
     self.segmentControl = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SegmentControl class]) owner:nil options:nil] lastObject];
-    self.segmentControl.titles = @[@"学校", @"班级"];
+    self.segmentControl.titles = @[@"年级", @"学校"];
     self.segmentControl.selectedIndex = 0;
     
     __weak CircleContainerController *weakSelf = self;
@@ -83,7 +82,7 @@
     if (index == 0) {
         if (self.schoolCircleChildController == nil) {
             self.schoolCircleChildController = [[CircleViewController alloc] initWithNibName:NSStringFromClass([CircleViewController class]) bundle:nil];
-            self.schoolCircleChildController.circleType = CircleSchool;
+            self.schoolCircleChildController.circleType = CircleClass;
             existed = NO;
         }
         
@@ -91,7 +90,7 @@
     } else if (index == 1) {
         if (self.classCircleChildController == nil) {
             self.classCircleChildController = [[CircleViewController alloc] initWithNibName:NSStringFromClass([CircleViewController class]) bundle:nil];
-            self.classCircleChildController.circleType = CircleClass;
+            self.classCircleChildController.circleType = CircleSchool;
             
             existed = NO;
         }

@@ -43,8 +43,32 @@ NSString * const kIMManagerClientOnlineNotification = @"kIMManagerClientOnlineNo
 
 - (void)setupWithClientId:(NSString *)cliendId
                  callback:(AVIMBooleanResultBlock)callback {
-    self.client = [[AVIMClient alloc] initWithClientId:cliendId tag:@"uniq"];
+    
+    NSString *tag;
+    
+#if MANAGERSIDE || TEACHERSIDE
+    /**
+     班级管理查看其它老师会话内容，会导致该老师端会话被强制下线
+     采用多端登录方式，避免被查看老师端被踢下线
+     cliendId等于userId即为登录用户，tag用Mobile标记,
+     否则为被查看老师的cliendId tag用Pad标记
+     多个老师同时查看一个老师时，都为ipad（即cliendId不等于userId），收到被下线通知后不用处理
+     
+     学生端同理(任务管理查看得分列表中学生会话内容，会导致该学生端会话被强制下线)
+     */
+    if (APP.currentUser.userId == cliendId.integerValue) {
+        tag = @"Mobile";
+    } else {
+        tag = @"Pad";
+    }
+#else
+    tag = @"Mobile";
+#endif
+    
+    self.client = [[AVIMClient alloc] initWithClientId:cliendId tag:tag];
     self.client.delegate = self;
+    
+    
     
     [self.client openWithOption:AVIMClientOpenOptionForceOpen
                        callback:^(BOOL succeeded, NSError * _Nullable error) {
@@ -149,8 +173,12 @@ didOfflineWithError:(NSError *)error {
             [HUD showErrorWithMessage:@"你的帐号在别处登录"];
         });
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:kIMManagerClientDidKickOutReceiveNotification
-                                                            object:nil];
+        NSLog(@"被人踢出来了，应用退出:: %lu,%@",APP.currentUser.userId,client.clientId);
+        if (APP.currentUser.userId == client.clientId.integerValue) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kIMManagerClientDidKickOutReceiveNotification
+                                                                object:nil];
+        }
     }
 }
 

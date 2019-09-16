@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,6 +19,7 @@
                 <outlet property="leftFuncButton" destination="1Qc-8Q-Zcj" id="DqI-Vb-6Fr"/>
                 <outlet property="redIncoinView" destination="zyA-j5-0ZE" id="vgu-3o-mU1"/>
                 <outlet property="rightFuncButton" destination="SP1-uc-9qs" id="GMG-21-5C4"/>
+                <outlet property="rightLineView" destination="np5-Q3-EpP" id="YlX-Yf-cpB"/>
                 <outlet property="view" destination="io7-4S-uSt" id="SyW-gi-FsS"/>
             </connections>
         </placeholder>
@@ -115,12 +115,22 @@
                         <outlet property="delegate" destination="-1" id="eUj-aj-liq"/>
                     </connections>
                 </scrollView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="np5-Q3-EpP">
+                    <rect key="frame" x="374" y="0.0" width="1" height="667"/>
+                    <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1" id="5Th-kG-I3H"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="htz-wM-40E" firstAttribute="top" secondItem="np5-Q3-EpP" secondAttribute="top" constant="20" id="Bwe-rf-Kxu"/>
+                <constraint firstItem="htz-wM-40E" firstAttribute="bottom" secondItem="np5-Q3-EpP" secondAttribute="bottom" id="JuU-yO-0xa"/>
                 <constraint firstItem="bQ5-c9-usN" firstAttribute="width" secondItem="io7-4S-uSt" secondAttribute="width" multiplier="2" id="UO2-kl-9wb"/>
                 <constraint firstItem="Xfk-m6-0Gm" firstAttribute="leading" secondItem="io7-4S-uSt" secondAttribute="leading" id="WAW-Pi-L3e"/>
                 <constraint firstItem="Xfk-m6-0Gm" firstAttribute="top" relation="greaterThanOrEqual" secondItem="io7-4S-uSt" secondAttribute="top" constant="20" id="bNO-3m-00w"/>
+                <constraint firstItem="htz-wM-40E" firstAttribute="trailing" secondItem="np5-Q3-EpP" secondAttribute="trailing" id="d2Y-L0-SdB"/>
                 <constraint firstItem="bQ5-c9-usN" firstAttribute="height" secondItem="io7-4S-uSt" secondAttribute="height" constant="-64" id="fIM-OA-0Tz"/>
                 <constraint firstItem="LCs-vs-RkO" firstAttribute="top" secondItem="Xfk-m6-0Gm" secondAttribute="bottom" id="hhm-EK-8vl"/>
                 <constraint firstAttribute="trailing" secondItem="LCs-vs-RkO" secondAttribute="trailing" id="jJf-bO-gb1"/>

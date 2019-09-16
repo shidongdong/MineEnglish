@@ -60,6 +60,40 @@
     return request;
 }
 
++ (BaseRequest *)requestStudentLisByClasstWithCallback:(RequestCallback)callback{
+    
+    StudentsByClassRequest *request = [[StudentsByClassRequest alloc] init];
+    request.objectKey = @"list";
+    request.objectClassName = @"StudentsByClass";
+    request.callback = callback;
+    [request start];
+    
+    return request;
+}
+
+
++ (BaseRequest *)requestStudentZeroTaskCallback:(RequestCallback)callback{
+   
+    StudentZeroTaskRequest *request = [[StudentZeroTaskRequest alloc] init];
+    request.objectKey = @"list";
+    request.objectClassName = @"StudentZeroTask";
+    request.callback = callback;
+    [request start];
+    
+    return request;
+}
+
+
++ (BaseRequest *)requestStudentDetailTaskWithStuId:(NSInteger)stuId
+                                          callback:(RequestCallback)callback{
+    
+    StudentDetailTaskRequest *request = [[StudentDetailTaskRequest alloc] initWithStudentId:stuId];
+    request.objectClassName = @"StudentDetail";
+    request.callback = callback;
+    [request start];
+    
+    return request;
+}
 @end
 
 

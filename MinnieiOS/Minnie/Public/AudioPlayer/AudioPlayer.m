@@ -135,13 +135,24 @@ NSString * const kNotificationOfAudioPlayerStateDidChange = @"kNotificationOfAud
     }
 }
 
+- (void)playLocalURL:(NSString *)url{
+   
+    [self stop];
+    if (url == nil) {
+        return;
+    }
+    NSString *path = [[NSBundle mainBundle] pathForResource:url ofType:@"mp3"];
+    [self playWithLocalFileURL:[NSURL fileURLWithPath:path]];
+    self.player.volume = 0.5;
+}
+
 - (void)playWithLocalFileURL:(NSURL *)fileURL {
-    self.player = [[AVPlayer alloc] initWithURL:fileURL];
     
+    self.player = [[AVPlayer alloc] initWithURL:fileURL];
     [self installKVO];
     [self addNotificationObserver];
     
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategorySoloAmbient error:nil];
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
     
     [self.player play];

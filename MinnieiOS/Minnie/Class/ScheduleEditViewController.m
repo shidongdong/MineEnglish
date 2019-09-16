@@ -10,12 +10,11 @@
 #import "CalendarTableViewCell.h"
 #import "Clazz.h"
 #import <Masonry/Masonry.h>
-#import "Utils.h"
 #import "Constants.h"
-#import "UIView+Load.h"
 #import "ScheduleEditHeaderView.h"
 #import "DatePickerView.h"
 #import "NSDate+X5.h"
+#import "NSDate+Extension.h"
 
 @interface ScheduleEditViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -390,7 +389,6 @@
         NSDate *d = [NSDate dateWithTimeIntervalSince1970:dateNumber.floatValue/1000];
         if ([d isSameDayWithDate:date]) {
             [self.dates removeObjectAtIndex:index];
-            
             break;
         }
         
@@ -599,7 +597,7 @@
         }
     }
     // 课程月份排序
-    [self.months sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+    [self.months sortUsingComparator:^NSComparisonResult(NSString * _Nonnull obj1, NSString *   _Nonnull obj2) {
         
         MonthItem *monthItem1 = self.monthItems[obj1];
         MonthItem *monthItem2 = self.monthItems[obj2];

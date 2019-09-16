@@ -6,7 +6,6 @@
 //  Copyright © 2019 minnieedu. All rights reserved.
 //
 
-#import "UIView+Load.h"
 #import "StudentAwardService.h"
 #import "UIScrollView+Refresh.h"
 #import "StudentStarRecordViewController.h"
@@ -17,6 +16,9 @@ UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerHeightConstraint;
+
 @property (nonatomic, strong) BaseRequest * rankRequest;
 
 @property (nonatomic, strong) NSMutableArray *recordArray;
@@ -26,6 +28,8 @@ UITableViewDataSource>
 
 @property (nonatomic, assign) NSInteger currentIndex;
 
+@property (nonatomic, assign) NSInteger studentId;
+
 @end
 
 @implementation StudentStarRecordViewController
@@ -33,21 +37,33 @@ UITableViewDataSource>
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.recordArray = [[NSMutableArray alloc] init];
-    UIView *footerView = [[UIView alloc] init];
-    footerView.backgroundColor = [UIColor clearColor];
-    self.tableView.tableFooterView = footerView;
+    self.tableView.tableFooterView = [UIView new];
     _pageNum = 20;
     _currentIndex = 1;
+    _studentId = APP.currentUser.userId;
     // 下拉刷新
     [self.tableView addPullToRefreshWithTarget:self refreshingAction:@selector(refresh)];
     
     // 上拉加载
     [self.tableView addInfiniteScrollingWithTarget:self refreshingAction:@selector(loadMore)];
     [self.tableView headerBeginRefreshing];
+
+#if MANAGERSIDE
+    self.headerView.hidden = YES;
+    self.headerHeightConstraint.constant = 0;
+#else
+    self.headerView.hidden = NO;
+    self.headerHeightConstraint.constant = 44;
+#endif
+}
+
+- (void)updateStarRecordWithSutdentId:(NSInteger)studentId{
+    self.studentId = studentId;
+    [self refresh];
 }
 
 - (void)refresh{
-    
+
     _currentIndex = 1;
     [self requestStarRecordList:YES];
 }
@@ -58,17 +74,23 @@ UITableViewDataSource>
     [self requestStarRecordList:NO];
 
 }
+
+#pragma mark - 礼物兑换
 - (void)requestStarRecordList:(BOOL)isRefresh
 {
 
     self.tableView.hidden = YES;
-    self.rankRequest = [StudentAwardService requestStarLogsWithPageNo:_currentIndex pageNum:_pageNum callback:^(Result *result, NSError *error) {
+    NSString *logType = [NSString stringWithFormat:@"%lu",self.recordType];
+    self.rankRequest = [StudentAwardService requestStarLogsWithPageNo:_currentIndex
+                                                              pageNum:_pageNum
+                                                              logType:logType
+                                                            studentId:_studentId
+                                                             callback:^(Result *result, NSError *error) {
         
         [self.tableView headerEndRefreshing];
         [self.tableView footerEndRefreshing];
         [self handleStarRankResult:result error:error isRefresh:isRefresh];
     }];
-    
 }
 - (void)handleStarRankResult:(Result *)result error:(NSError *)error isRefresh:(BOOL)isRefresh
 {
@@ -91,6 +113,11 @@ UITableViewDataSource>
     [self.recordArray addObjectsFromArray:resultLogs.list];
     if (!resultLogs.list.count) {
         [self.tableView footerNoticeNoMoreData];
+    }
+    if (self.recordArray.count == 0) {
+        [self.view showEmptyViewWithImage:nil title:@"暂无记录"
+                                linkTitle:nil
+                        linkClickCallback:nil];
     }
     self.tableView.hidden = NO;
     [self.tableView reloadData];
@@ -130,8 +157,8 @@ UITableViewDataSource>
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellId"];
-        cell.textLabel.font = [UIFont systemFontOfSize:16];
-        cell.detailTextLabel.font = [UIFont systemFontOfSize:16];
+        cell.textLabel.font = [UIFont systemFontOfSize:14];
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:14];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.textColor = [UIColor colorWithHex:0x666666];
         cell.detailTextLabel.textColor = [UIColor colorWithHex:0x666666];
@@ -145,11 +172,11 @@ UITableViewDataSource>
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
    
     UIView *headerView =  [[UIView alloc] init];
-    headerView.backgroundColor = [UIColor colorWithHex:0XF5F5F5];
+    headerView.backgroundColor = [UIColor unSelectedColor];
     UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, ScreenWidth - 120, 16)];
     timeLabel.textAlignment = NSTextAlignmentLeft;
     timeLabel.font = [UIFont boldSystemFontOfSize:16];
-    timeLabel.textColor = [UIColor colorWithHex:0x999999];
+    timeLabel.textColor = [UIColor detailColor];
     [headerView addSubview:timeLabel];
     
     CGFloat rightWidth = 20;
@@ -159,7 +186,7 @@ UITableViewDataSource>
     UILabel *startCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth - 60 - rightWidth, 5, 60, 16)];
     startCountLabel.textAlignment = NSTextAlignmentRight;
     startCountLabel.font = [UIFont boldSystemFontOfSize:14];
-    startCountLabel.textColor = [UIColor colorWithHex:0x999999];
+    startCountLabel.textColor = [UIColor detailColor];
     [headerView addSubview:startCountLabel];
     DayStarLogDetail *dayLogDetail = self.recordArray[section];
     timeLabel.text = dayLogDetail.starLogDate;

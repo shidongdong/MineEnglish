@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MIEidtFileView">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nOV-8o-xwJ">
+                    <rect key="frame" x="87" y="159" width="144" height="89"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3H7-V7-zMj">
+                            <rect key="frame" x="0.0" y="0.0" width="144" height="44"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="重命名">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="renameAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="HpO-8m-BfD"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NBD-0T-xsh">
+                            <rect key="frame" x="0.0" y="44" width="144" height="1"/>
+                            <color key="backgroundColor" red="0.75406885150000003" green="0.75408679249999999" blue="0.75407713649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="doA-E8-w07"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1FF-Fa-6x6">
+                            <rect key="frame" x="0.0" y="45" width="144" height="44"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="删除文件夹">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="deleteAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="7IV-7X-Fyj"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="1FF-Fa-6x6" firstAttribute="height" secondItem="3H7-V7-zMj" secondAttribute="height" id="0iM-ww-3GY"/>
+                        <constraint firstAttribute="trailing" secondItem="1FF-Fa-6x6" secondAttribute="trailing" id="AcT-vP-qF9"/>
+                        <constraint firstItem="1FF-Fa-6x6" firstAttribute="top" secondItem="NBD-0T-xsh" secondAttribute="bottom" id="LtT-st-ITM"/>
+                        <constraint firstAttribute="height" constant="89" id="M16-gR-dpC"/>
+                        <constraint firstAttribute="width" constant="144" id="ODT-Id-ug7"/>
+                        <constraint firstItem="1FF-Fa-6x6" firstAttribute="leading" secondItem="nOV-8o-xwJ" secondAttribute="leading" id="TMD-MA-2Zq"/>
+                        <constraint firstItem="NBD-0T-xsh" firstAttribute="top" secondItem="3H7-V7-zMj" secondAttribute="bottom" id="dYq-yd-1hf"/>
+                        <constraint firstItem="3H7-V7-zMj" firstAttribute="top" secondItem="nOV-8o-xwJ" secondAttribute="top" id="eWV-1Y-ysm"/>
+                        <constraint firstItem="NBD-0T-xsh" firstAttribute="leading" secondItem="nOV-8o-xwJ" secondAttribute="leading" id="fEz-UT-5rf"/>
+                        <constraint firstItem="3H7-V7-zMj" firstAttribute="leading" secondItem="nOV-8o-xwJ" secondAttribute="leading" id="jrS-eS-7Aa"/>
+                        <constraint firstAttribute="trailing" secondItem="3H7-V7-zMj" secondAttribute="trailing" id="pRy-gO-uyy"/>
+                        <constraint firstAttribute="trailing" secondItem="NBD-0T-xsh" secondAttribute="trailing" id="qRW-og-qD9"/>
+                        <constraint firstAttribute="bottom" secondItem="1FF-Fa-6x6" secondAttribute="bottom" id="uJE-qO-emc"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="nOV-8o-xwJ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="115" id="V4F-UR-nSG"/>
+                <constraint firstItem="nOV-8o-xwJ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="87" id="dbf-hJ-mJE"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="bgView" destination="nOV-8o-xwJ" id="G1Y-qp-1p9"/>
+                <outlet property="leftContraint" destination="dbf-hJ-mJE" id="ihR-YX-l7r"/>
+                <outlet property="topConstraint" destination="V4F-UR-nSG" id="yuu-Eu-I8Z"/>
+            </connections>
+            <point key="canvasLocation" x="131.8840579710145" y="81.696428571428569"/>
+        </view>
+    </objects>
+</document>

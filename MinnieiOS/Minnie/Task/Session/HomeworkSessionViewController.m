@@ -23,7 +23,6 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <AVKit/AVKit.h>
 #import <Bugly/Bugly.h>
-#import "UIView+Load.h"
 #import "HomeworkSessionService.h"
 #import "NSDate+X5.h"
 #import "IMManager.h"
@@ -41,16 +40,33 @@
 #import "TZImagePickerController.h"
 #import "VICacheManager.h"
 #import "HomeworkAnswersPickerViewController.h"
-#import "SendAudioManager.h"
+#import "MICheckWordsViewController.h"
+#import "MIFollowUpViewController.h"
 
-#if TEACHERSIDE
+#if MANAGERSIDE
+#else
+
+#import "MReadWordsViewController.h"
+
+#endif
+
+#if TEACHERSIDE || MANAGERSIDE
 #import "HomeworkService.h"
 #endif
 static NSString * const kKeyOfCreateTimestamp = @"createTimestamp";
 static NSString * const kKeyOfAudioDuration = @"audioDuration";
 static NSString * const kKeyOfVideoDuration = @"videoDuration";
 
-@interface HomeworkSessionViewController()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, EmojiInputViewDelegate,UINavigationControllerDelegate,VIResourceLoaderManagerDelegate,HomeworkAnswersPickerViewControllerDelegate>
+@interface HomeworkSessionViewController()<
+UITableViewDataSource,
+UITableViewDelegate,
+UINavigationControllerDelegate,
+UIImagePickerControllerDelegate,
+UITextViewDelegate,
+EmojiInputViewDelegate,
+UINavigationControllerDelegate,
+VIResourceLoaderManagerDelegate,
+HomeworkAnswersPickerViewControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *messagesTableView;
 @property (nonatomic, weak) IBOutlet UIButton *audioButton;
@@ -97,7 +113,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 @property (nonatomic, weak) IBOutlet UIImageView *start5ImageView;
 @property (nonatomic, weak) IBOutlet UIButton *retryButton;
 
-//@property (nonatomic, strong) NEPhotoBrowser *photoBrowser;
 @property (nonatomic, strong) NSArray<UIImageView *> * currentImageViews;
 @property (nonatomic, strong)NSMutableArray * homeworkImages;    //作业详情所
 
@@ -109,6 +124,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 @property (nonatomic, strong) VIResourceLoaderManager *resourceLoaderManager;
 @property (nonatomic, strong) MBProgressHUD * mHud;
 
+
 @end
 
 @implementation HomeworkSessionViewController
@@ -116,22 +132,10 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-#if TEACHERSIDE
-    [self studentName];
-//    self.correctButton.hidden = self.homeworkSession.score>0;
-    self.correctButton.hidden = NO;
-    self.answerViewWidthConstraint.constant = ScreenWidth/4;
-    self.warnViewWidthConstraint.constant = ScreenWidth/4;
-#else
-    self.customTitleLabel.text = self.homeworkSession.correctTeacher.nickname;
-    self.correctButton.hidden = YES;
-    self.answerViewWidthConstraint.constant = 0;
-    self.warnViewWidthConstraint.constant = 0;
-#endif
-    
     self.messages = [NSMutableArray array];
     self.sortedMessages = [NSMutableDictionary dictionary];
     self.currentImageViews = [NSMutableArray array];
+    
     //从作业中提取
     self.homeworkImages = [NSMutableArray array];
     for (int i = 0; i < self.homeworkSession.homework.items.count; i++)
@@ -142,61 +146,14 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             [self.homeworkImages addObject:items.imageUrl];
         }
     }
+    APP.currentIMHomeworkSessionId = self.homeworkSession.homeworkSessionId;
     
-    
-    self.recordButton.hidden = YES;
-    self.recordButton.layer.borderWidth = 0.5f;
-    self.recordButton.layer.borderColor = [UIColor colorWithHex:0x333333].CGColor;
-    self.recordButton.layer.cornerRadius = 12.f;
-    self.recordButton.layer.masksToBounds = YES;
-    WeakifySelf;
-    self.recordButton.stateChangeBlock = ^(RecordButtonState state) {
-        if (state == RecordButtonStateTouchCancelled ||
-            state == RecordButtonStateTouchUpInside ||
-            state == RecordButtonStateTouchUpOutside) {
-            weakSelf.recordButton.backgroundColor = [UIColor whiteColor];
-        } else {
-            weakSelf.recordButton.backgroundColor = [UIColor colorWithHex:0xCCCCCC];
-        }
-        
-        if (state == RecordButtonStateTouchDown) {
-            [weakSelf startRecord];
-            
-            weakSelf.recordStateView = [RecordStateView showInView:weakSelf.view];
-        } else if (state == RecordButtonStateMoveInside) {
-            [weakSelf.recordStateView updateWithCancelState:NO];
-        } else if (state == RecordButtonStateMoveOutside) {
-            [weakSelf.recordStateView updateWithCancelState:YES];
-        } else if (state == RecordButtonStateTouchUpInside) {
-            [weakSelf.recordStateView hide];
-            [weakSelf stopRecord:YES];
-        } else if (state == RecordButtonStateTouchUpOutside ||
-                   state == RecordButtonStateTouchCancelled) {
-            [weakSelf.recordStateView hide];
-            [weakSelf stopRecord:NO];
-        }
-    };
-    
-    self.inputTextBgView.layer.cornerRadius = 12.f;
-    self.inputTextBgView.layer.masksToBounds = YES;
-    self.inputTextView.textContainerInset = UIEdgeInsetsZero;
-    self.inputTextViewHeightConstraint.constant = self.inputTextView.font.lineHeight;
-    
-    self.messagesTableView.estimatedRowHeight = 0.f;
-    self.messagesTableView.estimatedSectionFooterHeight = 0.f;
-    self.messagesTableView.estimatedSectionHeaderHeight = 0.f;
-    
-    UIView *footerView = [[UIView alloc] init];
-    [footerView setBackgroundColor:[UIColor colorWithHex:0xF5F5F5]];
-    [footerView setFrame:CGRectMake(0, 0, ScreenWidth, 20)];
-    self.messagesTableView.tableFooterView = footerView;
-    
-    self.emojiViewBottomLayoutConstraint.constant = -216.f - (isIPhoneX?39:0);
-    self.operationsViewBottomConstraint.constant = -80.f - (isIPhoneX?39:0);
-    
-    if (self.messages == nil) {
-        self.messages = [NSMutableArray array];
-    }
+    [self addNotification];
+    [self configureUI];
+    [self requestHomeworkDetail];
+}
+
+- (void)addNotification{
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardFrameWillChange:)
@@ -219,21 +176,8 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                                  name:kNotificationKeyOfCorrectHomework
                                                object:nil];
     
-    [self setupConversation];
-    
-    // -1表示喂批改过
-    if (self.homeworkSession.score >= 0) {
-        [self setupResultView];
-        
-        self.resultView.hidden = NO;
-        self.inputView.hidden = YES;
-    } else {
-        self.resultView.hidden = YES;
-        self.inputView.hidden = NO;
-    }
-    
-    APP.currentIMHomeworkSessionId = self.homeworkSession.homeworkSessionId;
 }
+
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -245,11 +189,11 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         self.dontScrollWhenAppeard = NO;
     }
     
-    for (UIGestureRecognizer *gr in self.view.window.gestureRecognizers) {
-        if (gr.delaysTouchesBegan) {
-            gr.delaysTouchesBegan = NO;
-        }
-    }
+//    for (UIGestureRecognizer *gr in self.view.window.gestureRecognizers) {
+//        if (gr.delaysTouchesBegan) {
+//            gr.delaysTouchesBegan = NO;
+//        }
+//    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -259,16 +203,12 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 - (IBAction)backButtonPressed:(id)sender {
-    
+#if MANAGERSIDE
+    if (self.dissCallBack) {
+        self.dissCallBack();
+    }
+#endif
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)dealloc {
-    APP.currentIMHomeworkSessionId = 0;
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    NSLog(@"%s", __func__);
 }
 
 #pragma mark - Notification
@@ -323,7 +263,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         self.homeworkSession.score = [attributes[@"score"] integerValue];
         self.homeworkSession.reviewText = attributes[@"reviewText"];
         self.homeworkSession.isRedo = [attributes[@"isRedo"] integerValue];
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
 #else
         NSInteger star = MIN(5, self.homeworkSession.score);
         APP.currentUser.starCount += star;
@@ -360,10 +300,18 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 - (void)homeworkDidFinishCorrect:(NSNotification *)notification {
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
 #else
     return ;
 #endif
+    NSDictionary *data = notification.userInfo;
+    HomeworkSession *session = data[@"HomeworkSession"];
+    NSLog(@"correct:%@",session.conversation.conversationId);
+    if (session.conversation.conversationId != self.conversation.conversationId) {
+        
+        NSLog(@"correct:not correct");
+        return;
+    }
     
     NSString *text = nil;
     if (self.homeworkSession.score == 0){
@@ -384,6 +332,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     else
     {
         //text = @"报错";
+        return;
     }
     
     if (self.homeworkSession.reviewText.length == 0)
@@ -401,7 +350,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             }];
         }
     }];
-    
     [PushManager pushText:@"你有作业已通过" toUsers:@[@(self.homeworkSession.student.userId)]];
 }
 
@@ -545,7 +493,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 - (IBAction)photoButtonPressed:(id)sender {
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
     self.isCommitingHomework = NO;
     UIImagePickerController *photoPicker = [[UIImagePickerController alloc] init];
     
@@ -604,7 +552,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 - (IBAction)videoButtonPressed:(id)sender {
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
     self.isCommitingHomework = NO;
 #else
     self.isCommitingHomework = YES;
@@ -620,27 +568,18 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 - (IBAction)sendAnswerButtonPressed:(id)sender {
+   
     if (self.homeworkSession.homework.answerItems.count == 0) {
         [HUD showWithMessage:@"当前作业没有设置答案"];
 
         return;
     }
-    
-    
     //跳转到
     HomeworkAnswersPickerViewController *answerPickerVc = [[HomeworkAnswersPickerViewController alloc] init];
     answerPickerVc.delegate = self;
     answerPickerVc.columnNumber = 4;
     answerPickerVc.answerItems = self.homeworkSession.homework.answerItems;
     [self.navigationController pushViewController:answerPickerVc animated:YES];
-    
-//    for (HomeworkAnswerItem *item in self.homeworkSession.homework.answerItems) {
-//        if ([item.type isEqualToString:HomeworkAnswerItemTypeImage]) {
-//            [self sendImageMessageWithURL:[NSURL URLWithString:item.imageUrl]];
-//        } else if ([item.type isEqualToString:HomeworkAnswerItemTypeVideo]) {
-//            [self sendVideoMessage:[NSURL URLWithString:item.videoUrl] duration:1.0];
-//        }
-//    }
 }
 
 - (void)sendAnswer:(NSArray *)answers
@@ -674,7 +613,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                                          handler:^(UIAlertAction * _Nonnull action) {
                                                              
                                                              [self sendImageMessageWithImage:[UIImage imageNamed:@"警告图片"]];
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
                                                              [HomeworkService sendWarnForStudent:self.homeworkSession.student.userId callback:^(Result *result, NSError *error) {
                                                                  if (error)
                                                                  {
@@ -717,7 +656,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                                                return;
                                                            }
                                                            
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
 #else
                                                            NSInteger star = MIN(5, self.homeworkSession.score);
                                                            if (APP.currentUser.starCount > star) {
@@ -754,7 +693,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 - (IBAction)studentButtonPressed:(id)sender {
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
     StudentDetailViewController *vc = [[StudentDetailViewController alloc] initWithNibName:@"StudentDetailViewController" bundle:nil];
     vc.userId = self.homeworkSession.student.userId;
     [self.navigationController pushViewController:vc animated:YES];
@@ -786,82 +725,30 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                                            }];
 }
 
-- (void)setupResultView {
-    UIColor *bgColor = nil;
-    NSString *text = nil;
-    
-    self.start1ImageView.hidden = self.homeworkSession.score<1;
-    self.start2ImageView.hidden = self.homeworkSession.score<2;
-    self.start3ImageView.hidden = self.homeworkSession.score<3;
-    self.start4ImageView.hidden = self.homeworkSession.score<4;
-    self.start5ImageView.hidden = self.homeworkSession.score<5;
-    
-    if (self.homeworkSession.score == 0) {
-       // text = @"Pass!";
-        bgColor = [UIColor lightGrayColor];
-    }else if (self.homeworkSession.score == 1) {
-        text = @"Pass!";
-        bgColor = [UIColor colorWithHex:0x28C4B7];
-    } else if (self.homeworkSession.score == 2) {
-        text = @"Good job!";
-        bgColor = [UIColor colorWithHex:0x00CE00];
-    } else if (self.homeworkSession.score == 3) {
-        text = @"Very nice!";
-        bgColor = [UIColor colorWithHex:0x0098FE];
-    } else if (self.homeworkSession.score == 4) {
-        text = @"Great!";
-        bgColor = [UIColor colorWithHex:0xFFC600];
-    } else if (self.homeworkSession.score == 5) {
-        text = @"Perfect!";
-        bgColor = [UIColor colorWithHex:0xFF4858];
-    } else if (self.homeworkSession.score == 6) {
-        text = @"Very hardworking!";
-        bgColor = [UIColor colorWithHex:0xB248FF];
-    }
-    
-    self.scoreLabel.text = self.homeworkSession.reviewText;
-    
-    self.resultContentView.backgroundColor = bgColor;
-    self.resultPaddingView.backgroundColor = bgColor;
-    
-#if TEACHERSIDE
-    self.retryButton.hidden = YES;
-#else
-    
-    if (self.homeworkSession.isRedo)
-    {
-        self.retryButton.backgroundColor = bgColor;
-        self.retryButton.layer.cornerRadius = 12.f;
-        self.retryButton.layer.masksToBounds = YES;
-        self.retryButton.layer.borderColor = [UIColor whiteColor].CGColor;
-        self.retryButton.layer.borderWidth = 1;
-        self.retryButton.hidden = NO;
-    }
-    
-#endif
-}
 
+#pragma mark - 设置会话
 - (void)setupConversation {
+  
     NSString *teacherId = [NSString stringWithFormat:@"%@", @(self.homeworkSession.correctTeacher.userId)];
     NSString *studentId = [NSString stringWithFormat:@"%@", @(self.homeworkSession.student.userId)];
     
     [self.loadingContainerView showLoadingView];
     
     NSString *name = [NSString stringWithFormat:@"%@", @(self.homeworkSession.homeworkSessionId)];
-    //WeakifySelf;
     if (self.conversation == nil) {
        
         AVIMConversationQuery *query = [self.client conversationQuery];
         [query whereKey:@"name" equalTo:name];
         [query findConversationsWithCallback:^(NSArray * _Nullable conversations, NSError * _Nullable error) {
-          //  StrongifySelf;
+
             if (error == nil)
             {
                 if (conversations.count > 0) {
-                    self.homeworkSession.conversation = conversations[0];
                     
+                    self.homeworkSession.conversation = conversations[0];
                     [self loadMessagesHistory];
                 } else {
+                    
                     [self.client createConversationWithName:name
                                                   clientIds:@[teacherId, studentId]
                                                  attributes:nil
@@ -884,13 +771,13 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             else
             {
                 BLYLogError(@"会话页面加载失败(创建IM会话失败): %@", error);
-                
                 [self.loadingContainerView showFailureViewWithRetryCallback:^{
                     [self setupConversation];
                 }];
             }
         }];
     } else {
+
         [self loadMessagesHistory];
     }
 }
@@ -964,7 +851,10 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     NSInteger nextIndex = index+1;
     [HUD showProgressWithMessage:@"正在压缩图片..."];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *editedImage = [self editedImageWithImage:[images objectAtIndex:index]];
+        UIImage *editedImage;
+        if (index < images.count) {
+            editedImage = [self editedImageWithImage:[images objectAtIndex:index]];
+        }
         NSData *data = UIImageJPEGRepresentation(editedImage, 0.7f);
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -990,38 +880,12 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                 
                 [strongSelf sendImageMessageWithImages:images withSendIndex:nextIndex];
             }];
-            
-//            [[FileUploader shareInstance] uploadData:data
-//                                                type:UploadFileTypeImage
-//                                       progressBlock:^(NSInteger number) {
-//                                           [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];
-//                                       }
-//                                     completionBlock:^(NSString * _Nullable imageUrl, NSError * _Nullable error) {
-//
-//                                         StrongifySelf;
-//                                         if (imageUrl.length > 0) {
-//                                             [HUD hideAnimated:YES];
-//
-//                                             [self sendImageMessageWithURL:[NSURL URLWithString:imageUrl]];
-//                                         } else {
-//                                             [HUD showErrorWithMessage:@"图片上传失败"];
-//                                         }
-//
-//                                         [strongSelf sendImageMessageWithImages:images withSendIndex:nextIndex];
-//
-//                                     }];
         });
     });
-    
-    
 }
 
 
 - (void)sendImageMessageWithImage:(UIImage *)image {
-    
-//    self.emojiViewBottomLayoutConstraint.constant = -216.f - (isIPhoneX?39:0);
-//    self.operationsViewBottomConstraint.constant = -80.f - (isIPhoneX?39:0);
-//    self.inputViewBottomConstraint.constant = 0.f;
     
     [HUD showProgressWithMessage:@"正在压缩图片..."];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -1046,23 +910,13 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                     [HUD showErrorWithMessage:@"图片上传失败"];
                 }
             }];
-            
-//            [[FileUploader shareInstance] uploadData:data
-//                                type:UploadFileTypeImage
-//                       progressBlock:^(NSInteger number) {
-//                           [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传图片%@%%...", @(number)]];
-//                       }
-//                     completionBlock:^(NSString * _Nullable imageUrl, NSError * _Nullable error) {
-//                         if (imageUrl.length > 0) {
-//                             [HUD hideAnimated:YES];
-//
-//                             [self sendImageMessageWithURL:[NSURL URLWithString:imageUrl]];
-//                         } else {
-//                             [HUD showErrorWithMessage:@"图片上传失败"];
-//                         }
-//                     }];
         });
     });
+}
+
+- (void)playSendAudio{
+    
+    [[AudioPlayer sharedPlayer] playURL:[NSURL URLWithString:@"sendMessage.mp3"]];
 }
 
 - (void)sendImageMessageWithURL:(NSURL *)imageURL {
@@ -1085,7 +939,9 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                                 if (error == nil) {
                                                     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCommitHomework object:nil];
                                                     
-                                                    [[SendAudioManager manager] play];
+                                                    [self playSendAudio];
+                                                    
+                                                    
                                                     [HUD showWithMessage:@"作业提交成功"];
                                                     
                                                     [PushManager pushText:@"[图片]"
@@ -1123,28 +979,34 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     [self sendMessage:message];
 }
 
+- (void)send{
+
+}
+
 - (void)sendVideoMessageForPath:(NSString *)path
 {
-    
+    NSString *userId;
+    NSString *clientId = [IMManager sharedManager].client.clientId;
     AVIMClientStatus status = [IMManager sharedManager].client.status;
-    if (status == AVIMClientStatusNone ||
-        status == AVIMClientStatusClosed ||
-        status == AVIMClientStatusPaused) {
-        NSString *userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
-        [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success, NSError * _Nullable error)
-         {
-             if (!success)
-             {
-                 return;
-             }
-         }];
-    }
-    
-    if (status != AVIMClientStatusOpened) {
-        [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
+#if MANAGERSIDE
+    userId = [NSString stringWithFormat:@"%@", @(self.teacher.userId)];
+    if (userId.integerValue != APP.currentUser.userId) {// 非当前不能发送消息
         return;
     }
-   
+    
+#else
+    userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
+#endif
+    if ([userId isEqualToString:clientId] && status == AVIMClientStatusOpened) {
+    } else {
+        [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success,  NSError * error) {
+            if (!success) return ;
+        }];
+    }
+    if (status != AVIMClientStatusOpened) {
+//        [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
+        return;
+    }
     
     AVFile *file = [AVFile fileWithLocalPath:path error:nil];
     int64_t timestamp = (int64_t)([[NSDate date] timeIntervalSince1970] * 1000);
@@ -1167,7 +1029,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                 return;
             }
             
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
 #else
             if (self.messages.count==0)
             {
@@ -1202,7 +1064,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                                         
                                                         if (error == nil) {
                                                             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCommitHomework object:nil];
-                                                            [[SendAudioManager manager] play];
+                                                            [self playSendAudio];
                                                             [HUD showWithMessage:@"作业提交成功"];
                                                             [PushManager pushText:@"[视频]"
                                                                           toUsers:@[@(self.homeworkSession.correctTeacher.userId)] withPushType:PushManagerMessage];
@@ -1214,8 +1076,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                                     }];
                 
             }
-            
-            
         }
         else
         {
@@ -1243,7 +1103,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                                 if (error == nil) {
                                                     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCommitHomework object:nil];
                                                     
-                                                    [[SendAudioManager manager] play];
+                                                    [self playSendAudio];
                                                     [HUD showWithMessage:@"作业提交成功"];
                                                     [PushManager pushText:@"[视频]"
                                                                   toUsers:@[@(self.homeworkSession.correctTeacher.userId)] withPushType:PushManagerMessage];
@@ -1275,39 +1135,39 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 - (void)sendMessage:(AVIMMessage *)message {
     
     //发送消息之前进行IM服务判断
+    NSString *userId;
+    NSString *clientId = [IMManager sharedManager].client.clientId;
     AVIMClientStatus status = [IMManager sharedManager].client.status;
-    if (status == AVIMClientStatusNone ||
-        status == AVIMClientStatusClosed ||
-        status == AVIMClientStatusPaused) {
-        NSString *userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
-        [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success, NSError * _Nullable error)
-         {
-             if (!success)
-             {
-                 return;
-             }
-         }];
-    }
-    
-    if (status != AVIMClientStatusOpened) {
-        [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
+#if MANAGERSIDE
+    userId = [NSString stringWithFormat:@"%@", @(self.teacher.userId)];
+    if (userId.integerValue != APP.currentUser.userId) {// 非当前不能发送消息
         return;
     }
-    [[SendAudioManager manager] play];
+#else
+    userId = [NSString stringWithFormat:@"%@", @(APP.currentUser.userId)];
+#endif
+    if ([userId isEqualToString:clientId] && status == AVIMClientStatusOpened) {
+    } else {
+        [[IMManager sharedManager] setupWithClientId:userId callback:^(BOOL success,  NSError * error) {
+            if (!success) return ;
+        }];
+    }
+    if (status != AVIMClientStatusOpened) {
+//        [HUD showErrorWithMessage:@"IM服务暂不可用，请稍后再试"];
+        return;
+    }
+    
+    [self playSendAudio];
     BOOL isResend = message.status == AVIMMessageStatusFailed;
     
-    
     //发送消息，区分学生端和客户端
-//#if TEACHERSIDE
-//    NSArray * users = @[@(self.homeworkSession.student.userId)];
-//#else
-//    NSArray * users = @[@(self.homeworkSession.correctTeacher.userId)];
-//#endif
     NSString * text = @"您有一条消息";
     if (message.mediaType == kAVIMMessageMediaTypeText)
     {
         AVIMTextMessage * textMessage = (AVIMTextMessage *)message;
-        text = textMessage.text;
+        if (textMessage.text.length > 0) {
+            text = textMessage.text;
+        }
     }
     else if (message.mediaType == kAVIMMessageMediaTypeImage)
     {
@@ -1334,7 +1194,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     [self.conversation sendMessage:message
                             option:option
                           callback:^(BOOL succeeded, NSError * _Nullable error) {
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
 #else
                               if (succeeded && self.messages.count==0)
                               {
@@ -1346,16 +1206,50 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                   [self updateHomeworkSessionModifiedTime];
                               }
 #endif
-
                               [[NSNotificationCenter defaultCenter] postNotificationName:kIMManagerContentMessageDidSendNotification object:nil userInfo:@{@"message": message}];
                               
                               if (!isResend) {
                                   [self.messages addObject:(AVIMTypedMessage *)message];
                               }
-                              
+
                               [self sortMessages];
                               [self reloadDataAndScrollToBottom];
+#if TEACHERSIDE || MANAGERSIDE
+#else
+                              [self correctNotifyHomeworkSession];
+#endif
                           }];
+}
+
+#pragma mark - 通知类学生端发送任意消息，自动批改
+- (void)correctNotifyHomeworkSession{
+    
+    if (![self.homeworkSession.homework.typeName isEqualToString:kHomeworkTaskNotifyName]) {
+        return;
+    }
+    // -1表示未批改过
+    if (self.homeworkSession.score != -1)  return;
+    NSMutableArray *studentMessages = [NSMutableArray array];
+    for (NSString *key in self.sortedKeys) {
+        
+        NSArray *messages = self.sortedMessages[key];
+        for (AVIMTypedMessage *message in messages) {
+         
+            if (message.ioType==AVIMMessageIOTypeOut) {
+                [studentMessages addObject:message];
+            };
+        }
+    }
+    // 通知类型作业自动通过
+    if (studentMessages.count == 1) {
+#if MANAGERSIDE
+        if (self.dissCallBack) {
+            self.dissCallBack();
+        }
+#endif
+        [self.navigationController popViewControllerAnimated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCorrectHomework object:nil userInfo:@{@"HomeworkSession":self.homeworkSession}];// 更新作业列表
+    }
 }
 
 - (void)handlePhotoPickerResult:(UIImagePickerController *)picker
@@ -1366,8 +1260,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             [HUD showErrorWithMessage:@"图片选择失败"];
             return;
         }
-
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
         WBGImageEditorViewController *editVC = [[WBGImageEditorViewController alloc] init];
         [editVC setOnlyForSend:YES];
         [editVC setThumbnailImages:@[image]];
@@ -1375,13 +1268,13 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             [self sendImageMessageWithImage:image];
         }];
         [self.navigationController presentViewController:editVC animated:YES completion:nil];
-
 #endif
     }];
 }
 
 - (void)handleVideoPickerResult:(UIImagePickerController *)picker
   didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+   
     [picker dismissViewControllerAnimated:YES completion:^{
         NSURL *videoUrl = [info objectForKey:UIImagePickerControllerMediaURL];
         AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:videoUrl options:nil];
@@ -1391,11 +1284,11 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             durationInSeconds = CMTimeGetSeconds(asset.duration);
         }
         
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
 #else
         if (durationInSeconds > 5*60) {
+         
             [HUD showErrorWithMessage:@"视频时长不能超过5分钟"];
-            
             return;
         }
 #endif
@@ -1437,7 +1330,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                             return flag;
                         }];
                         
-                        
                         [[FileUploader shareInstance] qn_uploadFile:path type:UploadFileTypeVideo option:option completionBlock:^(NSString * _Nullable videoUrl, NSError * _Nullable error) {
                             weakSelf.mHud = nil;
                             if (videoUrl.length > 0) {
@@ -1450,31 +1342,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
                                 [HUD showErrorWithMessage:@"视频上传失败"];
                             }
                         }];
-                        
-//                      [[FileUploader shareInstance] uploadDataWithLocalFilePath:path
-//                                                    progressBlock:^(NSInteger number) {
-//                                                        [HUD showProgressWithMessage:[NSString stringWithFormat:@"正在上传视频%@%%...", @(number)] cancelCallback:^{
-//                                                            [[FileUploader shareInstance] cancleUploading];
-//                                                        }];
-//                                                    }
-//                                                  completionBlock:^(NSString * _Nullable videoUrl, NSError * _Nullable error) {
-//                                                      if (videoUrl.length > 0) {
-//                                                          [HUD hideAnimated:YES];
-//
-//                                                          [self sendVideoMessage:[NSURL URLWithString:videoUrl] duration:durationInSeconds];
-//
-//                                                          [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
-//                                                      } else {
-//                                                          [HUD showErrorWithMessage:@"视频上传失败"];
-//                                                      }
-//                                                  }];
-//
-//                        [HUD showProgressWithMessage:@"正在上传视频..." cancelCallback:^{
-//                            [[FileUploader shareInstance] cancleUploading];
-//                        }];
-                        
-//                        [self sendVideoMessageForPath:path];
-                        
                     } else{
                         NSLog(@"当前压缩进度:%f",exportSession.progress);
                     }
@@ -1545,36 +1412,36 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     [self presentViewController:playerViewController animated:YES completion:nil];
     playerViewController.view.frame = self.view.frame;
     [playerViewController.player play];
-//    VIResourceLoaderManager *resourceLoaderManager = [VIResourceLoaderManager new];
-//    resourceLoaderManager.delegate = self;
-//    self.resourceLoaderManager = resourceLoaderManager;
-//    AVPlayerItem *playerItem = [resourceLoaderManager playerItemWithURL:[NSURL URLWithString:url]];
-//    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
-//    playerViewController.player = player;
-//    [self presentViewController:playerViewController animated:YES completion:nil];
-//    playerViewController.view.frame = self.view.frame;
-//    [playerViewController.player play];
     [playerViewController setOverlyViewCoverUrl:coverUrl];
     
     self.dontScrollWhenAppeard = YES;
 }
 
 - (void)resizeInputTextView {
-    NSInteger lines = [self.inputTextView sizeThatFits:self.inputTextView.frame.size].height / self.inputTextView.font.lineHeight;
+    
+    NSInteger lines = 0;
+    if (self.inputTextView.font.lineHeight) {
+        lines = [self.inputTextView sizeThatFits:self.inputTextView.frame.size].height / self.inputTextView.font.lineHeight;
+    }
+
     CGFloat height = lines * self.inputTextView.font.lineHeight;
     self.inputTextViewHeightConstraint.constant = MIN(height, self.inputTextView.font.lineHeight * 4);
     
     [self.inputView layoutIfNeeded];
 }
 
+#pragma mark - 加载历史消息
 - (void)loadMessagesHistory {
+    
+    NSLog(@"loadMessagesHistory %@  %@",[IMManager sharedManager].client.clientId,self.conversation.description);
     WeakifySelf;
-    [self.conversation queryMessagesFromServerWithLimit:1000 callback:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+    [self.conversation queryMessagesWithLimit:1000 callback:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         StrongifySelf;
         if (error != nil) {
             BLYLogError(@"会话页面加载失败(加载历史小时失败): %@", error);
 
             [strongSelf.loadingContainerView showFailureViewWithRetryCallback:^{
+                strongSelf.homeworkSession.conversation = nil;
                 [strongSelf setupConversation];
             }];
 
@@ -1594,12 +1461,10 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 
             [strongSelf sortMessages];
             dispatch_async(dispatch_get_main_queue(), ^{
+               
                 [strongSelf.messagesTableView reloadData];
-
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [strongSelf scrollMessagesTableViewToBottom:NO];
-                    strongSelf.messagesTableView.hidden = NO;
-                });
+                [strongSelf scrollMessagesTableViewToBottom:NO];
+                strongSelf.messagesTableView.hidden = NO;
             });
         }
     }];
@@ -1629,8 +1494,14 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     NSMutableArray *groupMessages = nil;
     for (NSInteger index=0; index<orderedMessages.count; index++) {
         AVIMMessage *message = orderedMessages[index];
+        
+        NSLog(@"message: %@ ",((AVIMTextMessage *)message).text);
         if ([message isKindOfClass:[AVIMTextMessage class]] &&
             ((AVIMTextMessage *)message).text.length == 0) {
+            if (index == orderedMessages.count-1) {
+                NSString *key = [NSString stringWithFormat:@"%.f", timeKey];
+                self.sortedMessages[key] = groupMessages;
+            }
             continue;
         }
         
@@ -1663,6 +1534,11 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             NSString *key = [NSString stringWithFormat:@"%.f", timeKey];
             self.sortedMessages[key] = groupMessages;
         }
+//
+//        NSLog(@"message:%lld %f, %@ ",message.sendTimestamp,timeKey,((AVIMTextMessage *)message).text);
+//        NSLog(@"message:1 %@",self.sortedMessages);
+//        NSLog(@"message:2 %@",groupMessages);
+        
     }
     
     self.sortedKeys = [self.sortedMessages.allKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -1705,10 +1581,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.messagesTableView reloadData];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self scrollMessagesTableViewToBottom:YES];
-        });
+        [self scrollMessagesTableViewToBottom:YES];
     });
 }
 
@@ -1807,7 +1680,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     WBGImageEditorViewController *editVC = [[WBGImageEditorViewController alloc] init];
     [editVC setOriginalImageUrls:self.homeworkImages];
     editVC.selectIndex = index;
-    //            [editVC setThumbnailImage:image];
     [editVC setSendCallback:^(UIImage *image) {
         if (weakSelf.homeworkSession.score > 0) {
             [HUD showErrorWithMessage:@"作业已完成，不能发送"];
@@ -1837,24 +1709,6 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     }
     return YES;
 }
-
-
-
-#pragma mark - UIImagePickerControllerDelegate
-//- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-//    if ([UIDevice currentDevice].systemVersion.floatValue < 11) {
-//        return;
-//    }
-//    if ([viewController isKindOfClass:NSClassFromString(@"PUPhotoPickerHostViewController")]) {
-//        [viewController.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//            if (obj.frame.size.width < 42) {
-//                [viewController.view sendSubviewToBack:obj];
-//                *stop = YES;
-//            }
-//        }];
-//    }
-//}
-
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     NSString* mediaType = [info objectForKey:UIImagePickerControllerMediaType];
@@ -1889,14 +1743,52 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0) {// 作业内容
         NSString *nibName =  @"SessionHomeworkTableViewCell";;
         
         SessionHomeworkTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:nibName owner:nil options:nil] lastObject];
         
         [cell setupWithHomeworkSession:self.homeworkSession];
-        
         WeakifySelf;
+        [cell setStartTaskCallback:^(void) { // 开始任务
+            
+            NSString *typeName = self.homeworkSession.homework.typeName;
+            if ([typeName isEqualToString:kHomeworkTaskFollowUpName]) {
+                
+                if (weakSelf.homeworkSession.score != -1)  return;
+   
+                MIFollowUpViewController *followUpVC = [[MIFollowUpViewController alloc] initWithNibName:NSStringFromClass([MIFollowUpViewController class]) bundle:nil];
+                followUpVC.isChecking = NO;
+                followUpVC.teacher = weakSelf.teacher;
+                followUpVC.conversation = weakSelf.conversation;
+                followUpVC.homework = weakSelf.homeworkSession.homework;
+                followUpVC.finishCallBack = ^(AVIMAudioMessage *message){
+                    
+                    [weakSelf.messages addObject:message];
+                    [weakSelf sortMessages];
+                    [weakSelf reloadDataAndScrollToBottom];
+                };
+                [weakSelf.navigationController pushViewController:followUpVC animated:YES];
+            } else if ([typeName isEqualToString:kHomeworkTaskWordMemoryName]) {
+              
+#if MANAGERSIDE
+#else
+                if (weakSelf.homeworkSession.score != -1)  return;
+                MReadWordsViewController * words = [[MReadWordsViewController alloc] init];
+                words.teacher = weakSelf.teacher;
+                words.conversation = weakSelf.conversation;
+                words.homework =  weakSelf.homeworkSession.homework;
+                words.finishCallBack = ^(AVIMAudioMessage *message){
+                    
+                    [weakSelf.messages addObject:message];
+                    [weakSelf sortMessages];
+                    [weakSelf reloadDataAndScrollToBottom];
+                };
+                [weakSelf.navigationController pushViewController:words animated:YES];
+#endif
+            }
+        }];
+        
         [cell setVideoCallback:^(NSString *videoUrl) {
             [weakSelf playerVideoWithURL:videoUrl];
         }];
@@ -1913,8 +1805,8 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         
         return cell;
     }
-    
-    if (indexPath.row == 0) {
+    // 会话内容
+    if (indexPath.row == 0) { // 时间
         MessageTimeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MessageTimeTableViewCellId];
         if (cell == nil) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"MessageTimeTableViewCell" owner:nil options:nil] lastObject];
@@ -1934,19 +1826,25 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     AVIMTypedMessage *message = messages[indexPath.row-1];
     UITableViewCell *cell = nil;
     
-    User *currentUser = APP.currentUser;
     User *user = nil;
     BOOL isPeerMessage = message.ioType==AVIMMessageIOTypeIn;
-    if ([message.clientId integerValue] == APP.currentUser.userId) {
-        user = currentUser;
-    } else {
-#if TEACHERSIDE
-        user = self.homeworkSession.student;
-#else
-        user = self.homeworkSession.correctTeacher;
-#endif
-    }
     
+#if TEACHERSIDE || MANAGERSIDE
+    
+    if (message.clientId.integerValue == self.homeworkSession.student.userId) {
+       
+        user = self.homeworkSession.student;
+    } else {
+        user = self.homeworkSession.correctTeacher;
+    }
+#else
+    if ([message.clientId integerValue] == APP.currentUser.userId) {
+        user = APP.currentUser;
+    } else {
+        user = self.homeworkSession.correctTeacher;
+    }
+#endif
+
     if (message.mediaType == kAVIMMessageMediaTypeText) { // 文本信息
         NSDictionary *attributes = ((AVIMTextMessage *)(message)).attributes;
         NSString *identifier = nil;
@@ -2048,7 +1946,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         }];
         
         cell = imageCell;
-    } else if (message.mediaType == kAVIMMessageMediaTypeVideo) { // 文本信息
+    } else if (message.mediaType == kAVIMMessageMediaTypeVideo) { // 视频信息
         NSString *identifier = nil;
         if (isPeerMessage) {
             identifier = LeftVideoMessageTableViewCellId;
@@ -2073,7 +1971,7 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         }];
         
         cell = videoCell;
-    } else if (message.mediaType == kAVIMMessageMediaTypeAudio) { // 文本信息
+    } else if (message.mediaType == kAVIMMessageMediaTypeAudio) { // 音频信息
         NSString *identifier = nil;
         if (isPeerMessage) {
             identifier = LeftAudioMessageTableViewCellId;
@@ -2081,19 +1979,63 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
             identifier = RightAudioMessageTableViewCellId;
         }
         
-        AudioMessageTableViewCell *audioCell = (AudioMessageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
-        if (audioCell == nil) {
-            NSString *nibName = isPeerMessage?@"LeftAudioMessageTableViewCell":@"RightAudioMessageTableViewCell";
-            audioCell = [[[NSBundle mainBundle] loadNibNamed:nibName owner:nil options:nil] lastObject];
+        NSString *typeName = message.attributes[@"typeName"];
+        if ([typeName isEqualToString:kHomeworkTaskWordMemoryName] ||
+            [typeName isEqualToString:kHomeworkTaskFollowUpName]) { // 跟读，单词任务消息
+            NSString *identifier = nil;
+            if (isPeerMessage) {
+                identifier = LeftTextMessageTableViewCellId;
+            } else {
+                identifier = RightTextMessageTableViewCellId;
+            }
+            
+            TextMessageTableViewCell *textCell = (TextMessageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
+            if (textCell == nil) {
+                NSString *nibName = isPeerMessage?@"LeftTextMessageTableViewCell":@"RightTextMessageTableViewCell";
+                textCell = [[[NSBundle mainBundle] loadNibNamed:nibName owner:nil options:nil] lastObject];
+            }
+            message.text = typeName;
+            [textCell setupWithUser:user message:message];
+            
+            WeakifySelf;
+            [textCell setResendCallback:^{
+                [weakSelf sendMessage:message];
+            }];
+            [textCell setClickCallback:^{// 查看作业
+
+                NSString *typeName = self.homeworkSession.homework.typeName;
+                if ([typeName isEqualToString:kHomeworkTaskFollowUpName]) {
+                    
+                    HomeworkItem *followItem = weakSelf.homeworkSession.homework.otherItem.firstObject;
+                    [self playAudioWithURL:message.file.url withCoverURL:followItem.audioCoverUrl];
+                    
+                } else if ([typeName isEqualToString:kHomeworkTaskWordMemoryName]){
+                   
+                    MICheckWordsViewController *taskVC = [[MICheckWordsViewController alloc] initWithNibName:NSStringFromClass([MICheckWordsViewController class]) bundle:nil];
+                    NSString *fileUrl = message.file.url;
+                    taskVC.audioUrl = fileUrl;
+                    taskVC.homework = weakSelf.homeworkSession.homework;
+                    [weakSelf.navigationController pushViewController:taskVC animated:YES];
+                }
+            }];
+            cell = textCell;
+            
+        } else {
+            
+            AudioMessageTableViewCell *audioCell = (AudioMessageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
+            if (audioCell == nil) {
+                NSString *nibName = isPeerMessage?@"LeftAudioMessageTableViewCell":@"RightAudioMessageTableViewCell";
+                audioCell = [[[NSBundle mainBundle] loadNibNamed:nibName owner:nil options:nil] lastObject];
+            }
+            [audioCell setupWithUser:user message:message];
+            
+            WeakifySelf;
+            [audioCell setResendCallback:^{
+                [weakSelf sendMessage:message];
+            }];
+            
+            cell = audioCell;
         }
-        [audioCell setupWithUser:user message:message];
-        
-        WeakifySelf;
-        [audioCell setResendCallback:^{
-            [weakSelf sendMessage:message];
-        }];
-        
-        cell = audioCell;
     }
     else
     {
@@ -2134,14 +2076,21 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     } else if (message.mediaType == kAVIMMessageMediaTypeVideo) {
         return VideoMessageTableViewCellHeight;
     } else if (message.mediaType == kAVIMMessageMediaTypeAudio) {
-        return AudioMessageTableViewCellHeight;
+        
+        NSString *typeName = ((AVIMTypedMessage*)message).attributes[@"typeName"];
+        if ([typeName isEqualToString:kHomeworkTaskWordMemoryName] ||
+            [typeName isEqualToString:kHomeworkTaskFollowUpName]) {
+            return [TextMessageTableViewCell heightOfMessage:(AVIMTypedMessage *)message];
+        } else {
+            return AudioMessageTableViewCellHeight;
+        }
     }
     
     return 0.f;
 }
 
 #pragma mark - UIScrollViewDelegate
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
     CGFloat height = [SessionHomeworkTableViewCell heightWithHomeworkSession:self.homeworkSession];
@@ -2215,11 +2164,9 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
 }
 
 #pragma mark - EmojiInputViewDelegate
-
 - (void)emojiDidSelect:(NSString *)emojiText {
     
     NSString * text = [self.inputTextView.text stringByAppendingString:emojiText];
-    
     self.inputTextView.text = text;
    // [self sendEmojiMessage:emojiText];
 }
@@ -2229,7 +2176,41 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
     [self sendTextMessage:self.inputTextView.text];
 }
 
-- (void)studentName{
+#pragma mark - 获取作业内容
+- (void)requestHomeworkDetail{
+
+    [self.loadingContainerView showLoadingView];
+    [HomeworkSessionService requestHomeworkSessionWithId:self.homeworkSession.homeworkSessionId callback:^(Result *result, NSError *error) {
+        
+        [self.loadingContainerView hideAllStateView];
+        if (error) {
+            [self.loadingContainerView showFailureViewWithRetryCallback:^{
+                [self requestHomeworkDetail];
+            }];
+            return ;
+        } else {
+            HomeworkSession *session = (HomeworkSession *)(result.userInfo);
+            if (session) {
+                self.homeworkSession = session;
+              
+                if ((session.correctTeacher.userId > 0) && (session.student.userId > 0)) {
+                    [self setupConversation];
+                } else {
+                    [self.loadingContainerView showFailureViewWithRetryCallback:^{
+                        [self requestHomeworkDetail];
+                    }];
+                }
+            }
+            [self updateData];
+        }
+    }];
+}
+
+#pragma mark - 更新
+
+- (void)updateData{
+    
+#if TEACHERSIDE || MANAGERSIDE
     
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:self.homeworkSession.student.nickname];
     if (self.homeworkSession.stuLabel > 0) {
@@ -2241,7 +2222,164 @@ static NSString * const kKeyOfVideoDuration = @"videoDuration";
         [attrStr appendAttributedString:imageStr];
     }
     self.customTitleLabel.attributedText = attrStr;
+#else
+    self.customTitleLabel.text = self.homeworkSession.correctTeacher.nickname;
+#endif
+    
+    // -1表示未批改过
+    if (self.homeworkSession.score >= 0) {
+        
+        [self setupResultView];
+        self.resultView.hidden = NO;
+        self.inputView.hidden = YES;
+    } else {
+        
+        self.resultView.hidden = YES;
+        self.inputView.hidden = NO;
+        
+#if MANAGERSIDE
+        // 管理端非当前账号会话页不允许输入
+        if (self.teacher.userId != APP.currentUser.userId) {
+            self.inputViewBottomConstraint.constant = -60;
+        }  else {
+            self.inputViewBottomConstraint.constant = 0;
+        }
+#endif
+    }
+    [self.messagesTableView reloadData];
 }
+
+- (void)configureUI{
+    
+#if TEACHERSIDE
+    self.correctButton.hidden = NO;
+    self.answerViewWidthConstraint.constant = ScreenWidth/4;
+    self.warnViewWidthConstraint.constant = ScreenWidth/4;
+    
+#elif MANAGERSIDE
+    
+    self.correctButton.hidden = NO;
+    self.answerViewWidthConstraint.constant = kColumnThreeWidth/4;
+    self.warnViewWidthConstraint.constant = kColumnThreeWidth/4;
+#else
+    self.correctButton.hidden = YES;
+    self.answerViewWidthConstraint.constant = 0;
+    self.warnViewWidthConstraint.constant = 0;
+#endif
+    
+    self.recordButton.hidden = YES;
+    self.recordButton.layer.borderWidth = 0.5f;
+    self.recordButton.layer.borderColor = [UIColor colorWithHex:0x333333].CGColor;
+    self.recordButton.layer.cornerRadius = 12.f;
+    self.recordButton.layer.masksToBounds = YES;
+    WeakifySelf;
+    self.recordButton.stateChangeBlock = ^(RecordButtonState state) {
+        if (state == RecordButtonStateTouchCancelled ||
+            state == RecordButtonStateTouchUpInside ||
+            state == RecordButtonStateTouchUpOutside) {
+            weakSelf.recordButton.backgroundColor = [UIColor whiteColor];
+        } else {
+            weakSelf.recordButton.backgroundColor = [UIColor colorWithHex:0xCCCCCC];
+        }
+        
+        if (state == RecordButtonStateTouchDown) {
+            [weakSelf startRecord];
+            
+            weakSelf.recordStateView = [RecordStateView showInView:weakSelf.view];
+        } else if (state == RecordButtonStateMoveInside) {
+            [weakSelf.recordStateView updateWithCancelState:NO];
+        } else if (state == RecordButtonStateMoveOutside) {
+            [weakSelf.recordStateView updateWithCancelState:YES];
+        } else if (state == RecordButtonStateTouchUpInside) {
+            [weakSelf.recordStateView hide];
+            [weakSelf stopRecord:YES];
+        } else if (state == RecordButtonStateTouchUpOutside ||
+                   state == RecordButtonStateTouchCancelled) {
+            [weakSelf.recordStateView hide];
+            [weakSelf stopRecord:NO];
+        }
+    };
+    
+    self.inputTextBgView.layer.cornerRadius = 12.f;
+    self.inputTextBgView.layer.masksToBounds = YES;
+    self.inputTextView.textContainerInset = UIEdgeInsetsZero;
+    self.inputTextViewHeightConstraint.constant = self.inputTextView.font.lineHeight;
+    
+    self.messagesTableView.estimatedRowHeight = 0.f;
+    self.messagesTableView.estimatedSectionFooterHeight = 0.f;
+    self.messagesTableView.estimatedSectionHeaderHeight = 0.f;
+    
+    UIView *footerView = [[UIView alloc] init];
+    [footerView setBackgroundColor:[UIColor colorWithHex:0xF5F5F5]];
+    [footerView setFrame:CGRectMake(0, 0, ScreenWidth, 20)];
+    self.messagesTableView.tableFooterView = footerView;
+    
+    self.emojiViewBottomLayoutConstraint.constant = -216.f - (isIPhoneX?39:0);
+    self.operationsViewBottomConstraint.constant = -80.f - (isIPhoneX?39:0);
+}
+
+- (void)setupResultView {
+    UIColor *bgColor = nil;
+    NSString *text = nil;
+    
+    self.start1ImageView.hidden = self.homeworkSession.score<1;
+    self.start2ImageView.hidden = self.homeworkSession.score<2;
+    self.start3ImageView.hidden = self.homeworkSession.score<3;
+    self.start4ImageView.hidden = self.homeworkSession.score<4;
+    self.start5ImageView.hidden = self.homeworkSession.score<5;
+    
+    if (self.homeworkSession.score == 0) {
+        bgColor = [UIColor lightGrayColor];
+    }else if (self.homeworkSession.score == 1) {
+        text = @"Pass!";
+        bgColor = [UIColor colorWithHex:0x28C4B7];
+    } else if (self.homeworkSession.score == 2) {
+        text = @"Good job!";
+        bgColor = [UIColor colorWithHex:0x00CE00];
+    } else if (self.homeworkSession.score == 3) {
+        text = @"Very nice!";
+        bgColor = [UIColor colorWithHex:0x0098FE];
+    } else if (self.homeworkSession.score == 4) {
+        text = @"Great!";
+        bgColor = [UIColor colorWithHex:0xFFC600];
+    } else if (self.homeworkSession.score == 5) {
+        text = @"Perfect!";
+        bgColor = [UIColor colorWithHex:0xFF4858];
+    } else if (self.homeworkSession.score == 6) {
+        text = @"Very hardworking!";
+        bgColor = [UIColor colorWithHex:0xB248FF];
+    }
+    
+    self.scoreLabel.text = self.homeworkSession.reviewText;
+    
+    self.resultContentView.backgroundColor = bgColor;
+    self.resultPaddingView.backgroundColor = bgColor;
+    
+#if TEACHERSIDE || MANAGERSIDE
+    self.retryButton.hidden = YES;
+#else
+    if (self.homeworkSession.isRedo)
+    {
+        self.retryButton.backgroundColor = bgColor;
+        self.retryButton.layer.cornerRadius = 12.f;
+        self.retryButton.layer.masksToBounds = YES;
+        self.retryButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.retryButton.layer.borderWidth = 1;
+        self.retryButton.hidden = NO;
+    }
+#endif
+}
+
+
+- (void)dealloc {
+    
+    APP.currentIMHomeworkSessionId = 0;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    NSLog(@"%s", __func__);
+}
+
+
 @end
 
 

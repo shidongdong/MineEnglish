@@ -12,6 +12,8 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *customTitleLabel;
 
+@property (nonatomic, copy) void (^closeViewCallBack) (void);
+
 - (IBAction)backButtonPressed:(id)sender;
 
 @end

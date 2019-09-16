@@ -6,11 +6,10 @@
 //  Copyright © 2017年 mfox. All rights reserved.
 //
 
+#import "Clazz.h"
+#import "ClassService.h"
 #import "MyClassViewController.h"
 #import "StudentCollectionViewCell.h"
-#import "MyClassService.h"
-#import "UIView+Load.h"
-#import "Clazz.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "CircleHomeworksViewController.h"
 @interface MyClassViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
@@ -61,7 +60,7 @@
     [self.containerView showLoadingView];
     
     WeakifySelf;
-    self.classRequest = [MyClassService requestClassWithId:self.classId
+    self.classRequest = [ClassService requestClassWithId:self.classId
                                                 callback:^(Result *result, NSError *error) {
                                                     StrongifySelf;
                                                     strongSelf.classRequest = nil;

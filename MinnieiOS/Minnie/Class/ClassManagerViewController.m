@@ -6,28 +6,33 @@
 //  Copyright © 2018年 netease. All rights reserved.
 //
 
-#import "ClassManagerViewController.h"
-#import "ClassEditTableViewCell.h"
-#import "ClassScheduleAndStudentsTableViewCell.h"
-#import "StudentsManageViewController.h"
-#import "ScheduleEditViewController.h"
+#import "ClassService.h"
+#import "AuthService.h"
+#import "ManagerServce.h"
 #import "TeacherService.h"
 #import "TimePickerView.h"
 #import "TextPickerView.h"
+#import "DeleteTeacherAlertView.h"
 #import "StudentsTableViewCell.h"
+#import "ClassEditTableViewCell.h"
 #import "DeleteClassTableViewCell.h"
 #import "FinishClassTableViewCell.h"
-#import "ClassService.h"
-#import "UIView+Load.h"
-#import "DeleteTeacherAlertView.h"
-#import "AuthService.h"
-@interface ClassManagerViewController ()<UITableViewDataSource, UITableViewDelegate> {
+#import "ClassManagerViewController.h"
+#import "ScheduleEditViewController.h"
+#import "StudentsManageViewController.h"
+#import "ClassScheduleAndStudentsTableViewCell.h"
+
+@interface ClassManagerViewController ()<
+UITableViewDataSource,
+UITableViewDelegate> {
 }
 
 @property (nonatomic, weak) IBOutlet UITableView *classTableView;
 @property (nonatomic, weak) IBOutlet UIButton *rightButton;
 
 @property (nonatomic, strong) NSArray *teachers;
+
+@property (nonatomic, strong) NSArray *campus;
 
 @property (nonatomic, assign) BOOL reloadWhenAppeard;
 
@@ -44,8 +49,6 @@
     self.classTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
     [self registerCellNibs];
-    
-    [self requestTeachers];
     
     if (self.classId > 0) {
         self.rightButton.hidden = YES;
@@ -68,6 +71,8 @@
                                              selector:@selector(shouldReloadWhenAppeard)
                                                  name:kNotificationKeyOfUpdateSchedule
                                                object:nil];
+    
+    [self requestCampus];
 }
 
 - (void)dealloc {
@@ -86,20 +91,25 @@
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    if (self.classId > 0 && !self.detailRequested) {
-        [self requestClassDetail];
-    }
-}
-
 - (Clazz *)clazz {
     if (_clazz == nil) {
         _clazz = [[Clazz alloc] init];
     }
     
     return _clazz;
+}
+
+- (void)setClassId:(NSInteger)classId {
+    
+    _classId  = classId;
+    if (self.classId > 0) {
+        [self requestClassDetail];
+        [self requestTeachers];
+    } else {
+        self.teachers = nil;
+        self.clazz = nil;
+        [self.classTableView reloadData];
+    }
 }
 
 - (void)registerCellNibs {
@@ -114,6 +124,7 @@
     [self.classTableView registerNib:[UINib nibWithNibName:@"FinishClassTableViewCell" bundle:nil] forCellReuseIdentifier:FinishClassTableViewCellId];
 }
 
+#pragma mark - 获取班级详情
 - (void)requestClassDetail {
     self.classTableView.hidden = YES;
     [self.classTableView.superview showLoadingView];
@@ -144,6 +155,7 @@
     }];
 }
 
+// 获取老师详情
 - (void)requestTeachers {
     [TeacherService requestTeachersWithCallback:^(Result *result, NSError *error) {
         if (error != nil) {
@@ -157,6 +169,23 @@
         NSArray *teachers = (NSArray *)(dict[@"list"]);
         if (teachers.count > 0) {
             self.teachers = teachers;
+        }
+    }];
+}
+
+#pragma mark - 获取校区列表
+- (void)requestCampus{
+    
+    [ManagerServce requestCampusCallback:^(Result *result, NSError *error) {
+        
+        NSDictionary *dict = (NSDictionary *)(result.userInfo);
+        NSArray *campus = (NSArray *)(dict[@"list"]);
+        if (campus.count > 0) {
+            NSMutableArray *tempCampus = [NSMutableArray array];
+            for (CampusInfo *temCampu in campus) {
+                [tempCampus addObject:temCampu.campusName];
+            }
+            self.campus = tempCampus;
         }
     }];
 }
@@ -217,6 +246,7 @@
     } while(NO);
     
     if (valid) {
+        WeakifySelf;
         NSDictionary *dict = [self.clazz dictionaryForUpload];
         if (dict != nil) {
             [HUD showProgressWithMessage:@"正在保存..."];
@@ -233,7 +263,10 @@
                                          [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfAddClass
                                                                                              object:nil];
                                          
-                                         [self.navigationController popViewControllerAnimated:YES];
+                                         [weakSelf.navigationController popViewControllerAnimated:YES];
+                                         if (weakSelf.successCallBack) {
+                                             weakSelf.successCallBack();
+                                         }
                                      }];
         }
     }
@@ -272,7 +305,7 @@
 
 - (void)doDelete
 {
-
+    WeakifySelf;
     [HUD showProgressWithMessage:@"正在删除..."];
     [ClassService deleteClassWithId:self.clazz.classId
                            callback:^(Result *result, NSError *error) {
@@ -284,6 +317,9 @@
                                [HUD showWithMessage:@"删除成功"];
                                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfDeleteClass object:nil];
                                [self.navigationController popViewControllerAnimated:YES];
+                               if (weakSelf.successCallBack) {
+                                   weakSelf.successCallBack();
+                               }
                            }];
 
 }
@@ -326,6 +362,13 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+- (void)backButtonPressed:(id)sender{
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    if (self.cancelCallBack) {
+        self.cancelCallBack();
+    }
+}
 
 #pragma mark - UITableViewDataSource
 
@@ -347,9 +390,24 @@
         editCell.nameChangedCallback = ^(NSString *name) {
             weakSelf.clazz.name = name;
         };
-        
-        editCell.locationChangedCallback = ^(NSString *location) {
-            weakSelf.clazz.location = location;
+ 
+        editCell.locationChangedCallback = ^{
+          
+            if (weakSelf.campus.count == 0) {
+                [weakSelf requestCampus];
+                return;
+            }
+            [weakCell.classNameTextField resignFirstResponder];
+            [weakCell.classLocationTextField resignFirstResponder];
+            NSArray * pickList = self.campus;
+            NSInteger index = 0;
+            [TextPickerView showInView:weakSelf.navigationController.view
+                              contents:pickList
+                         selectedIndex:index
+                              callback:^(NSString *name) {
+                                  weakSelf.clazz.location = name;
+                                  weakCell.classLocationTextField.text = name;
+                              }];
         };
         
         editCell.selectStartTimeCallback = ^{

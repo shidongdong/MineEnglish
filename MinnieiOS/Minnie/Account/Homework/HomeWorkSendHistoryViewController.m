@@ -10,13 +10,15 @@
 #import "HomeworkSendHisTableViewCell.h"
 #import "HomeworkService.h"
 #import "UIScrollView+Refresh.h"
-#import "UIView+Load.h"
 #import "HomeworkSendHistoryHeaderView.h"
 @interface HomeWorkSendHistoryViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *mTableView;
 @property (nonatomic, copy)NSString * nextUrl;
 @property (nonatomic, strong)BaseRequest * hitoryRequest;
 @property (nonatomic, strong)NSMutableArray * homeworks;
+
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
+
 @end
 
 @implementation HomeWorkSendHistoryViewController
@@ -32,6 +34,11 @@
     
     [super viewDidLoad];
     self.homeworks = [NSMutableArray array];
+#if MANAGERSIDE
+    [self.backButton setImage:[UIImage imageNamed:@"navbar_close"] forState:UIControlStateNormal];
+#else
+    [self.backButton setImage:[UIImage imageNamed:@"navbar_back"] forState:UIControlStateNormal];
+#endif
     [self registerNibCell];
     [self requestHistoryList];
     // Do any additional setup after loading the view from its nib.
@@ -185,15 +192,5 @@
     return cell;
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

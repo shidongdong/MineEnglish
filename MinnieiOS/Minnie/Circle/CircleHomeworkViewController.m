@@ -6,19 +6,17 @@
 //  Copyright © 2017年 mfox. All rights reserved.
 //
 
-#import "CircleHomeworkViewController.h"
-#import "CircleService.h"
-#import "CircleVideoTableViewCell.h"
-#import "HomeworkDetailLikeUsersTableViewCell.h"
-#import "HomeworkDetailCommentTableViewCell.h"
-#import "UIView+Load.h"
-#import "WebViewController.h"
-#import "Constants.h"
-#import "CircleService.h"
+
 #import "Comment.h"
+#import "Constants.h"
 #import "PushManager.h"
 #import <AVKit/AVKit.h>
+#import "CircleService.h"
 #import "UITextView+Placeholder.h"
+#import "CircleVideoTableViewCell.h"
+#import "CircleHomeworkViewController.h"
+#import "HomeworkDetailCommentTableViewCell.h"
+#import "HomeworkDetailLikeUsersTableViewCell.h"
 
 @interface CircleHomeworkViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -91,7 +89,11 @@
 }
 
 - (void)resizeInputTextView {
-    NSInteger lines = [self.inputTextView sizeThatFits:self.inputTextView.frame.size].height / self.inputTextView.font.lineHeight;
+    NSInteger lines = 0;
+    if (self.inputTextView.font.lineHeight > 0) {
+        lines = [self.inputTextView sizeThatFits:self.inputTextView.frame.size].height / self.inputTextView.font.lineHeight;
+    }
+    
     CGFloat height = lines * self.inputTextView.font.lineHeight;
     self.inputViewHeightConstraint.constant = MIN(height, self.inputTextView.font.lineHeight * 4) + 24.f;
     

@@ -22,7 +22,7 @@
 
 + (instancetype)sharedInstance;
 
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
 @property (nonatomic, strong) Teacher *currentUser;
 #else
 @property (nonatomic, strong) Student *currentUser;

@@ -10,4 +10,6 @@
 
 @interface TeacherAwardsViewController : BaseViewController
 
+- (void)updateAwards;
+
 @end

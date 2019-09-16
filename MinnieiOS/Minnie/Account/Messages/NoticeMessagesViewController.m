@@ -9,11 +9,10 @@
 #import "NoticeMessagesViewController.h"
 #import "NoticeMessageTableViewCell.h"
 #import "MessageService.h"
-#import "UIView+Load.h"
 #import "UIColor+HEX.h"
 #import "UIScrollView+Refresh.h"
 #import "NoticeMessageDetailViewController.h"
-#import "TIP.h"
+
 
 @interface NoticeMessagesViewController ()<UITableViewDataSource, UITableViewDelegate>
 

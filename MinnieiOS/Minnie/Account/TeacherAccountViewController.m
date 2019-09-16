@@ -18,12 +18,13 @@
 #import "CircleHomeworksViewController.h"
 #import "TeachersViewController.h"
 #import "ExchangeRequestsViewController.h"
-#import "HomeworkManagerViewController.h"
+//#import "HomeworkManagerViewController.h"
 #import "ClassesContainerController.h"
 #import "StudentsViewController.h"
 #import "MessageService.h"
-#import "TeacherAwardService.h"
+#import "AwardsService.h"
 #import "PublicService.h"
+#import "MIHomeworkManagerViewController.h"
 
 @interface TeacherAccountViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -56,7 +57,7 @@
         }
     }];
     
-    [TeacherAwardService requestUnexchangedRequestCountWithCallback:^(Result *result, NSError *error) {
+    [AwardsService requestUnexchangedRequestCountWithCallback:^(Result *result, NSError *error) {
         if (error == nil && [result.userInfo isKindOfClass:[NSDictionary class]]) {
             NSDictionary *userInfo = (NSDictionary *)(result.userInfo);
             NSInteger count = [userInfo[@"count"] integerValue];
@@ -158,9 +159,15 @@
         WeakifySelf;
         accountManageCell.homeworkManageCallback = ^{
             StrongifySelf;
-            HomeworkManagerViewController *vc = [[HomeworkManagerViewController alloc] initWithNibName:@"HomeworkManagerViewController" bundle:nil];
+//            HomeworkManagerViewController *vc = [[HomeworkManagerViewController alloc] initWithNibName:@"HomeworkManagerViewController" bundle:nil];
+//            [vc setHidesBottomBarWhenPushed:YES];
+//            [strongSelf.navigationController pushViewController:vc animated:YES];
+//
+            
+            MIHomeworkManagerViewController *vc = [[MIHomeworkManagerViewController alloc] initWithNibName:@"MIHomeworkManagerViewController" bundle:nil];
             [vc setHidesBottomBarWhenPushed:YES];
             [strongSelf.navigationController pushViewController:vc animated:YES];
+            
         };
         
         accountManageCell.teacherManageCallback = ^{
@@ -196,32 +203,44 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat height = 0;
 
+    Teacher *teacher = APP.currentUser;
     if (indexPath.row == 0) {
         height = ProfileTableViewCellHeight;
     } else if (indexPath.row == 1) {
         height = AccountTableViewCellHeight;
-        if (!APP.currentUser.canExchangeRewards) {
+        
+        if (teacher.authority == TeacherAuthorityManager ||
+            teacher.authority == TeacherAuthoritySuperManager) {
+            
+            if (!APP.currentUser.canExchangeRewards) {
+                height -= 50.f;
+            }
+        } else {
             height -= 50.f;
         }
     } else if (indexPath.row == 2) {
         height = 0;
         
-        if (APP.currentUser.canManageHomeworks) {
+        if (teacher.authority == TeacherAuthoritySuperManager) {
+            
+            height = 200.f;
+        } else if (teacher.authority == TeacherAuthorityManager) {
+            
+            if (teacher.canManageHomeworks) {
+                height += 50.f;
+            }
+            
+            if (teacher.canManageTeachers) {
+                height += 50.f;
+            }
+            if (teacher.canManageCampus) {
+                height += 50.f;
+            }
+            height += 50.f;
+        } else {
             height += 50.f;
         }
-        
-        if (APP.currentUser.authority==TeacherAuthoritySuperManager) {
-            height += 50.f;
-        }
-        
-        if (APP.currentUser.canManageClasses) {
-            height += 50.f;
-        }
-        
-        if (APP.currentUser.canManageStudents) {
-            height += 50.f;
-        }
-        
+    
         if (height > 0) {
             height += 12;
         }

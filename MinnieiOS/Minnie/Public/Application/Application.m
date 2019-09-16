@@ -20,7 +20,7 @@ static NSString * KeyOfUnCommitHomeWorkSession = @"KeyOfUnCommitHomeWorkSession"
 static NSString * KeyOfCircleList = @"KeyOfCircleList";
 static NSString * KeyOfUserGuide = @"KeyOfUserGuide";
 @interface Application() {
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
     Teacher *_currentUser;
 #else
     Student *_currentUser;
@@ -50,7 +50,7 @@ static NSString * KeyOfUserGuide = @"KeyOfUserGuide";
     return self;
 }
 
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
 - (Teacher *)currentUser
 #else
 - (Student *)currentUser
@@ -66,7 +66,7 @@ static NSString * KeyOfUserGuide = @"KeyOfUserGuide";
     return _currentUser;
 }
 
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
 - (void)setCurrentUser:(Teacher *)user
 #else
 - (void)setCurrentUser:(Student *)user

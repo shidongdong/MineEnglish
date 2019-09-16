@@ -11,7 +11,7 @@
 
 @interface CircleViewController : BaseViewController
 
-// 指定同学圈的范围(学校0，还是班级1)
+// 指定同学圈的范围(年级0，还是学校1)
 @property (nonatomic, assign) CircleType circleType;
 
 // 指定某个具体的用户

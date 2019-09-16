@@ -23,6 +23,7 @@ CGFloat const ClassTableViewCellHeight = 100.f;
 @property (nonatomic, weak) IBOutlet UILabel *circleCountLabel;
 @property (nonatomic, weak) IBOutlet UILabel *postedHomeworksCountLabel;
 
+@property (weak, nonatomic) IBOutlet UIView *rightLineView;
 
 @end
 
@@ -32,10 +33,11 @@ CGFloat const ClassTableViewCellHeight = 100.f;
     [super awakeFromNib];
     
     self.containerView.layer.cornerRadius = 12.f;
-    self.containerView.layer.shadowOpacity = 0.4;// 阴影透明度
-    self.containerView.layer.shadowColor = [UIColor colorWithHex:0xEEEEEE].CGColor;
-    self.containerView.layer.shadowRadius = 3;
-    self.containerView.layer.shadowOffset = CGSizeMake(2, 4);
+    
+//    self.containerView.layer.shadowOpacity = 0.4;// 阴影透明度
+//    self.containerView.layer.shadowColor = [UIColor colorWithHex:0xEEEEEE].CGColor;
+//    self.containerView.layer.shadowRadius = 3;
+//    self.containerView.layer.shadowOffset = CGSizeMake(2, 4);
 }
 
 - (void)setupWithClass:(Clazz *)clazz {
@@ -46,12 +48,27 @@ CGFloat const ClassTableViewCellHeight = 100.f;
     } else {
         self.nextTimeLabel.text = [Utils dateFormatterTime:clazz.nextClassTime];
     }
-    NSLog(@"setupWithClass  %lld",clazz.nextClassTime);
     self.locationLabel.text = clazz.location;
     
     self.postedHomeworksCountLabel.text = [NSString stringWithFormat:@"%@", @(clazz.uncorrectedHomeworksCount)];
     self.circleCountLabel.text = [NSString stringWithFormat:@"%@", @(clazz.homeworksCount - clazz.commitedHomeworksCount)];
 //    self.unhandledHomeworksCountLabel.text = [NSString stringWithFormat:@"%@", @(clazz.uncorrectedHomeworksCount)];
+    [self updateSelectState:NO];
 }
 
+- (void)updateSelectState:(BOOL)selected{
+    
+    if (selected) {
+        
+        self.rightLineView.hidden = NO;
+        self.rightLineView.backgroundColor = [UIColor mainColor];
+        self.backgroundColor = [UIColor selectedColor];
+        self.containerView.backgroundColor =[UIColor selectedColor];
+    } else {
+        
+        self.rightLineView.hidden = YES;
+        self.backgroundColor = [UIColor unSelectedColor];
+        self.containerView.backgroundColor =[UIColor whiteColor];
+    }
+}
 @end

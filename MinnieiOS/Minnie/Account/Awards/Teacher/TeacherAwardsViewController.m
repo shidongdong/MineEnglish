@@ -11,16 +11,20 @@
 #import "TeacherAwardCollectionViewCell.h"
 #import "Award.h"
 #import "ExchangeAwardView.h"
-#import "TeacherAwardService.h"
-#import "UIView+Load.h"
+#import "AwardsService.h"
 #import "UIScrollView+Refresh.h"
 #import "ProgressHUD.h"
 
-@interface TeacherAwardsViewController ()<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface TeacherAwardsViewController ()<
+UICollectionViewDataSource,
+UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, weak) IBOutlet UIView *awardsCollectionContainerView;
 @property (nonatomic, weak) IBOutlet UICollectionView *awardsCollectionView;
 @property (nonatomic, weak) IBOutlet UIButton *createButton;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIView *rightLineView;
 
 @property (nonatomic, strong) NSMutableArray<Award *> *awards;
 @property (nonatomic, strong) BaseRequest *awardsRequest;
@@ -31,19 +35,44 @@
 
 @implementation TeacherAwardsViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.awardsCollectionView.backgroundColor = [UIColor unSelectedColor];
+    self.awardsCollectionContainerView.backgroundColor = [UIColor unSelectedColor];
     self.createButton.hidden = !APP.currentUser.canCreateRewards;
     
     [self registerCellNibs];
-    
-    [self requestData];
+
+    WeakifySelf;
+    [self.awardsCollectionView addPullToRefreshWithRefreshingBlock:^{
+        [weakSelf requestData];
+    }];
+     [self requestData];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(shouldReloadWhenAppeared:)
                                                  name:kNotificationKeyOfAddAward
                                                object:nil];
+#if MANAGERSIDE
+
+    self.titleLabel.text = @"";
+    self.createButton.hidden = YES;
+    [self.backButton setTitle:@"新建" forState:UIControlStateNormal];
+    [self.backButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    self.rightLineView.hidden = NO;
+    
+#else
+    self.rightLineView.hidden = YES;
+    self.titleLabel.text = @"星奖励";
+    self.createButton.hidden = !APP.currentUser.canCreateRewards;
+    [self.backButton setTitle:@"" forState:UIControlStateNormal];
+    [self.backButton setImage:[UIImage imageNamed:@"navbar_back"] forState:UIControlStateNormal];
+#endif
+}
+
+- (void)updateAwards{
+    [self requestData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -66,13 +95,37 @@
     NSLog(@"%s", __func__);
 }
 
+- (void)backButtonPressed:(id)sender{
+    
+#if MANAGERSIDE
+// 新建奖励
+    [self showCreateAwardWithAward:nil];
+#else
+    [self.navigationController popViewControllerAnimated:YES];
+#endif
+}
+
+- (void)showCreateAwardWithAward:(Award *_Nullable)award{
+    
+    CreateAwardViewController *vc = [[CreateAwardViewController alloc] initWithNibName:NSStringFromClass([CreateAwardViewController class]) bundle:nil];
+    vc.award = award;
+    
+    UIView *bgView = [Utils viewOfVCAddToWindowWithVC:vc width:375.0];
+    vc.closeViewCallBack = ^{
+        if (bgView.superview) {
+            [bgView removeFromSuperview];
+        }
+    };
+}
+
+
 - (IBAction)createButtonPressed:(id)sender {
+    
     CreateAwardViewController *vc = [[CreateAwardViewController alloc] initWithNibName:NSStringFromClass([CreateAwardViewController class]) bundle:nil];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Private Methods
-
 - (void)shouldReloadWhenAppeared:(NSNotification *)notification {
     self.shouldReloadWhenAppeared = YES;
 }
@@ -82,19 +135,19 @@
 }
 
 - (void)requestData {
+   
     if (self.awardsRequest != nil) {
         return;
     }
     
     self.awards = nil;
-
-    self.awardsCollectionView.hidden = YES;
-    [self.awardsCollectionContainerView showLoadingView];
+//    self.awardsCollectionView.hidden = YES;
+//    [self.awardsCollectionContainerView showLoadingView];
     
     WeakifySelf;
-    self.awardsRequest = [TeacherAwardService requestAwardsWithCallback:^(Result *result, NSError *error) {
+    self.awardsRequest = [AwardsService requestAwardsWithCallback:^(Result *result, NSError *error) {
         StrongifySelf;
-        
+        [weakSelf.awardsCollectionView headerEndRefreshing];
         strongSelf.awardsRequest = nil;
         
         // 显示失败页面
@@ -175,13 +228,30 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     
     Award *award = self.awards[indexPath.row];
+#if MANAGERSIDE
+    // 编辑
+    [self showCreateAwardWithAward:award];
+#else
     
-    CreateAwardViewController *vc = [[CreateAwardViewController alloc] initWithNibName:NSStringFromClass([CreateAwardViewController class]) bundle:nil];
-    vc.award = award;
-    [self.navigationController pushViewController:vc animated:YES];
+    if (APP.currentUser.authority == TeacherAuthoritySuperManager) {
+        
+        CreateAwardViewController *vc = [[CreateAwardViewController alloc] initWithNibName:NSStringFromClass([CreateAwardViewController class]) bundle:nil];
+        vc.award = award;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else {
+      
+        if (APP.currentUser.canCreateRewards) {
+            CreateAwardViewController *vc = [[CreateAwardViewController alloc] initWithNibName:NSStringFromClass([CreateAwardViewController class]) bundle:nil];
+            vc.award = award;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }
+
+#endif
 }
 
 @end

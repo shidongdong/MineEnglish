@@ -11,8 +11,7 @@
 #import "StudentAwardCollectionViewCell.h"
 #import "Award.h"
 #import "ExchangeAwardView.h"
-#import "StudentAwardService.h"
-#import "UIView+Load.h"
+#import "AwardsService.h"
 #import "UIScrollView+Refresh.h"
 #import "PushManager.h"
 #import "StudentStarListViewController.h"
@@ -45,12 +44,10 @@
     [self registerCellNibs];
     
     [self requestData];
-    
     if (self.unfinishedCount>=15) {
      
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"零分过多，无法兑换礼物\n请先将零分任务数减少到15以下" preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            NSLog(@"点击取消");
         }]];
         [self presentViewController:alertController animated:YES completion:^{
         }];
@@ -89,7 +86,7 @@
     [self.awardsCollectionContainerView showLoadingView];
     
     WeakifySelf;
-    self.awardsRequest = [StudentAwardService requestAwardsWithCallback:^(Result *result, NSError *error) {
+    self.awardsRequest = [AwardsService requestAwardsWithCallback:^(Result *result, NSError *error) {
         StrongifySelf;
         
         strongSelf.awardsRequest = nil;
@@ -189,7 +186,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
                                                 [HUD showProgressWithMessage:@"正在兑换"];
                                                 
                                                 
-                                                [StudentAwardService exchangeAwardWithId:award.awardId
+                                                [AwardsService exchangeAwardWithId:award.awardId
                                                                                 callback:^(Result *result, NSError *error) {
                                                                                     if (error != nil) {
                                                                                         if (error.code == 703) {

@@ -26,6 +26,7 @@
 @property (nonatomic, assign) NSInteger currentScore; //评分
 @property (nonatomic, strong) NSString * commentText; //评语
 @property (nonatomic, assign) NSInteger m_circle;     //分享到朋友圈
+@property (nonatomic, assign) NSInteger m_scope;      //1:年级；0：所有
 @property (nonatomic, strong) NSArray * commentTags; //常用评论列表
 
 @end
@@ -35,6 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.currentScore = -1;
+    self.mTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     self.commentTags = [NSMutableArray array];
     [self registerCellNibs];
     
@@ -58,8 +60,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-   // [self.textView becomeFirstResponder];
 }
 
 - (void)dealloc {
@@ -133,6 +133,7 @@
                                                     redo:0
                                               sendCircle:self.m_circle
                                                     text:reviewText
+                                                   scope:self.m_scope
                                                 callback:^(Result *result, NSError *error) {
                                                     if (error != nil) {
                                                         if (error.code == 202) {
@@ -146,8 +147,10 @@
                                                         weakSelf.homeworkSession.reviewText = reviewText;
                                                         weakSelf.homeworkSession.score = weakSelf.currentScore;
                                                         weakSelf.homeworkSession.isRedo = 0;
+#if TEACHERSIDE | MANAGERSIDE
                                                         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfCorrectHomework object:nil userInfo:@{@"HomeworkSession":weakSelf.homeworkSession}];
-                                                        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+#endif
+                                                                                                                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
                                                     }
 //                                                    {
 //
@@ -228,6 +231,9 @@
 {
     
     CGFloat firstCellHeight = (ScreenWidth - 24 - 4 * 10) / 5 + 20 + 10 + 39;
+#if MANAGERSIDE
+    firstCellHeight = (kColumnThreeWidth - 24 - 4 * 10) / 5 + 20 + 10 + 39;
+#endif
     if (indexPath.section == 0)
     {
         return firstCellHeight;
@@ -238,7 +244,11 @@
     }
     else
     {
-        return [HomeworkTagsTableViewCell heightWithTags:self.commentTags typeTitle:@"常用评语:"] + 40;
+        CGFloat collectionWidth = ScreenWidth;
+#if MANAGERSIDE
+        collectionWidth = kColumnThreeWidth;
+#endif
+        return [HomeworkTagsTableViewCell heightWithTags:self.commentTags typeTitle:@"常用评语:" collectionWidth:collectionWidth] + 40;
     }
 }
 
@@ -250,20 +260,25 @@
     {
         CorrectHomeworkScoreTableViewCell * scoreCell = [tableView dequeueReusableCellWithIdentifier:CorrectHomeworkScoreTableViewCellId forIndexPath:indexPath];
        
+        scoreCell.selectionStyle = UITableViewCellSelectionStyleNone;
         [scoreCell updateRecommendScoreHomeworkLevel:self.homeworkSession.homework.level score:self.homeworkSession.score];
         [scoreCell setScoreCallback:^(NSInteger score)
         {
             weakSelf.currentScore = score;
         }];
-        [scoreCell setShareCallback:^(NSInteger bShare)
-        {
-            weakSelf.m_circle = bShare;
+
+        [scoreCell setShareCallback:^(BOOL share, BOOL shareType) {
+           
+            NSLog(@"setShareCallback  %d   %d",share,shareType);
+            weakSelf.m_circle = share;
+            weakSelf.m_scope = shareType;
         }];
         cell = scoreCell;
     }
     else if (indexPath.section == 1)
     {
         CorrectHomeworkCommentTableViewCell * commentCell = [tableView dequeueReusableCellWithIdentifier:CorrectHomeworkCommentTableViewCellId forIndexPath:indexPath];
+        commentCell.selectionStyle = UITableViewCellSelectionStyleNone;
         [commentCell setupCommentInfo:self.homeworkSession.reviewText];
         self.commentText = self.homeworkSession.reviewText;
         [commentCell setCommentCallback:^(NSString * text) {
@@ -274,8 +289,14 @@
     else
     {
         HomeworkTagsTableViewCell * addCommentCell = [tableView dequeueReusableCellWithIdentifier:HomeworkTagsTableViewCellId forIndexPath:indexPath];
+        addCommentCell.selectionStyle = UITableViewCellSelectionStyleNone;
         addCommentCell.type = HomeworkTagsTableViewCellSelectNoneType;
-        [addCommentCell setupWithTags:self.commentTags selectedTags:@[] typeTitle:@"常用评语:"];
+        
+        CGFloat collectionWidth = ScreenWidth;
+#if MANAGERSIDE
+        collectionWidth = kColumnThreeWidth;
+#endif
+        [addCommentCell setupWithTags:self.commentTags selectedTags:@[] typeTitle:@"常用评语:" collectionWidth:collectionWidth];
         
         WeakifySelf;
         [addCommentCell setSelectCallback:^(NSString *tag) {

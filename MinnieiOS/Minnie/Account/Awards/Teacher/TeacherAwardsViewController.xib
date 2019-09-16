@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,7 +13,10 @@
             <connections>
                 <outlet property="awardsCollectionContainerView" destination="lUS-OD-86g" id="XGD-zE-LYD"/>
                 <outlet property="awardsCollectionView" destination="cZg-aH-Ldc" id="WoE-ee-Vsf"/>
+                <outlet property="backButton" destination="NeP-td-HHh" id="srj-AG-AuE"/>
                 <outlet property="createButton" destination="gBe-RN-URW" id="zy2-DJ-ApR"/>
+                <outlet property="rightLineView" destination="WAk-bC-lsp" id="RSK-Kf-2lg"/>
+                <outlet property="titleLabel" destination="g1l-4P-T7w" id="Fgx-nc-LAW"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -27,7 +29,7 @@
                     <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="星奖励" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g1l-4P-T7w">
-                            <rect key="frame" x="159" y="11.5" width="56" height="22"/>
+                            <rect key="frame" x="159.5" y="11" width="56" height="22"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                             <color key="textColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -37,7 +39,10 @@
                             <constraints>
                                 <constraint firstAttribute="width" constant="44" id="R0v-rj-ECG"/>
                             </constraints>
-                            <state key="normal" image="navbar_back.png"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                            <state key="normal" image="navbar_back.png">
+                                <color key="titleColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
                             <connections>
                                 <action selector="backButtonPressed:" destination="-1" eventType="touchUpInside" id="Uag-wf-rVM"/>
                             </connections>
@@ -97,6 +102,13 @@
                                 <outlet property="delegate" destination="-1" id="L3W-fO-RaV"/>
                             </connections>
                         </collectionView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WAk-bC-lsp">
+                            <rect key="frame" x="374" y="-44" width="1" height="647"/>
+                            <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="1" id="Iqk-Yg-Kyf"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
@@ -110,14 +122,17 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="9kV-27-XgE" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="Chb-um-2ly"/>
+                <constraint firstItem="9kV-27-XgE" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Chb-um-2ly"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="lUS-OD-86g" secondAttribute="trailing" id="I9U-41-2nO"/>
                 <constraint firstItem="9kV-27-XgE" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" priority="750" id="IEn-rT-MC6"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="WAk-bC-lsp" secondAttribute="bottom" id="IUD-Xf-fTr"/>
                 <constraint firstItem="9kV-27-XgE" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" id="O9g-yM-PA7"/>
                 <constraint firstItem="9kV-27-XgE" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="Tuv-JA-5Su"/>
                 <constraint firstItem="lUS-OD-86g" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="ixD-rF-E8M"/>
+                <constraint firstItem="WAk-bC-lsp" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="sZC-oO-ZAe"/>
                 <constraint firstItem="lUS-OD-86g" firstAttribute="top" secondItem="9kV-27-XgE" secondAttribute="bottom" id="te8-a5-L5y"/>
                 <constraint firstAttribute="bottom" secondItem="lUS-OD-86g" secondAttribute="bottom" id="vMb-Hp-ljJ"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="WAk-bC-lsp" secondAttribute="trailing" id="ysg-ST-jud"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <point key="canvasLocation" x="-1113" y="13"/>

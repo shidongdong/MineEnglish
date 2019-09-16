@@ -19,3 +19,19 @@
 
 @end
 
+
+@interface StudentsByClassRequest : BaseRequest
+
+@end
+
+
+@interface StudentZeroTaskRequest : BaseRequest
+
+@end
+
+
+@interface StudentDetailTaskRequest : BaseRequest
+
+- (instancetype)initWithStudentId:(NSInteger)studentId;
+
+@end

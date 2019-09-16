@@ -6,10 +6,10 @@
 //  Copyright © 2017年 mfox. All rights reserved.
 //
 
-#import "HomeworkDetailCommentTableViewCell.h"
 #import "UIColor+HEX.h"
 #import <YYText/YYText.h>
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "HomeworkDetailCommentTableViewCell.h"
 
 NSString * const HomeworkDetailCommentTableViewCellId = @"HomeworkDetailCommentTableViewCellId";
 

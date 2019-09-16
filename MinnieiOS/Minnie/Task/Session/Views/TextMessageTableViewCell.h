@@ -8,10 +8,14 @@
 
 #import "MessageTableViewCell.h"
 
+typedef void(^TextMessageTableViewClickCallback)(void); // 点击回调
+
 extern NSString * const LeftTextMessageTableViewCellId;
 extern NSString * const RightTextMessageTableViewCellId;
 
 @interface TextMessageTableViewCell : MessageTableViewCell
+
+@property (nonatomic, copy) TextMessageTableViewClickCallback clickCallback;
 
 @end
 

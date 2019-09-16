@@ -18,11 +18,23 @@
              @"gender":@"gender",
              @"avatarUrl":@"avatarUrl",
              @"token":@"token",
+             @"stuRemark":@"stuRemark",
+             @"stuLabel":@"stuLabel",
              @"type":@"type",
              @"authority":@"authority",
+             @"canManageHomeworkTask":@"canManageHomeworkTask",
+             @"canLookTaskTeachers":@"canLookTaskTeachers",
+             @"canManageTeachers":@"canManageTeachers",
+             @"canLookTeachers":@"canLookTeachers",
              @"canManageHomeworks":@"canManageHomeworks",
-             @"canManageClasses":@"canManageClasses",
+             @"canLookHomeworks":@"canLookHomeworks",
+             @"canManageActivity":@"canManageActivity",
+             @"canManageCampus":@"canManageCampus",
+             @"canLookClasses":@"canLookClasses",
              @"canManageStudents":@"canManageStudents",
+             @"canLookStudents":@"canLookStudents",
+             @"canManagePresents":@"canManagePresents",
+             @"canManageClasses":@"canManageClasses",
              @"canCreateRewards":@"canCreateRewards",
              @"canExchangeRewards":@"canExchangeRewards",
              @"canCreateNoticeMessage":@"canCreateNoticeMessage"
@@ -55,3 +67,53 @@
 
 @end
 
+
+@implementation OnClass
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+   
+    return @{@"classId":@"id",
+             @"name":@"name",
+             @"studentCount":@"studentCount"
+             };
+}
+
+@end
+
+
+@implementation OnHomework
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+  
+    return @{@"homeworkId":@"id",
+             @"title":@"title",
+             @"avgScore":@"avgScore",
+             @"level":@"level"
+             };
+}
+
+@end
+
+
+@implementation TeacherDetail
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    
+    return @{@"isOnline":@"isOnline",
+             @"onlineDetail":@"onlineDetail",
+             @"uncommitedHomeworksCount":@"uncommitedHomeworksCount",
+             @"uncorrectedHomeworksCount":@"uncorrectedHomeworksCount",
+             @"correctedHomeworksDetail":@"correctedHomeworksDetail",
+             @"onClassList":@"onClassList",
+             @"onHomeworkList":@"onHomeworkList"
+             };
+}
+
++ (NSValueTransformer *)onClassListJSONTransformer {
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[OnClass class]];
+}
+
++ (NSValueTransformer *)onHomeworkListJSONTransformer {
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[OnHomework class]];
+}
+@end

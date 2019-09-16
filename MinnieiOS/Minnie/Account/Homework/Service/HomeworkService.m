@@ -17,10 +17,9 @@
 @implementation HomeworkService
 
 + (BaseRequest *)createHomework:(Homework *)homework callback:(RequestCallback)callback {
+   
     CreateHomeworkRequest *request = [[CreateHomeworkRequest alloc] initWithHomework:homework];
-    
     request.callback = callback;
-    
     [request start];
     
     return request;
@@ -33,7 +32,6 @@
     request.callback = callback;
     
     [request start];
-    
     return request;
 }
 
@@ -64,8 +62,10 @@
     return request;
 }
 
-+ (BaseRequest *)searchHomeworkWithKeyword:(NSArray<NSString *> *)key callback:(RequestCallback)callback {
-    SearchHomeworksRequest *request = [[SearchHomeworksRequest alloc] initWithKeyword:key];
++ (BaseRequest *)searchHomeworkWithKeyword:(NSArray<NSString *> *)key
+                                   fieldId:(NSInteger)fieldId
+                                  callback:(RequestCallback)callback {
+    SearchHomeworksRequest *request = [[SearchHomeworksRequest alloc] initWithKeyword:key fileId:fieldId];
     
     request.objectKey = @"list";
     request.objectClassName = @"Homework";
@@ -77,8 +77,11 @@
     return request;
 }
 
-+ (BaseRequest *)searchHomeworkWithNextUrl:(NSString *)nextUrl withKeyword:(NSArray<NSString *> *)key callback:(RequestCallback)callback {
-    SearchHomeworksRequest *request = [[SearchHomeworksRequest alloc] initWithNextUrl:nextUrl withKeyword:key];
++ (BaseRequest *)searchHomeworkWithNextUrl:(NSString *)nextUrl
+                               withKeyword:(NSArray<NSString *> *)key
+                                   fieldId:(NSInteger)fieldId
+                                  callback:(RequestCallback)callback {
+    SearchHomeworksRequest *request = [[SearchHomeworksRequest alloc] initWithNextUrl:nextUrl withKeyword:key fileId:fieldId];
     
     request.objectKey = @"list";
     request.objectClassName = @"Homework";

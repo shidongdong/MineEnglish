@@ -11,11 +11,10 @@
 #import "HomeworkService.h"
 #import "HomeworkTableViewCell.h"
 #import "CreateHomeworkViewController.h"
-#import "UIView+Load.h"
 #import "UIScrollView+Refresh.h"
 #import "SearchHomeworkViewController.h"
 #import "ClassAndStudentSelectorController.h"
-#import "TIP.h"
+
 #import "NEPhotoBrowser.h"
 #import <AVKit/AVKit.h>
 #import "HomeworkPreviewViewController.h"
@@ -173,6 +172,7 @@
 
 - (IBAction)searchButtonPressed:(id)sender {
     SearchHomeworkViewController *vc = [[SearchHomeworkViewController alloc] initWithNibName:@"SearchHomeworkViewController" bundle:nil];
+    vc.fieldId = 0;
     [self.navigationController pushViewController:vc animated:NO];
 }
 
@@ -494,7 +494,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeworkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HomeworkTableViewCellId forIndexPath:indexPath];
-    
     Homework *homework = self.homeworks[indexPath.row];
     
     [cell setupWithHomework:homework];
@@ -550,6 +549,11 @@
         [weakSelf showAudioWithURL:audioUrl withCoverURL:audioCoverUrl];
     }];
     
+    if (!cell) {
+        
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        return cell;
+    }
     return cell;
 }
 

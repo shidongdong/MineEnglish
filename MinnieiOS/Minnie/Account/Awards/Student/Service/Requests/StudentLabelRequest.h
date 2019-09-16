@@ -11,13 +11,19 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark -
+#pragma mark - 2.1.10    星星排行榜
+@interface StudentStarRankRequest : BaseRequest
+
+@end
+
+
+#pragma mark -
 #pragma mark - 图形标注（教师端）
 @interface StudentLabelRequest : BaseRequest
 
 - (instancetype)initWithId:(NSUInteger)studentId stuLabel:(NSInteger)stuLabel;
 
 @end
-
 
 
 #pragma mark -
@@ -32,7 +38,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 学生星星增减记录（学生端）
 @interface StudentStarLogsRequest: BaseRequest
 
-- (instancetype)initWithPageNo:(NSUInteger)pageNo pageNum:(NSUInteger)pageNum;
+// logType 0：所有 1：礼物 2：任务得分 3：考试统计
+- (instancetype)initWithPageNo:(NSUInteger)pageNo
+                       pageNum:(NSUInteger)pageNum
+                     studentId:(NSUInteger)studentId
+                       logType:(NSString *)logType;
 
 @end
 

@@ -18,4 +18,6 @@ extern NSString * const SettingTableViewCellId;
 @property (nonatomic, weak) IBOutlet UILabel *actionLabel;
 @property (nonatomic, weak) IBOutlet UILabel *detailLabel;
 
+- (void)setupSelectedState:(BOOL)state;
+
 @end

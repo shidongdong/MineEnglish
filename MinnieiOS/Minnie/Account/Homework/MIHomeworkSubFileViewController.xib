@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MIHomeworkSubFileViewController">
+            <connections>
+                <outlet property="tableView" destination="64z-hF-Xgp" id="Zco-lt-tzD"/>
+                <outlet property="titleLabel" destination="F4S-52-uA5" id="hHX-A1-yvz"/>
+                <outlet property="view" destination="HvR-68-iaa" id="S4s-Gd-lFd"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="HvR-68-iaa">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cPL-cM-qzS" userLabel="导航栏">
+                    <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="子文件" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F4S-52-uA5">
+                            <rect key="frame" x="60" y="11" width="294" height="22"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                            <color key="textColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="byo-97-FIY">
+                            <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="44" id="MbS-ug-3kx"/>
+                            </constraints>
+                            <state key="normal" image="navbar_back.png"/>
+                            <connections>
+                                <action selector="backAction:" destination="-1" eventType="touchUpInside" id="abf-qy-KJE"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="byo-97-FIY" firstAttribute="leading" secondItem="xFW-n8-qx5" secondAttribute="leading" id="4jN-mz-ncl"/>
+                        <constraint firstAttribute="height" constant="44" id="5nX-Hv-AMj"/>
+                        <constraint firstItem="F4S-52-uA5" firstAttribute="centerY" secondItem="cPL-cM-qzS" secondAttribute="centerY" id="7is-qZ-asD"/>
+                        <constraint firstItem="F4S-52-uA5" firstAttribute="leading" secondItem="xFW-n8-qx5" secondAttribute="leading" constant="60" id="8a9-fb-xo5"/>
+                        <constraint firstItem="xFW-n8-qx5" firstAttribute="trailing" secondItem="F4S-52-uA5" secondAttribute="trailing" constant="60" id="Cyt-aw-xMq"/>
+                        <constraint firstItem="byo-97-FIY" firstAttribute="top" secondItem="xFW-n8-qx5" secondAttribute="top" id="LfH-0N-6fh"/>
+                        <constraint firstAttribute="bottom" secondItem="byo-97-FIY" secondAttribute="bottom" id="ORm-ML-wzs"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="xFW-n8-qx5"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ubA-2b-vZH" userLabel="分割线">
+                    <rect key="frame" x="0.0" y="88" width="414" height="0.5"/>
+                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="aGG-Fc-2I1"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="64z-hF-Xgp">
+                    <rect key="frame" x="0.0" y="88.5" width="414" height="807.5"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="dGC-Sb-2Fv"/>
+                        <outlet property="delegate" destination="-1" id="bn6-JR-fyi"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="64z-hF-Xgp" firstAttribute="leading" secondItem="UXi-1n-hF5" secondAttribute="leading" id="1RN-Re-cMl"/>
+                <constraint firstItem="64z-hF-Xgp" firstAttribute="top" secondItem="ubA-2b-vZH" secondAttribute="bottom" id="7Oy-hn-rui"/>
+                <constraint firstItem="ubA-2b-vZH" firstAttribute="leading" secondItem="cPL-cM-qzS" secondAttribute="leading" id="DXP-q4-1w1"/>
+                <constraint firstAttribute="trailing" secondItem="cPL-cM-qzS" secondAttribute="trailing" id="Shy-1V-q3Q"/>
+                <constraint firstAttribute="bottom" secondItem="64z-hF-Xgp" secondAttribute="bottom" id="TjA-Q6-Ns2"/>
+                <constraint firstItem="ubA-2b-vZH" firstAttribute="top" secondItem="cPL-cM-qzS" secondAttribute="bottom" id="fju-rd-Xcj"/>
+                <constraint firstItem="cPL-cM-qzS" firstAttribute="leading" secondItem="HvR-68-iaa" secondAttribute="leading" id="hvF-Vm-xAe"/>
+                <constraint firstItem="ubA-2b-vZH" firstAttribute="trailing" secondItem="cPL-cM-qzS" secondAttribute="trailing" id="qr8-zL-CMs"/>
+                <constraint firstItem="UXi-1n-hF5" firstAttribute="trailing" secondItem="64z-hF-Xgp" secondAttribute="trailing" id="shW-gV-dP7"/>
+                <constraint firstItem="cPL-cM-qzS" firstAttribute="top" secondItem="UXi-1n-hF5" secondAttribute="top" priority="750" id="wRx-Ik-lwL"/>
+                <constraint firstItem="cPL-cM-qzS" firstAttribute="top" relation="greaterThanOrEqual" secondItem="HvR-68-iaa" secondAttribute="top" constant="20" id="xrm-dF-mnu"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="UXi-1n-hF5"/>
+            <point key="canvasLocation" x="-2108.695652173913" y="-720.53571428571422"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="navbar_back.png" width="24" height="24"/>
+    </resources>
+</document>

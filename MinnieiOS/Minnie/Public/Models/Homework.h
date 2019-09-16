@@ -6,6 +6,7 @@
 //  Copyright © 2017年 mfox. All rights reserved.
 //
 
+#import "ParentFileInfo.h"
 #import <Mantle/Mantle.h>
 #import <UIKit/UIKit.h>
 #import "Teacher.h"
@@ -21,15 +22,17 @@
 @property (nonatomic, strong) NSString *title; // 标题
 @property (nonatomic, strong) NSArray <HomeworkItem *>* items; // 作业内容项
 
+@property (nonatomic, strong) NSArray <HomeworkItem *>* otherItem; // 跟读材料
+
 @property (nonatomic, strong) NSArray <HomeworkAnswerItem *>* answerItems; // 作业内容项
 
 @property (nonatomic, assign) long long createTime; // 创建的时间
 
 @property (nonatomic, strong) NSArray <NSString *> *tags; // 标签
 
-@property (nonatomic, assign) NSInteger style; //作业类型：日常1、假期2、集训3
+@property (nonatomic, assign) NSInteger style; //提交时间：1/2/3/4天
 
-@property (nonatomic, assign) NSInteger level; //作业难度，简单1，一般2，困难3
+@property (nonatomic, assign) NSInteger level; //作业难度，1-5星
 
 @property (nonatomic, assign) NSInteger category; //作业类型：普通1、附件2、初始化0
 
@@ -38,11 +41,19 @@
 @property (nonatomic, strong) NSString * formTag;  //作业类型标签: 拼读，指读，默写，订正等等
 
 @property (nonatomic, strong) NSString * teremark;  //批改备注 长度限制28
+// 新增
+@property (nonatomic, strong) HomeworkFileDto *fileInfos; //文件位置信息
+
+@property (nonatomic, strong) NSString *typeName; //任务类型：通知、跟读任务、单词记忆、普通任务、考试统计
+
+@property (nonatomic, assign) NSInteger examType; // 任务类型为成绩统计：1:周测；2:正式考试
 
 // UI
 @property (nonatomic, assign) CGFloat cellHeight;
 
 - (NSDictionary *)dictionaryForUpload;
+
+- (Homework *)newHomework;
 
 @end
 

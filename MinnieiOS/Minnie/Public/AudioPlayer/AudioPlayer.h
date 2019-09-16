@@ -24,6 +24,8 @@ typedef NS_ENUM(NSInteger, AudioPlayerState) {
 
 - (void)playURL:(NSURL *)url;
 
+- (void)playLocalURL:(NSString *)url;
+
 - (void)stop;
 
 @end

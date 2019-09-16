@@ -7,8 +7,6 @@
 //
 
 #import "StudentDetailViewController.h"
-#import "Utils.h"
-#import "UIView+Load.h"
 #import "Student.h"
 #import "PublicService.h"
 #import "StudentDetailCell.h"
@@ -139,7 +137,9 @@
             remarkVC.userId = weakSelf.userId;
             [weakSelf.navigationController pushViewController:remarkVC animated:YES];
         };
-        [cell setCellTitle:[self.titleArray objectAtIndex:indexPath.row - 1] withContent:self.user.stuRemark];
+        if (indexPath.row - 1 < self.titleArray.count) {
+            [cell setCellTitle:[self.titleArray objectAtIndex:indexPath.row - 1] withContent:self.user.stuRemark];
+        }
         return cell;
     }
     else
@@ -214,7 +214,9 @@
 //            [cell setModifybtnTitle:@"编辑备注" tag:indexPath.row];
 //            content = self.user.stuRemark;
 //        }
-        [cell setCellTitle:[self.titleArray objectAtIndex:indexPath.row - 1] withContent:content];
+        if (indexPath.row - 1 < self.titleArray.count) {
+            [cell setCellTitle:[self.titleArray objectAtIndex:indexPath.row - 1] withContent:content];
+        }
         return cell;
     }
 }

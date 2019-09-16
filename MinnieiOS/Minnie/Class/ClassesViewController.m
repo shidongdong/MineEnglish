@@ -9,14 +9,13 @@
 #import "ClassesViewController.h"
 #import "ClassTableViewCell.h"
 #import "Clazz.h"
-#import "Utils.h"
 #import "Constants.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "ClassService.h"
-#import "UIView+Load.h"
 #import "UIScrollView+Refresh.h"
 #import "CircleHomeworksViewController.h"
-#import "TIP.h"
+#import "PinyinHelper.h"
+#import "HanyuPinyinOutputFormat.h"
 #import "ClassManagerViewController.h"
 
 @interface ClassesViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -135,9 +134,18 @@
 
     WeakifySelf;
     Teacher *teacher = APP.currentUser;
-    self.classesRequest = [ClassService requestClassesWithFinishState:self.isUnfinished?0:1
-                                                              listAll:self.isManageMode||teacher.authority==TeacherAuthoritySuperManager
-                                                               simple:NO
+    BOOL isAll = NO;
+    if (teacher.authority == TeacherAuthoritySuperManager) {
+        
+        isAll = YES;
+    } else {
+        
+        // 超级管理员 显示所有班级   管理员、普通教师：显示所有可见普通教师的班级
+        
+    }
+ 
+    self.classesRequest = [ClassService requestNewClassesWithFinishState:self.isUnfinished?0:1
+                                                           campusName:nil
                                                              callback:^(Result *result, NSError *error) {
                                                                  StrongifySelf;
                                                                  [strongSelf handleRequestResult:result
@@ -183,7 +191,7 @@
         }
         
         if (classes.count > 0) {
-            [self.classes addObjectsFromArray:classes];
+            [self.classes addObjectsFromArray:[self sortClasses:classes]];
         }
         
         if (nextUrl.length == 0) {
@@ -215,7 +223,7 @@
         if (classes.count > 0) {
             self.classesTableView.hidden = NO;
 
-            [self.classes addObjectsFromArray:classes];
+            [self.classes addObjectsFromArray:[self sortClasses:classes]];
             [self.classesTableView reloadData];
             
             [self.classesTableView addPullToRefreshWithTarget:self
@@ -249,6 +257,24 @@
     self.nextUrl = nextUrl;
 }
 
+- (NSArray *)sortClasses:(NSArray *)classes {
+   
+    NSMutableArray *tempClasses = [NSMutableArray arrayWithArray:classes];
+    HanyuPinyinOutputFormat *outputFormat=[[HanyuPinyinOutputFormat alloc] init];
+    [outputFormat setToneType:ToneTypeWithoutTone];
+    [outputFormat setVCharType:VCharTypeWithV];
+    [outputFormat setCaseType:CaseTypeUppercase];
+    [tempClasses enumerateObjectsUsingBlock:^(Clazz * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *pinyin = [[PinyinHelper toHanyuPinyinStringWithNSString:obj.name withHanyuPinyinOutputFormat:outputFormat withNSString:@" "] uppercaseString];
+        obj.pinyinName = pinyin;
+        
+    }];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pinyinName" ascending:YES];
+    NSArray *array = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    [tempClasses sortUsingDescriptors:array];
+    return tempClasses;
+}
 
 #pragma mark - UITableViewDataSource
 
@@ -279,9 +305,13 @@
     Clazz *clazz = self.classes[indexPath.row];
 
     if (self.isManageMode) {
-        ClassManagerViewController *vc = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
-        vc.classId = clazz.classId;
-        [self.navigationController pushViewController:vc animated:YES];
+       
+//        if (APP.currentUser.canManageClasses) {
+        
+            ClassManagerViewController *vc = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
+            vc.classId = clazz.classId;
+            [self.navigationController pushViewController:vc animated:YES];
+//        }
     } else {
         CircleHomeworksViewController *homeworksVC = [[CircleHomeworksViewController alloc] initWithNibName:@"CircleHomeworksViewController" bundle:nil];
         homeworksVC.clazz = clazz;

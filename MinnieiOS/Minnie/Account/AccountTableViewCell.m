@@ -36,11 +36,19 @@ CGFloat const AccountTableViewCellHeight = 124.f;
 }
 
 - (void)setup {
-    if (APP.currentUser.canExchangeRewards) {
-        self.exchangeViewHeightConstraint.constant = 50.f;
+    
+    if (APP.currentUser.authority == TeacherAuthorityManager ||
+        APP.currentUser.authority == TeacherAuthoritySuperManager) {
+        
+        if (APP.currentUser.canExchangeRewards) {
+            self.exchangeViewHeightConstraint.constant = 50.f;
+        } else {
+            self.exchangeViewHeightConstraint.constant = 0.f;
+        }
     } else {
         self.exchangeViewHeightConstraint.constant = 0.f;
     }
+
 }
 
 - (void)updateWithUnreadMessageCount:(NSUInteger)count {

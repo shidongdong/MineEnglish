@@ -55,6 +55,93 @@
 #import "Application.h"
 #import "Constants.h"
 #import "UIColor+HEX.h"
+#import "UIView+Load.h"
 #import "NSString+Qiniu.h"
+#import <Masonry/Masonry.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
+
+#define kRootModularWidth           90.f
+#define kColumnSecondWidth          184.f
+#define kColumnThreeWidth           (ScreenWidth - kRootModularWidth - kColumnSecondWidth)/2.0
+
+
+
+/*
+ *  环境配置
+ *  线上环境:     @"http://api.minniedu.com:8888"
+ *  开发环境:     @"http://api.minniedu.com:9999"
+ */
+#define kConfigBaseUrl         @"http://api.minniedu.com:8888"
+
+//#define kConfigBaseUrl         @"http://api.minniedu.com:9999"
+
+/*
+ *  AVOSCloud配置
+ *   正式版
+ *   ApplicationId:     @"pe0Om2fpgh5oHCd0NfSUbwkT-gzGzoHsz"
+ *   clientKey:         @"gfJuGSytpQalwcnAmNtunRoP"
+ *   开发版
+ *  ApplicationId:      @"JE1gHMgc1MJaTRCPFcz30F9E-gzGzoHsz"
+ *  clientKey:          @"Axlm6WN8mJ7j1ivtGjgHxGqb"
+ *
+ */
+
+#define kAVOSCloudApplicationId         @"pe0Om2fpgh5oHCd0NfSUbwkT-gzGzoHsz"
+#define kAVOSCloudClientKey             @"gfJuGSytpQalwcnAmNtunRoP"
+
+//#define kAVOSCloudApplicationId         @"JE1gHMgc1MJaTRCPFcz30F9E-gzGzoHsz"
+//#define kAVOSCloudClientKey             @"Axlm6WN8mJ7j1ivtGjgHxGqb"
+
+typedef NS_ENUM(NSInteger, MIHomeworkCreateContentType) {
+    
+    MIHomeworkCreateContentType_Localtion,          // 位置
+    MIHomeworkCreateContentType_Title,              // 标题
+    MIHomeworkCreateContentType_Content,            // 内容
+    MIHomeworkCreateContentType_MarkingRemarks,     // 批改备注
+    MIHomeworkCreateContentType_StatisticalType,    // 统计类型
+    MIHomeworkCreateContentType_CommitTime,         // 选择提交时间
+    MIHomeworkCreateContentType_HomeworkDifficulty, // 选择作业难度（选择星级）
+    MIHomeworkCreateContentType_Label,              // 标签（任务类型）
+    MIHomeworkCreateContentType_TypeLabel,          // 分类标签（多选）
+    MIHomeworkCreateContentType_WordsTimeInterval,  // 播放时间间隔
+    MIHomeworkCreateContentType_AddWords,           // 添加单词
+    MIHomeworkCreateContentType_Materials,          // 添加材料
+    MIHomeworkCreateContentType_Answer,             // 添加答案
+    MIHomeworkCreateContentType_ExaminationType,    // 考试类型
+    MIHomeworkCreateContentType_TimeLimit,          // 选择时限
+    MIHomeworkCreateContentType_AddCovers,          // 添加封面
+    MIHomeworkCreateContentType_AddActPic,          // 添加活动图
+    MIHomeworkCreateContentType_ActivityReq,        // 活动要求
+    MIHomeworkCreateContentType_CommitCount,        // 可提交次数
+    MIHomeworkCreateContentType_Add,                // 添加按钮
+    MIHomeworkCreateContentType_AddBgMusic,         // 添加背景音乐
+    MIHomeworkCreateContentType_ActivityParticipant,// 活动参与对象
+    MIHomeworkCreateContentType_AddFollowMaterials, // 添加跟读材料
+    MIHomeworkCreateContentType_VideoTimeLimit,     // 视频时限
+    MIHomeworkCreateContentType_ActivityStartTime,  // 活动开始时间
+    MIHomeworkCreateContentType_ActivityEndTime,    // 活动结束时间
+    MIHomeworkCreateContentType_Delete,             // 删除
+    MIHomeworkCreateContentType_Video,              // 视频
+    MIHomeworkCreateContentType_Audio,              // 音频
+    MIHomeworkCreateContentType_Image,              // 图片
+};
+
+// 作业类型
+typedef NS_ENUM(NSInteger, MIHomeworkTaskType) {
+    
+    MIHomeworkTaskType_Notify,                  // 通知
+    MIHomeworkTaskType_FollowUp,                // 跟读
+    MIHomeworkTaskType_WordMemory,              // 单词记忆
+    MIHomeworkTaskType_GeneralTask,             // 普通任务
+    MIHomeworkTaskType_Activity,                // 活动
+    MIHomeworkTaskType_ExaminationStatistics    // 成绩统计
+};
+
+#define kHomeworkTaskNotifyName                    @"通知"
+#define kHomeworkTaskFollowUpName                  @"跟读"
+#define kHomeworkTaskWordMemoryName                @"单词记忆"
+#define kHomeworkTaskGeneralTaskName               @"普通任务"
+#define kHomeworkTaskNameExaminationStatistics     @"成绩统计"
+#define kHomeworkTaskActivityName                  @"活动"
 #endif /* PrefixHeader_pch */

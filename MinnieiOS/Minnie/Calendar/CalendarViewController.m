@@ -11,10 +11,8 @@
 #import "CalendarTableViewCell.h"
 #import "Clazz.h"
 #import <Masonry/Masonry.h>
-#import "Utils.h"
 #import "Constants.h"
 #import "ClassService.h"
-#import "UIView+Load.h"
 
 @interface CalendarViewController ()<UITableViewDataSource, UITableViewDelegate>
 

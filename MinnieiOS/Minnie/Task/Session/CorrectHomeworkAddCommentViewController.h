@@ -16,7 +16,7 @@
 
 @interface CorrectHomeworkAddCommentViewController : BaseViewController
 
-@property (nonatomic, assign)id<CorrectHomeworkAddCommentViewControllerDelegate>delegate;
+@property (nonatomic, weak)id<CorrectHomeworkAddCommentViewControllerDelegate>delegate;
 
 @end
 

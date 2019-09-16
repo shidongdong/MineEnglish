@@ -37,6 +37,9 @@ typedef void(^HomeworkTableViewCellClickAudioCallback)(NSString *, NSString *);
 @property (nonatomic, copy) HomeworkTableViewCellClickAudioCallback audioCallback;
 
 - (void)setupWithHomework:(Homework *)homework;
+
+- (void)selectedState:(BOOL)selected;
+
 - (void)updateWithEditMode:(BOOL)editMode selected:(BOOL)selected;
 
 + (CGFloat)cellHeightWithHomework:(Homework *)homework;

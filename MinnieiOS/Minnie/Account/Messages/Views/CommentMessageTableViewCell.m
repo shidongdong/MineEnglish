@@ -8,7 +8,6 @@
 
 #import "CommentMessageTableViewCell.h"
 #import "UIColor+HEX.h"
-#import "Utils.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 CGFloat const CommentMessageTableViewCellHeight = 80;

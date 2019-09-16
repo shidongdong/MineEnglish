@@ -10,12 +10,9 @@
 #import "TagCollectionViewCell.h"
 #import "TagService.h"
 #import "HomeworkSessionService.h"
-#import "UIView+Load.h"
-#import "Utils.h"
 #import "Constants.h"
 #import "Application.h"
 #import "CreateTagView.h"
-#import "HUD.h"
 #import "EqualSpaceFlowLayout.h"
 
 @interface TagsViewController () <
@@ -24,7 +21,6 @@ EqualSpaceFlowLayoutDelegate
 >
 
 @property (nonatomic, weak) IBOutlet UIView *tagsCollectionContainerView;
-//@property (nonatomic, weak) IBOutlet UICollectionView *tagsCollectionView;
 
 @property (nonatomic, strong) NSArray<NSString *> *tags;
 @property (nonatomic, strong) NSMutableArray<NSString *> *selectedTags;
@@ -66,11 +62,11 @@ EqualSpaceFlowLayoutDelegate
 #pragma mark - IBActions
 
 - (IBAction)addButtonPressed:(id)sender {
+
     //判断相同标签不能创建
     
-    
     WeakifySelf;
-    [CreateTagView showInSuperView:self.view
+    [CreateTagView showInSuperView:[UIApplication sharedApplication].keyWindow
                           callback:^(NSString *tag) {
                               [CreateTagView hideAnimated:YES];
                               
@@ -468,19 +464,27 @@ EqualSpaceFlowLayoutDelegate
     NSString *tag = self.tags[indexPath.row];
     CGSize itemSize = [TagCollectionViewCell cellSizeWithTag:tag];
     // 标签长度大于屏幕
-    if (itemSize.width > ScreenWidth -30) {
+    CGFloat collectionWidth = ScreenWidth;
+#if MANAGERSIDE
+    collectionWidth = kColumnThreeWidth;
+#endif
+    if (itemSize.width > collectionWidth -30) {
         
-        itemSize.width = ScreenWidth - 30;
+        itemSize.width = collectionWidth - 30;
     }
     return itemSize;
 }
 
 - (void)addContentView{
-   
-    EqualSpaceFlowLayout *flowLayout = [[EqualSpaceFlowLayout alloc] init];
+    
+    CGFloat collectionWidth = ScreenWidth;
+#if MANAGERSIDE
+    collectionWidth = kColumnThreeWidth;
+#endif
+    EqualSpaceFlowLayout *flowLayout = [[EqualSpaceFlowLayout alloc] initWithCollectionViewWidth:collectionWidth];
     flowLayout.delegate = self;
     CGFloat footerHeight = isIPhoneX ? (44 + 34) :44;
-    self.tagsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kNaviBarHeight, ScreenWidth, ScreenHeight - kNaviBarHeight - footerHeight) collectionViewLayout:flowLayout];
+    self.tagsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kNaviBarHeight, collectionWidth, ScreenHeight - kNaviBarHeight - footerHeight) collectionViewLayout:flowLayout];
     self.tagsCollectionView.backgroundColor = [UIColor whiteColor];
     self.tagsCollectionView.delegate = self;
     self.tagsCollectionView.dataSource = self;

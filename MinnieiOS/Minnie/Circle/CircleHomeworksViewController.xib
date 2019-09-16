@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,6 +13,7 @@
             <connections>
                 <outlet property="containerView" destination="Ex6-AG-qML" id="cJd-qw-fPK"/>
                 <outlet property="customTitleLabel" destination="Nmk-bT-5c8" id="NFC-3L-5YB"/>
+                <outlet property="editBtn" destination="uAc-t3-0Bk" id="EVP-Do-LJW"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -41,6 +41,19 @@
                                 <action selector="backButtonPressed:" destination="-1" eventType="touchUpInside" id="tkl-6l-M5V"/>
                             </connections>
                         </button>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uAc-t3-0Bk">
+                            <rect key="frame" x="321" y="6" width="44" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="44" id="Zz9-eN-ERc"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <state key="normal" title="编辑">
+                                <color key="titleColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="editBtnAction:" destination="-1" eventType="touchUpInside" id="AaL-Bf-kcT"/>
+                            </connections>
+                        </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fOB-rf-rGl">
                             <rect key="frame" x="0.0" y="43.5" width="375" height="0.5"/>
                             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -53,9 +66,11 @@
                     <constraints>
                         <constraint firstItem="Nmk-bT-5c8" firstAttribute="centerY" secondItem="4se-uv-Pt8" secondAttribute="centerY" id="1QH-Zq-fVT"/>
                         <constraint firstItem="Nmk-bT-5c8" firstAttribute="centerX" secondItem="4se-uv-Pt8" secondAttribute="centerX" id="7zg-xm-p1d"/>
+                        <constraint firstItem="uAc-t3-0Bk" firstAttribute="centerY" secondItem="b2t-o1-eRO" secondAttribute="centerY" id="AZ5-Od-lpD"/>
                         <constraint firstItem="b2t-o1-eRO" firstAttribute="top" secondItem="4se-uv-Pt8" secondAttribute="top" id="FfQ-JA-zdn"/>
                         <constraint firstAttribute="height" constant="44" id="Hk0-zN-U0b"/>
                         <constraint firstAttribute="bottom" secondItem="fOB-rf-rGl" secondAttribute="bottom" id="RlQ-DA-ror"/>
+                        <constraint firstItem="Gro-dG-2xj" firstAttribute="trailing" secondItem="uAc-t3-0Bk" secondAttribute="trailing" constant="10" id="fQK-sz-Qkc"/>
                         <constraint firstItem="b2t-o1-eRO" firstAttribute="leading" secondItem="4se-uv-Pt8" secondAttribute="leading" id="fYS-n9-pQg"/>
                         <constraint firstAttribute="trailing" secondItem="fOB-rf-rGl" secondAttribute="trailing" id="tq3-2Q-D4g"/>
                         <constraint firstItem="fOB-rf-rGl" firstAttribute="leading" secondItem="4se-uv-Pt8" secondAttribute="leading" id="xZO-co-xGU"/>

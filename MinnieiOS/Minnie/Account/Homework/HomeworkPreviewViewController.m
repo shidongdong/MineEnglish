@@ -46,6 +46,12 @@ VIResourceLoaderManagerDelegate
 
 @implementation HomeworkPreviewViewController
 
+-(void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
+    self.homework.cellHeight = 0;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.homeworkSession = [[HomeworkSession alloc] init];

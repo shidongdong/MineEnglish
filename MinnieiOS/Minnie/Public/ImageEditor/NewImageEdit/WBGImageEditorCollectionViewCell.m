@@ -93,8 +93,14 @@ NSString * const WBGImageEditorCollectionViewCellId = @"WBGImageEditorCollection
 
 - (void)resetZoomScaleWithAnimated:(BOOL)animated
 {
-    CGFloat Rw = _scrollView.frame.size.width / _imageView.frame.size.width;
-    CGFloat Rh = _scrollView.frame.size.height / _imageView.frame.size.height;
+    CGFloat Rw = 0;
+    if (_imageView.frame.size.width > 0) {
+        Rw = _scrollView.frame.size.width / _imageView.frame.size.width;
+    }
+    CGFloat Rh = 0;
+    if (_imageView.frame.size.height) {
+        Rh = _scrollView.frame.size.height / _imageView.frame.size.height;
+    }
     
     //CGFloat scale = [[UIScreen mainScreen] scale];
     CGFloat scale = 1;

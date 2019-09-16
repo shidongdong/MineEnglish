@@ -8,8 +8,7 @@
 
 #import "ExchangeRecordsViewController.h"
 #import "ExchangeRecordTableViewCell.h"
-#import "StudentAwardService.h"
-#import "UIView+Load.h"
+#import "AwardsService.h"
 #import "Constants.h"
 
 @interface ExchangeRecordsViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -61,7 +60,7 @@
     [self.containerView showLoadingView];
     
     WeakifySelf;
-    self.recordsRequest = [StudentAwardService requestExchangeRecordsWithCallback:^(Result *result, NSError *error) {
+    self.recordsRequest = [AwardsService requestExchangeRecordsWithCallback:^(Result *result, NSError *error) {
         StrongifySelf;
         
         strongSelf.recordsRequest = nil;

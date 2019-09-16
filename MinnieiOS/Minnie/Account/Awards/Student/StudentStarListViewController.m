@@ -7,7 +7,6 @@
 //
 
 #import "StarRank.h"
-#import "UIView+Load.h"
 #import "StudentAwardService.h"
 #import "StudentStarListViewController.h"
 #import "StudentStarListTableViewCell.h"
@@ -47,7 +46,7 @@ NSString * const StudentStarListTableViewCellId = @"StudentStarListTableViewCell
 - (IBAction)rightBtnAction:(id)sender {
     
     StudentStarRecordViewController * statRecordVC = [[StudentStarRecordViewController alloc] initWithNibName:NSStringFromClass([StudentStarRecordViewController class]) bundle:nil];
-    [self setHidesBottomBarWhenPushed:YES];
+    statRecordVC.recordType = 0;
     [self.navigationController pushViewController:statRecordVC animated:YES];
 }
 

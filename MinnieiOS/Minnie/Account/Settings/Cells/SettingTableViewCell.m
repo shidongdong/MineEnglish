@@ -11,10 +11,26 @@
 CGFloat const SettingTableViewCellHeight = 56.f;
 NSString * const SettingTableViewCellId = @"SettingTableViewCellId";
 
+@interface SettingTableViewCell ()
+
+@property (weak, nonatomic) IBOutlet UIView *rightLineView;
+
+@end
+
 @implementation SettingTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
 }
 
+- (void)setupSelectedState:(BOOL)state{
+    
+    if (state) {
+        self.rightLineView.hidden = NO;
+        self.backgroundColor = [UIColor selectedColor];
+    } else {
+        self.rightLineView.hidden = YES;
+        self.backgroundColor = [UIColor whiteColor];
+    }
+}
 @end

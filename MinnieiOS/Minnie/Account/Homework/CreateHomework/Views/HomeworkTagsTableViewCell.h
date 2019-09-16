@@ -26,11 +26,10 @@ extern NSString * const HomeworkTagsTableViewCellId;
 
 @property (nonatomic, assign) HomeworkTagsTableViewCellSelectType type; //选择状态
 
-
 - (void)setupWithTags:(NSArray <NSString *> *)tags
          selectedTags:(NSArray <NSString *> *)selectedTags
-            typeTitle:(NSString *)title;
+            typeTitle:(NSString *)title
+      collectionWidth:(CGFloat)collectionWidth;
 
-+ (CGFloat)heightWithTags:(NSArray <NSString *> *)tags typeTitle:(NSString *)title;
-
++ (CGFloat)heightWithTags:(NSArray <NSString *> *)tags typeTitle:(NSString *)title collectionWidth:(CGFloat)collectionWidth;
 @end

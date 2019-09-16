@@ -12,6 +12,24 @@
 #import "Result.h"
 #import <Mantle/Mantle.h>
 #import "StudentLabelRequest.h"
+
+
+#pragma mark -
+#pragma mark - 2.1.10    星星排行榜
+@implementation StudentStarRankRequest
+
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+
+- (NSString *)requestUrl {
+    return [NSString stringWithFormat:@"%@/user/getStarRank", ServerProjectName];
+}
+
+
+@end
+
+
 #pragma mark -
 #pragma mark - 图形标注（教师端）
 
@@ -103,18 +121,28 @@
 @property (nonatomic, assign) NSUInteger pageNo;
 //每页数目
 @property (nonatomic, assign) NSUInteger pageNum;
+@property (nonatomic, assign) NSUInteger studentId;
+
+//星星增减类别 0：所有 1：礼物 2：任务得分 3：考试统计
+@property (nonatomic, copy) NSString *logType;
+
 
 @end
 
 @implementation StudentStarLogsRequest
 
 
-- (instancetype)initWithPageNo:(NSUInteger)pageNo pageNum:(NSUInteger)pageNum{
+- (instancetype)initWithPageNo:(NSUInteger)pageNo
+                       pageNum:(NSUInteger)pageNum
+                       studentId:(NSUInteger)studentId
+                       logType:(NSString *)logType{
     self = [super init];
     if (self != nil) {
         
         self.pageNo = pageNo;
         self.pageNum = pageNum;
+        self.logType = logType;
+        self.studentId = studentId;
     }
     return self;
 }
@@ -125,7 +153,10 @@
 
 - (id)requestArgument {
     
-    return @{@"pageNo":@(self.pageNo), @"pageNum":@(self.pageNum)};
+    return @{@"pageNo":@(self.pageNo),
+             @"pageNum":@(self.pageNum),
+             @"studentId":@(self.studentId),
+             @"logType":self.logType };
 }
 
 - (YTKRequestMethod)requestMethod {

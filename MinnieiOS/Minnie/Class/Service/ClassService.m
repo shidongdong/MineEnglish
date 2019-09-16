@@ -6,15 +6,9 @@
 //  Copyright © 2018年 netease. All rights reserved.
 //
 
+#import "Clazz.h"
 #import "ClassService.h"
 #import "ClassesRequest.h"
-#import "CreateOrUpdateClassRequest.h"
-#import "HomeworksRequest.h"
-#import "DeleteClassRequest.h"
-#import "Clazz.h"
-#import "ClassRequest.h"
-#import "AddClassStudentRequest.h"
-#import "DeleteClassStudentRequest.h"
 
 @implementation ClassService
 
@@ -33,13 +27,14 @@
 + (BaseRequest *)requestClassesWithFinishState:(BOOL)finished
                                        listAll:(BOOL)listAll
                                         simple:(BOOL)simple
+                                    campusName:(NSString *)campusName
                                       callback:(RequestCallback)callback {
     NSInteger teacherId = 0;
     if (!listAll) {
         teacherId = APP.currentUser.userId;
     }
     
-    ClassesRequest *request = [[ClassesRequest alloc] initWithFinishState:finished teacherId:teacherId simple:simple];
+    ClassesRequest *request = [[ClassesRequest alloc] initWithFinishState:finished teacherId:teacherId simple:simple campusName:campusName];
     
     request.objectKey = @"list";
     request.objectClassName = @"Clazz";
@@ -48,6 +43,26 @@
     
     return request;
 }
+
++ (BaseRequest *)requestNewClassesWithFinishState:(BOOL)finished
+                                       campusName:(NSString *)campusName
+                                         callback:(RequestCallback)callback {
+//    NSInteger teacherId = 0;
+//    if (!listAll) {
+//        teacherId = APP.currentUser.userId;
+//    }
+    
+    NewClassesRequest *request = [[NewClassesRequest alloc] initWithFinishState:finished
+                                                                     campusName:campusName];
+    
+    request.objectKey = @"list";
+    request.objectClassName = @"Clazz";
+    request.callback = callback;
+    [request start];
+    
+    return request;
+}
+
 
 + (BaseRequest *)requestClassesWithNextUrl:(NSString *)nextUrl
                                   callback:(RequestCallback)callback {
@@ -55,30 +70,6 @@
     
     request.objectKey = @"list";
     request.objectClassName = @"Clazz";
-    request.callback = callback;
-    [request start];
-    
-    return request;
-}
-
-+ (BaseRequest *)requestClassHomeworksWithClassId:(NSUInteger)classId
-                                         callback:(RequestCallback)callback {
-    HomeworksRequest *request = [[HomeworksRequest alloc] initWithClassId:classId];
-    
-    request.objectKey = @"list";
-    request.objectClassName = @"Homework";
-    request.callback = callback;
-    [request start];
-    
-    return request;
-}
-
-+ (BaseRequest *)requestClassHomeworksWithNextUrl:(NSString *)nextUrl
-                                         callback:(RequestCallback)callback {
-    HomeworksRequest *request = [[HomeworksRequest alloc] initWithNextUrl:nextUrl];
-    
-    request.objectKey = @"list";
-    request.objectClassName = @"Homework";
     request.callback = callback;
     [request start];
     
@@ -127,6 +118,20 @@
     
     return request;
 }
+
+
+// 2.5.8    获取所有班级列表（设置权限用）
++ (BaseRequest *)requestAllClassesWithCallback:(RequestCallback)callback{
+    
+    AllClassesRequest *request = [[AllClassesRequest alloc] init];
+    request.objectKey = @"list";
+    request.objectClassName = @"Clazz";
+    request.callback = callback;
+    [request start];
+    
+    return request;
+}
+
 
 @end
 

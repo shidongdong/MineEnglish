@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="boh-UQ-m1A">
-                        <rect key="frame" x="12" y="12" width="403" height="131.5"/>
+                        <rect key="frame" x="12" y="6" width="403" height="131.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hPq-H2-vob">
                                 <rect key="frame" x="0.0" y="0.0" width="66" height="131.5"/>
@@ -134,13 +133,23 @@
                             <constraint firstAttribute="trailing" secondItem="anD-1c-WPf" secondAttribute="trailing" id="v5u-Mp-SIl"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MwP-S8-9fH">
+                        <rect key="frame" x="424" y="0.0" width="3" height="143.5"/>
+                        <color key="backgroundColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="3" id="lOW-gP-bPD"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="boh-UQ-m1A" firstAttribute="leading" secondItem="WnG-cG-UgP" secondAttribute="leading" constant="12" id="2Tq-bX-uj6"/>
-                    <constraint firstAttribute="bottom" secondItem="boh-UQ-m1A" secondAttribute="bottom" id="Nhs-fU-s0o"/>
-                    <constraint firstItem="boh-UQ-m1A" firstAttribute="top" secondItem="WnG-cG-UgP" secondAttribute="top" constant="12" id="T8S-aL-AlN"/>
+                    <constraint firstAttribute="trailing" secondItem="MwP-S8-9fH" secondAttribute="trailing" id="KeU-Kg-zfl"/>
+                    <constraint firstAttribute="bottom" secondItem="boh-UQ-m1A" secondAttribute="bottom" constant="6" id="Nhs-fU-s0o"/>
+                    <constraint firstItem="boh-UQ-m1A" firstAttribute="top" secondItem="WnG-cG-UgP" secondAttribute="top" constant="6" id="T8S-aL-AlN"/>
+                    <constraint firstAttribute="bottom" secondItem="MwP-S8-9fH" secondAttribute="bottom" id="fTQ-Xv-HZH"/>
                     <constraint firstAttribute="trailing" secondItem="boh-UQ-m1A" secondAttribute="trailing" constant="12" id="g5l-lP-QoN"/>
+                    <constraint firstItem="MwP-S8-9fH" firstAttribute="top" secondItem="WnG-cG-UgP" secondAttribute="top" id="kwd-bC-6f7"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -151,6 +160,7 @@
                 <outlet property="homeworkTitleLabel" destination="1kE-eZ-iBU" id="iYM-fh-9oG"/>
                 <outlet property="lastSessionLabel" destination="DUD-Kb-mJg" id="svF-ro-HMl"/>
                 <outlet property="nameLabel" destination="2Rr-Hy-Exs" id="cbe-8j-av1"/>
+                <outlet property="rightLineView" destination="MwP-S8-9fH" id="Fkh-p2-GM5"/>
                 <outlet property="unfiishTimeTypeLabel" destination="hC4-zK-dnP" id="Ste-8V-feu"/>
                 <outlet property="unfinishTimeBgView" destination="hPq-H2-vob" id="5eB-ZL-hcq"/>
                 <outlet property="unfinishTimeLabel" destination="Ats-RS-cyO" id="GD7-Lm-xDT"/>

@@ -9,7 +9,6 @@
 #import "HomeworkSessionTableViewCell.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
-#import <Masonry/Masonry.h>
 #import "IMManager.h"
 
 NSString * const UnfinishedHomeworkSessionTableViewCellId = @"UnfinishedHomeworkSessionTableViewCellId";
@@ -36,6 +35,7 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
 @property (weak, nonatomic) IBOutlet UILabel *diffcultLabel;       //难度
 @property (weak, nonatomic) IBOutlet UIImageView *cornerBgView;    //角标
 @property (weak, nonatomic) IBOutlet UILabel *unfinishTipLabel;    //距离提交或者距离过期
+@property (weak, nonatomic) IBOutlet UIView *rightLineView;
 
 @end
 
@@ -58,6 +58,20 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
     
     self.homeworkTitleLabel.preferredMaxLayoutWidth = ScreenWidth - 4 * 12.f - 56.f;
     self.lastSessionLabel.preferredMaxLayoutWidth = ScreenWidth - 4 * 12.f - 56.f;
+}
+
+
+- (void)setupSelectState:(BOOL)select{
+    
+    if (select) {
+        self.rightLineView.hidden = NO;
+        self.backgroundColor = [UIColor selectedColor];
+        self.containerView.backgroundColor = [UIColor selectedColor];
+    } else {
+        self.rightLineView.hidden = YES;
+        self.backgroundColor = [UIColor unSelectedColor];
+        self.containerView.backgroundColor = [UIColor whiteColor];
+    }
 }
 
 - (void)setLeftCommitHomeworkUI:(HomeworkSession *)homeworkSession
@@ -178,9 +192,10 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
 
 - (void)setupWithHomeworkSession:(HomeworkSession *)homeworkSession {
     
-    HomeworkItem *item = homeworkSession.homework.items[0];
+    HomeworkItem *item = homeworkSession.homework.items.firstObject;
     
-#if TEACHERSIDE
+    [self setupSelectState:NO];
+#if TEACHERSIDE | MANAGERSIDE
     self.nameLabel.text = homeworkSession.student.nickname;
     
     if ([self.reuseIdentifier isEqualToString:@"UnfinishedStudentHomeworkSessionTableViewCellId"])
@@ -200,18 +215,12 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
     } else {
         self.lastSessionLabel.textColor = [UIColor colorWithHex:0xFFA500];
     }
-    
 #else
-//按日期第几次作业有bug恢复到还是取老师名字
-//    if (homeworkSession.rankByDay.length == 0)
-//    {
-        self.nameLabel.text = homeworkSession.correctTeacher.nickname;
-//    }
-//    else
-//    {
-//        self.nameLabel.text = homeworkSession.rankByDay;
-//    }
-    [self.avatarImageView sd_setImageWithURL:[homeworkSession.correctTeacher.avatarUrl imageURLWithWidth:44.f]];
+    
+    //按日期第几次作业有bug恢复到还是取老师名字
+    self.nameLabel.text = homeworkSession.correctTeacher.nickname;
+    
+    [self.avatarImageView sd_setImageWithURL:[homeworkSession.correctTeacher.avatarUrl imageURLWithWidth:44.f] placeholderImage:[UIImage imageNamed:@"attachment_placeholder"]];
     if ([self.reuseIdentifier isEqualToString:@"UnfinishedStudentHomeworkSessionTableViewCellId"])
     {
         [self setLeftCommitHomeworkUI:homeworkSession];
@@ -236,7 +245,6 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
             paragraphStyle.lineSpacing = 5;
             [mAttribute addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, homeworkTitle.length)];
             self.homeworkTitleLabel.attributedText = mAttribute;
-          //  self.homeworkTitleLabel.text = item.text?:@"[无文字内容]";
         }
         
     }
@@ -248,7 +256,6 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
         paragraphStyle.lineSpacing = 5;
         [mAttribute addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, homeworkTitle.length)];
         self.homeworkTitleLabel.attributedText = mAttribute;
-     //   self.homeworkTitleLabel.text = item.text?:@"[无文字内容]";
     }
     
     
@@ -372,7 +379,7 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
         });
         
         
-        HomeworkItem *item = homeworkSession.homework.items[0];
+        HomeworkItem *item = homeworkSession.homework.items.firstObject;
         
         NSString * homeworkTitle = item.text?:@"[无文字内容]";
         NSMutableAttributedString * mAttribute = [[NSMutableAttributedString alloc] initWithString:homeworkTitle];
@@ -380,7 +387,6 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
         paragraphStyle.lineSpacing = 5;
         [mAttribute addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, homeworkTitle.length)];
         unfinishedCell.homeworkTitleLabel.attributedText = mAttribute;
-       // unfinishedCell.homeworkTitleLabel.text = item.text?:@"[无文字内容]";
         unfinishedCell.lastSessionLabel.text = homeworkSession.lastSessionContent;
         
         CGSize size = [unfinishedCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
@@ -403,14 +409,13 @@ NSString * const FinishedHomeworkSessionTableViewCellId = @"FinishedHomeworkSess
             
         });
         
-        HomeworkItem *item = homeworkSession.homework.items[0];
+        HomeworkItem *item = homeworkSession.homework.items.firstObject;
         NSString * homeworkTitle = item.text?:@"[无文字内容]";
         NSMutableAttributedString * mAttribute = [[NSMutableAttributedString alloc] initWithString:homeworkTitle];
         NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
         paragraphStyle.lineSpacing = 5;
         [mAttribute addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, homeworkTitle.length)];
         finishedCell.homeworkTitleLabel.attributedText = mAttribute;
-       // finishedCell.homeworkTitleLabel.text = item.text?:@"[无文字内容]";
         finishedCell.lastSessionLabel.text = homeworkSession.lastSessionContent;
         
         CGSize size = [finishedCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];

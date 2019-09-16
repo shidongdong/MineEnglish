@@ -5,26 +5,31 @@
 //  Created by yebw on 2017/10/8.
 //  Copyright © 2017年 mfox. All rights reserved.
 //
+
+#import "Constants.h"
+#import "Application.h"
+#import <AVKit/AVKit.h>
+#import "PushManager.h"
+#import "CircleHomework.h"
+#import "WebViewController.h"
+#import "UIScrollView+Refresh.h"
+#import "UITextView+Placeholder.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+
 #import "CircleViewController.h"
 #import "CircleVideoTableViewCell.h"
-#import "CircleLikeUsersTableViewCell.h"
-#import "CircleCommentTableViewCell.h"
-#import "CircleMoreCommentsTableViewCell.h"
 #import "CircleBottomTableViewCell.h"
-#import "UIView+Load.h"
-#import "TIP.h"
-#import "Constants.h"
-#import "CircleHomework.h"
-#import "Application.h"
-#import "UIScrollView+Refresh.h"
-#import "WebViewController.h"
+#import "CircleCommentTableViewCell.h"
+#import "CircleLikeUsersTableViewCell.h"
 #import "CircleHomeworkViewController.h"
-#import <SDWebImage/UIImageView+WebCache.h>
-#import <AVKit/AVKit.h>
-#import "UITextView+Placeholder.h"
-#import "PushManager.h"
 #import "CircleHomeworksViewController.h"
-@interface CircleViewController ()<UITableViewDataSource, UITableViewDelegate>
+#import "CircleMoreCommentsTableViewCell.h"
+
+@interface CircleViewController ()
+<
+UITableViewDataSource,
+UITableViewDelegate
+>
 
 @property (nonatomic, strong) BaseRequest *homeworksRequest;
 
@@ -61,7 +66,10 @@
     [super viewDidLoad];
     
     [self.homeworks removeAllObjects];
+#if MANAGERSIDE || TEACHERSIDE
+#else
     [self.homeworks addObjectsFromArray:APP.circleList];
+#endif
     
     self.homeworksTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
@@ -72,8 +80,12 @@
     self.inputBGImageView.image = [[UIImage imageNamed:@"inputBG"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 14, 14, 14) resizingMode:UIImageResizingModeStretch];
     
     [self registerCellNibs];
-    
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20.f)];
+   
+    CGFloat width = ScreenWidth;
+#if MANAGERSIDE
+    width = (ScreenWidth - kRootModularWidth)/2.0;
+#endif
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 20.f)];
     footerView.backgroundColor = [UIColor clearColor];
     self.homeworksTableView.tableFooterView = footerView;
     
@@ -183,7 +195,7 @@
                                                                                                  error:error];
                                                                    }];
     } else {
-#if TEACHERSIDE
+#if TEACHERSIDE || MANAGERSIDE
 #else
         if (self.circleType == CircleSchool) {
             self.homeworksRequest = [CirlcleService requestAllHomeworksWithCallback:^(Result *result, NSError *error) {
@@ -193,7 +205,7 @@
                                           error:error];
             }];
         } else {
-            self.homeworksRequest = [CirlcleService requestHomeworksWithClassId:APP.currentUser.clazz.classId
+            self.homeworksRequest = [CirlcleService requestHomeworksWithLevel:APP.currentUser.clazz.classLevel + 1
                                                                        callback:^(Result *result, NSError *error) {
                                                                            StrongifySelf;
                                                                            
@@ -345,7 +357,11 @@
 }
 
 - (void)resizeInputTextView {
-    NSInteger lines = [self.inputTextView sizeThatFits:self.inputTextView.frame.size].height / self.inputTextView.font.lineHeight;
+    NSInteger lines = 0;
+    if (self.inputTextView.font.lineHeight > 0) {
+        lines = [self.inputTextView sizeThatFits:self.inputTextView.frame.size].height / self.inputTextView.font.lineHeight;
+    }
+    
     CGFloat height = lines * self.inputTextView.font.lineHeight;
     self.inputViewHeightConstraint.constant = MIN(height, self.inputTextView.font.lineHeight * 4) + 36.f;
     
@@ -467,7 +483,9 @@
                                   self.currentHomework = nil;
                                   
                                   NSInteger index = [self.homeworks indexOfObject:homework];
-                                  [self.homeworks removeObjectAtIndex:index];
+                                  if (index < self.homeworks.count) {
+                                      [self.homeworks removeObjectAtIndex:index];
+                                  }
                                   
                                   [self.homeworksTableView beginUpdates];
                                   [self.homeworksTableView deleteSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationFade];

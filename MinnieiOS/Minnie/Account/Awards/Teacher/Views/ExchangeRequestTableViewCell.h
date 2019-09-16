@@ -20,4 +20,6 @@ extern CGFloat const ExchangeRequestTableViewCellHeight;
 
 - (void)setupWithExchangeRequest:(ExchangeRecord *)record;
 
+- (void)setupWithExchangeByClassRequest:(ExchangeAwardInfo *)record;
+
 @end

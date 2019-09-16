@@ -23,3 +23,30 @@
 
 @end
 
+@interface ExchangeAwardInfo : MTLModel<MTLJSONSerializing>
+
+@property (nonatomic, assign) NSInteger awardId;
+@property (nonatomic, copy) NSString *awardName;
+@property (nonatomic, copy) NSString *awardImageUrl;
+@property (nonatomic, assign) NSInteger awardPrice;
+@property (nonatomic, assign) long long exchangeTime;
+@property (nonatomic, copy) NSString *avatar;
+@property (nonatomic, assign) NSInteger userId;
+@property (nonatomic, copy) NSString *nickName;
+
+@end
+
+@interface ExchangeAwardListRecord : MTLModel<MTLJSONSerializing>
+
+@property (nonatomic, assign) NSInteger classId;
+@property (nonatomic, copy) NSString *className;
+@property (nonatomic, copy) NSString *campus;
+
+@property (nonatomic, strong) NSArray<ExchangeAwardInfo*> *awardList;
+
+@property (nonatomic, copy) NSString *pinyinName;
+
+
+@end
+
+

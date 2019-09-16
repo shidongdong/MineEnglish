@@ -9,7 +9,6 @@
 #import "StudentSelectorViewController.h"
 #import "StudentSelectorTableViewCell.h"
 #import "StudentService.h"
-#import "UIView+Load.h"
 #import "PinYin4Objc.h"
 @interface StudentSelectorViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -115,17 +114,6 @@
     }
 }
 
-//+ (NSString *)getFirstLetterFromString:(NSString *)string {
-//    NSString * upperString = [string uppercaseString];
-//    HanyuPinyinOutputFormat *outputFormat=[[HanyuPinyinOutputFormat alloc] init];
-//    [outputFormat setToneType:ToneTypeWithoutTone];
-//    [outputFormat setVCharType:VCharTypeWithV];
-//    [outputFormat setCaseType:CaseTypeUppercase];
-//    NSString *outputPinyin=[PinyinHelper toHanyuPinyinStringWithNSString:upperString withHanyuPinyinOutputFormat:outputFormat withNSString:@" "];
-//
-//    return outputPinyin;
-//}
-
 - (void)sortStudents {
     if (self.studentDict == nil) {
         self.studentDict = [NSMutableDictionary dictionary];
@@ -139,8 +127,6 @@
         obj.pinyinName = pinyin;
     
     }];
-    
-    
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pinyinName" ascending:YES];
     NSArray *array = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
@@ -168,6 +154,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+  
     NSString *key = self.sortedKeys[section];
     NSArray *group = self.studentDict[key];
     

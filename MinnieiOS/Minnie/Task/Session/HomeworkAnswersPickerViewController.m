@@ -296,8 +296,12 @@ static CGFloat answerItemMargin = 5;
 }
 - (NSURL* __nonnull)photoBrowser:(NEPhotoBrowser * __nonnull)browser imageURLForIndex:(NSInteger)index {
     
-    HomeworkAnswerItem * answerItem = [self.selectedAnswers objectAtIndex:0];
-    return [NSURL URLWithString:answerItem.imageUrl];
+    if (self.selectedAnswers.count > 0) {
+    
+        HomeworkAnswerItem * answerItem = [self.selectedAnswers objectAtIndex:0];
+        return [NSURL URLWithString:answerItem.imageUrl];
+    }
+    return nil;
 }
 
 - (UIImage * __nullable)photoBrowser:(NEPhotoBrowser * __nonnull)browser placeholderImageForIndex:(NSInteger)index {

@@ -9,7 +9,7 @@
 #import "TeacherEditViewController.h"
 #import "TeacherService.h"
 #import "HUD.h"
-#import "TIP.h"
+
 #import "DeleteTeacherAlertView.h"
 #import "AuthService.h"
 
@@ -130,10 +130,17 @@
     [alertVC addAction:teacherAction];
     [alertVC addAction:assistantAction];
     [alertVC addAction:cancelAction];
+#if MANAGERSIDE
+    [self.view.window.rootViewController presentViewController:alertVC
+                                                      animated:YES
+                                                    completion:nil];
+#else
     
     [self.navigationController presentViewController:alertVC
                                             animated:YES
                                           completion:nil];
+    
+#endif
 }
 
 - (IBAction)authorityButtonPressed:(id)sender {
@@ -187,9 +194,18 @@
     [alertVC addAction:teacherAction];
     [alertVC addAction:cancelAction];
     
+#if MANAGERSIDE
+    
+    [self.view.window.rootViewController presentViewController:alertVC
+                                                      animated:YES
+                                                    completion:nil];
+#else
+    
     [self.navigationController presentViewController:alertVC
                                             animated:YES
                                           completion:nil];
+#endif
+    
 }
 
 - (IBAction)switchValueDidChange:(id)sender {
@@ -207,6 +223,16 @@
     } else if (swtch == self.noticeCreateSwitch) {
         self.teacher.canCreateNoticeMessage = swtch.on;
     }
+}
+
+- (void)backButtonPressed:(id)sender{
+#if MANAGERSIDE
+    if (self.successCallBack) {
+        self.successCallBack();
+    }
+#else
+    [self.navigationController popViewControllerAnimated:YES];
+#endif
 }
 
 - (IBAction)saveButtonPressed {
@@ -281,19 +307,28 @@
     } while(NO);
     
     if (errorTip.length > 0) {
+        
+#if MANAGERSIDE
+        [TIP showText:errorTip inView:self.view];
+#else
         [TIP showText:errorTip inView:self.navigationController.view];
+#endif
         return;
     }
     
     if (self.teacher != nil && self.changedInfos.count == 0) {
+#if MANAGERSIDE
+        [TIP showText:@"没有信息修改" inView:self.view];
+#else
         [TIP showText:@"没有信息修改" inView:self.navigationController.view];
+#endif
         return;
     }
     
     if (self.teacher != nil) {
         [HUD showProgressWithMessage:@"正在更新"];
         self.changedInfos[@"id"] = @(self.teacher.userId);
-        
+        WeakifySelf;
         [TeacherService updateTeacherWithInfos:self.changedInfos
                                       callback:^(Result *result, NSError *error) {
                                           if (error != nil) {
@@ -302,10 +337,15 @@
                                               [HUD showWithMessage:@"更新成功"];
                                               [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfUpdateTeacher
                                                                                                   object:nil];
+#if MANAGERSIDE
+                                              if (weakSelf.successCallBack) {
+                                                  weakSelf.successCallBack();
+                                              }
+#else
+                                              [weakSelf.navigationController popViewControllerAnimated:YES];
+#endif
                                               
-                                              [self.navigationController popViewControllerAnimated:YES];
-                                              
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
                                               if (self.teacher.userId == APP.currentUser.userId) {
                                                   self.teacher.token = APP.currentUser.token;
                                                   APP.currentUser = self.teacher;
@@ -316,6 +356,7 @@
                                           }
                                       }];
     } else {
+        WeakifySelf;
         [HUD showProgressWithMessage:@"正在创建"];
         [TeacherService createTeacherWithInfos:self.changedInfos
                                       callback:^(Result *result, NSError *error) {
@@ -325,8 +366,13 @@
                                               [HUD showWithMessage:@"创建成功"];
                                               [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfAddTeacher
                                                                                                   object:nil];
-                                              
-                                              [self.navigationController popViewControllerAnimated:YES];
+#if MANAGERSIDE
+                                              if (weakSelf.successCallBack) {
+                                                  weakSelf.successCallBack();
+                                              }
+#else
+                                              [weakSelf.navigationController popViewControllerAnimated:YES];
+#endif
                                           }
                                       }];
     }
@@ -334,15 +380,19 @@
 
 - (IBAction)deleteButtonPressed:(id)sender {
     User *currentUser = [Application sharedInstance].currentUser;
-    currentUser.phoneNumber = @"13606505546";
+    currentUser.phoneNumber = @"18667186875";
     
-    
+    UIView *parentView = self.navigationController.view;
+#if MANAGERSIDE
+    parentView = self.view;
+#endif
     WeakifySelf;
-    [DeleteTeacherAlertView showDeleteTeacherAlertView:self.navigationController.view
+    [DeleteTeacherAlertView showDeleteTeacherAlertView:parentView
                                                teacher:self.teacher
                                       sendCodeCallback:^{
                                           [AuthService askForSMSCodeWithPhoneNumber:currentUser.phoneNumber
                                                                            callback:^(Result *result, NSError *error) {
+                                                                               
                                                                            }];
                                       }
                                        confirmCallback:^(NSString *code) {
@@ -389,7 +439,7 @@
 
 - (void)doDelete {
     [HUD showProgressWithMessage:@"正在删除"];
-    
+    WeakifySelf;
     [TeacherService deleteTeacherWithId:self.teacher.userId
                                callback:^(Result *result, NSError *error) {
                                    if (error != nil) {
@@ -401,8 +451,13 @@
                                        
                                        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationKeyOfDeleteTeacher
                                                                                            object:nil];
-                                       
-                                       [self.navigationController popViewControllerAnimated:YES];
+#if MANAGERSIDE
+                                       if (weakSelf.successCallBack) {
+                                           weakSelf.successCallBack();
+                                       }
+#else
+                                       [weakSelf.navigationController popViewControllerAnimated:YES];
+#endif
                                    }
                                }];
 }

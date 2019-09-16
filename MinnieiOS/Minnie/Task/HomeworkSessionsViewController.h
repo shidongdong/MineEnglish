@@ -8,19 +8,26 @@
 
 #import "BaseViewController.h"
 
-typedef void(^HomeworkSessionsCallback)(BOOL);
+typedef void(^HomeworkSessionsPushVCCallback)(UIViewController *vc);
 
 @interface HomeworkSessionsViewController : BaseViewController
 
-@property (nonatomic, assign) BOOL isUnfinished; // 是否是进行中的  
+@property (nonatomic, assign) BOOL isUnfinished; // 是否是进行中的  (老师端和学生端)
 @property (nonatomic, assign) BOOL bLoadConversion; //加载对话
 @property (nonatomic, assign) NSInteger searchFliter;   //搜索条件  类型 0 按时间 1 按作业 2 按人 如果为 -1的话表示是按名字搜索
 
+@property (nonatomic, strong) Teacher *teacher; // （管理端）
+@property (nonatomic, copy) HomeworkSessionsPushVCCallback pushVCCallBack;
 
 //首页请求接口
 - (void)requestSearchForSorceAtIndex:(NSInteger)index;
 
 //从搜索页请求接口
 - (void)requestSearchForName:(NSString *)name;
+
+// 管理端
+- (void)updateSessionList;
+- (void)resetCurrentSelectIndex;
+
 
 @end

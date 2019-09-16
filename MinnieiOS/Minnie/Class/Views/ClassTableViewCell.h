@@ -16,5 +16,7 @@ extern CGFloat const ClassTableViewCellHeight;
 
 - (void)setupWithClass:(Clazz *)clazz;
 
+- (void)updateSelectState:(BOOL)selected;
+
 @end
 

@@ -8,23 +8,13 @@
 
 #import "HomeworkSessionService.h"
 #import "HomeworkSessionsRequest.h"
-#import "HomeworkSessionRequest.h"
-#import "CorrectHomeworkRequest.h"
-#import "RedoHomeworkRequest.h"
-#import "CommitHomeworkRequest.h"
-#import "UpdateTaskModifiedTimeRequest.h"
-#import "SearchHomeworkScoreRequest.h"
-#import "SearchHomeworkTypeRequest.h"
-#import "SearchHomeworkNameRequest.h"
-#import "CorrectHomeworkCommentsRequest.h"
-#import "CorrectHomeworkAddCommentRequest.h"
-#import "CorrectHomeworkDelCommentRequest.h"
 
 @implementation HomeworkSessionService
 
 + (BaseRequest *)requestHomeworkSessionsWithFinishState:(NSInteger)state
+                                              teacherId:(NSInteger)teacherId
                                                callback:(RequestCallback)callback {
-    HomeworkSessionsRequest *request = [[HomeworkSessionsRequest alloc] initWithFinishState:state];
+    HomeworkSessionsRequest *request = [[HomeworkSessionsRequest alloc] initWithFinishState:state teacherId:teacherId];
     
     request.objectKey = @"list";
     request.objectClassName = @"HomeworkSession";
@@ -62,8 +52,13 @@
                                          redo:(NSInteger)redo
                                    sendCircle:(NSInteger)circle
                                          text:(NSString *)text
+                                        scope:(NSInteger)scope
                                      callback:(RequestCallback)callback {
-    CorrectHomeworkRequest *request = [[CorrectHomeworkRequest alloc] initWithScore:score text:text canRedo:redo sendCircle:circle homeworkSessionId:sessionId];
+    CorrectHomeworkRequest *request = [[CorrectHomeworkRequest alloc] initWithScore:score
+                                                                               text:text
+                                                                              scope:scope
+                                                                            canRedo:redo
+                                                                         sendCircle:circle homeworkSessionId:sessionId];
     
     request.callback = callback;
     [request start];
@@ -93,6 +88,8 @@
     return request;
 }
 
+
+#pragma mark -  2.2.6    更新作业任务时间（学生端）
 + (BaseRequest *)updateHomeworkSessionModifiedTimeWithId:(NSInteger)sessionId
                                                 callback:(RequestCallback)callback {
     UpdateTaskModifiedTimeRequest *request = [[UpdateTaskModifiedTimeRequest alloc] initWithHomeworkSessionId:sessionId];
@@ -103,9 +100,11 @@
     return request;
 }
 
-+ (BaseRequest *)searchHomeworkSessionWithScore:(NSInteger)score callback:(RequestCallback)callback
++ (BaseRequest *)searchHomeworkSessionWithScore:(NSInteger)score
+                                      teacherId:(NSInteger)teacherId
+                                       callback:(RequestCallback)callback
 {
-    SearchHomeworkScoreRequest * request = [[SearchHomeworkScoreRequest alloc] initWithHomeworkSessionForScore:score];
+    SearchHomeworkScoreRequest * request = [[SearchHomeworkScoreRequest alloc] initWithHomeworkSessionForScore:score teacherId:teacherId];
     request.objectKey = @"list";
     request.objectClassName = @"HomeworkSession";
     request.callback = callback;
@@ -125,9 +124,12 @@
     return request;
 }
 
-+ (BaseRequest *)searchHomeworkSessionWithType:(NSInteger)type forState:(NSInteger)state callback:(RequestCallback)callback
++ (BaseRequest *)searchHomeworkSessionWithType:(NSInteger)type
+                                     teacherId:(NSInteger)teacherId
+                                      forState:(NSInteger)state
+                                      callback:(RequestCallback)callback
 {
-    SearchHomeworkTypeRequest * request = [[SearchHomeworkTypeRequest alloc] initWithHomeworkSessionForType:type withFinishState:state];
+    SearchHomeworkTypeRequest * request = [[SearchHomeworkTypeRequest alloc] initWithHomeworkSessionForType:type withFinishState:state teacherId:teacherId];
     request.objectKey = @"list";
     request.objectClassName = @"HomeworkSession";
     request.callback = callback;
@@ -147,9 +149,12 @@
     return request;
 }
 
-+ (BaseRequest *)searchHomeworkSessionWithName:(NSString *)name forState:(NSInteger)state callback:(RequestCallback)callback
++ (BaseRequest *)searchHomeworkSessionWithName:(NSString *)name
+                                      forState:(NSInteger)state
+                                     teacherId:(NSInteger)teacherId
+                                      callback:(RequestCallback)callback
 {
-    SearchHomeworkNameRequest * request = [[SearchHomeworkNameRequest alloc] initWithHomeworkSessionForName:name withFinishState:state];
+    SearchHomeworkNameRequest * request = [[SearchHomeworkNameRequest alloc] initWithHomeworkSessionForName:name withFinishState:state teacherId:teacherId];
     request.objectKey = @"list";
     request.objectClassName = @"HomeworkSession";
     request.callback = callback;

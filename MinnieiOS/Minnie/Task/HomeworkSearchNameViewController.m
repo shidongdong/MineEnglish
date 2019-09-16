@@ -28,6 +28,7 @@
 - (void)initChildViewController
 {
     self.homeworkClassesChildController = [[HomeworkSessionsViewController alloc] initWithNibName:NSStringFromClass([HomeworkSessionsViewController class]) bundle:nil];
+    self.homeworkClassesChildController.pushVCCallBack = self.pushVCCallBack;
     
     if (self.finished == 0)
     {
@@ -46,6 +47,7 @@
     }
     self.homeworkClassesChildController.searchFliter = -1;
     
+    self.homeworkClassesChildController.teacher = self.teacher;
     [self addChildViewController:self.homeworkClassesChildController];
     
     [self.containerView addSubview:self.homeworkClassesChildController.view];
@@ -59,6 +61,10 @@
 - (void)addContraintsWithX:(CGFloat)offsetX view:(UIView *)view superView:(UIView *)superView {
     view.translatesAutoresizingMaskIntoConstraints = NO;
     
+    CGFloat screenWidth = ScreenWidth;
+#if MANAGERSIDE
+    screenWidth = kColumnThreeWidth;
+#endif
     NSLayoutConstraint *leadingConstraint = [NSLayoutConstraint constraintWithItem:view
                                                                          attribute:NSLayoutAttributeLeading
                                                                          relatedBy:NSLayoutRelationEqual
@@ -73,7 +79,7 @@
                                                                           toItem:nil
                                                                        attribute:NSLayoutAttributeNotAnAttribute
                                                                       multiplier:1
-                                                                        constant:ScreenWidth];
+                                                                        constant:screenWidth];
     
     NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:view
                                                                      attribute:NSLayoutAttributeTop
@@ -98,6 +104,11 @@
 
 - (IBAction)cancel:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated:NO];
+#if MANAGERSIDE
+    if (self.cancelCallBack) {
+        self.cancelCallBack();
+    }
+#endif
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -110,15 +121,5 @@
     
     return NO;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

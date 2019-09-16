@@ -13,7 +13,7 @@ extern NSString * const ClassEditTableViewCellId;
 extern CGFloat const ClassEditTableViewCellHeight;
 
 typedef void(^ClassEditTableViewCellNameChangedCallback)(NSString *);
-typedef void(^ClassEditTableViewCellLocationChangedTeacherCallback)(NSString *);
+typedef void(^ClassEditTableViewCellSelectLocationChangedCallback)(void);
 typedef void(^ClassEditTableViewCellSelectTeacherCallback)(void);
 typedef void(^ClassEditTableViewCellSelectStartTimeCallback)(void);
 typedef void(^ClassEditTableViewCellSelectEndTimeCallback)(void);
@@ -33,7 +33,7 @@ typedef void(^ClassEditTableViewCellSelectClassLevelCallback)(void);
 @property (weak, nonatomic) IBOutlet UITextField *classLevelTextField; //课堂等级
 
 @property (nonatomic, copy) ClassEditTableViewCellNameChangedCallback nameChangedCallback;
-@property (nonatomic, copy) ClassEditTableViewCellLocationChangedTeacherCallback locationChangedCallback;
+@property (nonatomic, copy) ClassEditTableViewCellSelectLocationChangedCallback locationChangedCallback;
 @property (nonatomic, copy) ClassEditTableViewCellSelectTeacherCallback selectTeacherCallback;
 @property (nonatomic, copy) ClassEditTableViewCellSelectStartTimeCallback selectStartTimeCallback;
 @property (nonatomic, copy) ClassEditTableViewCellSelectEndTimeCallback selectEndTimeCallback;

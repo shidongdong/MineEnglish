@@ -15,7 +15,6 @@
 #import "Student.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "FullfillProfileViewController.h"
-#import "Utils.h"
 #import "AppDelegate.h"
 @interface LoginViewController ()<UITextFieldDelegate>
 
@@ -90,7 +89,7 @@
     NSString *password = [self.passwordTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     if (username.length == 0 ) {
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
 #else
         if (![Utils checkTelNumber:username])
         {
@@ -132,7 +131,7 @@
                             
                                      if (result.userInfo != nil) {
                                          User *user = nil;
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
                                          Teacher *teacher = (Teacher *)(result.userInfo);
                                          [APP setCurrentUser:teacher];
                                          user = teacher;
@@ -147,7 +146,7 @@
                                          [BaseRequest setToken:APP.currentUser.token];
                                          
                                          if (user.avatarUrl == nil || user.nickname == nil) {
-#if TEACHERSIDE
+#if TEACHERSIDE | MANAGERSIDE
                                              FullfillProfileViewController *vc = [[FullfillProfileViewController alloc] initWithNibName:@"FullfillProfileViewController_Teacher" bundle:nil];
 #else
                                              FullfillProfileViewController *vc = [[FullfillProfileViewController alloc] initWithNibName:@"FullfillProfileViewController_Student" bundle:nil];
@@ -166,13 +165,13 @@
                                      }
                                  } else {
                                      if (error.code == 100) {
+                                         
                                          [HUD showErrorWithMessage:@"登录失败, 用户名或密码错误"];
                                      } else if (error.code == 103) {
                                          [HUD showErrorWithMessage:@"帐号不存在"];
-                                     } else if (error.code == 105) {
-                                         [HUD showErrorWithMessage:@"该手机号是教师端用户"];
-                                     } else if (error.code == 106) {
-                                         [HUD showErrorWithMessage:@"该手机号是学生端用户"];
+                                     } else if (error.code == 105 || error.code == 106) {
+                                         NSString *message = error.userInfo[@"NSLocalizedDescription"];
+                                         [HUD showErrorWithMessage:message];
                                      } else {
                                          [HUD showErrorWithMessage:@"登录失败"];
                                      }

@@ -20,10 +20,13 @@
 - (instancetype)initWithHomework:(Homework *)homework {
     self = [super init];
     if (self != nil) {
-        _homework = homework;
+        self.homework = homework;
     }
-
     return self;
+}
+
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodPOST;
 }
 
 - (NSString *)requestUrl {

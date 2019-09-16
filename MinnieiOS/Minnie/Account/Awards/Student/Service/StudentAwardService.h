@@ -17,9 +17,6 @@
 
 + (BaseRequest *)requestAwardsWithCallback:(RequestCallback)callback;
 
-+ (BaseRequest *)exchangeAwardWithId:(NSUInteger)award callback:(RequestCallback)callback;
-
-+ (BaseRequest *)requestExchangeRecordsWithCallback:(RequestCallback)callback;
 
 //获取星星排行榜 
 + (BaseRequest *)requestStudentStarRankListWithCallback:(RequestCallback)callback;
@@ -35,8 +32,11 @@
                                          stuRemark:(NSString *)stuRemark
                                           callback:(RequestCallback)callback;
 
-//学生星星增减记录（学生端）可用
+//学生星星增减记录（学生端,ipad端）
 + (BaseRequest *)requestStarLogsWithPageNo:(NSUInteger)pageNo
                                    pageNum:(NSUInteger)pageNum
+                                   logType:(NSString *)logType
+                                 studentId:(NSInteger)studentId
                                   callback:(RequestCallback)callback;
+
 @end

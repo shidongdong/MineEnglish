@@ -6,17 +6,16 @@
 //  Copyright © 2017年 mfox. All rights reserved.
 //
 
-#import "CircleHomeworksViewController.h"
-#import "CircleViewController.h"
 #import <Masonry/Masonry.h>
-#if TEACHERSIDE
+#import "CircleViewController.h"
+#import "CircleHomeworksViewController.h"
 #import "ClassManagerViewController.h"
-#endif
 
 @interface CircleHomeworksViewController ()
 
 @property (nonatomic, weak) IBOutlet UIView *containerView;
 @property (nonatomic, strong) CircleViewController *circleChildController;
+@property (weak, nonatomic) IBOutlet UIButton *editBtn;
 
 @end
 
@@ -25,9 +24,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if (self.clazz != 0) {
+    if (self.clazz != 0) { // 班级
         self.customTitleLabel.text = self.clazz.name;
-    } else {
+#if MANAGERSIDE
+        self.editBtn.hidden = NO;
+#endif
+    } else { // 学生
         if (APP.currentUser.userId == self.userId) {
             self.customTitleLabel.text = @"我发布的";
         }
@@ -54,25 +56,36 @@
     }];
     [self.circleChildController didMoveToParentViewController:self];
 }
+- (IBAction)editBtnAction:(id)sender {
+    
+#if MANAGERSIDE
+        ClassManagerViewController *classManagerVC = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
+        WeakifySelf;
+        classManagerVC.successCallBack = ^{
+            if (weakSelf.editSuccessCallBack) {
+                weakSelf.editSuccessCallBack();
+            }
+        };
+        classManagerVC.classId = self.clazz.classId;
+        [self.navigationController pushViewController:classManagerVC animated:YES];
+#endif
+}
+
+- (void)backButtonPressed:(id)sender{
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+#if MANAGERSIDE
+    if (self.cancelCallBack) {
+        self.cancelCallBack();
+    }
+#endif
+}
 
 - (void)dealloc {
     NSLog(@"%s", __func__);
 }
 
-//- (IBAction)classManagerButtonPressed:(id)sender {
-//#if TEACHERSIDE
-//    if (!APP.currentUser.canManageClasses) {
-//        [HUD showErrorWithMessage:@"无操作权限"];
-//
-//        return;
-//    }
-//
-//    ClassManagerViewController *vc = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
-//    vc.classId = self.clazz.classId;
-//    [self.navigationController pushViewController:vc animated:YES];
-//
-//#endif
-//}
 
 @end
 

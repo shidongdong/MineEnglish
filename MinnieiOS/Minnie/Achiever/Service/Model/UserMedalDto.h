@@ -29,8 +29,15 @@
 @property(nonatomic, strong)NSString * medalDesc;
 @end
 
+@interface MedalFlag : MTLModel<MTLJSONSerializing>
+
+@property(nonatomic,assign)NSInteger metalFlag;
+
+@end
+
 @interface UserMedalDto : MTLModel<MTLJSONSerializing>
 
 @property(nonatomic, strong)NSArray<UserMedalDetail *> * medalDetails;
 @property(nonatomic, strong)NSArray<UserMedalPics *> * medalPics;
+
 @end

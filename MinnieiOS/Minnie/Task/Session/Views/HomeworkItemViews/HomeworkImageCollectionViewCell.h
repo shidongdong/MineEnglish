@@ -17,6 +17,8 @@ extern NSString * const HomeworkImageCollectionViewCellId;
 
 - (void)setupWithHomeworkItem:(HomeworkItem *)item name:(NSString *)name;
 
+- (void)setupWithStartTask;
+
 + (CGSize)cellSize;
 
 @end

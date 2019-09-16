@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MITaskEmptyView">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请先创建子文件夹" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GDo-b4-lLH">
+                    <rect key="frame" x="149.5" y="364.5" width="115" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vIt-70-hk4">
+                    <rect key="frame" x="115" y="405.5" width="184" height="44"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="5KK-gP-riu"/>
+                        <constraint firstAttribute="width" constant="184" id="Izi-Rn-eDE"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="添加子文件夹" image="ic_add_blue">
+                        <color key="titleColor" red="0.0" green="0.59607843140000005" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="addFolderAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="sez-LQ-HdZ"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="GDo-b4-lLH" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="23x-2i-TWE"/>
+                <constraint firstItem="GDo-b4-lLH" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" constant="-80" id="PIA-5D-qdY"/>
+                <constraint firstItem="vIt-70-hk4" firstAttribute="centerX" secondItem="GDo-b4-lLH" secondAttribute="centerX" id="bwj-hv-781"/>
+                <constraint firstItem="vIt-70-hk4" firstAttribute="top" secondItem="GDo-b4-lLH" secondAttribute="bottom" constant="24" id="of5-cg-mXN"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="addFolderBtn" destination="vIt-70-hk4" id="uOD-U0-XQI"/>
+                <outlet property="detail" destination="GDo-b4-lLH" id="XP9-7x-ga4"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_add_blue" width="16" height="16"/>
+    </resources>
+</document>

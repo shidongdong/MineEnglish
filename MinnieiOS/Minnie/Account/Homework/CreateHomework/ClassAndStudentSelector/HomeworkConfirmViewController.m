@@ -142,7 +142,9 @@ UITableViewDataSource>{
 
 
 - (IBAction)backBtnClicked:(id)sender {
-    
+    if (self.cancelCallBack) {
+        self.cancelCallBack();
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

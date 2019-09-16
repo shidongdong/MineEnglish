@@ -13,6 +13,9 @@ typedef void(^SessionHomeworkTableViewCellClickImageCallback)(NSString *, UIImag
 typedef void(^SessionHomeworkTableViewCellClickVideoCallback)(NSString *);
 typedef void(^SessionHomeworkTableViewCellClickAudioCallback)(NSString *, NSString *);
 
+// 跟读，单词记忆
+typedef void(^SessionHomeworkTableViewCellClickStartTaskCallback)(void);
+
 extern NSString * const SessionHomeworkTableViewCellId;
 
 @interface SessionHomeworkTableViewCell : UITableViewCell
@@ -20,6 +23,7 @@ extern NSString * const SessionHomeworkTableViewCellId;
 @property (nonatomic, copy) SessionHomeworkTableViewCellClickImageCallback imageCallback;
 @property (nonatomic, copy) SessionHomeworkTableViewCellClickVideoCallback videoCallback;
 @property (nonatomic, copy) SessionHomeworkTableViewCellClickAudioCallback audioCallback;
+@property (nonatomic, copy) SessionHomeworkTableViewCellClickStartTaskCallback startTaskCallback;
 
 - (void)setupWithHomeworkSession:(HomeworkSession *)homeworkSession;
 

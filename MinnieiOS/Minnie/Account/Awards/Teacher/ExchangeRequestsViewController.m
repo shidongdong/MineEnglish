@@ -8,14 +8,13 @@
 
 #import "ExchangeRequestsViewController.h"
 #import "ExchangeRequestTableViewCell.h"
-#import "TeacherAwardService.h"
-#import "UIView+Load.h"
+#import "AwardsService.h"
 #import "Constants.h"
-#import "TIP.h"
 #import "UIScrollView+Refresh.h"
 #import "TeacherAwardsViewController.h"
-#import "CreateAwardViewController.h"
 #import "UIColor+HEX.h"
+#import "PinyinHelper.h"
+#import "HanyuPinyinOutputFormat.h"
 
 @interface ExchangeRequestsViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -23,46 +22,68 @@
 @property (nonatomic, weak) IBOutlet UITableView *requestsTableView;
 @property (nonatomic, weak) IBOutlet UIButton *manageButton;
 @property (weak, nonatomic) IBOutlet UIButton *recordHistoryBtn;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
 
 @property (nonatomic, strong) BaseRequest *listRequest;
 
 @property (nonatomic, strong) NSMutableArray <ExchangeRecord *> *requests;
+
+@property (nonatomic, strong) NSMutableArray <ExchangeAwardListRecord *> *awardListByClass;
+
 @property (nonatomic, copy) NSString *nextUrl;
 
 @end
 
 @implementation ExchangeRequestsViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     _requests = [NSMutableArray array];
-    
-    if (self.exchanged) {
-        [self.customTitleLabel setText:@"兑换历史"];
-        self.manageButton.hidden = YES;
-        
-        self.recordHistoryBtn.hidden = YES;
-        
-    } else {
-        [self.customTitleLabel setText:@"星兑换"];
-        self.manageButton.hidden = NO;
-        
-        self.recordHistoryBtn.hidden = NO;
-        
-//        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [button setBackgroundColor:[UIColor clearColor]];
-//        [button setFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 69.f)];
-//        [button setTitle:@"兑换历史" forState:UIControlStateNormal];
-//        [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
-//        [button setTitleColor:[UIColor colorWithHex:0x999999] forState:UIControlStateNormal];
-//        [button addTarget:self action:@selector(recordButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-//        [self.requestsTableView setTableFooterView:button];
-    }
-    
+    _awardListByClass = [NSMutableArray array];
+    [self configureUI];
     [self registerCellNibs];
+    if (self.isAwardListByClass) {
+
+        WeakifySelf;
+        [self.requestsTableView addPullToRefreshWithRefreshingBlock:^{
+            [weakSelf requestAwardListByClass];
+        }];
+        [self requestAwardListByClass];
+    } else {
+        [self requestData];
+    }
+}
+
+- (void)configureUI{
     
-    [self requestData];
+    if (self.isAwardListByClass) {
+        self.exchanged = NO;
+        self.customTitleLabel.text = @"";
+        self.manageButton.hidden = YES;
+        self.recordHistoryBtn.hidden = YES;
+        self.backButton.enabled = NO;
+        [self.backButton setTitle:@"兑换列表" forState:UIControlStateNormal];
+        [self.backButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    } else {
+        
+        [self.backButton setTitle:@"" forState:UIControlStateNormal];
+        [self.backButton setImage:[UIImage imageNamed:@"navbar_back"] forState:UIControlStateNormal];
+        
+        if (self.exchanged) {
+            [self.customTitleLabel setText:@"兑换历史"];
+            self.manageButton.hidden = YES;
+            
+            self.recordHistoryBtn.hidden = YES;
+            
+        } else {
+            [self.customTitleLabel setText:@"星兑换"];
+            self.manageButton.hidden = NO;
+            
+            self.recordHistoryBtn.hidden = NO;
+        }
+    }
 }
 
 - (IBAction)recordHistoryClick:(UIButton *)sender {
@@ -92,6 +113,7 @@
                  forCellReuseIdentifier:ExchangeRequestTableViewCellId];
 }
 
+#pragma mark - 获取兑换列表
 - (void)requestData {
     if (self.listRequest != nil) {
         return;
@@ -101,7 +123,7 @@
     [self.containerView showLoadingView];
 
     WeakifySelf;
-    self.listRequest = [TeacherAwardService requestExchangeRequestsWithState:self.exchanged
+    self.listRequest = [AwardsService requestExchangeRequestsWithState:self.exchanged
                                                              callback:^(Result *result, NSError *error) {
                                                                  StrongifySelf;
                                                                  
@@ -109,17 +131,13 @@
                                                              }];
 }
 
-//- (void)recordButtonPressed:(id)sender {
-//    
-//}
-
 - (void)loadMore {
     if (self.listRequest != nil) {
         return;
     }
     
     WeakifySelf;
-    self.listRequest = [TeacherAwardService requestExchangeRequestsWithMoreUrl:self.nextUrl
+    self.listRequest = [AwardsService requestExchangeRequestsWithMoreUrl:self.nextUrl
                                                                callback:^(Result *result, NSError *error) {
                                                                    StrongifySelf;
                                                                    
@@ -136,10 +154,6 @@
     NSString *nextUrl = dictionary[@"next"];
     NSArray *records = dictionary[@"list"];
 
-//    if (!self.exchanged) {
-//        nextUrl = nil;
-//    }
-    
     BOOL isLoadMore = self.nextUrl.length > 0;
     if (isLoadMore) {
         [self.requestsTableView footerEndRefreshing];
@@ -212,7 +226,68 @@
     self.nextUrl = nextUrl;
 }
 
-- (void)giveAwardWithRequest:(ExchangeRecord *)request {
+#pragma mark - 获取兑换列表（管理端）
+- (void)requestAwardListByClass {
+    
+    WeakifySelf;
+    [AwardsService requestexchangeAwardByClassWithState:0
+                                                     callback:^(Result *result, NSError *error) {
+                                                         
+                                                         [weakSelf.requestsTableView headerEndRefreshing];
+                                                         StrongifySelf;
+                                                         [strongSelf handleRequestByClassResult:result error:error];
+                                                     }];
+}
+
+- (void)handleRequestByClassResult:(Result *)result error:(NSError *)error {
+    
+    [self.containerView hideAllStateView];
+    NSDictionary *dictionary = (NSDictionary *)(result.userInfo);
+    NSArray *records = dictionary[@"list"];
+    
+    WeakifySelf;
+    if (error != nil) {
+        [self.containerView showFailureViewWithRetryCallback:^{
+            [weakSelf requestAwardListByClass];
+        }];
+        return;
+    }
+    
+    if (records.count > 0) {
+        self.requestsTableView.hidden = NO;
+        [self.awardListByClass removeAllObjects];
+        [self.awardListByClass addObjectsFromArray:records];
+        [self sortAwardsByClass];
+    } else {
+        [self.containerView showEmptyViewWithImage:nil
+                                             title:@"暂无兑换信息"
+                                     centerYOffset:-20
+                                         linkTitle:nil
+                                 linkClickCallback:nil retryCallback:^{
+                                     [weakSelf requestAwardListByClass];
+        }];
+    }
+}
+- (void)sortAwardsByClass {
+    
+    HanyuPinyinOutputFormat *outputFormat=[[HanyuPinyinOutputFormat alloc] init];
+    [outputFormat setToneType:ToneTypeWithoutTone];
+    [outputFormat setVCharType:VCharTypeWithV];
+    [outputFormat setCaseType:CaseTypeUppercase];
+    [self.awardListByClass enumerateObjectsUsingBlock:^(ExchangeAwardListRecord * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *pinyin = [[PinyinHelper toHanyuPinyinStringWithNSString:obj.className withHanyuPinyinOutputFormat:outputFormat withNSString:@" "] uppercaseString];
+        obj.pinyinName = pinyin;
+    }];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pinyinName" ascending:YES];
+    NSArray *array = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    [self.awardListByClass sortUsingDescriptors:array];
+    [self.requestsTableView reloadData];
+}
+
+#pragma mark - 兑换操作
+- (void)giveAwardWithRequestId:(NSInteger)exchangeId {
+    
 #if TEACHERSIDE
     if (!APP.currentUser.canExchangeRewards) {
         [HUD showErrorWithMessage:@"无操作权限"];
@@ -232,21 +307,24 @@
     UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"确认"
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * _Nonnull action) {
+                                                             
                                                               [HUD showProgressWithMessage:@"正在兑换"];
-                                                              
-                                                              [TeacherAwardService giveAwardWithId:request.exchangeRequestId
+                                                              [AwardsService giveAwardWithId:exchangeId
                                                                                    callback:^(Result *result, NSError *error) {
+                                                                                      
                                                                                        if (error != nil) {
                                                                                            [HUD showErrorWithMessage:@"兑换失败"];
                                                                                            return;
                                                                                        }
-
                                                                                        [HUD showWithMessage:@"兑换成功"];
                                                                                        
-                                                                                       [self.requests removeAllObjects];
-                                                                                       self.nextUrl = nil;
-                                                                                       
-                                                                                       [self requestData];
+                                                                                       if (self.isAwardListByClass) {
+                                                                                           [self requestAwardListByClass];
+                                                                                       } else {
+                                                                                           [self.requests removeAllObjects];
+                                                                                           self.nextUrl = nil;
+                                                                                           [self requestData];
+                                                                                       }
                                                                                    }];
                                                           }];
     
@@ -256,32 +334,97 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-#pragma mark - UITableViewDataSource
+#pragma mark - UITableViewDataSource && UITableViewDelegate
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+   
+    if (self.isAwardListByClass) {
+        
+        return self.awardListByClass.count;
+    } else {
+        
+        return 1;
+    }
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.requests.count;
+  
+    if (self.isAwardListByClass) {
+        
+        ExchangeAwardListRecord *exchangeRequest = self.awardListByClass[section];
+        return exchangeRequest.awardList.count;
+    } else {
+       
+        return self.requests.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+   
     ExchangeRequestTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ExchangeRequestTableViewCellId forIndexPath:indexPath];
-    
-    ExchangeRecord *exchangeRequest = self.requests[indexPath.row];
-    exchangeRequest.state = self.exchanged?1:0;
-    
-    WeakifySelf;
-    cell.exchangeCallback = ^{
-        [weakSelf giveAwardWithRequest:exchangeRequest];
-    };
-    
-    [cell setupWithExchangeRequest:exchangeRequest];
+
+    if (self.isAwardListByClass) {
+        
+        ExchangeAwardListRecord *exchangeRequest = self.awardListByClass[indexPath.section];
+        ExchangeAwardInfo *changeInfo = exchangeRequest.awardList[indexPath.row];
+        WeakifySelf;
+        cell.exchangeCallback = ^{
+            [weakSelf giveAwardWithRequestId:changeInfo.awardId];
+        };
+        [cell setupWithExchangeByClassRequest:changeInfo];
+    } else {
+     
+        ExchangeRecord *exchangeRequest = self.requests[indexPath.row];
+        exchangeRequest.state = self.exchanged?1:0;
+        WeakifySelf;
+        cell.exchangeCallback = ^{
+            [weakSelf giveAwardWithRequestId:exchangeRequest.exchangeRequestId];
+        };
+        [cell setupWithExchangeRequest:exchangeRequest];
+    }
     
     return cell;
 }
 
-#pragma mark - UITableViewDelegate
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return ExchangeRequestTableViewCellHeight;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    return 30;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    if (self.isAwardListByClass) {
+        
+        UIView *headerView =  [[UIView alloc] init];
+        headerView.backgroundColor = [UIColor unSelectedColor];
+        
+        // 列表宽度
+        CGFloat width = (ScreenWidth - kRootModularWidth)/2.0 - 80;
+        
+        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, width - 30 - 50 ,30)];
+        timeLabel.textAlignment = NSTextAlignmentLeft;
+        timeLabel.font = [UIFont boldSystemFontOfSize:14];
+        timeLabel.textColor = [UIColor normalColor];
+        [headerView addSubview:timeLabel];
+        
+        
+        UILabel *campusLabel = [[UILabel alloc] initWithFrame:CGRectMake(width - 15 - 50 , 0, 50,30)];
+        campusLabel.textAlignment = NSTextAlignmentRight;
+        campusLabel.font = [UIFont boldSystemFontOfSize:14];
+        campusLabel.textColor = [UIColor normalColor];
+        [headerView addSubview:campusLabel];
+        
+        ExchangeAwardListRecord *exchangeRequest = self.awardListByClass[section];
+        timeLabel.text = exchangeRequest.className;
+        campusLabel.text = exchangeRequest.campus;
+        
+        return headerView;
+    } else {
+        return nil;
+    }
 }
 
 @end

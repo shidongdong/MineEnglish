@@ -6,9 +6,9 @@
 //  Copyright © 2017年 mfox. All rights reserved.
 //
 
-#import "CircleCommentTableViewCell.h"
 #import "Comment.h"
 #import "UIColor+HEX.h"
+#import "CircleCommentTableViewCell.h"
 
 NSString * const CircleCommentTableViewCellId = @"CircleCommentTableViewCellId";
 
@@ -26,7 +26,12 @@ NSString * const CircleCommentTableViewCellId = @"CircleCommentTableViewCellId";
     [super awakeFromNib];
     
     self.commentLabel.numberOfLines = 0;
-    self.commentLabel.preferredMaxLayoutWidth = ScreenWidth - 90.f - 32.f;
+    CGFloat width = ScreenWidth;
+#if MANAGERSIDE
+    width = (ScreenWidth - kRootModularWidth)/2.0;
+#endif
+    self.commentLabel.preferredMaxLayoutWidth = width - 90.f - 32.f;
+    
 }
 
 - (IBAction)commentButtonPressed:(id)sender {
@@ -49,8 +54,11 @@ NSString * const CircleCommentTableViewCellId = @"CircleCommentTableViewCellId";
     });
     
     CGFloat height = 0.f;
-    
-    YYTextLayout *layout = [YYTextLayout layoutWithContainerSize:CGSizeMake(ScreenWidth-122, MAXFLOAT) text:[CircleCommentTableViewCell attributedStringWithComment:comment]];
+    CGFloat width = ScreenWidth;
+#if MANAGERSIDE
+    width = (ScreenWidth - kRootModularWidth)/2.0;
+#endif
+    YYTextLayout *layout = [YYTextLayout layoutWithContainerSize:CGSizeMake(width-122, MAXFLOAT) text:[CircleCommentTableViewCell attributedStringWithComment:comment]];
     CGSize size = layout.textBoundingSize;
     height += size.height;
 

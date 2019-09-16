@@ -7,12 +7,12 @@
 //
 
 #import "ResetPasswordViewController.h"
-#import "Utils.h"
 #import "AuthService.h"
 #import "LoginViewController.h"
 #import "IMManager.h"
 #import "PortraitNavigationController.h"
 #import "AppDelegate.h"
+#import "AppDelegate+ConfigureUI.h"
 @interface ResetPasswordViewController ()
 
 @property (nonatomic, weak) IBOutlet UITextField *passwordTextField;
@@ -56,6 +56,10 @@
 }
 
 - (IBAction)backButtonPressed:(id)sender {
+ 
+    if (self.closeViewCallBack) {
+        self.closeViewCallBack();
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -112,32 +116,24 @@
     [HUD showProgressWithMessage:@"正在修改密码"];
     [AuthService resetPasswordWithPassword:password
                                newPassword:password1
+                               phoneNumber:self.phoneNumber
                                   callback:^(Result *result, NSError *error) {
                                       if (error != nil) {
                                           [HUD showErrorWithMessage:@"密码修改失败"];
                                       } else {
                                           [HUD showWithMessage:@"密码修改成功"];
-                                          
-                                          [AuthService logoutWithCallback:^(Result *result, NSError *error) {
-                                              //新增 by shidongdong
+
+                                          if ([self.phoneNumber isEqualToString:APP.currentUser.phoneNumber]) {
+                                              
                                               AppDelegate * app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                                              [app removeRemoteNotification];
-                                              Application.sharedInstance.currentUser = nil;
-                                              [[IMManager sharedManager] logout];
-                                              
-                                              
-                                              [APP clearData];
-                                              NSString *nibName = nil;
-#if TEACHERSIDE
-                                              nibName = @"LoginViewController_Teacher";
-#else
-                                              nibName = @"LoginViewController_Student";
-#endif
-                                              LoginViewController *loginVC = [[LoginViewController alloc] initWithNibName:nibName bundle:nil];
-                                              
-                                              PortraitNavigationController *loginNC = [[PortraitNavigationController alloc] initWithRootViewController:loginVC];
-                                              self.view.window.rootViewController = loginNC;
-                                          }];
+                                              [app logout];
+                                          } else {
+                                              // 修改其他老师
+                                              if (self.closeViewCallBack) {
+                                                  self.closeViewCallBack();
+                                              }
+                                              [self.navigationController popViewControllerAnimated:YES];
+                                          }
                                       }
                                   }];
 }

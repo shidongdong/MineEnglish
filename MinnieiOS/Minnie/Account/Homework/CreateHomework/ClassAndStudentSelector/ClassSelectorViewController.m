@@ -8,10 +8,11 @@
 
 #import "ClassSelectorViewController.h"
 #import "ClassService.h"
-#import "UIView+Load.h"
 #import "ClassSelectorTableViewCell.h"
 #import "UIScrollView+Refresh.h"
-#import "TIP.h"
+
+#import "PinyinHelper.h"
+#import "HanyuPinyinOutputFormat.h"
 
 @interface ClassSelectorViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -66,9 +67,8 @@
     self.classesTableView.hidden = YES;
     
     WeakifySelf;
-    self.classesRequest = [ClassService requestClassesWithFinishState:0
-                                                              listAll:YES
-                                                               simple:YES
+    self.classesRequest = [ClassService requestNewClassesWithFinishState:0
+                                                           campusName:nil
                                                              callback:^(Result *result, NSError *error) {
                                                                  StrongifySelf;
                                                                  [strongSelf handleRequestResult:result error:error];
@@ -107,7 +107,7 @@
         }
         
         if (classes.count > 0) {
-            [self.classes addObjectsFromArray:classes];
+            [self.classes addObjectsFromArray:[self sortClasses:classes]];
         }
         
         if (nextUrl.length == 0) {
@@ -136,7 +136,7 @@
         if (classes.count > 0) {
             self.classesTableView.hidden = NO;
             
-            [self.classes addObjectsFromArray:classes];
+            [self.classes addObjectsFromArray:[self sortClasses:classes]];
             [self.classesTableView reloadData];
             
             if (nextUrl.length > 0) {
@@ -159,6 +159,24 @@
     self.nextUrl = nextUrl;
 }
 
+- (NSArray *)sortClasses:(NSArray *)classes {
+    
+    NSMutableArray *tempClasses = [NSMutableArray arrayWithArray:classes];
+    HanyuPinyinOutputFormat *outputFormat=[[HanyuPinyinOutputFormat alloc] init];
+    [outputFormat setToneType:ToneTypeWithoutTone];
+    [outputFormat setVCharType:VCharTypeWithV];
+    [outputFormat setCaseType:CaseTypeUppercase];
+    [tempClasses enumerateObjectsUsingBlock:^(Clazz * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *pinyin = [[PinyinHelper toHanyuPinyinStringWithNSString:obj.name withHanyuPinyinOutputFormat:outputFormat withNSString:@" "] uppercaseString];
+        obj.pinyinName = pinyin;
+        
+    }];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pinyinName" ascending:YES];
+    NSArray *array = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    [tempClasses sortUsingDescriptors:array];
+    return tempClasses;
+}
 
 #pragma mark - UITableViewDataSource
 

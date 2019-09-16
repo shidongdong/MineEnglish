@@ -7,7 +7,6 @@
 //
 
 #import "TrialClassService.h"
-#import "EnrollTrialClassRequest.h"
 #import "TrialClasssRequest.h"
 
 @implementation TrialClassService
