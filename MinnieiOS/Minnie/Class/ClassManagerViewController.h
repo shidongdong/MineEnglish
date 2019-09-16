@@ -16,6 +16,7 @@
 
 @property (nonatomic, copy) void (^cancelCallBack) (void);
 @property (nonatomic, copy) void (^successCallBack) (void);
+@property (nonatomic, copy) void (^editCampusCallBack) (void);
 
 
 @end

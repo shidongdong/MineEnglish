@@ -207,7 +207,8 @@ UITableViewDelegate> {
 - (IBAction)locationButtonPressed:(id)sender {
     
     MITagsViewController *tagsVC = [[MITagsViewController alloc] initWithNibName:@"MITagsViewController" bundle:nil];
-    tagsVC.type = TagsHomeworkTipsType;
+    tagsVC.type = TagsCampusType;
+    tagsVC.editCampusCallBack = self.editCampusCallBack;
     [self.navigationController pushViewController:tagsVC animated:YES];
     
 }

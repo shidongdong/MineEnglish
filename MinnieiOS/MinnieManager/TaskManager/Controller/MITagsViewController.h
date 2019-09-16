@@ -17,6 +17,7 @@ typedef void(^TagsVCCancelCallBack)(void);
 @property (nonatomic, assign)TagsType type;
 
 @property (nonatomic, copy)TagsVCCancelCallBack tagsCallBack;
+@property (nonatomic, copy) void (^editCampusCallBack) (void);
 
 @property (nonatomic, assign) BOOL teacherSider;
 

@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<MICampusManagerViewControllerDelegate> delegate;
 
+- (void)updateCampusInfo;
+
 - (void)updateClassInfo;
 
 - (void)resetSelectIndex;

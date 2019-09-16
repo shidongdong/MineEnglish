@@ -158,7 +158,7 @@ MISecondTeachStatisticsViewDelegate
         
         [self.secondTeaStaSheetView updateStudentList];
         [self.teaStaStockSplitVC updateStudent:nil];
-    } else if (type == MIManagerFuncCampusModule) { // 校区管理
+    } else if (type == MIManagerFuncCampusModule) { // 班级管理
         cloumnScale = kRootModularWidth;
         [self.secondDetailVC addSubViewController:self.camManStockSplitVC];
     } else if (type == MIManagerFuncGiftsModule) { // 礼物管理

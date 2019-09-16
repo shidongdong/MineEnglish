@@ -199,6 +199,16 @@
     
 }
 
++ (BaseRequest *)requestCreateCampusWithName:(NSString *)name
+                                    campusId:(NSInteger)campusId
+                                    callback:(RequestCallback)callback{
+  
+    CreateCampusRequest *request = [[CreateCampusRequest alloc] initWithName:name campusId:campusId];
+    [request setCallback:callback];
+    [request start];
+    return request;
+}
+
 // 校区列表（ipad管理端）
 + (BaseRequest *)requestCampusCallback:(RequestCallback)callback{
     

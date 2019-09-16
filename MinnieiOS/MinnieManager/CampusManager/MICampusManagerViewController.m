@@ -39,7 +39,7 @@ MIClassDetailViewControllerDelegate
     self.subPageVCArray = [NSMutableArray array];
     self.campusInfoArray = [NSMutableArray array];
     
-    [self requestCampus];
+    [self updateCampusInfo];
 }
 
 
@@ -94,6 +94,10 @@ MIClassDetailViewControllerDelegate
     if (self.delegate && [self.delegate respondsToSelector:@selector(campusManagerViewControllerEditClazz:)]) {
         [self.delegate campusManagerViewControllerEditClazz:nil];
     }
+}
+
+- (void)updateCampusInfo{
+    [self requestCampus];
 }
 
 - (void)updateClassInfo{// 更新对应校区
