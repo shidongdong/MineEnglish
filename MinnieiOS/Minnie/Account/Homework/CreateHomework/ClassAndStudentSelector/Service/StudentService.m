@@ -17,7 +17,8 @@
     StudentsRequest *request = [[StudentsRequest alloc] initWithFinishState:finished];
     
     request.objectKey = @"list";
-    request.objectClassName = @"User";
+    request.objectClassName = @"StudentsByName";
+//    request.objectClassName = @"StudentByClass";
     request.callback = callback;
     [request start];
     

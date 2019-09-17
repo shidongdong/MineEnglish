@@ -35,7 +35,6 @@
 
 
 @interface StudentByClass : User<MTLJSONSerializing>
-
 @end
 
 @interface StudentsByClass : MTLModel<MTLJSONSerializing>
