@@ -192,9 +192,12 @@
 }
 
 - (void)btnClicked:(UIButton *)selectBtn{
-    
-    MIManagerFuncModule selectType = selectBtn.tag - 1500;
 
+    MIManagerFuncModule selectType = selectBtn.tag - 1500;
+    if (selectType == MIManagerFuncAvatarModule) {
+        return;
+    }
+    
     for (UIButton *btn in self.btns) {
         btn.selected = NO;
     }
