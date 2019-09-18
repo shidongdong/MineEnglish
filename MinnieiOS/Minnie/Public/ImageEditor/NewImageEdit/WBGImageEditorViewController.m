@@ -253,7 +253,7 @@ NSString * const kColorPanRemoveNotificaiton = @"kColorPanRemoveNotificaiton";
     
     CGFloat imagH = image.size.height;
     CGFloat imagW = image.size.width;
-    CGFloat screnH = [UIScreen mainScreen].bounds.size.height;
+    CGFloat screnH = [UIScreen mainScreen].bounds.size.height - 80;
     CGFloat screnW = [UIScreen mainScreen].bounds.size.width;
     CGFloat drawW = 0.0 ;
     CGFloat drawH = 0.0 ;
