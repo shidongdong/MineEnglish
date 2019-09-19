@@ -20,7 +20,7 @@ typedef void(^StudentSelectorViewControllerPreviewCallback)(NSInteger);
 @property (nonatomic, assign) BOOL reviewMode;
 
 @property (nonatomic, assign) BOOL classStateMode;
-@property (nonatomic, assign) BOOL inClass;
+@property (nonatomic, assign) BOOL inClass; // 学生是否属于班级（0未入学，1已入学）
 
 - (void)unselectAll;
 

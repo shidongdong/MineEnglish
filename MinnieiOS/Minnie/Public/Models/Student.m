@@ -54,6 +54,17 @@
 
 @end
 
+
+@implementation StudentsByName
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{@"userId":@"userId",
+             @"nickname":@"nickName",
+             @"avatarUrl":@"avatar"};
+}
+@end
+
+
 @implementation StudentByClass
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
@@ -82,16 +93,6 @@
     return [MTLJSONAdapter arrayTransformerWithModelClass:[StudentByClass class]];
 }
 
-@end
-
-
-@implementation StudentsByName
-
-+ (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{@"userId":@"userId",
-             @"nickname":@"nickName",
-             @"avatarUrl":@"avatar"};
-}
 @end
 
 

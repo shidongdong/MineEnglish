@@ -20,6 +20,12 @@
 @end
 
 
+@interface StudentsByTeacherRequest : BaseRequest
+
+@end
+
+
+
 @interface StudentsByClassRequest : BaseRequest
 
 @end

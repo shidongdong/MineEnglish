@@ -351,12 +351,11 @@ UITableViewDataSource
         self.leftTableView.hidden = YES;
     }
     WeakifySelf;
-    [StudentService requestStudentsWithFinishState:0
-                                          callback:^(Result *result, NSError *error) {
-                                              StrongifySelf;
-                                              [strongSelf handleRequestResult:result error:error];
-                                          }];
-  
+    [StudentService requestStudentsByTeacherCallback:^(Result *result, NSError *error) {
+        
+        StrongifySelf;
+        [strongSelf handleRequestResult:result error:error];
+    }];
 }
 
 - (void)handleRequestResult:(Result *)result error:(NSError *)error {
