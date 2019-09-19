@@ -54,6 +54,17 @@
 
 @end
 
+
+@implementation StudentsByName
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{@"userId":@"userId",
+             @"nickname":@"nickName",
+             @"avatarUrl":@"avatar"};
+}
+@end
+
+
 @implementation StudentByClass
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
@@ -83,6 +94,7 @@
 }
 
 @end
+
 
 
 @implementation StudentDetail

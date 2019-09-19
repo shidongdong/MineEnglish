@@ -63,17 +63,26 @@
     
     WeakifySelf;
     if (!self.classStateMode) {
-        self.studentsRequest = [StudentService requestStudentsWithFinishState:0
-                                                                     callback:^(Result *result, NSError *error) {
-                                                                         StrongifySelf;
-                                                                         [strongSelf handleRequestResult:result error:error];
-                                                                     }];
+        
+        self.studentsRequest = [StudentService requestStudentsByTeacherCallback:^(Result *result, NSError *error) {
+            StrongifySelf;
+            [strongSelf handleRequestResult:result error:error];
+        }];
     } else {
-        self.studentsRequest = [StudentService requestStudentsWithClassState:self.inClass
-                                                                    callback:^(Result *result, NSError *error) {
-                                                                        StrongifySelf;
-                                                                        [strongSelf handleRequestResult:result error:error];
-                                                                    }];
+        if (self.inClass == 1) {
+            
+            self.studentsRequest = [StudentService requestStudentsByTeacherCallback:^(Result *result, NSError *error) {
+                StrongifySelf;
+                [strongSelf handleRequestResult:result error:error];
+            }];
+        } else {
+           // 未入学
+            self.studentsRequest = [StudentService requestStudentsWithClassState:self.inClass
+                                                                        callback:^(Result *result, NSError *error) {
+                                                                            StrongifySelf;
+                                                                            [strongSelf handleRequestResult:result error:error];
+                                                                        }];
+        }
     }
     
 }
@@ -134,12 +143,15 @@
     
     
     for (User *student in self.students) {
-        NSString *strFirstLetter = [student.pinyinName substringToIndex:1];
-        if (self.studentDict[strFirstLetter] != nil) {
-            [self.studentDict[strFirstLetter] addObject:student];
-        } else {
-            NSMutableArray *group = [NSMutableArray arrayWithObject:student];
-            [self.studentDict setObject:group forKey:strFirstLetter];
+        if (student.pinyinName.length > 0) {
+          
+            NSString *strFirstLetter = [student.pinyinName substringToIndex:1];
+            if (self.studentDict[strFirstLetter] != nil) {
+                [self.studentDict[strFirstLetter] addObject:student];
+            } else {
+                NSMutableArray *group = [NSMutableArray arrayWithObject:student];
+                [self.studentDict setObject:group forKey:strFirstLetter];
+            }
         }
     }
     

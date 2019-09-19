@@ -575,6 +575,48 @@
 
 @end
 
+#pragma mark - 新建校区（ipad管理端）
+@interface CreateCampusRequest ()
+
+@property (nonatomic,copy) NSString *name;
+@property (nonatomic,assign) NSInteger campusId;
+
+@end
+
+
+@implementation CreateCampusRequest
+
+- (instancetype)initWithName:(NSString *)name campusId:(NSInteger)campusId{
+    
+    self = [super init];
+    if (self != nil) {
+        self.name = name;
+        self.campusId = campusId;
+    }
+    return self;
+}
+
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodPOST;
+}
+
+- (NSString *)requestUrl {
+    return [NSString stringWithFormat:@"%@/campus/create", ServerProjectName];
+}
+
+- (id)requestArgument {
+    if (self.campusId > 0) {
+        
+        return @{@"campusName":self.name,
+                 @"id":@(self.campusId)};
+    } else {
+        return @{@"campusName":self.name};
+    }
+}
+
+
+@end
+
 #pragma mark - 校区列表（ipad管理端）
 @implementation CampusInfoRequest
 

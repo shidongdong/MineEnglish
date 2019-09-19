@@ -28,7 +28,6 @@ UITableViewDataSource>
 
 @property (nonatomic, assign) NSInteger currentIndex;
 
-@property (nonatomic, assign) NSInteger studentId;
 
 @end
 
@@ -40,7 +39,8 @@ UITableViewDataSource>
     self.tableView.tableFooterView = [UIView new];
     _pageNum = 20;
     _currentIndex = 1;
-    _studentId = APP.currentUser.userId;
+
+
     // 下拉刷新
     [self.tableView addPullToRefreshWithTarget:self refreshingAction:@selector(refresh)];
     
@@ -52,6 +52,7 @@ UITableViewDataSource>
     self.headerView.hidden = YES;
     self.headerHeightConstraint.constant = 0;
 #else
+    _studentId = APP.currentUser.userId;
     self.headerView.hidden = NO;
     self.headerHeightConstraint.constant = 44;
 #endif

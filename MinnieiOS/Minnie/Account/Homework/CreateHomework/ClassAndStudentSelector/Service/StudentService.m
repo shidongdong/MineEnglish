@@ -60,6 +60,19 @@
     return request;
 }
 
+
+#pragma mark - 2.13.4    学生列表（ipad管理端）(当前老师可见的所有学生)
++ (BaseRequest *)requestStudentsByTeacherCallback:(RequestCallback)callback{
+    
+    StudentsByTeacherRequest *request = [[StudentsByTeacherRequest alloc] init];
+    request.objectKey = @"list";
+    request.objectClassName = @"StudentsByName";
+    request.callback = callback;
+    [request start];
+    
+    return request;
+}
+
 + (BaseRequest *)requestStudentLisByClasstWithCallback:(RequestCallback)callback{
     
     StudentsByClassRequest *request = [[StudentsByClassRequest alloc] init];

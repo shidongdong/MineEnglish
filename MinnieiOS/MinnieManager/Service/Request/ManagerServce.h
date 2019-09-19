@@ -94,6 +94,11 @@ NS_ASSUME_NONNULL_BEGIN
                                  callback:(RequestCallback)callback;
 
 #pragma mark - 校区管理
+// 2.14.1    新建校区/编辑（ipad管理端）
++ (BaseRequest *)requestCreateCampusWithName:(NSString *)name
+                                    campusId:(NSInteger)campusId
+                                    callback:(RequestCallback)callback;
+
 // 校区列表（ipad管理端）
 + (BaseRequest *)requestCampusCallback:(RequestCallback)callback;
 

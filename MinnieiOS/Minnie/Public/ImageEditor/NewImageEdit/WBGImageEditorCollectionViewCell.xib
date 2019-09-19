@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,16 +20,16 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yjd-8w-zB7">
                         <rect key="frame" x="0.0" y="0.0" width="278" height="336"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ssl-dv-j3q">
-                        <rect key="frame" x="0.0" y="0.0" width="278" height="336"/>
+                        <rect key="frame" x="0.0" y="40" width="278" height="256"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bQQ-L9-18m" userLabel="container">
-                                <rect key="frame" x="0.0" y="0.0" width="278" height="336"/>
+                                <rect key="frame" x="0.0" y="0.0" width="278" height="256"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LWI-Ki-wgO">
-                                        <rect key="frame" x="0.0" y="0.0" width="278" height="336"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="278" height="256"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -55,7 +54,7 @@
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="ssl-dv-j3q" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="1XK-rW-Nqn"/>
+                <constraint firstItem="ssl-dv-j3q" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="40" id="1XK-rW-Nqn"/>
                 <constraint firstAttribute="bottom" secondItem="Yjd-8w-zB7" secondAttribute="bottom" id="64x-Qs-gsS"/>
                 <constraint firstItem="ssl-dv-j3q" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="FV3-eU-pgo"/>
                 <constraint firstItem="ssl-dv-j3q" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="IDj-T9-LvV"/>

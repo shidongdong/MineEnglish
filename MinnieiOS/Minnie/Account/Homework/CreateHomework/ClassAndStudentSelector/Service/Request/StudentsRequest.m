@@ -59,6 +59,7 @@
     }
 
     return [NSString stringWithFormat:@"%@/students", ServerProjectName];
+//    return [NSString stringWithFormat:@"%@/teaching/students", ServerProjectName];
 }
 
 - (id)requestArgument {
@@ -77,6 +78,21 @@
 }
 
 @end
+
+
+@implementation StudentsByTeacherRequest
+
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+
+- (NSString *)requestUrl {
+    
+    return [NSString stringWithFormat:@"%@/teaching/students", ServerProjectName];
+}
+
+@end
+
 
 
 @implementation StudentsByClassRequest

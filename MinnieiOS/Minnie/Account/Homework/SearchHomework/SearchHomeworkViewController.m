@@ -494,6 +494,11 @@ VIResourceLoaderManagerDelegate>
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+
+    [self.searchTextField resignFirstResponder];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     
     [self.searchTextField resignFirstResponder];
 }

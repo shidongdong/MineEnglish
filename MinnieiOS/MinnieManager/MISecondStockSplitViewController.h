@@ -84,8 +84,9 @@ typedef NS_ENUM(NSInteger,MIRootModularType) {
 
 
 /*
- *  校区管理
+ *  班级管理
  */
+- (void)updateCampusInfo;
 
 /*
  *  首页管理

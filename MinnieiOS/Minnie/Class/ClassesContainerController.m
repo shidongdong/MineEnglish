@@ -75,12 +75,7 @@
 }
 
 - (IBAction)createClassButtonPress:(id)sender {
-//    if (!APP.currentUser.canManageClasses) {
-//        [HUD showErrorWithMessage:@"无操作权限"];
-//        
-//        return;
-//    }
-    
+
     ClassManagerViewController *vc = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController"
                                                                                 bundle:nil];
     vc.classId = 0;

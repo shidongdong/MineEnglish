@@ -34,9 +34,13 @@
 @end
 
 
-@interface StudentByClass : User<MTLJSONSerializing>
-
+@interface StudentsByName : User<MTLJSONSerializing>
 @end
+
+
+@interface StudentByClass : User<MTLJSONSerializing>
+@end
+
 
 @interface StudentsByClass : MTLModel<MTLJSONSerializing>
 
@@ -46,8 +50,9 @@
 
 @property (nonatomic, copy) NSString *pinyinName;
 
-
 @end
+
+
 
 @interface StudentZeroTask : MTLModel<MTLJSONSerializing>
 

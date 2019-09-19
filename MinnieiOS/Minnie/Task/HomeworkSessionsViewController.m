@@ -533,6 +533,44 @@
     }
 }
 
+- (void)reloadUnReadMessage:(NSNotification *)notication
+{
+    //开启子线程做数据处理，避免数据交叉
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSInteger unReadCount = [[notication.userInfo objectForKey:@"unReadCount"] integerValue];
+        NSInteger homeworkSessionId = [[notication.userInfo objectForKey:@"homeworkSessionId"] integerValue];
+        AVIMMessage * message = [notication.userInfo objectForKey:@"lastMessage"];
+        BOOL bExist = NO;  //有可能有些作业需要下拉加载才能请求出来
+        //遍历请求下来的数组
+        // 数组 was mutated while being enumerated
+        for (HomeworkSession * session in self.homeworkSessions)
+        {
+            if (session.homeworkSessionId == homeworkSessionId)
+            {
+                bExist = YES;
+                session.unreadMessageCount = unReadCount;
+                if (unReadCount == 0)
+                {
+                    //一般由点击事件产生,需要在重新进入页面的时候
+//                    [self.unReadHomeworkSessions removeObject:session];
+                    self.shouldReloadTableWhenAppeard = YES;
+                }
+                else
+                {
+//                    if (![self.unReadHomeworkSessions containsObject:session])
+//                    {
+//                        [self.unReadHomeworkSessions addObject:session];
+//                    }
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self reloadTableViewForNewMessage:message];
+                    });
+                }
+                break;
+            }
+        }
+    });
+}
+
 #pragma mark -
 #pragma mark - 获取作业列表  加载更多  处理请求作业列表结果
 - (void)requestHomeworkSessions {

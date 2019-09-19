@@ -364,7 +364,7 @@ MICampusManagerViewControllerDelegate
     return _zeroMessagesVC;
 }
 
-#pragma mark - 校区管理
+#pragma mark - 班级管理
 - (void)configureCampusManagerUI{
  
     self.classId = -1;
@@ -378,7 +378,11 @@ MICampusManagerViewControllerDelegate
     [detailNav setNavigationBarHidden:YES animated:NO];
     
     self.viewControllers = @[masterNav, detailNav];
+}
+
+- (void)updateCampusInfo{
     
+    [self.campusMasterVC updateCampusInfo];
 }
 
 #pragma mark - MICampusManagerViewControllerDelegate
@@ -393,14 +397,17 @@ MICampusManagerViewControllerDelegate
         
         ClassManagerViewController *classManagerVC = [[ClassManagerViewController alloc] initWithNibName:@"ClassManagerViewController" bundle:nil];
             WeakifySelf;
-            classManagerVC.cancelCallBack = ^{
-                weakSelf.classId = -1;
-                [weakSelf.campusMasterVC resetSelectIndex];
-            };
-            classManagerVC.successCallBack = ^{
-                weakSelf.classId = -1;
-                [weakSelf.campusMasterVC updateClassInfo];
-            };
+        classManagerVC.cancelCallBack = ^{
+            weakSelf.classId = -1;
+            [weakSelf.campusMasterVC resetSelectIndex];
+        };
+        classManagerVC.successCallBack = ^{
+            weakSelf.classId = -1;
+            [weakSelf.campusMasterVC updateClassInfo];
+        };
+        classManagerVC.editCampusCallBack = ^{
+            [weakSelf.campusMasterVC updateCampusInfo];
+        };
             self.classId = clazz.classId;
             classManagerVC.classId = clazz.classId;
             [self.campusDetailVC.navigationController pushViewController:classManagerVC animated:YES];

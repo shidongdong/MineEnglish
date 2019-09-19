@@ -150,6 +150,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+#pragma mark - 新建编辑校区（ipad管理端)
+@interface CreateCampusRequest : BaseRequest
+
+- (instancetype)initWithName:(NSString *)name campusId:(NSInteger)campusId;
+
+@end
 
 #pragma mark - 校区列表（ipad管理端）
 @interface CampusInfoRequest : BaseRequest

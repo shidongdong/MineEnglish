@@ -17,7 +17,8 @@
 @property (nonatomic, copy) NSString *name; // 班级名称
 @property (nonatomic, copy) NSString *startTime; // 上课时间字符串
 @property (nonatomic, copy) NSString *endTime; // 下课时间字符串
-@property (nonatomic, assign) BOOL isTrial; // 是否是试听课
+// 1 2 3 春季夏季和秋季
+@property (nonatomic, assign) NSInteger trial; //
 @property (nonatomic, copy) NSString *location; // 位置
 @property (nonatomic, strong) Teacher *teacher; // 教师
 @property (nonatomic, assign) NSUInteger maxStudentsCount; // 上课人数规模

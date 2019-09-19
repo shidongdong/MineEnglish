@@ -12,6 +12,7 @@
 #import "TeacherService.h"
 #import "TimePickerView.h"
 #import "TextPickerView.h"
+#import "MITagsViewController.h"
 #import "DeleteTeacherAlertView.h"
 #import "StudentsTableViewCell.h"
 #import "ClassEditTableViewCell.h"
@@ -29,6 +30,7 @@ UITableViewDelegate> {
 
 @property (nonatomic, weak) IBOutlet UITableView *classTableView;
 @property (nonatomic, weak) IBOutlet UIButton *rightButton;
+@property (weak, nonatomic) IBOutlet UIButton *localButton;
 
 @property (nonatomic, strong) NSArray *teachers;
 
@@ -53,7 +55,11 @@ UITableViewDelegate> {
     if (self.classId > 0) {
         self.rightButton.hidden = YES;
         [self.rightButton setTitle:@"保存" forState:UIControlStateNormal];
+
     } else {
+#if MANAGERSIDE
+        self.localButton.hidden = NO;
+#endif
         [self.rightButton setTitle:@"新建" forState:UIControlStateNormal];
     }
     
@@ -197,6 +203,16 @@ UITableViewDelegate> {
 - (void)shouldReloadWhenAppeard {
     self.reloadWhenAppeard = YES;
 }
+
+- (IBAction)locationButtonPressed:(id)sender {
+    
+    MITagsViewController *tagsVC = [[MITagsViewController alloc] initWithNibName:@"MITagsViewController" bundle:nil];
+    tagsVC.type = TagsCampusType;
+    tagsVC.editCampusCallBack = self.editCampusCallBack;
+    [self.navigationController pushViewController:tagsVC animated:YES];
+    
+}
+
 
 - (IBAction)saveButtonPressed:(id)sender {
     BOOL valid = NO;
@@ -477,14 +493,30 @@ UITableViewDelegate> {
         editCell.selectClassTypeCallback = ^{
             [weakCell.classNameTextField resignFirstResponder];
             [weakCell.classLocationTextField resignFirstResponder];
-            
-            NSInteger index = weakSelf.clazz.isTrial ? 0 : 1;
+          
+            NSString *trial;
+            NSInteger index;
+            if (weakSelf.clazz.trial == 1) {
+                index = 0;
+            } else if (weakSelf.clazz.trial == 2) {
+                index = 1;
+            } else {
+                index = 2;
+            }
             [TextPickerView showInView:weakSelf.navigationController.view
-                              contents:@[@"试听课", @"正式课堂"]
+                              contents:@[@"春季",@"夏季", @"秋季"]
                          selectedIndex:index
                               callback:^(NSString *name) {
-                                  BOOL isTrial = [name isEqualToString:@"试听课"];
-                                  weakSelf.clazz.isTrial = isTrial;
+                                  
+                                  if ([name isEqualToString:@"春季"]) {
+                                      
+                                      weakSelf.clazz.trial = 1;
+                                  } else if ([name isEqualToString:@"夏季"]) {
+                                   
+                                      weakSelf.clazz.trial = 2;
+                                  } else {
+                                      weakSelf.clazz.trial = 3;
+                                  }
                                   weakCell.classTypeTextField.text = name;
                               }];
         };
